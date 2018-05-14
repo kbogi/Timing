@@ -53,6 +53,7 @@ namespace UHFDemo
         public R2000UartDemo()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
 
         private void R2000UartDemo_Load(object sender, EventArgs e)
@@ -520,6 +521,7 @@ namespace UHFDemo
                                 lvRealList.Items.Add(item);
                                 lvRealList.Items[nEpcCount].EnsureVisible();
                             }
+
                             //else
                             //{
                             //    int nIndex = 0;

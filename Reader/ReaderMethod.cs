@@ -29,7 +29,7 @@ namespace Reader
         public AnalyDataCallback AnalyCallback;
 
         //记录未处理的接收数据，主要考虑接收数据分段
-        byte[] m_btAryBuffer = new byte[4096];
+        byte[] m_btAryBuffer = new byte[4096 * 10];
         //记录未处理数据的有效长度
         int m_nLenth = 0;
 
@@ -184,7 +184,7 @@ namespace Reader
                 if (nIndex < btAryBuffer.Length)
                 {
                     m_nLenth = btAryBuffer.Length - nIndex;
-                    Array.Clear(m_btAryBuffer, 0, 4096);
+                    Array.Clear(m_btAryBuffer, 0, 4096 * 10);
                     Array.Copy(btAryBuffer, nIndex, m_btAryBuffer, 0, btAryBuffer.Length - nIndex);
                 }
                 else

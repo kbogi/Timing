@@ -50,7 +50,7 @@ namespace Reader
             {
                 try
                 {
-                    byte[] btAryBuffer = new byte[4096];
+                    byte[] btAryBuffer = new byte[4096 * 10];
                     int nLenRead = streamToTran.Read(btAryBuffer, 0, btAryBuffer.Length);
                     if (nLenRead == 0)
                     {
