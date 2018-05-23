@@ -634,8 +634,12 @@ namespace UHFDemo
                     case 0x01:
                         {
                             m_bLockTab = false;
-                                                      
-                            
+
+                            TimeSpan ts = m_curInventoryBuffer.dtEndInventory - m_curInventoryBuffer.dtStartInventory;
+                            int nTotalTime = ts.Minutes * 60 * 1000 + ts.Seconds * 1000 + ts.Milliseconds;
+
+                            ledReal5.Text = nTotalTime.ToString();
+
                         }
                         break;
                     default:
@@ -3097,8 +3101,10 @@ namespace UHFDemo
             {
                 strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
-
                 WriteLog(lrtxtLog, strLog, 1);
+
+                m_curInventoryBuffer.dtEndInventory = DateTime.Now;
+
                 RefreshInventoryReal(0x00);
                 RunLoopInventroy();
             }
@@ -3106,6 +3112,8 @@ namespace UHFDemo
             {
                 m_curInventoryBuffer.nReadRate = Convert.ToInt32(msgTran.AryData[1]) * 256 + Convert.ToInt32(msgTran.AryData[2]);
                 m_curInventoryBuffer.nDataCount = Convert.ToInt32(msgTran.AryData[3]) * 256 * 256 * 256 + Convert.ToInt32(msgTran.AryData[4]) * 256 * 256 + Convert.ToInt32(msgTran.AryData[5]) * 256 + Convert.ToInt32(msgTran.AryData[6]);
+
+                m_curInventoryBuffer.dtEndInventory = DateTime.Now;
 
                 WriteLog(lrtxtLog, strCmd, 0);
                 RefreshInventoryReal(0x01);
