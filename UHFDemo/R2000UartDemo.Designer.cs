@@ -229,7 +229,7 @@
             this.label68 = new System.Windows.Forms.Label();
             this.label69 = new System.Windows.Forms.Label();
             this.ledReal1 = new LxControl.LxLedControl();
-            this.lvRealList = new System.Windows.Forms.ListView();
+            this.lvRealList = new DBListView();
             this.columnHeader37 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader38 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader39 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -271,7 +271,7 @@
             this.ledBuffer1 = new LxControl.LxLedControl();
             this.btBufferFresh = new System.Windows.Forms.Button();
             this.labelBufferTagCount = new System.Windows.Forms.Label();
-            this.lvBufferList = new System.Windows.Forms.ListView();
+            this.lvBufferList = new DBListView();
             this.columnHeader49 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader50 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader51 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -339,7 +339,7 @@
             this.label73 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.lvFastList = new System.Windows.Forms.ListView();
+            this.lvFastList = new DBListView();
             this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -6798,7 +6798,7 @@
         private System.Windows.Forms.TabPage pageBufferedMode;
         private System.Windows.Forms.TabPage pageAcessTag;
         private System.Windows.Forms.Label txtFastTagList;
-        private System.Windows.Forms.ListView lvFastList;
+        private DBListView lvFastList;
         private System.Windows.Forms.ColumnHeader columnHeader31;
         private System.Windows.Forms.ColumnHeader columnHeader32;
         private System.Windows.Forms.ColumnHeader columnHeader33;
@@ -6889,7 +6889,7 @@
         private System.Windows.Forms.Button btQueryBuffer;
         private System.Windows.Forms.Button btGetClearBuffer;
         private System.Windows.Forms.Button btClearBuffer;
-        private System.Windows.Forms.ListView lvBufferList;
+        private DBListView lvBufferList;
         private System.Windows.Forms.ColumnHeader columnHeader49;
         private System.Windows.Forms.ColumnHeader columnHeader50;
         private System.Windows.Forms.ColumnHeader columnHeader51;
@@ -6951,7 +6951,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader15;
-        private System.Windows.Forms.ListView lvRealList;
+        private DBListView lvRealList;
         private LxControl.LxLedControl ledReal3;
         private System.Windows.Forms.GroupBox groupBox3;
         private LxControl.LxLedControl ledBuffer4;
