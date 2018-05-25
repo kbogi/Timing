@@ -1,4 +1,5 @@
-﻿namespace UHFDemo
+﻿using System.Windows.Forms;
+namespace UHFDemo
 {
     partial class R2000UartDemo
     {
@@ -189,6 +190,8 @@
             this.pageEpcTest = new System.Windows.Forms.TabPage();
             this.tabEpcTest = new System.Windows.Forms.TabControl();
             this.pageRealMode = new System.Windows.Forms.TabPage();
+            this.excel_format_rb = new System.Windows.Forms.RadioButton();
+            this.txt_format_rb = new System.Windows.Forms.RadioButton();
             this.button8 = new System.Windows.Forms.Button();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.cbRealWorkant8 = new System.Windows.Forms.CheckBox();
@@ -206,6 +209,16 @@
             this.label84 = new System.Windows.Forms.Label();
             this.btRealTimeInventory = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.m_session_q_cb = new System.Windows.Forms.CheckBox();
+            this.m_session_sl_cb = new System.Windows.Forms.CheckBox();
+            this.m_session_max_q = new System.Windows.Forms.TextBox();
+            this.m_session_min_q = new System.Windows.Forms.TextBox();
+            this.m_session_start_q = new System.Windows.Forms.TextBox();
+            this.m_max_q_content = new System.Windows.Forms.Label();
+            this.m_min_q_content = new System.Windows.Forms.Label();
+            this.m_start_q_content = new System.Windows.Forms.Label();
+            this.m_session_sl = new System.Windows.Forms.ComboBox();
+            this.m_sl_content = new System.Windows.Forms.Label();
             this.cbRealSession = new System.Windows.Forms.CheckBox();
             this.cmbTarget = new System.Windows.Forms.ComboBox();
             this.label98 = new System.Windows.Forms.Label();
@@ -229,7 +242,7 @@
             this.label68 = new System.Windows.Forms.Label();
             this.label69 = new System.Windows.Forms.Label();
             this.ledReal1 = new LxControl.LxLedControl();
-            this.lvRealList = new DBListView();
+            this.lvRealList = new System.Windows.Forms.ListView();
             this.columnHeader37 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader38 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader39 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -271,7 +284,7 @@
             this.ledBuffer1 = new LxControl.LxLedControl();
             this.btBufferFresh = new System.Windows.Forms.Button();
             this.labelBufferTagCount = new System.Windows.Forms.Label();
-            this.lvBufferList = new DBListView();
+            this.lvBufferList = new System.Windows.Forms.ListView();
             this.columnHeader49 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader50 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader51 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -339,7 +352,7 @@
             this.label73 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.lvFastList = new DBListView();
+            this.lvFastList = new System.Windows.Forms.ListView();
             this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -528,16 +541,10 @@
             this.lxLedControl17 = new LxControl.LxLedControl();
             this.lxLedControl18 = new LxControl.LxLedControl();
             this.timerInventory = new System.Windows.Forms.Timer(this.components);
-            this.m_sl_content = new System.Windows.Forms.Label();
-            this.m_session_sl = new System.Windows.Forms.ComboBox();
-            this.m_start_q_content = new System.Windows.Forms.Label();
-            this.m_min_q_content = new System.Windows.Forms.Label();
-            this.m_max_q_content = new System.Windows.Forms.Label();
-            this.m_session_start_q = new System.Windows.Forms.TextBox();
-            this.m_session_min_q = new System.Windows.Forms.TextBox();
-            this.m_session_max_q = new System.Windows.Forms.TextBox();
-            this.m_session_sl_cb = new System.Windows.Forms.CheckBox();
-            this.m_session_q_cb = new System.Windows.Forms.CheckBox();
+            this.txt_format_buffer_rb = new System.Windows.Forms.RadioButton();
+            this.excel_format_buffer_rb = new System.Windows.Forms.RadioButton();
+            this.excel_format_fast_rb = new System.Windows.Forms.RadioButton();
+            this.txt_format_fast_rb = new System.Windows.Forms.RadioButton();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2404,6 +2411,8 @@
             // pageRealMode
             // 
             this.pageRealMode.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pageRealMode.Controls.Add(this.excel_format_rb);
+            this.pageRealMode.Controls.Add(this.txt_format_rb);
             this.pageRealMode.Controls.Add(this.button8);
             this.pageRealMode.Controls.Add(this.groupBox20);
             this.pageRealMode.Controls.Add(this.tableLayoutPanel1);
@@ -2422,6 +2431,28 @@
             this.pageRealMode.Size = new System.Drawing.Size(1000, 522);
             this.pageRealMode.TabIndex = 1;
             this.pageRealMode.Text = "盘存标签(实时模式)";
+            // 
+            // excel_format_rb
+            // 
+            this.excel_format_rb.AutoSize = true;
+            this.excel_format_rb.Location = new System.Drawing.Point(838, 289);
+            this.excel_format_rb.Name = "excel_format_rb";
+            this.excel_format_rb.Size = new System.Drawing.Size(60, 18);
+            this.excel_format_rb.TabIndex = 63;
+            this.excel_format_rb.Text = "EXCEL";
+            this.excel_format_rb.UseVisualStyleBackColor = true;
+            // 
+            // txt_format_rb
+            // 
+            this.txt_format_rb.AutoSize = true;
+            this.txt_format_rb.Checked = true;
+            this.txt_format_rb.Location = new System.Drawing.Point(778, 289);
+            this.txt_format_rb.Name = "txt_format_rb";
+            this.txt_format_rb.Size = new System.Drawing.Size(46, 18);
+            this.txt_format_rb.TabIndex = 62;
+            this.txt_format_rb.TabStop = true;
+            this.txt_format_rb.Text = "TXT";
+            this.txt_format_rb.UseVisualStyleBackColor = true;
             // 
             // button8
             // 
@@ -2636,6 +2667,122 @@
             this.panel5.Size = new System.Drawing.Size(642, 47);
             this.panel5.TabIndex = 1;
             // 
+            // m_session_q_cb
+            // 
+            this.m_session_q_cb.AutoSize = true;
+            this.m_session_q_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_q_cb.Location = new System.Drawing.Point(446, 22);
+            this.m_session_q_cb.Name = "m_session_q_cb";
+            this.m_session_q_cb.Size = new System.Drawing.Size(15, 14);
+            this.m_session_q_cb.TabIndex = 65;
+            this.m_session_q_cb.UseVisualStyleBackColor = true;
+            this.m_session_q_cb.CheckedChanged += new System.EventHandler(this.m_session_q_cb_CheckedChanged);
+            // 
+            // m_session_sl_cb
+            // 
+            this.m_session_sl_cb.AutoSize = true;
+            this.m_session_sl_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_sl_cb.Location = new System.Drawing.Point(350, 22);
+            this.m_session_sl_cb.Name = "m_session_sl_cb";
+            this.m_session_sl_cb.Size = new System.Drawing.Size(15, 14);
+            this.m_session_sl_cb.TabIndex = 64;
+            this.m_session_sl_cb.UseVisualStyleBackColor = true;
+            this.m_session_sl_cb.CheckedChanged += new System.EventHandler(this.m_session_sl_cb_CheckedChanged);
+            // 
+            // m_session_max_q
+            // 
+            this.m_session_max_q.Enabled = false;
+            this.m_session_max_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_max_q.Location = new System.Drawing.Point(587, 19);
+            this.m_session_max_q.Name = "m_session_max_q";
+            this.m_session_max_q.Size = new System.Drawing.Size(28, 21);
+            this.m_session_max_q.TabIndex = 63;
+            this.m_session_max_q.Text = "0";
+            this.m_session_max_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_session_min_q
+            // 
+            this.m_session_min_q.Enabled = false;
+            this.m_session_min_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_min_q.Location = new System.Drawing.Point(531, 19);
+            this.m_session_min_q.Name = "m_session_min_q";
+            this.m_session_min_q.Size = new System.Drawing.Size(28, 21);
+            this.m_session_min_q.TabIndex = 62;
+            this.m_session_min_q.Text = "0";
+            this.m_session_min_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_session_start_q
+            // 
+            this.m_session_start_q.Enabled = false;
+            this.m_session_start_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_start_q.Location = new System.Drawing.Point(474, 19);
+            this.m_session_start_q.Name = "m_session_start_q";
+            this.m_session_start_q.Size = new System.Drawing.Size(28, 21);
+            this.m_session_start_q.TabIndex = 61;
+            this.m_session_start_q.Text = "0";
+            this.m_session_start_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_max_q_content
+            // 
+            this.m_max_q_content.AutoSize = true;
+            this.m_max_q_content.Enabled = false;
+            this.m_max_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_max_q_content.Location = new System.Drawing.Point(586, 5);
+            this.m_max_q_content.Name = "m_max_q_content";
+            this.m_max_q_content.Size = new System.Drawing.Size(35, 12);
+            this.m_max_q_content.TabIndex = 60;
+            this.m_max_q_content.Text = "Max Q";
+            // 
+            // m_min_q_content
+            // 
+            this.m_min_q_content.AutoSize = true;
+            this.m_min_q_content.Enabled = false;
+            this.m_min_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_min_q_content.Location = new System.Drawing.Point(529, 5);
+            this.m_min_q_content.Name = "m_min_q_content";
+            this.m_min_q_content.Size = new System.Drawing.Size(35, 12);
+            this.m_min_q_content.TabIndex = 59;
+            this.m_min_q_content.Text = "Min Q";
+            // 
+            // m_start_q_content
+            // 
+            this.m_start_q_content.AutoSize = true;
+            this.m_start_q_content.Enabled = false;
+            this.m_start_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_start_q_content.Location = new System.Drawing.Point(463, 5);
+            this.m_start_q_content.Name = "m_start_q_content";
+            this.m_start_q_content.Size = new System.Drawing.Size(47, 12);
+            this.m_start_q_content.TabIndex = 58;
+            this.m_start_q_content.Text = "Start Q";
+            // 
+            // m_session_sl
+            // 
+            this.m_session_sl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.m_session_sl.Enabled = false;
+            this.m_session_sl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_sl.FormattingEnabled = true;
+            this.m_session_sl.Items.AddRange(new object[] {
+            "00",
+            "01",
+            "10",
+            "11"});
+            this.m_session_sl.Location = new System.Drawing.Point(375, 20);
+            this.m_session_sl.Name = "m_session_sl";
+            this.m_session_sl.Size = new System.Drawing.Size(62, 20);
+            this.m_session_sl.TabIndex = 57;
+            // 
+            // m_sl_content
+            // 
+            this.m_sl_content.AutoSize = true;
+            this.m_sl_content.Enabled = false;
+            this.m_sl_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_sl_content.Location = new System.Drawing.Point(399, 5);
+            this.m_sl_content.Name = "m_sl_content";
+            this.m_sl_content.Size = new System.Drawing.Size(17, 12);
+            this.m_sl_content.TabIndex = 56;
+            this.m_sl_content.Text = "SL";
+            this.m_sl_content.Click += new System.EventHandler(this.label125_Click);
+            // 
             // cbRealSession
             // 
             this.cbRealSession.AutoSize = true;
@@ -2704,7 +2851,7 @@
             // tbRealMinRssi
             // 
             this.tbRealMinRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbRealMinRssi.Location = new System.Drawing.Point(500, 287);
+            this.tbRealMinRssi.Location = new System.Drawing.Point(365, 287);
             this.tbRealMinRssi.Name = "tbRealMinRssi";
             this.tbRealMinRssi.ReadOnly = true;
             this.tbRealMinRssi.Size = new System.Drawing.Size(62, 21);
@@ -2714,7 +2861,7 @@
             // tbRealMaxRssi
             // 
             this.tbRealMaxRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tbRealMaxRssi.Location = new System.Drawing.Point(705, 287);
+            this.tbRealMaxRssi.Location = new System.Drawing.Point(517, 287);
             this.tbRealMaxRssi.Name = "tbRealMaxRssi";
             this.tbRealMaxRssi.ReadOnly = true;
             this.tbRealMaxRssi.Size = new System.Drawing.Size(62, 21);
@@ -2725,7 +2872,7 @@
             // 
             this.btRealFresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btRealFresh.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.btRealFresh.Location = new System.Drawing.Point(793, 285);
+            this.btRealFresh.Location = new System.Drawing.Point(627, 285);
             this.btRealFresh.Name = "btRealFresh";
             this.btRealFresh.Size = new System.Drawing.Size(89, 23);
             this.btRealFresh.TabIndex = 45;
@@ -2738,7 +2885,7 @@
             this.label70.AutoSize = true;
             this.label70.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label70.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label70.Location = new System.Drawing.Point(634, 290);
+            this.label70.Location = new System.Drawing.Point(448, 293);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(59, 12);
             this.label70.TabIndex = 43;
@@ -2749,7 +2896,7 @@
             this.label74.AutoSize = true;
             this.label74.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label74.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label74.Location = new System.Drawing.Point(432, 291);
+            this.label74.Location = new System.Drawing.Point(300, 293);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(59, 12);
             this.label74.TabIndex = 44;
@@ -3026,6 +3173,8 @@
             // pageBufferedMode
             // 
             this.pageBufferedMode.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pageBufferedMode.Controls.Add(this.excel_format_buffer_rb);
+            this.pageBufferedMode.Controls.Add(this.txt_format_buffer_rb);
             this.pageBufferedMode.Controls.Add(this.button6);
             this.pageBufferedMode.Controls.Add(this.tableLayoutPanel4);
             this.pageBufferedMode.Controls.Add(this.groupBox3);
@@ -3057,7 +3206,7 @@
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 362F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 370F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3076,9 +3225,9 @@
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(639, 4);
+            this.panel9.Location = new System.Drawing.Point(631, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(357, 74);
+            this.panel9.Size = new System.Drawing.Size(365, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3137,7 +3286,7 @@
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(312, 74);
+            this.panel10.Size = new System.Drawing.Size(308, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3183,9 +3332,9 @@
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(323, 4);
+            this.panel8.Location = new System.Drawing.Point(319, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(309, 74);
+            this.panel8.Size = new System.Drawing.Size(305, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -3485,7 +3634,7 @@
             // 
             this.btBufferFresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btBufferFresh.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.btBufferFresh.Location = new System.Drawing.Point(796, 255);
+            this.btBufferFresh.Location = new System.Drawing.Point(623, 255);
             this.btBufferFresh.Name = "btBufferFresh";
             this.btBufferFresh.Size = new System.Drawing.Size(89, 23);
             this.btBufferFresh.TabIndex = 52;
@@ -3569,6 +3718,8 @@
             // pageFast4AntMode
             // 
             this.pageFast4AntMode.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pageFast4AntMode.Controls.Add(this.txt_format_fast_rb);
+            this.pageFast4AntMode.Controls.Add(this.excel_format_fast_rb);
             this.pageFast4AntMode.Controls.Add(this.button7);
             this.pageFast4AntMode.Controls.Add(this.groupBox2);
             this.pageFast4AntMode.Controls.Add(this.txtFastMaxRssi);
@@ -3807,7 +3958,7 @@
             // txtFastMaxRssi
             // 
             this.txtFastMaxRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtFastMaxRssi.Location = new System.Drawing.Point(705, 258);
+            this.txtFastMaxRssi.Location = new System.Drawing.Point(499, 261);
             this.txtFastMaxRssi.Name = "txtFastMaxRssi";
             this.txtFastMaxRssi.Size = new System.Drawing.Size(62, 21);
             this.txtFastMaxRssi.TabIndex = 40;
@@ -3815,7 +3966,7 @@
             // txtFastMinRssi
             // 
             this.txtFastMinRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtFastMinRssi.Location = new System.Drawing.Point(478, 258);
+            this.txtFastMinRssi.Location = new System.Drawing.Point(337, 261);
             this.txtFastMinRssi.Name = "txtFastMinRssi";
             this.txtFastMinRssi.Size = new System.Drawing.Size(62, 21);
             this.txtFastMinRssi.TabIndex = 41;
@@ -3824,7 +3975,7 @@
             // 
             this.buttonFastFresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonFastFresh.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.buttonFastFresh.Location = new System.Drawing.Point(790, 261);
+            this.buttonFastFresh.Location = new System.Drawing.Point(602, 261);
             this.buttonFastFresh.Name = "buttonFastFresh";
             this.buttonFastFresh.Size = new System.Drawing.Size(89, 23);
             this.buttonFastFresh.TabIndex = 28;
@@ -3839,7 +3990,7 @@
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.20588F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.79412F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 298F));
             this.tableLayoutPanel2.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 2, 0);
@@ -3888,9 +4039,9 @@
             this.panel2.Controls.Add(this.label59);
             this.panel2.Controls.Add(this.label48);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(197, 5);
+            this.panel2.Location = new System.Drawing.Point(194, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(503, 83);
+            this.panel2.Size = new System.Drawing.Size(494, 83);
             this.panel2.TabIndex = 0;
             // 
             // label124
@@ -4326,7 +4477,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(5, 5);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(184, 83);
+            this.panel3.Size = new System.Drawing.Size(181, 83);
             this.panel3.TabIndex = 1;
             // 
             // btFastInventory
@@ -4348,9 +4499,9 @@
             this.panel4.Controls.Add(this.label73);
             this.panel4.Controls.Add(this.label72);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(708, 5);
+            this.panel4.Location = new System.Drawing.Point(696, 5);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(281, 83);
+            this.panel4.Size = new System.Drawing.Size(293, 83);
             this.panel4.TabIndex = 2;
             // 
             // txtRepeat
@@ -4398,7 +4549,7 @@
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label22.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label22.Location = new System.Drawing.Point(628, 261);
+            this.label22.Location = new System.Drawing.Point(435, 266);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(59, 12);
             this.label22.TabIndex = 26;
@@ -4463,7 +4614,7 @@
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label49.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label49.Location = new System.Drawing.Point(413, 261);
+            this.label49.Location = new System.Drawing.Point(272, 264);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(59, 12);
             this.label49.TabIndex = 27;
@@ -6433,121 +6584,49 @@
             this.timerInventory.Interval = 500;
             this.timerInventory.Tick += new System.EventHandler(this.timerInventory_Tick);
             // 
-            // m_sl_content
+            // txt_format_buffer_rb
             // 
-            this.m_sl_content.AutoSize = true;
-            this.m_sl_content.Enabled = false;
-            this.m_sl_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_sl_content.Location = new System.Drawing.Point(399, 5);
-            this.m_sl_content.Name = "m_sl_content";
-            this.m_sl_content.Size = new System.Drawing.Size(17, 12);
-            this.m_sl_content.TabIndex = 56;
-            this.m_sl_content.Text = "SL";
-            this.m_sl_content.Click += new System.EventHandler(this.label125_Click);
+            this.txt_format_buffer_rb.AutoSize = true;
+            this.txt_format_buffer_rb.Checked = true;
+            this.txt_format_buffer_rb.Location = new System.Drawing.Point(766, 259);
+            this.txt_format_buffer_rb.Name = "txt_format_buffer_rb";
+            this.txt_format_buffer_rb.Size = new System.Drawing.Size(41, 16);
+            this.txt_format_buffer_rb.TabIndex = 63;
+            this.txt_format_buffer_rb.TabStop = true;
+            this.txt_format_buffer_rb.Text = "TXT";
+            this.txt_format_buffer_rb.UseVisualStyleBackColor = true;
             // 
-            // m_session_sl
+            // excel_format_buffer_rb
             // 
-            this.m_session_sl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.m_session_sl.Enabled = false;
-            this.m_session_sl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_sl.FormattingEnabled = true;
-            this.m_session_sl.Items.AddRange(new object[] {
-            "00",
-            "01",
-            "10",
-            "11"});
-            this.m_session_sl.Location = new System.Drawing.Point(375, 20);
-            this.m_session_sl.Name = "m_session_sl";
-            this.m_session_sl.Size = new System.Drawing.Size(62, 20);
-            this.m_session_sl.TabIndex = 57;
+            this.excel_format_buffer_rb.AutoSize = true;
+            this.excel_format_buffer_rb.Location = new System.Drawing.Point(832, 259);
+            this.excel_format_buffer_rb.Name = "excel_format_buffer_rb";
+            this.excel_format_buffer_rb.Size = new System.Drawing.Size(53, 16);
+            this.excel_format_buffer_rb.TabIndex = 64;
+            this.excel_format_buffer_rb.Text = "EXCEL";
+            this.excel_format_buffer_rb.UseVisualStyleBackColor = true;
             // 
-            // m_start_q_content
+            // excel_format_fast_rb
             // 
-            this.m_start_q_content.AutoSize = true;
-            this.m_start_q_content.Enabled = false;
-            this.m_start_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_start_q_content.Location = new System.Drawing.Point(463, 5);
-            this.m_start_q_content.Name = "m_start_q_content";
-            this.m_start_q_content.Size = new System.Drawing.Size(47, 12);
-            this.m_start_q_content.TabIndex = 58;
-            this.m_start_q_content.Text = "Start Q";
+            this.excel_format_fast_rb.AutoSize = true;
+            this.excel_format_fast_rb.Location = new System.Drawing.Point(809, 266);
+            this.excel_format_fast_rb.Name = "excel_format_fast_rb";
+            this.excel_format_fast_rb.Size = new System.Drawing.Size(53, 16);
+            this.excel_format_fast_rb.TabIndex = 64;
+            this.excel_format_fast_rb.Text = "EXCEL";
+            this.excel_format_fast_rb.UseVisualStyleBackColor = true;
             // 
-            // m_min_q_content
+            // txt_format_fast_rb
             // 
-            this.m_min_q_content.AutoSize = true;
-            this.m_min_q_content.Enabled = false;
-            this.m_min_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_min_q_content.Location = new System.Drawing.Point(529, 5);
-            this.m_min_q_content.Name = "m_min_q_content";
-            this.m_min_q_content.Size = new System.Drawing.Size(35, 12);
-            this.m_min_q_content.TabIndex = 59;
-            this.m_min_q_content.Text = "Min Q";
-            // 
-            // m_max_q_content
-            // 
-            this.m_max_q_content.AutoSize = true;
-            this.m_max_q_content.Enabled = false;
-            this.m_max_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_max_q_content.Location = new System.Drawing.Point(586, 5);
-            this.m_max_q_content.Name = "m_max_q_content";
-            this.m_max_q_content.Size = new System.Drawing.Size(35, 12);
-            this.m_max_q_content.TabIndex = 60;
-            this.m_max_q_content.Text = "Max Q";
-            // 
-            // m_session_start_q
-            // 
-            this.m_session_start_q.Enabled = false;
-            this.m_session_start_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_start_q.Location = new System.Drawing.Point(474, 19);
-            this.m_session_start_q.Name = "m_session_start_q";
-            this.m_session_start_q.Size = new System.Drawing.Size(28, 21);
-            this.m_session_start_q.TabIndex = 61;
-            this.m_session_start_q.Text = "0";
-            this.m_session_start_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // m_session_min_q
-            // 
-            this.m_session_min_q.Enabled = false;
-            this.m_session_min_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_min_q.Location = new System.Drawing.Point(531, 19);
-            this.m_session_min_q.Name = "m_session_min_q";
-            this.m_session_min_q.Size = new System.Drawing.Size(28, 21);
-            this.m_session_min_q.TabIndex = 62;
-            this.m_session_min_q.Text = "0";
-            this.m_session_min_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // m_session_max_q
-            // 
-            this.m_session_max_q.Enabled = false;
-            this.m_session_max_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_max_q.Location = new System.Drawing.Point(587, 19);
-            this.m_session_max_q.Name = "m_session_max_q";
-            this.m_session_max_q.Size = new System.Drawing.Size(28, 21);
-            this.m_session_max_q.TabIndex = 63;
-            this.m_session_max_q.Text = "0";
-            this.m_session_max_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // m_session_sl_cb
-            // 
-            this.m_session_sl_cb.AutoSize = true;
-            this.m_session_sl_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_sl_cb.Location = new System.Drawing.Point(350, 22);
-            this.m_session_sl_cb.Name = "m_session_sl_cb";
-            this.m_session_sl_cb.Size = new System.Drawing.Size(15, 14);
-            this.m_session_sl_cb.TabIndex = 64;
-            this.m_session_sl_cb.UseVisualStyleBackColor = true;
-            this.m_session_sl_cb.CheckedChanged += new System.EventHandler(this.m_session_sl_cb_CheckedChanged);
-            // 
-            // m_session_q_cb
-            // 
-            this.m_session_q_cb.AutoSize = true;
-            this.m_session_q_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_q_cb.Location = new System.Drawing.Point(446, 22);
-            this.m_session_q_cb.Name = "m_session_q_cb";
-            this.m_session_q_cb.Size = new System.Drawing.Size(15, 14);
-            this.m_session_q_cb.TabIndex = 65;
-            this.m_session_q_cb.UseVisualStyleBackColor = true;
-            this.m_session_q_cb.CheckedChanged += new System.EventHandler(this.m_session_q_cb_CheckedChanged);
+            this.txt_format_fast_rb.AutoSize = true;
+            this.txt_format_fast_rb.Checked = true;
+            this.txt_format_fast_rb.Location = new System.Drawing.Point(739, 266);
+            this.txt_format_fast_rb.Name = "txt_format_fast_rb";
+            this.txt_format_fast_rb.Size = new System.Drawing.Size(41, 16);
+            this.txt_format_fast_rb.TabIndex = 65;
+            this.txt_format_fast_rb.TabStop = true;
+            this.txt_format_fast_rb.Text = "TXT";
+            this.txt_format_fast_rb.UseVisualStyleBackColor = true;
             // 
             // R2000UartDemo
             // 
@@ -6798,7 +6877,6 @@
         private System.Windows.Forms.TabPage pageBufferedMode;
         private System.Windows.Forms.TabPage pageAcessTag;
         private System.Windows.Forms.Label txtFastTagList;
-        private DBListView lvFastList;
         private System.Windows.Forms.ColumnHeader columnHeader31;
         private System.Windows.Forms.ColumnHeader columnHeader32;
         private System.Windows.Forms.ColumnHeader columnHeader33;
@@ -6889,7 +6967,7 @@
         private System.Windows.Forms.Button btQueryBuffer;
         private System.Windows.Forms.Button btGetClearBuffer;
         private System.Windows.Forms.Button btClearBuffer;
-        private DBListView lvBufferList;
+        private System.Windows.Forms.ListView lvBufferList;
         private System.Windows.Forms.ColumnHeader columnHeader49;
         private System.Windows.Forms.ColumnHeader columnHeader50;
         private System.Windows.Forms.ColumnHeader columnHeader51;
@@ -6951,7 +7029,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader15;
-        private DBListView lvRealList;
+        private System.Windows.Forms.ListView lvRealList;
         private LxControl.LxLedControl ledReal3;
         private System.Windows.Forms.GroupBox groupBox3;
         private LxControl.LxLedControl ledBuffer4;
@@ -7227,6 +7305,13 @@
         private System.Windows.Forms.ComboBox m_session_sl;
         private System.Windows.Forms.CheckBox m_session_q_cb;
         private System.Windows.Forms.CheckBox m_session_sl_cb;
+        private System.Windows.Forms.RadioButton excel_format_rb;
+        private System.Windows.Forms.RadioButton txt_format_rb;
+        private RadioButton excel_format_buffer_rb;
+        private RadioButton txt_format_buffer_rb;
+        private RadioButton excel_format_fast_rb;
+        private System.Windows.Forms.ListView lvFastList;
+        private RadioButton txt_format_fast_rb;
     }
 }
 

@@ -8,6 +8,11 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.Threading;
+using NPOI.HSSF.UserModel;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using System.IO;
+
 
 namespace UHFDemo
 {
@@ -5901,104 +5906,309 @@ namespace UHFDemo
             // Displays a SaveFileDialog so the user can save the Image
             // assigned to Button2.
             Encoder encoder = Encoding.UTF8.GetEncoder();
-
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
-            saveFileDialog1.Title = "Save an text File";
-            saveFileDialog1.ShowDialog();
 
-            // If the file name is not an empty string open it for saving.
-            if (saveFileDialog1.FileName != "")
+            if (txt_format_rb.Checked)
             {
-                // Saves the Image via a FileStream created by the OpenFile method.
-                System.IO.FileStream fs =
-                   (System.IO.FileStream)saveFileDialog1.OpenFile();
-                // Saves the Image in the appropriate ImageFormat based upon the
-                // File type selected in the dialog box.
-                // NOTE that the FilterIndex property is one-based.
-                //String strHead = "---------------------------------------------------------------------------------------------------------------------------\r\n";
-                String title = "ID\tEPC\tPC\tIdentification Count\tRSSI\tCarrier Frequency\r\n";
-                //Char[] charHead = strHead.ToArray();
-                //Byte[] byteHead = new byte[charHead.Length];
-                Char[] charTitile = title.ToArray();
-                Byte[] byteTitile = new byte[charTitile.Length];
-                //encoder.GetBytes(charHead,0,charHead.Length,byteHead,0,true);
-                encoder.GetBytes(charTitile, 0, charTitile.Length, byteTitile, 0, true);
-                //fs.Write(byteHead, 0, byteHead.Length);
-                fs.Write(byteTitile, 0, byteTitile.Length);
-                //fs.Write(byteHead, 0, byteHead.Length);
+                saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
+                saveFileDialog1.Title = "Save an text File";
+                saveFileDialog1.ShowDialog();
 
-                for (int i = 0; i < m_curInventoryBuffer.dtTagTable.Rows.Count; i++)
+                // If the file name is not an empty string open it for saving.
+                if (saveFileDialog1.FileName != "")
                 {
-                    DataRow row = m_curInventoryBuffer.dtTagTable.Rows[i];
-                    String strData = String.Empty;
-                    strData += " " + i + " " + "\t";
-                    strData += row[2].ToString();
-                    strData += "\t";
-                    strData += row[0].ToString() + "\t";
-                    strData += row[5].ToString() + "\t";
-                    strData += (Convert.ToInt32(row[4]) - 129).ToString() + "\t";
-                    strData += row[6].ToString() + "\t";
-                    strData += "\r\n";
-                    Char[] charData = strData.ToString().ToArray();
-                    Byte[] byData = new byte[charData.Length];
-                    encoder.GetBytes(charData, 0, charData.Length, byData, 0, true);
-                    fs.Write(byData, 0, byData.Length);
+                    // Saves the Image via a FileStream created by the OpenFile method.
+                    System.IO.FileStream fs =
+                       (System.IO.FileStream)saveFileDialog1.OpenFile();
+                    // Saves the Image in the appropriate ImageFormat based upon the
+                    // File type selected in the dialog box.
+                    // NOTE that the FilterIndex property is one-based.
+                    //String strHead = "---------------------------------------------------------------------------------------------------------------------------\r\n";
+
+                    DataTable table = ListViewToDataTable(lvRealList);
+                    String title = String.Empty;
+                    foreach (ColumnHeader header in lvRealList.Columns)
+                    {
+                        title += header.Text + "\t";
+                    }
+                    title += "\r\n";
+                    byte[] byteTitile = System.Text.Encoding.UTF8.GetBytes(title);
+                    fs.Write(byteTitile, 0, byteTitile.Length);
+                    for (int i = 0; i < table.Rows.Count; i++)
+                    {
+                        DataRow row = table.Rows[i];
+                        String strData = String.Empty;
+                        for (int j = 0; j < table.Columns.Count; j++)
+                        {
+                            if (j != table.Columns.Count - 1)
+                            {
+                                strData += row[j].ToString() + "\t";
+                            }
+                            else
+                            {
+                                strData += row[j].ToString() + "\t\r\n";
+                            }
+                        }
+                        Char[] charData = strData.ToString().ToArray();
+                        Byte[] byData = new byte[charData.Length];
+                        encoder.GetBytes(charData, 0, charData.Length, byData, 0, true);
+                        fs.Write(byData, 0, byData.Length);
+                    }
+                    fs.Close();
+                    MessageBox.Show("数据导出成功！");
                 }
-                fs.Close();
+            }
+            else if (excel_format_rb.Checked)
+            {
+                saveFileDialog1.Filter = "97-2003文档（*.xls）|*.xls|2007文档(*.xlsx)|*.xlsx";
+                saveFileDialog1.Title = "Save an excel File";
+                saveFileDialog1.ShowDialog();
+
+                DataTable tmp = ListViewToDataTable(lvRealList);
+
+                if (saveFileDialog1.FileName != "")
+                {
+                    string suffix = saveFileDialog1.FileName.Substring(saveFileDialog1.FileName.LastIndexOf(".") + 1, saveFileDialog1.FileName.Length - saveFileDialog1.FileName.LastIndexOf(".") - 1);
+                    if (suffix == "xls")
+                    {
+                        RenderToExcel(tmp, saveFileDialog1.FileName);
+                    }
+                    else
+                    {
+                        TableToExcelForXLSX(tmp, saveFileDialog1.FileName);
+                    }
+                }
             }
         }
+
+
+        //save tag as excel
+
+        public DataTable ListViewToDataTable(ListView listView)
+        {
+            DataTable table = new DataTable();
+
+            foreach (ColumnHeader header in listView.Columns)
+            {
+                table.Columns.Add(header.Text,typeof(string));
+            }
+
+            foreach (ListViewItem item in listView.Items)
+            {
+                DataRow row = table.NewRow();
+                //处理行
+                for (int i = 0; i < item.SubItems.Count; i++)
+                {
+                    //MessageBox.Show(item.SubItems[i].Text);
+                    row[i] = item.SubItems[i].Text;
+                }
+
+                table.Rows.Add(row);
+            }    
+            return table;
+        }
+
+        /// <summary>
+        /// 导出数据到excel2003中
+        /// </summary>
+        /// <param name="table"></param>
+        /// <param name="filename"></param>
+        /// <returns></returns>
+        public bool RenderToExcel(DataTable table, string filename)
+        {
+            MemoryStream ms = new MemoryStream();
+            using (table)
+            {
+                NPOI.HSSF.UserModel.HSSFWorkbook workbook = new HSSFWorkbook();
+
+                ISheet sheet = workbook.CreateSheet();
+
+                IRow headerRow = sheet.CreateRow(0);
+                // handling header. 
+                foreach (DataColumn column in table.Columns)
+                    headerRow.CreateCell(column.Ordinal).SetCellValue(column.Caption);//If Caption not set, returns the ColumnName value 
+
+                // handling value. 
+                int rowIndex = 1;
+
+                foreach (DataRow row in table.Rows)
+                {
+                    IRow dataRow = sheet.CreateRow(rowIndex);
+
+                    foreach (DataColumn column in table.Columns)
+                    {
+                        dataRow.CreateCell(column.Ordinal).SetCellValue(row[column].ToString());
+                    }
+                    //  proBar.progressBar1.Value = proBar.progressBar1.Value+1;
+
+                    rowIndex++;
+                }
+                workbook.Write(ms);
+                ms.Flush();
+                ms.Position = 0;
+                try
+                {
+                    SaveToFile(ms, filename);
+                    MessageBox.Show("数据导出成功！");
+                    return true;
+                }
+                catch (System.Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    return false;
+                }
+            }
+        }
+
+
+        //////////////////////////////////////////////////////////////////////////
+        public void SaveToFile(MemoryStream ms, string fileName)
+        {
+            using (FileStream fs = new FileStream(fileName, FileMode.Create, FileAccess.Write))
+            {
+                byte[] data = ms.ToArray();
+
+                fs.Write(data, 0, data.Length);
+                fs.Flush();
+
+                data = null;
+            }
+        }
+
+        /// <summary>
+        /// 导出数据到excel2007中
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public bool TableToExcelForXLSX(DataTable dt, string file)
+        {
+            XSSFWorkbook xssfworkbook = new XSSFWorkbook();
+            ISheet sheet = xssfworkbook.CreateSheet("Test");
+
+            //表头   
+            IRow row = sheet.CreateRow(0);
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                ICell cell = row.CreateCell(i);
+                cell.SetCellValue(dt.Columns[i].ColumnName);
+            }
+
+            //数据   
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                IRow row1 = sheet.CreateRow(i + 1);
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    ICell cell = row1.CreateCell(j);
+                    cell.SetCellValue(dt.Rows[i][j].ToString());
+                }
+            }
+
+            //转为字节数组   
+            MemoryStream stream = new MemoryStream();
+            xssfworkbook.Write(stream);
+            var buf = stream.ToArray();
+
+            //保存为Excel文件  
+            try
+            {
+                using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write))
+                {
+                    fs.Write(buf, 0, buf.Length);
+                    fs.Flush();
+                }
+                MessageBox.Show("数据导出成功！");
+                return true;
+            }
+
+            catch (SystemException ex)
+            {
+                MessageBox.Show(ex.ToString());
+                return false;
+            }
+        }
+
+        //save tag as execel
+
 
         private void button6_Click_1(object sender, EventArgs e)
         {
             // Displays a SaveFileDialog so the user can save the Image
             // assigned to Button2.
             Encoder encoder = Encoding.UTF8.GetEncoder();
-
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
-            saveFileDialog1.Title = "Save an text File";
-            saveFileDialog1.ShowDialog();
 
-            // If the file name is not an empty string open it for saving.
-            if (saveFileDialog1.FileName != "")
+            if (txt_format_buffer_rb.Checked)
             {
-                // Saves the Image via a FileStream created by the OpenFile method.
-                System.IO.FileStream fs =
-                   (System.IO.FileStream)saveFileDialog1.OpenFile();
-                // Saves the Image in the appropriate ImageFormat based upon the
-                // File type selected in the dialog box.
-                // NOTE that the FilterIndex property is one-based.
-                //String strHead = "---------------------------------------------------------------------------------------------------------------------------\r\n";
-                String title = "ID\tEPC\tPC\tIdentification Count\tRSSI\tCarrier Frequency\r\n";
-                //Char[] charHead = strHead.ToArray();
-                //Byte[] byteHead = new byte[charHead.Length];
-                Char[] charTitile = title.ToArray();
-                Byte[] byteTitile = new byte[charTitile.Length];
-                //encoder.GetBytes(charHead,0,charHead.Length,byteHead,0,true);
-                encoder.GetBytes(charTitile, 0, charTitile.Length, byteTitile, 0, true);
-                //fs.Write(byteHead, 0, byteHead.Length);
-                fs.Write(byteTitile, 0, byteTitile.Length);
-                //fs.Write(byteHead, 0, byteHead.Length);
+                saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
+                saveFileDialog1.Title = "Save an text File";
+                saveFileDialog1.ShowDialog();
 
-                for (int i = 0; i < m_curInventoryBuffer.dtTagTable.Rows.Count; i++)
+                // If the file name is not an empty string open it for saving.
+                if (saveFileDialog1.FileName != "")
                 {
-                    DataRow row = m_curInventoryBuffer.dtTagTable.Rows[i];
-                    String strData = String.Empty;
-                    strData += " " + i + " " + "\t";
-                    strData += row[2].ToString();
-                    strData += "\t";
-                    strData += row[0].ToString() + "\t";
-                    strData += row[5].ToString() + "\t";
-                    strData += (Convert.ToInt32(row[4]) - 129).ToString() + "\t";
-                    strData += row[6].ToString() + "\t";
-                    strData += "\r\n";
-                    Char[] charData = strData.ToString().ToArray();
-                    Byte[] byData = new byte[charData.Length];
-                    encoder.GetBytes(charData, 0, charData.Length, byData, 0, true);
-                    fs.Write(byData, 0, byData.Length);
+                    // Saves the Image via a FileStream created by the OpenFile method.
+                    System.IO.FileStream fs =
+                       (System.IO.FileStream)saveFileDialog1.OpenFile();
+                    // Saves the Image in the appropriate ImageFormat based upon the
+                    // File type selected in the dialog box.
+                    // NOTE that the FilterIndex property is one-based.
+                    //String strHead = "---------------------------------------------------------------------------------------------------------------------------\r\n";
+
+                    DataTable table = ListViewToDataTable(lvBufferList);
+                    String title = String.Empty;
+                    foreach (ColumnHeader header in lvBufferList.Columns)
+                    {
+                        title += header.Text + "\t";
+                    }
+                    title += "\r\n";
+                    byte[] byteTitile = System.Text.Encoding.UTF8.GetBytes(title);
+                    fs.Write(byteTitile, 0, byteTitile.Length);
+                    for (int i = 0; i < table.Rows.Count; i++)
+                    {
+                        DataRow row = table.Rows[i];
+                        String strData = String.Empty;
+                        for (int j = 0; j < table.Columns.Count; j++)
+                        {
+                            if (j != table.Columns.Count - 1)
+                            {
+                                strData += row[j].ToString() + "\t";
+                            }
+                            else
+                            {
+                                strData += row[j].ToString() + "\t\r\n";
+                            }
+                        }
+                        Char[] charData = strData.ToString().ToArray();
+                        Byte[] byData = new byte[charData.Length];
+                        encoder.GetBytes(charData, 0, charData.Length, byData, 0, true);
+                        fs.Write(byData, 0, byData.Length);
+                    }
+                    fs.Close();
+                    MessageBox.Show("数据导出成功！");
                 }
-                fs.Close();
+            }
+            else if (excel_format_buffer_rb.Checked)
+            {
+                saveFileDialog1.Filter = "97-2003文档（*.xls）|*.xls|2007文档(*.xlsx)|*.xlsx";
+                saveFileDialog1.Title = "Save an excel File";
+                saveFileDialog1.ShowDialog();
+
+                DataTable tmp = ListViewToDataTable(lvBufferList);
+
+                if (saveFileDialog1.FileName != "")
+                {
+                    string suffix = saveFileDialog1.FileName.Substring(saveFileDialog1.FileName.LastIndexOf(".") + 1, saveFileDialog1.FileName.Length - saveFileDialog1.FileName.LastIndexOf(".") - 1);
+                    if (suffix == "xls")
+                    {
+                        RenderToExcel(tmp, saveFileDialog1.FileName);
+                    }
+                    else
+                    {
+                        TableToExcelForXLSX(tmp, saveFileDialog1.FileName);
+                    }
+                }
             }
         }
 
@@ -6007,51 +6217,78 @@ namespace UHFDemo
             // Displays a SaveFileDialog so the user can save the Image
             // assigned to Button2.
             Encoder encoder = Encoding.UTF8.GetEncoder();
-
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
-            saveFileDialog1.Title = "Save an text File";
-            saveFileDialog1.ShowDialog();
 
-            // If the file name is not an empty string open it for saving.
-            if (saveFileDialog1.FileName != "")
+            if (txt_format_fast_rb.Checked)
             {
-                // Saves the Image via a FileStream created by the OpenFile method.
-                System.IO.FileStream fs =
-                   (System.IO.FileStream)saveFileDialog1.OpenFile();
-                // Saves the Image in the appropriate ImageFormat based upon the
-                // File type selected in the dialog box.
-                // NOTE that the FilterIndex property is one-based.
-                //String strHead = "---------------------------------------------------------------------------------------------------------------------------\r\n";
-                String title = "ID\tEPC\tPC\tIdentification Count\tRSSI\tCarrier Frequency\r\n";
-                //Char[] charHead = strHead.ToArray();
-                //Byte[] byteHead = new byte[charHead.Length];
-                Char[] charTitile = title.ToArray();
-                Byte[] byteTitile = new byte[charTitile.Length];
-                //encoder.GetBytes(charHead,0,charHead.Length,byteHead,0,true);
-                encoder.GetBytes(charTitile, 0, charTitile.Length, byteTitile, 0, true);
-                //fs.Write(byteHead, 0, byteHead.Length);
-                fs.Write(byteTitile, 0, byteTitile.Length);
-                //fs.Write(byteHead, 0, byteHead.Length);
+                saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
+                saveFileDialog1.Title = "Save an text File";
+                saveFileDialog1.ShowDialog();
 
-                for (int i = 0; i < m_curInventoryBuffer.dtTagTable.Rows.Count; i++)
+                // If the file name is not an empty string open it for saving.
+                if (saveFileDialog1.FileName != "")
                 {
-                    DataRow row = m_curInventoryBuffer.dtTagTable.Rows[i];
-                    String strData = String.Empty;
-                    strData += " " + i + " " + "\t";
-                    strData += row[2].ToString();
-                    strData += "\t";
-                    strData += row[0].ToString() + "\t";
-                    strData += row[5].ToString() + "\t";
-                    strData += (Convert.ToInt32(row[4]) - 129).ToString() + "\t";
-                    strData += row[6].ToString() + "\t";
-                    strData += "\r\n";
-                    Char[] charData = strData.ToString().ToArray();
-                    Byte[] byData = new byte[charData.Length];
-                    encoder.GetBytes(charData, 0, charData.Length, byData, 0, true);
-                    fs.Write(byData, 0, byData.Length);
+                    // Saves the Image via a FileStream created by the OpenFile method.
+                    System.IO.FileStream fs =
+                       (System.IO.FileStream)saveFileDialog1.OpenFile();
+                    // Saves the Image in the appropriate ImageFormat based upon the
+                    // File type selected in the dialog box.
+                    // NOTE that the FilterIndex property is one-based.
+                    //String strHead = "---------------------------------------------------------------------------------------------------------------------------\r\n";
+
+                    DataTable table = ListViewToDataTable(lvFastList);
+                    String title = String.Empty;
+                    foreach (ColumnHeader header in lvFastList.Columns)
+                    {
+                        title += header.Text + "\t";
+                    }
+                    title += "\r\n";
+                    byte[] byteTitile = System.Text.Encoding.UTF8.GetBytes(title);
+                    fs.Write(byteTitile, 0, byteTitile.Length);
+                    for (int i = 0; i < table.Rows.Count; i++)
+                    {
+                        DataRow row = table.Rows[i];
+                        String strData = String.Empty;
+                        for (int j = 0; j < table.Columns.Count; j++)
+                        {
+                            if (j != table.Columns.Count - 1)
+                            {
+                                strData += row[j].ToString() + "\t";
+                            }
+                            else
+                            {
+                                strData += row[j].ToString() + "\t\r\n";
+                            }
+                        }
+                        Char[] charData = strData.ToString().ToArray();
+                        Byte[] byData = new byte[charData.Length];
+                        encoder.GetBytes(charData, 0, charData.Length, byData, 0, true);
+                        fs.Write(byData, 0, byData.Length);
+                    }
+                    fs.Close();
+                    MessageBox.Show("数据导出成功！");
                 }
-                fs.Close();
+            }
+            else if (excel_format_fast_rb.Checked)
+            {
+                saveFileDialog1.Filter = "97-2003文档（*.xls）|*.xls|2007文档(*.xlsx)|*.xlsx";
+                saveFileDialog1.Title = "Save an excel File";
+                saveFileDialog1.ShowDialog();
+
+                DataTable tmp = ListViewToDataTable(lvFastList);
+
+                if (saveFileDialog1.FileName != "")
+                {
+                    string suffix = saveFileDialog1.FileName.Substring(saveFileDialog1.FileName.LastIndexOf(".") + 1, saveFileDialog1.FileName.Length - saveFileDialog1.FileName.LastIndexOf(".") - 1);
+                    if (suffix == "xls")
+                    {
+                        RenderToExcel(tmp, saveFileDialog1.FileName);
+                    }
+                    else
+                    {
+                        TableToExcelForXLSX(tmp, saveFileDialog1.FileName);
+                    }
+                }
             }
         }
 
