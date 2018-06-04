@@ -59,6 +59,23 @@ namespace UHFDemo
         {
             InitializeComponent();
             this.DoubleBuffered = true;
+
+
+            lvRealList.SmallImageList = sortImageList;
+            lvFastList.SmallImageList = sortImageList;
+            lvBufferList.SmallImageList = sortImageList;
+
+            this.columnHeader37.ImageIndex = 0;
+            this.columnHeader38.ImageIndex = 0;
+
+            this.columnHeader31.ImageIndex = 0;
+            this.columnHeader32.ImageIndex = 0;
+
+            this.columnHeader49.ImageIndex = 0;
+            this.columnHeader52.ImageIndex = 0;
+
+
+            this.columnHeader37.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
         }
 
         private void R2000UartDemo_Load(object sender, EventArgs e)
@@ -111,6 +128,26 @@ namespace UHFDemo
                 groupBox21.Enabled = true;
                 groupBox23.Enabled = false;
             };
+
+
+            //ListView settings
+            this.lvRealList.ListViewItemSorter = new ListViewColumnSorter();
+            ListViewHelper lvRealHelper = new ListViewHelper();
+            lvRealHelper.addSortColumn(0);
+            lvRealHelper.addSortColumn(1);
+            this.lvRealList.ColumnClick += new ColumnClickEventHandler(lvRealHelper.ListView_ColumnClick);
+
+            this.lvBufferList.ListViewItemSorter = new ListViewColumnSorter();
+            ListViewHelper lvBufferHelper = new ListViewHelper();
+            lvBufferHelper.addSortColumn(0);
+            lvBufferHelper.addSortColumn(3);
+            this.lvBufferList.ColumnClick += new ColumnClickEventHandler(lvBufferHelper.ListView_ColumnClick);
+
+            this.lvFastList.ListViewItemSorter = new ListViewColumnSorter();
+            ListViewHelper lvFastHelper = new ListViewHelper();
+            lvFastHelper.addSortColumn(0);
+            lvFastHelper.addSortColumn(1);
+            this.lvFastList.ColumnClick += new ColumnClickEventHandler(lvFastHelper.ListView_ColumnClick);
         }
 
         private void ReceiveData(byte[] btAryReceiveData)
@@ -378,7 +415,7 @@ namespace UHFDemo
                             item.SubItems.Add(row[5].ToString());
 
                             lvBufferList.Items.Add(item);
-                            lvBufferList.Items[nCount].EnsureVisible();
+                            //lvBufferList.Items[nCount].EnsureVisible();
 
                             labelBufferTagCount.Text = "标签列表： " + m_curInventoryBuffer.nTagCount.ToString() + "个";
                            
@@ -523,8 +560,13 @@ namespace UHFDemo
                                 item.SubItems.Add((Convert.ToInt32(row[4]) - 129).ToString() + "dBm");
                                 item.SubItems.Add(row[6].ToString());
 
+                                //set Item backagroud color.
+                                //item.BackColor = Color.Red;
+
                                 lvRealList.Items.Add(item);
-                                lvRealList.Items[nEpcCount].EnsureVisible();
+                         
+                                //do not location the scrolling bar in the bottom.
+                                //lvRealList.Items[nEpcCount].EnsureVisible();
                             }
 
                             //else
@@ -640,10 +682,10 @@ namespace UHFDemo
                         {
                             m_bLockTab = false;
 
-                            TimeSpan ts = m_curInventoryBuffer.dtEndInventory - m_curInventoryBuffer.dtStartInventory;
-                            int nTotalTime = ts.Minutes * 60 * 1000 + ts.Seconds * 1000 + ts.Milliseconds;
+                            //TimeSpan ts = m_curInventoryBuffer.dtEndInventory - m_curInventoryBuffer.dtStartInventory;
+                            //int nTotalTime = ts.Minutes * 60 * 1000 + ts.Seconds * 1000 + ts.Milliseconds;
 
-                            ledReal5.Text = nTotalTime.ToString();
+                            //ledReal5.Text = nTotalTime.ToString();
 
                         }
                         break;
@@ -717,7 +759,7 @@ namespace UHFDemo
                                 item.SubItems.Add(row[6].ToString());
 
                                 lvFastList.Items.Add(item);
-                                lvFastList.Items[nEpcCount].EnsureVisible();
+                                //lvFastList.Items[nEpcCount].EnsureVisible();
                             }
 
                             //更新列表中读取的次数
@@ -2881,7 +2923,7 @@ namespace UHFDemo
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
-                RefreshFastSwitch(0x01);
+                RefreshFastSwitch(0x8A);
                 RunLoopFastSwitch();
             }
             else if (msgTran.AryData.Length == 2)
@@ -2901,7 +2943,7 @@ namespace UHFDemo
                 m_curInventoryBuffer.nDataCount = m_nSwitchTotal;
                 m_curInventoryBuffer.nCommandDuration = m_nSwitchTime;
                 WriteLog(lrtxtLog, strCmd, 0);
-                RefreshFastSwitch(0x02);
+                RefreshFastSwitch(0x00);
                 RunLoopFastSwitch();
             }
 
@@ -3110,7 +3152,7 @@ namespace UHFDemo
 
                 m_curInventoryBuffer.dtEndInventory = DateTime.Now;
 
-                RefreshInventoryReal(0x00);
+                RefreshInventoryReal(0x89);
                 RunLoopInventroy();
             }
             else if (msgTran.AryData.Length == 7)
@@ -3121,7 +3163,7 @@ namespace UHFDemo
                 m_curInventoryBuffer.dtEndInventory = DateTime.Now;
 
                 WriteLog(lrtxtLog, strCmd, 0);
-                RefreshInventoryReal(0x01);
+                RefreshInventoryReal(0x89);
                 RunLoopInventroy();
             }
             else
@@ -4862,6 +4904,8 @@ namespace UHFDemo
                     btRealTimeInventory.ForeColor = Color.DarkBlue;
                     btRealTimeInventory.Text = "开始盘存";
                     timerInventory.Enabled = false;
+
+                    totalTime.Enabled = false;
                     return;
                 }
                 else
@@ -4902,6 +4946,8 @@ namespace UHFDemo
                 m_curSetting.btWorkAntenna = btWorkAntenna;
 
                 timerInventory.Enabled = true;
+
+                totalTime.Enabled = true;
                                          
             }
             catch (System.Exception ex)
@@ -4995,6 +5041,8 @@ namespace UHFDemo
                     btBufferInventory.BackColor = Color.WhiteSmoke;
                     btBufferInventory.ForeColor = Color.DarkBlue;
                     btBufferInventory.Text = "开始盘存";
+
+                    //this.totalTime.Enabled = false;
                     return;
                 }
                 else
@@ -5025,6 +5073,8 @@ namespace UHFDemo
                 lvBufferList.Items.Clear();
                 lvBufferList.Items.Clear();
                 m_nTotal = 0;
+
+                //this.totalTime.Enabled = true;
                 
                 byte btWorkAntenna = m_curInventoryBuffer.lAntenna[m_curInventoryBuffer.nIndexAntenna];
                 reader.SetWorkAntenna(m_curSetting.btReadId, btWorkAntenna);
@@ -5102,6 +5152,8 @@ namespace UHFDemo
                 btFastInventory.BackColor = Color.WhiteSmoke;
                 btFastInventory.ForeColor = Color.DarkBlue;
                 btFastInventory.Text = "开始盘存";
+
+                //this.totalTime.Enabled = false;
                 return;
             }
             else
@@ -5132,6 +5184,8 @@ namespace UHFDemo
                 
                 m_curInventoryBuffer.ClearInventoryRealResult();
                 lvFastList.Items.Clear();
+
+                //this.totalTime.Enabled = true;
                 
                 m_nTotal = 0;
 
@@ -5760,6 +5814,14 @@ namespace UHFDemo
                 RunLoopInventroy();
                 m_nReceiveFlag = 0;
             }
+        }
+
+        private void totalTimeDisplay(object sender, EventArgs e)
+        {
+            TimeSpan sp = DateTime.Now - m_curInventoryBuffer.dtStartInventory;
+            int totalTime = sp.Minutes * 60 * 1000 + sp.Seconds * 1000 + sp.Milliseconds;
+            ledReal5.Text = totalTime.ToString();
+            //RefreshInventoryReal(0x00);
         }
 
         private void tabEpcTest_SelectedIndexChanged(object sender, EventArgs e)

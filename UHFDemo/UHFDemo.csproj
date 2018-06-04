@@ -128,6 +128,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="InventoryBuffer.cs" />
+    <Compile Include="ListViewHelper.cs" />
     <Compile Include="OperateTagBuffer.cs" />
     <Compile Include="OperateTagISO18000Buffer.cs" />
     <Compile Include="R2000UartDemo.cs">
@@ -143,6 +144,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="R2000UartDemo.resx">
       <DependentUpon>R2000UartDemo.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

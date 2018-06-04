@@ -250,6 +250,8 @@ namespace UHFDemo
             this.columnHeader41 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader42 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pageBufferedMode = new System.Windows.Forms.TabPage();
+            this.excel_format_buffer_rb = new System.Windows.Forms.RadioButton();
+            this.txt_format_buffer_rb = new System.Windows.Forms.RadioButton();
             this.button6 = new System.Windows.Forms.Button();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.panel9 = new System.Windows.Forms.Panel();
@@ -293,6 +295,8 @@ namespace UHFDemo
             this.columnHeader54 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pageFast4AntMode = new System.Windows.Forms.TabPage();
+            this.txt_format_fast_rb = new System.Windows.Forms.RadioButton();
+            this.excel_format_fast_rb = new System.Windows.Forms.RadioButton();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ledFast4 = new LxControl.LxLedControl();
@@ -541,10 +545,10 @@ namespace UHFDemo
             this.lxLedControl17 = new LxControl.LxLedControl();
             this.lxLedControl18 = new LxControl.LxLedControl();
             this.timerInventory = new System.Windows.Forms.Timer(this.components);
-            this.txt_format_buffer_rb = new System.Windows.Forms.RadioButton();
-            this.excel_format_buffer_rb = new System.Windows.Forms.RadioButton();
-            this.excel_format_fast_rb = new System.Windows.Forms.RadioButton();
-            this.txt_format_fast_rb = new System.Windows.Forms.RadioButton();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.totalTime = new System.Windows.Forms.Timer(this.components);
+            this.totalTimeBuffer = new System.Windows.Forms.Timer(this.components);
+            this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -3188,6 +3192,28 @@ namespace UHFDemo
             this.pageBufferedMode.TabIndex = 2;
             this.pageBufferedMode.Text = "盘存标签(缓存模式)";
             // 
+            // excel_format_buffer_rb
+            // 
+            this.excel_format_buffer_rb.AutoSize = true;
+            this.excel_format_buffer_rb.Location = new System.Drawing.Point(832, 259);
+            this.excel_format_buffer_rb.Name = "excel_format_buffer_rb";
+            this.excel_format_buffer_rb.Size = new System.Drawing.Size(53, 16);
+            this.excel_format_buffer_rb.TabIndex = 64;
+            this.excel_format_buffer_rb.Text = "EXCEL";
+            this.excel_format_buffer_rb.UseVisualStyleBackColor = true;
+            // 
+            // txt_format_buffer_rb
+            // 
+            this.txt_format_buffer_rb.AutoSize = true;
+            this.txt_format_buffer_rb.Checked = true;
+            this.txt_format_buffer_rb.Location = new System.Drawing.Point(766, 259);
+            this.txt_format_buffer_rb.Name = "txt_format_buffer_rb";
+            this.txt_format_buffer_rb.Size = new System.Drawing.Size(41, 16);
+            this.txt_format_buffer_rb.TabIndex = 63;
+            this.txt_format_buffer_rb.TabStop = true;
+            this.txt_format_buffer_rb.Text = "TXT";
+            this.txt_format_buffer_rb.UseVisualStyleBackColor = true;
+            // 
             // button6
             // 
             this.button6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -3206,7 +3232,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 370F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 378F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3225,9 +3251,9 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(631, 4);
+            this.panel9.Location = new System.Drawing.Point(623, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(365, 74);
+            this.panel9.Size = new System.Drawing.Size(373, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3286,7 +3312,7 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(308, 74);
+            this.panel10.Size = new System.Drawing.Size(304, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3332,9 +3358,9 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(319, 4);
+            this.panel8.Location = new System.Drawing.Point(315, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(305, 74);
+            this.panel8.Size = new System.Drawing.Size(301, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -3739,6 +3765,28 @@ namespace UHFDemo
             this.pageFast4AntMode.Text = "快速天线盘存";
             this.pageFast4AntMode.Enter += new System.EventHandler(this.pageFast4AntMode_Enter);
             // 
+            // txt_format_fast_rb
+            // 
+            this.txt_format_fast_rb.AutoSize = true;
+            this.txt_format_fast_rb.Checked = true;
+            this.txt_format_fast_rb.Location = new System.Drawing.Point(739, 266);
+            this.txt_format_fast_rb.Name = "txt_format_fast_rb";
+            this.txt_format_fast_rb.Size = new System.Drawing.Size(41, 16);
+            this.txt_format_fast_rb.TabIndex = 65;
+            this.txt_format_fast_rb.TabStop = true;
+            this.txt_format_fast_rb.Text = "TXT";
+            this.txt_format_fast_rb.UseVisualStyleBackColor = true;
+            // 
+            // excel_format_fast_rb
+            // 
+            this.excel_format_fast_rb.AutoSize = true;
+            this.excel_format_fast_rb.Location = new System.Drawing.Point(809, 266);
+            this.excel_format_fast_rb.Name = "excel_format_fast_rb";
+            this.excel_format_fast_rb.Size = new System.Drawing.Size(53, 16);
+            this.excel_format_fast_rb.TabIndex = 64;
+            this.excel_format_fast_rb.Text = "EXCEL";
+            this.excel_format_fast_rb.UseVisualStyleBackColor = true;
+            // 
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -3990,7 +4038,7 @@ namespace UHFDemo
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.20588F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.79412F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 298F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 310F));
             this.tableLayoutPanel2.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 2, 0);
@@ -4039,9 +4087,9 @@ namespace UHFDemo
             this.panel2.Controls.Add(this.label59);
             this.panel2.Controls.Add(this.label48);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(194, 5);
+            this.panel2.Location = new System.Drawing.Point(190, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(494, 83);
+            this.panel2.Size = new System.Drawing.Size(486, 83);
             this.panel2.TabIndex = 0;
             // 
             // label124
@@ -4477,7 +4525,7 @@ namespace UHFDemo
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(5, 5);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(181, 83);
+            this.panel3.Size = new System.Drawing.Size(177, 83);
             this.panel3.TabIndex = 1;
             // 
             // btFastInventory
@@ -4499,9 +4547,9 @@ namespace UHFDemo
             this.panel4.Controls.Add(this.label73);
             this.panel4.Controls.Add(this.label72);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(696, 5);
+            this.panel4.Location = new System.Drawing.Point(684, 5);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(293, 83);
+            this.panel4.Size = new System.Drawing.Size(305, 83);
             this.panel4.TabIndex = 2;
             // 
             // txtRepeat
@@ -6584,49 +6632,16 @@ namespace UHFDemo
             this.timerInventory.Interval = 500;
             this.timerInventory.Tick += new System.EventHandler(this.timerInventory_Tick);
             // 
-            // txt_format_buffer_rb
+            // totalTime
             // 
-            this.txt_format_buffer_rb.AutoSize = true;
-            this.txt_format_buffer_rb.Checked = true;
-            this.txt_format_buffer_rb.Location = new System.Drawing.Point(766, 259);
-            this.txt_format_buffer_rb.Name = "txt_format_buffer_rb";
-            this.txt_format_buffer_rb.Size = new System.Drawing.Size(41, 16);
-            this.txt_format_buffer_rb.TabIndex = 63;
-            this.txt_format_buffer_rb.TabStop = true;
-            this.txt_format_buffer_rb.Text = "TXT";
-            this.txt_format_buffer_rb.UseVisualStyleBackColor = true;
+            this.totalTime.Interval = 50;
+            this.totalTime.Tick += new System.EventHandler(this.totalTimeDisplay);
             // 
-            // excel_format_buffer_rb
+            // sortImageList
             // 
-            this.excel_format_buffer_rb.AutoSize = true;
-            this.excel_format_buffer_rb.Location = new System.Drawing.Point(832, 259);
-            this.excel_format_buffer_rb.Name = "excel_format_buffer_rb";
-            this.excel_format_buffer_rb.Size = new System.Drawing.Size(53, 16);
-            this.excel_format_buffer_rb.TabIndex = 64;
-            this.excel_format_buffer_rb.Text = "EXCEL";
-            this.excel_format_buffer_rb.UseVisualStyleBackColor = true;
-            // 
-            // excel_format_fast_rb
-            // 
-            this.excel_format_fast_rb.AutoSize = true;
-            this.excel_format_fast_rb.Location = new System.Drawing.Point(809, 266);
-            this.excel_format_fast_rb.Name = "excel_format_fast_rb";
-            this.excel_format_fast_rb.Size = new System.Drawing.Size(53, 16);
-            this.excel_format_fast_rb.TabIndex = 64;
-            this.excel_format_fast_rb.Text = "EXCEL";
-            this.excel_format_fast_rb.UseVisualStyleBackColor = true;
-            // 
-            // txt_format_fast_rb
-            // 
-            this.txt_format_fast_rb.AutoSize = true;
-            this.txt_format_fast_rb.Checked = true;
-            this.txt_format_fast_rb.Location = new System.Drawing.Point(739, 266);
-            this.txt_format_fast_rb.Name = "txt_format_fast_rb";
-            this.txt_format_fast_rb.Size = new System.Drawing.Size(41, 16);
-            this.txt_format_fast_rb.TabIndex = 65;
-            this.txt_format_fast_rb.TabStop = true;
-            this.txt_format_fast_rb.Text = "TXT";
-            this.txt_format_fast_rb.UseVisualStyleBackColor = true;
+            this.sortImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("sortImageList.ImageStream")));
+            this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
             // R2000UartDemo
             // 
@@ -7213,6 +7228,9 @@ namespace UHFDemo
         private System.Windows.Forms.CheckBox ckClearOperationRec;
         private System.Windows.Forms.CheckBox cbUserDefineFreq;
         private System.Windows.Forms.Timer timerInventory;
+
+        private System.Windows.Forms.Timer totalTime;
+
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -7312,6 +7330,9 @@ namespace UHFDemo
         private RadioButton excel_format_fast_rb;
         private System.Windows.Forms.ListView lvFastList;
         private RadioButton txt_format_fast_rb;
+        private Timer timer1;
+        private Timer totalTimeBuffer;
+        private ImageList sortImageList;
     }
 }
 
