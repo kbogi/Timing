@@ -190,6 +190,27 @@ namespace UHFDemo
             this.pageEpcTest = new System.Windows.Forms.TabPage();
             this.tabEpcTest = new System.Windows.Forms.TabControl();
             this.pageRealMode = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btRealTimeInventory = new System.Windows.Forms.Button();
+            this.label84 = new System.Windows.Forms.Label();
+            this.textRealRound = new System.Windows.Forms.TextBox();
+            this.sessionInventoryrb = new System.Windows.Forms.RadioButton();
+            this.autoInventoryrb = new System.Windows.Forms.RadioButton();
+            this.m_session_q_cb = new System.Windows.Forms.CheckBox();
+            this.m_session_sl_cb = new System.Windows.Forms.CheckBox();
+            this.m_session_max_q = new System.Windows.Forms.TextBox();
+            this.m_session_min_q = new System.Windows.Forms.TextBox();
+            this.m_session_start_q = new System.Windows.Forms.TextBox();
+            this.m_max_q_content = new System.Windows.Forms.Label();
+            this.m_min_q_content = new System.Windows.Forms.Label();
+            this.m_start_q_content = new System.Windows.Forms.Label();
+            this.m_session_sl = new System.Windows.Forms.ComboBox();
+            this.m_sl_content = new System.Windows.Forms.Label();
+            this.cmbTarget = new System.Windows.Forms.ComboBox();
+            this.label98 = new System.Windows.Forms.Label();
+            this.cmbSession = new System.Windows.Forms.ComboBox();
+            this.label97 = new System.Windows.Forms.Label();
             this.excel_format_rb = new System.Windows.Forms.RadioButton();
             this.txt_format_rb = new System.Windows.Forms.RadioButton();
             this.button8 = new System.Windows.Forms.Button();
@@ -203,27 +224,6 @@ namespace UHFDemo
             this.cbRealWorkant3 = new System.Windows.Forms.CheckBox();
             this.cbRealWorkant2 = new System.Windows.Forms.CheckBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textRealRound = new System.Windows.Forms.TextBox();
-            this.label84 = new System.Windows.Forms.Label();
-            this.btRealTimeInventory = new System.Windows.Forms.Button();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.m_session_q_cb = new System.Windows.Forms.CheckBox();
-            this.m_session_sl_cb = new System.Windows.Forms.CheckBox();
-            this.m_session_max_q = new System.Windows.Forms.TextBox();
-            this.m_session_min_q = new System.Windows.Forms.TextBox();
-            this.m_session_start_q = new System.Windows.Forms.TextBox();
-            this.m_max_q_content = new System.Windows.Forms.Label();
-            this.m_min_q_content = new System.Windows.Forms.Label();
-            this.m_start_q_content = new System.Windows.Forms.Label();
-            this.m_session_sl = new System.Windows.Forms.ComboBox();
-            this.m_sl_content = new System.Windows.Forms.Label();
-            this.cbRealSession = new System.Windows.Forms.CheckBox();
-            this.cmbTarget = new System.Windows.Forms.ComboBox();
-            this.label98 = new System.Windows.Forms.Label();
-            this.cmbSession = new System.Windows.Forms.ComboBox();
-            this.label97 = new System.Windows.Forms.Label();
             this.tbRealMinRssi = new System.Windows.Forms.TextBox();
             this.tbRealMaxRssi = new System.Windows.Forms.TextBox();
             this.btRealFresh = new System.Windows.Forms.Button();
@@ -582,10 +582,9 @@ namespace UHFDemo
             this.pageEpcTest.SuspendLayout();
             this.tabEpcTest.SuspendLayout();
             this.pageRealMode.SuspendLayout();
-            this.groupBox20.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.groupBox20.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ledReal3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledReal5)).BeginInit();
@@ -1012,14 +1011,14 @@ namespace UHFDemo
             this.gbCmdBeeper.ForeColor = System.Drawing.Color.Black;
             this.gbCmdBeeper.Location = new System.Drawing.Point(463, 359);
             this.gbCmdBeeper.Name = "gbCmdBeeper";
-            this.gbCmdBeeper.Size = new System.Drawing.Size(519, 96);
+            this.gbCmdBeeper.Size = new System.Drawing.Size(519, 109);
             this.gbCmdBeeper.TabIndex = 11;
             this.gbCmdBeeper.TabStop = false;
             this.gbCmdBeeper.Text = "蜂鸣器状态";
             // 
             // btnSetBeeperMode
             // 
-            this.btnSetBeeperMode.Location = new System.Drawing.Point(394, 59);
+            this.btnSetBeeperMode.Location = new System.Drawing.Point(394, 39);
             this.btnSetBeeperMode.Name = "btnSetBeeperMode";
             this.btnSetBeeperMode.Size = new System.Drawing.Size(90, 23);
             this.btnSetBeeperMode.TabIndex = 3;
@@ -1030,18 +1029,18 @@ namespace UHFDemo
             // rdbBeeperModeTag
             // 
             this.rdbBeeperModeTag.AutoSize = true;
-            this.rdbBeeperModeTag.Location = new System.Drawing.Point(71, 68);
+            this.rdbBeeperModeTag.Location = new System.Drawing.Point(16, 69);
             this.rdbBeeperModeTag.Name = "rdbBeeperModeTag";
-            this.rdbBeeperModeTag.Size = new System.Drawing.Size(299, 16);
+            this.rdbBeeperModeTag.Size = new System.Drawing.Size(431, 16);
             this.rdbBeeperModeTag.TabIndex = 2;
             this.rdbBeeperModeTag.TabStop = true;
-            this.rdbBeeperModeTag.Text = "每读到一张标签鸣响(影响多标签识别，仅供测试。)";
+            this.rdbBeeperModeTag.Text = "每读到一张标签鸣响(适用于少量标签，响应次数严格按照标签被识别次数。)";
             this.rdbBeeperModeTag.UseVisualStyleBackColor = true;
             // 
             // rdbBeeperModeInventory
             // 
             this.rdbBeeperModeInventory.AutoSize = true;
-            this.rdbBeeperModeInventory.Location = new System.Drawing.Point(71, 44);
+            this.rdbBeeperModeInventory.Location = new System.Drawing.Point(16, 42);
             this.rdbBeeperModeInventory.Name = "rdbBeeperModeInventory";
             this.rdbBeeperModeInventory.Size = new System.Drawing.Size(83, 16);
             this.rdbBeeperModeInventory.TabIndex = 1;
@@ -1052,7 +1051,7 @@ namespace UHFDemo
             // rdbBeeperModeSlient
             // 
             this.rdbBeeperModeSlient.AutoSize = true;
-            this.rdbBeeperModeSlient.Location = new System.Drawing.Point(71, 20);
+            this.rdbBeeperModeSlient.Location = new System.Drawing.Point(17, 20);
             this.rdbBeeperModeSlient.Name = "rdbBeeperModeSlient";
             this.rdbBeeperModeSlient.Size = new System.Drawing.Size(47, 16);
             this.rdbBeeperModeSlient.TabIndex = 0;
@@ -2415,11 +2414,11 @@ namespace UHFDemo
             // pageRealMode
             // 
             this.pageRealMode.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pageRealMode.Controls.Add(this.tableLayoutPanel1);
             this.pageRealMode.Controls.Add(this.excel_format_rb);
             this.pageRealMode.Controls.Add(this.txt_format_rb);
             this.pageRealMode.Controls.Add(this.button8);
             this.pageRealMode.Controls.Add(this.groupBox20);
-            this.pageRealMode.Controls.Add(this.tableLayoutPanel1);
             this.pageRealMode.Controls.Add(this.tbRealMinRssi);
             this.pageRealMode.Controls.Add(this.tbRealMaxRssi);
             this.pageRealMode.Controls.Add(this.btRealFresh);
@@ -2435,6 +2434,271 @@ namespace UHFDemo
             this.pageRealMode.Size = new System.Drawing.Size(1000, 522);
             this.pageRealMode.TabIndex = 1;
             this.pageRealMode.Text = "盘存标签(实时模式)";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.panel5, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(1, 4);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(992, 56);
+            this.tableLayoutPanel1.TabIndex = 64;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.btRealTimeInventory);
+            this.panel5.Controls.Add(this.label84);
+            this.panel5.Controls.Add(this.textRealRound);
+            this.panel5.Controls.Add(this.sessionInventoryrb);
+            this.panel5.Controls.Add(this.autoInventoryrb);
+            this.panel5.Controls.Add(this.m_session_q_cb);
+            this.panel5.Controls.Add(this.m_session_sl_cb);
+            this.panel5.Controls.Add(this.m_session_max_q);
+            this.panel5.Controls.Add(this.m_session_min_q);
+            this.panel5.Controls.Add(this.m_session_start_q);
+            this.panel5.Controls.Add(this.m_max_q_content);
+            this.panel5.Controls.Add(this.m_min_q_content);
+            this.panel5.Controls.Add(this.m_start_q_content);
+            this.panel5.Controls.Add(this.m_session_sl);
+            this.panel5.Controls.Add(this.m_sl_content);
+            this.panel5.Controls.Add(this.cmbTarget);
+            this.panel5.Controls.Add(this.label98);
+            this.panel5.Controls.Add(this.cmbSession);
+            this.panel5.Controls.Add(this.label97);
+            this.panel5.Location = new System.Drawing.Point(4, 4);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(984, 48);
+            this.panel5.TabIndex = 1;
+            // 
+            // btRealTimeInventory
+            // 
+            this.btRealTimeInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btRealTimeInventory.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btRealTimeInventory.Location = new System.Drawing.Point(9, 5);
+            this.btRealTimeInventory.Name = "btRealTimeInventory";
+            this.btRealTimeInventory.Size = new System.Drawing.Size(144, 38);
+            this.btRealTimeInventory.TabIndex = 1;
+            this.btRealTimeInventory.Text = "开始盘存";
+            this.btRealTimeInventory.UseVisualStyleBackColor = true;
+            this.btRealTimeInventory.Click += new System.EventHandler(this.btRealTimeInventory_Click);
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label84.Location = new System.Drawing.Point(161, 18);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(119, 12);
+            this.label84.TabIndex = 2;
+            this.label84.Text = "每条命令的盘存次数:";
+            // 
+            // textRealRound
+            // 
+            this.textRealRound.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textRealRound.Location = new System.Drawing.Point(288, 13);
+            this.textRealRound.Name = "textRealRound";
+            this.textRealRound.Size = new System.Drawing.Size(28, 21);
+            this.textRealRound.TabIndex = 48;
+            this.textRealRound.Text = "1";
+            this.textRealRound.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // sessionInventoryrb
+            // 
+            this.sessionInventoryrb.AutoSize = true;
+            this.sessionInventoryrb.Location = new System.Drawing.Point(347, 27);
+            this.sessionInventoryrb.Name = "sessionInventoryrb";
+            this.sessionInventoryrb.Size = new System.Drawing.Size(116, 18);
+            this.sessionInventoryrb.TabIndex = 67;
+            this.sessionInventoryrb.TabStop = true;
+            this.sessionInventoryrb.Text = "自定义Session";
+            this.sessionInventoryrb.UseVisualStyleBackColor = true;
+            this.sessionInventoryrb.CheckedChanged += new System.EventHandler(this.sessionInventoryrb_CheckedChanged);
+            // 
+            // autoInventoryrb
+            // 
+            this.autoInventoryrb.AutoSize = true;
+            this.autoInventoryrb.Checked = true;
+            this.autoInventoryrb.Location = new System.Drawing.Point(347, 4);
+            this.autoInventoryrb.Name = "autoInventoryrb";
+            this.autoInventoryrb.Size = new System.Drawing.Size(53, 18);
+            this.autoInventoryrb.TabIndex = 66;
+            this.autoInventoryrb.TabStop = true;
+            this.autoInventoryrb.Text = "自动";
+            this.autoInventoryrb.UseVisualStyleBackColor = true;
+            this.autoInventoryrb.CheckedChanged += new System.EventHandler(this.autoInventoryrb_CheckedChanged);
+            // 
+            // m_session_q_cb
+            // 
+            this.m_session_q_cb.AutoSize = true;
+            this.m_session_q_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_q_cb.Location = new System.Drawing.Point(803, 24);
+            this.m_session_q_cb.Name = "m_session_q_cb";
+            this.m_session_q_cb.Size = new System.Drawing.Size(15, 14);
+            this.m_session_q_cb.TabIndex = 65;
+            this.m_session_q_cb.UseVisualStyleBackColor = true;
+            this.m_session_q_cb.CheckedChanged += new System.EventHandler(this.m_session_q_cb_CheckedChanged);
+            // 
+            // m_session_sl_cb
+            // 
+            this.m_session_sl_cb.AutoSize = true;
+            this.m_session_sl_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_sl_cb.Location = new System.Drawing.Point(700, 23);
+            this.m_session_sl_cb.Name = "m_session_sl_cb";
+            this.m_session_sl_cb.Size = new System.Drawing.Size(15, 14);
+            this.m_session_sl_cb.TabIndex = 64;
+            this.m_session_sl_cb.UseVisualStyleBackColor = true;
+            this.m_session_sl_cb.CheckedChanged += new System.EventHandler(this.m_session_sl_cb_CheckedChanged);
+            // 
+            // m_session_max_q
+            // 
+            this.m_session_max_q.Enabled = false;
+            this.m_session_max_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_max_q.Location = new System.Drawing.Point(940, 22);
+            this.m_session_max_q.Name = "m_session_max_q";
+            this.m_session_max_q.Size = new System.Drawing.Size(28, 21);
+            this.m_session_max_q.TabIndex = 63;
+            this.m_session_max_q.Text = "0";
+            this.m_session_max_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_session_min_q
+            // 
+            this.m_session_min_q.Enabled = false;
+            this.m_session_min_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_min_q.Location = new System.Drawing.Point(884, 21);
+            this.m_session_min_q.Name = "m_session_min_q";
+            this.m_session_min_q.Size = new System.Drawing.Size(28, 21);
+            this.m_session_min_q.TabIndex = 62;
+            this.m_session_min_q.Text = "0";
+            this.m_session_min_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_session_start_q
+            // 
+            this.m_session_start_q.Enabled = false;
+            this.m_session_start_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_start_q.Location = new System.Drawing.Point(827, 20);
+            this.m_session_start_q.Name = "m_session_start_q";
+            this.m_session_start_q.Size = new System.Drawing.Size(28, 21);
+            this.m_session_start_q.TabIndex = 61;
+            this.m_session_start_q.Text = "0";
+            this.m_session_start_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_max_q_content
+            // 
+            this.m_max_q_content.AutoSize = true;
+            this.m_max_q_content.Enabled = false;
+            this.m_max_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_max_q_content.Location = new System.Drawing.Point(938, 5);
+            this.m_max_q_content.Name = "m_max_q_content";
+            this.m_max_q_content.Size = new System.Drawing.Size(35, 12);
+            this.m_max_q_content.TabIndex = 60;
+            this.m_max_q_content.Text = "Max Q";
+            // 
+            // m_min_q_content
+            // 
+            this.m_min_q_content.AutoSize = true;
+            this.m_min_q_content.Enabled = false;
+            this.m_min_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_min_q_content.Location = new System.Drawing.Point(882, 5);
+            this.m_min_q_content.Name = "m_min_q_content";
+            this.m_min_q_content.Size = new System.Drawing.Size(35, 12);
+            this.m_min_q_content.TabIndex = 59;
+            this.m_min_q_content.Text = "Min Q";
+            // 
+            // m_start_q_content
+            // 
+            this.m_start_q_content.AutoSize = true;
+            this.m_start_q_content.Enabled = false;
+            this.m_start_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_start_q_content.Location = new System.Drawing.Point(816, 4);
+            this.m_start_q_content.Name = "m_start_q_content";
+            this.m_start_q_content.Size = new System.Drawing.Size(47, 12);
+            this.m_start_q_content.TabIndex = 58;
+            this.m_start_q_content.Text = "Start Q";
+            // 
+            // m_session_sl
+            // 
+            this.m_session_sl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.m_session_sl.Enabled = false;
+            this.m_session_sl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_sl.FormattingEnabled = true;
+            this.m_session_sl.Items.AddRange(new object[] {
+            "00",
+            "01",
+            "10",
+            "11"});
+            this.m_session_sl.Location = new System.Drawing.Point(735, 21);
+            this.m_session_sl.Name = "m_session_sl";
+            this.m_session_sl.Size = new System.Drawing.Size(62, 20);
+            this.m_session_sl.TabIndex = 57;
+            // 
+            // m_sl_content
+            // 
+            this.m_sl_content.AutoSize = true;
+            this.m_sl_content.Enabled = false;
+            this.m_sl_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_sl_content.Location = new System.Drawing.Point(752, 5);
+            this.m_sl_content.Name = "m_sl_content";
+            this.m_sl_content.Size = new System.Drawing.Size(17, 12);
+            this.m_sl_content.TabIndex = 56;
+            this.m_sl_content.Text = "SL";
+            this.m_sl_content.Click += new System.EventHandler(this.label125_Click);
+            // 
+            // cmbTarget
+            // 
+            this.cmbTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTarget.Enabled = false;
+            this.cmbTarget.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbTarget.FormattingEnabled = true;
+            this.cmbTarget.Items.AddRange(new object[] {
+            "A",
+            "B"});
+            this.cmbTarget.Location = new System.Drawing.Point(617, 21);
+            this.cmbTarget.Name = "cmbTarget";
+            this.cmbTarget.Size = new System.Drawing.Size(62, 20);
+            this.cmbTarget.TabIndex = 54;
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Enabled = false;
+            this.label98.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label98.Location = new System.Drawing.Point(594, 5);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(101, 12);
+            this.label98.TabIndex = 53;
+            this.label98.Text = "Inventoried Flag";
+            // 
+            // cmbSession
+            // 
+            this.cmbSession.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSession.Enabled = false;
+            this.cmbSession.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbSession.FormattingEnabled = true;
+            this.cmbSession.Items.AddRange(new object[] {
+            "S0",
+            "S1",
+            "S2",
+            "S3",
+            "SL"});
+            this.cmbSession.Location = new System.Drawing.Point(511, 20);
+            this.cmbSession.Name = "cmbSession";
+            this.cmbSession.Size = new System.Drawing.Size(62, 20);
+            this.cmbSession.TabIndex = 52;
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Enabled = false;
+            this.label97.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label97.Location = new System.Drawing.Point(510, 4);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(65, 12);
+            this.label97.TabIndex = 51;
+            this.label97.Text = "Session ID";
             // 
             // excel_format_rb
             // 
@@ -2587,270 +2851,6 @@ namespace UHFDemo
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(0, 12);
             this.label19.TabIndex = 0;
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tableLayoutPanel1.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 34.6425F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 65.35751F));
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(994, 55);
-            this.tableLayoutPanel1.TabIndex = 48;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.textRealRound);
-            this.panel1.Controls.Add(this.label84);
-            this.panel1.Controls.Add(this.btRealTimeInventory);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(4, 4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(337, 47);
-            this.panel1.TabIndex = 0;
-            // 
-            // textRealRound
-            // 
-            this.textRealRound.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textRealRound.Location = new System.Drawing.Point(296, 12);
-            this.textRealRound.Name = "textRealRound";
-            this.textRealRound.Size = new System.Drawing.Size(28, 21);
-            this.textRealRound.TabIndex = 48;
-            this.textRealRound.Text = "1";
-            this.textRealRound.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label84.Location = new System.Drawing.Point(169, 17);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(119, 12);
-            this.label84.TabIndex = 2;
-            this.label84.Text = "每条命令的盘存次数:";
-            // 
-            // btRealTimeInventory
-            // 
-            this.btRealTimeInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btRealTimeInventory.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btRealTimeInventory.Location = new System.Drawing.Point(19, 2);
-            this.btRealTimeInventory.Name = "btRealTimeInventory";
-            this.btRealTimeInventory.Size = new System.Drawing.Size(144, 38);
-            this.btRealTimeInventory.TabIndex = 1;
-            this.btRealTimeInventory.Text = "开始盘存";
-            this.btRealTimeInventory.UseVisualStyleBackColor = true;
-            this.btRealTimeInventory.Click += new System.EventHandler(this.btRealTimeInventory_Click);
-            // 
-            // panel5
-            // 
-            this.panel5.Controls.Add(this.m_session_q_cb);
-            this.panel5.Controls.Add(this.m_session_sl_cb);
-            this.panel5.Controls.Add(this.m_session_max_q);
-            this.panel5.Controls.Add(this.m_session_min_q);
-            this.panel5.Controls.Add(this.m_session_start_q);
-            this.panel5.Controls.Add(this.m_max_q_content);
-            this.panel5.Controls.Add(this.m_min_q_content);
-            this.panel5.Controls.Add(this.m_start_q_content);
-            this.panel5.Controls.Add(this.m_session_sl);
-            this.panel5.Controls.Add(this.m_sl_content);
-            this.panel5.Controls.Add(this.cbRealSession);
-            this.panel5.Controls.Add(this.cmbTarget);
-            this.panel5.Controls.Add(this.label98);
-            this.panel5.Controls.Add(this.cmbSession);
-            this.panel5.Controls.Add(this.label97);
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(348, 4);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(642, 47);
-            this.panel5.TabIndex = 1;
-            // 
-            // m_session_q_cb
-            // 
-            this.m_session_q_cb.AutoSize = true;
-            this.m_session_q_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_q_cb.Location = new System.Drawing.Point(446, 22);
-            this.m_session_q_cb.Name = "m_session_q_cb";
-            this.m_session_q_cb.Size = new System.Drawing.Size(15, 14);
-            this.m_session_q_cb.TabIndex = 65;
-            this.m_session_q_cb.UseVisualStyleBackColor = true;
-            this.m_session_q_cb.CheckedChanged += new System.EventHandler(this.m_session_q_cb_CheckedChanged);
-            // 
-            // m_session_sl_cb
-            // 
-            this.m_session_sl_cb.AutoSize = true;
-            this.m_session_sl_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_sl_cb.Location = new System.Drawing.Point(350, 22);
-            this.m_session_sl_cb.Name = "m_session_sl_cb";
-            this.m_session_sl_cb.Size = new System.Drawing.Size(15, 14);
-            this.m_session_sl_cb.TabIndex = 64;
-            this.m_session_sl_cb.UseVisualStyleBackColor = true;
-            this.m_session_sl_cb.CheckedChanged += new System.EventHandler(this.m_session_sl_cb_CheckedChanged);
-            // 
-            // m_session_max_q
-            // 
-            this.m_session_max_q.Enabled = false;
-            this.m_session_max_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_max_q.Location = new System.Drawing.Point(587, 19);
-            this.m_session_max_q.Name = "m_session_max_q";
-            this.m_session_max_q.Size = new System.Drawing.Size(28, 21);
-            this.m_session_max_q.TabIndex = 63;
-            this.m_session_max_q.Text = "0";
-            this.m_session_max_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // m_session_min_q
-            // 
-            this.m_session_min_q.Enabled = false;
-            this.m_session_min_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_min_q.Location = new System.Drawing.Point(531, 19);
-            this.m_session_min_q.Name = "m_session_min_q";
-            this.m_session_min_q.Size = new System.Drawing.Size(28, 21);
-            this.m_session_min_q.TabIndex = 62;
-            this.m_session_min_q.Text = "0";
-            this.m_session_min_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // m_session_start_q
-            // 
-            this.m_session_start_q.Enabled = false;
-            this.m_session_start_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_start_q.Location = new System.Drawing.Point(474, 19);
-            this.m_session_start_q.Name = "m_session_start_q";
-            this.m_session_start_q.Size = new System.Drawing.Size(28, 21);
-            this.m_session_start_q.TabIndex = 61;
-            this.m_session_start_q.Text = "0";
-            this.m_session_start_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // m_max_q_content
-            // 
-            this.m_max_q_content.AutoSize = true;
-            this.m_max_q_content.Enabled = false;
-            this.m_max_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_max_q_content.Location = new System.Drawing.Point(586, 5);
-            this.m_max_q_content.Name = "m_max_q_content";
-            this.m_max_q_content.Size = new System.Drawing.Size(35, 12);
-            this.m_max_q_content.TabIndex = 60;
-            this.m_max_q_content.Text = "Max Q";
-            // 
-            // m_min_q_content
-            // 
-            this.m_min_q_content.AutoSize = true;
-            this.m_min_q_content.Enabled = false;
-            this.m_min_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_min_q_content.Location = new System.Drawing.Point(529, 5);
-            this.m_min_q_content.Name = "m_min_q_content";
-            this.m_min_q_content.Size = new System.Drawing.Size(35, 12);
-            this.m_min_q_content.TabIndex = 59;
-            this.m_min_q_content.Text = "Min Q";
-            // 
-            // m_start_q_content
-            // 
-            this.m_start_q_content.AutoSize = true;
-            this.m_start_q_content.Enabled = false;
-            this.m_start_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_start_q_content.Location = new System.Drawing.Point(463, 5);
-            this.m_start_q_content.Name = "m_start_q_content";
-            this.m_start_q_content.Size = new System.Drawing.Size(47, 12);
-            this.m_start_q_content.TabIndex = 58;
-            this.m_start_q_content.Text = "Start Q";
-            // 
-            // m_session_sl
-            // 
-            this.m_session_sl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.m_session_sl.Enabled = false;
-            this.m_session_sl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_sl.FormattingEnabled = true;
-            this.m_session_sl.Items.AddRange(new object[] {
-            "00",
-            "01",
-            "10",
-            "11"});
-            this.m_session_sl.Location = new System.Drawing.Point(375, 20);
-            this.m_session_sl.Name = "m_session_sl";
-            this.m_session_sl.Size = new System.Drawing.Size(62, 20);
-            this.m_session_sl.TabIndex = 57;
-            // 
-            // m_sl_content
-            // 
-            this.m_sl_content.AutoSize = true;
-            this.m_sl_content.Enabled = false;
-            this.m_sl_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_sl_content.Location = new System.Drawing.Point(399, 5);
-            this.m_sl_content.Name = "m_sl_content";
-            this.m_sl_content.Size = new System.Drawing.Size(17, 12);
-            this.m_sl_content.TabIndex = 56;
-            this.m_sl_content.Text = "SL";
-            this.m_sl_content.Click += new System.EventHandler(this.label125_Click);
-            // 
-            // cbRealSession
-            // 
-            this.cbRealSession.AutoSize = true;
-            this.cbRealSession.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealSession.Location = new System.Drawing.Point(14, 17);
-            this.cbRealSession.Name = "cbRealSession";
-            this.cbRealSession.Size = new System.Drawing.Size(126, 16);
-            this.cbRealSession.TabIndex = 55;
-            this.cbRealSession.Text = "自定义Session参数";
-            this.cbRealSession.UseVisualStyleBackColor = true;
-            this.cbRealSession.CheckedChanged += new System.EventHandler(this.cbRealSession_CheckedChanged);
-            // 
-            // cmbTarget
-            // 
-            this.cmbTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTarget.Enabled = false;
-            this.cmbTarget.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cmbTarget.FormattingEnabled = true;
-            this.cmbTarget.Items.AddRange(new object[] {
-            "A",
-            "B"});
-            this.cmbTarget.Location = new System.Drawing.Point(262, 20);
-            this.cmbTarget.Name = "cmbTarget";
-            this.cmbTarget.Size = new System.Drawing.Size(62, 20);
-            this.cmbTarget.TabIndex = 54;
-            // 
-            // label98
-            // 
-            this.label98.AutoSize = true;
-            this.label98.Enabled = false;
-            this.label98.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label98.Location = new System.Drawing.Point(244, 5);
-            this.label98.Name = "label98";
-            this.label98.Size = new System.Drawing.Size(107, 12);
-            this.label98.TabIndex = 53;
-            this.label98.Text = "Inventoried Flag:";
-            // 
-            // cmbSession
-            // 
-            this.cmbSession.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSession.Enabled = false;
-            this.cmbSession.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cmbSession.FormattingEnabled = true;
-            this.cmbSession.Items.AddRange(new object[] {
-            "S0",
-            "S1",
-            "S2",
-            "S3",
-            "SL"});
-            this.cmbSession.Location = new System.Drawing.Point(157, 20);
-            this.cmbSession.Name = "cmbSession";
-            this.cmbSession.Size = new System.Drawing.Size(62, 20);
-            this.cmbSession.TabIndex = 52;
-            // 
-            // label97
-            // 
-            this.label97.AutoSize = true;
-            this.label97.Enabled = false;
-            this.label97.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label97.Location = new System.Drawing.Point(157, 4);
-            this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(71, 12);
-            this.label97.TabIndex = 51;
-            this.label97.Text = "Session ID:";
             // 
             // tbRealMinRssi
             // 
@@ -3232,7 +3232,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 378F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 380F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3251,9 +3251,9 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(623, 4);
+            this.panel9.Location = new System.Drawing.Point(621, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(373, 74);
+            this.panel9.Size = new System.Drawing.Size(375, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3312,7 +3312,7 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(304, 74);
+            this.panel10.Size = new System.Drawing.Size(303, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3331,7 +3331,7 @@ namespace UHFDemo
             // 
             this.label85.AutoSize = true;
             this.label85.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label85.Location = new System.Drawing.Point(163, 29);
+            this.label85.Location = new System.Drawing.Point(154, 29);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(119, 12);
             this.label85.TabIndex = 49;
@@ -3340,7 +3340,7 @@ namespace UHFDemo
             // textReadRoundBuffer
             // 
             this.textReadRoundBuffer.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textReadRoundBuffer.Location = new System.Drawing.Point(288, 26);
+            this.textReadRoundBuffer.Location = new System.Drawing.Point(273, 26);
             this.textReadRoundBuffer.Name = "textReadRoundBuffer";
             this.textReadRoundBuffer.Size = new System.Drawing.Size(28, 21);
             this.textReadRoundBuffer.TabIndex = 50;
@@ -3358,9 +3358,9 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(315, 4);
+            this.panel8.Location = new System.Drawing.Point(314, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(301, 74);
+            this.panel8.Size = new System.Drawing.Size(300, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -4038,7 +4038,7 @@ namespace UHFDemo
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.20588F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.79412F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 310F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 313F));
             this.tableLayoutPanel2.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 2, 0);
@@ -4089,7 +4089,7 @@ namespace UHFDemo
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(190, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(486, 83);
+            this.panel2.Size = new System.Drawing.Size(483, 83);
             this.panel2.TabIndex = 0;
             // 
             // label124
@@ -4547,9 +4547,9 @@ namespace UHFDemo
             this.panel4.Controls.Add(this.label73);
             this.panel4.Controls.Add(this.label72);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(684, 5);
+            this.panel4.Location = new System.Drawing.Point(681, 5);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(305, 83);
+            this.panel4.Size = new System.Drawing.Size(308, 83);
             this.panel4.TabIndex = 2;
             // 
             // txtRepeat
@@ -6660,7 +6660,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v3.8.1";
+            this.Text = "UHF RFID Reader Demo v3.9.0";
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
             this.PagReaderSetting.ResumeLayout(false);
@@ -6718,13 +6718,11 @@ namespace UHFDemo
             this.tabEpcTest.ResumeLayout(false);
             this.pageRealMode.ResumeLayout(false);
             this.pageRealMode.PerformLayout();
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.groupBox20.ResumeLayout(false);
+            this.groupBox20.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ledReal3)).EndInit();
@@ -6909,8 +6907,6 @@ namespace UHFDemo
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TextBox txtFastMinRssi;
         private System.Windows.Forms.TextBox txtFastMaxRssi;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TextBox tbRealMinRssi;
         private System.Windows.Forms.TextBox tbRealMaxRssi;
@@ -7180,7 +7176,6 @@ namespace UHFDemo
         private System.Windows.Forms.CheckBox cbRealWorkant3;
         private System.Windows.Forms.CheckBox cbRealWorkant2;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.CheckBox cbRealSession;
         private System.Windows.Forms.ComboBox cmbTarget;
         private System.Windows.Forms.Label label98;
         private System.Windows.Forms.ComboBox cmbSession;
@@ -7333,6 +7328,9 @@ namespace UHFDemo
         private Timer timer1;
         private Timer totalTimeBuffer;
         private ImageList sortImageList;
+        private RadioButton sessionInventoryrb;
+        private RadioButton autoInventoryrb;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }
 

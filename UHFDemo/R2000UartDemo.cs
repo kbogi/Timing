@@ -4811,7 +4811,7 @@ namespace UHFDemo
                 }
                 m_curInventoryBuffer.btRepeat = Convert.ToByte(textRealRound.Text);
 
-                if (cbRealSession.Checked == true)
+                if (this.sessionInventoryrb.Checked == true)
                 {
                     if (cmbSession.SelectedIndex == -1)
                     {
@@ -5722,6 +5722,7 @@ namespace UHFDemo
         }
         private void cbRealSession_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             if (cbRealSession.Checked == true)
             {
                 label97.Enabled = true;
@@ -5737,7 +5738,7 @@ namespace UHFDemo
                 cmbTarget.Enabled = false;
 
                 m_session_sl_cb.Checked = false;
-            }
+            } */
         }
 
         private void btReturnLoss_Click(object sender, EventArgs e)
@@ -6979,7 +6980,8 @@ namespace UHFDemo
         {
             if (m_session_sl_cb.Checked)
             {
-                cbRealSession.Checked = true;
+                sessionInventoryrb.Checked = true;
+                //cbRealSession.Checked = true;
                 m_session_sl.Enabled = true;
                 m_sl_content.Enabled = true;
             }
@@ -6988,6 +6990,35 @@ namespace UHFDemo
                 m_session_q_cb.Checked = false;
                 m_session_sl.Enabled = false;
                 m_sl_content.Enabled = false;
+            }
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void autoInventoryrb_CheckedChanged(object sender, EventArgs e)
+        {
+            if(autoInventoryrb.Checked)
+            {
+                label97.Enabled = false;
+                label98.Enabled = false;
+                cmbSession.Enabled = false;
+                cmbTarget.Enabled = false;
+
+                m_session_sl_cb.Checked = false;
+            }
+        }
+
+        private void sessionInventoryrb_CheckedChanged(object sender, EventArgs e)
+        {
+            if(sessionInventoryrb.Checked)
+            {
+                label97.Enabled = true;
+                label98.Enabled = true;
+                cmbSession.Enabled = true;
+                cmbTarget.Enabled = true;
             }
         }
     }
