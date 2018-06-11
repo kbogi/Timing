@@ -549,6 +549,11 @@ namespace UHFDemo
             this.totalTime = new System.Windows.Forms.Timer(this.components);
             this.totalTimeBuffer = new System.Windows.Forms.Timer(this.components);
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
+            this.ｍOneKeyInventory = new System.Windows.Forms.Button();
+            this.label125 = new System.Windows.Forms.Label();
+            this.mInventoryAStatusCount = new System.Windows.Forms.TextBox();
+            this.label126 = new System.Windows.Forms.Label();
+            this.mInventoryBStatusCount = new System.Windows.Forms.TextBox();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2736,6 +2741,11 @@ namespace UHFDemo
             // 
             // groupBox20
             // 
+            this.groupBox20.Controls.Add(this.mInventoryBStatusCount);
+            this.groupBox20.Controls.Add(this.label126);
+            this.groupBox20.Controls.Add(this.mInventoryAStatusCount);
+            this.groupBox20.Controls.Add(this.label125);
+            this.groupBox20.Controls.Add(this.ｍOneKeyInventory);
             this.groupBox20.Controls.Add(this.cbRealWorkant8);
             this.groupBox20.Controls.Add(this.cbRealWorkant7);
             this.groupBox20.Controls.Add(this.cbRealWorkant6);
@@ -2758,7 +2768,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant8.AutoSize = true;
             this.cbRealWorkant8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant8.Location = new System.Drawing.Point(775, 22);
+            this.cbRealWorkant8.Location = new System.Drawing.Point(921, 22);
             this.cbRealWorkant8.Name = "cbRealWorkant8";
             this.cbRealWorkant8.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant8.TabIndex = 72;
@@ -2769,7 +2779,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant7.AutoSize = true;
             this.cbRealWorkant7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant7.Location = new System.Drawing.Point(689, 22);
+            this.cbRealWorkant7.Location = new System.Drawing.Point(860, 22);
             this.cbRealWorkant7.Name = "cbRealWorkant7";
             this.cbRealWorkant7.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant7.TabIndex = 71;
@@ -2780,7 +2790,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant6.AutoSize = true;
             this.cbRealWorkant6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant6.Location = new System.Drawing.Point(591, 22);
+            this.cbRealWorkant6.Location = new System.Drawing.Point(784, 22);
             this.cbRealWorkant6.Name = "cbRealWorkant6";
             this.cbRealWorkant6.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant6.TabIndex = 70;
@@ -2791,7 +2801,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant5.AutoSize = true;
             this.cbRealWorkant5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant5.Location = new System.Drawing.Point(505, 22);
+            this.cbRealWorkant5.Location = new System.Drawing.Point(702, 22);
             this.cbRealWorkant5.Name = "cbRealWorkant5";
             this.cbRealWorkant5.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant5.TabIndex = 69;
@@ -2804,7 +2814,7 @@ namespace UHFDemo
             this.cbRealWorkant1.Checked = true;
             this.cbRealWorkant1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRealWorkant1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant1.Location = new System.Drawing.Point(128, 22);
+            this.cbRealWorkant1.Location = new System.Drawing.Point(393, 22);
             this.cbRealWorkant1.Name = "cbRealWorkant1";
             this.cbRealWorkant1.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant1.TabIndex = 68;
@@ -2815,7 +2825,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant4.AutoSize = true;
             this.cbRealWorkant4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant4.Location = new System.Drawing.Point(412, 22);
+            this.cbRealWorkant4.Location = new System.Drawing.Point(624, 22);
             this.cbRealWorkant4.Name = "cbRealWorkant4";
             this.cbRealWorkant4.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant4.TabIndex = 67;
@@ -2826,7 +2836,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant3.AutoSize = true;
             this.cbRealWorkant3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant3.Location = new System.Drawing.Point(319, 22);
+            this.cbRealWorkant3.Location = new System.Drawing.Point(545, 22);
             this.cbRealWorkant3.Name = "cbRealWorkant3";
             this.cbRealWorkant3.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant3.TabIndex = 66;
@@ -2837,7 +2847,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant2.AutoSize = true;
             this.cbRealWorkant2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant2.Location = new System.Drawing.Point(224, 22);
+            this.cbRealWorkant2.Location = new System.Drawing.Point(474, 22);
             this.cbRealWorkant2.Name = "cbRealWorkant2";
             this.cbRealWorkant2.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant2.TabIndex = 65;
@@ -3232,7 +3242,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 380F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 382F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3251,9 +3261,9 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(621, 4);
+            this.panel9.Location = new System.Drawing.Point(619, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(375, 74);
+            this.panel9.Size = new System.Drawing.Size(377, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3312,7 +3322,7 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(303, 74);
+            this.panel10.Size = new System.Drawing.Size(302, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3358,9 +3368,9 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(314, 4);
+            this.panel8.Location = new System.Drawing.Point(313, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(300, 74);
+            this.panel8.Size = new System.Drawing.Size(299, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -4038,7 +4048,7 @@ namespace UHFDemo
             this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.20588F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.79412F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 313F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 316F));
             this.tableLayoutPanel2.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 2, 0);
@@ -4087,9 +4097,9 @@ namespace UHFDemo
             this.panel2.Controls.Add(this.label59);
             this.panel2.Controls.Add(this.label48);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(190, 5);
+            this.panel2.Location = new System.Drawing.Point(189, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(483, 83);
+            this.panel2.Size = new System.Drawing.Size(481, 83);
             this.panel2.TabIndex = 0;
             // 
             // label124
@@ -4525,7 +4535,7 @@ namespace UHFDemo
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(5, 5);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(177, 83);
+            this.panel3.Size = new System.Drawing.Size(176, 83);
             this.panel3.TabIndex = 1;
             // 
             // btFastInventory
@@ -4547,9 +4557,9 @@ namespace UHFDemo
             this.panel4.Controls.Add(this.label73);
             this.panel4.Controls.Add(this.label72);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(681, 5);
+            this.panel4.Location = new System.Drawing.Point(678, 5);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(308, 83);
+            this.panel4.Size = new System.Drawing.Size(311, 83);
             this.panel4.TabIndex = 2;
             // 
             // txtRepeat
@@ -6643,6 +6653,58 @@ namespace UHFDemo
             this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
+            // ｍOneKeyInventory
+            // 
+            this.ｍOneKeyInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ｍOneKeyInventory.ForeColor = System.Drawing.Color.DarkBlue;
+            this.ｍOneKeyInventory.Location = new System.Drawing.Point(11, 13);
+            this.ｍOneKeyInventory.Name = "ｍOneKeyInventory";
+            this.ｍOneKeyInventory.Size = new System.Drawing.Size(144, 34);
+            this.ｍOneKeyInventory.TabIndex = 74;
+            this.ｍOneKeyInventory.Text = "一键盘存";
+            this.ｍOneKeyInventory.UseVisualStyleBackColor = true;
+            this.ｍOneKeyInventory.Click += new System.EventHandler(this.ｍOneKeyInventory_Click);
+            // 
+            // label125
+            // 
+            this.label125.AutoSize = true;
+            this.label125.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label125.Location = new System.Drawing.Point(178, 27);
+            this.label125.Name = "label125";
+            this.label125.Size = new System.Drawing.Size(23, 12);
+            this.label125.TabIndex = 75;
+            this.label125.Text = "A：";
+            // 
+            // mInventoryAStatusCount
+            // 
+            this.mInventoryAStatusCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mInventoryAStatusCount.Location = new System.Drawing.Point(203, 22);
+            this.mInventoryAStatusCount.Name = "mInventoryAStatusCount";
+            this.mInventoryAStatusCount.Size = new System.Drawing.Size(28, 21);
+            this.mInventoryAStatusCount.TabIndex = 77;
+            this.mInventoryAStatusCount.Text = "1";
+            this.mInventoryAStatusCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label126
+            // 
+            this.label126.AutoSize = true;
+            this.label126.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label126.Location = new System.Drawing.Point(271, 26);
+            this.label126.Name = "label126";
+            this.label126.Size = new System.Drawing.Size(17, 12);
+            this.label126.TabIndex = 78;
+            this.label126.Text = "B:";
+            // 
+            // mInventoryBStatusCount
+            // 
+            this.mInventoryBStatusCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mInventoryBStatusCount.Location = new System.Drawing.Point(300, 23);
+            this.mInventoryBStatusCount.Name = "mInventoryBStatusCount";
+            this.mInventoryBStatusCount.Size = new System.Drawing.Size(28, 21);
+            this.mInventoryBStatusCount.TabIndex = 79;
+            this.mInventoryBStatusCount.Text = "1";
+            this.mInventoryBStatusCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // R2000UartDemo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -7331,6 +7393,11 @@ namespace UHFDemo
         private RadioButton sessionInventoryrb;
         private RadioButton autoInventoryrb;
         private TableLayoutPanel tableLayoutPanel1;
+        private TextBox mInventoryBStatusCount;
+        private Label label126;
+        private TextBox mInventoryAStatusCount;
+        private Label label125;
+        private Button ｍOneKeyInventory;
     }
 }
 

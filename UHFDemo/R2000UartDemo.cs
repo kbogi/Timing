@@ -55,6 +55,12 @@ namespace UHFDemo
 
         private int m_nReceiveFlag = 0;
 
+        //A,B Inventory Count
+        private int m_AStatusInventoryCount;
+        private int m_BStatusInventoryCount;
+
+        private bool m_OneKeyRunning = false;
+
         public R2000UartDemo()
         {
             InitializeComponent();
@@ -1188,8 +1194,18 @@ namespace UHFDemo
                             //btnInventory.Enabled = false;
                             if (m_curInventoryBuffer.bLoopCustomizedSession)//自定义Session和Inventoried Flag 
                             {
-                                //reader.CustomizedInventory(m_curSetting.btReadId, m_curInventoryBuffer.btSession, m_curInventoryBuffer.btTarget, m_curInventoryBuffer.btRepeat); 
-                                reader.CustomizedInventoryV2(m_curSetting.btReadId,m_curInventoryBuffer.CustomizeSessionParameters.ToArray());
+                                if (this.m_AStatusInventoryCount > 0)
+                                {
+                                    reader.CustomizedInventory(m_curSetting.btReadId, 0x02,0x00,0x01);
+                                }
+                                else
+                                {
+                                    if (this.m_BStatusInventoryCount > 0)
+                                    {
+                                        reader.CustomizedInventory(m_curSetting.btReadId, 0x02, 0x01, 0x01);
+                                    }
+                                }
+                                //reader.CustomizedInventoryV2(m_curSetting.btReadId,m_curInventoryBuffer.CustomizeSessionParameters.ToArray());
                             }
                             else //实时盘存
                             {
@@ -1216,6 +1232,24 @@ namespace UHFDemo
                 //校验是否循环盘存
                 else if (m_curInventoryBuffer.bLoopInventory)
                 {
+                    if (this.m_AStatusInventoryCount > 0)
+                    {
+                        this.m_AStatusInventoryCount--;
+                    }
+                    else
+                    {
+                        if (this.m_BStatusInventoryCount > 0)
+                        {
+                            this.m_BStatusInventoryCount--;
+                        }
+                        else
+                        {
+                            m_curInventoryBuffer.bLoopInventory = false;
+                            m_curInventoryBuffer.bLoopInventoryReal = false;
+                            //this.m_OneKeyRunning = false;
+                            return;
+                        }
+                    }
                     m_curInventoryBuffer.nIndexAntenna = 0;
                     m_curInventoryBuffer.nCommond = 0;
 
@@ -7020,6 +7054,142 @@ namespace UHFDemo
                 cmbSession.Enabled = true;
                 cmbTarget.Enabled = true;
             }
+        }
+
+        private void ｍOneKeyInventory_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                /*
+                if (m_OneKeyRunning)
+                {
+                    MessageBox.Show("命令正在执行，请命令执行完成后操作！");
+                    return;
+                }*/
+
+                m_curInventoryBuffer.ClearInventoryPar();
+
+                if (this.mInventoryAStatusCount.Text.Length == 0)
+                {
+                    MessageBox.Show("请输入A状态循环次数");
+                    return;
+                }
+
+                if (this.mInventoryBStatusCount.Text.Length == 0)
+                {
+                    MessageBox.Show("请输入B状态循环次数");
+                    return;
+                }
+
+                //m_curInventoryBuffer.btRepeat = Convert.ToByte(textRealRound.Text);
+                this.m_AStatusInventoryCount = Convert.ToInt32(this.mInventoryAStatusCount.Text);
+                this.m_BStatusInventoryCount = Convert.ToInt32(this.mInventoryBStatusCount.Text);
+
+                this.m_bInventory = true;
+                
+                m_curInventoryBuffer.bLoopInventory = true;
+                m_curInventoryBuffer.bLoopCustomizedSession = true;
+
+                //m_OneKeyRunning = true;
+
+                /*
+                if (this.sessionInventoryrb.Checked == true)
+                {*/
+                   
+                    
+                   // m_curInventoryBuffer.btSession = (byte)cmbSession.SelectedIndex;
+                   // m_curInventoryBuffer.btTarget = (byte)cmbTarget.SelectedIndex;
+
+                   // m_curInventoryBuffer.CustomizeSessionParameters.Add((byte)cmbSession.SelectedIndex);
+                   // m_curInventoryBuffer.CustomizeSessionParameters.Add((byte)cmbTarget.SelectedIndex);
+                    /*
+                    if (m_session_sl_cb.Checked)
+                    {
+                        m_curInventoryBuffer.CustomizeSessionParameters.Add((byte)m_session_sl.SelectedIndex);
+                    }
+                    
+                    if (m_session_q_cb.Checked)
+                    {
+                        byte startQ = Convert.ToByte(m_session_start_q.Text);
+                        byte minQ = Convert.ToByte(m_session_min_q.Text);
+                        byte maxQ = Convert.ToByte(m_session_max_q.Text);
+                        if (startQ < 0 || minQ < 0 || maxQ < 0 || startQ > 15 || minQ > 15 || maxQ > 15)
+                        {
+                            MessageBox.Show("Start Q,Min Q,Max Q must be 0-15");
+                            return;
+                        }
+                        m_curInventoryBuffer.CustomizeSessionParameters.Add(startQ);
+                        m_curInventoryBuffer.CustomizeSessionParameters.Add(minQ);
+                        m_curInventoryBuffer.CustomizeSessionParameters.Add(maxQ);
+
+                    } */
+                   // m_curInventoryBuffer.CustomizeSessionParameters.Add(Convert.ToByte(textRealRound.Text));
+                /*
+                }
+                else
+                {
+                    m_curInventoryBuffer.bLoopCustomizedSession = false;
+                }
+                 * */
+
+                if (cbRealWorkant1.Checked)
+                {
+                    m_curInventoryBuffer.lAntenna.Add(0x00);
+                }
+                if (cbRealWorkant2.Checked)
+                {
+                    m_curInventoryBuffer.lAntenna.Add(0x01);
+                }
+                if (cbRealWorkant3.Checked)
+                {
+                    m_curInventoryBuffer.lAntenna.Add(0x02);
+                }
+                if (cbRealWorkant4.Checked)
+                {
+                    m_curInventoryBuffer.lAntenna.Add(0x03);
+                }
+                if (cbRealWorkant5.Checked)
+                {
+                    m_curInventoryBuffer.lAntenna.Add(0x04);
+                }
+                if (cbRealWorkant6.Checked)
+                {
+                    m_curInventoryBuffer.lAntenna.Add(0x05);
+                }
+                if (cbRealWorkant7.Checked)
+                {
+                    m_curInventoryBuffer.lAntenna.Add(0x06);
+                }
+                if (cbRealWorkant8.Checked)
+                {
+                    m_curInventoryBuffer.lAntenna.Add(0x07);
+                }
+                if (m_curInventoryBuffer.lAntenna.Count == 0)
+                {
+                    MessageBox.Show("请至少选择一个天线");
+                    return;
+                }
+
+                m_curInventoryBuffer.bLoopInventoryReal = true;
+
+                m_curInventoryBuffer.ClearInventoryRealResult();
+                lvRealList.Items.Clear();
+                lvRealList.Items.Clear();
+                tbRealMaxRssi.Text = "0";
+                tbRealMinRssi.Text = "0";
+                m_nTotal = 0;
+
+
+                byte btWorkAntenna = m_curInventoryBuffer.lAntenna[m_curInventoryBuffer.nIndexAntenna];
+                reader.SetWorkAntenna(m_curSetting.btReadId, btWorkAntenna);
+                m_curSetting.btWorkAntenna = btWorkAntenna;
+                //totalTime.Enabled = true;
+
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }  
         }
     }
 }
