@@ -42,6 +42,8 @@ namespace Reader
             iSerialPort = new SerialPort();
 
             iSerialPort.DataReceived+=new SerialDataReceivedEventHandler(ReceivedComData);
+
+            iSerialPort.ErrorReceived += new SerialErrorReceivedEventHandler(DevicePortError_DataReceived);
         }
 
         public int OpenCom(string strPort, int nBaudrate, out string strException)
@@ -110,6 +112,7 @@ namespace Reader
             try
             {
                 int nCount = iSerialPort.BytesToRead;
+
                 if (nCount == 0)
                 {
                     return;
@@ -122,8 +125,14 @@ namespace Reader
             }
             catch (System.Exception ex)
             {
-            	
+                Console.WriteLine("Exception information:" + ex.ToString());
             }
+        }
+
+        //add error handle
+        private void DevicePortError_DataReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            Console.WriteLine("Exception information:" + e.ToString());
         }
 
         private void RunReceiveDataCallback(byte[] btAryReceiveData)

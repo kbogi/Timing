@@ -192,6 +192,10 @@ namespace UHFDemo
             this.pageRealMode = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.customizedExeTime = new System.Windows.Forms.TextBox();
+            this.label127 = new System.Windows.Forms.Label();
+            this.Duration = new System.Windows.Forms.Label();
+            this.mSessionExeTime = new System.Windows.Forms.ComboBox();
             this.btRealTimeInventory = new System.Windows.Forms.Button();
             this.label84 = new System.Windows.Forms.Label();
             this.textRealRound = new System.Windows.Forms.TextBox();
@@ -215,6 +219,11 @@ namespace UHFDemo
             this.txt_format_rb = new System.Windows.Forms.RadioButton();
             this.button8 = new System.Windows.Forms.Button();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.mInventoryBStatusCount = new System.Windows.Forms.TextBox();
+            this.label126 = new System.Windows.Forms.Label();
+            this.mInventoryAStatusCount = new System.Windows.Forms.TextBox();
+            this.label125 = new System.Windows.Forms.Label();
+            this.ｍOneKeyInventory = new System.Windows.Forms.Button();
             this.cbRealWorkant8 = new System.Windows.Forms.CheckBox();
             this.cbRealWorkant7 = new System.Windows.Forms.CheckBox();
             this.cbRealWorkant6 = new System.Windows.Forms.CheckBox();
@@ -545,15 +554,29 @@ namespace UHFDemo
             this.lxLedControl17 = new LxControl.LxLedControl();
             this.lxLedControl18 = new LxControl.LxLedControl();
             this.timerInventory = new System.Windows.Forms.Timer(this.components);
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.intervalExecuteTimer = new System.Windows.Forms.Timer(this.components);
             this.totalTime = new System.Windows.Forms.Timer(this.components);
-            this.totalTimeBuffer = new System.Windows.Forms.Timer(this.components);
+            this.mFastSessionTimer = new System.Windows.Forms.Timer(this.components);
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
-            this.ｍOneKeyInventory = new System.Windows.Forms.Button();
-            this.label125 = new System.Windows.Forms.Label();
-            this.mInventoryAStatusCount = new System.Windows.Forms.TextBox();
-            this.label126 = new System.Windows.Forms.Label();
-            this.mInventoryBStatusCount = new System.Windows.Forms.TextBox();
+            this.label128 = new System.Windows.Forms.Label();
+            this.m_intervalTimetb = new System.Windows.Forms.TextBox();
+            this.label129 = new System.Windows.Forms.Label();
+            this.mTestTagCounts = new System.Windows.Forms.TextBox();
+            this.mPower1 = new System.Windows.Forms.TextBox();
+            this.mPower2 = new System.Windows.Forms.TextBox();
+            this.mPower3 = new System.Windows.Forms.TextBox();
+            this.mPower4 = new System.Windows.Forms.TextBox();
+            this.mPower5 = new System.Windows.Forms.TextBox();
+            this.label130 = new System.Windows.Forms.Label();
+            this.label131 = new System.Windows.Forms.Label();
+            this.label132 = new System.Windows.Forms.Label();
+            this.mFastIntervalTime = new System.Windows.Forms.TextBox();
+            this.mFastExeCount = new System.Windows.Forms.TextBox();
+            this.mFastSession = new System.Windows.Forms.CheckBox();
+            this.mFastSessionSelect = new System.Windows.Forms.ComboBox();
+            this.label133 = new System.Windows.Forms.Label();
+            this.m_fast_session_power_time = new System.Windows.Forms.TextBox();
+            this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2455,6 +2478,10 @@ namespace UHFDemo
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.customizedExeTime);
+            this.panel5.Controls.Add(this.label127);
+            this.panel5.Controls.Add(this.Duration);
+            this.panel5.Controls.Add(this.mSessionExeTime);
             this.panel5.Controls.Add(this.btRealTimeInventory);
             this.panel5.Controls.Add(this.label84);
             this.panel5.Controls.Add(this.textRealRound);
@@ -2479,6 +2506,48 @@ namespace UHFDemo
             this.panel5.Size = new System.Drawing.Size(984, 48);
             this.panel5.TabIndex = 1;
             // 
+            // customizedExeTime
+            // 
+            this.customizedExeTime.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.customizedExeTime.Location = new System.Drawing.Point(271, 25);
+            this.customizedExeTime.Name = "customizedExeTime";
+            this.customizedExeTime.Size = new System.Drawing.Size(52, 21);
+            this.customizedExeTime.TabIndex = 71;
+            this.customizedExeTime.Text = "0";
+            this.customizedExeTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label127
+            // 
+            this.label127.AutoSize = true;
+            this.label127.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label127.Location = new System.Drawing.Point(209, 29);
+            this.label127.Name = "label127";
+            this.label127.Size = new System.Drawing.Size(59, 12);
+            this.label127.TabIndex = 70;
+            this.label127.Text = "运行时间:";
+            // 
+            // Duration
+            // 
+            this.Duration.AutoSize = true;
+            this.Duration.Enabled = false;
+            this.Duration.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Duration.Location = new System.Drawing.Point(724, 4);
+            this.Duration.Name = "Duration";
+            this.Duration.Size = new System.Drawing.Size(53, 12);
+            this.Duration.TabIndex = 69;
+            this.Duration.Text = "Duration";
+            // 
+            // mSessionExeTime
+            // 
+            this.mSessionExeTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.mSessionExeTime.Enabled = false;
+            this.mSessionExeTime.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mSessionExeTime.FormattingEnabled = true;
+            this.mSessionExeTime.Location = new System.Drawing.Point(710, 22);
+            this.mSessionExeTime.Name = "mSessionExeTime";
+            this.mSessionExeTime.Size = new System.Drawing.Size(87, 20);
+            this.mSessionExeTime.TabIndex = 68;
+            // 
             // btRealTimeInventory
             // 
             this.btRealTimeInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -2495,7 +2564,7 @@ namespace UHFDemo
             // 
             this.label84.AutoSize = true;
             this.label84.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label84.Location = new System.Drawing.Point(161, 18);
+            this.label84.Location = new System.Drawing.Point(153, 8);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(119, 12);
             this.label84.TabIndex = 2;
@@ -2504,9 +2573,9 @@ namespace UHFDemo
             // textRealRound
             // 
             this.textRealRound.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textRealRound.Location = new System.Drawing.Point(288, 13);
+            this.textRealRound.Location = new System.Drawing.Point(271, 3);
             this.textRealRound.Name = "textRealRound";
-            this.textRealRound.Size = new System.Drawing.Size(28, 21);
+            this.textRealRound.Size = new System.Drawing.Size(52, 21);
             this.textRealRound.TabIndex = 48;
             this.textRealRound.Text = "1";
             this.textRealRound.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -2514,7 +2583,7 @@ namespace UHFDemo
             // sessionInventoryrb
             // 
             this.sessionInventoryrb.AutoSize = true;
-            this.sessionInventoryrb.Location = new System.Drawing.Point(347, 27);
+            this.sessionInventoryrb.Location = new System.Drawing.Point(329, 28);
             this.sessionInventoryrb.Name = "sessionInventoryrb";
             this.sessionInventoryrb.Size = new System.Drawing.Size(116, 18);
             this.sessionInventoryrb.TabIndex = 67;
@@ -2527,7 +2596,7 @@ namespace UHFDemo
             // 
             this.autoInventoryrb.AutoSize = true;
             this.autoInventoryrb.Checked = true;
-            this.autoInventoryrb.Location = new System.Drawing.Point(347, 4);
+            this.autoInventoryrb.Location = new System.Drawing.Point(329, 4);
             this.autoInventoryrb.Name = "autoInventoryrb";
             this.autoInventoryrb.Size = new System.Drawing.Size(53, 18);
             this.autoInventoryrb.TabIndex = 66;
@@ -2551,7 +2620,7 @@ namespace UHFDemo
             // 
             this.m_session_sl_cb.AutoSize = true;
             this.m_session_sl_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_sl_cb.Location = new System.Drawing.Point(700, 23);
+            this.m_session_sl_cb.Location = new System.Drawing.Point(619, 25);
             this.m_session_sl_cb.Name = "m_session_sl_cb";
             this.m_session_sl_cb.Size = new System.Drawing.Size(15, 14);
             this.m_session_sl_cb.TabIndex = 64;
@@ -2635,7 +2704,7 @@ namespace UHFDemo
             "01",
             "10",
             "11"});
-            this.m_session_sl.Location = new System.Drawing.Point(735, 21);
+            this.m_session_sl.Location = new System.Drawing.Point(642, 22);
             this.m_session_sl.Name = "m_session_sl";
             this.m_session_sl.Size = new System.Drawing.Size(62, 20);
             this.m_session_sl.TabIndex = 57;
@@ -2645,7 +2714,7 @@ namespace UHFDemo
             this.m_sl_content.AutoSize = true;
             this.m_sl_content.Enabled = false;
             this.m_sl_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_sl_content.Location = new System.Drawing.Point(752, 5);
+            this.m_sl_content.Location = new System.Drawing.Point(666, 4);
             this.m_sl_content.Name = "m_sl_content";
             this.m_sl_content.Size = new System.Drawing.Size(17, 12);
             this.m_sl_content.TabIndex = 56;
@@ -2661,7 +2730,7 @@ namespace UHFDemo
             this.cmbTarget.Items.AddRange(new object[] {
             "A",
             "B"});
-            this.cmbTarget.Location = new System.Drawing.Point(617, 21);
+            this.cmbTarget.Location = new System.Drawing.Point(529, 23);
             this.cmbTarget.Name = "cmbTarget";
             this.cmbTarget.Size = new System.Drawing.Size(62, 20);
             this.cmbTarget.TabIndex = 54;
@@ -2671,7 +2740,7 @@ namespace UHFDemo
             this.label98.AutoSize = true;
             this.label98.Enabled = false;
             this.label98.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label98.Location = new System.Drawing.Point(594, 5);
+            this.label98.Location = new System.Drawing.Point(515, 3);
             this.label98.Name = "label98";
             this.label98.Size = new System.Drawing.Size(101, 12);
             this.label98.TabIndex = 53;
@@ -2689,7 +2758,7 @@ namespace UHFDemo
             "S2",
             "S3",
             "SL"});
-            this.cmbSession.Location = new System.Drawing.Point(511, 20);
+            this.cmbSession.Location = new System.Drawing.Point(445, 23);
             this.cmbSession.Name = "cmbSession";
             this.cmbSession.Size = new System.Drawing.Size(62, 20);
             this.cmbSession.TabIndex = 52;
@@ -2699,7 +2768,7 @@ namespace UHFDemo
             this.label97.AutoSize = true;
             this.label97.Enabled = false;
             this.label97.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label97.Location = new System.Drawing.Point(510, 4);
+            this.label97.Location = new System.Drawing.Point(444, 4);
             this.label97.Name = "label97";
             this.label97.Size = new System.Drawing.Size(65, 12);
             this.label97.TabIndex = 51;
@@ -2741,6 +2810,10 @@ namespace UHFDemo
             // 
             // groupBox20
             // 
+            this.groupBox20.Controls.Add(this.mTestTagCounts);
+            this.groupBox20.Controls.Add(this.label129);
+            this.groupBox20.Controls.Add(this.m_intervalTimetb);
+            this.groupBox20.Controls.Add(this.label128);
             this.groupBox20.Controls.Add(this.mInventoryBStatusCount);
             this.groupBox20.Controls.Add(this.label126);
             this.groupBox20.Controls.Add(this.mInventoryAStatusCount);
@@ -2764,11 +2837,63 @@ namespace UHFDemo
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "选择天线 ";
             // 
+            // mInventoryBStatusCount
+            // 
+            this.mInventoryBStatusCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mInventoryBStatusCount.Location = new System.Drawing.Point(246, 22);
+            this.mInventoryBStatusCount.Name = "mInventoryBStatusCount";
+            this.mInventoryBStatusCount.Size = new System.Drawing.Size(28, 21);
+            this.mInventoryBStatusCount.TabIndex = 79;
+            this.mInventoryBStatusCount.Text = "0";
+            this.mInventoryBStatusCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label126
+            // 
+            this.label126.AutoSize = true;
+            this.label126.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label126.Location = new System.Drawing.Point(220, 26);
+            this.label126.Name = "label126";
+            this.label126.Size = new System.Drawing.Size(17, 12);
+            this.label126.TabIndex = 78;
+            this.label126.Text = "B:";
+            // 
+            // mInventoryAStatusCount
+            // 
+            this.mInventoryAStatusCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mInventoryAStatusCount.Location = new System.Drawing.Point(181, 22);
+            this.mInventoryAStatusCount.Name = "mInventoryAStatusCount";
+            this.mInventoryAStatusCount.Size = new System.Drawing.Size(28, 21);
+            this.mInventoryAStatusCount.TabIndex = 77;
+            this.mInventoryAStatusCount.Text = "1";
+            this.mInventoryAStatusCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label125
+            // 
+            this.label125.AutoSize = true;
+            this.label125.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label125.Location = new System.Drawing.Point(164, 27);
+            this.label125.Name = "label125";
+            this.label125.Size = new System.Drawing.Size(23, 12);
+            this.label125.TabIndex = 75;
+            this.label125.Text = "A：";
+            // 
+            // ｍOneKeyInventory
+            // 
+            this.ｍOneKeyInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ｍOneKeyInventory.ForeColor = System.Drawing.Color.DarkBlue;
+            this.ｍOneKeyInventory.Location = new System.Drawing.Point(11, 13);
+            this.ｍOneKeyInventory.Name = "ｍOneKeyInventory";
+            this.ｍOneKeyInventory.Size = new System.Drawing.Size(144, 34);
+            this.ｍOneKeyInventory.TabIndex = 74;
+            this.ｍOneKeyInventory.Text = "一键盘存";
+            this.ｍOneKeyInventory.UseVisualStyleBackColor = true;
+            this.ｍOneKeyInventory.Click += new System.EventHandler(this.ｍOneKeyInventory_Click);
+            // 
             // cbRealWorkant8
             // 
             this.cbRealWorkant8.AutoSize = true;
             this.cbRealWorkant8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant8.Location = new System.Drawing.Point(921, 22);
+            this.cbRealWorkant8.Location = new System.Drawing.Point(934, 22);
             this.cbRealWorkant8.Name = "cbRealWorkant8";
             this.cbRealWorkant8.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant8.TabIndex = 72;
@@ -2779,7 +2904,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant7.AutoSize = true;
             this.cbRealWorkant7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant7.Location = new System.Drawing.Point(860, 22);
+            this.cbRealWorkant7.Location = new System.Drawing.Point(875, 22);
             this.cbRealWorkant7.Name = "cbRealWorkant7";
             this.cbRealWorkant7.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant7.TabIndex = 71;
@@ -2790,7 +2915,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant6.AutoSize = true;
             this.cbRealWorkant6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant6.Location = new System.Drawing.Point(784, 22);
+            this.cbRealWorkant6.Location = new System.Drawing.Point(817, 22);
             this.cbRealWorkant6.Name = "cbRealWorkant6";
             this.cbRealWorkant6.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant6.TabIndex = 70;
@@ -2801,7 +2926,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant5.AutoSize = true;
             this.cbRealWorkant5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant5.Location = new System.Drawing.Point(702, 22);
+            this.cbRealWorkant5.Location = new System.Drawing.Point(757, 22);
             this.cbRealWorkant5.Name = "cbRealWorkant5";
             this.cbRealWorkant5.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant5.TabIndex = 69;
@@ -2814,7 +2939,7 @@ namespace UHFDemo
             this.cbRealWorkant1.Checked = true;
             this.cbRealWorkant1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRealWorkant1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant1.Location = new System.Drawing.Point(393, 22);
+            this.cbRealWorkant1.Location = new System.Drawing.Point(494, 22);
             this.cbRealWorkant1.Name = "cbRealWorkant1";
             this.cbRealWorkant1.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant1.TabIndex = 68;
@@ -2825,7 +2950,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant4.AutoSize = true;
             this.cbRealWorkant4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant4.Location = new System.Drawing.Point(624, 22);
+            this.cbRealWorkant4.Location = new System.Drawing.Point(697, 22);
             this.cbRealWorkant4.Name = "cbRealWorkant4";
             this.cbRealWorkant4.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant4.TabIndex = 67;
@@ -2836,7 +2961,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant3.AutoSize = true;
             this.cbRealWorkant3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant3.Location = new System.Drawing.Point(545, 22);
+            this.cbRealWorkant3.Location = new System.Drawing.Point(624, 22);
             this.cbRealWorkant3.Name = "cbRealWorkant3";
             this.cbRealWorkant3.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant3.TabIndex = 66;
@@ -2847,7 +2972,7 @@ namespace UHFDemo
             // 
             this.cbRealWorkant2.AutoSize = true;
             this.cbRealWorkant2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant2.Location = new System.Drawing.Point(474, 22);
+            this.cbRealWorkant2.Location = new System.Drawing.Point(561, 22);
             this.cbRealWorkant2.Name = "cbRealWorkant2";
             this.cbRealWorkant2.Size = new System.Drawing.Size(54, 16);
             this.cbRealWorkant2.TabIndex = 65;
@@ -3148,6 +3273,7 @@ namespace UHFDemo
             this.lvRealList.TabIndex = 23;
             this.lvRealList.UseCompatibleStateImageBehavior = false;
             this.lvRealList.View = System.Windows.Forms.View.Details;
+            this.lvRealList.SelectedIndexChanged += new System.EventHandler(this.lvRealList_SelectedIndexChanged);
             // 
             // columnHeader37
             // 
@@ -3242,7 +3368,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 382F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 390F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3261,9 +3387,9 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(619, 4);
+            this.panel9.Location = new System.Drawing.Point(611, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(377, 74);
+            this.panel9.Size = new System.Drawing.Size(385, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3322,7 +3448,7 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(302, 74);
+            this.panel10.Size = new System.Drawing.Size(298, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3368,9 +3494,9 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(313, 4);
+            this.panel8.Location = new System.Drawing.Point(309, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(299, 74);
+            this.panel8.Size = new System.Drawing.Size(295, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -3985,7 +4111,7 @@ namespace UHFDemo
             this.label58.AutoSize = true;
             this.label58.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label58.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label58.Location = new System.Drawing.Point(104, 17);
+            this.label58.Location = new System.Drawing.Point(151, 17);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(143, 12);
             this.label58.TabIndex = 26;
@@ -4003,7 +4129,7 @@ namespace UHFDemo
             this.ledFast1.FocusedBorderColor = System.Drawing.Color.LightCoral;
             this.ledFast1.ForeColor = System.Drawing.Color.MidnightBlue;
             this.ledFast1.HighlightOpaque = ((byte)(20));
-            this.ledFast1.Location = new System.Drawing.Point(106, 35);
+            this.ledFast1.Location = new System.Drawing.Point(144, 35);
             this.ledFast1.Name = "ledFast1";
             this.ledFast1.RoundCorner = true;
             this.ledFast1.SegmentIntervalRatio = 50;
@@ -4046,9 +4172,9 @@ namespace UHFDemo
             this.tableLayoutPanel2.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
             this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 27.20588F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 72.79412F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 316F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.33133F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.66868F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 333F));
             this.tableLayoutPanel2.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 2, 0);
@@ -4097,9 +4223,9 @@ namespace UHFDemo
             this.panel2.Controls.Add(this.label59);
             this.panel2.Controls.Add(this.label48);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(189, 5);
+            this.panel2.Location = new System.Drawing.Point(139, 5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(481, 83);
+            this.panel2.Size = new System.Drawing.Size(514, 83);
             this.panel2.TabIndex = 0;
             // 
             // label124
@@ -4535,16 +4661,16 @@ namespace UHFDemo
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(5, 5);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(176, 83);
+            this.panel3.Size = new System.Drawing.Size(126, 83);
             this.panel3.TabIndex = 1;
             // 
             // btFastInventory
             // 
             this.btFastInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btFastInventory.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btFastInventory.Location = new System.Drawing.Point(28, 16);
+            this.btFastInventory.Location = new System.Drawing.Point(3, 18);
             this.btFastInventory.Name = "btFastInventory";
-            this.btFastInventory.Size = new System.Drawing.Size(144, 38);
+            this.btFastInventory.Size = new System.Drawing.Size(123, 38);
             this.btFastInventory.TabIndex = 52;
             this.btFastInventory.Text = "开始盘存";
             this.btFastInventory.UseVisualStyleBackColor = true;
@@ -4552,28 +4678,42 @@ namespace UHFDemo
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.m_fast_session_power_time);
+            this.panel4.Controls.Add(this.label133);
+            this.panel4.Controls.Add(this.mFastSessionSelect);
+            this.panel4.Controls.Add(this.mFastSession);
+            this.panel4.Controls.Add(this.mFastExeCount);
+            this.panel4.Controls.Add(this.mFastIntervalTime);
+            this.panel4.Controls.Add(this.label132);
+            this.panel4.Controls.Add(this.label131);
+            this.panel4.Controls.Add(this.label130);
+            this.panel4.Controls.Add(this.mPower5);
+            this.panel4.Controls.Add(this.mPower4);
+            this.panel4.Controls.Add(this.mPower3);
+            this.panel4.Controls.Add(this.mPower2);
+            this.panel4.Controls.Add(this.mPower1);
             this.panel4.Controls.Add(this.txtRepeat);
             this.panel4.Controls.Add(this.txtInterval);
             this.panel4.Controls.Add(this.label73);
             this.panel4.Controls.Add(this.label72);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(678, 5);
+            this.panel4.Location = new System.Drawing.Point(661, 5);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(311, 83);
+            this.panel4.Size = new System.Drawing.Size(328, 83);
             this.panel4.TabIndex = 2;
             // 
             // txtRepeat
             // 
-            this.txtRepeat.Location = new System.Drawing.Point(153, 27);
+            this.txtRepeat.Location = new System.Drawing.Point(89, 27);
             this.txtRepeat.Name = "txtRepeat";
             this.txtRepeat.Size = new System.Drawing.Size(42, 21);
             this.txtRepeat.TabIndex = 58;
-            this.txtRepeat.Text = "10";
+            this.txtRepeat.Text = "1";
             this.txtRepeat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // txtInterval
             // 
-            this.txtInterval.Location = new System.Drawing.Point(55, 27);
+            this.txtInterval.Location = new System.Drawing.Point(28, 27);
             this.txtInterval.Name = "txtInterval";
             this.txtInterval.Size = new System.Drawing.Size(42, 21);
             this.txtInterval.TabIndex = 57;
@@ -4585,7 +4725,7 @@ namespace UHFDemo
             this.label73.AutoSize = true;
             this.label73.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label73.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label73.Location = new System.Drawing.Point(38, 12);
+            this.label73.Location = new System.Drawing.Point(3, 12);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(89, 12);
             this.label73.TabIndex = 36;
@@ -4596,7 +4736,7 @@ namespace UHFDemo
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label72.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label72.Location = new System.Drawing.Point(151, 12);
+            this.label72.Location = new System.Drawing.Point(87, 12);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(53, 12);
             this.label72.TabIndex = 37;
@@ -6653,57 +6793,190 @@ namespace UHFDemo
             this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
-            // ｍOneKeyInventory
+            // label128
             // 
-            this.ｍOneKeyInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ｍOneKeyInventory.ForeColor = System.Drawing.Color.DarkBlue;
-            this.ｍOneKeyInventory.Location = new System.Drawing.Point(11, 13);
-            this.ｍOneKeyInventory.Name = "ｍOneKeyInventory";
-            this.ｍOneKeyInventory.Size = new System.Drawing.Size(144, 34);
-            this.ｍOneKeyInventory.TabIndex = 74;
-            this.ｍOneKeyInventory.Text = "一键盘存";
-            this.ｍOneKeyInventory.UseVisualStyleBackColor = true;
-            this.ｍOneKeyInventory.Click += new System.EventHandler(this.ｍOneKeyInventory_Click);
+            this.label128.AutoSize = true;
+            this.label128.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label128.Location = new System.Drawing.Point(280, 27);
+            this.label128.Name = "label128";
+            this.label128.Size = new System.Drawing.Size(53, 12);
+            this.label128.TabIndex = 80;
+            this.label128.Text = "时间间隔";
             // 
-            // label125
+            // m_intervalTimetb
             // 
-            this.label125.AutoSize = true;
-            this.label125.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label125.Location = new System.Drawing.Point(178, 27);
-            this.label125.Name = "label125";
-            this.label125.Size = new System.Drawing.Size(23, 12);
-            this.label125.TabIndex = 75;
-            this.label125.Text = "A：";
+            this.m_intervalTimetb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_intervalTimetb.Location = new System.Drawing.Point(339, 22);
+            this.m_intervalTimetb.Name = "m_intervalTimetb";
+            this.m_intervalTimetb.Size = new System.Drawing.Size(48, 21);
+            this.m_intervalTimetb.TabIndex = 81;
+            this.m_intervalTimetb.Text = "5000";
+            this.m_intervalTimetb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // mInventoryAStatusCount
+            // label129
             // 
-            this.mInventoryAStatusCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.mInventoryAStatusCount.Location = new System.Drawing.Point(203, 22);
-            this.mInventoryAStatusCount.Name = "mInventoryAStatusCount";
-            this.mInventoryAStatusCount.Size = new System.Drawing.Size(28, 21);
-            this.mInventoryAStatusCount.TabIndex = 77;
-            this.mInventoryAStatusCount.Text = "1";
-            this.mInventoryAStatusCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label129.AutoSize = true;
+            this.label129.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label129.Location = new System.Drawing.Point(394, 27);
+            this.label129.Name = "label129";
+            this.label129.Size = new System.Drawing.Size(53, 12);
+            this.label129.TabIndex = 82;
+            this.label129.Text = "运行次数";
             // 
-            // label126
+            // mTestTagCounts
             // 
-            this.label126.AutoSize = true;
-            this.label126.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label126.Location = new System.Drawing.Point(271, 26);
-            this.label126.Name = "label126";
-            this.label126.Size = new System.Drawing.Size(17, 12);
-            this.label126.TabIndex = 78;
-            this.label126.Text = "B:";
+            this.mTestTagCounts.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mTestTagCounts.Location = new System.Drawing.Point(453, 22);
+            this.mTestTagCounts.Name = "mTestTagCounts";
+            this.mTestTagCounts.Size = new System.Drawing.Size(35, 21);
+            this.mTestTagCounts.TabIndex = 83;
+            this.mTestTagCounts.Text = "0";
+            this.mTestTagCounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // mInventoryBStatusCount
+            // mPower1
             // 
-            this.mInventoryBStatusCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.mInventoryBStatusCount.Location = new System.Drawing.Point(300, 23);
-            this.mInventoryBStatusCount.Name = "mInventoryBStatusCount";
-            this.mInventoryBStatusCount.Size = new System.Drawing.Size(28, 21);
-            this.mInventoryBStatusCount.TabIndex = 79;
-            this.mInventoryBStatusCount.Text = "1";
-            this.mInventoryBStatusCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mPower1.Location = new System.Drawing.Point(34, 54);
+            this.mPower1.Name = "mPower1";
+            this.mPower1.Size = new System.Drawing.Size(26, 21);
+            this.mPower1.TabIndex = 59;
+            this.mPower1.Text = "25";
+            this.mPower1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mPower2
+            // 
+            this.mPower2.Location = new System.Drawing.Point(66, 54);
+            this.mPower2.Name = "mPower2";
+            this.mPower2.Size = new System.Drawing.Size(26, 21);
+            this.mPower2.TabIndex = 60;
+            this.mPower2.Text = "25";
+            this.mPower2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mPower3
+            // 
+            this.mPower3.Location = new System.Drawing.Point(99, 54);
+            this.mPower3.Name = "mPower3";
+            this.mPower3.Size = new System.Drawing.Size(26, 21);
+            this.mPower3.TabIndex = 61;
+            this.mPower3.Text = "25";
+            this.mPower3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mPower4
+            // 
+            this.mPower4.Location = new System.Drawing.Point(130, 54);
+            this.mPower4.Name = "mPower4";
+            this.mPower4.Size = new System.Drawing.Size(26, 21);
+            this.mPower4.TabIndex = 62;
+            this.mPower4.Text = "25";
+            this.mPower4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mPower5
+            // 
+            this.mPower5.Location = new System.Drawing.Point(163, 54);
+            this.mPower5.Name = "mPower5";
+            this.mPower5.Size = new System.Drawing.Size(26, 21);
+            this.mPower5.TabIndex = 63;
+            this.mPower5.Text = "25";
+            this.mPower5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label130
+            // 
+            this.label130.AutoSize = true;
+            this.label130.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label130.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label130.Location = new System.Drawing.Point(3, 60);
+            this.label130.Name = "label130";
+            this.label130.Size = new System.Drawing.Size(29, 12);
+            this.label130.TabIndex = 64;
+            this.label130.Text = "功率";
+            // 
+            // label131
+            // 
+            this.label131.AutoSize = true;
+            this.label131.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label131.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label131.Location = new System.Drawing.Point(144, 12);
+            this.label131.Name = "label131";
+            this.label131.Size = new System.Drawing.Size(53, 12);
+            this.label131.TabIndex = 65;
+            this.label131.Text = "时间间隔";
+            // 
+            // label132
+            // 
+            this.label132.AutoSize = true;
+            this.label132.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label132.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label132.Location = new System.Drawing.Point(208, 12);
+            this.label132.Name = "label132";
+            this.label132.Size = new System.Drawing.Size(53, 12);
+            this.label132.TabIndex = 66;
+            this.label132.Text = "运行次数";
+            // 
+            // mFastIntervalTime
+            // 
+            this.mFastIntervalTime.Location = new System.Drawing.Point(146, 27);
+            this.mFastIntervalTime.Name = "mFastIntervalTime";
+            this.mFastIntervalTime.Size = new System.Drawing.Size(51, 21);
+            this.mFastIntervalTime.TabIndex = 67;
+            this.mFastIntervalTime.Text = "5000";
+            this.mFastIntervalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mFastExeCount
+            // 
+            this.mFastExeCount.Location = new System.Drawing.Point(211, 27);
+            this.mFastExeCount.Name = "mFastExeCount";
+            this.mFastExeCount.Size = new System.Drawing.Size(51, 21);
+            this.mFastExeCount.TabIndex = 68;
+            this.mFastExeCount.Text = "1";
+            this.mFastExeCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mFastSession
+            // 
+            this.mFastSession.AutoSize = true;
+            this.mFastSession.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mFastSession.Location = new System.Drawing.Point(196, 56);
+            this.mFastSession.Name = "mFastSession";
+            this.mFastSession.Size = new System.Drawing.Size(30, 16);
+            this.mFastSession.TabIndex = 69;
+            this.mFastSession.Text = "S";
+            this.mFastSession.UseVisualStyleBackColor = true;
+            this.mFastSession.CheckedChanged += new System.EventHandler(this.mFastSession_CheckedChanged);
+            // 
+            // mFastSessionSelect
+            // 
+            this.mFastSessionSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.mFastSessionSelect.Enabled = false;
+            this.mFastSessionSelect.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mFastSessionSelect.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.mFastSessionSelect.FormattingEnabled = true;
+            this.mFastSessionSelect.Items.AddRange(new object[] {
+            "S0",
+            "S1",
+            "S2",
+            "S3"});
+            this.mFastSessionSelect.Location = new System.Drawing.Point(228, 54);
+            this.mFastSessionSelect.Name = "mFastSessionSelect";
+            this.mFastSessionSelect.Size = new System.Drawing.Size(55, 20);
+            this.mFastSessionSelect.TabIndex = 70;
+            // 
+            // label133
+            // 
+            this.label133.AutoSize = true;
+            this.label133.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label133.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label133.Location = new System.Drawing.Point(263, 12);
+            this.label133.Name = "label133";
+            this.label133.Size = new System.Drawing.Size(65, 12);
+            this.label133.TabIndex = 71;
+            this.label133.Text = "小功率时间";
+            // 
+            // m_fast_session_power_time
+            // 
+            this.m_fast_session_power_time.Location = new System.Drawing.Point(277, 31);
+            this.m_fast_session_power_time.Name = "m_fast_session_power_time";
+            this.m_fast_session_power_time.Size = new System.Drawing.Size(42, 21);
+            this.m_fast_session_power_time.TabIndex = 72;
+            this.m_fast_session_power_time.Text = "500";
+            this.m_fast_session_power_time.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R2000UartDemo
             // 
@@ -7387,8 +7660,8 @@ namespace UHFDemo
         private RadioButton excel_format_fast_rb;
         private System.Windows.Forms.ListView lvFastList;
         private RadioButton txt_format_fast_rb;
-        private Timer timer1;
-        private Timer totalTimeBuffer;
+        private Timer intervalExecuteTimer;
+        private Timer mFastSessionTimer;
         private ImageList sortImageList;
         private RadioButton sessionInventoryrb;
         private RadioButton autoInventoryrb;
@@ -7398,6 +7671,29 @@ namespace UHFDemo
         private TextBox mInventoryAStatusCount;
         private Label label125;
         private Button ｍOneKeyInventory;
+        private ComboBox mSessionExeTime;
+        private Label Duration;
+        private TextBox customizedExeTime;
+        private Label label127;
+        private TextBox m_intervalTimetb;
+        private Label label128;
+        private TextBox mTestTagCounts;
+        private Label label129;
+        private ComboBox mFastSessionSelect;
+        private CheckBox mFastSession;
+        private TextBox mFastExeCount;
+        private TextBox mFastIntervalTime;
+        private Label label132;
+        private Label label131;
+        private Label label130;
+        private TextBox mPower5;
+        private TextBox mPower4;
+        private TextBox mPower3;
+        private TextBox mPower2;
+        private TextBox mPower1;
+        private TextBox m_fast_session_power_time;
+        private Label label133;
+        private Timer mSendFastSwitchTimer;
     }
 }
 
