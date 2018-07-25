@@ -329,6 +329,18 @@ namespace Reader
             return nResult;
         }
 
+        public int SetTempOutpower(byte btReadId,byte btOutpower)
+        {
+            byte btCmd = 0x66;
+
+            byte[] btAryData = new byte[1];
+            btAryData[0] = btOutpower;
+
+            int nResult = SendMessage(btReadId,btCmd,btAryData);
+
+            return nResult;
+        }
+
         //add multi Ants set outputPower
         public int SetOutputPower(byte btReadId, byte[] btOutputPower)
         {

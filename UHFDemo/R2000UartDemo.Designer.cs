@@ -219,6 +219,10 @@ namespace UHFDemo
             this.txt_format_rb = new System.Windows.Forms.RadioButton();
             this.button8 = new System.Windows.Forms.Button();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.mTestTagCounts = new System.Windows.Forms.TextBox();
+            this.label129 = new System.Windows.Forms.Label();
+            this.m_intervalTimetb = new System.Windows.Forms.TextBox();
+            this.label128 = new System.Windows.Forms.Label();
             this.mInventoryBStatusCount = new System.Windows.Forms.TextBox();
             this.label126 = new System.Windows.Forms.Label();
             this.mInventoryAStatusCount = new System.Windows.Forms.TextBox();
@@ -304,66 +308,95 @@ namespace UHFDemo
             this.columnHeader54 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.pageFast4AntMode = new System.Windows.Forms.TabPage();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.ledFast1 = new LxControl.LxLedControl();
+            this.label58 = new System.Windows.Forms.Label();
+            this.ledFast4 = new LxControl.LxLedControl();
+            this.ledFast2 = new LxControl.LxLedControl();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.ledFast3 = new LxControl.LxLedControl();
+            this.label57 = new System.Windows.Forms.Label();
+            this.label54 = new System.Windows.Forms.Label();
+            this.ledFast5 = new LxControl.LxLedControl();
             this.txt_format_fast_rb = new System.Windows.Forms.RadioButton();
             this.excel_format_fast_rb = new System.Windows.Forms.RadioButton();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ledFast4 = new LxControl.LxLedControl();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.m_new_fast_inventory_power2 = new System.Windows.Forms.TextBox();
+            this.m_new_fast_inventory_power1 = new System.Windows.Forms.TextBox();
+            this.m_new_fast_inventory_repeat2 = new System.Windows.Forms.TextBox();
+            this.m_new_fast_inventory_repeat1 = new System.Windows.Forms.TextBox();
+            this.mRepeatPower1 = new System.Windows.Forms.Label();
+            this.mRepeatPower2 = new System.Windows.Forms.Label();
+            this.mRepeat2 = new System.Windows.Forms.Label();
+            this.mRepeat1 = new System.Windows.Forms.Label();
+            this.mDynamicPoll = new System.Windows.Forms.CheckBox();
+            this.label132 = new System.Windows.Forms.Label();
+            this.mFastExeCount = new System.Windows.Forms.TextBox();
+            this.label131 = new System.Windows.Forms.Label();
+            this.mFastIntervalTime = new System.Windows.Forms.TextBox();
+            this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.m_new_fast_inventory_target_count = new System.Windows.Forms.TextBox();
+            this.mTargetQuantity = new System.Windows.Forms.Label();
+            this.m_new_fast_inventory_continue = new System.Windows.Forms.TextBox();
+            this.mContiue = new System.Windows.Forms.Label();
+            this.m_new_fast_inventory_optimized = new System.Windows.Forms.TextBox();
+            this.mOpitimized = new System.Windows.Forms.Label();
+            this.m_phase_value = new System.Windows.Forms.CheckBox();
+            this.m_new_fast_inventory_flag = new System.Windows.Forms.ComboBox();
+            this.m_new_fast_inventory_session = new System.Windows.Forms.ComboBox();
+            this.m_new_fast_inventory = new System.Windows.Forms.CheckBox();
+            this.label73 = new System.Windows.Forms.Label();
+            this.txtInterval = new System.Windows.Forms.TextBox();
+            this.label72 = new System.Windows.Forms.Label();
+            this.mReserve = new System.Windows.Forms.Label();
+            this.txtRepeat = new System.Windows.Forms.TextBox();
+            this.mPower1 = new System.Windows.Forms.TextBox();
+            this.mPower2 = new System.Windows.Forms.TextBox();
+            this.mPower5 = new System.Windows.Forms.TextBox();
+            this.mPower4 = new System.Windows.Forms.TextBox();
+            this.mPower3 = new System.Windows.Forms.TextBox();
+            this.groupBox26 = new System.Windows.Forms.GroupBox();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btFastInventory = new System.Windows.Forms.Button();
+            this.label123 = new System.Windows.Forms.Label();
+            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.label124 = new System.Windows.Forms.Label();
+            this.label120 = new System.Windows.Forms.Label();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
+            this.txtDStay = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label116 = new System.Windows.Forms.Label();
+            this.textBox15 = new System.Windows.Forms.TextBox();
+            this.cmbAntSelect1 = new System.Windows.Forms.ComboBox();
+            this.label121 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.label119 = new System.Windows.Forms.Label();
+            this.cmbAntSelect4 = new System.Windows.Forms.ComboBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.txtCStay = new System.Windows.Forms.TextBox();
+            this.label59 = new System.Windows.Forms.Label();
+            this.txtAStay = new System.Windows.Forms.TextBox();
+            this.label117 = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.cmbAntSelect2 = new System.Windows.Forms.ComboBox();
+            this.label118 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label61 = new System.Windows.Forms.Label();
+            this.label63 = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.cmbAntSelect3 = new System.Windows.Forms.ComboBox();
+            this.txtBStay = new System.Windows.Forms.TextBox();
             this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.ledFast5 = new LxControl.LxLedControl();
-            this.ledFast2 = new LxControl.LxLedControl();
-            this.ledFast3 = new LxControl.LxLedControl();
-            this.label54 = new System.Windows.Forms.Label();
-            this.label55 = new System.Windows.Forms.Label();
-            this.label56 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
-            this.label58 = new System.Windows.Forms.Label();
-            this.ledFast1 = new LxControl.LxLedControl();
             this.txtFastMaxRssi = new System.Windows.Forms.TextBox();
             this.txtFastMinRssi = new System.Windows.Forms.TextBox();
             this.buttonFastFresh = new System.Windows.Forms.Button();
-            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label124 = new System.Windows.Forms.Label();
-            this.label123 = new System.Windows.Forms.Label();
-            this.label122 = new System.Windows.Forms.Label();
-            this.label121 = new System.Windows.Forms.Label();
-            this.textBox16 = new System.Windows.Forms.TextBox();
-            this.textBox15 = new System.Windows.Forms.TextBox();
-            this.textBox14 = new System.Windows.Forms.TextBox();
-            this.textBox13 = new System.Windows.Forms.TextBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label120 = new System.Windows.Forms.Label();
-            this.label119 = new System.Windows.Forms.Label();
-            this.label118 = new System.Windows.Forms.Label();
-            this.label117 = new System.Windows.Forms.Label();
-            this.label116 = new System.Windows.Forms.Label();
-            this.txtDStay = new System.Windows.Forms.TextBox();
-            this.txtCStay = new System.Windows.Forms.TextBox();
-            this.txtBStay = new System.Windows.Forms.TextBox();
-            this.txtAStay = new System.Windows.Forms.TextBox();
-            this.label64 = new System.Windows.Forms.Label();
-            this.label65 = new System.Windows.Forms.Label();
-            this.cmbAntSelect1 = new System.Windows.Forms.ComboBox();
-            this.label62 = new System.Windows.Forms.Label();
-            this.cmbAntSelect2 = new System.Windows.Forms.ComboBox();
-            this.label63 = new System.Windows.Forms.Label();
-            this.cmbAntSelect3 = new System.Windows.Forms.ComboBox();
-            this.label60 = new System.Windows.Forms.Label();
-            this.cmbAntSelect4 = new System.Windows.Forms.ComboBox();
-            this.label61 = new System.Windows.Forms.Label();
-            this.label59 = new System.Windows.Forms.Label();
-            this.label48 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.btFastInventory = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.txtRepeat = new System.Windows.Forms.TextBox();
-            this.txtInterval = new System.Windows.Forms.TextBox();
-            this.label73 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.lvFastList = new System.Windows.Forms.ListView();
             this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -371,6 +404,7 @@ namespace UHFDemo
             this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader34 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader356 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader36 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label49 = new System.Windows.Forms.Label();
             this.txtFastTagList = new System.Windows.Forms.Label();
@@ -558,24 +592,6 @@ namespace UHFDemo
             this.totalTime = new System.Windows.Forms.Timer(this.components);
             this.mFastSessionTimer = new System.Windows.Forms.Timer(this.components);
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
-            this.label128 = new System.Windows.Forms.Label();
-            this.m_intervalTimetb = new System.Windows.Forms.TextBox();
-            this.label129 = new System.Windows.Forms.Label();
-            this.mTestTagCounts = new System.Windows.Forms.TextBox();
-            this.mPower1 = new System.Windows.Forms.TextBox();
-            this.mPower2 = new System.Windows.Forms.TextBox();
-            this.mPower3 = new System.Windows.Forms.TextBox();
-            this.mPower4 = new System.Windows.Forms.TextBox();
-            this.mPower5 = new System.Windows.Forms.TextBox();
-            this.label130 = new System.Windows.Forms.Label();
-            this.label131 = new System.Windows.Forms.Label();
-            this.label132 = new System.Windows.Forms.Label();
-            this.mFastIntervalTime = new System.Windows.Forms.TextBox();
-            this.mFastExeCount = new System.Windows.Forms.TextBox();
-            this.mFastSession = new System.Windows.Forms.CheckBox();
-            this.mFastSessionSelect = new System.Windows.Forms.ComboBox();
-            this.label133 = new System.Windows.Forms.Label();
-            this.m_fast_session_power_time = new System.Windows.Forms.TextBox();
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
@@ -631,16 +647,18 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.ledBuffer3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledBuffer1)).BeginInit();
             this.pageFast4AntMode.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.groupBox25.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledFast4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledFast2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledFast3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast1)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast5)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox28.SuspendLayout();
+            this.groupBox27.SuspendLayout();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.pageAcessTag.SuspendLayout();
             this.gbCmdOperateTag.SuspendLayout();
             this.groupBox16.SuspendLayout();
@@ -2509,7 +2527,7 @@ namespace UHFDemo
             // customizedExeTime
             // 
             this.customizedExeTime.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.customizedExeTime.Location = new System.Drawing.Point(271, 25);
+            this.customizedExeTime.Location = new System.Drawing.Point(316, 25);
             this.customizedExeTime.Name = "customizedExeTime";
             this.customizedExeTime.Size = new System.Drawing.Size(52, 21);
             this.customizedExeTime.TabIndex = 71;
@@ -2520,7 +2538,7 @@ namespace UHFDemo
             // 
             this.label127.AutoSize = true;
             this.label127.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label127.Location = new System.Drawing.Point(209, 29);
+            this.label127.Location = new System.Drawing.Point(252, 29);
             this.label127.Name = "label127";
             this.label127.Size = new System.Drawing.Size(59, 12);
             this.label127.TabIndex = 70;
@@ -2531,11 +2549,12 @@ namespace UHFDemo
             this.Duration.AutoSize = true;
             this.Duration.Enabled = false;
             this.Duration.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Duration.Location = new System.Drawing.Point(724, 4);
+            this.Duration.Location = new System.Drawing.Point(836, 4);
             this.Duration.Name = "Duration";
             this.Duration.Size = new System.Drawing.Size(53, 12);
             this.Duration.TabIndex = 69;
             this.Duration.Text = "Duration";
+            this.Duration.Visible = false;
             // 
             // mSessionExeTime
             // 
@@ -2543,10 +2562,11 @@ namespace UHFDemo
             this.mSessionExeTime.Enabled = false;
             this.mSessionExeTime.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mSessionExeTime.FormattingEnabled = true;
-            this.mSessionExeTime.Location = new System.Drawing.Point(710, 22);
+            this.mSessionExeTime.Location = new System.Drawing.Point(827, 22);
             this.mSessionExeTime.Name = "mSessionExeTime";
             this.mSessionExeTime.Size = new System.Drawing.Size(87, 20);
             this.mSessionExeTime.TabIndex = 68;
+            this.mSessionExeTime.Visible = false;
             // 
             // btRealTimeInventory
             // 
@@ -2564,7 +2584,7 @@ namespace UHFDemo
             // 
             this.label84.AutoSize = true;
             this.label84.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label84.Location = new System.Drawing.Point(153, 8);
+            this.label84.Location = new System.Drawing.Point(193, 8);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(119, 12);
             this.label84.TabIndex = 2;
@@ -2573,7 +2593,7 @@ namespace UHFDemo
             // textRealRound
             // 
             this.textRealRound.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textRealRound.Location = new System.Drawing.Point(271, 3);
+            this.textRealRound.Location = new System.Drawing.Point(317, 3);
             this.textRealRound.Name = "textRealRound";
             this.textRealRound.Size = new System.Drawing.Size(52, 21);
             this.textRealRound.TabIndex = 48;
@@ -2583,7 +2603,7 @@ namespace UHFDemo
             // sessionInventoryrb
             // 
             this.sessionInventoryrb.AutoSize = true;
-            this.sessionInventoryrb.Location = new System.Drawing.Point(329, 28);
+            this.sessionInventoryrb.Location = new System.Drawing.Point(392, 28);
             this.sessionInventoryrb.Name = "sessionInventoryrb";
             this.sessionInventoryrb.Size = new System.Drawing.Size(116, 18);
             this.sessionInventoryrb.TabIndex = 67;
@@ -2596,7 +2616,7 @@ namespace UHFDemo
             // 
             this.autoInventoryrb.AutoSize = true;
             this.autoInventoryrb.Checked = true;
-            this.autoInventoryrb.Location = new System.Drawing.Point(329, 4);
+            this.autoInventoryrb.Location = new System.Drawing.Point(393, 4);
             this.autoInventoryrb.Name = "autoInventoryrb";
             this.autoInventoryrb.Size = new System.Drawing.Size(53, 18);
             this.autoInventoryrb.TabIndex = 66;
@@ -2614,13 +2634,14 @@ namespace UHFDemo
             this.m_session_q_cb.Size = new System.Drawing.Size(15, 14);
             this.m_session_q_cb.TabIndex = 65;
             this.m_session_q_cb.UseVisualStyleBackColor = true;
+            this.m_session_q_cb.Visible = false;
             this.m_session_q_cb.CheckedChanged += new System.EventHandler(this.m_session_q_cb_CheckedChanged);
             // 
             // m_session_sl_cb
             // 
             this.m_session_sl_cb.AutoSize = true;
             this.m_session_sl_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_session_sl_cb.Location = new System.Drawing.Point(619, 25);
+            this.m_session_sl_cb.Location = new System.Drawing.Point(722, 25);
             this.m_session_sl_cb.Name = "m_session_sl_cb";
             this.m_session_sl_cb.Size = new System.Drawing.Size(15, 14);
             this.m_session_sl_cb.TabIndex = 64;
@@ -2637,6 +2658,7 @@ namespace UHFDemo
             this.m_session_max_q.TabIndex = 63;
             this.m_session_max_q.Text = "0";
             this.m_session_max_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.m_session_max_q.Visible = false;
             // 
             // m_session_min_q
             // 
@@ -2648,6 +2670,7 @@ namespace UHFDemo
             this.m_session_min_q.TabIndex = 62;
             this.m_session_min_q.Text = "0";
             this.m_session_min_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.m_session_min_q.Visible = false;
             // 
             // m_session_start_q
             // 
@@ -2659,6 +2682,7 @@ namespace UHFDemo
             this.m_session_start_q.TabIndex = 61;
             this.m_session_start_q.Text = "0";
             this.m_session_start_q.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.m_session_start_q.Visible = false;
             // 
             // m_max_q_content
             // 
@@ -2670,6 +2694,7 @@ namespace UHFDemo
             this.m_max_q_content.Size = new System.Drawing.Size(35, 12);
             this.m_max_q_content.TabIndex = 60;
             this.m_max_q_content.Text = "Max Q";
+            this.m_max_q_content.Visible = false;
             // 
             // m_min_q_content
             // 
@@ -2681,6 +2706,7 @@ namespace UHFDemo
             this.m_min_q_content.Size = new System.Drawing.Size(35, 12);
             this.m_min_q_content.TabIndex = 59;
             this.m_min_q_content.Text = "Min Q";
+            this.m_min_q_content.Visible = false;
             // 
             // m_start_q_content
             // 
@@ -2692,6 +2718,7 @@ namespace UHFDemo
             this.m_start_q_content.Size = new System.Drawing.Size(47, 12);
             this.m_start_q_content.TabIndex = 58;
             this.m_start_q_content.Text = "Start Q";
+            this.m_start_q_content.Visible = false;
             // 
             // m_session_sl
             // 
@@ -2704,7 +2731,7 @@ namespace UHFDemo
             "01",
             "10",
             "11"});
-            this.m_session_sl.Location = new System.Drawing.Point(642, 22);
+            this.m_session_sl.Location = new System.Drawing.Point(748, 22);
             this.m_session_sl.Name = "m_session_sl";
             this.m_session_sl.Size = new System.Drawing.Size(62, 20);
             this.m_session_sl.TabIndex = 57;
@@ -2714,7 +2741,7 @@ namespace UHFDemo
             this.m_sl_content.AutoSize = true;
             this.m_sl_content.Enabled = false;
             this.m_sl_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_sl_content.Location = new System.Drawing.Point(666, 4);
+            this.m_sl_content.Location = new System.Drawing.Point(775, 4);
             this.m_sl_content.Name = "m_sl_content";
             this.m_sl_content.Size = new System.Drawing.Size(17, 12);
             this.m_sl_content.TabIndex = 56;
@@ -2730,7 +2757,7 @@ namespace UHFDemo
             this.cmbTarget.Items.AddRange(new object[] {
             "A",
             "B"});
-            this.cmbTarget.Location = new System.Drawing.Point(529, 23);
+            this.cmbTarget.Location = new System.Drawing.Point(632, 23);
             this.cmbTarget.Name = "cmbTarget";
             this.cmbTarget.Size = new System.Drawing.Size(62, 20);
             this.cmbTarget.TabIndex = 54;
@@ -2740,7 +2767,7 @@ namespace UHFDemo
             this.label98.AutoSize = true;
             this.label98.Enabled = false;
             this.label98.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label98.Location = new System.Drawing.Point(515, 3);
+            this.label98.Location = new System.Drawing.Point(609, 3);
             this.label98.Name = "label98";
             this.label98.Size = new System.Drawing.Size(101, 12);
             this.label98.TabIndex = 53;
@@ -2758,7 +2785,7 @@ namespace UHFDemo
             "S2",
             "S3",
             "SL"});
-            this.cmbSession.Location = new System.Drawing.Point(445, 23);
+            this.cmbSession.Location = new System.Drawing.Point(530, 23);
             this.cmbSession.Name = "cmbSession";
             this.cmbSession.Size = new System.Drawing.Size(62, 20);
             this.cmbSession.TabIndex = 52;
@@ -2768,7 +2795,7 @@ namespace UHFDemo
             this.label97.AutoSize = true;
             this.label97.Enabled = false;
             this.label97.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label97.Location = new System.Drawing.Point(444, 4);
+            this.label97.Location = new System.Drawing.Point(530, 4);
             this.label97.Name = "label97";
             this.label97.Size = new System.Drawing.Size(65, 12);
             this.label97.TabIndex = 51;
@@ -2836,6 +2863,46 @@ namespace UHFDemo
             this.groupBox20.TabIndex = 49;
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "选择天线 ";
+            // 
+            // mTestTagCounts
+            // 
+            this.mTestTagCounts.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mTestTagCounts.Location = new System.Drawing.Point(453, 22);
+            this.mTestTagCounts.Name = "mTestTagCounts";
+            this.mTestTagCounts.Size = new System.Drawing.Size(35, 21);
+            this.mTestTagCounts.TabIndex = 83;
+            this.mTestTagCounts.Text = "1";
+            this.mTestTagCounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label129
+            // 
+            this.label129.AutoSize = true;
+            this.label129.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label129.Location = new System.Drawing.Point(394, 27);
+            this.label129.Name = "label129";
+            this.label129.Size = new System.Drawing.Size(53, 12);
+            this.label129.TabIndex = 82;
+            this.label129.Text = "运行次数";
+            // 
+            // m_intervalTimetb
+            // 
+            this.m_intervalTimetb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_intervalTimetb.Location = new System.Drawing.Point(339, 22);
+            this.m_intervalTimetb.Name = "m_intervalTimetb";
+            this.m_intervalTimetb.Size = new System.Drawing.Size(48, 21);
+            this.m_intervalTimetb.TabIndex = 81;
+            this.m_intervalTimetb.Text = "5000";
+            this.m_intervalTimetb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label128
+            // 
+            this.label128.AutoSize = true;
+            this.label128.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label128.Location = new System.Drawing.Point(280, 27);
+            this.label128.Name = "label128";
+            this.label128.Size = new System.Drawing.Size(53, 12);
+            this.label128.TabIndex = 80;
+            this.label128.Text = "时间间隔";
             // 
             // mInventoryBStatusCount
             // 
@@ -3368,7 +3435,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 390F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 396F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3387,9 +3454,9 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(611, 4);
+            this.panel9.Location = new System.Drawing.Point(605, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(385, 74);
+            this.panel9.Size = new System.Drawing.Size(391, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3448,7 +3515,7 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(298, 74);
+            this.panel10.Size = new System.Drawing.Size(295, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3494,9 +3561,9 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(309, 4);
+            this.panel8.Location = new System.Drawing.Point(306, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(295, 74);
+            this.panel8.Size = new System.Drawing.Size(292, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -3880,6 +3947,7 @@ namespace UHFDemo
             // pageFast4AntMode
             // 
             this.pageFast4AntMode.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pageFast4AntMode.Controls.Add(this.groupBox25);
             this.pageFast4AntMode.Controls.Add(this.txt_format_fast_rb);
             this.pageFast4AntMode.Controls.Add(this.excel_format_fast_rb);
             this.pageFast4AntMode.Controls.Add(this.button7);
@@ -3887,7 +3955,6 @@ namespace UHFDemo
             this.pageFast4AntMode.Controls.Add(this.txtFastMaxRssi);
             this.pageFast4AntMode.Controls.Add(this.txtFastMinRssi);
             this.pageFast4AntMode.Controls.Add(this.buttonFastFresh);
-            this.pageFast4AntMode.Controls.Add(this.tableLayoutPanel2);
             this.pageFast4AntMode.Controls.Add(this.label22);
             this.pageFast4AntMode.Controls.Add(this.lvFastList);
             this.pageFast4AntMode.Controls.Add(this.label49);
@@ -3900,6 +3967,190 @@ namespace UHFDemo
             this.pageFast4AntMode.TabIndex = 0;
             this.pageFast4AntMode.Text = "快速天线盘存";
             this.pageFast4AntMode.Enter += new System.EventHandler(this.pageFast4AntMode_Enter);
+            // 
+            // groupBox25
+            // 
+            this.groupBox25.Controls.Add(this.ledFast1);
+            this.groupBox25.Controls.Add(this.label58);
+            this.groupBox25.Controls.Add(this.ledFast4);
+            this.groupBox25.Controls.Add(this.ledFast2);
+            this.groupBox25.Controls.Add(this.label55);
+            this.groupBox25.Controls.Add(this.label56);
+            this.groupBox25.Controls.Add(this.ledFast3);
+            this.groupBox25.Controls.Add(this.label57);
+            this.groupBox25.Controls.Add(this.label54);
+            this.groupBox25.Controls.Add(this.ledFast5);
+            this.groupBox25.Location = new System.Drawing.Point(3, 109);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(709, 146);
+            this.groupBox25.TabIndex = 66;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "数据";
+            // 
+            // ledFast1
+            // 
+            this.ledFast1.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast1.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast1.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast1.BevelRate = 0.1F;
+            this.ledFast1.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast1.BorderWidth = 3;
+            this.ledFast1.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast1.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast1.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.ledFast1.HighlightOpaque = ((byte)(20));
+            this.ledFast1.Location = new System.Drawing.Point(6, 41);
+            this.ledFast1.Name = "ledFast1";
+            this.ledFast1.RoundCorner = true;
+            this.ledFast1.SegmentIntervalRatio = 50;
+            this.ledFast1.ShowHighlight = true;
+            this.ledFast1.Size = new System.Drawing.Size(281, 106);
+            this.ledFast1.TabIndex = 21;
+            this.ledFast1.Text = "0";
+            this.ledFast1.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label58.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label58.Location = new System.Drawing.Point(6, 17);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(143, 12);
+            this.label58.TabIndex = 26;
+            this.label58.Text = "已盘存的标签总数量(个):";
+            // 
+            // ledFast4
+            // 
+            this.ledFast4.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast4.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast4.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast4.BevelRate = 0.1F;
+            this.ledFast4.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast4.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast4.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast4.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.ledFast4.HighlightOpaque = ((byte)(20));
+            this.ledFast4.Location = new System.Drawing.Point(517, 37);
+            this.ledFast4.Name = "ledFast4";
+            this.ledFast4.RoundCorner = true;
+            this.ledFast4.SegmentIntervalRatio = 50;
+            this.ledFast4.ShowHighlight = true;
+            this.ledFast4.Size = new System.Drawing.Size(183, 35);
+            this.ledFast4.TabIndex = 40;
+            this.ledFast4.Text = "0";
+            this.ledFast4.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast4.TotalCharCount = 10;
+            // 
+            // ledFast2
+            // 
+            this.ledFast2.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast2.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast2.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast2.BevelRate = 0.1F;
+            this.ledFast2.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast2.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast2.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast2.ForeColor = System.Drawing.Color.Purple;
+            this.ledFast2.HighlightOpaque = ((byte)(20));
+            this.ledFast2.Location = new System.Drawing.Point(334, 41);
+            this.ledFast2.Name = "ledFast2";
+            this.ledFast2.RoundCorner = true;
+            this.ledFast2.SegmentIntervalRatio = 50;
+            this.ledFast2.ShowHighlight = true;
+            this.ledFast2.Size = new System.Drawing.Size(124, 37);
+            this.ledFast2.TabIndex = 34;
+            this.ledFast2.Text = "0";
+            this.ledFast2.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast2.TotalCharCount = 6;
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label55.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label55.Location = new System.Drawing.Point(339, 20);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(125, 12);
+            this.label55.TabIndex = 29;
+            this.label55.Text = "命令识别速度(个/秒):";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label56.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label56.Location = new System.Drawing.Point(339, 86);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(119, 12);
+            this.label56.TabIndex = 28;
+            this.label56.Text = "命令执行时间(毫秒):";
+            // 
+            // ledFast3
+            // 
+            this.ledFast3.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast3.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast3.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast3.BevelRate = 0.1F;
+            this.ledFast3.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast3.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast3.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast3.ForeColor = System.Drawing.Color.Purple;
+            this.ledFast3.HighlightOpaque = ((byte)(20));
+            this.ledFast3.Location = new System.Drawing.Point(337, 106);
+            this.ledFast3.Name = "ledFast3";
+            this.ledFast3.RoundCorner = true;
+            this.ledFast3.SegmentIntervalRatio = 50;
+            this.ledFast3.ShowHighlight = true;
+            this.ledFast3.Size = new System.Drawing.Size(121, 34);
+            this.ledFast3.TabIndex = 33;
+            this.ledFast3.Text = "0";
+            this.ledFast3.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast3.TotalCharCount = 6;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label57.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label57.Location = new System.Drawing.Point(515, 18);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(107, 12);
+            this.label57.TabIndex = 27;
+            this.label57.Text = "累计返回数据(条):";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label54.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.label54.Location = new System.Drawing.Point(517, 83);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(131, 12);
+            this.label54.TabIndex = 30;
+            this.label54.Text = "累计运行的时间(毫秒):";
+            // 
+            // ledFast5
+            // 
+            this.ledFast5.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast5.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast5.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast5.BevelRate = 0.1F;
+            this.ledFast5.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast5.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast5.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast5.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.ledFast5.HighlightOpaque = ((byte)(20));
+            this.ledFast5.Location = new System.Drawing.Point(517, 101);
+            this.ledFast5.Name = "ledFast5";
+            this.ledFast5.RoundCorner = true;
+            this.ledFast5.SegmentIntervalRatio = 50;
+            this.ledFast5.ShowHighlight = true;
+            this.ledFast5.Size = new System.Drawing.Size(183, 35);
+            this.ledFast5.TabIndex = 35;
+            this.ledFast5.Text = "0";
+            this.ledFast5.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast5.TotalCharCount = 10;
             // 
             // txt_format_fast_rb
             // 
@@ -3937,48 +4188,918 @@ namespace UHFDemo
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.ledFast4);
+            this.groupBox2.Controls.Add(this.groupBox28);
+            this.groupBox2.Controls.Add(this.groupBox27);
+            this.groupBox2.Controls.Add(this.groupBox26);
+            this.groupBox2.Controls.Add(this.splitContainer1);
             this.groupBox2.Controls.Add(this.comboBox7);
-            this.groupBox2.Controls.Add(this.ledFast5);
-            this.groupBox2.Controls.Add(this.ledFast2);
-            this.groupBox2.Controls.Add(this.ledFast3);
-            this.groupBox2.Controls.Add(this.label54);
-            this.groupBox2.Controls.Add(this.label55);
-            this.groupBox2.Controls.Add(this.label56);
-            this.groupBox2.Controls.Add(this.label57);
-            this.groupBox2.Controls.Add(this.label58);
-            this.groupBox2.Controls.Add(this.ledFast1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox2.Location = new System.Drawing.Point(3, 96);
+            this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(994, 162);
+            this.groupBox2.Size = new System.Drawing.Size(994, 252);
             this.groupBox2.TabIndex = 42;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "数据";
             // 
-            // ledFast4
+            // groupBox28
             // 
-            this.ledFast4.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast4.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast4.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast4.BevelRate = 0.1F;
-            this.ledFast4.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast4.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast4.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast4.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.ledFast4.HighlightOpaque = ((byte)(20));
-            this.ledFast4.Location = new System.Drawing.Point(702, 50);
-            this.ledFast4.Name = "ledFast4";
-            this.ledFast4.RoundCorner = true;
-            this.ledFast4.SegmentIntervalRatio = 50;
-            this.ledFast4.ShowHighlight = true;
-            this.ledFast4.Size = new System.Drawing.Size(183, 35);
-            this.ledFast4.TabIndex = 40;
-            this.ledFast4.Text = "0";
-            this.ledFast4.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.ledFast4.TotalCharCount = 10;
+            this.groupBox28.Controls.Add(this.m_new_fast_inventory_power2);
+            this.groupBox28.Controls.Add(this.m_new_fast_inventory_power1);
+            this.groupBox28.Controls.Add(this.m_new_fast_inventory_repeat2);
+            this.groupBox28.Controls.Add(this.m_new_fast_inventory_repeat1);
+            this.groupBox28.Controls.Add(this.mRepeatPower1);
+            this.groupBox28.Controls.Add(this.mRepeatPower2);
+            this.groupBox28.Controls.Add(this.mRepeat2);
+            this.groupBox28.Controls.Add(this.mRepeat1);
+            this.groupBox28.Controls.Add(this.mDynamicPoll);
+            this.groupBox28.Controls.Add(this.label132);
+            this.groupBox28.Controls.Add(this.mFastExeCount);
+            this.groupBox28.Controls.Add(this.label131);
+            this.groupBox28.Controls.Add(this.mFastIntervalTime);
+            this.groupBox28.Location = new System.Drawing.Point(715, 147);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(273, 95);
+            this.groupBox28.TabIndex = 76;
+            this.groupBox28.TabStop = false;
+            // 
+            // m_new_fast_inventory_power2
+            // 
+            this.m_new_fast_inventory_power2.Enabled = false;
+            this.m_new_fast_inventory_power2.Location = new System.Drawing.Point(196, 71);
+            this.m_new_fast_inventory_power2.Name = "m_new_fast_inventory_power2";
+            this.m_new_fast_inventory_power2.Size = new System.Drawing.Size(26, 21);
+            this.m_new_fast_inventory_power2.TabIndex = 81;
+            this.m_new_fast_inventory_power2.Text = "28";
+            this.m_new_fast_inventory_power2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_new_fast_inventory_power1
+            // 
+            this.m_new_fast_inventory_power1.Enabled = false;
+            this.m_new_fast_inventory_power1.Location = new System.Drawing.Point(71, 72);
+            this.m_new_fast_inventory_power1.Name = "m_new_fast_inventory_power1";
+            this.m_new_fast_inventory_power1.Size = new System.Drawing.Size(26, 21);
+            this.m_new_fast_inventory_power1.TabIndex = 80;
+            this.m_new_fast_inventory_power1.Text = "26";
+            this.m_new_fast_inventory_power1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_new_fast_inventory_repeat2
+            // 
+            this.m_new_fast_inventory_repeat2.Enabled = false;
+            this.m_new_fast_inventory_repeat2.Location = new System.Drawing.Point(196, 48);
+            this.m_new_fast_inventory_repeat2.Name = "m_new_fast_inventory_repeat2";
+            this.m_new_fast_inventory_repeat2.Size = new System.Drawing.Size(26, 21);
+            this.m_new_fast_inventory_repeat2.TabIndex = 79;
+            this.m_new_fast_inventory_repeat2.Text = "1";
+            this.m_new_fast_inventory_repeat2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // m_new_fast_inventory_repeat1
+            // 
+            this.m_new_fast_inventory_repeat1.Enabled = false;
+            this.m_new_fast_inventory_repeat1.Location = new System.Drawing.Point(71, 50);
+            this.m_new_fast_inventory_repeat1.Name = "m_new_fast_inventory_repeat1";
+            this.m_new_fast_inventory_repeat1.Size = new System.Drawing.Size(26, 21);
+            this.m_new_fast_inventory_repeat1.TabIndex = 78;
+            this.m_new_fast_inventory_repeat1.Text = "1";
+            this.m_new_fast_inventory_repeat1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mRepeatPower1
+            // 
+            this.mRepeatPower1.AutoSize = true;
+            this.mRepeatPower1.Enabled = false;
+            this.mRepeatPower1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mRepeatPower1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.mRepeatPower1.Location = new System.Drawing.Point(18, 75);
+            this.mRepeatPower1.Name = "mRepeatPower1";
+            this.mRepeatPower1.Size = new System.Drawing.Size(41, 12);
+            this.mRepeatPower1.TabIndex = 74;
+            this.mRepeatPower1.Text = "Power1";
+            // 
+            // mRepeatPower2
+            // 
+            this.mRepeatPower2.AutoSize = true;
+            this.mRepeatPower2.Enabled = false;
+            this.mRepeatPower2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mRepeatPower2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.mRepeatPower2.Location = new System.Drawing.Point(136, 76);
+            this.mRepeatPower2.Name = "mRepeatPower2";
+            this.mRepeatPower2.Size = new System.Drawing.Size(41, 12);
+            this.mRepeatPower2.TabIndex = 73;
+            this.mRepeatPower2.Text = "Power2";
+            // 
+            // mRepeat2
+            // 
+            this.mRepeat2.AutoSize = true;
+            this.mRepeat2.Enabled = false;
+            this.mRepeat2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mRepeat2.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.mRepeat2.Location = new System.Drawing.Point(132, 54);
+            this.mRepeat2.Name = "mRepeat2";
+            this.mRepeat2.Size = new System.Drawing.Size(47, 12);
+            this.mRepeat2.TabIndex = 72;
+            this.mRepeat2.Text = "Repeat2";
+            // 
+            // mRepeat1
+            // 
+            this.mRepeat1.AutoSize = true;
+            this.mRepeat1.Enabled = false;
+            this.mRepeat1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mRepeat1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.mRepeat1.Location = new System.Drawing.Point(15, 55);
+            this.mRepeat1.Name = "mRepeat1";
+            this.mRepeat1.Size = new System.Drawing.Size(47, 12);
+            this.mRepeat1.TabIndex = 71;
+            this.mRepeat1.Text = "Repeat1";
+            // 
+            // mDynamicPoll
+            // 
+            this.mDynamicPoll.AutoSize = true;
+            this.mDynamicPoll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mDynamicPoll.Location = new System.Drawing.Point(10, 34);
+            this.mDynamicPoll.Name = "mDynamicPoll";
+            this.mDynamicPoll.Size = new System.Drawing.Size(72, 16);
+            this.mDynamicPoll.TabIndex = 70;
+            this.mDynamicPoll.Text = "动态轮询";
+            this.mDynamicPoll.UseVisualStyleBackColor = true;
+            this.mDynamicPoll.CheckedChanged += new System.EventHandler(this.mDynamicPoll_CheckedChanged);
+            // 
+            // label132
+            // 
+            this.label132.AutoSize = true;
+            this.label132.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label132.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label132.Location = new System.Drawing.Point(6, 15);
+            this.label132.Name = "label132";
+            this.label132.Size = new System.Drawing.Size(53, 12);
+            this.label132.TabIndex = 66;
+            this.label132.Text = "运行次数";
+            // 
+            // mFastExeCount
+            // 
+            this.mFastExeCount.Location = new System.Drawing.Point(58, 10);
+            this.mFastExeCount.Name = "mFastExeCount";
+            this.mFastExeCount.Size = new System.Drawing.Size(51, 21);
+            this.mFastExeCount.TabIndex = 68;
+            this.mFastExeCount.Text = "1";
+            this.mFastExeCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label131
+            // 
+            this.label131.AutoSize = true;
+            this.label131.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label131.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label131.Location = new System.Drawing.Point(132, 16);
+            this.label131.Name = "label131";
+            this.label131.Size = new System.Drawing.Size(53, 12);
+            this.label131.TabIndex = 65;
+            this.label131.Text = "时间间隔";
+            // 
+            // mFastIntervalTime
+            // 
+            this.mFastIntervalTime.Location = new System.Drawing.Point(191, 13);
+            this.mFastIntervalTime.Name = "mFastIntervalTime";
+            this.mFastIntervalTime.Size = new System.Drawing.Size(51, 21);
+            this.mFastIntervalTime.TabIndex = 67;
+            this.mFastIntervalTime.Text = "0";
+            this.mFastIntervalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox27
+            // 
+            this.groupBox27.Controls.Add(this.m_new_fast_inventory_target_count);
+            this.groupBox27.Controls.Add(this.mTargetQuantity);
+            this.groupBox27.Controls.Add(this.m_new_fast_inventory_continue);
+            this.groupBox27.Controls.Add(this.mContiue);
+            this.groupBox27.Controls.Add(this.m_new_fast_inventory_optimized);
+            this.groupBox27.Controls.Add(this.mOpitimized);
+            this.groupBox27.Controls.Add(this.m_phase_value);
+            this.groupBox27.Controls.Add(this.m_new_fast_inventory_flag);
+            this.groupBox27.Controls.Add(this.m_new_fast_inventory_session);
+            this.groupBox27.Controls.Add(this.m_new_fast_inventory);
+            this.groupBox27.Controls.Add(this.label73);
+            this.groupBox27.Controls.Add(this.txtInterval);
+            this.groupBox27.Controls.Add(this.label72);
+            this.groupBox27.Controls.Add(this.mReserve);
+            this.groupBox27.Controls.Add(this.txtRepeat);
+            this.groupBox27.Controls.Add(this.mPower1);
+            this.groupBox27.Controls.Add(this.mPower2);
+            this.groupBox27.Controls.Add(this.mPower5);
+            this.groupBox27.Controls.Add(this.mPower4);
+            this.groupBox27.Controls.Add(this.mPower3);
+            this.groupBox27.Location = new System.Drawing.Point(715, 0);
+            this.groupBox27.Name = "groupBox27";
+            this.groupBox27.Size = new System.Drawing.Size(276, 148);
+            this.groupBox27.TabIndex = 75;
+            this.groupBox27.TabStop = false;
+            // 
+            // m_new_fast_inventory_target_count
+            // 
+            this.m_new_fast_inventory_target_count.Enabled = false;
+            this.m_new_fast_inventory_target_count.Location = new System.Drawing.Point(134, 122);
+            this.m_new_fast_inventory_target_count.Name = "m_new_fast_inventory_target_count";
+            this.m_new_fast_inventory_target_count.Size = new System.Drawing.Size(59, 21);
+            this.m_new_fast_inventory_target_count.TabIndex = 81;
+            this.m_new_fast_inventory_target_count.Text = "0";
+            this.m_new_fast_inventory_target_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mTargetQuantity
+            // 
+            this.mTargetQuantity.AutoSize = true;
+            this.mTargetQuantity.Enabled = false;
+            this.mTargetQuantity.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mTargetQuantity.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.mTargetQuantity.Location = new System.Drawing.Point(9, 127);
+            this.mTargetQuantity.Name = "mTargetQuantity";
+            this.mTargetQuantity.Size = new System.Drawing.Size(95, 12);
+            this.mTargetQuantity.TabIndex = 80;
+            this.mTargetQuantity.Text = "Target Quantity";
+            // 
+            // m_new_fast_inventory_continue
+            // 
+            this.m_new_fast_inventory_continue.Enabled = false;
+            this.m_new_fast_inventory_continue.Location = new System.Drawing.Point(167, 98);
+            this.m_new_fast_inventory_continue.Name = "m_new_fast_inventory_continue";
+            this.m_new_fast_inventory_continue.Size = new System.Drawing.Size(26, 21);
+            this.m_new_fast_inventory_continue.TabIndex = 79;
+            this.m_new_fast_inventory_continue.Text = "00";
+            this.m_new_fast_inventory_continue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mContiue
+            // 
+            this.mContiue.AutoSize = true;
+            this.mContiue.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mContiue.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.mContiue.Location = new System.Drawing.Point(116, 104);
+            this.mContiue.Name = "mContiue";
+            this.mContiue.Size = new System.Drawing.Size(29, 12);
+            this.mContiue.TabIndex = 78;
+            this.mContiue.Text = "连续";
+            // 
+            // m_new_fast_inventory_optimized
+            // 
+            this.m_new_fast_inventory_optimized.Enabled = false;
+            this.m_new_fast_inventory_optimized.Location = new System.Drawing.Point(58, 101);
+            this.m_new_fast_inventory_optimized.Name = "m_new_fast_inventory_optimized";
+            this.m_new_fast_inventory_optimized.Size = new System.Drawing.Size(26, 21);
+            this.m_new_fast_inventory_optimized.TabIndex = 77;
+            this.m_new_fast_inventory_optimized.Text = "00";
+            this.m_new_fast_inventory_optimized.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mOpitimized
+            // 
+            this.mOpitimized.AutoSize = true;
+            this.mOpitimized.Enabled = false;
+            this.mOpitimized.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mOpitimized.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.mOpitimized.Location = new System.Drawing.Point(15, 104);
+            this.mOpitimized.Name = "mOpitimized";
+            this.mOpitimized.Size = new System.Drawing.Size(29, 12);
+            this.mOpitimized.TabIndex = 76;
+            this.mOpitimized.Text = "优化";
+            // 
+            // m_phase_value
+            // 
+            this.m_phase_value.AutoSize = true;
+            this.m_phase_value.Enabled = false;
+            this.m_phase_value.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_phase_value.Location = new System.Drawing.Point(210, 46);
+            this.m_phase_value.Name = "m_phase_value";
+            this.m_phase_value.Size = new System.Drawing.Size(54, 16);
+            this.m_phase_value.TabIndex = 75;
+            this.m_phase_value.Text = "Phase";
+            this.m_phase_value.UseVisualStyleBackColor = true;
+            this.m_phase_value.CheckedChanged += new System.EventHandler(this.m_phase_value_CheckedChanged);
+            // 
+            // m_new_fast_inventory_flag
+            // 
+            this.m_new_fast_inventory_flag.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.m_new_fast_inventory_flag.Enabled = false;
+            this.m_new_fast_inventory_flag.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_new_fast_inventory_flag.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.m_new_fast_inventory_flag.FormattingEnabled = true;
+            this.m_new_fast_inventory_flag.Items.AddRange(new object[] {
+            "A",
+            "B"});
+            this.m_new_fast_inventory_flag.Location = new System.Drawing.Point(143, 44);
+            this.m_new_fast_inventory_flag.Name = "m_new_fast_inventory_flag";
+            this.m_new_fast_inventory_flag.Size = new System.Drawing.Size(55, 20);
+            this.m_new_fast_inventory_flag.TabIndex = 74;
+            // 
+            // m_new_fast_inventory_session
+            // 
+            this.m_new_fast_inventory_session.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.m_new_fast_inventory_session.Enabled = false;
+            this.m_new_fast_inventory_session.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_new_fast_inventory_session.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.m_new_fast_inventory_session.FormattingEnabled = true;
+            this.m_new_fast_inventory_session.Items.AddRange(new object[] {
+            "S0",
+            "S1",
+            "S2",
+            "S3"});
+            this.m_new_fast_inventory_session.Location = new System.Drawing.Point(78, 45);
+            this.m_new_fast_inventory_session.Name = "m_new_fast_inventory_session";
+            this.m_new_fast_inventory_session.Size = new System.Drawing.Size(55, 20);
+            this.m_new_fast_inventory_session.TabIndex = 73;
+            // 
+            // m_new_fast_inventory
+            // 
+            this.m_new_fast_inventory.AutoSize = true;
+            this.m_new_fast_inventory.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_new_fast_inventory.Location = new System.Drawing.Point(10, 47);
+            this.m_new_fast_inventory.Name = "m_new_fast_inventory";
+            this.m_new_fast_inventory.Size = new System.Drawing.Size(66, 16);
+            this.m_new_fast_inventory.TabIndex = 72;
+            this.m_new_fast_inventory.Text = "Session";
+            this.m_new_fast_inventory.UseVisualStyleBackColor = true;
+            this.m_new_fast_inventory.CheckedChanged += new System.EventHandler(this.m_new_fast_inventory_CheckedChanged);
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label73.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label73.Location = new System.Drawing.Point(8, 20);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(89, 12);
+            this.label73.TabIndex = 36;
+            this.label73.Text = "天线间延时(mS)";
+            // 
+            // txtInterval
+            // 
+            this.txtInterval.Location = new System.Drawing.Point(103, 17);
+            this.txtInterval.Name = "txtInterval";
+            this.txtInterval.Size = new System.Drawing.Size(42, 21);
+            this.txtInterval.TabIndex = 57;
+            this.txtInterval.Text = "0";
+            this.txtInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label72.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label72.Location = new System.Drawing.Point(169, 21);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(53, 12);
+            this.label72.TabIndex = 37;
+            this.label72.Text = "循环次数";
+            // 
+            // mReserve
+            // 
+            this.mReserve.AutoSize = true;
+            this.mReserve.Enabled = false;
+            this.mReserve.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mReserve.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.mReserve.Location = new System.Drawing.Point(6, 76);
+            this.mReserve.Name = "mReserve";
+            this.mReserve.Size = new System.Drawing.Size(47, 12);
+            this.mReserve.TabIndex = 71;
+            this.mReserve.Text = "Reserve";
+            // 
+            // txtRepeat
+            // 
+            this.txtRepeat.Location = new System.Drawing.Point(230, 15);
+            this.txtRepeat.Name = "txtRepeat";
+            this.txtRepeat.Size = new System.Drawing.Size(42, 21);
+            this.txtRepeat.TabIndex = 58;
+            this.txtRepeat.Text = "1";
+            this.txtRepeat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mPower1
+            // 
+            this.mPower1.Enabled = false;
+            this.mPower1.Location = new System.Drawing.Point(58, 74);
+            this.mPower1.Name = "mPower1";
+            this.mPower1.Size = new System.Drawing.Size(26, 21);
+            this.mPower1.TabIndex = 59;
+            this.mPower1.Text = "0";
+            this.mPower1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mPower2
+            // 
+            this.mPower2.Location = new System.Drawing.Point(95, 73);
+            this.mPower2.Name = "mPower2";
+            this.mPower2.Size = new System.Drawing.Size(26, 21);
+            this.mPower2.TabIndex = 60;
+            this.mPower2.Text = "0";
+            this.mPower2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mPower5
+            // 
+            this.mPower5.Enabled = false;
+            this.mPower5.Location = new System.Drawing.Point(222, 71);
+            this.mPower5.Name = "mPower5";
+            this.mPower5.Size = new System.Drawing.Size(26, 21);
+            this.mPower5.TabIndex = 63;
+            this.mPower5.Text = "0";
+            this.mPower5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // mPower4
+            // 
+            this.mPower4.Enabled = false;
+            this.mPower4.Location = new System.Drawing.Point(179, 71);
+            this.mPower4.Name = "mPower4";
+            this.mPower4.Size = new System.Drawing.Size(26, 21);
+            this.mPower4.TabIndex = 62;
+            this.mPower4.Text = "0";
+            this.mPower4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mPower4.TextChanged += new System.EventHandler(this.mPower4_TextChanged);
+            // 
+            // mPower3
+            // 
+            this.mPower3.Enabled = false;
+            this.mPower3.Location = new System.Drawing.Point(135, 72);
+            this.mPower3.Name = "mPower3";
+            this.mPower3.Size = new System.Drawing.Size(26, 21);
+            this.mPower3.TabIndex = 61;
+            this.mPower3.Text = "0";
+            this.mPower3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox26
+            // 
+            this.groupBox26.Location = new System.Drawing.Point(-30, -93);
+            this.groupBox26.Name = "groupBox26";
+            this.groupBox26.Size = new System.Drawing.Size(200, 100);
+            this.groupBox26.TabIndex = 74;
+            this.groupBox26.TabStop = false;
+            this.groupBox26.Text = "groupBox26";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Location = new System.Drawing.Point(4, 12);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.btFastInventory);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.label123);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox16);
+            this.splitContainer1.Panel2.Controls.Add(this.label124);
+            this.splitContainer1.Panel2.Controls.Add(this.label120);
+            this.splitContainer1.Panel2.Controls.Add(this.comboBox4);
+            this.splitContainer1.Panel2.Controls.Add(this.txtDStay);
+            this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.label64);
+            this.splitContainer1.Panel2.Controls.Add(this.label116);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox15);
+            this.splitContainer1.Panel2.Controls.Add(this.cmbAntSelect1);
+            this.splitContainer1.Panel2.Controls.Add(this.label121);
+            this.splitContainer1.Panel2.Controls.Add(this.label48);
+            this.splitContainer1.Panel2.Controls.Add(this.label65);
+            this.splitContainer1.Panel2.Controls.Add(this.label119);
+            this.splitContainer1.Panel2.Controls.Add(this.cmbAntSelect4);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox14);
+            this.splitContainer1.Panel2.Controls.Add(this.comboBox3);
+            this.splitContainer1.Panel2.Controls.Add(this.txtCStay);
+            this.splitContainer1.Panel2.Controls.Add(this.label59);
+            this.splitContainer1.Panel2.Controls.Add(this.txtAStay);
+            this.splitContainer1.Panel2.Controls.Add(this.label117);
+            this.splitContainer1.Panel2.Controls.Add(this.label62);
+            this.splitContainer1.Panel2.Controls.Add(this.textBox13);
+            this.splitContainer1.Panel2.Controls.Add(this.cmbAntSelect2);
+            this.splitContainer1.Panel2.Controls.Add(this.label118);
+            this.splitContainer1.Panel2.Controls.Add(this.comboBox2);
+            this.splitContainer1.Panel2.Controls.Add(this.label61);
+            this.splitContainer1.Panel2.Controls.Add(this.label63);
+            this.splitContainer1.Panel2.Controls.Add(this.label60);
+            this.splitContainer1.Panel2.Controls.Add(this.cmbAntSelect3);
+            this.splitContainer1.Panel2.Controls.Add(this.txtBStay);
+            this.splitContainer1.Size = new System.Drawing.Size(705, 86);
+            this.splitContainer1.SplitterDistance = 133;
+            this.splitContainer1.TabIndex = 73;
+            // 
+            // btFastInventory
+            // 
+            this.btFastInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btFastInventory.ForeColor = System.Drawing.Color.DarkBlue;
+            this.btFastInventory.Location = new System.Drawing.Point(6, 22);
+            this.btFastInventory.Name = "btFastInventory";
+            this.btFastInventory.Size = new System.Drawing.Size(123, 38);
+            this.btFastInventory.TabIndex = 52;
+            this.btFastInventory.Text = "开始盘存";
+            this.btFastInventory.UseVisualStyleBackColor = true;
+            this.btFastInventory.Click += new System.EventHandler(this.btFastInventory_Click);
+            // 
+            // label123
+            // 
+            this.label123.AutoSize = true;
+            this.label123.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label123.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label123.Location = new System.Drawing.Point(440, 40);
+            this.label123.Name = "label123";
+            this.label123.Size = new System.Drawing.Size(11, 12);
+            this.label123.TabIndex = 75;
+            this.label123.Text = "H";
+            // 
+            // textBox16
+            // 
+            this.textBox16.Location = new System.Drawing.Point(498, 61);
+            this.textBox16.Name = "textBox16";
+            this.textBox16.Size = new System.Drawing.Size(42, 21);
+            this.textBox16.TabIndex = 72;
+            this.textBox16.Text = "1";
+            this.textBox16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label124
+            // 
+            this.label124.AutoSize = true;
+            this.label124.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label124.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label124.Location = new System.Drawing.Point(314, 42);
+            this.label124.Name = "label124";
+            this.label124.Size = new System.Drawing.Size(11, 12);
+            this.label124.TabIndex = 76;
+            this.label124.Text = "G";
+            // 
+            // label120
+            // 
+            this.label120.AutoSize = true;
+            this.label120.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label120.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label120.Location = new System.Drawing.Point(492, 47);
+            this.label120.Name = "label120";
+            this.label120.Size = new System.Drawing.Size(53, 12);
+            this.label120.TabIndex = 64;
+            this.label120.Text = "轮询次数";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox4.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "天线1",
+            "天线2",
+            "天线3",
+            "天线4",
+            "天线5",
+            "天线6",
+            "天线7",
+            "天线8",
+            "不选"});
+            this.comboBox4.Location = new System.Drawing.Point(419, 57);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(55, 20);
+            this.comboBox4.TabIndex = 68;
+            // 
+            // txtDStay
+            // 
+            this.txtDStay.AcceptsReturn = true;
+            this.txtDStay.Location = new System.Drawing.Point(499, 22);
+            this.txtDStay.Name = "txtDStay";
+            this.txtDStay.Size = new System.Drawing.Size(37, 21);
+            this.txtDStay.TabIndex = 59;
+            this.txtDStay.Text = "1";
+            this.txtDStay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox1.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "天线1",
+            "天线2",
+            "天线3",
+            "天线4",
+            "天线5",
+            "天线6",
+            "天线7",
+            "天线8",
+            "不选"});
+            this.comboBox1.Location = new System.Drawing.Point(3, 57);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(55, 20);
+            this.comboBox1.TabIndex = 65;
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label64.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label64.Location = new System.Drawing.Point(489, 9);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(53, 12);
+            this.label64.TabIndex = 39;
+            this.label64.Text = "轮询次数";
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label116.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label116.Location = new System.Drawing.Point(23, 43);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(11, 12);
+            this.label116.TabIndex = 60;
+            this.label116.Text = "E";
+            // 
+            // textBox15
+            // 
+            this.textBox15.Location = new System.Drawing.Point(361, 59);
+            this.textBox15.Name = "textBox15";
+            this.textBox15.Size = new System.Drawing.Size(42, 21);
+            this.textBox15.TabIndex = 71;
+            this.textBox15.Text = "1";
+            this.textBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // cmbAntSelect1
+            // 
+            this.cmbAntSelect1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAntSelect1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect1.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.cmbAntSelect1.FormattingEnabled = true;
+            this.cmbAntSelect1.Items.AddRange(new object[] {
+            "天线1",
+            "天线2",
+            "天线3",
+            "天线4",
+            "天线5",
+            "天线6",
+            "天线7",
+            "天线8",
+            "不选"});
+            this.cmbAntSelect1.Location = new System.Drawing.Point(3, 18);
+            this.cmbAntSelect1.Name = "cmbAntSelect1";
+            this.cmbAntSelect1.Size = new System.Drawing.Size(55, 20);
+            this.cmbAntSelect1.TabIndex = 13;
+            // 
+            // label121
+            // 
+            this.label121.AutoSize = true;
+            this.label121.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label121.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label121.Location = new System.Drawing.Point(166, 43);
+            this.label121.Name = "label121";
+            this.label121.Size = new System.Drawing.Size(11, 12);
+            this.label121.TabIndex = 73;
+            this.label121.Text = "F";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label48.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label48.Location = new System.Drawing.Point(25, 3);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(11, 12);
+            this.label48.TabIndex = 32;
+            this.label48.Text = "A";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label65.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label65.Location = new System.Drawing.Point(440, 2);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(11, 12);
+            this.label65.TabIndex = 38;
+            this.label65.Text = "D";
+            // 
+            // label119
+            // 
+            this.label119.AutoSize = true;
+            this.label119.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label119.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label119.Location = new System.Drawing.Point(359, 46);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(53, 12);
+            this.label119.TabIndex = 63;
+            this.label119.Text = "轮询次数";
+            // 
+            // cmbAntSelect4
+            // 
+            this.cmbAntSelect4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAntSelect4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect4.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.cmbAntSelect4.FormattingEnabled = true;
+            this.cmbAntSelect4.Items.AddRange(new object[] {
+            "天线1",
+            "天线2",
+            "天线3",
+            "天线4",
+            "天线5",
+            "天线6",
+            "天线7",
+            "天线8",
+            "不选"});
+            this.cmbAntSelect4.Location = new System.Drawing.Point(419, 16);
+            this.cmbAntSelect4.Name = "cmbAntSelect4";
+            this.cmbAntSelect4.Size = new System.Drawing.Size(55, 20);
+            this.cmbAntSelect4.TabIndex = 16;
+            // 
+            // textBox14
+            // 
+            this.textBox14.Location = new System.Drawing.Point(217, 60);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.Size = new System.Drawing.Size(42, 21);
+            this.textBox14.TabIndex = 70;
+            this.textBox14.Text = "1";
+            this.textBox14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox3.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "天线1",
+            "天线2",
+            "天线3",
+            "天线4",
+            "天线5",
+            "天线6",
+            "天线7",
+            "天线8",
+            "不选"});
+            this.comboBox3.Location = new System.Drawing.Point(292, 55);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(55, 20);
+            this.comboBox3.TabIndex = 67;
+            // 
+            // txtCStay
+            // 
+            this.txtCStay.Location = new System.Drawing.Point(361, 20);
+            this.txtCStay.Name = "txtCStay";
+            this.txtCStay.Size = new System.Drawing.Size(42, 21);
+            this.txtCStay.TabIndex = 58;
+            this.txtCStay.Text = "1";
+            this.txtCStay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label59.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label59.Location = new System.Drawing.Point(69, 6);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(53, 12);
+            this.label59.TabIndex = 33;
+            this.label59.Text = "轮询次数";
+            // 
+            // txtAStay
+            // 
+            this.txtAStay.Location = new System.Drawing.Point(71, 22);
+            this.txtAStay.Name = "txtAStay";
+            this.txtAStay.Size = new System.Drawing.Size(42, 21);
+            this.txtAStay.TabIndex = 56;
+            this.txtAStay.Text = "1";
+            this.txtAStay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label117
+            // 
+            this.label117.AutoSize = true;
+            this.label117.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label117.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label117.Location = new System.Drawing.Point(64, 47);
+            this.label117.Name = "label117";
+            this.label117.Size = new System.Drawing.Size(53, 12);
+            this.label117.TabIndex = 61;
+            this.label117.Text = "轮询次数";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label62.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label62.Location = new System.Drawing.Point(357, 4);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(53, 12);
+            this.label62.TabIndex = 37;
+            this.label62.Text = "轮询次数";
+            // 
+            // textBox13
+            // 
+            this.textBox13.Location = new System.Drawing.Point(66, 61);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.Size = new System.Drawing.Size(42, 21);
+            this.textBox13.TabIndex = 69;
+            this.textBox13.Text = "1";
+            this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // cmbAntSelect2
+            // 
+            this.cmbAntSelect2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAntSelect2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect2.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.cmbAntSelect2.FormattingEnabled = true;
+            this.cmbAntSelect2.Items.AddRange(new object[] {
+            "天线1",
+            "天线2",
+            "天线3",
+            "天线4",
+            "天线5",
+            "天线6",
+            "天线7",
+            "天线8",
+            "不选"});
+            this.cmbAntSelect2.Location = new System.Drawing.Point(142, 19);
+            this.cmbAntSelect2.Name = "cmbAntSelect2";
+            this.cmbAntSelect2.Size = new System.Drawing.Size(55, 20);
+            this.cmbAntSelect2.TabIndex = 14;
+            // 
+            // label118
+            // 
+            this.label118.AutoSize = true;
+            this.label118.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label118.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label118.Location = new System.Drawing.Point(213, 43);
+            this.label118.Name = "label118";
+            this.label118.Size = new System.Drawing.Size(53, 12);
+            this.label118.TabIndex = 62;
+            this.label118.Text = "轮询次数";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox2.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "天线1",
+            "天线2",
+            "天线3",
+            "天线4",
+            "天线5",
+            "天线6",
+            "天线7",
+            "天线8",
+            "不选"});
+            this.comboBox2.Location = new System.Drawing.Point(142, 58);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(55, 20);
+            this.comboBox2.TabIndex = 66;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label61.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label61.Location = new System.Drawing.Point(166, 5);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(11, 12);
+            this.label61.TabIndex = 34;
+            this.label61.Text = "B";
+            this.label61.Click += new System.EventHandler(this.label61_Click);
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label63.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label63.Location = new System.Drawing.Point(314, 3);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(11, 12);
+            this.label63.TabIndex = 36;
+            this.label63.Text = "C";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label60.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label60.Location = new System.Drawing.Point(213, 4);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(53, 12);
+            this.label60.TabIndex = 35;
+            this.label60.Text = "轮询次数";
+            // 
+            // cmbAntSelect3
+            // 
+            this.cmbAntSelect3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAntSelect3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect3.ForeColor = System.Drawing.SystemColors.InfoText;
+            this.cmbAntSelect3.FormattingEnabled = true;
+            this.cmbAntSelect3.Items.AddRange(new object[] {
+            "天线1",
+            "天线2",
+            "天线3",
+            "天线4",
+            "天线5",
+            "天线6",
+            "天线7",
+            "天线8",
+            "不选"});
+            this.cmbAntSelect3.Location = new System.Drawing.Point(292, 15);
+            this.cmbAntSelect3.Name = "cmbAntSelect3";
+            this.cmbAntSelect3.Size = new System.Drawing.Size(55, 20);
+            this.cmbAntSelect3.TabIndex = 15;
+            // 
+            // txtBStay
+            // 
+            this.txtBStay.Location = new System.Drawing.Point(215, 18);
+            this.txtBStay.Name = "txtBStay";
+            this.txtBStay.Size = new System.Drawing.Size(42, 21);
+            this.txtBStay.TabIndex = 57;
+            this.txtBStay.Text = "1";
+            this.txtBStay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // comboBox7
             // 
@@ -3995,149 +5116,6 @@ namespace UHFDemo
             this.comboBox7.Name = "comboBox7";
             this.comboBox7.Size = new System.Drawing.Size(55, 20);
             this.comboBox7.TabIndex = 39;
-            // 
-            // ledFast5
-            // 
-            this.ledFast5.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast5.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast5.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast5.BevelRate = 0.1F;
-            this.ledFast5.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast5.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast5.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast5.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.ledFast5.HighlightOpaque = ((byte)(20));
-            this.ledFast5.Location = new System.Drawing.Point(702, 118);
-            this.ledFast5.Name = "ledFast5";
-            this.ledFast5.RoundCorner = true;
-            this.ledFast5.SegmentIntervalRatio = 50;
-            this.ledFast5.ShowHighlight = true;
-            this.ledFast5.Size = new System.Drawing.Size(183, 35);
-            this.ledFast5.TabIndex = 35;
-            this.ledFast5.Text = "0";
-            this.ledFast5.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.ledFast5.TotalCharCount = 10;
-            // 
-            // ledFast2
-            // 
-            this.ledFast2.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast2.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast2.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast2.BevelRate = 0.1F;
-            this.ledFast2.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast2.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast2.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast2.ForeColor = System.Drawing.Color.Purple;
-            this.ledFast2.HighlightOpaque = ((byte)(20));
-            this.ledFast2.Location = new System.Drawing.Point(496, 35);
-            this.ledFast2.Name = "ledFast2";
-            this.ledFast2.RoundCorner = true;
-            this.ledFast2.SegmentIntervalRatio = 50;
-            this.ledFast2.ShowHighlight = true;
-            this.ledFast2.Size = new System.Drawing.Size(162, 50);
-            this.ledFast2.TabIndex = 34;
-            this.ledFast2.Text = "0";
-            this.ledFast2.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.ledFast2.TotalCharCount = 6;
-            // 
-            // ledFast3
-            // 
-            this.ledFast3.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast3.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast3.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast3.BevelRate = 0.1F;
-            this.ledFast3.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast3.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast3.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast3.ForeColor = System.Drawing.Color.Purple;
-            this.ledFast3.HighlightOpaque = ((byte)(20));
-            this.ledFast3.Location = new System.Drawing.Point(497, 103);
-            this.ledFast3.Name = "ledFast3";
-            this.ledFast3.RoundCorner = true;
-            this.ledFast3.SegmentIntervalRatio = 50;
-            this.ledFast3.ShowHighlight = true;
-            this.ledFast3.Size = new System.Drawing.Size(161, 50);
-            this.ledFast3.TabIndex = 33;
-            this.ledFast3.Text = "0";
-            this.ledFast3.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.ledFast3.TotalCharCount = 6;
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label54.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label54.Location = new System.Drawing.Point(700, 103);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(131, 12);
-            this.label54.TabIndex = 30;
-            this.label54.Text = "累计运行的时间(毫秒):";
-            // 
-            // label55
-            // 
-            this.label55.AutoSize = true;
-            this.label55.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label55.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label55.Location = new System.Drawing.Point(495, 17);
-            this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(125, 12);
-            this.label55.TabIndex = 29;
-            this.label55.Text = "命令识别速度(个/秒):";
-            // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label56.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label56.Location = new System.Drawing.Point(498, 88);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(119, 12);
-            this.label56.TabIndex = 28;
-            this.label56.Text = "命令执行时间(毫秒):";
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label57.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.label57.Location = new System.Drawing.Point(700, 35);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(107, 12);
-            this.label57.TabIndex = 27;
-            this.label57.Text = "累计返回数据(条):";
-            // 
-            // label58
-            // 
-            this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label58.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label58.Location = new System.Drawing.Point(151, 17);
-            this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(143, 12);
-            this.label58.TabIndex = 26;
-            this.label58.Text = "已盘存的标签总数量(个):";
-            // 
-            // ledFast1
-            // 
-            this.ledFast1.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast1.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast1.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast1.BevelRate = 0.1F;
-            this.ledFast1.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast1.BorderWidth = 3;
-            this.ledFast1.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast1.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.ledFast1.HighlightOpaque = ((byte)(20));
-            this.ledFast1.Location = new System.Drawing.Point(144, 35);
-            this.ledFast1.Name = "ledFast1";
-            this.ledFast1.RoundCorner = true;
-            this.ledFast1.SegmentIntervalRatio = 50;
-            this.ledFast1.ShowHighlight = true;
-            this.ledFast1.Size = new System.Drawing.Size(310, 118);
-            this.ledFast1.TabIndex = 21;
-            this.ledFast1.Text = "0";
-            this.ledFast1.TextAlignment = LxControl.LxLedControl.Alignment.Right;
             // 
             // txtFastMaxRssi
             // 
@@ -4167,581 +5145,6 @@ namespace UHFDemo
             this.buttonFastFresh.UseVisualStyleBackColor = true;
             this.buttonFastFresh.Click += new System.EventHandler(this.buttonFastFresh_Click);
             // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tableLayoutPanel2.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Inset;
-            this.tableLayoutPanel2.ColumnCount = 3;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.33133F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.66868F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 333F));
-            this.tableLayoutPanel2.Controls.Add(this.panel2, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel3, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.panel4, 2, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 1;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 91F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(994, 93);
-            this.tableLayoutPanel2.TabIndex = 25;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.label124);
-            this.panel2.Controls.Add(this.label123);
-            this.panel2.Controls.Add(this.label122);
-            this.panel2.Controls.Add(this.label121);
-            this.panel2.Controls.Add(this.textBox16);
-            this.panel2.Controls.Add(this.textBox15);
-            this.panel2.Controls.Add(this.textBox14);
-            this.panel2.Controls.Add(this.textBox13);
-            this.panel2.Controls.Add(this.comboBox4);
-            this.panel2.Controls.Add(this.comboBox3);
-            this.panel2.Controls.Add(this.comboBox2);
-            this.panel2.Controls.Add(this.comboBox1);
-            this.panel2.Controls.Add(this.label120);
-            this.panel2.Controls.Add(this.label119);
-            this.panel2.Controls.Add(this.label118);
-            this.panel2.Controls.Add(this.label117);
-            this.panel2.Controls.Add(this.label116);
-            this.panel2.Controls.Add(this.txtDStay);
-            this.panel2.Controls.Add(this.txtCStay);
-            this.panel2.Controls.Add(this.txtBStay);
-            this.panel2.Controls.Add(this.txtAStay);
-            this.panel2.Controls.Add(this.label64);
-            this.panel2.Controls.Add(this.label65);
-            this.panel2.Controls.Add(this.cmbAntSelect1);
-            this.panel2.Controls.Add(this.label62);
-            this.panel2.Controls.Add(this.cmbAntSelect2);
-            this.panel2.Controls.Add(this.label63);
-            this.panel2.Controls.Add(this.cmbAntSelect3);
-            this.panel2.Controls.Add(this.label60);
-            this.panel2.Controls.Add(this.cmbAntSelect4);
-            this.panel2.Controls.Add(this.label61);
-            this.panel2.Controls.Add(this.label59);
-            this.panel2.Controls.Add(this.label48);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(139, 5);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(514, 83);
-            this.panel2.TabIndex = 0;
-            // 
-            // label124
-            // 
-            this.label124.AutoSize = true;
-            this.label124.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label124.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label124.Location = new System.Drawing.Point(296, 45);
-            this.label124.Name = "label124";
-            this.label124.Size = new System.Drawing.Size(11, 12);
-            this.label124.TabIndex = 76;
-            this.label124.Text = "G";
-            // 
-            // label123
-            // 
-            this.label123.AutoSize = true;
-            this.label123.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label123.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label123.Location = new System.Drawing.Point(423, 45);
-            this.label123.Name = "label123";
-            this.label123.Size = new System.Drawing.Size(11, 12);
-            this.label123.TabIndex = 75;
-            this.label123.Text = "H";
-            // 
-            // label122
-            // 
-            this.label122.AutoSize = true;
-            this.label122.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label122.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label122.Location = new System.Drawing.Point(297, 45);
-            this.label122.Name = "label122";
-            this.label122.Size = new System.Drawing.Size(0, 12);
-            this.label122.TabIndex = 74;
-            // 
-            // label121
-            // 
-            this.label121.AutoSize = true;
-            this.label121.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label121.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label121.Location = new System.Drawing.Point(162, 45);
-            this.label121.Name = "label121";
-            this.label121.Size = new System.Drawing.Size(11, 12);
-            this.label121.TabIndex = 73;
-            this.label121.Text = "F";
-            // 
-            // textBox16
-            // 
-            this.textBox16.Location = new System.Drawing.Point(462, 58);
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(42, 21);
-            this.textBox16.TabIndex = 72;
-            this.textBox16.Text = "1";
-            this.textBox16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox15
-            // 
-            this.textBox15.Location = new System.Drawing.Point(337, 61);
-            this.textBox15.Name = "textBox15";
-            this.textBox15.Size = new System.Drawing.Size(42, 21);
-            this.textBox15.TabIndex = 71;
-            this.textBox15.Text = "1";
-            this.textBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox14
-            // 
-            this.textBox14.Location = new System.Drawing.Point(203, 59);
-            this.textBox14.Name = "textBox14";
-            this.textBox14.Size = new System.Drawing.Size(42, 21);
-            this.textBox14.TabIndex = 70;
-            this.textBox14.Text = "1";
-            this.textBox14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox13
-            // 
-            this.textBox13.Location = new System.Drawing.Point(66, 58);
-            this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(42, 21);
-            this.textBox13.TabIndex = 69;
-            this.textBox13.Text = "1";
-            this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBox4.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "天线1",
-            "天线2",
-            "天线3",
-            "天线4",
-            "天线5",
-            "天线6",
-            "天线7",
-            "天线8",
-            "不选"});
-            this.comboBox4.Location = new System.Drawing.Point(401, 59);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(55, 20);
-            this.comboBox4.TabIndex = 68;
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBox3.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "天线1",
-            "天线2",
-            "天线3",
-            "天线4",
-            "天线5",
-            "天线6",
-            "天线7",
-            "天线8",
-            "不选"});
-            this.comboBox3.Location = new System.Drawing.Point(276, 59);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(55, 20);
-            this.comboBox3.TabIndex = 67;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBox2.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "天线1",
-            "天线2",
-            "天线3",
-            "天线4",
-            "天线5",
-            "天线6",
-            "天线7",
-            "天线8",
-            "不选"});
-            this.comboBox2.Location = new System.Drawing.Point(138, 59);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(55, 20);
-            this.comboBox2.TabIndex = 66;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.comboBox1.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "天线1",
-            "天线2",
-            "天线3",
-            "天线4",
-            "天线5",
-            "天线6",
-            "天线7",
-            "天线8",
-            "不选"});
-            this.comboBox1.Location = new System.Drawing.Point(6, 59);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(55, 20);
-            this.comboBox1.TabIndex = 65;
-            // 
-            // label120
-            // 
-            this.label120.AutoSize = true;
-            this.label120.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label120.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label120.Location = new System.Drawing.Point(460, 45);
-            this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(53, 12);
-            this.label120.TabIndex = 64;
-            this.label120.Text = "轮询次数";
-            // 
-            // label119
-            // 
-            this.label119.AutoSize = true;
-            this.label119.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label119.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label119.Location = new System.Drawing.Point(334, 45);
-            this.label119.Name = "label119";
-            this.label119.Size = new System.Drawing.Size(53, 12);
-            this.label119.TabIndex = 63;
-            this.label119.Text = "轮询次数";
-            // 
-            // label118
-            // 
-            this.label118.AutoSize = true;
-            this.label118.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label118.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label118.Location = new System.Drawing.Point(201, 44);
-            this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(53, 12);
-            this.label118.TabIndex = 62;
-            this.label118.Text = "轮询次数";
-            // 
-            // label117
-            // 
-            this.label117.AutoSize = true;
-            this.label117.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label117.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label117.Location = new System.Drawing.Point(64, 44);
-            this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(53, 12);
-            this.label117.TabIndex = 61;
-            this.label117.Text = "轮询次数";
-            // 
-            // label116
-            // 
-            this.label116.AutoSize = true;
-            this.label116.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label116.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label116.Location = new System.Drawing.Point(26, 44);
-            this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(11, 12);
-            this.label116.TabIndex = 60;
-            this.label116.Text = "E";
-            // 
-            // txtDStay
-            // 
-            this.txtDStay.AcceptsReturn = true;
-            this.txtDStay.Location = new System.Drawing.Point(462, 19);
-            this.txtDStay.Name = "txtDStay";
-            this.txtDStay.Size = new System.Drawing.Size(37, 21);
-            this.txtDStay.TabIndex = 59;
-            this.txtDStay.Text = "1";
-            this.txtDStay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtCStay
-            // 
-            this.txtCStay.Location = new System.Drawing.Point(337, 21);
-            this.txtCStay.Name = "txtCStay";
-            this.txtCStay.Size = new System.Drawing.Size(42, 21);
-            this.txtCStay.TabIndex = 58;
-            this.txtCStay.Text = "1";
-            this.txtCStay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtBStay
-            // 
-            this.txtBStay.Location = new System.Drawing.Point(203, 20);
-            this.txtBStay.Name = "txtBStay";
-            this.txtBStay.Size = new System.Drawing.Size(42, 21);
-            this.txtBStay.TabIndex = 57;
-            this.txtBStay.Text = "1";
-            this.txtBStay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtAStay
-            // 
-            this.txtAStay.Location = new System.Drawing.Point(67, 20);
-            this.txtAStay.Name = "txtAStay";
-            this.txtAStay.Size = new System.Drawing.Size(42, 21);
-            this.txtAStay.TabIndex = 56;
-            this.txtAStay.Text = "1";
-            this.txtAStay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label64.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label64.Location = new System.Drawing.Point(460, 6);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(53, 12);
-            this.label64.TabIndex = 39;
-            this.label64.Text = "轮询次数";
-            // 
-            // label65
-            // 
-            this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label65.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label65.Location = new System.Drawing.Point(423, 3);
-            this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(11, 12);
-            this.label65.TabIndex = 38;
-            this.label65.Text = "D";
-            // 
-            // cmbAntSelect1
-            // 
-            this.cmbAntSelect1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cmbAntSelect1.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.cmbAntSelect1.FormattingEnabled = true;
-            this.cmbAntSelect1.Items.AddRange(new object[] {
-            "天线1",
-            "天线2",
-            "天线3",
-            "天线4",
-            "天线5",
-            "天线6",
-            "天线7",
-            "天线8",
-            "不选"});
-            this.cmbAntSelect1.Location = new System.Drawing.Point(6, 21);
-            this.cmbAntSelect1.Name = "cmbAntSelect1";
-            this.cmbAntSelect1.Size = new System.Drawing.Size(55, 20);
-            this.cmbAntSelect1.TabIndex = 13;
-            // 
-            // label62
-            // 
-            this.label62.AutoSize = true;
-            this.label62.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label62.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label62.Location = new System.Drawing.Point(334, 5);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(53, 12);
-            this.label62.TabIndex = 37;
-            this.label62.Text = "轮询次数";
-            // 
-            // cmbAntSelect2
-            // 
-            this.cmbAntSelect2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cmbAntSelect2.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.cmbAntSelect2.FormattingEnabled = true;
-            this.cmbAntSelect2.Items.AddRange(new object[] {
-            "天线1",
-            "天线2",
-            "天线3",
-            "天线4",
-            "天线5",
-            "天线6",
-            "天线7",
-            "天线8",
-            "不选"});
-            this.cmbAntSelect2.Location = new System.Drawing.Point(138, 20);
-            this.cmbAntSelect2.Name = "cmbAntSelect2";
-            this.cmbAntSelect2.Size = new System.Drawing.Size(55, 20);
-            this.cmbAntSelect2.TabIndex = 14;
-            // 
-            // label63
-            // 
-            this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label63.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label63.Location = new System.Drawing.Point(297, 5);
-            this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(11, 12);
-            this.label63.TabIndex = 36;
-            this.label63.Text = "C";
-            // 
-            // cmbAntSelect3
-            // 
-            this.cmbAntSelect3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cmbAntSelect3.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.cmbAntSelect3.FormattingEnabled = true;
-            this.cmbAntSelect3.Items.AddRange(new object[] {
-            "天线1",
-            "天线2",
-            "天线3",
-            "天线4",
-            "天线5",
-            "天线6",
-            "天线7",
-            "天线8",
-            "不选"});
-            this.cmbAntSelect3.Location = new System.Drawing.Point(276, 21);
-            this.cmbAntSelect3.Name = "cmbAntSelect3";
-            this.cmbAntSelect3.Size = new System.Drawing.Size(55, 20);
-            this.cmbAntSelect3.TabIndex = 15;
-            // 
-            // label60
-            // 
-            this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label60.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label60.Location = new System.Drawing.Point(201, 3);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(53, 12);
-            this.label60.TabIndex = 35;
-            this.label60.Text = "轮询次数";
-            // 
-            // cmbAntSelect4
-            // 
-            this.cmbAntSelect4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cmbAntSelect4.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.cmbAntSelect4.FormattingEnabled = true;
-            this.cmbAntSelect4.Items.AddRange(new object[] {
-            "天线1",
-            "天线2",
-            "天线3",
-            "天线4",
-            "天线5",
-            "天线6",
-            "天线7",
-            "天线8",
-            "不选"});
-            this.cmbAntSelect4.Location = new System.Drawing.Point(401, 20);
-            this.cmbAntSelect4.Name = "cmbAntSelect4";
-            this.cmbAntSelect4.Size = new System.Drawing.Size(55, 20);
-            this.cmbAntSelect4.TabIndex = 16;
-            // 
-            // label61
-            // 
-            this.label61.AutoSize = true;
-            this.label61.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label61.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label61.Location = new System.Drawing.Point(162, 5);
-            this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(11, 12);
-            this.label61.TabIndex = 34;
-            this.label61.Text = "B";
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label59.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label59.Location = new System.Drawing.Point(64, 3);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(53, 12);
-            this.label59.TabIndex = 33;
-            this.label59.Text = "轮询次数";
-            // 
-            // label48
-            // 
-            this.label48.AutoSize = true;
-            this.label48.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label48.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label48.Location = new System.Drawing.Point(26, 3);
-            this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(11, 12);
-            this.label48.TabIndex = 32;
-            this.label48.Text = "A";
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.btFastInventory);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(5, 5);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(126, 83);
-            this.panel3.TabIndex = 1;
-            // 
-            // btFastInventory
-            // 
-            this.btFastInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btFastInventory.ForeColor = System.Drawing.Color.DarkBlue;
-            this.btFastInventory.Location = new System.Drawing.Point(3, 18);
-            this.btFastInventory.Name = "btFastInventory";
-            this.btFastInventory.Size = new System.Drawing.Size(123, 38);
-            this.btFastInventory.TabIndex = 52;
-            this.btFastInventory.Text = "开始盘存";
-            this.btFastInventory.UseVisualStyleBackColor = true;
-            this.btFastInventory.Click += new System.EventHandler(this.btFastInventory_Click);
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.m_fast_session_power_time);
-            this.panel4.Controls.Add(this.label133);
-            this.panel4.Controls.Add(this.mFastSessionSelect);
-            this.panel4.Controls.Add(this.mFastSession);
-            this.panel4.Controls.Add(this.mFastExeCount);
-            this.panel4.Controls.Add(this.mFastIntervalTime);
-            this.panel4.Controls.Add(this.label132);
-            this.panel4.Controls.Add(this.label131);
-            this.panel4.Controls.Add(this.label130);
-            this.panel4.Controls.Add(this.mPower5);
-            this.panel4.Controls.Add(this.mPower4);
-            this.panel4.Controls.Add(this.mPower3);
-            this.panel4.Controls.Add(this.mPower2);
-            this.panel4.Controls.Add(this.mPower1);
-            this.panel4.Controls.Add(this.txtRepeat);
-            this.panel4.Controls.Add(this.txtInterval);
-            this.panel4.Controls.Add(this.label73);
-            this.panel4.Controls.Add(this.label72);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(661, 5);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(328, 83);
-            this.panel4.TabIndex = 2;
-            // 
-            // txtRepeat
-            // 
-            this.txtRepeat.Location = new System.Drawing.Point(89, 27);
-            this.txtRepeat.Name = "txtRepeat";
-            this.txtRepeat.Size = new System.Drawing.Size(42, 21);
-            this.txtRepeat.TabIndex = 58;
-            this.txtRepeat.Text = "1";
-            this.txtRepeat.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // txtInterval
-            // 
-            this.txtInterval.Location = new System.Drawing.Point(28, 27);
-            this.txtInterval.Name = "txtInterval";
-            this.txtInterval.Size = new System.Drawing.Size(42, 21);
-            this.txtInterval.TabIndex = 57;
-            this.txtInterval.Text = "0";
-            this.txtInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label73.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label73.Location = new System.Drawing.Point(3, 12);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(89, 12);
-            this.label73.TabIndex = 36;
-            this.label73.Text = "天线间延时(mS)";
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label72.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label72.Location = new System.Drawing.Point(87, 12);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(53, 12);
-            this.label72.TabIndex = 37;
-            this.label72.Text = "循环次数";
-            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -4761,6 +5164,7 @@ namespace UHFDemo
             this.columnHeader33,
             this.columnHeader34,
             this.columnHeader35,
+            this.columnHeader356,
             this.columnHeader36});
             this.lvFastList.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lvFastList.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -4800,6 +5204,12 @@ namespace UHFDemo
             this.columnHeader35.Text = "RSSI";
             this.columnHeader35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader35.Width = 96;
+            // 
+            // columnHeader356
+            // 
+            this.columnHeader356.Text = "Phase";
+            this.columnHeader356.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader356.Width = 56;
             // 
             // columnHeader36
             // 
@@ -6793,191 +7203,6 @@ namespace UHFDemo
             this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
-            // label128
-            // 
-            this.label128.AutoSize = true;
-            this.label128.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label128.Location = new System.Drawing.Point(280, 27);
-            this.label128.Name = "label128";
-            this.label128.Size = new System.Drawing.Size(53, 12);
-            this.label128.TabIndex = 80;
-            this.label128.Text = "时间间隔";
-            // 
-            // m_intervalTimetb
-            // 
-            this.m_intervalTimetb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.m_intervalTimetb.Location = new System.Drawing.Point(339, 22);
-            this.m_intervalTimetb.Name = "m_intervalTimetb";
-            this.m_intervalTimetb.Size = new System.Drawing.Size(48, 21);
-            this.m_intervalTimetb.TabIndex = 81;
-            this.m_intervalTimetb.Text = "5000";
-            this.m_intervalTimetb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label129
-            // 
-            this.label129.AutoSize = true;
-            this.label129.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label129.Location = new System.Drawing.Point(394, 27);
-            this.label129.Name = "label129";
-            this.label129.Size = new System.Drawing.Size(53, 12);
-            this.label129.TabIndex = 82;
-            this.label129.Text = "运行次数";
-            // 
-            // mTestTagCounts
-            // 
-            this.mTestTagCounts.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.mTestTagCounts.Location = new System.Drawing.Point(453, 22);
-            this.mTestTagCounts.Name = "mTestTagCounts";
-            this.mTestTagCounts.Size = new System.Drawing.Size(35, 21);
-            this.mTestTagCounts.TabIndex = 83;
-            this.mTestTagCounts.Text = "0";
-            this.mTestTagCounts.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // mPower1
-            // 
-            this.mPower1.Location = new System.Drawing.Point(34, 54);
-            this.mPower1.Name = "mPower1";
-            this.mPower1.Size = new System.Drawing.Size(26, 21);
-            this.mPower1.TabIndex = 59;
-            this.mPower1.Text = "25";
-            this.mPower1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // mPower2
-            // 
-            this.mPower2.Location = new System.Drawing.Point(66, 54);
-            this.mPower2.Name = "mPower2";
-            this.mPower2.Size = new System.Drawing.Size(26, 21);
-            this.mPower2.TabIndex = 60;
-            this.mPower2.Text = "25";
-            this.mPower2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // mPower3
-            // 
-            this.mPower3.Location = new System.Drawing.Point(99, 54);
-            this.mPower3.Name = "mPower3";
-            this.mPower3.Size = new System.Drawing.Size(26, 21);
-            this.mPower3.TabIndex = 61;
-            this.mPower3.Text = "25";
-            this.mPower3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // mPower4
-            // 
-            this.mPower4.Location = new System.Drawing.Point(130, 54);
-            this.mPower4.Name = "mPower4";
-            this.mPower4.Size = new System.Drawing.Size(26, 21);
-            this.mPower4.TabIndex = 62;
-            this.mPower4.Text = "25";
-            this.mPower4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // mPower5
-            // 
-            this.mPower5.Location = new System.Drawing.Point(163, 54);
-            this.mPower5.Name = "mPower5";
-            this.mPower5.Size = new System.Drawing.Size(26, 21);
-            this.mPower5.TabIndex = 63;
-            this.mPower5.Text = "25";
-            this.mPower5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label130
-            // 
-            this.label130.AutoSize = true;
-            this.label130.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label130.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label130.Location = new System.Drawing.Point(3, 60);
-            this.label130.Name = "label130";
-            this.label130.Size = new System.Drawing.Size(29, 12);
-            this.label130.TabIndex = 64;
-            this.label130.Text = "功率";
-            // 
-            // label131
-            // 
-            this.label131.AutoSize = true;
-            this.label131.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label131.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label131.Location = new System.Drawing.Point(144, 12);
-            this.label131.Name = "label131";
-            this.label131.Size = new System.Drawing.Size(53, 12);
-            this.label131.TabIndex = 65;
-            this.label131.Text = "时间间隔";
-            // 
-            // label132
-            // 
-            this.label132.AutoSize = true;
-            this.label132.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label132.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label132.Location = new System.Drawing.Point(208, 12);
-            this.label132.Name = "label132";
-            this.label132.Size = new System.Drawing.Size(53, 12);
-            this.label132.TabIndex = 66;
-            this.label132.Text = "运行次数";
-            // 
-            // mFastIntervalTime
-            // 
-            this.mFastIntervalTime.Location = new System.Drawing.Point(146, 27);
-            this.mFastIntervalTime.Name = "mFastIntervalTime";
-            this.mFastIntervalTime.Size = new System.Drawing.Size(51, 21);
-            this.mFastIntervalTime.TabIndex = 67;
-            this.mFastIntervalTime.Text = "5000";
-            this.mFastIntervalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // mFastExeCount
-            // 
-            this.mFastExeCount.Location = new System.Drawing.Point(211, 27);
-            this.mFastExeCount.Name = "mFastExeCount";
-            this.mFastExeCount.Size = new System.Drawing.Size(51, 21);
-            this.mFastExeCount.TabIndex = 68;
-            this.mFastExeCount.Text = "1";
-            this.mFastExeCount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // mFastSession
-            // 
-            this.mFastSession.AutoSize = true;
-            this.mFastSession.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.mFastSession.Location = new System.Drawing.Point(196, 56);
-            this.mFastSession.Name = "mFastSession";
-            this.mFastSession.Size = new System.Drawing.Size(30, 16);
-            this.mFastSession.TabIndex = 69;
-            this.mFastSession.Text = "S";
-            this.mFastSession.UseVisualStyleBackColor = true;
-            this.mFastSession.CheckedChanged += new System.EventHandler(this.mFastSession_CheckedChanged);
-            // 
-            // mFastSessionSelect
-            // 
-            this.mFastSessionSelect.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.mFastSessionSelect.Enabled = false;
-            this.mFastSessionSelect.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.mFastSessionSelect.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.mFastSessionSelect.FormattingEnabled = true;
-            this.mFastSessionSelect.Items.AddRange(new object[] {
-            "S0",
-            "S1",
-            "S2",
-            "S3"});
-            this.mFastSessionSelect.Location = new System.Drawing.Point(228, 54);
-            this.mFastSessionSelect.Name = "mFastSessionSelect";
-            this.mFastSessionSelect.Size = new System.Drawing.Size(55, 20);
-            this.mFastSessionSelect.TabIndex = 70;
-            // 
-            // label133
-            // 
-            this.label133.AutoSize = true;
-            this.label133.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.label133.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label133.Location = new System.Drawing.Point(263, 12);
-            this.label133.Name = "label133";
-            this.label133.Size = new System.Drawing.Size(65, 12);
-            this.label133.TabIndex = 71;
-            this.label133.Text = "小功率时间";
-            // 
-            // m_fast_session_power_time
-            // 
-            this.m_fast_session_power_time.Location = new System.Drawing.Point(277, 31);
-            this.m_fast_session_power_time.Name = "m_fast_session_power_time";
-            this.m_fast_session_power_time.Size = new System.Drawing.Size(42, 21);
-            this.m_fast_session_power_time.TabIndex = 72;
-            this.m_fast_session_power_time.Text = "500";
-            this.m_fast_session_power_time.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // R2000UartDemo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -7082,19 +7307,22 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.ledBuffer1)).EndInit();
             this.pageFast4AntMode.ResumeLayout(false);
             this.pageFast4AntMode.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledFast4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledFast2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledFast3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast1)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast5)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox28.PerformLayout();
+            this.groupBox27.ResumeLayout(false);
+            this.groupBox27.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            this.splitContainer1.ResumeLayout(false);
             this.pageAcessTag.ResumeLayout(false);
             this.gbCmdOperateTag.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
@@ -7230,13 +7458,10 @@ namespace UHFDemo
         private System.Windows.Forms.ColumnHeader columnHeader33;
         private System.Windows.Forms.ColumnHeader columnHeader34;
         private System.Windows.Forms.ColumnHeader columnHeader35;
+        private System.Windows.Forms.ColumnHeader columnHeader356;
         private System.Windows.Forms.ColumnHeader columnHeader36;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label73;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button buttonFastFresh;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label22;
@@ -7618,7 +7843,6 @@ namespace UHFDemo
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label124;
         private System.Windows.Forms.Label label123;
-        private System.Windows.Forms.Label label122;
         private System.Windows.Forms.Label label121;
         private System.Windows.Forms.TextBox textBox16;
         private System.Windows.Forms.TextBox textBox15;
@@ -7679,21 +7903,41 @@ namespace UHFDemo
         private Label label128;
         private TextBox mTestTagCounts;
         private Label label129;
-        private ComboBox mFastSessionSelect;
-        private CheckBox mFastSession;
         private TextBox mFastExeCount;
         private TextBox mFastIntervalTime;
         private Label label132;
         private Label label131;
-        private Label label130;
         private TextBox mPower5;
         private TextBox mPower4;
         private TextBox mPower3;
         private TextBox mPower2;
         private TextBox mPower1;
-        private TextBox m_fast_session_power_time;
-        private Label label133;
+        private Label mReserve;
         private Timer mSendFastSwitchTimer;
+        private SplitContainer splitContainer1;
+        private GroupBox groupBox25;
+        private GroupBox groupBox27;
+        private GroupBox groupBox26;
+        private GroupBox groupBox28;
+        private TextBox m_new_fast_inventory_power2;
+        private TextBox m_new_fast_inventory_power1;
+        private TextBox m_new_fast_inventory_repeat2;
+        private TextBox m_new_fast_inventory_repeat1;
+        private Label mRepeatPower1;
+        private Label mRepeatPower2;
+        private Label mRepeat2;
+        private Label mRepeat1;
+        private CheckBox mDynamicPoll;
+        private TextBox m_new_fast_inventory_target_count;
+        private Label mTargetQuantity;
+        private TextBox m_new_fast_inventory_continue;
+        private Label mContiue;
+        private TextBox m_new_fast_inventory_optimized;
+        private Label mOpitimized;
+        private CheckBox m_phase_value;
+        private ComboBox m_new_fast_inventory_flag;
+        private ComboBox m_new_fast_inventory_session;
+        private CheckBox m_new_fast_inventory;
     }
 }
 
