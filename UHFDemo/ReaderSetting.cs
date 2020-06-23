@@ -29,6 +29,8 @@ namespace UHFDemo
         public string btReaderIdentifier;
         public byte btAntImpedance;
         public byte btImpedanceFrequency;
+        public byte btAntGroup;
+        public bool isNeedChangeGroup;
 
         public int nUserDefineStartFrequency;
         public byte btUserDefineFrequencyInterval;
@@ -59,6 +61,7 @@ namespace UHFDemo
             btGpio3Value = 0x00;
             btGpio4Value = 0x00;
             btAntDetector = 0x00;
+            isNeedChangeGroup = false;
         }
     }
 }

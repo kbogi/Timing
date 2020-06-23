@@ -78,10 +78,10 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>BD17E58F176B60EC02A886C16BF220990CDC3A65</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>1F23A857F46748D88EDF721089C0503874EB929F</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>UHFDemo_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>UHFDemo_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -118,9 +118,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CCommondMethod.cs" />
+    <Compile Include="CMD.cs" />
     <Compile Include="DBListView.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DEVICEHW_CONFIG.cs" />
+    <Compile Include="DEVICEPORT_CONFIG.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +132,11 @@
     </Compile>
     <Compile Include="InventoryBuffer.cs" />
     <Compile Include="ListViewHelper.cs" />
+    <Compile Include="MODULE_CFG.cs" />
+    <Compile Include="MODULE_SEARCH.cs" />
+    <Compile Include="NetCfgDB.cs" />
+    <Compile Include="NET_COMM.cs" />
+    <Compile Include="NET_DEVICE_CONFIG.cs" />
     <Compile Include="OperateTagBuffer.cs" />
     <Compile Include="OperateTagISO18000Buffer.cs" />
     <Compile Include="R2000UartDemo.cs">
@@ -166,6 +174,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ReaderSetting.cs" />
+    <None Include="UHFDemo_1_TemporaryKey.pfx" />
     <None Include="UHFDemo_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

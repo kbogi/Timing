@@ -282,5 +282,142 @@ namespace UHFDemo
 
             return strErrorCode;
         }
+
+
+        #region FromHex
+
+        /// <summary>
+        /// Convert human-readable hex string to byte array;
+        /// e.g., 123456 or 0x123456 -> {0x12, 0x34, 0x56};
+        /// </summary>
+        /// <param name="hex">Human-readable hex string to convert</param>
+        /// <returns>Byte array</returns>
+        public static byte[] FromHex(string hex)
+        {
+            int prelen = 0;
+
+            if (hex.StartsWith("0x") || hex.StartsWith("0X"))
+                prelen = 2;
+
+            byte[] bytes = new byte[(hex.Length - prelen) / 2];
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                string bytestring = hex.Substring(prelen + (2 * i), 2);
+                bytes[i] = byte.Parse(bytestring, System.Globalization.NumberStyles.HexNumber);
+            }
+
+            return bytes;
+        }
+
+        #endregion
+
+        #region ToHex
+
+        /// <summary>
+        /// Convert byte array to human-readable hex string; e.g., {0x12, 0x34, 0x56} -> 123456
+        /// </summary>
+        /// <param name="bytes">Byte array to convert</param>
+        /// <returns>Human-readable hex string</returns>
+        public static string ToHex(byte[] bytes)
+        {
+            return ToHex(bytes, "0x", "");
+        }
+
+        /// <summary>
+        /// Convert byte array to human-readable hex string; e.g., {0x12, 0x34, 0x56} -> 123456
+        /// </summary>
+        /// <param name="bytes">Byte array to convert</param>
+        /// <param name="prefix">String to place before byte strings</param>
+        /// <param name="separator">String to place between byte strings</param>
+        /// <returns>Human-readable hex string</returns>
+        public static string ToHex(byte[] bytes, string prefix, string separator)
+        {
+            if (null == bytes)
+                return "null";
+
+            List<string> bytestrings = new List<string>();
+
+            foreach (byte b in bytes)
+                bytestrings.Add(b.ToString("X2"));
+
+            return prefix + String.Join(separator, bytestrings.ToArray());
+        }
+
+        /// <summary>
+        /// Convert u16 array to human-readable hex string; e.g., {0x1234, 0x5678} -> 12345678
+        /// </summary>
+        /// <param name="words">u16 array to convert</param>
+        /// <returns>Human-readable hex string</returns>
+        public static string ToHex(UInt16[] words)
+        {
+            StringBuilder sb = new StringBuilder(4 * words.Length);
+
+            foreach (UInt16 word in words)
+                sb.Append(word.ToString("X4"));
+
+            return sb.ToString();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Converts word array to byte array
+        /// </summary>
+        /// <param name="bytes">The byte array</param>
+        /// <returns>The converted word array</returns>
+        public static ushort[] bytesToWords(byte[] bytes)
+        {
+            ushort[] memWords = new ushort[bytes.Length / 2];
+            for (int i = 0; i < memWords.Length; i++)
+            {
+                memWords[i] = bytes[2 * i];
+                memWords[i] <<= 8;
+                memWords[i] |= bytes[2 * i + 1];
+            }
+            return memWords;
+        }
+
+        /// <summary>
+        /// Converts byte array to word array
+        /// </summary>
+        /// <param name="words">The word array</param>
+        /// <returns>The converted byte array</returns>
+        public static byte[] wordsToBytes(ushort[] words)
+        {
+            byte[] dataBytes = new byte[words.Length * 2];
+            for (int i = 0; i < words.Length; i++)
+            {
+                dataBytes[2 * i] = (byte)((words[i] >> 8) & 0xFF);
+                dataBytes[2 * i + 1] = (byte)((words[i]) & 0xFF);
+            }
+            return dataBytes;
+        }
+
+        public static int getu8(byte[] data, int offset)
+        {
+            return data[offset] & 0xff; ;
+        }
+
+        public static int getu16(byte[] data, int offset)
+        {
+            return ((data[offset] & 0xff) << 8)
+              | ((data[offset + 1] & 0xff) << 0);
+        }
+
+        public static int getu24(byte[] data, int offset)
+        {
+            return ((data[offset] & 0xff) << 16)
+              | ((data[offset + 1] & 0xff) << 8)
+              | ((data[offset + 2] & 0xff) << 0);
+        }
+
+        public static int getu32(byte[] data, int offset)
+        {
+            return ((data[offset] & 0xff) << 24)
+              | ((data[offset + 1] & 0xff) << 16)
+              | ((data[offset + 2] & 0xff) << 8)
+              | ((data[offset + 3] & 0xff) << 0);
+        }
     }    
 }

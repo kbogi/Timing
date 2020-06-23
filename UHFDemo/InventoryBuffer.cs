@@ -75,6 +75,14 @@ namespace UHFDemo
             dtTagTable.Columns.Add("COLANT6", typeof(string));
             dtTagTable.Columns.Add("COLANT7", typeof(string));
             dtTagTable.Columns.Add("COLANT8", typeof(string));
+            dtTagTable.Columns.Add("COLANT9", typeof(string));
+            dtTagTable.Columns.Add("COLANT10", typeof(string));
+            dtTagTable.Columns.Add("COLANT11", typeof(string));
+            dtTagTable.Columns.Add("COLANT12", typeof(string));
+            dtTagTable.Columns.Add("COLANT13", typeof(string));
+            dtTagTable.Columns.Add("COLANT14", typeof(string));
+            dtTagTable.Columns.Add("COLANT15", typeof(string));
+            dtTagTable.Columns.Add("COLANT16", typeof(string));
             dtTagTable.Columns.Add("COLPHASE", typeof(string));
 
             dtTagDetailTable = new DataTable();

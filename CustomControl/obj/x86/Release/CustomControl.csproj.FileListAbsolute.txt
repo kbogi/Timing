@@ -33,3 +33,11 @@ C:\Users\test\Desktop\UHFDemoV3.8.1\UHFDemoV3.8.1\UHFDemo-cn\UHFDemo_v3.8.1\Cust
 C:\Users\test\Desktop\UHFDemoV3.8.1\UHFDemoV3.8.1\UHFDemo-cn\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.csproj.GenerateResource.Cache
 C:\Users\test\Desktop\UHFDemoV3.8.1\UHFDemoV3.8.1\UHFDemo-cn\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.dll
 C:\Users\test\Desktop\UHFDemoV3.8.1\UHFDemoV3.8.1\UHFDemo-cn\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.pdb
+E:\ProjectsVisualStudio\UHFDemo_v3.8.1\CustomControl\bin\x86\Release\CustomControl.dll
+E:\ProjectsVisualStudio\UHFDemo_v3.8.1\CustomControl\bin\x86\Release\CustomControl.pdb
+E:\ProjectsVisualStudio\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.csprojAssemblyReference.cache
+E:\ProjectsVisualStudio\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.IpAddressTextBox.resources
+E:\ProjectsVisualStudio\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.csproj.GenerateResource.cache
+E:\ProjectsVisualStudio\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.dll
+E:\ProjectsVisualStudio\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.pdb
+E:\ProjectsVisualStudio\UHFDemo_v3.8.1\CustomControl\obj\x86\Release\CustomControl.csproj.CoreCompileInputs.cache

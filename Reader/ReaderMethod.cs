@@ -167,6 +167,7 @@ namespace Reader
                                 MessageTran msgTran = new MessageTran(btAryAnaly);
                                 if (AnalyCallback != null)
                                 {
+                                    //Console.WriteLine("---接收数据: " + byteToHexStr(btAryAnaly));
                                     AnalyCallback(msgTran);
                                 } 
 
@@ -209,6 +210,7 @@ namespace Reader
 
         public int SendMessage(byte[] btArySenderData)
         {
+            //Console.WriteLine("发送数据: " + byteToHexStr(btArySenderData));
             //串口连接方式
             if (m_nType == 0)
             {
@@ -246,6 +248,18 @@ namespace Reader
             }
 
             return -1;
+        }
+        public static string byteToHexStr(byte[] bytes)
+        {
+            string returnStr = "";
+            if (bytes != null)
+            {
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    returnStr += bytes[i].ToString("X2") + " ";
+                }
+            }
+            return returnStr;
         }
 
         private int SendMessage(byte btReadId, byte btCmd)
@@ -323,6 +337,26 @@ namespace Reader
         public int GetWorkAntenna(byte btReadId)
         {
             byte btCmd = 0x75;
+
+            int nResult = SendMessage(btReadId, btCmd);
+
+            return nResult;
+        }
+
+        public int SetReaderAntGroup(byte btReadId, byte groupId)
+        {
+            byte btCmd = 0x6C;
+            byte[] btAryData = new byte[1];
+            btAryData[0] = groupId;
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
+        public int GetReaderAntGroup(byte btReadId)
+        {
+            byte btCmd = 0x6D;
 
             int nResult = SendMessage(btReadId, btCmd);
 
