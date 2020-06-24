@@ -28,21 +28,54 @@
 
     enum MODULE_TYPE
     {
+        //0: TCP SERVER;1: TCP CLENT; 2: UDP SERVER 3：UDP CLIENT
         //模块标识
-        NET_MODULE_TYPE_TCP_S = 0X00,       //模块作为TCP SERVER
-        NET_MODULE_TYPE_TCP_C = 0X01,       //模块作为TCP CLIENT
-        NET_MODULE_TYPE_UDP_S = 0X02,       //模块作为UDP SERVER
-        NET_MODULE_TYPE_UDP_C = 0X03,		//模块作为UDP CLIENT
+        TCP_SERVER = 0X00,       //模块作为TCP SERVER
+        TCP_CLIENT = 0X01,       //模块作为TCP CLIENT
+        UDP_SERVER = 0X02,       //模块作为UDP SERVER
+        UDP_CLIENT = 0X03,		//模块作为UDP CLIENT
     }
-    
-    enum MODULE_VERIFY
+
+    enum BAUDRATE
+    {
+        B300 = 300,
+        B600 = 600,
+        B1200 = 1200,
+        B2400 = 2400,
+        B4800 = 4800,
+        B9600 = 9600,
+        B14400 = 14400,
+        B19200 = 19200,
+        B28400 = 28400,
+        B57600 = 57600,
+        B115200 = 115200,
+        B230400 = 230400,
+        B460800 = 460800,
+        B921600 = 912600
+    }
+
+    enum DATABITS
+    {
+        Bits5 = 5,
+        Bits6 = 6,
+        Bits7 = 7,
+        Bits8 = 8
+    }
+
+    enum STOPBITS
+    {
+        Stop1 = 1,
+        Stop2 = 2,
+    }
+
+    enum PARITY
     {
         //校验位标识
-        NET_MODULE_VERIFY_ODD = 0X00,       //奇校验
-        NET_MODULE_VERIFY_EVEN = 0X01,      //偶校验
-        NET_MODULE_VERIFY_MARK = 0X02,      //mark校验
-        NET_MODULE_VERIFY_SPACE = 0X03,     //space校验
-        NET_MODULE_VERIFY_NULL = 0X04,		//无校验
+        ODD = 0X00,       //奇校验
+        EVEN = 0X01,      //偶校验
+        MARK = 0X02,      //mark校验
+        SPACE = 0X03,     //space校验
+        NULL = 0X04,		//无校验
     }
 
     enum MODULE_CLEAR

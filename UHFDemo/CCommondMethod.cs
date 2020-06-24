@@ -394,30 +394,79 @@ namespace UHFDemo
             return dataBytes;
         }
 
-        public static int getu8(byte[] data, int offset)
+        #region FromU16
+
+        /// <summary>
+        /// Insert unsigned 16-bit integer into big-endian byte string
+        /// </summary>
+        /// <param name="bytes">Target big-endian byte string</param>
+        /// <param name="offset">Location to insert into</param>
+        /// <param name="value">16-bit integer to insert</param>
+        /// <returns>Number of bytes inserted</returns>
+        public static int FromU16(byte[] bytes, int offset, UInt16 value)
         {
-            return data[offset] & 0xff; ;
+            int end = offset;
+            bytes[end++] = (byte)((value >> 8) & 0xFF);
+            bytes[end++] = (byte)((value >> 0) & 0xFF);
+            return end - offset;
         }
 
-        public static int getu16(byte[] data, int offset)
+        #endregion
+
+        /// <summary>
+        /// Extract unsigned 16-bit integer from big-endian byte string
+        /// </summary>
+        /// <param name="bytes">Source big-endian byte string</param>
+        /// <param name="offset">Location to extract from.  Will be updated to post-decode offset.</param>
+        /// <returns>Unsigned 16-bit integer</returns>
+        public static UInt16 ToU16(byte[] bytes, ref int offset)
         {
-            return ((data[offset] & 0xff) << 8)
-              | ((data[offset + 1] & 0xff) << 0);
+            if (null == bytes) return default(byte);
+            int hi = (UInt16)(bytes[offset++]) << 8;
+            int lo = (UInt16)(bytes[offset++]);
+            return (UInt16)(hi | lo);
         }
 
-        public static int getu24(byte[] data, int offset)
+        #region FromU32
+
+        /// <summary>
+        /// Insert unsigned 32-bit integer into big-endian byte string
+        /// </summary>
+        /// <param name="bytes">Target big-endian byte string</param>
+        /// <param name="offset">Location to insert into</param>
+        /// <param name="value">32-bit integer to insert</param>
+        /// <returns>Number of bytes inserted</returns>
+        public static int FromU32(byte[] bytes, int offset, UInt32 value)
         {
-            return ((data[offset] & 0xff) << 16)
-              | ((data[offset + 1] & 0xff) << 8)
-              | ((data[offset + 2] & 0xff) << 0);
+            int end = offset;
+            bytes[end++] = (byte)((value >> 24) & 0xFF);
+            bytes[end++] = (byte)((value >> 16) & 0xFF);
+            bytes[end++] = (byte)((value >> 8) & 0xFF);
+            bytes[end++] = (byte)((value >> 0) & 0xFF);
+            return end - offset;
         }
 
-        public static int getu32(byte[] data, int offset)
+        #endregion
+
+        #region ToU32
+
+        /// <summary>
+        /// Extract unsigned 32-bit integer from big-endian byte string
+        /// </summary>
+        /// <param name="bytes">Source big-endian byte string</param>
+        /// <param name="offset">Location to extract from</param>
+        /// <returns>Unsigned 32-bit integer</returns>
+        public static UInt32 ToU32(byte[] bytes, int offset)
         {
-            return ((data[offset] & 0xff) << 24)
-              | ((data[offset + 1] & 0xff) << 16)
-              | ((data[offset + 2] & 0xff) << 8)
-              | ((data[offset + 3] & 0xff) << 0);
+            return (UInt32)(0
+                | ((UInt32)(bytes[offset + 0]) << 24)
+                | ((UInt32)(bytes[offset + 1]) << 16)
+                | ((UInt32)(bytes[offset + 2]) << 8)
+                | ((UInt32)(bytes[offset + 3]) << 0)
+                );
         }
-    }    
+
+        #endregion
+
+    }
 }

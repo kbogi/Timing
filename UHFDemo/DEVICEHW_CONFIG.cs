@@ -68,7 +68,7 @@ namespace UHFDemo
 
 			bDhcpEnable = data[readIndex++];
 
-			wWebPort = (ushort)getu16();
+            wWebPort = GetPort();
 
 			szUsername = new byte[8];
 			Array.Copy(data, readIndex, szUsername, 0, szUsername.Length);
@@ -89,6 +89,15 @@ namespace UHFDemo
 			readIndex += breserved.Length;
 		}
 
+        private ushort GetPort()
+        {
+            int val;
+            val = 0
+                | ((data[readIndex + 1] & 0xff) << 8)
+                | ((data[readIndex] & 0xff) << 0);
+            readIndex += 2;
+            return Convert.ToUInt16(val);
+        }
         public byte[] UpdateForSet()
         {
             byte[] setdata = new byte[74];
@@ -155,16 +164,16 @@ namespace UHFDemo
                 string strType = "";
                 switch (bDevType)
                 {
-                    case (byte)MODULE_TYPE.NET_MODULE_TYPE_TCP_S:
+                    case (byte)MODULE_TYPE.TCP_SERVER:
                         strType = "TCP SERVER";
                         break;
-                    case (byte)MODULE_TYPE.NET_MODULE_TYPE_TCP_C:
+                    case (byte)MODULE_TYPE.TCP_CLIENT:
                         strType = "TCP CLIENT";
                         break;
-                    case (byte)MODULE_TYPE.NET_MODULE_TYPE_UDP_S:
+                    case (byte)MODULE_TYPE.UDP_SERVER:
                         strType = "UDP SERVER";
                         break;
-                    case (byte)MODULE_TYPE.NET_MODULE_TYPE_UDP_C:
+                    case (byte)MODULE_TYPE.UDP_CLIENT:
                         strType = "UDP CLIENT";
                         break;
                     default:

@@ -78,24 +78,28 @@ namespace UHFDemo
 
         public string Type
         {
-            get {
-                string strType = "";
-                switch(type)
-                {
-                    case (byte)MODULE_TYPE.NET_MODULE_TYPE_TCP_S:
-                        strType = "TCP SERVER";
-                        break;
-                    case (byte)MODULE_TYPE.NET_MODULE_TYPE_TCP_C:
-                        strType = "TCP CLIENT";
-                        break;
-                    case (byte)MODULE_TYPE.NET_MODULE_TYPE_UDP_S:
-                        strType = "UDP SERVER";
-                        break;
-                    case (byte)MODULE_TYPE.NET_MODULE_TYPE_UDP_C:
-                        strType = "UDP CLIENT";
-                        break;
-                }
-                return strType; 
+            get
+            {
+                return Enum.GetName(typeof(MODULE_TYPE), type);
+            }
+            set
+            {
+                //if (MODULE_TYPE.TCP_SERVER.Equals(value))
+                //{
+                //    type = (byte)MODULE_TYPE.TCP_SERVER;
+                //}
+                //else if (MODULE_TYPE.TCP_CLIENT.Equals(value))
+                //{
+                //    type = (byte)MODULE_TYPE.TCP_CLIENT;
+                //}
+                //else if (MODULE_TYPE.UDP_SERVER.Equals(value))
+                //{
+                //    type = (byte)MODULE_TYPE.UDP_SERVER;
+                //}
+                //else if (MODULE_TYPE.UDP_CLIENT.Equals(value))
+                //{
+                //    type = (byte)MODULE_TYPE.UDP_CLIENT;
+                //}
             }
         }
 
