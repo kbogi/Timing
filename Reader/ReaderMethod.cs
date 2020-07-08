@@ -22,7 +22,7 @@ namespace Reader
     {
         private ITalker italker;
         private SerialPort iSerialPort;
-        private int m_nType = -1; 
+        private int m_nType = -1;
 
         public ReciveDataCallback ReceiveCallback;
         public SendDataCallback SendCallback;
@@ -41,7 +41,7 @@ namespace Reader
 
             iSerialPort = new SerialPort();
 
-            iSerialPort.DataReceived+=new SerialDataReceivedEventHandler(ReceivedComData);
+            iSerialPort.DataReceived += new SerialDataReceivedEventHandler(ReceivedComData);
 
             iSerialPort.ErrorReceived += new SerialErrorReceivedEventHandler(DevicePortError_DataReceived);
         }
@@ -143,7 +143,7 @@ namespace Reader
                 {
                     ReceiveCallback(btAryReceiveData);
                 }
-                
+
                 int nCount = btAryReceiveData.Length;
                 byte[] btAryBuffer = new byte[nCount + m_nLenth];
                 Array.Copy(m_btAryBuffer, btAryBuffer, m_nLenth);
@@ -169,7 +169,7 @@ namespace Reader
                                 {
                                     //Console.WriteLine("---接收数据: " + byteToHexStr(btAryAnaly));
                                     AnalyCallback(msgTran);
-                                } 
+                                }
 
                                 nLoop += 1 + nLen;
                                 nIndex = nLoop + 1;
@@ -204,8 +204,8 @@ namespace Reader
             }
             catch (System.Exception ex)
             {
-            	
-            }            
+
+            }
         }
 
         public int SendMessage(byte[] btArySenderData)
@@ -273,12 +273,12 @@ namespace Reader
         {
             MessageTran msgTran = new MessageTran(btReadId, btCmd, btAryData);
 
-            
+
 
             return SendMessage(msgTran.AryTranData);
         }
 
-     
+
         public byte CheckValue(byte[] btAryData)
         {
             MessageTran msgTran = new MessageTran();
@@ -363,14 +363,14 @@ namespace Reader
             return nResult;
         }
 
-        public int SetTempOutpower(byte btReadId,byte btOutpower)
+        public int SetTempOutpower(byte btReadId, byte btOutpower)
         {
             byte btCmd = 0x66;
 
             byte[] btAryData = new byte[1];
             btAryData[0] = btOutpower;
 
-            int nResult = SendMessage(btReadId,btCmd,btAryData);
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
 
             return nResult;
         }
@@ -438,7 +438,7 @@ namespace Reader
             btAryData[3] = btAryFreq[2];
             btAryData[4] = btAryFreq[1];
             btAryData[5] = btAryFreq[0];
-            
+
             int nResult = SendMessage(btReadId, btCmd, btAryData);
 
             return nResult;
@@ -611,7 +611,7 @@ namespace Reader
             return nResult;
         }
 
-        public int CustomizedInventory(byte btReadId, byte session, byte target,byte byRound)
+        public int CustomizedInventory(byte btReadId, byte session, byte target, byte byRound)
         {
             byte btCmd = 0x8B;
             byte[] btAryData = new byte[3];
@@ -628,7 +628,7 @@ namespace Reader
         {
             byte btCmd = 0x8B;
             byte[] btAryData = new byte[parameters.Length];
-            parameters.CopyTo(btAryData,0);
+            parameters.CopyTo(btAryData, 0);
 
             int nResult = SendMessage(btReadId, btCmd, btAryData);
 
@@ -659,9 +659,9 @@ namespace Reader
             return nResult;
         }
 
-        public int WriteTag(byte btReadId, byte[] btAryPassWord, byte btMemBank, byte btWordAdd, byte btWordCnt, byte[] btAryData,byte btCmd)
+        public int WriteTag(byte btReadId, byte[] btAryPassWord, byte btMemBank, byte btWordAdd, byte btWordCnt, byte[] btAryData, byte btCmd)
         {
-           // byte btCmd = 0x82;
+            // byte btCmd = 0x82;
             byte[] btAryBuffer = new byte[btAryData.Length + 7];
             btAryPassWord.CopyTo(btAryBuffer, 0);
             btAryBuffer[4] = btMemBank;
@@ -848,7 +848,7 @@ namespace Reader
 
         public int LockTagISO18000(byte btReadId, byte[] btAryUID, byte btWordAdd)
         {
-            byte btCmd=0xb3;
+            byte btCmd = 0xb3;
             int nLen = btAryUID.Length + 1;
             byte[] btAryData = new byte[nLen];
             btAryUID.CopyTo(btAryData, 0);

@@ -496,7 +496,7 @@ namespace UHFDemo
                             ledBuffer2.Text = m_curInventoryBuffer.nReadRate.ToString();
 
                             TimeSpan ts = m_curInventoryBuffer.dtEndInventory - m_curInventoryBuffer.dtStartInventory;
-                            ledBuffer5.Text = (ts.Minutes * 60 * 1000 + ts.Seconds * 1000 + ts.Milliseconds).ToString();
+                            ledBuffer5.Text = FormatLongToTimeStr(ts.Minutes * 60 * 1000 + ts.Seconds * 1000 + ts.Milliseconds);
                             int nTotalRead = 0;
                             foreach (int nTemp in m_curInventoryBuffer.lTotalRead)
                             {
@@ -629,7 +629,7 @@ namespace UHFDemo
                             int nTagCount = m_curInventoryBuffer.dtTagTable.Rows.Count;
                             int nTotalRead = m_nTotal;// m_curInventoryBuffer.dtTagDetailTable.Rows.Count;
                             TimeSpan ts = m_curInventoryBuffer.dtEndInventory - m_curInventoryBuffer.dtStartInventory;
-                            int nTotalTime = ts.Minutes * 60 * 1000 + ts.Seconds * 1000 + ts.Milliseconds;
+                            int nTotalTime = (int)(ts.Ticks/10000);
                             int nCaculatedReadRate = 0;
                             int nCommandDuation = 0;
 
@@ -653,7 +653,7 @@ namespace UHFDemo
                             ledReal1.Text = nTagCount.ToString();
                             ledReal2.Text = nCaculatedReadRate.ToString();
 
-                            ledReal5.Text = nTotalTime.ToString();
+                            ledReal5.Text = FormatLongToTimeStr(nTotalTime);
                             ledReal3.Text = nTotalRead.ToString();
                             ledReal4.Text = nCommandDuation.ToString();  //实际的命令执行时间
                             tbRealMaxRssi.Text = (m_curInventoryBuffer.nMaxRSSI - 129).ToString() + "dBm";
@@ -911,7 +911,8 @@ namespace UHFDemo
 
 
 
-                            ledFast5.Text = nTotalTime.ToString(); //命令累计执行时间
+                            //ledFast5.Text = nTotalTime.ToString(); //命令累计执行时间
+                            ledFast5.Text = FormatLongToTimeStr(nTotalTime);
                             ledFast4.Text = nTotalRead.ToString();
 
                             txtFastMaxRssi.Text = (m_curInventoryBuffer.nMaxRSSI - 129).ToString() + "dBm";
@@ -3958,12 +3959,6 @@ namespace UHFDemo
                 m_nTotal++;
                 int nLength = msgTran.AryData.Length;
                 int nEpcLength = nLength - 4;
-
-                //增加盘存明细表
-                //if (msgTran.AryData[3] == 0x00)
-                //{
-                //    MessageBox.Show("");
-                //}
                 string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, nEpcLength);
                 string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 2);
                 //string strPC = CCommondMethod.ByteArrayToString(new byte[]{msgTran.ReadId},0,1);
@@ -6923,7 +6918,6 @@ namespace UHFDemo
             {
                 return;
             }
-
             reader.SetMonzaStatus(m_curSetting.btReadId, btMonzaStatus);
             m_curSetting.btMonzaStatus = btMonzaStatus;
         }
@@ -7120,8 +7114,9 @@ namespace UHFDemo
         private void totalTimeDisplay(object sender, EventArgs e)
         {
             TimeSpan sp = DateTime.Now - m_curInventoryBuffer.dtStartInventory;
-            int totalTime = sp.Minutes * 60 * 1000 + sp.Seconds * 1000 + sp.Milliseconds;
-            ledReal5.Text = totalTime.ToString();
+            int totalTime = (int)(sp.Ticks / 10000);
+
+            ledReal5.Text = FormatLongToTimeStr(totalTime);
             //RefreshInventoryReal(0x00);
         }
 
@@ -7197,7 +7192,6 @@ namespace UHFDemo
                     return;
                 }
             }
-
             string strLog = strCmd + "失败，失败原因: " + strErrorCode;
             WriteLog(lrtxtLog, strLog, 1);
         }
@@ -8862,6 +8856,26 @@ namespace UHFDemo
             MessageBox.Show("保存成功：" + path);
 
             lrtxtDataTran.Text = "";
+        }
+
+        public static String FormatLongToTimeStr(long ms)
+        {
+            int milliSecond = (int)(ms % 1000);
+            int second = (int)(ms / 1000);
+            int minute = 0;
+            int hour = 0;
+
+            if (second >= 60)
+            {
+                minute = second / 60;
+                second = second % 60;
+            }
+            if (minute >= 60)
+            {
+                hour = minute / 60;
+                minute = minute % 60;
+            }
+            return string.Format("{0:D4}-{1:D2}-{2:D2}-{3:D3}", hour, minute, second, milliSecond);
         }
 
         #region Net Configure
