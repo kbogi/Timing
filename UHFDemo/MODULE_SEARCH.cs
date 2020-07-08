@@ -9,7 +9,6 @@ namespace UHFDemo
 
         byte[] mod_ip; // 4
         byte[] mod_name; // 6
-        byte[] reserve; // 2
         byte mod_ver; //1
 
         // 为了关联 mod_cfg
@@ -22,28 +21,26 @@ namespace UHFDemo
         public MODULE_SEARCH(byte[] parseData, byte[] modMac, byte[] pcMac)
         {
             data = new byte[parseData.Length];
-            this.data = parseData;
+            Array.Copy(parseData, this.data, parseData.Length);
             writeIndex = 0;
 
             mod_ip = new byte[4];
             Array.Copy(data, writeIndex, mod_ip, 0, mod_ip.Length);
             writeIndex += mod_ip.Length;
 
-            mod_name = new byte[data.Length - 7]; // ip[4] + name[N] + reverse[2]+ver[1]
+            mod_name = new byte[data.Length - 5]; // ip[4] + name[N] + ver[1]
             Array.Copy(data, writeIndex, mod_name, 0, mod_name.Length);
             writeIndex += mod_name.Length;
-
-            reserve = new byte[2];
-            Array.Copy(data, writeIndex, reserve, 0, reserve.Length);
-            writeIndex += reserve.Length;
 
             mod_ver = data[writeIndex++];
 
             this.mod_mac = new byte[6];
             Array.Copy(modMac, 0, this.mod_mac, 0, modMac.Length);
+            writeIndex += mod_mac.Length;
 
             this.pc_mac = new byte[6];
             Array.Copy(pcMac, 0, this.pc_mac, 0, pcMac.Length);
+            writeIndex += pc_mac.Length;
         }
 
         public void Update(MODULE_SEARCH addData)

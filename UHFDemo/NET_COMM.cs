@@ -45,20 +45,20 @@ namespace UHFDemo
             readIndex += flag.Length;
 
             cmd = message[readIndex++];
-            Console.WriteLine(" <---NET_COMM cmd={0}", cmd);
+            //Console.WriteLine(" <---NET_COMM cmd={0}", cmd);
 
             mod_mac = new byte[6];
             Array.Copy(message, readIndex, mod_mac, 0, mod_mac.Length);
             readIndex += mod_mac.Length;
-            Console.WriteLine(" <---NET_COMM mod_mac={0}", CCommondMethod.ToHex(mod_mac, "", ":"));
+            //Console.WriteLine(" <---NET_COMM mod_mac={0}", CCommondMethod.ToHex(mod_mac, "", ":"));
 
             pc_mac = new byte[6];
             Array.Copy(message, readIndex, pc_mac, 0, pc_mac.Length);
             readIndex += pc_mac.Length;
-            Console.WriteLine(" <---NET_COMM pc_mac={0}", CCommondMethod.ToHex(pc_mac, "", ":"));
+            //Console.WriteLine(" <---NET_COMM pc_mac={0}", CCommondMethod.ToHex(pc_mac, "", ":"));
 
             len = message[readIndex++];
-            Console.WriteLine(" <---NET_COMM len={0}", len);
+            //Console.WriteLine(" <---NET_COMM len={0}", len);
 
             if (cmd == (byte)NET_ACK.NET_MODULE_ACK_SET)
                 data = new byte[255];

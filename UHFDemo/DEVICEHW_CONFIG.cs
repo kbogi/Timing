@@ -37,57 +37,75 @@ namespace UHFDemo
 			readIndex = 0;
 
 			bDevType = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevType={0}", bDevType);
 
-			bAuxDevType = data[readIndex++];
+            bAuxDevType = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bAuxDevType={0}", bAuxDevType);
 
-			bIndex = data[readIndex++];
+            bIndex = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bIndex={0}", bIndex);
 
-			bDevHardwareVer = data[readIndex++];
+            bDevHardwareVer = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevHardwareVer={0}", bDevHardwareVer);
 
-			bDevSoftwareVer = data[readIndex++];
+            bDevSoftwareVer = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevSoftwareVer={0}", bDevSoftwareVer);
 
-			szModulename = new byte[21];
+            szModulename = new byte[21];
 			Array.Copy(data, readIndex, szModulename, 0, szModulename.Length);
 			readIndex += szModulename.Length;
+            //Console.WriteLine(" <---DEVICEHW_CONFIG szModulename={0}", CCommondMethod.ToHex(szModulename, "", " "));
 
-			bDevMAC = new byte[6];
+            bDevMAC = new byte[6];
 			Array.Copy(data, readIndex, bDevMAC, 0, bDevMAC.Length);
 			readIndex += bDevMAC.Length;
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevMAC={0}", CCommondMethod.ToHex(bDevMAC, "", ":"));
 
-			bDevIP = new byte[4];
+            bDevIP = new byte[4];
 			Array.Copy(data, readIndex, bDevIP, 0, bDevIP.Length);
 			readIndex += bDevIP.Length;
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIP={0}", CCommondMethod.ToHex(bDevIP, "", "."));
 
-			bDevGWIP = new byte[4];
+            bDevGWIP = new byte[4];
 			Array.Copy(data, readIndex, bDevGWIP, 0, bDevGWIP.Length);
 			readIndex += bDevGWIP.Length;
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevGWIP={0}", CCommondMethod.ToHex(bDevGWIP, "", "."));
 
-			bDevIPMask = new byte[4];
+            bDevIPMask = new byte[4];
 			Array.Copy(data, readIndex, bDevIPMask, 0, bDevIPMask.Length);
 			readIndex += bDevIPMask.Length;
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIPMask={0}", CCommondMethod.ToHex(bDevIPMask, "", "."));
 
-			bDhcpEnable = data[readIndex++];
+            bDhcpEnable = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDhcpEnable={0}", bDhcpEnable);
 
             wWebPort = GetPort();
+            //Console.WriteLine(" <---DEVICEHW_CONFIG wWebPort={0}", wWebPort);
 
-			szUsername = new byte[8];
+            szUsername = new byte[8];
 			Array.Copy(data, readIndex, szUsername, 0, szUsername.Length);
 			readIndex += szUsername.Length;
+            //Console.WriteLine(" <---DEVICEHW_CONFIG szUsername={0}", CCommondMethod.ToHex(szUsername, "", " "));
 
-			bPassWordEn = data[readIndex++];
+            bPassWordEn = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bPassWordEn={0}", bPassWordEn);
 
             szPassWord = new byte[8];
             Array.Copy(data, readIndex, szPassWord, 0, szPassWord.Length);
             readIndex += szPassWord.Length;
+            //Console.WriteLine(" <---DEVICEHW_CONFIG szPassWord={0}", CCommondMethod.ToHex(szPassWord, "", " "));
 
             bUpdateFlag = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bUpdateFlag={0}", bUpdateFlag);
 
             bComcfgEn = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bComcfgEn={0}", bComcfgEn);
 
             breserved = new byte[8];
 			Array.Copy(data, readIndex, breserved, 0, breserved.Length);
 			readIndex += breserved.Length;
-		}
+            //Console.WriteLine(" <---DEVICEHW_CONFIG breserved={0}", CCommondMethod.ToHex(breserved, "", " "));
+        }
 
         private ushort GetPort()
         {

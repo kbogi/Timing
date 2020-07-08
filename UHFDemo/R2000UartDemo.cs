@@ -18,6 +18,7 @@ using Reader;
 using System.Net.Sockets;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using System.Management;
 
 namespace UHFDemo
 {
@@ -5455,8 +5456,16 @@ namespace UHFDemo
             {
                 dev_dgv.AutoGenerateColumns = true;
 
-                NetRefreshNetCard();
                 StartNetUdpServer();
+                if (net_db == null)
+                {
+                    net_db = new NetCfgDB();
+                }
+                if (net_card_dict == null)
+                {
+                    net_card_dict = new Dictionary<string, NetCardSearch>();
+                }
+                NetRefreshNetCard();
                 LoadNetConfigViews();
             }
             else
@@ -6918,6 +6927,7 @@ namespace UHFDemo
             {
                 return;
             }
+
             reader.SetMonzaStatus(m_curSetting.btReadId, btMonzaStatus);
             m_curSetting.btMonzaStatus = btMonzaStatus;
         }
@@ -8891,11 +8901,15 @@ namespace UHFDemo
         string NET_MODULE_FLAG = "NET_MODULE_COMM\0"; // 用来标识通信_old
         string CH9121_CFG_FLAG = "CH9121_CFG_FLAG\0";	// 用来标识通信_new
 
-        NetCfgDB net_db = new NetCfgDB();
-        Dictionary<string, NetCardSearch> net_card_dict = new Dictionary<string, NetCardSearch>();
+        NetCfgDB net_db;
+        Dictionary<string, NetCardSearch> net_card_dict;
 
         private void net_refresh_netcard_btn_Click(object sender, EventArgs e)
         {
+            net_pc_ip_label.Text = "";
+            net_pc_mac_label.Text = "";
+            net_pc_mask_label.Text = "";
+
             if (!netStarted)
                 StartNetUdpServer();
             NetRefreshNetCard();
@@ -8908,9 +8922,6 @@ namespace UHFDemo
 
         private void StartNetUdpServer()
         {
-            if (net_db == null)
-                net_db = new NetCfgDB();
-
             if (!netStarted && netClient == null)
             {
                 netClient = new UdpClient(new IPEndPoint(IPAddress.Any, 60000));
@@ -9216,7 +9227,7 @@ namespace UHFDemo
             int port_1_index = 1;
             int port_2_index = 0;
 
-            Console.WriteLine("### port_1_index set ---> ");
+            //Console.WriteLine("### port_1_index set ---> ");
             net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].PortEn = net_port_1_enable_cb.Checked;
             if (net_port_1_enable_cb.Checked)
             {
@@ -9227,9 +9238,11 @@ namespace UHFDemo
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DataSize = net_port_1_databits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].StopBits = net_port_1_stopbits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Parity = net_port_1_parity_bit_cbo.SelectedItem.ToString();
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesIP = net_port_1_dest_ip_tb.Text;
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesPort = Convert.ToUInt16(net_port_1_dest_port_tb.Text);
             }
 
-            Console.WriteLine("### port_2_index set ---> ");
+            //Console.WriteLine("### port_2_index set ---> ");
             net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].PortEn = net_port_2_enable_cb.Checked;
             if (net_port_2_enable_cb.Checked)
             {
@@ -9240,6 +9253,8 @@ namespace UHFDemo
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DataSize = net_port_2_databits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].StopBits = net_port_2_stopbits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].Parity = net_port_2_parity_bit_cbo.SelectedItem.ToString();
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesIP = net_port_2_dest_ip_tb.Text;
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesPort = Convert.ToUInt16(net_port_2_dest_port_tb.Text);
             }
 
             NetSetCfg(mod_mac, net_db.IndexSearch[mod_mac]);
@@ -9351,47 +9366,55 @@ namespace UHFDemo
         private void NetRefreshNetCard()
         {
             net_card_combox.Items.Clear();
-            NetworkInterface[] nics = NetworkInterface.GetAllNetworkInterfaces();
-            foreach (NetworkInterface adapter in nics)
+
+            //SELECT* FROM Win32_NetworkAdapter where PhysicalAdapter = TRUE and MACAddress>‘’ //只查询有MAC的物理网卡，不包含虚拟网卡
+
+            ManagementObjectSearcher s = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapterConfiguration where IPenabled=true");
+
+            // ManagementObjectSearcher s = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapter");
+            if (s.Get().Count == 0)
             {
-                if (adapter.NetworkInterfaceType == NetworkInterfaceType.Ethernet ||
-                    adapter.NetworkInterfaceType == NetworkInterfaceType.Wireless80211)
+                MessageBox.Show("没有找到网卡");
+                return;
+            }
+            foreach (ManagementObject bb in s.Get())
+            {
+                PropertyDataCollection p = bb.Properties;
+                //Console.WriteLine(String.Format("Description={0}", bb.GetPropertyValue("Description")));
+                //Console.WriteLine(String.Format("DNSHostName={0}", bb.GetPropertyValue("DNSHostName")));
+                //String[] ipAddr = (String[])bb.GetPropertyValue("IPAddress");
+                //Console.WriteLine(String.Format("IPAddress={0}", String.Join(", ", ipAddr)));
+                //String[] subNet = (String[])bb.GetPropertyValue("IPSubnet");
+                //Console.WriteLine(String.Format("IPSubnet={0}", String.Join(", ", subNet)));
+                //Console.WriteLine(String.Format("MACAddress={0}", bb.GetPropertyValue("MACAddress")));
+
+                String desc = bb.GetPropertyValue("Description").ToString();
+                //if (!desc.Contains("vmware") && !desc.Contains("virtual") &&
+                //                    !desc.Contains("VMware") && !desc.Contains("Virtual"))
                 {
-                    //获取以太网卡网络接口信息
-                    IPInterfaceProperties ip = adapter.GetIPProperties();
-                    //获取单播地址集
-                    UnicastIPAddressInformationCollection ipCollection = ip.UnicastAddresses;
-                    foreach (UnicastIPAddressInformation ipadd in ipCollection)
+                    String[] ipAddr = (String[])bb.GetPropertyValue("IPAddress");
+                    String pcIpaddr = String.Join(", ", ipAddr, 0, (ipAddr.Length > 1 ? 1 : 0));
+                    String[] subNet = (String[])bb.GetPropertyValue("IPSubnet");
+                    String pcMask = String.Join("", subNet, 0, (subNet.Length > 1 ? 1 : 0));
+                    String pcMac = bb.GetPropertyValue("MACAddress").ToString();
+                    net_card_combox.Items.Add(desc);
+                    NetCardSearch net_card_search = new NetCardSearch();
+                    net_card_search.PC_IP = pcIpaddr;
+                    net_card_search.PC_MAC = pcMac;
+                    net_card_search.PC_MASK = pcMask;
+                    if (!net_card_dict.ContainsKey(desc))
                     {
-                        //InterNetwork    IPV4地址      InterNetworkV6        IPV6地址
-                        //Max            MAX 位址
-                        if (ipadd.Address.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            if (ipadd.IsDnsEligible)
-                            {
-
-                            }
-                            string desc = adapter.Description;
-
-                            if (!desc.Contains("vmware") && !desc.Contains("virtual") &&
-                                !desc.Contains("VMware") && !desc.Contains("Virtual"))
-                            {
-                                //判断是否为ipv4
-                                net_card_combox.Items.Add(desc);
-                                NetCardSearch net_card_search = new NetCardSearch();
-                                net_card_search.PC_IP = ipadd.Address.ToString();
-                                net_card_search.PC_MAC = CCommondMethod.ToHex(adapter.GetPhysicalAddress().GetAddressBytes(), "", ":");
-                                net_card_search.PC_MASK = ipadd.IPv4Mask.ToString();
-                                if (!net_card_dict.ContainsKey(desc))
-                                    net_card_dict.Add(desc, net_card_search);
-                            }
-                        }
+                        Console.WriteLine("add " + desc);
+                        net_card_dict.Add(desc, net_card_search);
                     }
-                    if (net_card_combox.Items.Count > 0)
-                        net_card_combox.SelectedIndex = 0;
                 }
             }
+
+            if (net_card_combox.Items.Count > 0)
+                net_card_combox.SelectedIndex = 0;
         }
+
+
         #endregion Net Configure
 
         private void dev_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -9448,6 +9471,7 @@ namespace UHFDemo
         private void net_card_combox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string desc = net_card_combox.SelectedItem.ToString();
+            //Console.WriteLine("net_card_combox_SelectedIndexChanged -> " + desc);
             if (net_card_dict.ContainsKey(desc))
             {
                 net_pc_ip_label.Text = "Ip: " + net_card_dict[desc].PC_IP;
@@ -9470,7 +9494,7 @@ namespace UHFDemo
 
         private void net_port_net_mode_cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(" ... {0}", net_port_1_net_mode_cbo.SelectedItem.ToString());
+            //Console.WriteLine(" ... {0}", net_port_1_net_mode_cbo.SelectedItem.ToString());
             if (net_port_1_net_mode_cbo.SelectedItem.Equals(MODULE_TYPE.TCP_SERVER.ToString()))
             {
                 EnablePort0ServerTypeView(false);
@@ -9483,17 +9507,17 @@ namespace UHFDemo
 
         private void EnablePort0ServerTypeView(bool flag)
         {
-            Console.WriteLine("EnablePort0ServerTypeView ... ");
+            //Console.WriteLine("EnablePort0ServerTypeView ... ");
             net_port_1_rand_port_flag_cb.Enabled = flag;
             net_port_1_ip_domain_select_cbo.Enabled = flag;
             net_port_1_dest_ip_tb.Enabled = flag;
             net_port_1_dest_port_tb.Enabled = flag;
-            Console.WriteLine("EnablePort0ServerTypeView end... ");
+            //Console.WriteLine("EnablePort0ServerTypeView end... ");
         }
 
         private void net_port_1_net_mode_cb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(" ... {0}", net_port_2_net_mode_cbo.SelectedItem.ToString());
+            //Console.WriteLine(" ... {0}", net_port_2_net_mode_cbo.SelectedItem.ToString());
             if (net_port_2_net_mode_cbo.SelectedItem.Equals(MODULE_TYPE.TCP_SERVER.ToString()))
             {
                 EnablePort1ServerTypeView(false);
@@ -9506,20 +9530,20 @@ namespace UHFDemo
 
         private void EnablePort1ServerTypeView(bool flag)
         {
-            Console.WriteLine("EnablePort1ServerTypeView ... ");
+            //Console.WriteLine("EnablePort1ServerTypeView ... ");
             net_port_2_rand_port_flag_cb.Enabled = flag;
             net_port_2_ip_domain_select_cbo.Enabled = flag;
             net_port_2_dest_ip_tb.Enabled = flag;
             net_port_2_dest_port_tb.Enabled = flag;
-            Console.WriteLine("EnablePort1ServerTypeView end... ");
+            //Console.WriteLine("EnablePort1ServerTypeView end... ");
         }
     }
 
     public class NetCardSearch
     {
-        string pc_ip;
-        string pc_mac;
-        string pc_mask;
+        string pc_ip = String.Empty;
+        string pc_mac = String.Empty;
+        string pc_mask = String.Empty;
         public NetCardSearch()
         {
         }

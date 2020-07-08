@@ -42,54 +42,75 @@ namespace UHFDemo
             readIndex = 0;
 
             bIndex = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bIndex={0}", bIndex);
 
             bPortEn = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bPortEn={0}", bPortEn);
 
             bNetMode = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bNetMode={0}", bNetMode);
 
             bRandSportFlag = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bRandSportFlag={0}", bRandSportFlag);
 
             wNetPort = GetPort();
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG wNetPort={0}", wNetPort);
 
             bDesIP = new byte[4];
             Array.Copy(data, readIndex, bDesIP, 0, bDesIP.Length);
             readIndex += bDesIP.Length;
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDesIP={0}", CCommondMethod.ToHex(bDesIP, "", "."));
 
             wDesPort = GetPort();
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG wDesPort={0}", wDesPort);
 
             dBaudRate = GetBaudrate();
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG dBaudRate={0}", dBaudRate);
 
             bDataSize = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDataSize={0}", bDataSize);
 
             bStopBits = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bStopBits={0}", bStopBits);
 
             bParity = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bParity={0}", bParity);
 
             bPHYChangeHandle = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bPHYChangeHandle={0}", bPHYChangeHandle);
 
             dRxPktlength = GetBaudrate();
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG dRxPktlength={0}", dRxPktlength);
 
             dRxPktTimeout = GetBaudrate();
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG dRxPktTimeout={0}", dRxPktTimeout);
 
             bReConnectCnt = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bReConnectCnt={0}", bReConnectCnt);
 
             bResetCtrl = data[readIndex++];
-            
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bResetCtrl={0}", bResetCtrl);
+
             bDNSFlag = data[readIndex++];
-            
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDNSFlag={0}", bDNSFlag);
+
             szDomainname = new byte[20];
             Array.Copy(data, readIndex, szDomainname, 0, szDomainname.Length);
             readIndex += szDomainname.Length;
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG szDomainname={0}", CCommondMethod.ToHex(szDomainname, "", " "));
 
             bDNSHostIP = new byte[4];
             Array.Copy(data, readIndex, bDNSHostIP, 0, bDNSHostIP.Length);
             readIndex += bDNSHostIP.Length;
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDNSHostIP={0}", CCommondMethod.ToHex(bDNSHostIP, "", "."));
 
             wDNSHostPort = GetPort();
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG wDNSHostPort={0}", wDNSHostPort);
 
             breserved = new byte[8];
             Array.Copy(data, readIndex, breserved, 0, breserved.Length);
             readIndex += breserved.Length;
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG breserved={0}", CCommondMethod.ToHex(breserved, "", " "));
         }
 
         private ushort GetPort()
@@ -118,43 +139,74 @@ namespace UHFDemo
             writeIndex = 0;
 
             setdata[writeIndex++] = bIndex;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bIndex={0}", bIndex);
             setdata[writeIndex++] = bPortEn;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bPortEn={0}", bPortEn);
             setdata[writeIndex++] = bNetMode;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bNetMode={0}", bNetMode);
             setdata[writeIndex++] = bRandSportFlag;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bRandSportFlag={0}", bRandSportFlag);
             setdata[writeIndex++] = (byte)((wNetPort >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((wNetPort >> 8) & 0xff);
-            bDesIP = new byte[4];
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG wNetPort={0}", wNetPort);
+
             Array.Copy(bDesIP, 0, setdata, writeIndex, bDesIP.Length);
             writeIndex += bDesIP.Length;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bDesIP={0}", CCommondMethod.ToHex(bDesIP, "", "."));
+
             setdata[writeIndex++] = (byte)((wDesPort >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((wDesPort >> 8) & 0xff);
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG wDesPort={0}", wDesPort);
+
             setdata[writeIndex++] = (byte)((dBaudRate >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((dBaudRate >> 8) & 0xff);
             setdata[writeIndex++] = (byte)((dBaudRate >> 16) & 0xff);
             setdata[writeIndex++] = (byte)((dBaudRate >> 24) & 0xff);
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG dBaudRate={0}", dBaudRate);
+
             setdata[writeIndex++] = bDataSize;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bDataSize={0}", bDataSize);
             setdata[writeIndex++] = bStopBits;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bStopBits={0}", bStopBits);
             setdata[writeIndex++] = bParity;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bParity={0}", bParity);
             setdata[writeIndex++] = bPHYChangeHandle;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bPHYChangeHandle={0}", bPHYChangeHandle);
+
             setdata[writeIndex++] = (byte)((dRxPktlength >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((dRxPktlength >> 8) & 0xff);
             setdata[writeIndex++] = (byte)((dRxPktlength >> 16) & 0xff);
             setdata[writeIndex++] = (byte)((dRxPktlength >> 24) & 0xff);
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG dRxPktlength={0}", dRxPktlength);
+
             setdata[writeIndex++] = (byte)((dRxPktTimeout >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((dRxPktTimeout >> 8) & 0xff);
             setdata[writeIndex++] = (byte)((dRxPktTimeout >> 16) & 0xff);
             setdata[writeIndex++] = (byte)((dRxPktTimeout >> 24) & 0xff);
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG dRxPktTimeout={0}", dRxPktTimeout);
+
             setdata[writeIndex++] = bReConnectCnt;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bReConnectCnt={0}", bReConnectCnt);
             setdata[writeIndex++] = bResetCtrl;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bResetCtrl={0}", bResetCtrl);
             setdata[writeIndex++] = bDNSFlag;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bDNSFlag={0}", bDNSFlag);
+
             Array.Copy(szDomainname, 0, setdata, writeIndex, szDomainname.Length);
             writeIndex += szDomainname.Length;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG szDomainname={0}", CCommondMethod.ToHex(szDomainname, "", " "));
+
             Array.Copy(bDNSHostIP, 0, setdata, writeIndex, bDNSHostIP.Length);
             writeIndex += bDNSHostIP.Length;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bDNSHostIP={0}", CCommondMethod.ToHex(bDNSHostIP, "", "."));
+
             setdata[writeIndex++] = (byte)((wDNSHostPort >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((wDNSHostPort >> 8) & 0xff);
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG wDNSHostPort={0}", wDNSHostPort);
+
             Array.Copy(breserved, 0, setdata, writeIndex, breserved.Length);
             writeIndex += breserved.Length;
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG breserved={0}", CCommondMethod.ToHex(breserved, "", " "));
 
             return setdata;
         }
@@ -181,7 +233,7 @@ namespace UHFDemo
                 {
                     bPortEn = 0x00;
                 }
-                Console.WriteLine("set PortEn={0} -> {1}", value, bPortEn);
+                //Console.WriteLine("set PortEn={0} -> {1}", value, bPortEn);
             }
         }
         public string NetMode {
@@ -207,7 +259,7 @@ namespace UHFDemo
                 {
                     bNetMode = 0x03;
                 }
-                Console.WriteLine("set bNetMode={0} -> {1}", value, bNetMode);
+                //Console.WriteLine("set bNetMode={0} -> {1}", value, bNetMode);
             }
         }
 
@@ -249,6 +301,7 @@ namespace UHFDemo
             {
                 byte[] ip = IPAddress.Parse(value).GetAddressBytes();
                 Array.Copy(ip, 0, bDesIP, 0, ip.Length);
+                //Console.WriteLine("chris: set dest ip {0} -> {1}", CCommondMethod.ToHex(bDesIP, "", "."), CCommondMethod.ToHex(ip, "", "."));
             }
         }
         public ushort DesPort { 

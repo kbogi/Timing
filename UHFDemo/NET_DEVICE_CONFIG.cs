@@ -12,7 +12,7 @@ namespace UHFDemo
 
         public NET_DEVICE_CONFIG(byte[] mergeData)
         {
-            Console.WriteLine("chris: parse NET_DEVICE_CONFIG");
+            //Console.WriteLine("chris: parse NET_DEVICE_CONFIG");
             rawData = new byte[mergeData.Length];
             Array.Copy(mergeData, 0, rawData, 0, rawData.Length);
             writeIndex = 0;
@@ -25,7 +25,7 @@ namespace UHFDemo
             dev_port_cfg = new DEVICEPORT_CONFIG[2];
             for (int i=0; i<2; i++)
             {
-                Console.WriteLine("chris: parse DEVICEPORT_CONFIG[{0}]", i);
+                //Console.WriteLine("chris: parse DEVICEPORT_CONFIG[{0}]", i);
                 byte[] dev_port_data = new byte[65];
                 Array.Copy(rawData, writeIndex, dev_port_data, 0, dev_port_data.Length);
                 dev_port_cfg[i] = new DEVICEPORT_CONFIG(dev_port_data);
