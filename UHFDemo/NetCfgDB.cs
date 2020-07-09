@@ -18,12 +18,18 @@ namespace UHFDemo
             get { return modMacIndexNetDevCfg; }
         }
 
-        public void Add(string mod_mac, MODULE_SEARCH mod_search)
+        public bool Add(string mod_mac, MODULE_SEARCH mod_search)
         {
             if (!modMacIndexSearch.ContainsKey(mod_mac))
+            {
                 modMacIndexSearch.Add(mod_mac, mod_search);
+                return true;
+            }
             else
+            {
                 modMacIndexSearch[mod_mac].Update(mod_search);
+                return false;
+            }
         }
 
         public void Add(string mod_mac, NET_DEVICE_CONFIG mod_cfg)

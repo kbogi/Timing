@@ -722,6 +722,7 @@ namespace UHFDemo
             this.mFastSessionTimer = new System.Windows.Forms.Timer(this.components);
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
+            this.net_reset_default = new System.Windows.Forms.Button();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1425,7 +1426,7 @@ namespace UHFDemo
             // 
             // btnDisconnectTcp
             // 
-            this.btnDisconnectTcp.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnDisconnectTcp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnDisconnectTcp.Location = new System.Drawing.Point(314, 51);
             this.btnDisconnectTcp.Name = "btnDisconnectTcp";
             this.btnDisconnectTcp.Size = new System.Drawing.Size(90, 23);
@@ -1444,7 +1445,7 @@ namespace UHFDemo
             // 
             // btnConnectTcp
             // 
-            this.btnConnectTcp.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnConnectTcp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnConnectTcp.Location = new System.Drawing.Point(314, 19);
             this.btnConnectTcp.Name = "btnConnectTcp";
             this.btnConnectTcp.Size = new System.Drawing.Size(90, 23);
@@ -1509,7 +1510,7 @@ namespace UHFDemo
             // 
             // btnDisconnectRs232
             // 
-            this.btnDisconnectRs232.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnDisconnectRs232.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnDisconnectRs232.Location = new System.Drawing.Point(314, 49);
             this.btnDisconnectRs232.Name = "btnDisconnectRs232";
             this.btnDisconnectRs232.Size = new System.Drawing.Size(90, 23);
@@ -1541,7 +1542,7 @@ namespace UHFDemo
             // 
             // btnConnectRs232
             // 
-            this.btnConnectRs232.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnConnectRs232.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnConnectRs232.Location = new System.Drawing.Point(314, 15);
             this.btnConnectRs232.Name = "btnConnectRs232";
             this.btnConnectRs232.Size = new System.Drawing.Size(90, 23);
@@ -1836,7 +1837,7 @@ namespace UHFDemo
             // rdbProfile1
             // 
             this.rdbProfile1.AutoSize = true;
-            this.rdbProfile1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rdbProfile1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.rdbProfile1.ForeColor = System.Drawing.Color.Black;
             this.rdbProfile1.Location = new System.Drawing.Point(347, 20);
             this.rdbProfile1.Name = "rdbProfile1";
@@ -2717,7 +2718,7 @@ namespace UHFDemo
             this.pageEpcTest.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pageEpcTest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pageEpcTest.Controls.Add(this.tabEpcTest);
-            this.pageEpcTest.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.pageEpcTest.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.pageEpcTest.ForeColor = System.Drawing.SystemColors.Desktop;
             this.pageEpcTest.Location = new System.Drawing.Point(4, 22);
             this.pageEpcTest.Name = "pageEpcTest";
@@ -2733,7 +2734,7 @@ namespace UHFDemo
             this.tabEpcTest.Controls.Add(this.pageAcessTag);
             this.tabEpcTest.Controls.Add(this.tabPage3);
             this.tabEpcTest.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabEpcTest.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tabEpcTest.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tabEpcTest.Location = new System.Drawing.Point(0, 5);
             this.tabEpcTest.Name = "tabEpcTest";
             this.tabEpcTest.SelectedIndex = 0;
@@ -2758,7 +2759,7 @@ namespace UHFDemo
             this.pageRealMode.Controls.Add(this.lbRealTagCount);
             this.pageRealMode.Controls.Add(this.groupBox1);
             this.pageRealMode.Controls.Add(this.lvRealList);
-            this.pageRealMode.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.pageRealMode.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.pageRealMode.Location = new System.Drawing.Point(4, 22);
             this.pageRealMode.Name = "pageRealMode";
             this.pageRealMode.Padding = new System.Windows.Forms.Padding(3);
@@ -2811,7 +2812,7 @@ namespace UHFDemo
             // 
             // customizedExeTime
             // 
-            this.customizedExeTime.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.customizedExeTime.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.customizedExeTime.Location = new System.Drawing.Point(316, 25);
             this.customizedExeTime.Name = "customizedExeTime";
             this.customizedExeTime.Size = new System.Drawing.Size(52, 21);
@@ -2822,7 +2823,7 @@ namespace UHFDemo
             // label127
             // 
             this.label127.AutoSize = true;
-            this.label127.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label127.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label127.Location = new System.Drawing.Point(252, 29);
             this.label127.Name = "label127";
             this.label127.Size = new System.Drawing.Size(59, 12);
@@ -2833,7 +2834,7 @@ namespace UHFDemo
             // 
             this.Duration.AutoSize = true;
             this.Duration.Enabled = false;
-            this.Duration.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Duration.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Duration.Location = new System.Drawing.Point(836, 4);
             this.Duration.Name = "Duration";
             this.Duration.Size = new System.Drawing.Size(53, 12);
@@ -2845,7 +2846,7 @@ namespace UHFDemo
             // 
             this.mSessionExeTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.mSessionExeTime.Enabled = false;
-            this.mSessionExeTime.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mSessionExeTime.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mSessionExeTime.FormattingEnabled = true;
             this.mSessionExeTime.Location = new System.Drawing.Point(827, 22);
             this.mSessionExeTime.Name = "mSessionExeTime";
@@ -2855,7 +2856,7 @@ namespace UHFDemo
             // 
             // btRealTimeInventory
             // 
-            this.btRealTimeInventory.Font = new System.Drawing.Font("SimSun", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btRealTimeInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btRealTimeInventory.ForeColor = System.Drawing.Color.DarkBlue;
             this.btRealTimeInventory.Location = new System.Drawing.Point(9, 5);
             this.btRealTimeInventory.Name = "btRealTimeInventory";
@@ -2868,7 +2869,7 @@ namespace UHFDemo
             // label84
             // 
             this.label84.AutoSize = true;
-            this.label84.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label84.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label84.Location = new System.Drawing.Point(193, 8);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(119, 12);
@@ -2877,7 +2878,7 @@ namespace UHFDemo
             // 
             // textRealRound
             // 
-            this.textRealRound.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textRealRound.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textRealRound.Location = new System.Drawing.Point(317, 3);
             this.textRealRound.Name = "textRealRound";
             this.textRealRound.Size = new System.Drawing.Size(52, 21);
@@ -2913,7 +2914,7 @@ namespace UHFDemo
             // m_session_q_cb
             // 
             this.m_session_q_cb.AutoSize = true;
-            this.m_session_q_cb.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_q_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_session_q_cb.Location = new System.Drawing.Point(803, 24);
             this.m_session_q_cb.Name = "m_session_q_cb";
             this.m_session_q_cb.Size = new System.Drawing.Size(15, 14);
@@ -2925,7 +2926,7 @@ namespace UHFDemo
             // m_session_sl_cb
             // 
             this.m_session_sl_cb.AutoSize = true;
-            this.m_session_sl_cb.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_sl_cb.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_session_sl_cb.Location = new System.Drawing.Point(722, 25);
             this.m_session_sl_cb.Name = "m_session_sl_cb";
             this.m_session_sl_cb.Size = new System.Drawing.Size(15, 14);
@@ -2936,7 +2937,7 @@ namespace UHFDemo
             // m_session_max_q
             // 
             this.m_session_max_q.Enabled = false;
-            this.m_session_max_q.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_max_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_session_max_q.Location = new System.Drawing.Point(940, 22);
             this.m_session_max_q.Name = "m_session_max_q";
             this.m_session_max_q.Size = new System.Drawing.Size(28, 21);
@@ -2948,7 +2949,7 @@ namespace UHFDemo
             // m_session_min_q
             // 
             this.m_session_min_q.Enabled = false;
-            this.m_session_min_q.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_min_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_session_min_q.Location = new System.Drawing.Point(884, 21);
             this.m_session_min_q.Name = "m_session_min_q";
             this.m_session_min_q.Size = new System.Drawing.Size(28, 21);
@@ -2960,7 +2961,7 @@ namespace UHFDemo
             // m_session_start_q
             // 
             this.m_session_start_q.Enabled = false;
-            this.m_session_start_q.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_start_q.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_session_start_q.Location = new System.Drawing.Point(827, 20);
             this.m_session_start_q.Name = "m_session_start_q";
             this.m_session_start_q.Size = new System.Drawing.Size(28, 21);
@@ -2973,7 +2974,7 @@ namespace UHFDemo
             // 
             this.m_max_q_content.AutoSize = true;
             this.m_max_q_content.Enabled = false;
-            this.m_max_q_content.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_max_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_max_q_content.Location = new System.Drawing.Point(938, 5);
             this.m_max_q_content.Name = "m_max_q_content";
             this.m_max_q_content.Size = new System.Drawing.Size(35, 12);
@@ -2985,7 +2986,7 @@ namespace UHFDemo
             // 
             this.m_min_q_content.AutoSize = true;
             this.m_min_q_content.Enabled = false;
-            this.m_min_q_content.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_min_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_min_q_content.Location = new System.Drawing.Point(882, 5);
             this.m_min_q_content.Name = "m_min_q_content";
             this.m_min_q_content.Size = new System.Drawing.Size(35, 12);
@@ -2997,7 +2998,7 @@ namespace UHFDemo
             // 
             this.m_start_q_content.AutoSize = true;
             this.m_start_q_content.Enabled = false;
-            this.m_start_q_content.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_start_q_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_start_q_content.Location = new System.Drawing.Point(816, 4);
             this.m_start_q_content.Name = "m_start_q_content";
             this.m_start_q_content.Size = new System.Drawing.Size(47, 12);
@@ -3009,7 +3010,7 @@ namespace UHFDemo
             // 
             this.m_session_sl.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_session_sl.Enabled = false;
-            this.m_session_sl.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_session_sl.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_session_sl.FormattingEnabled = true;
             this.m_session_sl.Items.AddRange(new object[] {
             "00",
@@ -3025,7 +3026,7 @@ namespace UHFDemo
             // 
             this.m_sl_content.AutoSize = true;
             this.m_sl_content.Enabled = false;
-            this.m_sl_content.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_sl_content.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_sl_content.Location = new System.Drawing.Point(775, 4);
             this.m_sl_content.Name = "m_sl_content";
             this.m_sl_content.Size = new System.Drawing.Size(17, 12);
@@ -3037,7 +3038,7 @@ namespace UHFDemo
             // 
             this.cmbTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTarget.Enabled = false;
-            this.cmbTarget.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbTarget.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbTarget.FormattingEnabled = true;
             this.cmbTarget.Items.AddRange(new object[] {
             "A",
@@ -3051,7 +3052,7 @@ namespace UHFDemo
             // 
             this.label98.AutoSize = true;
             this.label98.Enabled = false;
-            this.label98.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label98.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label98.Location = new System.Drawing.Point(609, 3);
             this.label98.Name = "label98";
             this.label98.Size = new System.Drawing.Size(101, 12);
@@ -3062,7 +3063,7 @@ namespace UHFDemo
             // 
             this.cmbSession.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSession.Enabled = false;
-            this.cmbSession.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbSession.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbSession.FormattingEnabled = true;
             this.cmbSession.Items.AddRange(new object[] {
             "S0",
@@ -3079,7 +3080,7 @@ namespace UHFDemo
             // 
             this.label97.AutoSize = true;
             this.label97.Enabled = false;
-            this.label97.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label97.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label97.Location = new System.Drawing.Point(530, 4);
             this.label97.Name = "label97";
             this.label97.Size = new System.Drawing.Size(65, 12);
@@ -3110,7 +3111,7 @@ namespace UHFDemo
             // 
             // button8
             // 
-            this.button8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button8.ForeColor = System.Drawing.SystemColors.Desktop;
             this.button8.Location = new System.Drawing.Point(904, 285);
             this.button8.Name = "button8";
@@ -3139,7 +3140,7 @@ namespace UHFDemo
             this.groupBox20.Controls.Add(this.cbRealWorkant3);
             this.groupBox20.Controls.Add(this.cbRealWorkant2);
             this.groupBox20.Controls.Add(this.label19);
-            this.groupBox20.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox20.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox20.ForeColor = System.Drawing.Color.Black;
             this.groupBox20.Location = new System.Drawing.Point(3, 66);
             this.groupBox20.Name = "groupBox20";
@@ -3151,7 +3152,7 @@ namespace UHFDemo
             // cbRealWorkant16
             // 
             this.cbRealWorkant16.AutoSize = true;
-            this.cbRealWorkant16.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant16.Location = new System.Drawing.Point(932, 20);
             this.cbRealWorkant16.Name = "cbRealWorkant16";
             this.cbRealWorkant16.Size = new System.Drawing.Size(60, 16);
@@ -3162,7 +3163,7 @@ namespace UHFDemo
             // cbRealWorkant15
             // 
             this.cbRealWorkant15.AutoSize = true;
-            this.cbRealWorkant15.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant15.Location = new System.Drawing.Point(869, 20);
             this.cbRealWorkant15.Name = "cbRealWorkant15";
             this.cbRealWorkant15.Size = new System.Drawing.Size(60, 16);
@@ -3173,7 +3174,7 @@ namespace UHFDemo
             // cbRealWorkant14
             // 
             this.cbRealWorkant14.AutoSize = true;
-            this.cbRealWorkant14.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant14.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant14.Location = new System.Drawing.Point(805, 20);
             this.cbRealWorkant14.Name = "cbRealWorkant14";
             this.cbRealWorkant14.Size = new System.Drawing.Size(60, 16);
@@ -3184,7 +3185,7 @@ namespace UHFDemo
             // cbRealWorkant13
             // 
             this.cbRealWorkant13.AutoSize = true;
-            this.cbRealWorkant13.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant13.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant13.Location = new System.Drawing.Point(741, 20);
             this.cbRealWorkant13.Name = "cbRealWorkant13";
             this.cbRealWorkant13.Size = new System.Drawing.Size(60, 16);
@@ -3195,7 +3196,7 @@ namespace UHFDemo
             // cbRealWorkant9
             // 
             this.cbRealWorkant9.AutoSize = true;
-            this.cbRealWorkant9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant9.Location = new System.Drawing.Point(491, 20);
             this.cbRealWorkant9.Name = "cbRealWorkant9";
             this.cbRealWorkant9.Size = new System.Drawing.Size(54, 16);
@@ -3206,7 +3207,7 @@ namespace UHFDemo
             // cbRealWorkant12
             // 
             this.cbRealWorkant12.AutoSize = true;
-            this.cbRealWorkant12.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant12.Location = new System.Drawing.Point(680, 20);
             this.cbRealWorkant12.Name = "cbRealWorkant12";
             this.cbRealWorkant12.Size = new System.Drawing.Size(60, 16);
@@ -3217,7 +3218,7 @@ namespace UHFDemo
             // cbRealWorkant11
             // 
             this.cbRealWorkant11.AutoSize = true;
-            this.cbRealWorkant11.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant11.Location = new System.Drawing.Point(617, 20);
             this.cbRealWorkant11.Name = "cbRealWorkant11";
             this.cbRealWorkant11.Size = new System.Drawing.Size(60, 16);
@@ -3228,7 +3229,7 @@ namespace UHFDemo
             // cbRealWorkant10
             // 
             this.cbRealWorkant10.AutoSize = true;
-            this.cbRealWorkant10.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant10.Location = new System.Drawing.Point(551, 20);
             this.cbRealWorkant10.Name = "cbRealWorkant10";
             this.cbRealWorkant10.Size = new System.Drawing.Size(60, 16);
@@ -3239,7 +3240,7 @@ namespace UHFDemo
             // cbRealWorkant8
             // 
             this.cbRealWorkant8.AutoSize = true;
-            this.cbRealWorkant8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant8.Location = new System.Drawing.Point(431, 20);
             this.cbRealWorkant8.Name = "cbRealWorkant8";
             this.cbRealWorkant8.Size = new System.Drawing.Size(54, 16);
@@ -3250,7 +3251,7 @@ namespace UHFDemo
             // cbRealWorkant7
             // 
             this.cbRealWorkant7.AutoSize = true;
-            this.cbRealWorkant7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant7.Location = new System.Drawing.Point(370, 20);
             this.cbRealWorkant7.Name = "cbRealWorkant7";
             this.cbRealWorkant7.Size = new System.Drawing.Size(54, 16);
@@ -3261,7 +3262,7 @@ namespace UHFDemo
             // cbRealWorkant6
             // 
             this.cbRealWorkant6.AutoSize = true;
-            this.cbRealWorkant6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant6.Location = new System.Drawing.Point(309, 20);
             this.cbRealWorkant6.Name = "cbRealWorkant6";
             this.cbRealWorkant6.Size = new System.Drawing.Size(54, 16);
@@ -3272,7 +3273,7 @@ namespace UHFDemo
             // cbRealWorkant5
             // 
             this.cbRealWorkant5.AutoSize = true;
-            this.cbRealWorkant5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant5.Location = new System.Drawing.Point(248, 20);
             this.cbRealWorkant5.Name = "cbRealWorkant5";
             this.cbRealWorkant5.Size = new System.Drawing.Size(54, 16);
@@ -3285,7 +3286,7 @@ namespace UHFDemo
             this.cbRealWorkant1.AutoSize = true;
             this.cbRealWorkant1.Checked = true;
             this.cbRealWorkant1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbRealWorkant1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant1.Location = new System.Drawing.Point(8, 20);
             this.cbRealWorkant1.Name = "cbRealWorkant1";
             this.cbRealWorkant1.Size = new System.Drawing.Size(54, 16);
@@ -3296,7 +3297,7 @@ namespace UHFDemo
             // cbRealWorkant4
             // 
             this.cbRealWorkant4.AutoSize = true;
-            this.cbRealWorkant4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant4.Location = new System.Drawing.Point(188, 20);
             this.cbRealWorkant4.Name = "cbRealWorkant4";
             this.cbRealWorkant4.Size = new System.Drawing.Size(54, 16);
@@ -3307,7 +3308,7 @@ namespace UHFDemo
             // cbRealWorkant3
             // 
             this.cbRealWorkant3.AutoSize = true;
-            this.cbRealWorkant3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant3.Location = new System.Drawing.Point(128, 20);
             this.cbRealWorkant3.Name = "cbRealWorkant3";
             this.cbRealWorkant3.Size = new System.Drawing.Size(54, 16);
@@ -3318,7 +3319,7 @@ namespace UHFDemo
             // cbRealWorkant2
             // 
             this.cbRealWorkant2.AutoSize = true;
-            this.cbRealWorkant2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbRealWorkant2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbRealWorkant2.Location = new System.Drawing.Point(68, 20);
             this.cbRealWorkant2.Name = "cbRealWorkant2";
             this.cbRealWorkant2.Size = new System.Drawing.Size(54, 16);
@@ -3336,7 +3337,7 @@ namespace UHFDemo
             // 
             // tbRealMinRssi
             // 
-            this.tbRealMinRssi.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbRealMinRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbRealMinRssi.Location = new System.Drawing.Point(365, 287);
             this.tbRealMinRssi.Name = "tbRealMinRssi";
             this.tbRealMinRssi.ReadOnly = true;
@@ -3346,7 +3347,7 @@ namespace UHFDemo
             // 
             // tbRealMaxRssi
             // 
-            this.tbRealMaxRssi.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tbRealMaxRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tbRealMaxRssi.Location = new System.Drawing.Point(517, 287);
             this.tbRealMaxRssi.Name = "tbRealMaxRssi";
             this.tbRealMaxRssi.ReadOnly = true;
@@ -3356,7 +3357,7 @@ namespace UHFDemo
             // 
             // btRealFresh
             // 
-            this.btRealFresh.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btRealFresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btRealFresh.ForeColor = System.Drawing.SystemColors.Desktop;
             this.btRealFresh.Location = new System.Drawing.Point(627, 285);
             this.btRealFresh.Name = "btRealFresh";
@@ -3369,7 +3370,7 @@ namespace UHFDemo
             // label70
             // 
             this.label70.AutoSize = true;
-            this.label70.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label70.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label70.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label70.Location = new System.Drawing.Point(448, 293);
             this.label70.Name = "label70";
@@ -3380,7 +3381,7 @@ namespace UHFDemo
             // label74
             // 
             this.label74.AutoSize = true;
-            this.label74.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label74.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label74.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label74.Location = new System.Drawing.Point(300, 293);
             this.label74.Name = "label74";
@@ -3391,7 +3392,7 @@ namespace UHFDemo
             // lbRealTagCount
             // 
             this.lbRealTagCount.AutoSize = true;
-            this.lbRealTagCount.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbRealTagCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lbRealTagCount.ForeColor = System.Drawing.SystemColors.Desktop;
             this.lbRealTagCount.Location = new System.Drawing.Point(7, 290);
             this.lbRealTagCount.Name = "lbRealTagCount";
@@ -3412,7 +3413,7 @@ namespace UHFDemo
             this.groupBox1.Controls.Add(this.label68);
             this.groupBox1.Controls.Add(this.label69);
             this.groupBox1.Controls.Add(this.ledReal1);
-            this.groupBox1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox1.Location = new System.Drawing.Point(1, 119);
             this.groupBox1.Name = "groupBox1";
@@ -3528,7 +3529,7 @@ namespace UHFDemo
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label53.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label53.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label53.Location = new System.Drawing.Point(700, 103);
             this.label53.Name = "label53";
@@ -3539,7 +3540,7 @@ namespace UHFDemo
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label66.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label66.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label66.Location = new System.Drawing.Point(495, 17);
             this.label66.Name = "label66";
@@ -3550,7 +3551,7 @@ namespace UHFDemo
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label67.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label67.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label67.Location = new System.Drawing.Point(498, 88);
             this.label67.Name = "label67";
@@ -3561,7 +3562,7 @@ namespace UHFDemo
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label68.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label68.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label68.Location = new System.Drawing.Point(700, 35);
             this.label68.Name = "label68";
@@ -3572,7 +3573,7 @@ namespace UHFDemo
             // label69
             // 
             this.label69.AutoSize = true;
-            this.label69.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label69.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label69.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label69.Location = new System.Drawing.Point(104, 17);
             this.label69.Name = "label69";
@@ -3612,7 +3613,7 @@ namespace UHFDemo
             this.columnHeader41,
             this.columnHeader42});
             this.lvRealList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lvRealList.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lvRealList.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lvRealList.GridLines = true;
             this.lvRealList.HideSelection = false;
             this.lvRealList.Location = new System.Drawing.Point(3, 313);
@@ -3700,7 +3701,7 @@ namespace UHFDemo
             // 
             // button6
             // 
-            this.button6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button6.ForeColor = System.Drawing.SystemColors.Desktop;
             this.button6.Location = new System.Drawing.Point(907, 255);
             this.button6.Name = "button6";
@@ -3716,7 +3717,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 432F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 436F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3735,14 +3736,14 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(569, 4);
+            this.panel9.Location = new System.Drawing.Point(565, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(427, 74);
+            this.panel9.Size = new System.Drawing.Size(431, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
             // 
-            this.btClearBuffer.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btClearBuffer.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btClearBuffer.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btClearBuffer.Location = new System.Drawing.Point(15, 41);
             this.btClearBuffer.Name = "btClearBuffer";
@@ -3754,7 +3755,7 @@ namespace UHFDemo
             // 
             // btQueryBuffer
             // 
-            this.btQueryBuffer.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btQueryBuffer.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btQueryBuffer.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btQueryBuffer.Location = new System.Drawing.Point(167, 41);
             this.btQueryBuffer.Name = "btQueryBuffer";
@@ -3766,7 +3767,7 @@ namespace UHFDemo
             // 
             // btGetClearBuffer
             // 
-            this.btGetClearBuffer.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btGetClearBuffer.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btGetClearBuffer.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btGetClearBuffer.Location = new System.Drawing.Point(167, 10);
             this.btGetClearBuffer.Name = "btGetClearBuffer";
@@ -3778,7 +3779,7 @@ namespace UHFDemo
             // 
             // btGetBuffer
             // 
-            this.btGetBuffer.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btGetBuffer.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btGetBuffer.ForeColor = System.Drawing.SystemColors.ControlText;
             this.btGetBuffer.Location = new System.Drawing.Point(15, 10);
             this.btGetBuffer.Name = "btGetBuffer";
@@ -3796,12 +3797,12 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(277, 74);
+            this.panel10.Size = new System.Drawing.Size(275, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
             // 
-            this.btBufferInventory.Font = new System.Drawing.Font("SimSun", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btBufferInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btBufferInventory.ForeColor = System.Drawing.Color.DarkBlue;
             this.btBufferInventory.Location = new System.Drawing.Point(7, 14);
             this.btBufferInventory.Name = "btBufferInventory";
@@ -3814,7 +3815,7 @@ namespace UHFDemo
             // label85
             // 
             this.label85.AutoSize = true;
-            this.label85.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label85.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label85.Location = new System.Drawing.Point(154, 29);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(119, 12);
@@ -3823,7 +3824,7 @@ namespace UHFDemo
             // 
             // textReadRoundBuffer
             // 
-            this.textReadRoundBuffer.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textReadRoundBuffer.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.textReadRoundBuffer.Location = new System.Drawing.Point(273, 26);
             this.textReadRoundBuffer.Name = "textReadRoundBuffer";
             this.textReadRoundBuffer.Size = new System.Drawing.Size(28, 21);
@@ -3842,15 +3843,15 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(288, 4);
+            this.panel8.Location = new System.Drawing.Point(286, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(274, 74);
+            this.panel8.Size = new System.Drawing.Size(272, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
             // 
             this.checkBox4.AutoSize = true;
-            this.checkBox4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox4.Location = new System.Drawing.Point(237, 37);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(54, 16);
@@ -3861,7 +3862,7 @@ namespace UHFDemo
             // checkBox3
             // 
             this.checkBox3.AutoSize = true;
-            this.checkBox3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox3.Location = new System.Drawing.Point(171, 37);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(54, 16);
@@ -3872,7 +3873,7 @@ namespace UHFDemo
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox2.Location = new System.Drawing.Point(104, 36);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(54, 16);
@@ -3883,7 +3884,7 @@ namespace UHFDemo
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox1.Location = new System.Drawing.Point(33, 37);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(54, 16);
@@ -3896,7 +3897,7 @@ namespace UHFDemo
             this.cbBufferWorkant1.AutoSize = true;
             this.cbBufferWorkant1.Checked = true;
             this.cbBufferWorkant1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbBufferWorkant1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbBufferWorkant1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbBufferWorkant1.Location = new System.Drawing.Point(33, 10);
             this.cbBufferWorkant1.Name = "cbBufferWorkant1";
             this.cbBufferWorkant1.Size = new System.Drawing.Size(54, 16);
@@ -3907,7 +3908,7 @@ namespace UHFDemo
             // cbBufferWorkant4
             // 
             this.cbBufferWorkant4.AutoSize = true;
-            this.cbBufferWorkant4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbBufferWorkant4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbBufferWorkant4.Location = new System.Drawing.Point(237, 10);
             this.cbBufferWorkant4.Name = "cbBufferWorkant4";
             this.cbBufferWorkant4.Size = new System.Drawing.Size(54, 16);
@@ -3918,7 +3919,7 @@ namespace UHFDemo
             // cbBufferWorkant2
             // 
             this.cbBufferWorkant2.AutoSize = true;
-            this.cbBufferWorkant2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbBufferWorkant2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbBufferWorkant2.Location = new System.Drawing.Point(104, 10);
             this.cbBufferWorkant2.Name = "cbBufferWorkant2";
             this.cbBufferWorkant2.Size = new System.Drawing.Size(54, 16);
@@ -3929,7 +3930,7 @@ namespace UHFDemo
             // cbBufferWorkant3
             // 
             this.cbBufferWorkant3.AutoSize = true;
-            this.cbBufferWorkant3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cbBufferWorkant3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbBufferWorkant3.Location = new System.Drawing.Point(171, 10);
             this.cbBufferWorkant3.Name = "cbBufferWorkant3";
             this.cbBufferWorkant3.Size = new System.Drawing.Size(54, 16);
@@ -3950,7 +3951,7 @@ namespace UHFDemo
             this.groupBox3.Controls.Add(this.label95);
             this.groupBox3.Controls.Add(this.label96);
             this.groupBox3.Controls.Add(this.ledBuffer1);
-            this.groupBox3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox3.Location = new System.Drawing.Point(0, 88);
             this.groupBox3.Name = "groupBox3";
@@ -4066,7 +4067,7 @@ namespace UHFDemo
             // label92
             // 
             this.label92.AutoSize = true;
-            this.label92.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label92.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label92.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label92.Location = new System.Drawing.Point(700, 103);
             this.label92.Name = "label92";
@@ -4077,7 +4078,7 @@ namespace UHFDemo
             // label93
             // 
             this.label93.AutoSize = true;
-            this.label93.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label93.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label93.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label93.Location = new System.Drawing.Point(495, 17);
             this.label93.Name = "label93";
@@ -4088,7 +4089,7 @@ namespace UHFDemo
             // label94
             // 
             this.label94.AutoSize = true;
-            this.label94.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label94.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label94.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label94.Location = new System.Drawing.Point(498, 88);
             this.label94.Name = "label94";
@@ -4099,7 +4100,7 @@ namespace UHFDemo
             // label95
             // 
             this.label95.AutoSize = true;
-            this.label95.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label95.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label95.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label95.Location = new System.Drawing.Point(700, 35);
             this.label95.Name = "label95";
@@ -4110,7 +4111,7 @@ namespace UHFDemo
             // label96
             // 
             this.label96.AutoSize = true;
-            this.label96.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label96.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label96.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label96.Location = new System.Drawing.Point(104, 17);
             this.label96.Name = "label96";
@@ -4142,7 +4143,7 @@ namespace UHFDemo
             // 
             // btBufferFresh
             // 
-            this.btBufferFresh.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btBufferFresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btBufferFresh.ForeColor = System.Drawing.SystemColors.Desktop;
             this.btBufferFresh.Location = new System.Drawing.Point(623, 255);
             this.btBufferFresh.Name = "btBufferFresh";
@@ -4155,7 +4156,7 @@ namespace UHFDemo
             // labelBufferTagCount
             // 
             this.labelBufferTagCount.AutoSize = true;
-            this.labelBufferTagCount.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.labelBufferTagCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.labelBufferTagCount.ForeColor = System.Drawing.SystemColors.Desktop;
             this.labelBufferTagCount.Location = new System.Drawing.Point(6, 261);
             this.labelBufferTagCount.Name = "labelBufferTagCount";
@@ -4174,7 +4175,7 @@ namespace UHFDemo
             this.columnHeader54,
             this.columnHeader16});
             this.lvBufferList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lvBufferList.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lvBufferList.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lvBufferList.GridLines = true;
             this.lvBufferList.HideSelection = false;
             this.lvBufferList.Location = new System.Drawing.Point(0, 284);
@@ -4273,7 +4274,7 @@ namespace UHFDemo
             // 
             // button7
             // 
-            this.button7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button7.ForeColor = System.Drawing.SystemColors.Desktop;
             this.button7.Location = new System.Drawing.Point(885, 327);
             this.button7.Name = "button7";
@@ -4292,7 +4293,7 @@ namespace UHFDemo
             this.groupBox2.Controls.Add(this.splitContainer1);
             this.groupBox2.Controls.Add(this.comboBox7);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.groupBox2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
@@ -4344,7 +4345,7 @@ namespace UHFDemo
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label58.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label58.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label58.Location = new System.Drawing.Point(6, 17);
             this.label58.Name = "label58";
@@ -4399,7 +4400,7 @@ namespace UHFDemo
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label55.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label55.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label55.Location = new System.Drawing.Point(300, 19);
             this.label55.Name = "label55";
@@ -4410,7 +4411,7 @@ namespace UHFDemo
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label56.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label56.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label56.Location = new System.Drawing.Point(300, 83);
             this.label56.Name = "label56";
@@ -4443,7 +4444,7 @@ namespace UHFDemo
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label57.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label57.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label57.Location = new System.Drawing.Point(449, 19);
             this.label57.Name = "label57";
@@ -4454,7 +4455,7 @@ namespace UHFDemo
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label54.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label54.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label54.Location = new System.Drawing.Point(449, 83);
             this.label54.Name = "label54";
@@ -4549,7 +4550,7 @@ namespace UHFDemo
             // 
             this.mRepeatPower1.AutoSize = true;
             this.mRepeatPower1.Enabled = false;
-            this.mRepeatPower1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mRepeatPower1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mRepeatPower1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.mRepeatPower1.Location = new System.Drawing.Point(18, 99);
             this.mRepeatPower1.Name = "mRepeatPower1";
@@ -4561,7 +4562,7 @@ namespace UHFDemo
             // 
             this.mRepeatPower2.AutoSize = true;
             this.mRepeatPower2.Enabled = false;
-            this.mRepeatPower2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mRepeatPower2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mRepeatPower2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.mRepeatPower2.Location = new System.Drawing.Point(136, 98);
             this.mRepeatPower2.Name = "mRepeatPower2";
@@ -4573,7 +4574,7 @@ namespace UHFDemo
             // 
             this.mRepeat2.AutoSize = true;
             this.mRepeat2.Enabled = false;
-            this.mRepeat2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mRepeat2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mRepeat2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.mRepeat2.Location = new System.Drawing.Point(132, 67);
             this.mRepeat2.Name = "mRepeat2";
@@ -4585,7 +4586,7 @@ namespace UHFDemo
             // 
             this.mRepeat1.AutoSize = true;
             this.mRepeat1.Enabled = false;
-            this.mRepeat1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mRepeat1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mRepeat1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.mRepeat1.Location = new System.Drawing.Point(15, 67);
             this.mRepeat1.Name = "mRepeat1";
@@ -4596,7 +4597,7 @@ namespace UHFDemo
             // mDynamicPoll
             // 
             this.mDynamicPoll.AutoSize = true;
-            this.mDynamicPoll.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mDynamicPoll.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mDynamicPoll.Location = new System.Drawing.Point(10, 39);
             this.mDynamicPoll.Name = "mDynamicPoll";
             this.mDynamicPoll.Size = new System.Drawing.Size(72, 16);
@@ -4608,7 +4609,7 @@ namespace UHFDemo
             // label132
             // 
             this.label132.AutoSize = true;
-            this.label132.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label132.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label132.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label132.Location = new System.Drawing.Point(6, 16);
             this.label132.Name = "label132";
@@ -4628,7 +4629,7 @@ namespace UHFDemo
             // label131
             // 
             this.label131.AutoSize = true;
-            this.label131.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label131.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label131.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label131.Location = new System.Drawing.Point(132, 16);
             this.label131.Name = "label131";
@@ -4687,7 +4688,7 @@ namespace UHFDemo
             // 
             this.mTargetQuantity.AutoSize = true;
             this.mTargetQuantity.Enabled = false;
-            this.mTargetQuantity.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mTargetQuantity.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mTargetQuantity.ForeColor = System.Drawing.SystemColors.ControlText;
             this.mTargetQuantity.Location = new System.Drawing.Point(9, 127);
             this.mTargetQuantity.Name = "mTargetQuantity";
@@ -4708,7 +4709,7 @@ namespace UHFDemo
             // mContiue
             // 
             this.mContiue.AutoSize = true;
-            this.mContiue.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mContiue.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mContiue.ForeColor = System.Drawing.SystemColors.ControlText;
             this.mContiue.Location = new System.Drawing.Point(116, 104);
             this.mContiue.Name = "mContiue";
@@ -4730,7 +4731,7 @@ namespace UHFDemo
             // 
             this.mOpitimized.AutoSize = true;
             this.mOpitimized.Enabled = false;
-            this.mOpitimized.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mOpitimized.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mOpitimized.ForeColor = System.Drawing.SystemColors.ControlText;
             this.mOpitimized.Location = new System.Drawing.Point(15, 104);
             this.mOpitimized.Name = "mOpitimized";
@@ -4742,7 +4743,7 @@ namespace UHFDemo
             // 
             this.m_phase_value.AutoSize = true;
             this.m_phase_value.Enabled = false;
-            this.m_phase_value.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_phase_value.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_phase_value.Location = new System.Drawing.Point(210, 46);
             this.m_phase_value.Name = "m_phase_value";
             this.m_phase_value.Size = new System.Drawing.Size(54, 16);
@@ -4755,7 +4756,7 @@ namespace UHFDemo
             // 
             this.m_new_fast_inventory_flag.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_new_fast_inventory_flag.Enabled = false;
-            this.m_new_fast_inventory_flag.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_new_fast_inventory_flag.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_new_fast_inventory_flag.ForeColor = System.Drawing.SystemColors.InfoText;
             this.m_new_fast_inventory_flag.FormattingEnabled = true;
             this.m_new_fast_inventory_flag.Items.AddRange(new object[] {
@@ -4770,7 +4771,7 @@ namespace UHFDemo
             // 
             this.m_new_fast_inventory_session.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.m_new_fast_inventory_session.Enabled = false;
-            this.m_new_fast_inventory_session.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_new_fast_inventory_session.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_new_fast_inventory_session.ForeColor = System.Drawing.SystemColors.InfoText;
             this.m_new_fast_inventory_session.FormattingEnabled = true;
             this.m_new_fast_inventory_session.Items.AddRange(new object[] {
@@ -4786,7 +4787,7 @@ namespace UHFDemo
             // m_new_fast_inventory
             // 
             this.m_new_fast_inventory.AutoSize = true;
-            this.m_new_fast_inventory.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.m_new_fast_inventory.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.m_new_fast_inventory.Location = new System.Drawing.Point(10, 47);
             this.m_new_fast_inventory.Name = "m_new_fast_inventory";
             this.m_new_fast_inventory.Size = new System.Drawing.Size(66, 16);
@@ -4798,7 +4799,7 @@ namespace UHFDemo
             // label73
             // 
             this.label73.AutoSize = true;
-            this.label73.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label73.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label73.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label73.Location = new System.Drawing.Point(8, 20);
             this.label73.Name = "label73";
@@ -4818,7 +4819,7 @@ namespace UHFDemo
             // label72
             // 
             this.label72.AutoSize = true;
-            this.label72.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label72.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label72.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label72.Location = new System.Drawing.Point(169, 21);
             this.label72.Name = "label72";
@@ -4830,7 +4831,7 @@ namespace UHFDemo
             // 
             this.mReserve.AutoSize = true;
             this.mReserve.Enabled = false;
-            this.mReserve.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.mReserve.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.mReserve.ForeColor = System.Drawing.SystemColors.ControlText;
             this.mReserve.Location = new System.Drawing.Point(6, 76);
             this.mReserve.Name = "mReserve";
@@ -4987,7 +4988,7 @@ namespace UHFDemo
             // 
             // btFastInventory
             // 
-            this.btFastInventory.Font = new System.Drawing.Font("SimSun", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btFastInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btFastInventory.ForeColor = System.Drawing.Color.DarkBlue;
             this.btFastInventory.Location = new System.Drawing.Point(6, 22);
             this.btFastInventory.Name = "btFastInventory";
@@ -5000,7 +5001,7 @@ namespace UHFDemo
             // label122
             // 
             this.label122.AutoSize = true;
-            this.label122.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label122.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label122.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label122.Location = new System.Drawing.Point(456, 115);
             this.label122.Name = "label122";
@@ -5020,7 +5021,7 @@ namespace UHFDemo
             // label130
             // 
             this.label130.AutoSize = true;
-            this.label130.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label130.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label130.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label130.Location = new System.Drawing.Point(319, 116);
             this.label130.Name = "label130";
@@ -5031,7 +5032,7 @@ namespace UHFDemo
             // label133
             // 
             this.label133.AutoSize = true;
-            this.label133.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label133.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label133.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label133.Location = new System.Drawing.Point(497, 116);
             this.label133.Name = "label133";
@@ -5042,7 +5043,7 @@ namespace UHFDemo
             // cmbAntSelect16
             // 
             this.cmbAntSelect16.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect16.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect16.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect16.FormattingEnabled = true;
             this.cmbAntSelect16.Items.AddRange(new object[] {
@@ -5073,7 +5074,7 @@ namespace UHFDemo
             // cmbAntSelect13
             // 
             this.cmbAntSelect13.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect13.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect13.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect13.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect13.FormattingEnabled = true;
             this.cmbAntSelect13.Items.AddRange(new object[] {
@@ -5094,7 +5095,7 @@ namespace UHFDemo
             // label134
             // 
             this.label134.AutoSize = true;
-            this.label134.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label134.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label134.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label134.Location = new System.Drawing.Point(498, 79);
             this.label134.Name = "label134";
@@ -5105,7 +5106,7 @@ namespace UHFDemo
             // label135
             // 
             this.label135.AutoSize = true;
-            this.label135.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label135.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label135.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label135.Location = new System.Drawing.Point(28, 116);
             this.label135.Name = "label135";
@@ -5125,7 +5126,7 @@ namespace UHFDemo
             // cmbAntSelect9
             // 
             this.cmbAntSelect9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect9.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect9.FormattingEnabled = true;
             this.cmbAntSelect9.Items.AddRange(new object[] {
@@ -5146,7 +5147,7 @@ namespace UHFDemo
             // label136
             // 
             this.label136.AutoSize = true;
-            this.label136.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label136.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label136.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label136.Location = new System.Drawing.Point(171, 116);
             this.label136.Name = "label136";
@@ -5157,7 +5158,7 @@ namespace UHFDemo
             // label137
             // 
             this.label137.AutoSize = true;
-            this.label137.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label137.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label137.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label137.Location = new System.Drawing.Point(30, 78);
             this.label137.Name = "label137";
@@ -5168,7 +5169,7 @@ namespace UHFDemo
             // label138
             // 
             this.label138.AutoSize = true;
-            this.label138.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label138.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label138.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label138.Location = new System.Drawing.Point(456, 78);
             this.label138.Name = "label138";
@@ -5179,7 +5180,7 @@ namespace UHFDemo
             // label139
             // 
             this.label139.AutoSize = true;
-            this.label139.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label139.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label139.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label139.Location = new System.Drawing.Point(364, 116);
             this.label139.Name = "label139";
@@ -5190,7 +5191,7 @@ namespace UHFDemo
             // cmbAntSelect12
             // 
             this.cmbAntSelect12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect12.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect12.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect12.FormattingEnabled = true;
             this.cmbAntSelect12.Items.AddRange(new object[] {
@@ -5220,7 +5221,7 @@ namespace UHFDemo
             // cmbAntSelect15
             // 
             this.cmbAntSelect15.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect15.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect15.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect15.FormattingEnabled = true;
             this.cmbAntSelect15.Items.AddRange(new object[] {
@@ -5250,7 +5251,7 @@ namespace UHFDemo
             // label140
             // 
             this.label140.AutoSize = true;
-            this.label140.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label140.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label140.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label140.Location = new System.Drawing.Point(74, 79);
             this.label140.Name = "label140";
@@ -5270,7 +5271,7 @@ namespace UHFDemo
             // label141
             // 
             this.label141.AutoSize = true;
-            this.label141.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label141.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label141.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label141.Location = new System.Drawing.Point(74, 116);
             this.label141.Name = "label141";
@@ -5281,7 +5282,7 @@ namespace UHFDemo
             // label142
             // 
             this.label142.AutoSize = true;
-            this.label142.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label142.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label142.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label142.Location = new System.Drawing.Point(362, 79);
             this.label142.Name = "label142";
@@ -5301,7 +5302,7 @@ namespace UHFDemo
             // cmbAntSelect10
             // 
             this.cmbAntSelect10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect10.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect10.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect10.FormattingEnabled = true;
             this.cmbAntSelect10.Items.AddRange(new object[] {
@@ -5322,7 +5323,7 @@ namespace UHFDemo
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label143.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label143.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label143.Location = new System.Drawing.Point(218, 116);
             this.label143.Name = "label143";
@@ -5333,7 +5334,7 @@ namespace UHFDemo
             // cmbAntSelect14
             // 
             this.cmbAntSelect14.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect14.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect14.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect14.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect14.FormattingEnabled = true;
             this.cmbAntSelect14.Items.AddRange(new object[] {
@@ -5354,7 +5355,7 @@ namespace UHFDemo
             // label144
             // 
             this.label144.AutoSize = true;
-            this.label144.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label144.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label144.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label144.Location = new System.Drawing.Point(171, 78);
             this.label144.Name = "label144";
@@ -5365,7 +5366,7 @@ namespace UHFDemo
             // label145
             // 
             this.label145.AutoSize = true;
-            this.label145.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label145.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label145.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label145.Location = new System.Drawing.Point(319, 78);
             this.label145.Name = "label145";
@@ -5376,7 +5377,7 @@ namespace UHFDemo
             // label146
             // 
             this.label146.AutoSize = true;
-            this.label146.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label146.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label146.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label146.Location = new System.Drawing.Point(218, 79);
             this.label146.Name = "label146";
@@ -5387,7 +5388,7 @@ namespace UHFDemo
             // cmbAntSelect11
             // 
             this.cmbAntSelect11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect11.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect11.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect11.FormattingEnabled = true;
             this.cmbAntSelect11.Items.AddRange(new object[] {
@@ -5417,7 +5418,7 @@ namespace UHFDemo
             // label123
             // 
             this.label123.AutoSize = true;
-            this.label123.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label123.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label123.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label123.Location = new System.Drawing.Point(456, 40);
             this.label123.Name = "label123";
@@ -5437,7 +5438,7 @@ namespace UHFDemo
             // label124
             // 
             this.label124.AutoSize = true;
-            this.label124.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label124.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label124.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label124.Location = new System.Drawing.Point(319, 41);
             this.label124.Name = "label124";
@@ -5448,7 +5449,7 @@ namespace UHFDemo
             // label120
             // 
             this.label120.AutoSize = true;
-            this.label120.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label120.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label120.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label120.Location = new System.Drawing.Point(497, 41);
             this.label120.Name = "label120";
@@ -5459,7 +5460,7 @@ namespace UHFDemo
             // comboBox4
             // 
             this.comboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox4.ForeColor = System.Drawing.SystemColors.InfoText;
             this.comboBox4.FormattingEnabled = true;
             this.comboBox4.Items.AddRange(new object[] {
@@ -5490,7 +5491,7 @@ namespace UHFDemo
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox1.ForeColor = System.Drawing.SystemColors.InfoText;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
@@ -5511,7 +5512,7 @@ namespace UHFDemo
             // label64
             // 
             this.label64.AutoSize = true;
-            this.label64.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label64.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label64.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label64.Location = new System.Drawing.Point(498, 4);
             this.label64.Name = "label64";
@@ -5522,7 +5523,7 @@ namespace UHFDemo
             // label116
             // 
             this.label116.AutoSize = true;
-            this.label116.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label116.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label116.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label116.Location = new System.Drawing.Point(28, 41);
             this.label116.Name = "label116";
@@ -5542,7 +5543,7 @@ namespace UHFDemo
             // cmbAntSelect1
             // 
             this.cmbAntSelect1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect1.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect1.FormattingEnabled = true;
             this.cmbAntSelect1.Items.AddRange(new object[] {
@@ -5563,7 +5564,7 @@ namespace UHFDemo
             // label121
             // 
             this.label121.AutoSize = true;
-            this.label121.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label121.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label121.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label121.Location = new System.Drawing.Point(171, 41);
             this.label121.Name = "label121";
@@ -5574,7 +5575,7 @@ namespace UHFDemo
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label48.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label48.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label48.Location = new System.Drawing.Point(30, 3);
             this.label48.Name = "label48";
@@ -5585,7 +5586,7 @@ namespace UHFDemo
             // label65
             // 
             this.label65.AutoSize = true;
-            this.label65.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label65.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label65.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label65.Location = new System.Drawing.Point(456, 3);
             this.label65.Name = "label65";
@@ -5596,7 +5597,7 @@ namespace UHFDemo
             // label119
             // 
             this.label119.AutoSize = true;
-            this.label119.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label119.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label119.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label119.Location = new System.Drawing.Point(364, 41);
             this.label119.Name = "label119";
@@ -5607,7 +5608,7 @@ namespace UHFDemo
             // cmbAntSelect4
             // 
             this.cmbAntSelect4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect4.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect4.FormattingEnabled = true;
             this.cmbAntSelect4.Items.AddRange(new object[] {
@@ -5637,7 +5638,7 @@ namespace UHFDemo
             // comboBox3
             // 
             this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox3.ForeColor = System.Drawing.SystemColors.InfoText;
             this.comboBox3.FormattingEnabled = true;
             this.comboBox3.Items.AddRange(new object[] {
@@ -5667,7 +5668,7 @@ namespace UHFDemo
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label59.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label59.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label59.Location = new System.Drawing.Point(74, 4);
             this.label59.Name = "label59";
@@ -5687,7 +5688,7 @@ namespace UHFDemo
             // label117
             // 
             this.label117.AutoSize = true;
-            this.label117.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label117.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label117.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label117.Location = new System.Drawing.Point(74, 41);
             this.label117.Name = "label117";
@@ -5698,7 +5699,7 @@ namespace UHFDemo
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label62.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label62.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label62.Location = new System.Drawing.Point(362, 4);
             this.label62.Name = "label62";
@@ -5718,7 +5719,7 @@ namespace UHFDemo
             // cmbAntSelect2
             // 
             this.cmbAntSelect2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect2.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect2.FormattingEnabled = true;
             this.cmbAntSelect2.Items.AddRange(new object[] {
@@ -5739,7 +5740,7 @@ namespace UHFDemo
             // label118
             // 
             this.label118.AutoSize = true;
-            this.label118.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label118.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label118.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label118.Location = new System.Drawing.Point(218, 41);
             this.label118.Name = "label118";
@@ -5750,7 +5751,7 @@ namespace UHFDemo
             // comboBox2
             // 
             this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.comboBox2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.comboBox2.ForeColor = System.Drawing.SystemColors.InfoText;
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
@@ -5771,7 +5772,7 @@ namespace UHFDemo
             // label61
             // 
             this.label61.AutoSize = true;
-            this.label61.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label61.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label61.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label61.Location = new System.Drawing.Point(171, 3);
             this.label61.Name = "label61";
@@ -5783,7 +5784,7 @@ namespace UHFDemo
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label63.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label63.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label63.Location = new System.Drawing.Point(319, 3);
             this.label63.Name = "label63";
@@ -5794,7 +5795,7 @@ namespace UHFDemo
             // label60
             // 
             this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label60.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label60.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label60.Location = new System.Drawing.Point(218, 4);
             this.label60.Name = "label60";
@@ -5805,7 +5806,7 @@ namespace UHFDemo
             // cmbAntSelect3
             // 
             this.cmbAntSelect3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAntSelect3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cmbAntSelect3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbAntSelect3.ForeColor = System.Drawing.SystemColors.InfoText;
             this.cmbAntSelect3.FormattingEnabled = true;
             this.cmbAntSelect3.Items.AddRange(new object[] {
@@ -5850,7 +5851,7 @@ namespace UHFDemo
             // 
             // txtFastMaxRssi
             // 
-            this.txtFastMaxRssi.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtFastMaxRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtFastMaxRssi.Location = new System.Drawing.Point(503, 329);
             this.txtFastMaxRssi.Name = "txtFastMaxRssi";
             this.txtFastMaxRssi.Size = new System.Drawing.Size(62, 21);
@@ -5858,7 +5859,7 @@ namespace UHFDemo
             // 
             // txtFastMinRssi
             // 
-            this.txtFastMinRssi.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtFastMinRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtFastMinRssi.Location = new System.Drawing.Point(339, 330);
             this.txtFastMinRssi.Name = "txtFastMinRssi";
             this.txtFastMinRssi.Size = new System.Drawing.Size(62, 21);
@@ -5866,7 +5867,7 @@ namespace UHFDemo
             // 
             // buttonFastFresh
             // 
-            this.buttonFastFresh.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonFastFresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonFastFresh.ForeColor = System.Drawing.SystemColors.Desktop;
             this.buttonFastFresh.Location = new System.Drawing.Point(600, 327);
             this.buttonFastFresh.Name = "buttonFastFresh";
@@ -5879,7 +5880,7 @@ namespace UHFDemo
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label22.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label22.Location = new System.Drawing.Point(438, 334);
             this.label22.Name = "label22";
@@ -5898,7 +5899,7 @@ namespace UHFDemo
             this.columnHeader356,
             this.columnHeader36});
             this.lvFastList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lvFastList.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lvFastList.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lvFastList.GridLines = true;
             this.lvFastList.HideSelection = false;
             this.lvFastList.Location = new System.Drawing.Point(3, 356);
@@ -5952,7 +5953,7 @@ namespace UHFDemo
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label49.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label49.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label49.Location = new System.Drawing.Point(274, 336);
             this.label49.Name = "label49";
@@ -5963,7 +5964,7 @@ namespace UHFDemo
             // txtFastTagList
             // 
             this.txtFastTagList.AutoSize = true;
-            this.txtFastTagList.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtFastTagList.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtFastTagList.ForeColor = System.Drawing.SystemColors.Desktop;
             this.txtFastTagList.Location = new System.Drawing.Point(7, 342);
             this.txtFastTagList.Name = "txtFastTagList";
@@ -5995,7 +5996,7 @@ namespace UHFDemo
             this.columnHeader14,
             this.columnHeader15});
             this.ltvOperate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ltvOperate.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ltvOperate.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ltvOperate.GridLines = true;
             this.ltvOperate.HideSelection = false;
             this.ltvOperate.Location = new System.Drawing.Point(0, 325);
@@ -6056,7 +6057,7 @@ namespace UHFDemo
             this.gbCmdOperateTag.Controls.Add(this.groupBox14);
             this.gbCmdOperateTag.Controls.Add(this.groupBox13);
             this.gbCmdOperateTag.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbCmdOperateTag.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gbCmdOperateTag.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.gbCmdOperateTag.Location = new System.Drawing.Point(0, 0);
             this.gbCmdOperateTag.Name = "gbCmdOperateTag";
             this.gbCmdOperateTag.Size = new System.Drawing.Size(1000, 325);
@@ -6541,7 +6542,7 @@ namespace UHFDemo
             this.columnHeader7,
             this.columnHeader8});
             this.listView2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.listView2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listView2.GridLines = true;
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(3, 285);
@@ -6876,7 +6877,7 @@ namespace UHFDemo
             // 
             // btnInventoryISO18000
             // 
-            this.btnInventoryISO18000.Font = new System.Drawing.Font("SimSun", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnInventoryISO18000.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnInventoryISO18000.ForeColor = System.Drawing.Color.Indigo;
             this.btnInventoryISO18000.Location = new System.Drawing.Point(8, 10);
             this.btnInventoryISO18000.Name = "btnInventoryISO18000";
@@ -6893,7 +6894,7 @@ namespace UHFDemo
             this.columnHeader25,
             this.columnHeader26,
             this.columnHeader28});
-            this.ltvTagISO18000.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ltvTagISO18000.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ltvTagISO18000.FullRowSelect = true;
             this.ltvTagISO18000.GridLines = true;
             this.ltvTagISO18000.HideSelection = false;
@@ -7212,7 +7213,7 @@ namespace UHFDemo
             // 
             // htxtReadUID
             // 
-            this.htxtReadUID.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.htxtReadUID.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.htxtReadUID.Location = new System.Drawing.Point(604, 27);
             this.htxtReadUID.Name = "htxtReadUID";
             this.htxtReadUID.ReadOnly = true;
@@ -7324,6 +7325,7 @@ namespace UHFDemo
             // 
             // net_configure_tabPage
             // 
+            this.net_configure_tabPage.Controls.Add(this.net_reset_default);
             this.net_configure_tabPage.Controls.Add(this.port_setting_tabcontrol);
             this.net_configure_tabPage.Controls.Add(this.net_port_config_tool_linkLabel);
             this.net_configure_tabPage.Controls.Add(this.label165);
@@ -8212,7 +8214,7 @@ namespace UHFDemo
             this.checkBox5.AutoSize = true;
             this.checkBox5.Checked = true;
             this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox5.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox5.Location = new System.Drawing.Point(64, 17);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(57, 16);
@@ -8223,7 +8225,7 @@ namespace UHFDemo
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox6.Location = new System.Drawing.Point(436, 17);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(57, 16);
@@ -8234,7 +8236,7 @@ namespace UHFDemo
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox7.Location = new System.Drawing.Point(312, 17);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(57, 16);
@@ -8245,7 +8247,7 @@ namespace UHFDemo
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
-            this.checkBox8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.checkBox8.Location = new System.Drawing.Point(188, 17);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(57, 16);
@@ -8472,7 +8474,7 @@ namespace UHFDemo
             // label83
             // 
             this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label83.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label83.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label83.Location = new System.Drawing.Point(104, 17);
             this.label83.Name = "label83";
@@ -8613,7 +8615,7 @@ namespace UHFDemo
             // label91
             // 
             this.label91.AutoSize = true;
-            this.label91.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label91.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label91.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label91.Location = new System.Drawing.Point(104, 17);
             this.label91.Name = "label91";
@@ -8766,6 +8768,16 @@ namespace UHFDemo
             this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
+            // net_reset_default
+            // 
+            this.net_reset_default.Location = new System.Drawing.Point(695, 351);
+            this.net_reset_default.Name = "net_reset_default";
+            this.net_reset_default.Size = new System.Drawing.Size(75, 23);
+            this.net_reset_default.TabIndex = 36;
+            this.net_reset_default.Text = "恢复默认";
+            this.net_reset_default.UseVisualStyleBackColor = true;
+            this.net_reset_default.Click += new System.EventHandler(this.net_reset_default_Click);
+            // 
             // R2000UartDemo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -8783,7 +8795,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v4.0.4";
+            this.Text = "UHF RFID Reader Demo v4.0.5";
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
             this.PagReaderSetting.ResumeLayout(false);
@@ -9642,6 +9654,7 @@ namespace UHFDemo
         private ComboBox net_port_2_net_mode_cbo;
         private CheckBox net_port_1_enable_cb;
         private CheckBox net_port_2_enable_cb;
+        private Button net_reset_default;
     }
 }
 

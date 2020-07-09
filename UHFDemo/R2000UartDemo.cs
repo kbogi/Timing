@@ -8924,7 +8924,15 @@ namespace UHFDemo
         {
             if (!netStarted && netClient == null)
             {
-                netClient = new UdpClient(new IPEndPoint(IPAddress.Any, 60000));
+                int port = 60000;
+                netClient = new UdpClient();  //不指定地址和端口
+
+                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
+                socket.Bind(new IPEndPoint(IPAddress.Any, port));
+                netClient.Client = socket;
+
+                
                 netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息 广播地址
                 netClient.Client.SendTimeout = 5000; // 设置超时
                 netClient.Client.ReceiveTimeout = 5000; // 设置超时时间
@@ -8946,17 +8954,7 @@ namespace UHFDemo
         {
             while (netStarted)
             {
-                if (!netCmdStarted)
-                {
-                    if (netClient.Client.Available > 0) // 防止阻塞
-                    {
-                        byte[] buf = netClient.Receive(ref netEndpoint);
-                        string msg = CCommondMethod.ToHex(buf, "", " ");
-                        Console.WriteLine("#1 Recv:{0}", msg);
-                        parseRecvData(buf);
-                    }
-                }
-                else
+                if (netCmdStarted)
                 {
                     try
                     {
@@ -8989,8 +8987,9 @@ namespace UHFDemo
             NET_COMM recv = new NET_COMM(buf);
             if (recv.Cmd == (byte)NET_ACK.NET_MODULE_ACK_SEARCH)
             {
-                net_db.Add(recv.Mod_Mac, recv.ModSearch);
-                UpdateNetSearch(recv);
+                bool added = net_db.Add(recv.Mod_Mac, recv.ModSearch);
+                if(added)
+                    UpdateNetSearch(recv);
             }
             else if (recv.Cmd == (byte)NET_ACK.NET_MODULE_ACK_GET)
             {
@@ -9307,12 +9306,310 @@ namespace UHFDemo
         private void net_reset_btn_Click(object sender, EventArgs e)
         {
             string mod_mac = net_base_mod_mac_tb.Text;
+            string pc_mac = net_pc_mac_label.Text.Replace(":", "").ToLower();
             if (!net_db.IndexSearch.ContainsKey(mod_mac))
             {
                 MessageBox.Show("请先在列表中选择设备", "提示", MessageBoxButtons.OK);
                 return;
             }
             NetResetCfg(mod_mac);
+            //int count = 0;
+            //do
+            //{
+            //    if(30 == (count++))
+            //        break;
+            //    Thread.Sleep(1000);
+            //} while (netCmdStarted);
+
+            //NetSetDefaultCFG(mod_mac, pc_mac);
+        }
+
+        private void NetSetDefaultCFG(string mod_mac, string pc_mac)
+        {
+            int writeIndex = 0;
+            if (!CheckNetConfigStatus())
+                return;
+            byte[] rawdata = new byte[285];
+
+            string flag = "CH9121_CFG_FLAG\0";	// 用来标识通信_new
+            byte[] bflag = Encoding.Default.GetBytes(flag);
+            Array.Copy(bflag, 0, rawdata, writeIndex, bflag.Length);
+            writeIndex += bflag.Length;
+            Console.WriteLine("flag={0}", CCommondMethod.ToHex(bflag, "", " "));
+
+            byte cmd = (byte)NET_CMD.NET_MODULE_CMD_SET;
+            rawdata[writeIndex++] = cmd; // 设置cmd
+            Console.WriteLine("cmd={0}", cmd);
+
+            // mod_mac [6]
+            byte[] b_mod_mac = CCommondMethod.FromHex(mod_mac.Replace(":", ""));// 设置mod_mac
+            Array.Copy(b_mod_mac, 0, rawdata, writeIndex, b_mod_mac.Length);
+            writeIndex += b_mod_mac.Length;
+            Console.WriteLine("mod_mac={0}", CCommondMethod.ToHex(b_mod_mac, "", ":"));
+
+            // pc_mac [6]
+            byte[] b_pc_mac = CCommondMethod.FromHex(pc_mac.Replace(":", "")); // 设置pc_mac
+            Array.Copy(b_pc_mac, 0, rawdata, writeIndex, b_pc_mac.Length);
+            writeIndex += b_pc_mac.Length;
+            Console.WriteLine("pc_mac={0}", CCommondMethod.ToHex(b_pc_mac, "", ":"));
+
+            // len在后面才算
+            int lenIndex = writeIndex;
+            byte blen = 0x0;
+            rawdata[writeIndex++] = blen;
+
+            //DEVICEHW_CONFIG hw_cfg = new DEVICEHW_CONFIG();
+            // dev_type
+            rawdata[writeIndex++] = 0x21;
+            // dev_sub_type
+            rawdata[writeIndex++] = 0x21;
+            // dev_id
+            rawdata[writeIndex++] = 0x01;
+            // dev_hw_ver
+            rawdata[writeIndex++] = 0x02;
+            // dev_sw_ver
+            rawdata[writeIndex++] = 0x03;
+
+            // dev_name [21]
+            string dev_name = "ro board";
+            byte[] bdev_name = Encoding.Default.GetBytes(dev_name);
+            Array.Copy(bdev_name, 0, rawdata, writeIndex, bdev_name.Length);
+            writeIndex += bdev_name.Length;
+            Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
+
+            int dev_last_len = 21 - bdev_name.Length;
+            byte[] dev_name_last = new byte[dev_last_len];
+            Array.Copy(dev_name_last, 0, rawdata, writeIndex, dev_name_last.Length);
+            writeIndex += dev_name_last.Length;
+            Console.WriteLine("dev_name_last={0}", CCommondMethod.ToHex(dev_name_last, "", " "));
+
+            // dev_net_mac [6]
+            string dev_net_mac = "02:03:04:05:06:07";
+            byte[] b_dev_net_mac = CCommondMethod.FromHex(dev_net_mac.Replace(":",""));
+            Array.Copy(b_dev_net_mac, 0, rawdata, writeIndex, b_dev_net_mac.Length);
+            writeIndex += b_dev_net_mac.Length;
+            Console.WriteLine("dev_net_mac={0}", CCommondMethod.ToHex(b_dev_net_mac, "", ":"));
+
+            // dev_net_ip [4]
+            string dev_net_ip = "192.168.0.178";
+            byte[] b_dev_net_ip = IPAddress.Parse(dev_net_ip).GetAddressBytes();
+            Array.Copy(b_dev_net_ip, 0, rawdata, writeIndex, b_dev_net_ip.Length);
+            writeIndex += b_dev_net_ip.Length;
+            Console.WriteLine("dev_net_ip={0}", CCommondMethod.ToHex(b_dev_net_ip, "", "."));
+
+            // dev_gateway_ip [4]
+            string dev_gateway_ip = "192.168.0.1";
+            byte[] b_dev_gateway_ip = IPAddress.Parse(dev_gateway_ip).GetAddressBytes();
+            Array.Copy(b_dev_gateway_ip, 0, rawdata, writeIndex, b_dev_gateway_ip.Length);
+            writeIndex += b_dev_gateway_ip.Length;
+            Console.WriteLine("dev_gateway_ip={0}", CCommondMethod.ToHex(b_dev_gateway_ip, "", "."));
+
+            // dev_mask [4]
+            string dev_mask = "255.255.0.0";
+            byte[] b_dev_mask = IPAddress.Parse(dev_mask).GetAddressBytes();
+            Array.Copy(b_dev_mask, 0, rawdata, writeIndex, b_dev_mask.Length);
+            writeIndex += b_dev_mask.Length;
+            Console.WriteLine("dev_mask={0}", CCommondMethod.ToHex(b_dev_mask, "", "."));
+
+            // dev_dhcp_enable
+            rawdata[writeIndex++] = 0x00;
+
+            // dev_web_port
+            byte[] bdev_web_port = new byte[2] { 0x50, 0x00 };
+            Array.Copy(bdev_web_port, 0, rawdata, writeIndex, bdev_web_port.Length);
+            writeIndex += bdev_web_port.Length;
+            Console.WriteLine("dev_web_port={0}", CCommondMethod.ToHex(bdev_web_port, "", " "));
+
+            // dev_user_name
+            byte[] bdev_user_name = new byte[8];
+            Array.Copy(bdev_user_name, 0, rawdata, writeIndex, bdev_user_name.Length);
+            writeIndex += bdev_user_name.Length;
+            Console.WriteLine("dev_user_name={0}", CCommondMethod.ToHex(bdev_user_name, "", " "));
+
+            // dev_pw_enable
+            rawdata[writeIndex++] = 0x00;
+
+            // dev_pw
+            byte[] b_dev_pw = new byte[8];
+            Array.Copy(b_dev_pw, 0, rawdata, writeIndex, b_dev_pw.Length);
+            writeIndex += b_dev_pw.Length;
+            Console.WriteLine("dev_pw={0}", CCommondMethod.ToHex(b_dev_pw, "", " "));
+
+            // dev_update_flag
+            rawdata[writeIndex++] = 0x00;
+
+            // dev_com_enable
+            rawdata[writeIndex++] = 0x00;
+
+            // dev_reserved
+            byte[] b_dev_reserved = new byte[8];
+            Array.Copy(b_dev_reserved, 0, rawdata, writeIndex, b_dev_reserved.Length);
+            writeIndex += b_dev_reserved.Length;
+            Console.WriteLine("dev_reserved={0}", CCommondMethod.ToHex(b_dev_reserved, "", " "));
+
+            //DEVICEPORT_CONFIG dev_port_1 = new DEVICEPORT_CONFIG();
+            // port_id
+            rawdata[writeIndex++] = 0x00;
+            // port_enable
+            rawdata[writeIndex++] = 0x00;
+            // port_net_mode
+            rawdata[writeIndex++] = 0x02;
+            // port_port_rand_enable
+            rawdata[writeIndex++] = 0x01;
+            // port_net_port
+            byte[] bport_net_port = new byte[2] { 0xb8, 0x0b };
+            Array.Copy(bport_net_port, 0, rawdata, writeIndex, bport_net_port.Length);
+            writeIndex += bport_net_port.Length;
+            Console.WriteLine("port_net_port={0}", CCommondMethod.ToHex(bport_net_port, "", " "));
+
+            // port_dest_ip
+            string port_dest_ip = "192.168.0.100";
+            byte[] b_port_dest_ip = IPAddress.Parse(port_dest_ip).GetAddressBytes();
+            Array.Copy(b_port_dest_ip, 0, rawdata, writeIndex, b_port_dest_ip.Length);
+            writeIndex += b_port_dest_ip.Length;
+            Console.WriteLine("b_port_dest_ip={0}", CCommondMethod.ToHex(b_port_dest_ip, "", " "));
+
+            // port_dest_port
+            byte[] bport_dest_port = new byte[2] { 0xd0, 0x07 };
+            Array.Copy(bport_dest_port, 0, rawdata, writeIndex, bport_dest_port.Length);
+            writeIndex += bport_dest_port.Length;
+            Console.WriteLine("bport_dest_port={0}", CCommondMethod.ToHex(bport_dest_port, "", " "));
+
+            // port_baudrate
+            int baudrate = 115200;
+            rawdata[writeIndex++] = (byte)((baudrate >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((baudrate >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((baudrate >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((baudrate >> 24) & 0xff);
+            // port_datasize
+            rawdata[writeIndex++] = 0x08;
+            // port_stopbit
+            rawdata[writeIndex++] = 0x01;
+            // port_parity
+            rawdata[writeIndex++] = 0x04;
+            // port_phy_disconnect
+            rawdata[writeIndex++] = 0x01;
+            // port_package_size
+            int package_size = 1024;
+            rawdata[writeIndex++] = (byte)((package_size >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_size >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_size >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_size >> 24) & 0xff);
+            // port_package_timeout
+            int package_timeout = 0;
+            rawdata[writeIndex++] = (byte)((package_timeout >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_timeout >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_timeout >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_timeout >> 24) & 0xff);
+            // connect_count
+            rawdata[writeIndex++] = 0x00;
+            // port_reset_ctrl
+            rawdata[writeIndex++] = 0x00;
+            // port_dns_enable
+            rawdata[writeIndex++] = 0x00;
+            // port_domain
+            byte[] bport_domain = new byte[20];
+            Array.Copy(bport_domain, 0, rawdata, writeIndex, bport_domain.Length);
+            writeIndex += bport_domain.Length;
+            // port_host_ip
+            string port_host_ip = "0.0.0.0";
+            byte[] b_port_host_ip = IPAddress.Parse(port_host_ip).GetAddressBytes();
+            Array.Copy(b_port_host_ip, 0, rawdata, writeIndex, b_port_host_ip.Length);
+            writeIndex += b_port_host_ip.Length;
+            Console.WriteLine("b_port_host_ip={0}", CCommondMethod.ToHex(b_port_host_ip, "", " "));
+
+            // port_dns_port
+            int port_dns_port = 0;
+            rawdata[writeIndex++] = (byte)((port_dns_port >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port_dns_port >> 8) & 0xff);
+
+            byte[] b_port_reserved = new byte[8];
+            Array.Copy(b_port_reserved, 0, rawdata, writeIndex, b_port_reserved.Length);
+            writeIndex += b_port_reserved.Length;
+            Console.WriteLine("b_port_reserved={0}", CCommondMethod.ToHex(b_port_reserved, "", " "));
+
+
+            //DEVICEPORT_CONFIG dev_port_2 = new DEVICEPORT_CONFIG();
+            // port_id
+            rawdata[writeIndex++] = 0x01;
+            // port_enable
+            rawdata[writeIndex++] = 0x01;
+            // port_net_mode
+            rawdata[writeIndex++] = 0x00; // 0x00 TCP_Server
+            // port_port_rand_enable
+            rawdata[writeIndex++] = 0x01;
+            // port_net_port
+            byte[] bport2_net_port = new byte[2] { 0xA1, 0x0F }; // 4001
+            Array.Copy(bport2_net_port, 0, rawdata, writeIndex, bport2_net_port.Length);
+            writeIndex += bport2_net_port.Length;
+            // port_dest_ip
+            string port2_dest_ip = "192.168.0.101";
+            byte[] b_port2_dest_ip = IPAddress.Parse(port2_dest_ip).GetAddressBytes();
+            Array.Copy(b_port2_dest_ip, 0, rawdata, writeIndex, b_port2_dest_ip.Length);
+            writeIndex += b_port2_dest_ip.Length;
+            // port_dest_port
+            byte[] bport2_dest_port = new byte[2] { 0xe8, 0x03 };
+            Array.Copy(bport2_dest_port, 0, rawdata, writeIndex, bport2_dest_port.Length);
+            writeIndex += bport2_dest_port.Length;
+            // port_baudrate
+            int port2_baudrate = 115200;
+            rawdata[writeIndex++] = (byte)((port2_baudrate >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_baudrate >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_baudrate >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_baudrate >> 24) & 0xff);
+            // port_datasize
+            rawdata[writeIndex++] = 0x08;
+            // port_stopbit
+            rawdata[writeIndex++] = 0x01;
+            // port_parity
+            rawdata[writeIndex++] = 0x04;
+            // port_phy_disconnect
+            rawdata[writeIndex++] = 0x01;
+            // port_package_size
+            int port2_package_size = 1024;
+            rawdata[writeIndex++] = (byte)((port2_package_size >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_size >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_size >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_size >> 24) & 0xff);
+            // port_package_timeout
+            int port2_package_timeout = 0;
+            rawdata[writeIndex++] = (byte)((port2_package_timeout >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_timeout >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_timeout >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_timeout >> 24) & 0xff);
+            // connect_count
+            rawdata[writeIndex++] = 0x00;
+            // port_reset_ctrl
+            rawdata[writeIndex++] = 0x00;
+            // port_dns_enable
+            rawdata[writeIndex++] = 0x00;
+            // port_domain
+            byte[] bport2_domain = new byte[20];
+            Array.Copy(bport2_domain, 0, rawdata, writeIndex, bport2_domain.Length);
+            writeIndex += bport2_domain.Length;
+            // port_host_ip
+            string port2_host_ip = "0.0.0.0";
+            byte[] b_port2_host_ip = IPAddress.Parse(port2_host_ip).GetAddressBytes();
+            Array.Copy(b_port2_host_ip, 0, rawdata, writeIndex, b_port2_host_ip.Length);
+            writeIndex += b_port2_host_ip.Length;
+            // port_dns_port
+            int port2_dns_port = 0;
+            rawdata[writeIndex++] = (byte)((port2_dns_port >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_dns_port >> 8) & 0xff);
+
+            byte[] b_port2_reserved = new byte[8];
+            Array.Copy(b_port2_reserved, 0, rawdata, writeIndex, b_port2_reserved.Length);
+            writeIndex += b_port2_reserved.Length;
+
+            //NET_DEVICE_CONFIG dev_cfg = new NET_DEVICE_CONFIG();
+
+            int len = writeIndex - 30; ;
+            rawdata[lenIndex] = (byte)len;
+
+            netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息
+            int ret = netClient.Send(rawdata, rawdata.Length, netEndpoint);
+
+            netCmdStarted = true;
         }
 
         private void NetResetCfg(string mod_mac)
@@ -9536,6 +9833,14 @@ namespace UHFDemo
             net_port_2_dest_ip_tb.Enabled = flag;
             net_port_2_dest_port_tb.Enabled = flag;
             //Console.WriteLine("EnablePort1ServerTypeView end... ");
+        }
+
+        private void net_reset_default_Click(object sender, EventArgs e)
+        {
+            string mod_mac = net_base_mod_mac_tb.Text;
+            string pc_mac = net_pc_mac_label.Text.Replace(":", "").ToLower();
+            NetSetDefaultCFG(mod_mac, pc_mac);
+            netCmdStarted = true;
         }
     }
 
