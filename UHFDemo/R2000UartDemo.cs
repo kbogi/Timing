@@ -5463,7 +5463,6 @@ namespace UHFDemo
             {
                 dev_dgv.AutoGenerateColumns = true;
 
-                StartNetUdpServer();
                 if (net_db == null)
                 {
                     net_db = new NetCfgDB();
@@ -5474,6 +5473,7 @@ namespace UHFDemo
                 }
                 NetRefreshNetCard();
                 LoadNetConfigViews();
+                UpdateUdpServerStatus("not start");
             }
             else
             {
@@ -8896,13 +8896,11 @@ namespace UHFDemo
         }
 
         #region Net Configure
-
-
-
         UdpClient netClient;
         IPEndPoint netEndpoint;
         Thread netRecvthread = null;
         static bool netStarted = false;
+        bool udpServerRunning = false;
         bool netCmdStarted = false;
 
         string NET_MODULE_FLAG = "NET_MODULE_COMM\0"; // 用来标识通信_old
@@ -8910,15 +8908,13 @@ namespace UHFDemo
 
         NetCfgDB net_db;
         Dictionary<string, NetCardSearch> net_card_dict;
+        string cur_desc = string.Empty;
 
         private void net_refresh_netcard_btn_Click(object sender, EventArgs e)
         {
             net_pc_ip_label.Text = "";
             net_pc_mac_label.Text = "";
             net_pc_mask_label.Text = "";
-
-            if (!netStarted)
-                StartNetUdpServer();
             NetRefreshNetCard();
         }
 
@@ -8929,31 +8925,45 @@ namespace UHFDemo
 
         private void StartNetUdpServer()
         {
+            if (net_card_dict.Count == 0)
+            {
+                MessageBox.Show("请先刷新网卡!", "提示", MessageBoxButtons.OK);
+                UpdateUdpServerStatus("start failed");
+                return;
+            }
+            UpdateUdpServerStatus("starting");
+            //string desc = net_card_combox.SelectedItem.ToString();
+            string pc_ip = net_card_dict[cur_desc].PC_IP;
+            int port = 60000;
+            Console.WriteLine("cur_desc={0}, cur_pc_ip={1}@{2}", cur_desc, pc_ip, port);
+
             if (!netStarted && netClient == null)
             {
-                int port = 60000;
                 netClient = new UdpClient();  //不指定地址和端口
 
-                Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                socket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
-                socket.Bind(new IPEndPoint(IPAddress.Any, port));
-                netClient.Client = socket;
+                Socket updSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                updSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
+                //updSocket.Bind(new IPEndPoint(IPAddress.Any, port));
+                updSocket.Bind(new IPEndPoint(IPAddress.Parse(pc_ip), port));
+                //socket.Bind(new IPEndPoint(IPAddress.Parse("169.254.202.67"), 6000));
+                netClient.Client = updSocket;
 
-                
                 netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息 广播地址
                 netClient.Client.SendTimeout = 5000; // 设置超时
                 netClient.Client.ReceiveTimeout = 5000; // 设置超时时间
                 netClient.Client.ReceiveBufferSize = 2 * 1024;
 
                 netStarted = true;
+                udpServerRunning = true;
 
                 netRecvthread = new Thread(new ThreadStart(NetRecvThread));
                 netRecvthread.IsBackground = true;
                 netRecvthread.Start();
+                UpdateUdpServerStatus("running");
             }
             else
             {
-                Console.WriteLine("chris: already started ####");
+                Console.WriteLine("already started ####");
             }
         }
 
@@ -8967,7 +8977,7 @@ namespace UHFDemo
                     {
                         byte[] buf = netClient.Receive(ref netEndpoint);
                         string msg = CCommondMethod.ToHex(buf, "", " ");
-                        Console.WriteLine("#2 Recv:{0}", msg);
+                        //Console.WriteLine("#2 Recv:{0}", msg);
                         parseRecvData(buf);
                     }
                     catch (SocketException e)
@@ -8987,6 +8997,8 @@ namespace UHFDemo
             netClient.Close();
             Console.WriteLine("chris: netClient close");
             netClient = null;
+            udpServerRunning = false;
+            UpdateUdpServerStatus("stoped");
         }
 
         private void parseRecvData(byte[] buf)
@@ -9036,6 +9048,55 @@ namespace UHFDemo
             }
         }
 
+        delegate void UpdateUdpServerStatusDelegate(string status);
+        private void UpdateUdpServerStatus(string status)
+        {
+            UpdateUdpServerStatusDelegate d = new UpdateUdpServerStatusDelegate(UpdateUdpServerStatus);
+            if (net_search_btn.InvokeRequired)
+            {
+                this.Invoke(d, status);
+            }
+            else
+            {
+                string stat = "["+ netStarted + ", " + udpServerRunning + "]";
+                if (status.Equals("not start"))
+                {
+                    net_udpserver_status_label.Text = stat + "网口配置服务未启动";
+                    net_udpserver_status_label.ForeColor = Color.Black;
+                }
+                else if (status.Equals("starting"))
+                {
+                    net_udpserver_status_label.Text = stat + "网口配置服务正在启动...";
+                    net_udpserver_status_label.ForeColor = Color.Blue;
+                }
+                else if (status.Equals("start failed"))
+                {
+                    net_udpserver_status_label.Text = stat + "网口配置服务启动失败.";
+                    net_udpserver_status_label.ForeColor = Color.Blue;
+                }
+                else if (status.Equals("running"))
+                {
+                    net_udpserver_status_label.Text = stat + "网口配置服务运行中...";
+                    net_udpserver_status_label.ForeColor = Color.Green;
+                }
+                else if (status.Equals("stoping"))
+                {
+                    net_udpserver_status_label.Text = stat + "网口配置服务正在停止...";
+                    net_udpserver_status_label.ForeColor = Color.Blue;
+                }
+                else if (status.Equals("stoped"))
+                {
+                    net_udpserver_status_label.Text = stat + "网口配置服务已停止";
+                    net_udpserver_status_label.ForeColor = Color.Red;
+                }
+                else
+                {
+                    net_udpserver_status_label.Text = stat + "未知状态: " + status;
+                    net_udpserver_status_label.ForeColor = Color.Red;
+                }
+            }
+        }
+
         delegate void UpdateDevCfgUIDelegate(NET_COMM recv);
         private void UpdateDevCfgUI(NET_COMM recv)
         {
@@ -9065,6 +9126,7 @@ namespace UHFDemo
                 net_port_1_databits_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_1_index].DataSize;
                 net_port_1_stopbits_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_1_index].StopBits;
                 net_port_1_parity_bit_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_1_index].Parity;
+                net_port_1_phyChangeHandle_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_1_index].PHYChangeHandle;
                 net_port_1_enable_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_1_index].PortEn;
 
                 // 端口1
@@ -9079,6 +9141,7 @@ namespace UHFDemo
                 net_port_2_databits_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_2_index].DataSize;
                 net_port_2_stopbits_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_2_index].StopBits;
                 net_port_2_parity_bit_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_2_index].Parity;
+                net_port_2_phyChangeHandle_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_2_index].PHYChangeHandle;
                 net_port_2_enable_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_2_index].PortEn;
 
             }
@@ -9086,6 +9149,19 @@ namespace UHFDemo
 
         private void net_search_btn_Click(object sender, EventArgs e)
         {
+            if (!netStarted)
+            {
+                if(udpServerRunning)
+                {
+                    while (udpServerRunning)
+                    {
+                        Thread.Sleep(200);
+                        Console.WriteLine("waiting for udpserver running done.");
+                    }
+                }
+            }
+            StartNetUdpServer();
+
             // 清空原来的数据
             net_db.Clear();
             dev_dgv.Rows.Clear();
@@ -9120,6 +9196,7 @@ namespace UHFDemo
                 net_setCfg_btn.Enabled = enable;
                 net_reset_btn.Enabled = enable;
                 net_refresh_netcard_btn.Enabled = enable;
+                net_card_combox.Enabled = enable;
             }
         }
 
@@ -9244,6 +9321,7 @@ namespace UHFDemo
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DataSize = net_port_1_databits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].StopBits = net_port_1_stopbits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Parity = net_port_1_parity_bit_cbo.SelectedItem.ToString();
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].PHYChangeHandle = net_port_1_phyChangeHandle_cb.Checked;
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesIP = net_port_1_dest_ip_tb.Text;
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesPort = Convert.ToUInt16(net_port_1_dest_port_tb.Text);
             }
@@ -9259,6 +9337,7 @@ namespace UHFDemo
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DataSize = net_port_2_databits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].StopBits = net_port_2_stopbits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].Parity = net_port_2_parity_bit_cbo.SelectedItem.ToString();
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].PHYChangeHandle = net_port_2_phyChangeHandle_cb.Checked;
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesIP = net_port_2_dest_ip_tb.Text;
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesPort = Convert.ToUInt16(net_port_2_dest_port_tb.Text);
             }
@@ -9495,7 +9574,7 @@ namespace UHFDemo
             // port_parity
             rawdata[writeIndex++] = 0x04;
             // port_phy_disconnect
-            rawdata[writeIndex++] = 0x01;
+            rawdata[writeIndex++] = 0x02;
             // port_package_size
             int package_size = 1024;
             rawdata[writeIndex++] = (byte)((package_size >> 0) & 0xff);
@@ -9544,7 +9623,7 @@ namespace UHFDemo
             // port_net_mode
             rawdata[writeIndex++] = 0x00; // 0x00 TCP_Server
             // port_port_rand_enable
-            rawdata[writeIndex++] = 0x01;
+            rawdata[writeIndex++] = 0x00;
             // port_net_port
             byte[] bport2_net_port = new byte[2] { 0xA1, 0x0F }; // 4001
             Array.Copy(bport2_net_port, 0, rawdata, writeIndex, bport2_net_port.Length);
@@ -9570,8 +9649,9 @@ namespace UHFDemo
             rawdata[writeIndex++] = 0x01;
             // port_parity
             rawdata[writeIndex++] = 0x04;
+            /* PHY断开，Socket动作，1：关闭Socket 2、不动作*/
             // port_phy_disconnect
-            rawdata[writeIndex++] = 0x01;
+            rawdata[writeIndex++] = 0x02;
             // port_package_size
             int port2_package_size = 1024;
             rawdata[writeIndex++] = (byte)((port2_package_size >> 0) & 0xff);
@@ -9767,21 +9847,30 @@ namespace UHFDemo
             net_port_2_local_net_port_tb.Text = "";
             net_port_2_net_mode_cbo.SelectedIndex = net_port_2_net_mode_cbo.Items.Count - 1;
 
-
-
             net_db.Clear();
         }
 
         private void net_card_combox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string desc = net_card_combox.SelectedItem.ToString();
-            //Console.WriteLine("net_card_combox_SelectedIndexChanged -> " + desc);
+            if(desc.Equals(cur_desc))
+            {
+                return;
+            }
+            else
+            {
+                cur_desc = desc;
+            }
+            Console.WriteLine("net_card_combox_SelectedIndexChanged cur_desc-> " + cur_desc);
             if (net_card_dict.ContainsKey(desc))
             {
                 net_pc_ip_label.Text = "Ip: " + net_card_dict[desc].PC_IP;
                 net_pc_mac_label.Text = net_card_dict[desc].PC_MAC;
                 net_pc_mask_label.Text = "Mask: " + net_card_dict[desc].PC_MASK;
             }
+            StopNetUdpServer();
+            if(netStarted && udpServerRunning)
+                UpdateUdpServerStatus("stoping");
         }
 
         private void old_net_port_link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

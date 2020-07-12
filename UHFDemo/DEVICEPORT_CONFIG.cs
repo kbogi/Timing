@@ -358,9 +358,27 @@ namespace UHFDemo
                 bParity = (byte)GetEnumValue(typeof(PARITY), value);
             }
         }
-        public byte PHYChangeHandle { 
-            get => bPHYChangeHandle; 
-            set => bPHYChangeHandle = value; 
+
+        /* PHY断开，Socket动作，1：关闭Socket 2、不动作*/
+        public bool PHYChangeHandle { 
+            get
+            {
+                if (bPHYChangeHandle == 0x01)
+                    return true;
+                else //if (bPHYChangeHandle == 0x02)
+                    return false;
+            }
+            set
+            {
+                if(true == value)
+                {
+                    bPHYChangeHandle = 0x01;
+                }
+                else
+                {
+                    bPHYChangeHandle = 0x02;
+                }
+            }
         }
         public uint RxPktlength { 
             get => dRxPktlength; 

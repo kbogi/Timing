@@ -589,8 +589,11 @@ namespace UHFDemo
             this.htxtCheckData = new CustomControl.HexTextBox();
             this.lrtxtDataTran = new CustomControl.LogRichTextBox();
             this.net_configure_tabPage = new System.Windows.Forms.TabPage();
+            this.net_udpserver_status_label = new System.Windows.Forms.Label();
+            this.net_reset_default = new System.Windows.Forms.Button();
             this.port_setting_tabcontrol = new System.Windows.Forms.TabControl();
             this.net_port_0_tabPage = new System.Windows.Forms.TabPage();
+            this.net_port_1_phyChangeHandle_cb = new System.Windows.Forms.CheckBox();
             this.net_port_1_enable_cb = new System.Windows.Forms.CheckBox();
             this.net_port_1_rand_port_flag_cb = new System.Windows.Forms.CheckBox();
             this.label169 = new System.Windows.Forms.Label();
@@ -612,6 +615,7 @@ namespace UHFDemo
             this.label125 = new System.Windows.Forms.Label();
             this.net_port_1_net_mode_cbo = new System.Windows.Forms.ComboBox();
             this.net_port_1_tabPage = new System.Windows.Forms.TabPage();
+            this.net_port_2_phyChangeHandle_cb = new System.Windows.Forms.CheckBox();
             this.net_port_2_enable_cb = new System.Windows.Forms.CheckBox();
             this.net_port_2_rand_port_flag_cb = new System.Windows.Forms.CheckBox();
             this.label170 = new System.Windows.Forms.Label();
@@ -722,7 +726,8 @@ namespace UHFDemo
             this.mFastSessionTimer = new System.Windows.Forms.Timer(this.components);
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
-            this.net_reset_default = new System.Windows.Forms.Button();
+            this.label179 = new System.Windows.Forms.Label();
+            this.label180 = new System.Windows.Forms.Label();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -3717,7 +3722,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 436F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 450F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3736,9 +3741,9 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(565, 4);
+            this.panel9.Location = new System.Drawing.Point(551, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(431, 74);
+            this.panel9.Size = new System.Drawing.Size(445, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3797,7 +3802,7 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(275, 74);
+            this.panel10.Size = new System.Drawing.Size(268, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3843,9 +3848,9 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(286, 4);
+            this.panel8.Location = new System.Drawing.Point(279, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(272, 74);
+            this.panel8.Size = new System.Drawing.Size(265, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -7325,6 +7330,7 @@ namespace UHFDemo
             // 
             // net_configure_tabPage
             // 
+            this.net_configure_tabPage.Controls.Add(this.net_udpserver_status_label);
             this.net_configure_tabPage.Controls.Add(this.net_reset_default);
             this.net_configure_tabPage.Controls.Add(this.port_setting_tabcontrol);
             this.net_configure_tabPage.Controls.Add(this.net_port_config_tool_linkLabel);
@@ -7351,6 +7357,27 @@ namespace UHFDemo
             this.net_configure_tabPage.Text = "网口配置";
             this.net_configure_tabPage.UseVisualStyleBackColor = true;
             // 
+            // net_udpserver_status_label
+            // 
+            this.net_udpserver_status_label.AutoSize = true;
+            this.net_udpserver_status_label.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.net_udpserver_status_label.ForeColor = System.Drawing.Color.Black;
+            this.net_udpserver_status_label.Location = new System.Drawing.Point(535, 63);
+            this.net_udpserver_status_label.Name = "net_udpserver_status_label";
+            this.net_udpserver_status_label.Size = new System.Drawing.Size(109, 17);
+            this.net_udpserver_status_label.TabIndex = 37;
+            this.net_udpserver_status_label.Text = "Net Server Status";
+            // 
+            // net_reset_default
+            // 
+            this.net_reset_default.Location = new System.Drawing.Point(695, 351);
+            this.net_reset_default.Name = "net_reset_default";
+            this.net_reset_default.Size = new System.Drawing.Size(75, 23);
+            this.net_reset_default.TabIndex = 36;
+            this.net_reset_default.Text = "恢复默认";
+            this.net_reset_default.UseVisualStyleBackColor = true;
+            this.net_reset_default.Click += new System.EventHandler(this.net_reset_default_Click);
+            // 
             // port_setting_tabcontrol
             // 
             this.port_setting_tabcontrol.Controls.Add(this.net_port_0_tabPage);
@@ -7363,6 +7390,8 @@ namespace UHFDemo
             // 
             // net_port_0_tabPage
             // 
+            this.net_port_0_tabPage.Controls.Add(this.label180);
+            this.net_port_0_tabPage.Controls.Add(this.net_port_1_phyChangeHandle_cb);
             this.net_port_0_tabPage.Controls.Add(this.net_port_1_enable_cb);
             this.net_port_0_tabPage.Controls.Add(this.net_port_1_rand_port_flag_cb);
             this.net_port_0_tabPage.Controls.Add(this.label169);
@@ -7390,6 +7419,18 @@ namespace UHFDemo
             this.net_port_0_tabPage.TabIndex = 0;
             this.net_port_0_tabPage.Text = "端口1";
             this.net_port_0_tabPage.UseVisualStyleBackColor = true;
+            // 
+            // net_port_1_phyChangeHandle_cb
+            // 
+            this.net_port_1_phyChangeHandle_cb.AutoSize = true;
+            this.net_port_1_phyChangeHandle_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.net_port_1_phyChangeHandle_cb.Location = new System.Drawing.Point(79, 164);
+            this.net_port_1_phyChangeHandle_cb.Name = "net_port_1_phyChangeHandle_cb";
+            this.net_port_1_phyChangeHandle_cb.Size = new System.Drawing.Size(72, 16);
+            this.net_port_1_phyChangeHandle_cb.TabIndex = 12;
+            this.net_port_1_phyChangeHandle_cb.Text = "关闭连接";
+            this.net_port_1_phyChangeHandle_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.net_port_1_phyChangeHandle_cb.UseVisualStyleBackColor = true;
             // 
             // net_port_1_enable_cb
             // 
@@ -7577,6 +7618,8 @@ namespace UHFDemo
             // 
             // net_port_1_tabPage
             // 
+            this.net_port_1_tabPage.Controls.Add(this.label179);
+            this.net_port_1_tabPage.Controls.Add(this.net_port_2_phyChangeHandle_cb);
             this.net_port_1_tabPage.Controls.Add(this.net_port_2_enable_cb);
             this.net_port_1_tabPage.Controls.Add(this.net_port_2_rand_port_flag_cb);
             this.net_port_1_tabPage.Controls.Add(this.label170);
@@ -7604,6 +7647,18 @@ namespace UHFDemo
             this.net_port_1_tabPage.TabIndex = 1;
             this.net_port_1_tabPage.Text = "端口2";
             this.net_port_1_tabPage.UseVisualStyleBackColor = true;
+            // 
+            // net_port_2_phyChangeHandle_cb
+            // 
+            this.net_port_2_phyChangeHandle_cb.AutoSize = true;
+            this.net_port_2_phyChangeHandle_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.net_port_2_phyChangeHandle_cb.Location = new System.Drawing.Point(79, 164);
+            this.net_port_2_phyChangeHandle_cb.Name = "net_port_2_phyChangeHandle_cb";
+            this.net_port_2_phyChangeHandle_cb.Size = new System.Drawing.Size(72, 16);
+            this.net_port_2_phyChangeHandle_cb.TabIndex = 72;
+            this.net_port_2_phyChangeHandle_cb.Text = "关闭连接";
+            this.net_port_2_phyChangeHandle_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.net_port_2_phyChangeHandle_cb.UseVisualStyleBackColor = true;
             // 
             // net_port_2_enable_cb
             // 
@@ -8768,15 +8823,23 @@ namespace UHFDemo
             this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
-            // net_reset_default
+            // label179
             // 
-            this.net_reset_default.Location = new System.Drawing.Point(695, 351);
-            this.net_reset_default.Name = "net_reset_default";
-            this.net_reset_default.Size = new System.Drawing.Size(75, 23);
-            this.net_reset_default.TabIndex = 36;
-            this.net_reset_default.Text = "恢复默认";
-            this.net_reset_default.UseVisualStyleBackColor = true;
-            this.net_reset_default.Click += new System.EventHandler(this.net_reset_default_Click);
+            this.label179.AutoSize = true;
+            this.label179.Location = new System.Drawing.Point(6, 165);
+            this.label179.Name = "label179";
+            this.label179.Size = new System.Drawing.Size(65, 12);
+            this.label179.TabIndex = 73;
+            this.label179.Text = "网络断开：";
+            // 
+            // label180
+            // 
+            this.label180.AutoSize = true;
+            this.label180.Location = new System.Drawing.Point(6, 165);
+            this.label180.Name = "label180";
+            this.label180.Size = new System.Drawing.Size(65, 12);
+            this.label180.TabIndex = 74;
+            this.label180.Text = "网络断开：";
             // 
             // R2000UartDemo
             // 
@@ -8795,7 +8858,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v4.0.6";
+            this.Text = "UHF RFID Reader Demo v4.0.7";
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
             this.PagReaderSetting.ResumeLayout(false);
@@ -9655,6 +9718,11 @@ namespace UHFDemo
         private CheckBox net_port_1_enable_cb;
         private CheckBox net_port_2_enable_cb;
         private Button net_reset_default;
+        private CheckBox net_port_1_phyChangeHandle_cb;
+        private CheckBox net_port_2_phyChangeHandle_cb;
+        private Label net_udpserver_status_label;
+        private Label label180;
+        private Label label179;
     }
 }
 
