@@ -16,6 +16,7 @@ namespace Reader
     public delegate void ReciveDataCallback(byte[] btAryReceiveData);
     public delegate void SendDataCallback(byte[] btArySendData);
     public delegate void AnalyDataCallback(MessageTran msgTran);
+    public delegate void TcpExceptionCallBack(string strErr);
 
 
     public class ReaderMethod
@@ -27,6 +28,7 @@ namespace Reader
         public ReciveDataCallback ReceiveCallback;
         public SendDataCallback SendCallback;
         public AnalyDataCallback AnalyCallback;
+        public TcpExceptionCallBack TcpErrCallback;
 
         //记录未处理的接收数据，主要考虑接收数据分段
         byte[] m_btAryBuffer = new byte[4096 * 10];
@@ -38,6 +40,8 @@ namespace Reader
             this.italker = new Talker();
 
             italker.MessageReceived += new MessageReceivedEventHandler(ReceivedTcpData);
+
+            italker.TcpExceptionReceived += new ExceptionReceivedEventHandler(ReceivedTcpError);
 
             iSerialPort = new SerialPort();
 
@@ -106,6 +110,11 @@ namespace Reader
         {
             RunReceiveDataCallback(btAryBuffer);
         }
+                
+        private void ReceivedTcpError(string e)
+        {
+            RunTcpExceptionCallback(e);
+        }
 
         private void ReceivedComData(object sender, SerialDataReceivedEventArgs e)
         {
@@ -133,6 +142,14 @@ namespace Reader
         private void DevicePortError_DataReceived(object sender, SerialErrorReceivedEventArgs e)
         {
             Console.WriteLine("Exception information:" + e.ToString());
+        }
+
+        private void RunTcpExceptionCallback(string strErr)
+        {
+            if (TcpErrCallback != null)
+            {
+                TcpErrCallback(strErr);
+            }
         }
 
         private void RunReceiveDataCallback(byte[] btAryReceiveData)
@@ -272,8 +289,6 @@ namespace Reader
         private int SendMessage(byte btReadId, byte btCmd, byte[] btAryData)
         {
             MessageTran msgTran = new MessageTran(btReadId, btCmd, btAryData);
-
-
 
             return SendMessage(msgTran.AryTranData);
         }
