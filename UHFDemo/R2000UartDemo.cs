@@ -141,6 +141,7 @@ namespace UHFDemo
             reader.AnalyCallback = AnalyData;
             reader.ReceiveCallback = ReceiveData;
             reader.SendCallback = SendData;
+            reader.TcpErrCallback = TcpExcption;
 
             //设置界面元素有效性
             gbRS232.Enabled = false;
@@ -241,8 +242,14 @@ namespace UHFDemo
             //mFastSessionSelect.SelectedIndex = 0;
         }
 
+        private void TcpExcption(string strErr)
+        {
+            WriteLog(lrtxtLog, strErr, 1);
+        }
+
         private void ReceiveData(byte[] btAryReceiveData)
         {
+            
             if (m_bDisplayLog)
             {
                 string strLog = CCommondMethod.ByteArrayToString(btAryReceiveData, 0, btAryReceiveData.Length);
