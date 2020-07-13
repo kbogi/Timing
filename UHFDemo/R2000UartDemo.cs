@@ -8964,6 +8964,7 @@ namespace UHFDemo
             else
             {
                 Console.WriteLine("already started ####");
+                UpdateUdpServerStatus("running");
             }
         }
 
@@ -9722,7 +9723,6 @@ namespace UHFDemo
 
         private void LoadNetConfigViews()
         {
-
             net_port_1_net_mode_cbo.Items.Clear();
             net_port_1_net_mode_cbo.Items.AddRange(Enum.GetNames(typeof(MODULE_TYPE)));
             net_port_1_baudrate_cbo.Items.Clear();
@@ -9853,14 +9853,7 @@ namespace UHFDemo
         private void net_card_combox_SelectedIndexChanged(object sender, EventArgs e)
         {
             string desc = net_card_combox.SelectedItem.ToString();
-            if(desc.Equals(cur_desc))
-            {
-                return;
-            }
-            else
-            {
-                cur_desc = desc;
-            }
+            cur_desc = desc;
             Console.WriteLine("net_card_combox_SelectedIndexChanged cur_desc-> " + cur_desc);
             if (net_card_dict.ContainsKey(desc))
             {
