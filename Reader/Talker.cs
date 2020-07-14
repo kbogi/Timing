@@ -14,8 +14,8 @@ namespace Reader
         public event MessageReceivedEventHandler MessageReceived;
         public event ExceptionReceivedEventHandler TcpExceptionReceived;
 
-        TcpClient client;
-        Stream streamToTran;
+        //TcpClient client;
+        Socket tcpClient;
         private Thread waitThread;
 
         private bool bIsConnect = false;
@@ -26,26 +26,22 @@ namespace Reader
 
         public bool Connect(IPAddress ipAddress, int nPort, out string strException)
         {
-            if(client == null)
+            if(tcpClient == null)
             {
                 this.ipAddress = ipAddress;
                 this.nPort = nPort;
             }
 
-            if (streamToTran != null)
+            if (tcpClient != null)
             {
-                streamToTran.Close();
-                streamToTran = null;
-            }
-            if (client != null)
-            {
-                client.Close();
-                client = null;
+                tcpClient.Close();
+                tcpClient = null;
             }
             strException = String.Empty;
 
-            client = new TcpClient();
-            IAsyncResult ar = client.BeginConnect(ipAddress, nPort, null, null);
+            tcpClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            
+            IAsyncResult ar = tcpClient.BeginConnect(ipAddress, nPort, null, null);
             bool success = ar.AsyncWaitHandle.WaitOne(1000);
             if (!success)
             {
@@ -54,9 +50,8 @@ namespace Reader
             }
 
             //client.Connect(ipAddress, nPort);
-            client.Client.IOControl(IOControlCode.KeepAliveValues, KeepAlive(1, 5000, 3000), null);//设置Keep-Alive参数
-
-            streamToTran = client.GetStream();    // 获取连接至远程的流
+            if(tcpClient != null)
+                tcpClient.IOControl(IOControlCode.KeepAliveValues, KeepAlive(1, 1000, 1000), null);//设置Keep-Alive参数
 
             if (!IsConnect())
             {
@@ -86,12 +81,12 @@ namespace Reader
             {
                 if (reconnecting)
                     continue;
-                if (client.Client.Poll(-1, SelectMode.SelectRead))
+                if (tcpClient.Poll(-1, SelectMode.SelectRead))
                 {
                     try
                     {
                         byte[] btAryBuffer = new byte[4096 * 10];
-                        int nLenRead = client.Client.Receive(btAryBuffer);
+                        int nLenRead = tcpClient.Receive(btAryBuffer);
                         if (nLenRead == 0)
                         {
                             Console.WriteLine("数据接收正常断开！！");
@@ -160,9 +155,9 @@ namespace Reader
         {
             try
             {
-                lock (streamToTran)
+                lock (tcpClient)
                 {
-                    streamToTran.Write(btAryBuffer, 0, btAryBuffer.Length);
+                    tcpClient.Send(btAryBuffer);
                     return true;
                 }
             }
@@ -174,11 +169,7 @@ namespace Reader
 
         public void SignOut()
         {
-            if (streamToTran != null)
-                streamToTran.Dispose();
-            if (client != null)
-                client.Close();
-
+            reconnecting = false;
             waitThread.Abort();
             bIsConnect = false;
         }
