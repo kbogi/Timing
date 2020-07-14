@@ -593,6 +593,7 @@ namespace UHFDemo
             this.net_reset_default = new System.Windows.Forms.Button();
             this.port_setting_tabcontrol = new System.Windows.Forms.TabControl();
             this.net_port_0_tabPage = new System.Windows.Forms.TabPage();
+            this.label180 = new System.Windows.Forms.Label();
             this.net_port_1_phyChangeHandle_cb = new System.Windows.Forms.CheckBox();
             this.net_port_1_enable_cb = new System.Windows.Forms.CheckBox();
             this.net_port_1_rand_port_flag_cb = new System.Windows.Forms.CheckBox();
@@ -615,6 +616,7 @@ namespace UHFDemo
             this.label125 = new System.Windows.Forms.Label();
             this.net_port_1_net_mode_cbo = new System.Windows.Forms.ComboBox();
             this.net_port_1_tabPage = new System.Windows.Forms.TabPage();
+            this.label179 = new System.Windows.Forms.Label();
             this.net_port_2_phyChangeHandle_cb = new System.Windows.Forms.CheckBox();
             this.net_port_2_enable_cb = new System.Windows.Forms.CheckBox();
             this.net_port_2_rand_port_flag_cb = new System.Windows.Forms.CheckBox();
@@ -673,6 +675,30 @@ namespace UHFDemo
             this.net_getCfg_btn = new System.Windows.Forms.Button();
             this.net_search_btn = new System.Windows.Forms.Button();
             this.net_refresh_netcard_btn = new System.Windows.Forms.Button();
+            this.johar_tabPage = new System.Windows.Forms.TabPage();
+            this.label183 = new System.Windows.Forms.Label();
+            this.johar_tagcount_label = new System.Windows.Forms.Label();
+            this.johar_totalread_label = new System.Windows.Forms.Label();
+            this.label182 = new System.Windows.Forms.Label();
+            this.label181 = new System.Windows.Forms.Label();
+            this.johar_clear_btn = new System.Windows.Forms.Button();
+            this.johar_use_btn = new System.Windows.Forms.Button();
+            this.johar_settings_gb = new System.Windows.Forms.GroupBox();
+            this.johar_readmode_gb = new System.Windows.Forms.GroupBox();
+            this.johar_readmode_mode3 = new System.Windows.Forms.RadioButton();
+            this.johar_readmode_mode1 = new System.Windows.Forms.RadioButton();
+            this.johar_readmode_mode2 = new System.Windows.Forms.RadioButton();
+            this.johar_session_gb = new System.Windows.Forms.GroupBox();
+            this.johar_session_s0_rb = new System.Windows.Forms.RadioButton();
+            this.johar_session_s1_rb = new System.Windows.Forms.RadioButton();
+            this.johar_session_s2_rb = new System.Windows.Forms.RadioButton();
+            this.johar_session_s3_rb = new System.Windows.Forms.RadioButton();
+            this.johar_target_gb = new System.Windows.Forms.GroupBox();
+            this.johar_target_A_rb = new System.Windows.Forms.RadioButton();
+            this.johar_target_B_rb = new System.Windows.Forms.RadioButton();
+            this.johar_cb = new System.Windows.Forms.CheckBox();
+            this.johar_read_btn = new System.Windows.Forms.Button();
+            this.johar_tag_dgv = new System.Windows.Forms.DataGridView();
             this.label35 = new System.Windows.Forms.Label();
             this.ckDisplayLog = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -726,8 +752,7 @@ namespace UHFDemo
             this.mFastSessionTimer = new System.Windows.Forms.Timer(this.components);
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
-            this.label179 = new System.Windows.Forms.Label();
-            this.label180 = new System.Windows.Forms.Label();
+            this.johar_cmd_interval_cb = new System.Windows.Forms.ComboBox();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -791,6 +816,7 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.ledFast5)).BeginInit();
             this.groupBox28.SuspendLayout();
             this.groupBox27.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -819,6 +845,12 @@ namespace UHFDemo
             this.net_base_settings_gb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dev_dgv)).BeginInit();
             this.groupBox30.SuspendLayout();
+            this.johar_tabPage.SuspendLayout();
+            this.johar_settings_gb.SuspendLayout();
+            this.johar_readmode_gb.SuspendLayout();
+            this.johar_session_gb.SuspendLayout();
+            this.johar_target_gb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.johar_tag_dgv)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -842,6 +874,7 @@ namespace UHFDemo
             this.tabCtrMain.Controls.Add(this.PagISO18000);
             this.tabCtrMain.Controls.Add(this.PagTranDataLog);
             this.tabCtrMain.Controls.Add(this.net_configure_tabPage);
+            this.tabCtrMain.Controls.Add(this.johar_tabPage);
             this.tabCtrMain.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabCtrMain.Location = new System.Drawing.Point(0, 0);
             this.tabCtrMain.Name = "tabCtrMain";
@@ -3722,7 +3755,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 450F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 470F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3741,9 +3774,9 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(551, 4);
+            this.panel9.Location = new System.Drawing.Point(531, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(445, 74);
+            this.panel9.Size = new System.Drawing.Size(465, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3802,7 +3835,7 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(268, 74);
+            this.panel10.Size = new System.Drawing.Size(258, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3848,9 +3881,9 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(279, 4);
+            this.panel8.Location = new System.Drawing.Point(269, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(265, 74);
+            this.panel8.Size = new System.Drawing.Size(255, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -7420,6 +7453,15 @@ namespace UHFDemo
             this.net_port_0_tabPage.Text = "端口1";
             this.net_port_0_tabPage.UseVisualStyleBackColor = true;
             // 
+            // label180
+            // 
+            this.label180.AutoSize = true;
+            this.label180.Location = new System.Drawing.Point(6, 165);
+            this.label180.Name = "label180";
+            this.label180.Size = new System.Drawing.Size(65, 12);
+            this.label180.TabIndex = 74;
+            this.label180.Text = "网络断开：";
+            // 
             // net_port_1_phyChangeHandle_cb
             // 
             this.net_port_1_phyChangeHandle_cb.AutoSize = true;
@@ -7647,6 +7689,15 @@ namespace UHFDemo
             this.net_port_1_tabPage.TabIndex = 1;
             this.net_port_1_tabPage.Text = "端口2";
             this.net_port_1_tabPage.UseVisualStyleBackColor = true;
+            // 
+            // label179
+            // 
+            this.label179.AutoSize = true;
+            this.label179.Location = new System.Drawing.Point(6, 165);
+            this.label179.Name = "label179";
+            this.label179.Size = new System.Drawing.Size(65, 12);
+            this.label179.TabIndex = 73;
+            this.label179.Text = "网络断开：";
             // 
             // net_port_2_phyChangeHandle_cb
             // 
@@ -8193,6 +8244,269 @@ namespace UHFDemo
             this.net_refresh_netcard_btn.Text = "刷新网卡";
             this.net_refresh_netcard_btn.UseVisualStyleBackColor = true;
             this.net_refresh_netcard_btn.Click += new System.EventHandler(this.net_refresh_netcard_btn_Click);
+            // 
+            // johar_tabPage
+            // 
+            this.johar_tabPage.Controls.Add(this.johar_cmd_interval_cb);
+            this.johar_tabPage.Controls.Add(this.label183);
+            this.johar_tabPage.Controls.Add(this.johar_tagcount_label);
+            this.johar_tabPage.Controls.Add(this.johar_totalread_label);
+            this.johar_tabPage.Controls.Add(this.label182);
+            this.johar_tabPage.Controls.Add(this.label181);
+            this.johar_tabPage.Controls.Add(this.johar_clear_btn);
+            this.johar_tabPage.Controls.Add(this.johar_use_btn);
+            this.johar_tabPage.Controls.Add(this.johar_settings_gb);
+            this.johar_tabPage.Controls.Add(this.johar_cb);
+            this.johar_tabPage.Controls.Add(this.johar_read_btn);
+            this.johar_tabPage.Controls.Add(this.johar_tag_dgv);
+            this.johar_tabPage.Location = new System.Drawing.Point(4, 22);
+            this.johar_tabPage.Name = "johar_tabPage";
+            this.johar_tabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.johar_tabPage.Size = new System.Drawing.Size(1010, 555);
+            this.johar_tabPage.TabIndex = 8;
+            this.johar_tabPage.Text = "温感标签";
+            this.johar_tabPage.UseVisualStyleBackColor = true;
+            // 
+            // label183
+            // 
+            this.label183.AutoSize = true;
+            this.label183.Location = new System.Drawing.Point(8, 54);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(101, 12);
+            this.label183.TabIndex = 13;
+            this.label183.Text = "指令间隔（ms）：";
+            // 
+            // johar_tagcount_label
+            // 
+            this.johar_tagcount_label.AutoSize = true;
+            this.johar_tagcount_label.Location = new System.Drawing.Point(701, 26);
+            this.johar_tagcount_label.Name = "johar_tagcount_label";
+            this.johar_tagcount_label.Size = new System.Drawing.Size(11, 12);
+            this.johar_tagcount_label.TabIndex = 11;
+            this.johar_tagcount_label.Text = "0";
+            // 
+            // johar_totalread_label
+            // 
+            this.johar_totalread_label.AutoSize = true;
+            this.johar_totalread_label.Location = new System.Drawing.Point(475, 26);
+            this.johar_totalread_label.Name = "johar_totalread_label";
+            this.johar_totalread_label.Size = new System.Drawing.Size(11, 12);
+            this.johar_totalread_label.TabIndex = 10;
+            this.johar_totalread_label.Text = "0";
+            // 
+            // label182
+            // 
+            this.label182.AutoSize = true;
+            this.label182.Location = new System.Drawing.Point(630, 25);
+            this.label182.Name = "label182";
+            this.label182.Size = new System.Drawing.Size(65, 12);
+            this.label182.TabIndex = 9;
+            this.label182.Text = "tagCount: ";
+            // 
+            // label181
+            // 
+            this.label181.AutoSize = true;
+            this.label181.Location = new System.Drawing.Point(373, 25);
+            this.label181.Name = "label181";
+            this.label181.Size = new System.Drawing.Size(101, 12);
+            this.label181.TabIndex = 8;
+            this.label181.Text = "totalreadCount: ";
+            // 
+            // johar_clear_btn
+            // 
+            this.johar_clear_btn.Location = new System.Drawing.Point(277, 15);
+            this.johar_clear_btn.Name = "johar_clear_btn";
+            this.johar_clear_btn.Size = new System.Drawing.Size(75, 23);
+            this.johar_clear_btn.TabIndex = 7;
+            this.johar_clear_btn.Text = "清空";
+            this.johar_clear_btn.UseVisualStyleBackColor = true;
+            this.johar_clear_btn.Click += new System.EventHandler(this.johar_clear_btn_Click);
+            // 
+            // johar_use_btn
+            // 
+            this.johar_use_btn.Location = new System.Drawing.Point(98, 15);
+            this.johar_use_btn.Name = "johar_use_btn";
+            this.johar_use_btn.Size = new System.Drawing.Size(75, 23);
+            this.johar_use_btn.TabIndex = 6;
+            this.johar_use_btn.Text = "启用";
+            this.johar_use_btn.UseVisualStyleBackColor = true;
+            this.johar_use_btn.Click += new System.EventHandler(this.johar_use_btn_Click);
+            // 
+            // johar_settings_gb
+            // 
+            this.johar_settings_gb.Controls.Add(this.johar_readmode_gb);
+            this.johar_settings_gb.Controls.Add(this.johar_session_gb);
+            this.johar_settings_gb.Controls.Add(this.johar_target_gb);
+            this.johar_settings_gb.Location = new System.Drawing.Point(8, 93);
+            this.johar_settings_gb.Name = "johar_settings_gb";
+            this.johar_settings_gb.Size = new System.Drawing.Size(251, 167);
+            this.johar_settings_gb.TabIndex = 5;
+            this.johar_settings_gb.TabStop = false;
+            this.johar_settings_gb.Text = "配置";
+            // 
+            // johar_readmode_gb
+            // 
+            this.johar_readmode_gb.Controls.Add(this.johar_readmode_mode3);
+            this.johar_readmode_gb.Controls.Add(this.johar_readmode_mode1);
+            this.johar_readmode_gb.Controls.Add(this.johar_readmode_mode2);
+            this.johar_readmode_gb.Location = new System.Drawing.Point(6, 108);
+            this.johar_readmode_gb.Name = "johar_readmode_gb";
+            this.johar_readmode_gb.Size = new System.Drawing.Size(231, 38);
+            this.johar_readmode_gb.TabIndex = 11;
+            this.johar_readmode_gb.TabStop = false;
+            this.johar_readmode_gb.Text = "Read Mode";
+            // 
+            // johar_readmode_mode3
+            // 
+            this.johar_readmode_mode3.AutoSize = true;
+            this.johar_readmode_mode3.Location = new System.Drawing.Point(124, 16);
+            this.johar_readmode_mode3.Name = "johar_readmode_mode3";
+            this.johar_readmode_mode3.Size = new System.Drawing.Size(53, 16);
+            this.johar_readmode_mode3.TabIndex = 14;
+            this.johar_readmode_mode3.TabStop = true;
+            this.johar_readmode_mode3.Text = "Mode3";
+            this.johar_readmode_mode3.UseVisualStyleBackColor = true;
+            // 
+            // johar_readmode_mode1
+            // 
+            this.johar_readmode_mode1.AutoSize = true;
+            this.johar_readmode_mode1.Location = new System.Drawing.Point(6, 16);
+            this.johar_readmode_mode1.Name = "johar_readmode_mode1";
+            this.johar_readmode_mode1.Size = new System.Drawing.Size(53, 16);
+            this.johar_readmode_mode1.TabIndex = 11;
+            this.johar_readmode_mode1.TabStop = true;
+            this.johar_readmode_mode1.Text = "Mode1";
+            this.johar_readmode_mode1.UseVisualStyleBackColor = true;
+            // 
+            // johar_readmode_mode2
+            // 
+            this.johar_readmode_mode2.AutoSize = true;
+            this.johar_readmode_mode2.Location = new System.Drawing.Point(65, 16);
+            this.johar_readmode_mode2.Name = "johar_readmode_mode2";
+            this.johar_readmode_mode2.Size = new System.Drawing.Size(53, 16);
+            this.johar_readmode_mode2.TabIndex = 13;
+            this.johar_readmode_mode2.TabStop = true;
+            this.johar_readmode_mode2.Text = "Mode2";
+            this.johar_readmode_mode2.UseVisualStyleBackColor = true;
+            // 
+            // johar_session_gb
+            // 
+            this.johar_session_gb.Controls.Add(this.johar_session_s0_rb);
+            this.johar_session_gb.Controls.Add(this.johar_session_s1_rb);
+            this.johar_session_gb.Controls.Add(this.johar_session_s2_rb);
+            this.johar_session_gb.Controls.Add(this.johar_session_s3_rb);
+            this.johar_session_gb.Location = new System.Drawing.Point(6, 20);
+            this.johar_session_gb.Name = "johar_session_gb";
+            this.johar_session_gb.Size = new System.Drawing.Size(231, 38);
+            this.johar_session_gb.TabIndex = 6;
+            this.johar_session_gb.TabStop = false;
+            this.johar_session_gb.Text = "Session";
+            // 
+            // johar_session_s0_rb
+            // 
+            this.johar_session_s0_rb.AutoSize = true;
+            this.johar_session_s0_rb.Location = new System.Drawing.Point(6, 16);
+            this.johar_session_s0_rb.Name = "johar_session_s0_rb";
+            this.johar_session_s0_rb.Size = new System.Drawing.Size(35, 16);
+            this.johar_session_s0_rb.TabIndex = 3;
+            this.johar_session_s0_rb.TabStop = true;
+            this.johar_session_s0_rb.Text = "S0";
+            this.johar_session_s0_rb.UseVisualStyleBackColor = true;
+            // 
+            // johar_session_s1_rb
+            // 
+            this.johar_session_s1_rb.AutoSize = true;
+            this.johar_session_s1_rb.Location = new System.Drawing.Point(65, 16);
+            this.johar_session_s1_rb.Name = "johar_session_s1_rb";
+            this.johar_session_s1_rb.Size = new System.Drawing.Size(35, 16);
+            this.johar_session_s1_rb.TabIndex = 5;
+            this.johar_session_s1_rb.TabStop = true;
+            this.johar_session_s1_rb.Text = "S1";
+            this.johar_session_s1_rb.UseVisualStyleBackColor = true;
+            // 
+            // johar_session_s2_rb
+            // 
+            this.johar_session_s2_rb.AutoSize = true;
+            this.johar_session_s2_rb.Location = new System.Drawing.Point(124, 16);
+            this.johar_session_s2_rb.Name = "johar_session_s2_rb";
+            this.johar_session_s2_rb.Size = new System.Drawing.Size(35, 16);
+            this.johar_session_s2_rb.TabIndex = 6;
+            this.johar_session_s2_rb.TabStop = true;
+            this.johar_session_s2_rb.Text = "S2";
+            this.johar_session_s2_rb.UseVisualStyleBackColor = true;
+            // 
+            // johar_session_s3_rb
+            // 
+            this.johar_session_s3_rb.AutoSize = true;
+            this.johar_session_s3_rb.Location = new System.Drawing.Point(181, 16);
+            this.johar_session_s3_rb.Name = "johar_session_s3_rb";
+            this.johar_session_s3_rb.Size = new System.Drawing.Size(35, 16);
+            this.johar_session_s3_rb.TabIndex = 7;
+            this.johar_session_s3_rb.TabStop = true;
+            this.johar_session_s3_rb.Text = "S3";
+            this.johar_session_s3_rb.UseVisualStyleBackColor = true;
+            // 
+            // johar_target_gb
+            // 
+            this.johar_target_gb.Controls.Add(this.johar_target_A_rb);
+            this.johar_target_gb.Controls.Add(this.johar_target_B_rb);
+            this.johar_target_gb.Location = new System.Drawing.Point(6, 64);
+            this.johar_target_gb.Name = "johar_target_gb";
+            this.johar_target_gb.Size = new System.Drawing.Size(231, 38);
+            this.johar_target_gb.TabIndex = 7;
+            this.johar_target_gb.TabStop = false;
+            this.johar_target_gb.Text = "Target";
+            // 
+            // johar_target_A_rb
+            // 
+            this.johar_target_A_rb.AutoSize = true;
+            this.johar_target_A_rb.Location = new System.Drawing.Point(12, 15);
+            this.johar_target_A_rb.Name = "johar_target_A_rb";
+            this.johar_target_A_rb.Size = new System.Drawing.Size(29, 16);
+            this.johar_target_A_rb.TabIndex = 8;
+            this.johar_target_A_rb.TabStop = true;
+            this.johar_target_A_rb.Text = "A";
+            this.johar_target_A_rb.UseVisualStyleBackColor = true;
+            // 
+            // johar_target_B_rb
+            // 
+            this.johar_target_B_rb.AutoSize = true;
+            this.johar_target_B_rb.Location = new System.Drawing.Point(71, 15);
+            this.johar_target_B_rb.Name = "johar_target_B_rb";
+            this.johar_target_B_rb.Size = new System.Drawing.Size(29, 16);
+            this.johar_target_B_rb.TabIndex = 10;
+            this.johar_target_B_rb.TabStop = true;
+            this.johar_target_B_rb.Text = "B";
+            this.johar_target_B_rb.UseVisualStyleBackColor = true;
+            // 
+            // johar_cb
+            // 
+            this.johar_cb.AutoSize = true;
+            this.johar_cb.Location = new System.Drawing.Point(181, 19);
+            this.johar_cb.Name = "johar_cb";
+            this.johar_cb.Size = new System.Drawing.Size(78, 16);
+            this.johar_cb.TabIndex = 2;
+            this.johar_cb.Text = "悦和LTU32";
+            this.johar_cb.UseVisualStyleBackColor = true;
+            // 
+            // johar_read_btn
+            // 
+            this.johar_read_btn.Location = new System.Drawing.Point(8, 15);
+            this.johar_read_btn.Name = "johar_read_btn";
+            this.johar_read_btn.Size = new System.Drawing.Size(75, 23);
+            this.johar_read_btn.TabIndex = 1;
+            this.johar_read_btn.Text = "开始";
+            this.johar_read_btn.UseVisualStyleBackColor = true;
+            this.johar_read_btn.Click += new System.EventHandler(this.johar_read_btn_Click);
+            // 
+            // johar_tag_dgv
+            // 
+            this.johar_tag_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.johar_tag_dgv.Location = new System.Drawing.Point(265, 50);
+            this.johar_tag_dgv.Name = "johar_tag_dgv";
+            this.johar_tag_dgv.RowTemplate.Height = 23;
+            this.johar_tag_dgv.Size = new System.Drawing.Size(737, 485);
+            this.johar_tag_dgv.TabIndex = 0;
             // 
             // label35
             // 
@@ -8823,23 +9137,23 @@ namespace UHFDemo
             this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
-            // label179
+            // johar_cmd_interval_cb
             // 
-            this.label179.AutoSize = true;
-            this.label179.Location = new System.Drawing.Point(6, 165);
-            this.label179.Name = "label179";
-            this.label179.Size = new System.Drawing.Size(65, 12);
-            this.label179.TabIndex = 73;
-            this.label179.Text = "网络断开：";
-            // 
-            // label180
-            // 
-            this.label180.AutoSize = true;
-            this.label180.Location = new System.Drawing.Point(6, 165);
-            this.label180.Name = "label180";
-            this.label180.Size = new System.Drawing.Size(65, 12);
-            this.label180.TabIndex = 74;
-            this.label180.Text = "网络断开：";
+            this.johar_cmd_interval_cb.FormattingEnabled = true;
+            this.johar_cmd_interval_cb.Items.AddRange(new object[] {
+            "100",
+            "200",
+            "300",
+            "400",
+            "500",
+            "900",
+            "1000",
+            "2000",
+            "3000"});
+            this.johar_cmd_interval_cb.Location = new System.Drawing.Point(116, 54);
+            this.johar_cmd_interval_cb.Name = "johar_cmd_interval_cb";
+            this.johar_cmd_interval_cb.Size = new System.Drawing.Size(129, 20);
+            this.johar_cmd_interval_cb.TabIndex = 14;
             // 
             // R2000UartDemo
             // 
@@ -8858,7 +9172,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v4.0.8";
+            this.Text = "UHF RFID Reader Demo v4.0.9";
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
             this.PagReaderSetting.ResumeLayout(false);
@@ -8960,6 +9274,7 @@ namespace UHFDemo
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.pageAcessTag.ResumeLayout(false);
             this.gbCmdOperateTag.ResumeLayout(false);
@@ -9004,6 +9319,16 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.dev_dgv)).EndInit();
             this.groupBox30.ResumeLayout(false);
             this.groupBox30.PerformLayout();
+            this.johar_tabPage.ResumeLayout(false);
+            this.johar_tabPage.PerformLayout();
+            this.johar_settings_gb.ResumeLayout(false);
+            this.johar_readmode_gb.ResumeLayout(false);
+            this.johar_readmode_gb.PerformLayout();
+            this.johar_session_gb.ResumeLayout(false);
+            this.johar_session_gb.PerformLayout();
+            this.johar_target_gb.ResumeLayout(false);
+            this.johar_target_gb.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.johar_tag_dgv)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
@@ -9723,6 +10048,31 @@ namespace UHFDemo
         private Label net_udpserver_status_label;
         private Label label180;
         private Label label179;
+        private TabPage johar_tabPage;
+        private GroupBox johar_settings_gb;
+        private GroupBox johar_readmode_gb;
+        private RadioButton johar_readmode_mode3;
+        private RadioButton johar_readmode_mode1;
+        private RadioButton johar_readmode_mode2;
+        private GroupBox johar_session_gb;
+        private RadioButton johar_session_s0_rb;
+        private RadioButton johar_session_s1_rb;
+        private RadioButton johar_session_s2_rb;
+        private RadioButton johar_session_s3_rb;
+        private GroupBox johar_target_gb;
+        private RadioButton johar_target_A_rb;
+        private RadioButton johar_target_B_rb;
+        private CheckBox johar_cb;
+        private Button johar_read_btn;
+        private DataGridView johar_tag_dgv;
+        private Button johar_use_btn;
+        private Button johar_clear_btn;
+        private Label johar_tagcount_label;
+        private Label johar_totalread_label;
+        private Label label182;
+        private Label label181;
+        private Label label183;
+        private ComboBox johar_cmd_interval_cb;
     }
 }
 

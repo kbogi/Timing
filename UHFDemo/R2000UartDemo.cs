@@ -19,6 +19,8 @@ using System.Net.Sockets;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Management;
+using System.Text.RegularExpressions;
+using System.Windows.Threading;
 
 namespace UHFDemo
 {
@@ -4617,6 +4619,7 @@ namespace UHFDemo
             }
             else
             {
+                // get raw data
                 int nLen = msgTran.AryData.Length;
                 int nDataLen = Convert.ToInt32(msgTran.AryData[nLen - 3]);
                 int nEpcLen = Convert.ToInt32(msgTran.AryData[2]) - nDataLen - 4;
@@ -4632,19 +4635,26 @@ namespace UHFDemo
 
                 string strReadCount = msgTran.AryData[nLen - 1].ToString();
 
-                DataRow row = m_curOperateTagBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEPC;
-                row[3] = strData;
-                row[4] = nDataLen.ToString();
-                row[5] = strAntId;
-                row[6] = strReadCount;
+                if (johar_cb.Checked)
+                {
+                    parseJoharRead(msgTran.AryTranData);
+                }
+                else
+                {
+                    DataRow row = m_curOperateTagBuffer.dtTagTable.NewRow();
+                    row[0] = strPC;
+                    row[1] = strCRC;
+                    row[2] = strEPC;
+                    row[3] = strData;
+                    row[4] = nDataLen.ToString();
+                    row[5] = strAntId;
+                    row[6] = strReadCount;
 
-                m_curOperateTagBuffer.dtTagTable.Rows.Add(row);
-                m_curOperateTagBuffer.dtTagTable.AcceptChanges();
-                RefreshOpTag(0x81);
-                WriteLog(lrtxtLog, strCmd, 0);
+                    m_curOperateTagBuffer.dtTagTable.Rows.Add(row);
+                    m_curOperateTagBuffer.dtTagTable.AcceptChanges();
+                    RefreshOpTag(0x81);
+                    WriteLog(lrtxtLog, strCmd, 0);
+                }
             }
         }
 
@@ -5459,6 +5469,34 @@ namespace UHFDemo
 
         private void tabCtrMain_SelectedIndexChanged(object sender, EventArgs e)
         {
+            #region Johar
+            if (tabCtrMain.SelectedTab.Name.Equals("johar_tabPage"))
+            {
+                johar_cb.Enabled = false;
+                johar_session_s0_rb.Checked = true;
+                johar_target_A_rb.Checked = true;
+                johar_readmode_mode3.Checked = true;
+                johar_cmd_interval_cb.SelectedIndex = 2;
+
+                if(johardb==null)
+                {
+                    johardb = new JoharTagDB();
+                    johar_tag_dgv.DataSource = johardb.TagList;
+                }
+            }
+            else
+            {
+                if (johar_use_btn.Text.Equals("停用"))
+                {
+                    johar_use_btn.Text = "启用";
+                    enableReadJohar(false);
+                    johar_cb.Checked = false;
+                    clearSelect();
+                }
+            }
+            #endregion Johar
+
+            #region Net Configure
             if (tabCtrMain.SelectedTab.Name.Equals("net_configure_tabPage"))
             {
                 dev_dgv.AutoGenerateColumns = true;
@@ -5479,6 +5517,8 @@ namespace UHFDemo
             {
                 StopNetUdpServer();
             }
+            #endregion Net Configure
+
             if (m_bLockTab)
             {
                 tabCtrMain.SelectTab(1);
@@ -8932,7 +8972,8 @@ namespace UHFDemo
                 return;
             }
             UpdateUdpServerStatus("starting");
-            //string desc = net_card_combox.SelectedItem.ToString();
+            string desc = net_card_combox.SelectedItem.ToString();
+            cur_desc = desc;
             string pc_ip = net_card_dict[cur_desc].PC_IP;
             int port = 60000;
             Console.WriteLine("cur_desc={0}, cur_pc_ip={1}@{2}", cur_desc, pc_ip, port);
@@ -9201,7 +9242,6 @@ namespace UHFDemo
             }
         }
 
-
         private bool CheckNetConfigStatus()
         {
             if (!netStarted && netClient != null)
@@ -9271,6 +9311,24 @@ namespace UHFDemo
             }
         }
 
+        private bool CheckMacAddr(string macAddr)
+        {
+            string ma = "/(([a-f0-9]{2}:)|([a-f0-9]{2}-)){5}[a-f0-9]{2}/gi";
+
+            Regex r = new Regex(ma, RegexOptions.IgnoreCase);
+
+            Match m = r.Match(macAddr.Trim());
+            if (m.Success)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
         private void net_setCfg_btn_Click(object sender, EventArgs e)
         {
             string mod_mac = net_base_mod_mac_tb.Text;
@@ -9282,6 +9340,12 @@ namespace UHFDemo
             if (!net_db.IndexNetDevCfg.ContainsKey(mod_mac))
             {
                 MessageBox.Show("请先在列表中选择设备", "提示", MessageBoxButtons.OK);
+                return;
+            }
+
+            if(CheckMacAddr(mod_mac))
+            {
+                MessageBox.Show("Mod Mac地址格式错误, eg: 11:22:33:44:55:66", "Mac地址", MessageBoxButtons.OK);
                 return;
             }
 
@@ -9750,6 +9814,7 @@ namespace UHFDemo
         private void NetRefreshNetCard()
         {
             net_card_combox.Items.Clear();
+            net_card_dict.Clear();
 
             //SELECT* FROM Win32_NetworkAdapter where PhysicalAdapter = TRUE and MACAddress>‘’ //只查询有MAC的物理网卡，不包含虚拟网卡
 
@@ -9797,9 +9862,6 @@ namespace UHFDemo
             if (net_card_combox.Items.Count > 0)
                 net_card_combox.SelectedIndex = 0;
         }
-
-
-        #endregion Net Configure
 
         private void dev_dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -9928,9 +9990,333 @@ namespace UHFDemo
         {
             string mod_mac = net_base_mod_mac_tb.Text;
             string pc_mac = net_pc_mac_label.Text.Replace(":", "").ToLower();
+            if (!CheckMacAddr(mod_mac))
+            {
+                MessageBox.Show("Mod Mac地址格式错误, eg: 11:22:33:44:55:66", "Mac地址", MessageBoxButtons.OK);
+                return;
+            }
+            if (!CheckMacAddr(mod_mac))
+            {
+                MessageBox.Show("Pc Mac地址格式错误, eg: 11:22:33:44:55:66", "Mac地址", MessageBoxButtons.OK);
+                return;
+            }
             NetSetDefaultCFG(mod_mac, pc_mac);
             netCmdStarted = true;
         }
+
+        #endregion Net Configure
+
+        #region Johar
+        /////
+        /// SEN_DATA[23:0] -> EPC 0x06, 0x07
+        /// delta1 = User 0x08
+        /// 芯片版本兼容数据 -> User 0x09
+        /// 
+        /// 1.获取原始数据
+        /// 2.得到 SEN_DATA[23:0]
+        /// 3.传感数据验证
+        /// 4.获取校准参数 user 0x08
+        /// 5.获取温度数据
+        /// 
+        bool joharReadingStarted = false;
+        bool joharReading = false;
+        JoharTagDB johardb = null;
+        int joharCmdInterval = 100;
+
+        private void johar_read_btn_Click(object sender, EventArgs e)
+        {
+            if (johar_read_btn.Text.Equals("开始"))
+            {
+                johar_read_btn.Text = "停止";
+                if (johar_use_btn.Text.Equals("启用"))
+                {
+                    johar_use_btn.Text = "停用";
+                    enableReadJohar(true);
+                    johar_cb.Checked = true;
+                    selectJohar();
+                }
+                joharCmdInterval = Convert.ToInt32(johar_cmd_interval_cb.SelectedItem.ToString());
+                jorharEnableView(false);
+                new Thread(new ThreadStart(readingJohar)).Start();
+            }
+            else if (johar_read_btn.Text.Equals("停止"))
+            {
+                joharReadingStarted = false;
+                while(joharReading)
+                {
+                    Thread.Sleep(200);
+                }
+                jorharEnableView(true);
+                johar_read_btn.Text = "开始";
+            }
+                
+        }
+
+        private void jorharEnableView(bool enable)
+        {
+            johar_use_btn.Enabled = enable;
+            johar_settings_gb.Enabled = enable;
+            johar_cmd_interval_cb.Enabled = enable;
+        }
+
+        private void johar_use_btn_Click(object sender, EventArgs e)
+        {
+            if (johar_use_btn.Text.Equals("启用"))
+            {
+                johar_use_btn.Text = "停用";
+                enableReadJohar(true);
+                johar_cb.Checked = true;
+                selectJohar();
+            }
+            else if (johar_use_btn.Text.Equals("停用"))
+            {
+                johar_use_btn.Text = "启用";
+                enableReadJohar(false);
+                johar_cb.Checked = false;
+                clearSelect();
+            }
+        }
+
+        private void johar_clear_btn_Click(object sender, EventArgs e)
+        {
+            this.BeginInvoke(new ThreadStart(delegate ()
+            {
+                johardb.Clear();
+                johar_totalread_label.Text = johardb.TotalTagCount.ToString();
+                johar_tagcount_label.Text = johardb.UniqueTagCount.ToString();
+            }));
+        }
+
+        private void enableReadJohar(bool flag)
+        {
+            int writeIndex = 0;
+            byte[] rawData = new byte[256];
+            rawData[writeIndex++] = 0xA0; // hdr
+
+            rawData[writeIndex++] = 0x03; // len minLen = 3
+
+            rawData[writeIndex++] = m_curSetting.btReadId; // addr
+
+            rawData[writeIndex++] = 0x8C; // cmd 8D - 保存到flash
+
+            // data
+            if (true == flag)
+            {
+                rawData[writeIndex++] = 0x90; // TempSel
+            }
+            else
+            {
+                rawData[writeIndex++] = 0x00; // TempSel
+            }
+
+            int msgLen = writeIndex + 1;
+            rawData[1] = (byte)(msgLen - 2); // update len, except hdr+len
+            Console.WriteLine("enableReadJohar writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+
+            byte[] checkData = new byte[msgLen - 1];
+            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+            rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+            byte[] sendData = new byte[msgLen];
+            Array.Copy(rawData, 0, sendData, 0, msgLen);
+            int nResult = reader.SendMessage(sendData);
+        }
+
+        private void selectJohar()
+        {
+            int writeIndex = 0;
+            byte[] rawData = new byte[256];
+            rawData[writeIndex++] = 0xA0; // hdr
+
+            rawData[writeIndex++] = 0x03; // len minLen = 3
+
+            rawData[writeIndex++] = 0xFF;// m_curSetting.btReadId; // addr
+
+            rawData[writeIndex++] = 0x98; // cmd
+
+            // data
+            // function
+            rawData[writeIndex++] = 0x01;
+            // target
+            rawData[writeIndex++] = 0x07;
+            // action
+            rawData[writeIndex++] = 0x04;
+            // membank
+            rawData[writeIndex++] = 0x01;
+            // StartingMaskAdd
+            rawData[writeIndex++] = 0x01;
+            // MaskBitLen
+            rawData[writeIndex++] = 0x01;
+            // Mask
+            rawData[writeIndex++] = 0x00;
+            // Truncate
+            rawData[writeIndex++] = 0x00;
+
+            int msgLen = writeIndex + 1;
+            rawData[1] = (byte)(msgLen - 2); // update len, except hdr+len
+            Console.WriteLine("selectJohar writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+
+            byte[] checkData = new byte[msgLen - 1];
+            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+            rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+            byte[] sendData = new byte[msgLen];
+            Array.Copy(rawData, 0, sendData, 0, msgLen);
+            int nResult = reader.SendMessage(sendData);
+        }
+
+        private void clearSelect()
+        {
+            int writeIndex = 0;
+            byte[] rawData = new byte[256];
+            rawData[writeIndex++] = 0xA0; // hdr
+
+            rawData[writeIndex++] = 0x03; // len minLen = 3
+
+            rawData[writeIndex++] = m_curSetting.btReadId; // addr
+
+            rawData[writeIndex++] = 0x98; // cmd
+
+            // data
+            rawData[writeIndex++] = 0x00;
+
+            int msgLen = writeIndex + 1;
+            rawData[1] = (byte)(msgLen - 2); // update len, except hdr+len
+            Console.WriteLine("clearSelect writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+
+            byte[] checkData = new byte[msgLen - 1];
+            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+            rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+            byte[] sendData = new byte[msgLen];
+            Array.Copy(rawData, 0, sendData, 0, msgLen);
+            int nResult = reader.SendMessage(sendData);
+        }
+
+        private void sendReadJoharMessage()
+        {
+            int writeIndex = 0;
+            byte[] rawData = new byte[256];
+            rawData[writeIndex++] = 0xA0; // hdr
+
+            rawData[writeIndex++] = 0x03; // len minLen = 3
+
+            rawData[writeIndex++] = m_curSetting.btReadId; // addr
+
+            rawData[writeIndex++] = 0x81; // cmd
+
+            // data
+            rawData[writeIndex++] = 0x00; // reserved
+            rawData[writeIndex++] = 0x00;
+
+            rawData[writeIndex++] = 0x00; // Tid
+            rawData[writeIndex++] = 0x00;
+
+            rawData[writeIndex++] = 0x08; // User 08, 09
+            rawData[writeIndex++] = 0x02;
+
+            rawData[writeIndex++] = 0x00; // Access Password
+            rawData[writeIndex++] = 0x00;
+            rawData[writeIndex++] = 0x00;
+            rawData[writeIndex++] = 0x00;
+
+            rawData[writeIndex++] = getJoharSession(); // session
+
+            rawData[writeIndex++] = getJoharTarget(); // Target
+
+            rawData[writeIndex++] = getJoharReadMode(); // ReadMode
+
+            rawData[writeIndex++] = 0x05; // TimeOut default: 5ms
+
+            int msgLen = writeIndex + 1;
+            rawData[1] = (byte)(msgLen - 2); // except hdr+len
+            //Console.WriteLine("sendReadJoharMessage writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+
+            byte[] checkData = new byte[msgLen - 1];
+            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+            rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+            byte[] sendData = new byte[msgLen];
+            Array.Copy(rawData, 0, sendData, 0, msgLen);
+            int nResult = reader.SendMessage(sendData);
+        }
+
+        private void readingJohar()
+        {
+            joharReadingStarted = true;
+            joharReading = true;
+            while (joharReadingStarted)
+            {
+                sendReadJoharMessage();
+                Thread.Sleep(joharCmdInterval<100?100:joharCmdInterval);
+            }
+            joharReading = false;
+        }
+
+        private void parseJoharRead(byte[] aryTranData)
+        {
+            this.BeginInvoke(new ThreadStart(delegate()
+            {
+                //Console.WriteLine("parseJoharRead totalread={0}, tagcount={1}", johardb.TotalTagCount, johardb.UniqueTagCount);
+                JoharTag tag = new JoharTag(aryTranData);
+                johardb.Add(tag);
+                johar_totalread_label.Text = johardb.TotalTagCount.ToString();
+                johar_tagcount_label.Text = johardb.UniqueTagCount.ToString();
+            }));
+        }
+
+        private byte getJoharReadMode()
+        {
+            if (johar_readmode_mode1.Checked)
+            {
+                return 0x00;
+            }
+            else if (johar_readmode_mode2.Checked)
+            {
+                return 0x01;
+            }
+            else if (johar_readmode_mode3.Checked)
+            {
+                return 0x02;
+            }
+            return 0x02; // default Mode3
+        }
+
+        private byte getJoharTarget()
+        {
+            if (johar_target_A_rb.Checked)
+            {
+                return 0x00;
+            }
+            else if (johar_target_B_rb.Checked)
+            {
+                return 0x01;
+            }
+            return 0x00; // default A
+        }
+
+        private byte getJoharSession()
+        {
+            if (johar_session_s0_rb.Checked)
+            {
+                return 0x00;
+            }
+            else if (johar_session_s1_rb.Checked)
+            {
+                return 0x01;
+            }
+            else if (johar_session_s2_rb.Checked)
+            {
+                return 0x02;
+            }
+            else if (johar_session_s3_rb.Checked)
+            {
+                return 0x02;
+            }
+            return 0x01; // default s1
+        }
+
+        #endregion Johar
     }
 
     public class NetCardSearch
