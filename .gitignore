@@ -1,5 +1,5 @@
-!OutPuts/Release/*.dll
-!OutPuts/Release/*.exe
+!Outputs/Release/*.dll
+!Outputs/Release/*.exe
 
 
 # User-specific files

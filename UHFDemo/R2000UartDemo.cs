@@ -8942,6 +8942,7 @@ namespace UHFDemo
         static bool netStarted = false;
         bool udpServerRunning = false;
         bool netCmdStarted = false;
+        bool searching = false;
 
         string NET_MODULE_FLAG = "NET_MODULE_COMM\0"; // 用来标识通信_old
         string CH9121_CFG_FLAG = "CH9121_CFG_FLAG\0";	// 用来标识通信_new
@@ -9068,8 +9069,15 @@ namespace UHFDemo
             {
                 MessageBox.Show("恢复出厂设置成功!", "提示", MessageBoxButtons.OK);
             }
-            netCmdStarted = false;
-            enableNetConfigUI(true);
+            if(searching)
+            {
+                Console.WriteLine("Searching ...");
+            }
+            else
+            {
+                netCmdStarted = false;
+                enableNetConfigUI(true);
+            }
         }
 
         delegate void UpdateNetSearchDelegate(NET_COMM recv);
@@ -9204,9 +9212,9 @@ namespace UHFDemo
             }
             StartNetUdpServer();
 
-            // 清空原来的数据
-            net_db.Clear();
-            dev_dgv.Rows.Clear();
+            //// 清空原来的数据
+            //net_db.Clear();
+            //dev_dgv.Rows.Clear();
 
             if (!CheckNetConfigStatus())
                 return;
@@ -9219,8 +9227,16 @@ namespace UHFDemo
             netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息 广播地址
             byte[] message = comm_cmd.Message;
             int ret = netClient.Send(message, message.Length, netEndpoint);
+            searching = true;
             netCmdStarted = true;
             enableNetConfigUI(false);
+
+            BeginInvoke(new ThreadStart(delegate ()
+            {
+                Thread.Sleep(2000);
+                netClient.Send(message, message.Length, netEndpoint);
+                searching = false;
+            }));
         }
 
         delegate void enableNetConfigUIDelegate(bool enable);
