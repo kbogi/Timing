@@ -33,6 +33,9 @@ namespace UHFDemo
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(R2000UartDemo));
             this.tabCtrMain = new System.Windows.Forms.TabControl();
             this.PagReaderSetting = new System.Windows.Forms.TabPage();
@@ -205,7 +208,7 @@ namespace UHFDemo
             this.btnSetOutputPower = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.pageEpcTest = new System.Windows.Forms.TabPage();
-            this.tabEpcTest = new System.Windows.Forms.TabControl();
+            this.tab_6c_Tags_Test = new System.Windows.Forms.TabControl();
             this.pageRealMode = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -456,6 +459,95 @@ namespace UHFDemo
             this.columnHeader36 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label49 = new System.Windows.Forms.Label();
             this.txtFastTagList = new System.Windows.Forms.Label();
+            this.cmd_8a_v2_tabPage = new System.Windows.Forms.TabPage();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.fast_inv_v2_channel_gb = new System.Windows.Forms.GroupBox();
+            this.fast_inv_v2_channel_1 = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_channel_4 = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_channel_8 = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_channel_16 = new System.Windows.Forms.RadioButton();
+            this.groupBox31 = new System.Windows.Forms.GroupBox();
+            this.fast_inv_v2_cb = new System.Windows.Forms.CheckBox();
+            this.fast_inv_v2_phase_cb = new System.Windows.Forms.CheckBox();
+            this.label196 = new System.Windows.Forms.Label();
+            this.fast_inv_v2_repeat_tb = new System.Windows.Forms.TextBox();
+            this.label194 = new System.Windows.Forms.Label();
+            this.fast_inv_v2_interval_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_sl_gb = new System.Windows.Forms.GroupBox();
+            this.fast_inv_v2_sl_03_rb = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_sl_02_rb = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_sl_01_rb = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_sl_00_rb = new System.Windows.Forms.RadioButton();
+            this.groupBox32 = new System.Windows.Forms.GroupBox();
+            this.fast_inv_v2_S0_rb = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_S1_rb = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_S2_rb = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2__S3_rb = new System.Windows.Forms.RadioButton();
+            this.groupBox33 = new System.Windows.Forms.GroupBox();
+            this.fast_inv_v2_target_A_rb = new System.Windows.Forms.RadioButton();
+            this.fast_inv_v2_target_B_rb = new System.Windows.Forms.RadioButton();
+            this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label186 = new System.Windows.Forms.Label();
+            this.fast_inv_v2_H_ant_cb = new System.Windows.Forms.CheckBox();
+            this.fast_inv_v2_G_ant_cb = new System.Windows.Forms.CheckBox();
+            this.fast_inv_v2_F_ant_cb = new System.Windows.Forms.CheckBox();
+            this.fast_inv_v2_E_ant_cb = new System.Windows.Forms.CheckBox();
+            this.fast_inv_v2_D_ant_cb = new System.Windows.Forms.CheckBox();
+            this.fast_inv_v2_C_ant_cb = new System.Windows.Forms.CheckBox();
+            this.label195 = new System.Windows.Forms.Label();
+            this.label184 = new System.Windows.Forms.Label();
+            this.fast_inv_v2_H_power_tb = new System.Windows.Forms.TextBox();
+            this.label185 = new System.Windows.Forms.Label();
+            this.fast_inv_v2_H_stay_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_H_ant_cbo = new System.Windows.Forms.ComboBox();
+            this.fast_inv_v2_G_power_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_G_stay_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_G_ant_cbo = new System.Windows.Forms.ComboBox();
+            this.fast_inv_v2_F_power_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_F_stay_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_F_ant_cbo = new System.Windows.Forms.ComboBox();
+            this.fast_inv_v2_E_power_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_E_stay_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_E_ant_cbo = new System.Windows.Forms.ComboBox();
+            this.fast_inv_v2_D_power_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_D_stay_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_D_ant_cbo = new System.Windows.Forms.ComboBox();
+            this.fast_inv_v2_C_power_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_C_stay_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_B_stay_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_A_power_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_B_power_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_B_ant_cbo = new System.Windows.Forms.ComboBox();
+            this.fast_inv_v2_A_ant_cbo = new System.Windows.Forms.ComboBox();
+            this.fast_inv_v2_A_stay_tb = new System.Windows.Forms.TextBox();
+            this.fast_inv_v2_C_ant_cbo = new System.Windows.Forms.ComboBox();
+            this.fast_inv_v2_A_ant_cb = new System.Windows.Forms.CheckBox();
+            this.fast_inv_v2_B_ant_cb = new System.Windows.Forms.CheckBox();
+            this.fast_inventory_v2_start_btn = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.fast_inv_v2_cmd_totalread_label = new System.Windows.Forms.Label();
+            this.label187 = new System.Windows.Forms.Label();
+            this.fast_inv_v2_cmd_exec_rate = new System.Windows.Forms.Label();
+            this.fast_inv_v2_total_cmd_time_label = new System.Windows.Forms.Label();
+            this.fast_inv_v2_cmd_time_label = new System.Windows.Forms.Label();
+            this.fast_inv_v2_totaltagcount_label = new System.Windows.Forms.Label();
+            this.fast_inv_v2_totalread_label = new System.Windows.Forms.Label();
+            this.fast_inventory_v2_clear_btn = new System.Windows.Forms.Button();
+            this.label201 = new System.Windows.Forms.Label();
+            this.label200 = new System.Windows.Forms.Label();
+            this.label199 = new System.Windows.Forms.Label();
+            this.label198 = new System.Windows.Forms.Label();
+            this.label197 = new System.Windows.Forms.Label();
+            this.tags_dgv = new System.Windows.Forms.DataGridView();
+            this.mSerialNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mEpcColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mReadCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mRssiColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mFreqColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mPhaseColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mAntennaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mDataColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageAcessTag = new System.Windows.Forms.TabPage();
             this.ltvOperate = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -676,6 +768,7 @@ namespace UHFDemo
             this.net_search_btn = new System.Windows.Forms.Button();
             this.net_refresh_netcard_btn = new System.Windows.Forms.Button();
             this.johar_tabPage = new System.Windows.Forms.TabPage();
+            this.johar_cmd_interval_cb = new System.Windows.Forms.ComboBox();
             this.label183 = new System.Windows.Forms.Label();
             this.johar_tagcount_label = new System.Windows.Forms.Label();
             this.johar_totalread_label = new System.Windows.Forms.Label();
@@ -752,7 +845,7 @@ namespace UHFDemo
             this.mFastSessionTimer = new System.Windows.Forms.Timer(this.components);
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
-            this.johar_cmd_interval_cb = new System.Windows.Forms.ComboBox();
+            this.savelog_cb = new System.Windows.Forms.CheckBox();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -784,7 +877,7 @@ namespace UHFDemo
             this.groupBox21.SuspendLayout();
             this.gbCmdOutputPower.SuspendLayout();
             this.pageEpcTest.SuspendLayout();
-            this.tabEpcTest.SuspendLayout();
+            this.tab_6c_Tags_Test.SuspendLayout();
             this.pageRealMode.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel5.SuspendLayout();
@@ -820,6 +913,20 @@ namespace UHFDemo
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.cmd_8a_v2_tabPage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
+            this.splitContainer2.Panel1.SuspendLayout();
+            this.splitContainer2.Panel2.SuspendLayout();
+            this.splitContainer2.SuspendLayout();
+            this.fast_inv_v2_channel_gb.SuspendLayout();
+            this.groupBox31.SuspendLayout();
+            this.fast_inv_v2_sl_gb.SuspendLayout();
+            this.groupBox32.SuspendLayout();
+            this.groupBox33.SuspendLayout();
+            this.groupBox29.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tags_dgv)).BeginInit();
             this.pageAcessTag.SuspendLayout();
             this.gbCmdOperateTag.SuspendLayout();
             this.groupBox16.SuspendLayout();
@@ -2755,7 +2862,7 @@ namespace UHFDemo
             // 
             this.pageEpcTest.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pageEpcTest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pageEpcTest.Controls.Add(this.tabEpcTest);
+            this.pageEpcTest.Controls.Add(this.tab_6c_Tags_Test);
             this.pageEpcTest.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.pageEpcTest.ForeColor = System.Drawing.SystemColors.Desktop;
             this.pageEpcTest.Location = new System.Drawing.Point(4, 22);
@@ -2764,22 +2871,22 @@ namespace UHFDemo
             this.pageEpcTest.TabIndex = 5;
             this.pageEpcTest.Text = "18000-6C标签测试";
             // 
-            // tabEpcTest
+            // tab_6c_Tags_Test
             // 
-            this.tabEpcTest.Controls.Add(this.pageRealMode);
-            this.tabEpcTest.Controls.Add(this.pageBufferedMode);
-            this.tabEpcTest.Controls.Add(this.pageFast4AntMode);
-            this.tabEpcTest.Controls.Add(this.pageAcessTag);
-            this.tabEpcTest.Controls.Add(this.tabPage3);
-            this.tabEpcTest.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabEpcTest.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tabEpcTest.Location = new System.Drawing.Point(0, 5);
-            this.tabEpcTest.Name = "tabEpcTest";
-            this.tabEpcTest.SelectedIndex = 0;
-            this.tabEpcTest.Size = new System.Drawing.Size(1008, 548);
-            this.tabEpcTest.TabIndex = 0;
-            this.tabEpcTest.TabStop = false;
-            this.tabEpcTest.SelectedIndexChanged += new System.EventHandler(this.tabEpcTest_SelectedIndexChanged);
+            this.tab_6c_Tags_Test.Controls.Add(this.pageRealMode);
+            this.tab_6c_Tags_Test.Controls.Add(this.pageBufferedMode);
+            this.tab_6c_Tags_Test.Controls.Add(this.pageFast4AntMode);
+            this.tab_6c_Tags_Test.Controls.Add(this.cmd_8a_v2_tabPage);
+            this.tab_6c_Tags_Test.Controls.Add(this.pageAcessTag);
+            this.tab_6c_Tags_Test.Controls.Add(this.tabPage3);
+            this.tab_6c_Tags_Test.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tab_6c_Tags_Test.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tab_6c_Tags_Test.Location = new System.Drawing.Point(0, 5);
+            this.tab_6c_Tags_Test.Name = "tab_6c_Tags_Test";
+            this.tab_6c_Tags_Test.SelectedIndex = 0;
+            this.tab_6c_Tags_Test.Size = new System.Drawing.Size(1008, 548);
+            this.tab_6c_Tags_Test.TabIndex = 0;
+            this.tab_6c_Tags_Test.TabStop = false;
             // 
             // pageRealMode
             // 
@@ -3755,7 +3862,7 @@ namespace UHFDemo
             this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50.22422F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.77578F));
-            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 470F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 508F));
             this.tableLayoutPanel4.Controls.Add(this.panel9, 2, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel10, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.panel8, 1, 0);
@@ -3774,9 +3881,9 @@ namespace UHFDemo
             this.panel9.Controls.Add(this.btGetClearBuffer);
             this.panel9.Controls.Add(this.btGetBuffer);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(531, 4);
+            this.panel9.Location = new System.Drawing.Point(493, 4);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(465, 74);
+            this.panel9.Size = new System.Drawing.Size(503, 74);
             this.panel9.TabIndex = 1;
             // 
             // btClearBuffer
@@ -3835,7 +3942,7 @@ namespace UHFDemo
             this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel10.Location = new System.Drawing.Point(4, 4);
             this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(258, 74);
+            this.panel10.Size = new System.Drawing.Size(239, 74);
             this.panel10.TabIndex = 0;
             // 
             // btBufferInventory
@@ -3881,9 +3988,9 @@ namespace UHFDemo
             this.panel8.Controls.Add(this.cbBufferWorkant2);
             this.panel8.Controls.Add(this.cbBufferWorkant3);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(269, 4);
+            this.panel8.Location = new System.Drawing.Point(250, 4);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(255, 74);
+            this.panel8.Size = new System.Drawing.Size(236, 74);
             this.panel8.TabIndex = 0;
             // 
             // checkBox4
@@ -6009,6 +6116,924 @@ namespace UHFDemo
             this.txtFastTagList.Size = new System.Drawing.Size(65, 12);
             this.txtFastTagList.TabIndex = 23;
             this.txtFastTagList.Text = "标签列表: ";
+            // 
+            // cmd_8a_v2_tabPage
+            // 
+            this.cmd_8a_v2_tabPage.Controls.Add(this.splitContainer2);
+            this.cmd_8a_v2_tabPage.Location = new System.Drawing.Point(4, 22);
+            this.cmd_8a_v2_tabPage.Name = "cmd_8a_v2_tabPage";
+            this.cmd_8a_v2_tabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.cmd_8a_v2_tabPage.Size = new System.Drawing.Size(1000, 522);
+            this.cmd_8a_v2_tabPage.TabIndex = 5;
+            this.cmd_8a_v2_tabPage.Text = "快速盘点（临时功率）";
+            this.cmd_8a_v2_tabPage.UseVisualStyleBackColor = true;
+            this.cmd_8a_v2_tabPage.Enter += new System.EventHandler(this.cmd_8a_v2_tabPage_Enter);
+            this.cmd_8a_v2_tabPage.Leave += new System.EventHandler(this.cmd_8a_v2_tabPage_Leave);
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer2.Name = "splitContainer2";
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.fast_inv_v2_channel_gb);
+            this.splitContainer2.Panel1.Controls.Add(this.groupBox31);
+            this.splitContainer2.Panel1.Controls.Add(this.groupBox29);
+            this.splitContainer2.Panel1.Controls.Add(this.fast_inventory_v2_start_btn);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.panel1);
+            this.splitContainer2.Panel2.Controls.Add(this.tags_dgv);
+            this.splitContainer2.Size = new System.Drawing.Size(994, 516);
+            this.splitContainer2.SplitterDistance = 330;
+            this.splitContainer2.TabIndex = 9;
+            // 
+            // fast_inv_v2_channel_gb
+            // 
+            this.fast_inv_v2_channel_gb.Controls.Add(this.fast_inv_v2_channel_1);
+            this.fast_inv_v2_channel_gb.Controls.Add(this.fast_inv_v2_channel_4);
+            this.fast_inv_v2_channel_gb.Controls.Add(this.fast_inv_v2_channel_8);
+            this.fast_inv_v2_channel_gb.Controls.Add(this.fast_inv_v2_channel_16);
+            this.fast_inv_v2_channel_gb.Location = new System.Drawing.Point(101, 6);
+            this.fast_inv_v2_channel_gb.Name = "fast_inv_v2_channel_gb";
+            this.fast_inv_v2_channel_gb.Size = new System.Drawing.Size(223, 38);
+            this.fast_inv_v2_channel_gb.TabIndex = 9;
+            this.fast_inv_v2_channel_gb.TabStop = false;
+            this.fast_inv_v2_channel_gb.Text = "Channel";
+            // 
+            // fast_inv_v2_channel_1
+            // 
+            this.fast_inv_v2_channel_1.AutoSize = true;
+            this.fast_inv_v2_channel_1.Location = new System.Drawing.Point(6, 16);
+            this.fast_inv_v2_channel_1.Name = "fast_inv_v2_channel_1";
+            this.fast_inv_v2_channel_1.Size = new System.Drawing.Size(29, 16);
+            this.fast_inv_v2_channel_1.TabIndex = 3;
+            this.fast_inv_v2_channel_1.TabStop = true;
+            this.fast_inv_v2_channel_1.Text = "1";
+            this.fast_inv_v2_channel_1.UseVisualStyleBackColor = true;
+            this.fast_inv_v2_channel_1.CheckedChanged += new System.EventHandler(this.fast_inv_v2_channel_1_CheckedChanged);
+            // 
+            // fast_inv_v2_channel_4
+            // 
+            this.fast_inv_v2_channel_4.AutoSize = true;
+            this.fast_inv_v2_channel_4.Location = new System.Drawing.Point(65, 16);
+            this.fast_inv_v2_channel_4.Name = "fast_inv_v2_channel_4";
+            this.fast_inv_v2_channel_4.Size = new System.Drawing.Size(29, 16);
+            this.fast_inv_v2_channel_4.TabIndex = 5;
+            this.fast_inv_v2_channel_4.TabStop = true;
+            this.fast_inv_v2_channel_4.Text = "4";
+            this.fast_inv_v2_channel_4.UseVisualStyleBackColor = true;
+            this.fast_inv_v2_channel_4.CheckedChanged += new System.EventHandler(this.fast_inv_v2_channel_4_CheckedChanged);
+            // 
+            // fast_inv_v2_channel_8
+            // 
+            this.fast_inv_v2_channel_8.AutoSize = true;
+            this.fast_inv_v2_channel_8.Location = new System.Drawing.Point(124, 16);
+            this.fast_inv_v2_channel_8.Name = "fast_inv_v2_channel_8";
+            this.fast_inv_v2_channel_8.Size = new System.Drawing.Size(29, 16);
+            this.fast_inv_v2_channel_8.TabIndex = 6;
+            this.fast_inv_v2_channel_8.TabStop = true;
+            this.fast_inv_v2_channel_8.Text = "8";
+            this.fast_inv_v2_channel_8.UseVisualStyleBackColor = true;
+            this.fast_inv_v2_channel_8.CheckedChanged += new System.EventHandler(this.fast_inv_v2_channel_8_CheckedChanged);
+            // 
+            // fast_inv_v2_channel_16
+            // 
+            this.fast_inv_v2_channel_16.AutoSize = true;
+            this.fast_inv_v2_channel_16.Enabled = false;
+            this.fast_inv_v2_channel_16.Location = new System.Drawing.Point(181, 16);
+            this.fast_inv_v2_channel_16.Name = "fast_inv_v2_channel_16";
+            this.fast_inv_v2_channel_16.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2_channel_16.TabIndex = 7;
+            this.fast_inv_v2_channel_16.TabStop = true;
+            this.fast_inv_v2_channel_16.Text = "16";
+            this.fast_inv_v2_channel_16.UseVisualStyleBackColor = true;
+            this.fast_inv_v2_channel_16.CheckedChanged += new System.EventHandler(this.fast_inv_v2_channel_16_CheckedChanged);
+            // 
+            // groupBox31
+            // 
+            this.groupBox31.Controls.Add(this.fast_inv_v2_cb);
+            this.groupBox31.Controls.Add(this.fast_inv_v2_phase_cb);
+            this.groupBox31.Controls.Add(this.label196);
+            this.groupBox31.Controls.Add(this.fast_inv_v2_repeat_tb);
+            this.groupBox31.Controls.Add(this.label194);
+            this.groupBox31.Controls.Add(this.fast_inv_v2_interval_tb);
+            this.groupBox31.Controls.Add(this.fast_inv_v2_sl_gb);
+            this.groupBox31.Controls.Add(this.groupBox32);
+            this.groupBox31.Controls.Add(this.groupBox33);
+            this.groupBox31.Location = new System.Drawing.Point(6, 316);
+            this.groupBox31.Name = "groupBox31";
+            this.groupBox31.Size = new System.Drawing.Size(318, 181);
+            this.groupBox31.TabIndex = 4;
+            this.groupBox31.TabStop = false;
+            this.groupBox31.Text = "参数";
+            // 
+            // fast_inv_v2_cb
+            // 
+            this.fast_inv_v2_cb.AutoSize = true;
+            this.fast_inv_v2_cb.Location = new System.Drawing.Point(230, 160);
+            this.fast_inv_v2_cb.Name = "fast_inv_v2_cb";
+            this.fast_inv_v2_cb.Size = new System.Drawing.Size(78, 16);
+            this.fast_inv_v2_cb.TabIndex = 15;
+            this.fast_inv_v2_cb.Text = "CMD_8A_V2";
+            this.fast_inv_v2_cb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_phase_cb
+            // 
+            this.fast_inv_v2_phase_cb.AutoSize = true;
+            this.fast_inv_v2_phase_cb.Location = new System.Drawing.Point(207, 17);
+            this.fast_inv_v2_phase_cb.Name = "fast_inv_v2_phase_cb";
+            this.fast_inv_v2_phase_cb.Size = new System.Drawing.Size(54, 16);
+            this.fast_inv_v2_phase_cb.TabIndex = 12;
+            this.fast_inv_v2_phase_cb.Text = "Phase";
+            this.fast_inv_v2_phase_cb.UseVisualStyleBackColor = true;
+            this.fast_inv_v2_phase_cb.CheckedChanged += new System.EventHandler(this.fast_inv_v2_phase_cb_CheckedChanged);
+            // 
+            // label196
+            // 
+            this.label196.AutoSize = true;
+            this.label196.Location = new System.Drawing.Point(4, 45);
+            this.label196.Name = "label196";
+            this.label196.Size = new System.Drawing.Size(53, 12);
+            this.label196.TabIndex = 14;
+            this.label196.Text = "循环次数";
+            // 
+            // fast_inv_v2_repeat_tb
+            // 
+            this.fast_inv_v2_repeat_tb.Location = new System.Drawing.Point(101, 44);
+            this.fast_inv_v2_repeat_tb.Name = "fast_inv_v2_repeat_tb";
+            this.fast_inv_v2_repeat_tb.Size = new System.Drawing.Size(55, 21);
+            this.fast_inv_v2_repeat_tb.TabIndex = 13;
+            // 
+            // label194
+            // 
+            this.label194.AutoSize = true;
+            this.label194.Location = new System.Drawing.Point(4, 17);
+            this.label194.Name = "label194";
+            this.label194.Size = new System.Drawing.Size(89, 12);
+            this.label194.TabIndex = 12;
+            this.label194.Text = "天线间延时(mS)";
+            // 
+            // fast_inv_v2_interval_tb
+            // 
+            this.fast_inv_v2_interval_tb.Location = new System.Drawing.Point(101, 14);
+            this.fast_inv_v2_interval_tb.Name = "fast_inv_v2_interval_tb";
+            this.fast_inv_v2_interval_tb.Size = new System.Drawing.Size(55, 21);
+            this.fast_inv_v2_interval_tb.TabIndex = 6;
+            // 
+            // fast_inv_v2_sl_gb
+            // 
+            this.fast_inv_v2_sl_gb.Controls.Add(this.fast_inv_v2_sl_03_rb);
+            this.fast_inv_v2_sl_gb.Controls.Add(this.fast_inv_v2_sl_02_rb);
+            this.fast_inv_v2_sl_gb.Controls.Add(this.fast_inv_v2_sl_01_rb);
+            this.fast_inv_v2_sl_gb.Controls.Add(this.fast_inv_v2_sl_00_rb);
+            this.fast_inv_v2_sl_gb.Location = new System.Drawing.Point(6, 115);
+            this.fast_inv_v2_sl_gb.Name = "fast_inv_v2_sl_gb";
+            this.fast_inv_v2_sl_gb.Size = new System.Drawing.Size(172, 38);
+            this.fast_inv_v2_sl_gb.TabIndex = 11;
+            this.fast_inv_v2_sl_gb.TabStop = false;
+            this.fast_inv_v2_sl_gb.Text = "SL";
+            // 
+            // fast_inv_v2_sl_03_rb
+            // 
+            this.fast_inv_v2_sl_03_rb.AutoSize = true;
+            this.fast_inv_v2_sl_03_rb.Location = new System.Drawing.Point(130, 16);
+            this.fast_inv_v2_sl_03_rb.Name = "fast_inv_v2_sl_03_rb";
+            this.fast_inv_v2_sl_03_rb.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2_sl_03_rb.TabIndex = 3;
+            this.fast_inv_v2_sl_03_rb.TabStop = true;
+            this.fast_inv_v2_sl_03_rb.Text = "03";
+            this.fast_inv_v2_sl_03_rb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_sl_02_rb
+            // 
+            this.fast_inv_v2_sl_02_rb.AutoSize = true;
+            this.fast_inv_v2_sl_02_rb.Location = new System.Drawing.Point(91, 16);
+            this.fast_inv_v2_sl_02_rb.Name = "fast_inv_v2_sl_02_rb";
+            this.fast_inv_v2_sl_02_rb.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2_sl_02_rb.TabIndex = 2;
+            this.fast_inv_v2_sl_02_rb.TabStop = true;
+            this.fast_inv_v2_sl_02_rb.Text = "02";
+            this.fast_inv_v2_sl_02_rb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_sl_01_rb
+            // 
+            this.fast_inv_v2_sl_01_rb.AutoSize = true;
+            this.fast_inv_v2_sl_01_rb.Location = new System.Drawing.Point(47, 16);
+            this.fast_inv_v2_sl_01_rb.Name = "fast_inv_v2_sl_01_rb";
+            this.fast_inv_v2_sl_01_rb.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2_sl_01_rb.TabIndex = 1;
+            this.fast_inv_v2_sl_01_rb.TabStop = true;
+            this.fast_inv_v2_sl_01_rb.Text = "01";
+            this.fast_inv_v2_sl_01_rb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_sl_00_rb
+            // 
+            this.fast_inv_v2_sl_00_rb.AutoSize = true;
+            this.fast_inv_v2_sl_00_rb.Location = new System.Drawing.Point(6, 16);
+            this.fast_inv_v2_sl_00_rb.Name = "fast_inv_v2_sl_00_rb";
+            this.fast_inv_v2_sl_00_rb.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2_sl_00_rb.TabIndex = 0;
+            this.fast_inv_v2_sl_00_rb.TabStop = true;
+            this.fast_inv_v2_sl_00_rb.Text = "00";
+            this.fast_inv_v2_sl_00_rb.UseVisualStyleBackColor = true;
+            // 
+            // groupBox32
+            // 
+            this.groupBox32.Controls.Add(this.fast_inv_v2_S0_rb);
+            this.groupBox32.Controls.Add(this.fast_inv_v2_S1_rb);
+            this.groupBox32.Controls.Add(this.fast_inv_v2_S2_rb);
+            this.groupBox32.Controls.Add(this.fast_inv_v2__S3_rb);
+            this.groupBox32.Location = new System.Drawing.Point(6, 71);
+            this.groupBox32.Name = "groupBox32";
+            this.groupBox32.Size = new System.Drawing.Size(172, 38);
+            this.groupBox32.TabIndex = 8;
+            this.groupBox32.TabStop = false;
+            this.groupBox32.Text = "Session";
+            // 
+            // fast_inv_v2_S0_rb
+            // 
+            this.fast_inv_v2_S0_rb.AutoSize = true;
+            this.fast_inv_v2_S0_rb.Location = new System.Drawing.Point(6, 16);
+            this.fast_inv_v2_S0_rb.Name = "fast_inv_v2_S0_rb";
+            this.fast_inv_v2_S0_rb.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2_S0_rb.TabIndex = 3;
+            this.fast_inv_v2_S0_rb.TabStop = true;
+            this.fast_inv_v2_S0_rb.Text = "S0";
+            this.fast_inv_v2_S0_rb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_S1_rb
+            // 
+            this.fast_inv_v2_S1_rb.AutoSize = true;
+            this.fast_inv_v2_S1_rb.Location = new System.Drawing.Point(47, 16);
+            this.fast_inv_v2_S1_rb.Name = "fast_inv_v2_S1_rb";
+            this.fast_inv_v2_S1_rb.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2_S1_rb.TabIndex = 5;
+            this.fast_inv_v2_S1_rb.TabStop = true;
+            this.fast_inv_v2_S1_rb.Text = "S1";
+            this.fast_inv_v2_S1_rb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_S2_rb
+            // 
+            this.fast_inv_v2_S2_rb.AutoSize = true;
+            this.fast_inv_v2_S2_rb.Location = new System.Drawing.Point(89, 16);
+            this.fast_inv_v2_S2_rb.Name = "fast_inv_v2_S2_rb";
+            this.fast_inv_v2_S2_rb.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2_S2_rb.TabIndex = 6;
+            this.fast_inv_v2_S2_rb.TabStop = true;
+            this.fast_inv_v2_S2_rb.Text = "S2";
+            this.fast_inv_v2_S2_rb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2__S3_rb
+            // 
+            this.fast_inv_v2__S3_rb.AutoSize = true;
+            this.fast_inv_v2__S3_rb.Location = new System.Drawing.Point(130, 16);
+            this.fast_inv_v2__S3_rb.Name = "fast_inv_v2__S3_rb";
+            this.fast_inv_v2__S3_rb.Size = new System.Drawing.Size(35, 16);
+            this.fast_inv_v2__S3_rb.TabIndex = 7;
+            this.fast_inv_v2__S3_rb.TabStop = true;
+            this.fast_inv_v2__S3_rb.Text = "S3";
+            this.fast_inv_v2__S3_rb.UseVisualStyleBackColor = true;
+            // 
+            // groupBox33
+            // 
+            this.groupBox33.Controls.Add(this.fast_inv_v2_target_A_rb);
+            this.groupBox33.Controls.Add(this.fast_inv_v2_target_B_rb);
+            this.groupBox33.Location = new System.Drawing.Point(193, 71);
+            this.groupBox33.Name = "groupBox33";
+            this.groupBox33.Size = new System.Drawing.Size(119, 38);
+            this.groupBox33.TabIndex = 9;
+            this.groupBox33.TabStop = false;
+            this.groupBox33.Text = "Target";
+            // 
+            // fast_inv_v2_target_A_rb
+            // 
+            this.fast_inv_v2_target_A_rb.AutoSize = true;
+            this.fast_inv_v2_target_A_rb.Location = new System.Drawing.Point(12, 15);
+            this.fast_inv_v2_target_A_rb.Name = "fast_inv_v2_target_A_rb";
+            this.fast_inv_v2_target_A_rb.Size = new System.Drawing.Size(29, 16);
+            this.fast_inv_v2_target_A_rb.TabIndex = 8;
+            this.fast_inv_v2_target_A_rb.TabStop = true;
+            this.fast_inv_v2_target_A_rb.Text = "A";
+            this.fast_inv_v2_target_A_rb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_target_B_rb
+            // 
+            this.fast_inv_v2_target_B_rb.AutoSize = true;
+            this.fast_inv_v2_target_B_rb.Location = new System.Drawing.Point(71, 15);
+            this.fast_inv_v2_target_B_rb.Name = "fast_inv_v2_target_B_rb";
+            this.fast_inv_v2_target_B_rb.Size = new System.Drawing.Size(29, 16);
+            this.fast_inv_v2_target_B_rb.TabIndex = 10;
+            this.fast_inv_v2_target_B_rb.TabStop = true;
+            this.fast_inv_v2_target_B_rb.Text = "B";
+            this.fast_inv_v2_target_B_rb.UseVisualStyleBackColor = true;
+            // 
+            // groupBox29
+            // 
+            this.groupBox29.Controls.Add(this.tableLayoutPanel2);
+            this.groupBox29.Location = new System.Drawing.Point(3, 48);
+            this.groupBox29.Name = "groupBox29";
+            this.groupBox29.Size = new System.Drawing.Size(324, 261);
+            this.groupBox29.TabIndex = 3;
+            this.groupBox29.TabStop = false;
+            this.groupBox29.Text = "天线";
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.label186, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_H_ant_cb, 0, 8);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_G_ant_cb, 0, 7);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_F_ant_cb, 0, 6);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_E_ant_cb, 0, 5);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_D_ant_cb, 0, 4);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_C_ant_cb, 0, 3);
+            this.tableLayoutPanel2.Controls.Add(this.label195, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.label184, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_H_power_tb, 3, 8);
+            this.tableLayoutPanel2.Controls.Add(this.label185, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_H_stay_tb, 2, 8);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_H_ant_cbo, 1, 8);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_G_power_tb, 3, 7);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_G_stay_tb, 2, 7);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_G_ant_cbo, 1, 7);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_F_power_tb, 3, 6);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_F_stay_tb, 2, 6);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_F_ant_cbo, 1, 6);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_E_power_tb, 3, 5);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_E_stay_tb, 2, 5);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_E_ant_cbo, 1, 5);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_D_power_tb, 3, 4);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_D_stay_tb, 2, 4);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_D_ant_cbo, 1, 4);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_C_power_tb, 3, 3);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_C_stay_tb, 2, 3);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_B_stay_tb, 2, 2);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_A_power_tb, 3, 1);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_B_power_tb, 3, 2);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_B_ant_cbo, 1, 2);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_A_ant_cbo, 1, 1);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_A_stay_tb, 2, 1);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_C_ant_cbo, 1, 3);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_A_ant_cb, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.fast_inv_v2_B_ant_cb, 0, 2);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 17);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 9;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(318, 241);
+            this.tableLayoutPanel2.TabIndex = 1;
+            // 
+            // label186
+            // 
+            this.label186.AutoSize = true;
+            this.label186.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label186.Location = new System.Drawing.Point(3, 0);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(29, 20);
+            this.label186.TabIndex = 48;
+            this.label186.Text = "天线";
+            // 
+            // fast_inv_v2_H_ant_cb
+            // 
+            this.fast_inv_v2_H_ant_cb.AutoSize = true;
+            this.fast_inv_v2_H_ant_cb.Location = new System.Drawing.Point(3, 212);
+            this.fast_inv_v2_H_ant_cb.Name = "fast_inv_v2_H_ant_cb";
+            this.fast_inv_v2_H_ant_cb.Size = new System.Drawing.Size(30, 16);
+            this.fast_inv_v2_H_ant_cb.TabIndex = 47;
+            this.fast_inv_v2_H_ant_cb.Text = "8";
+            this.fast_inv_v2_H_ant_cb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_G_ant_cb
+            // 
+            this.fast_inv_v2_G_ant_cb.AutoSize = true;
+            this.fast_inv_v2_G_ant_cb.Location = new System.Drawing.Point(3, 185);
+            this.fast_inv_v2_G_ant_cb.Name = "fast_inv_v2_G_ant_cb";
+            this.fast_inv_v2_G_ant_cb.Size = new System.Drawing.Size(30, 16);
+            this.fast_inv_v2_G_ant_cb.TabIndex = 46;
+            this.fast_inv_v2_G_ant_cb.Text = "7";
+            this.fast_inv_v2_G_ant_cb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_F_ant_cb
+            // 
+            this.fast_inv_v2_F_ant_cb.AutoSize = true;
+            this.fast_inv_v2_F_ant_cb.Location = new System.Drawing.Point(3, 158);
+            this.fast_inv_v2_F_ant_cb.Name = "fast_inv_v2_F_ant_cb";
+            this.fast_inv_v2_F_ant_cb.Size = new System.Drawing.Size(30, 16);
+            this.fast_inv_v2_F_ant_cb.TabIndex = 45;
+            this.fast_inv_v2_F_ant_cb.Text = "6";
+            this.fast_inv_v2_F_ant_cb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_E_ant_cb
+            // 
+            this.fast_inv_v2_E_ant_cb.AutoSize = true;
+            this.fast_inv_v2_E_ant_cb.Location = new System.Drawing.Point(3, 131);
+            this.fast_inv_v2_E_ant_cb.Name = "fast_inv_v2_E_ant_cb";
+            this.fast_inv_v2_E_ant_cb.Size = new System.Drawing.Size(30, 16);
+            this.fast_inv_v2_E_ant_cb.TabIndex = 44;
+            this.fast_inv_v2_E_ant_cb.Text = "5";
+            this.fast_inv_v2_E_ant_cb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_D_ant_cb
+            // 
+            this.fast_inv_v2_D_ant_cb.AutoSize = true;
+            this.fast_inv_v2_D_ant_cb.Location = new System.Drawing.Point(3, 104);
+            this.fast_inv_v2_D_ant_cb.Name = "fast_inv_v2_D_ant_cb";
+            this.fast_inv_v2_D_ant_cb.Size = new System.Drawing.Size(30, 16);
+            this.fast_inv_v2_D_ant_cb.TabIndex = 43;
+            this.fast_inv_v2_D_ant_cb.Text = "4";
+            this.fast_inv_v2_D_ant_cb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_C_ant_cb
+            // 
+            this.fast_inv_v2_C_ant_cb.AutoSize = true;
+            this.fast_inv_v2_C_ant_cb.Location = new System.Drawing.Point(3, 77);
+            this.fast_inv_v2_C_ant_cb.Name = "fast_inv_v2_C_ant_cb";
+            this.fast_inv_v2_C_ant_cb.Size = new System.Drawing.Size(30, 16);
+            this.fast_inv_v2_C_ant_cb.TabIndex = 42;
+            this.fast_inv_v2_C_ant_cb.Text = "3";
+            this.fast_inv_v2_C_ant_cb.UseVisualStyleBackColor = true;
+            // 
+            // label195
+            // 
+            this.label195.AutoSize = true;
+            this.label195.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label195.Location = new System.Drawing.Point(66, 0);
+            this.label195.Name = "label195";
+            this.label195.Size = new System.Drawing.Size(29, 20);
+            this.label195.TabIndex = 38;
+            this.label195.Text = "天线";
+            // 
+            // label184
+            // 
+            this.label184.AutoSize = true;
+            this.label184.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label184.Location = new System.Drawing.Point(129, 0);
+            this.label184.Name = "label184";
+            this.label184.Size = new System.Drawing.Size(53, 20);
+            this.label184.TabIndex = 8;
+            this.label184.Text = "轮询次数";
+            // 
+            // fast_inv_v2_H_power_tb
+            // 
+            this.fast_inv_v2_H_power_tb.Location = new System.Drawing.Point(224, 212);
+            this.fast_inv_v2_H_power_tb.Name = "fast_inv_v2_H_power_tb";
+            this.fast_inv_v2_H_power_tb.Size = new System.Drawing.Size(91, 21);
+            this.fast_inv_v2_H_power_tb.TabIndex = 36;
+            // 
+            // label185
+            // 
+            this.label185.AutoSize = true;
+            this.label185.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label185.Location = new System.Drawing.Point(224, 0);
+            this.label185.Name = "label185";
+            this.label185.Size = new System.Drawing.Size(29, 20);
+            this.label185.TabIndex = 7;
+            this.label185.Text = "功率";
+            // 
+            // fast_inv_v2_H_stay_tb
+            // 
+            this.fast_inv_v2_H_stay_tb.Location = new System.Drawing.Point(129, 212);
+            this.fast_inv_v2_H_stay_tb.Name = "fast_inv_v2_H_stay_tb";
+            this.fast_inv_v2_H_stay_tb.Size = new System.Drawing.Size(89, 21);
+            this.fast_inv_v2_H_stay_tb.TabIndex = 35;
+            // 
+            // fast_inv_v2_H_ant_cbo
+            // 
+            this.fast_inv_v2_H_ant_cbo.DropDownWidth = 40;
+            this.fast_inv_v2_H_ant_cbo.FormattingEnabled = true;
+            this.fast_inv_v2_H_ant_cbo.Location = new System.Drawing.Point(66, 212);
+            this.fast_inv_v2_H_ant_cbo.Name = "fast_inv_v2_H_ant_cbo";
+            this.fast_inv_v2_H_ant_cbo.Size = new System.Drawing.Size(50, 20);
+            this.fast_inv_v2_H_ant_cbo.TabIndex = 34;
+            // 
+            // fast_inv_v2_G_power_tb
+            // 
+            this.fast_inv_v2_G_power_tb.Location = new System.Drawing.Point(224, 185);
+            this.fast_inv_v2_G_power_tb.Name = "fast_inv_v2_G_power_tb";
+            this.fast_inv_v2_G_power_tb.Size = new System.Drawing.Size(91, 21);
+            this.fast_inv_v2_G_power_tb.TabIndex = 32;
+            // 
+            // fast_inv_v2_G_stay_tb
+            // 
+            this.fast_inv_v2_G_stay_tb.Location = new System.Drawing.Point(129, 185);
+            this.fast_inv_v2_G_stay_tb.Name = "fast_inv_v2_G_stay_tb";
+            this.fast_inv_v2_G_stay_tb.Size = new System.Drawing.Size(89, 21);
+            this.fast_inv_v2_G_stay_tb.TabIndex = 31;
+            // 
+            // fast_inv_v2_G_ant_cbo
+            // 
+            this.fast_inv_v2_G_ant_cbo.DropDownWidth = 40;
+            this.fast_inv_v2_G_ant_cbo.FormattingEnabled = true;
+            this.fast_inv_v2_G_ant_cbo.Location = new System.Drawing.Point(66, 185);
+            this.fast_inv_v2_G_ant_cbo.Name = "fast_inv_v2_G_ant_cbo";
+            this.fast_inv_v2_G_ant_cbo.Size = new System.Drawing.Size(50, 20);
+            this.fast_inv_v2_G_ant_cbo.TabIndex = 30;
+            // 
+            // fast_inv_v2_F_power_tb
+            // 
+            this.fast_inv_v2_F_power_tb.Location = new System.Drawing.Point(224, 158);
+            this.fast_inv_v2_F_power_tb.Name = "fast_inv_v2_F_power_tb";
+            this.fast_inv_v2_F_power_tb.Size = new System.Drawing.Size(91, 21);
+            this.fast_inv_v2_F_power_tb.TabIndex = 28;
+            // 
+            // fast_inv_v2_F_stay_tb
+            // 
+            this.fast_inv_v2_F_stay_tb.Location = new System.Drawing.Point(129, 158);
+            this.fast_inv_v2_F_stay_tb.Name = "fast_inv_v2_F_stay_tb";
+            this.fast_inv_v2_F_stay_tb.Size = new System.Drawing.Size(89, 21);
+            this.fast_inv_v2_F_stay_tb.TabIndex = 27;
+            // 
+            // fast_inv_v2_F_ant_cbo
+            // 
+            this.fast_inv_v2_F_ant_cbo.DropDownWidth = 40;
+            this.fast_inv_v2_F_ant_cbo.FormattingEnabled = true;
+            this.fast_inv_v2_F_ant_cbo.Location = new System.Drawing.Point(66, 158);
+            this.fast_inv_v2_F_ant_cbo.Name = "fast_inv_v2_F_ant_cbo";
+            this.fast_inv_v2_F_ant_cbo.Size = new System.Drawing.Size(50, 20);
+            this.fast_inv_v2_F_ant_cbo.TabIndex = 26;
+            // 
+            // fast_inv_v2_E_power_tb
+            // 
+            this.fast_inv_v2_E_power_tb.Location = new System.Drawing.Point(224, 131);
+            this.fast_inv_v2_E_power_tb.Name = "fast_inv_v2_E_power_tb";
+            this.fast_inv_v2_E_power_tb.Size = new System.Drawing.Size(91, 21);
+            this.fast_inv_v2_E_power_tb.TabIndex = 24;
+            // 
+            // fast_inv_v2_E_stay_tb
+            // 
+            this.fast_inv_v2_E_stay_tb.Location = new System.Drawing.Point(129, 131);
+            this.fast_inv_v2_E_stay_tb.Name = "fast_inv_v2_E_stay_tb";
+            this.fast_inv_v2_E_stay_tb.Size = new System.Drawing.Size(89, 21);
+            this.fast_inv_v2_E_stay_tb.TabIndex = 23;
+            // 
+            // fast_inv_v2_E_ant_cbo
+            // 
+            this.fast_inv_v2_E_ant_cbo.DropDownWidth = 40;
+            this.fast_inv_v2_E_ant_cbo.FormattingEnabled = true;
+            this.fast_inv_v2_E_ant_cbo.Location = new System.Drawing.Point(66, 131);
+            this.fast_inv_v2_E_ant_cbo.Name = "fast_inv_v2_E_ant_cbo";
+            this.fast_inv_v2_E_ant_cbo.Size = new System.Drawing.Size(50, 20);
+            this.fast_inv_v2_E_ant_cbo.TabIndex = 22;
+            // 
+            // fast_inv_v2_D_power_tb
+            // 
+            this.fast_inv_v2_D_power_tb.Location = new System.Drawing.Point(224, 104);
+            this.fast_inv_v2_D_power_tb.Name = "fast_inv_v2_D_power_tb";
+            this.fast_inv_v2_D_power_tb.Size = new System.Drawing.Size(91, 21);
+            this.fast_inv_v2_D_power_tb.TabIndex = 20;
+            // 
+            // fast_inv_v2_D_stay_tb
+            // 
+            this.fast_inv_v2_D_stay_tb.Location = new System.Drawing.Point(129, 104);
+            this.fast_inv_v2_D_stay_tb.Name = "fast_inv_v2_D_stay_tb";
+            this.fast_inv_v2_D_stay_tb.Size = new System.Drawing.Size(89, 21);
+            this.fast_inv_v2_D_stay_tb.TabIndex = 19;
+            // 
+            // fast_inv_v2_D_ant_cbo
+            // 
+            this.fast_inv_v2_D_ant_cbo.DropDownWidth = 40;
+            this.fast_inv_v2_D_ant_cbo.FormattingEnabled = true;
+            this.fast_inv_v2_D_ant_cbo.Location = new System.Drawing.Point(66, 104);
+            this.fast_inv_v2_D_ant_cbo.Name = "fast_inv_v2_D_ant_cbo";
+            this.fast_inv_v2_D_ant_cbo.Size = new System.Drawing.Size(50, 20);
+            this.fast_inv_v2_D_ant_cbo.TabIndex = 18;
+            // 
+            // fast_inv_v2_C_power_tb
+            // 
+            this.fast_inv_v2_C_power_tb.Location = new System.Drawing.Point(224, 77);
+            this.fast_inv_v2_C_power_tb.Name = "fast_inv_v2_C_power_tb";
+            this.fast_inv_v2_C_power_tb.Size = new System.Drawing.Size(91, 21);
+            this.fast_inv_v2_C_power_tb.TabIndex = 16;
+            // 
+            // fast_inv_v2_C_stay_tb
+            // 
+            this.fast_inv_v2_C_stay_tb.Location = new System.Drawing.Point(129, 77);
+            this.fast_inv_v2_C_stay_tb.Name = "fast_inv_v2_C_stay_tb";
+            this.fast_inv_v2_C_stay_tb.Size = new System.Drawing.Size(89, 21);
+            this.fast_inv_v2_C_stay_tb.TabIndex = 15;
+            // 
+            // fast_inv_v2_B_stay_tb
+            // 
+            this.fast_inv_v2_B_stay_tb.Location = new System.Drawing.Point(129, 50);
+            this.fast_inv_v2_B_stay_tb.Name = "fast_inv_v2_B_stay_tb";
+            this.fast_inv_v2_B_stay_tb.Size = new System.Drawing.Size(89, 21);
+            this.fast_inv_v2_B_stay_tb.TabIndex = 11;
+            // 
+            // fast_inv_v2_A_power_tb
+            // 
+            this.fast_inv_v2_A_power_tb.Location = new System.Drawing.Point(224, 23);
+            this.fast_inv_v2_A_power_tb.Name = "fast_inv_v2_A_power_tb";
+            this.fast_inv_v2_A_power_tb.Size = new System.Drawing.Size(91, 21);
+            this.fast_inv_v2_A_power_tb.TabIndex = 5;
+            // 
+            // fast_inv_v2_B_power_tb
+            // 
+            this.fast_inv_v2_B_power_tb.Location = new System.Drawing.Point(224, 50);
+            this.fast_inv_v2_B_power_tb.Name = "fast_inv_v2_B_power_tb";
+            this.fast_inv_v2_B_power_tb.Size = new System.Drawing.Size(91, 21);
+            this.fast_inv_v2_B_power_tb.TabIndex = 10;
+            // 
+            // fast_inv_v2_B_ant_cbo
+            // 
+            this.fast_inv_v2_B_ant_cbo.DropDownWidth = 40;
+            this.fast_inv_v2_B_ant_cbo.FormattingEnabled = true;
+            this.fast_inv_v2_B_ant_cbo.Location = new System.Drawing.Point(66, 50);
+            this.fast_inv_v2_B_ant_cbo.Name = "fast_inv_v2_B_ant_cbo";
+            this.fast_inv_v2_B_ant_cbo.Size = new System.Drawing.Size(51, 20);
+            this.fast_inv_v2_B_ant_cbo.TabIndex = 9;
+            // 
+            // fast_inv_v2_A_ant_cbo
+            // 
+            this.fast_inv_v2_A_ant_cbo.DropDownWidth = 40;
+            this.fast_inv_v2_A_ant_cbo.FormattingEnabled = true;
+            this.fast_inv_v2_A_ant_cbo.Location = new System.Drawing.Point(66, 23);
+            this.fast_inv_v2_A_ant_cbo.Name = "fast_inv_v2_A_ant_cbo";
+            this.fast_inv_v2_A_ant_cbo.Size = new System.Drawing.Size(50, 20);
+            this.fast_inv_v2_A_ant_cbo.TabIndex = 2;
+            // 
+            // fast_inv_v2_A_stay_tb
+            // 
+            this.fast_inv_v2_A_stay_tb.Location = new System.Drawing.Point(129, 23);
+            this.fast_inv_v2_A_stay_tb.Name = "fast_inv_v2_A_stay_tb";
+            this.fast_inv_v2_A_stay_tb.Size = new System.Drawing.Size(89, 21);
+            this.fast_inv_v2_A_stay_tb.TabIndex = 4;
+            // 
+            // fast_inv_v2_C_ant_cbo
+            // 
+            this.fast_inv_v2_C_ant_cbo.DropDownWidth = 40;
+            this.fast_inv_v2_C_ant_cbo.FormattingEnabled = true;
+            this.fast_inv_v2_C_ant_cbo.Location = new System.Drawing.Point(66, 77);
+            this.fast_inv_v2_C_ant_cbo.Name = "fast_inv_v2_C_ant_cbo";
+            this.fast_inv_v2_C_ant_cbo.Size = new System.Drawing.Size(50, 20);
+            this.fast_inv_v2_C_ant_cbo.TabIndex = 14;
+            // 
+            // fast_inv_v2_A_ant_cb
+            // 
+            this.fast_inv_v2_A_ant_cb.AutoSize = true;
+            this.fast_inv_v2_A_ant_cb.Location = new System.Drawing.Point(3, 23);
+            this.fast_inv_v2_A_ant_cb.Name = "fast_inv_v2_A_ant_cb";
+            this.fast_inv_v2_A_ant_cb.Size = new System.Drawing.Size(30, 16);
+            this.fast_inv_v2_A_ant_cb.TabIndex = 39;
+            this.fast_inv_v2_A_ant_cb.Text = "1";
+            this.fast_inv_v2_A_ant_cb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inv_v2_B_ant_cb
+            // 
+            this.fast_inv_v2_B_ant_cb.AutoSize = true;
+            this.fast_inv_v2_B_ant_cb.Location = new System.Drawing.Point(3, 50);
+            this.fast_inv_v2_B_ant_cb.Name = "fast_inv_v2_B_ant_cb";
+            this.fast_inv_v2_B_ant_cb.Size = new System.Drawing.Size(30, 16);
+            this.fast_inv_v2_B_ant_cb.TabIndex = 40;
+            this.fast_inv_v2_B_ant_cb.Text = "2";
+            this.fast_inv_v2_B_ant_cb.UseVisualStyleBackColor = true;
+            // 
+            // fast_inventory_v2_start_btn
+            // 
+            this.fast_inventory_v2_start_btn.Location = new System.Drawing.Point(15, 19);
+            this.fast_inventory_v2_start_btn.Name = "fast_inventory_v2_start_btn";
+            this.fast_inventory_v2_start_btn.Size = new System.Drawing.Size(75, 23);
+            this.fast_inventory_v2_start_btn.TabIndex = 1;
+            this.fast_inventory_v2_start_btn.Text = "开始";
+            this.fast_inventory_v2_start_btn.UseVisualStyleBackColor = true;
+            this.fast_inventory_v2_start_btn.Click += new System.EventHandler(this.fast_inventory_v2_start_btn_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.fast_inv_v2_cmd_totalread_label);
+            this.panel1.Controls.Add(this.label187);
+            this.panel1.Controls.Add(this.fast_inv_v2_cmd_exec_rate);
+            this.panel1.Controls.Add(this.fast_inv_v2_total_cmd_time_label);
+            this.panel1.Controls.Add(this.fast_inv_v2_cmd_time_label);
+            this.panel1.Controls.Add(this.fast_inv_v2_totaltagcount_label);
+            this.panel1.Controls.Add(this.fast_inv_v2_totalread_label);
+            this.panel1.Controls.Add(this.fast_inventory_v2_clear_btn);
+            this.panel1.Controls.Add(this.label201);
+            this.panel1.Controls.Add(this.label200);
+            this.panel1.Controls.Add(this.label199);
+            this.panel1.Controls.Add(this.label198);
+            this.panel1.Controls.Add(this.label197);
+            this.panel1.Location = new System.Drawing.Point(5, 4);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(652, 75);
+            this.panel1.TabIndex = 2;
+            // 
+            // fast_inv_v2_cmd_totalread_label
+            // 
+            this.fast_inv_v2_cmd_totalread_label.AutoSize = true;
+            this.fast_inv_v2_cmd_totalread_label.Location = new System.Drawing.Point(289, 48);
+            this.fast_inv_v2_cmd_totalread_label.Name = "fast_inv_v2_cmd_totalread_label";
+            this.fast_inv_v2_cmd_totalread_label.Size = new System.Drawing.Size(11, 12);
+            this.fast_inv_v2_cmd_totalread_label.TabIndex = 12;
+            this.fast_inv_v2_cmd_totalread_label.Text = "0";
+            // 
+            // label187
+            // 
+            this.label187.AutoSize = true;
+            this.label187.Location = new System.Drawing.Point(194, 48);
+            this.label187.Name = "label187";
+            this.label187.Size = new System.Drawing.Size(77, 12);
+            this.label187.TabIndex = 11;
+            this.label187.Text = "返回标签数：";
+            // 
+            // fast_inv_v2_cmd_exec_rate
+            // 
+            this.fast_inv_v2_cmd_exec_rate.AutoSize = true;
+            this.fast_inv_v2_cmd_exec_rate.Location = new System.Drawing.Point(506, 10);
+            this.fast_inv_v2_cmd_exec_rate.Name = "fast_inv_v2_cmd_exec_rate";
+            this.fast_inv_v2_cmd_exec_rate.Size = new System.Drawing.Size(11, 12);
+            this.fast_inv_v2_cmd_exec_rate.TabIndex = 10;
+            this.fast_inv_v2_cmd_exec_rate.Text = "0";
+            // 
+            // fast_inv_v2_total_cmd_time_label
+            // 
+            this.fast_inv_v2_total_cmd_time_label.AutoSize = true;
+            this.fast_inv_v2_total_cmd_time_label.Location = new System.Drawing.Point(506, 49);
+            this.fast_inv_v2_total_cmd_time_label.Name = "fast_inv_v2_total_cmd_time_label";
+            this.fast_inv_v2_total_cmd_time_label.Size = new System.Drawing.Size(11, 12);
+            this.fast_inv_v2_total_cmd_time_label.TabIndex = 9;
+            this.fast_inv_v2_total_cmd_time_label.Text = "0";
+            // 
+            // fast_inv_v2_cmd_time_label
+            // 
+            this.fast_inv_v2_cmd_time_label.AutoSize = true;
+            this.fast_inv_v2_cmd_time_label.Location = new System.Drawing.Point(289, 10);
+            this.fast_inv_v2_cmd_time_label.Name = "fast_inv_v2_cmd_time_label";
+            this.fast_inv_v2_cmd_time_label.Size = new System.Drawing.Size(11, 12);
+            this.fast_inv_v2_cmd_time_label.TabIndex = 8;
+            this.fast_inv_v2_cmd_time_label.Text = "0";
+            // 
+            // fast_inv_v2_totaltagcount_label
+            // 
+            this.fast_inv_v2_totaltagcount_label.AutoSize = true;
+            this.fast_inv_v2_totaltagcount_label.Location = new System.Drawing.Point(86, 48);
+            this.fast_inv_v2_totaltagcount_label.Name = "fast_inv_v2_totaltagcount_label";
+            this.fast_inv_v2_totaltagcount_label.Size = new System.Drawing.Size(11, 12);
+            this.fast_inv_v2_totaltagcount_label.TabIndex = 7;
+            this.fast_inv_v2_totaltagcount_label.Text = "0";
+            // 
+            // fast_inv_v2_totalread_label
+            // 
+            this.fast_inv_v2_totalread_label.AutoSize = true;
+            this.fast_inv_v2_totalread_label.Location = new System.Drawing.Point(86, 10);
+            this.fast_inv_v2_totalread_label.Name = "fast_inv_v2_totalread_label";
+            this.fast_inv_v2_totalread_label.Size = new System.Drawing.Size(11, 12);
+            this.fast_inv_v2_totalread_label.TabIndex = 6;
+            this.fast_inv_v2_totalread_label.Text = "0";
+            // 
+            // fast_inventory_v2_clear_btn
+            // 
+            this.fast_inventory_v2_clear_btn.Location = new System.Drawing.Point(574, 49);
+            this.fast_inventory_v2_clear_btn.Name = "fast_inventory_v2_clear_btn";
+            this.fast_inventory_v2_clear_btn.Size = new System.Drawing.Size(75, 23);
+            this.fast_inventory_v2_clear_btn.TabIndex = 5;
+            this.fast_inventory_v2_clear_btn.Text = "清空";
+            this.fast_inventory_v2_clear_btn.UseVisualStyleBackColor = true;
+            this.fast_inventory_v2_clear_btn.Click += new System.EventHandler(this.fast_inventory_v2_clear_btn_Click);
+            // 
+            // label201
+            // 
+            this.label201.AutoSize = true;
+            this.label201.Location = new System.Drawing.Point(411, 10);
+            this.label201.Name = "label201";
+            this.label201.Size = new System.Drawing.Size(89, 12);
+            this.label201.TabIndex = 5;
+            this.label201.Text = "命令识别速度：";
+            // 
+            // label200
+            // 
+            this.label200.AutoSize = true;
+            this.label200.Location = new System.Drawing.Point(194, 10);
+            this.label200.Name = "label200";
+            this.label200.Size = new System.Drawing.Size(89, 12);
+            this.label200.TabIndex = 4;
+            this.label200.Text = "命令执行时间：";
+            // 
+            // label199
+            // 
+            this.label199.AutoSize = true;
+            this.label199.Location = new System.Drawing.Point(411, 49);
+            this.label199.Name = "label199";
+            this.label199.Size = new System.Drawing.Size(89, 12);
+            this.label199.TabIndex = 3;
+            this.label199.Text = "累计执行时间：";
+            // 
+            // label198
+            // 
+            this.label198.AutoSize = true;
+            this.label198.Location = new System.Drawing.Point(15, 48);
+            this.label198.Name = "label198";
+            this.label198.Size = new System.Drawing.Size(65, 12);
+            this.label198.TabIndex = 2;
+            this.label198.Text = "总标签数：";
+            // 
+            // label197
+            // 
+            this.label197.AutoSize = true;
+            this.label197.Location = new System.Drawing.Point(3, 10);
+            this.label197.Name = "label197";
+            this.label197.Size = new System.Drawing.Size(77, 12);
+            this.label197.TabIndex = 1;
+            this.label197.Text = "总读取次数：";
+            // 
+            // tags_dgv
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.tags_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tags_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.mSerialNumberColumn,
+            this.mEpcColumn,
+            this.mReadCountColumn,
+            this.mRssiColumn,
+            this.mFreqColumn,
+            this.mPhaseColumn,
+            this.mAntennaColumn,
+            this.mDataColumn});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            this.tags_dgv.Location = new System.Drawing.Point(5, 85);
+            this.tags_dgv.Name = "tags_dgv";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.tags_dgv.RowTemplate.Height = 23;
+            this.tags_dgv.Size = new System.Drawing.Size(652, 428);
+            this.tags_dgv.TabIndex = 0;
+            // 
+            // mSerialNumberColumn
+            // 
+            this.mSerialNumberColumn.HeaderText = "SerialNumber";
+            this.mSerialNumberColumn.Name = "mSerialNumberColumn";
+            // 
+            // mEpcColumn
+            // 
+            this.mEpcColumn.HeaderText = "EPC";
+            this.mEpcColumn.Name = "mEpcColumn";
+            // 
+            // mReadCountColumn
+            // 
+            this.mReadCountColumn.HeaderText = "ReadCount";
+            this.mReadCountColumn.Name = "mReadCountColumn";
+            // 
+            // mRssiColumn
+            // 
+            this.mRssiColumn.HeaderText = "RSSI";
+            this.mRssiColumn.Name = "mRssiColumn";
+            // 
+            // mFreqColumn
+            // 
+            this.mFreqColumn.HeaderText = "Freq";
+            this.mFreqColumn.Name = "mFreqColumn";
+            // 
+            // mPhaseColumn
+            // 
+            this.mPhaseColumn.HeaderText = "Phase";
+            this.mPhaseColumn.Name = "mPhaseColumn";
+            // 
+            // mAntennaColumn
+            // 
+            this.mAntennaColumn.HeaderText = "Antenna";
+            this.mAntennaColumn.Name = "mAntennaColumn";
+            // 
+            // mDataColumn
+            // 
+            this.mDataColumn.HeaderText = "Data";
+            this.mDataColumn.Name = "mDataColumn";
             // 
             // pageAcessTag
             // 
@@ -8267,6 +9292,24 @@ namespace UHFDemo
             this.johar_tabPage.Text = "温感标签";
             this.johar_tabPage.UseVisualStyleBackColor = true;
             // 
+            // johar_cmd_interval_cb
+            // 
+            this.johar_cmd_interval_cb.FormattingEnabled = true;
+            this.johar_cmd_interval_cb.Items.AddRange(new object[] {
+            "100",
+            "200",
+            "300",
+            "400",
+            "500",
+            "900",
+            "1000",
+            "2000",
+            "3000"});
+            this.johar_cmd_interval_cb.Location = new System.Drawing.Point(116, 54);
+            this.johar_cmd_interval_cb.Name = "johar_cmd_interval_cb";
+            this.johar_cmd_interval_cb.Size = new System.Drawing.Size(129, 20);
+            this.johar_cmd_interval_cb.TabIndex = 14;
+            // 
             // label183
             // 
             this.label183.AutoSize = true;
@@ -9137,30 +10180,23 @@ namespace UHFDemo
             this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
-            // johar_cmd_interval_cb
+            // savelog_cb
             // 
-            this.johar_cmd_interval_cb.FormattingEnabled = true;
-            this.johar_cmd_interval_cb.Items.AddRange(new object[] {
-            "100",
-            "200",
-            "300",
-            "400",
-            "500",
-            "900",
-            "1000",
-            "2000",
-            "3000"});
-            this.johar_cmd_interval_cb.Location = new System.Drawing.Point(116, 54);
-            this.johar_cmd_interval_cb.Name = "johar_cmd_interval_cb";
-            this.johar_cmd_interval_cb.Size = new System.Drawing.Size(129, 20);
-            this.johar_cmd_interval_cb.TabIndex = 14;
+            this.savelog_cb.AutoSize = true;
+            this.savelog_cb.Location = new System.Drawing.Point(797, 586);
+            this.savelog_cb.Name = "savelog_cb";
+            this.savelog_cb.Size = new System.Drawing.Size(72, 16);
+            this.savelog_cb.TabIndex = 16;
+            this.savelog_cb.Text = "保存记录";
+            this.savelog_cb.UseVisualStyleBackColor = true;
+            this.savelog_cb.CheckedChanged += new System.EventHandler(this.savelog_cb_CheckedChanged);
             // 
             // R2000UartDemo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1018, 740);
+            this.Controls.Add(this.savelog_cb);
             this.Controls.Add(this.ckClearOperationRec);
             this.Controls.Add(this.ckDisplayLog);
             this.Controls.Add(this.label35);
@@ -9172,7 +10208,8 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v4.0.10";
+            this.Text = "UHF RFID Reader Demo v4.0.12";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.R2000UartDemo_FormClosing);
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
             this.PagReaderSetting.ResumeLayout(false);
@@ -9227,7 +10264,7 @@ namespace UHFDemo
             this.gbCmdOutputPower.ResumeLayout(false);
             this.gbCmdOutputPower.PerformLayout();
             this.pageEpcTest.ResumeLayout(false);
-            this.tabEpcTest.ResumeLayout(false);
+            this.tab_6c_Tags_Test.ResumeLayout(false);
             this.pageRealMode.ResumeLayout(false);
             this.pageRealMode.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -9276,6 +10313,27 @@ namespace UHFDemo
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.cmd_8a_v2_tabPage.ResumeLayout(false);
+            this.splitContainer2.Panel1.ResumeLayout(false);
+            this.splitContainer2.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
+            this.splitContainer2.ResumeLayout(false);
+            this.fast_inv_v2_channel_gb.ResumeLayout(false);
+            this.fast_inv_v2_channel_gb.PerformLayout();
+            this.groupBox31.ResumeLayout(false);
+            this.groupBox31.PerformLayout();
+            this.fast_inv_v2_sl_gb.ResumeLayout(false);
+            this.fast_inv_v2_sl_gb.PerformLayout();
+            this.groupBox32.ResumeLayout(false);
+            this.groupBox32.PerformLayout();
+            this.groupBox33.ResumeLayout(false);
+            this.groupBox33.PerformLayout();
+            this.groupBox29.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            this.tableLayoutPanel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tags_dgv)).EndInit();
             this.pageAcessTag.ResumeLayout(false);
             this.gbCmdOperateTag.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
@@ -9404,7 +10462,7 @@ namespace UHFDemo
         private System.Windows.Forms.TextBox txtLoop;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.TabPage pageEpcTest;
-        private System.Windows.Forms.TabControl tabEpcTest;
+        private System.Windows.Forms.TabControl tab_6c_Tags_Test;
         private System.Windows.Forms.TabPage pageFast4AntMode;
         private System.Windows.Forms.TabPage pageRealMode;
         private System.Windows.Forms.ColumnHeader columnHeader37;
@@ -10073,6 +11131,96 @@ namespace UHFDemo
         private Label label181;
         private Label label183;
         private ComboBox johar_cmd_interval_cb;
+        private TabPage cmd_8a_v2_tabPage;
+        private SplitContainer splitContainer2;
+        private Button fast_inventory_v2_start_btn;
+        private GroupBox groupBox29;
+        private ComboBox fast_inv_v2_A_ant_cbo;
+        private DataGridView tags_dgv;
+        private TextBox fast_inv_v2_A_stay_tb;
+        private Label label185;
+        private TextBox fast_inv_v2_A_power_tb;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label195;
+        private Label label184;
+        private TextBox fast_inv_v2_H_power_tb;
+        private TextBox fast_inv_v2_H_stay_tb;
+        private ComboBox fast_inv_v2_H_ant_cbo;
+        private TextBox fast_inv_v2_G_power_tb;
+        private TextBox fast_inv_v2_G_stay_tb;
+        private ComboBox fast_inv_v2_G_ant_cbo;
+        private TextBox fast_inv_v2_F_power_tb;
+        private TextBox fast_inv_v2_F_stay_tb;
+        private ComboBox fast_inv_v2_F_ant_cbo;
+        private TextBox fast_inv_v2_E_power_tb;
+        private TextBox fast_inv_v2_E_stay_tb;
+        private ComboBox fast_inv_v2_E_ant_cbo;
+        private TextBox fast_inv_v2_D_power_tb;
+        private TextBox fast_inv_v2_D_stay_tb;
+        private ComboBox fast_inv_v2_D_ant_cbo;
+        private TextBox fast_inv_v2_C_power_tb;
+        private TextBox fast_inv_v2_C_stay_tb;
+        private TextBox fast_inv_v2_B_stay_tb;
+        private TextBox fast_inv_v2_B_power_tb;
+        private ComboBox fast_inv_v2_B_ant_cbo;
+        private ComboBox fast_inv_v2_C_ant_cbo;
+        private GroupBox groupBox31;
+        private Label label196;
+        private TextBox fast_inv_v2_repeat_tb;
+        private Label label194;
+        private TextBox fast_inv_v2_interval_tb;
+        private GroupBox fast_inv_v2_sl_gb;
+        private CheckBox fast_inv_v2_phase_cb;
+        private GroupBox groupBox32;
+        private RadioButton fast_inv_v2_S0_rb;
+        private RadioButton fast_inv_v2_S1_rb;
+        private RadioButton fast_inv_v2_S2_rb;
+        private RadioButton fast_inv_v2__S3_rb;
+        private GroupBox groupBox33;
+        private RadioButton fast_inv_v2_target_A_rb;
+        private RadioButton fast_inv_v2_target_B_rb;
+        private Panel panel1;
+        private Label fast_inv_v2_cmd_exec_rate;
+        private Label fast_inv_v2_total_cmd_time_label;
+        private Label fast_inv_v2_cmd_time_label;
+        private Label fast_inv_v2_totaltagcount_label;
+        private Label fast_inv_v2_totalread_label;
+        private Button fast_inventory_v2_clear_btn;
+        private Label label201;
+        private Label label200;
+        private Label label199;
+        private Label label198;
+        private Label label197;
+        private RadioButton fast_inv_v2_sl_03_rb;
+        private RadioButton fast_inv_v2_sl_02_rb;
+        private RadioButton fast_inv_v2_sl_01_rb;
+        private RadioButton fast_inv_v2_sl_00_rb;
+        private GroupBox fast_inv_v2_channel_gb;
+        private RadioButton fast_inv_v2_channel_1;
+        private RadioButton fast_inv_v2_channel_4;
+        private RadioButton fast_inv_v2_channel_8;
+        private RadioButton fast_inv_v2_channel_16;
+        private CheckBox fast_inv_v2_cb;
+        private Label fast_inv_v2_cmd_totalread_label;
+        private Label label187;
+        private DataGridViewTextBoxColumn mSerialNumberColumn;
+        private DataGridViewTextBoxColumn mEpcColumn;
+        private DataGridViewTextBoxColumn mReadCountColumn;
+        private DataGridViewTextBoxColumn mRssiColumn;
+        private DataGridViewTextBoxColumn mFreqColumn;
+        private DataGridViewTextBoxColumn mPhaseColumn;
+        private DataGridViewTextBoxColumn mAntennaColumn;
+        private DataGridViewTextBoxColumn mDataColumn;
+        private Label label186;
+        private CheckBox fast_inv_v2_H_ant_cb;
+        private CheckBox fast_inv_v2_G_ant_cb;
+        private CheckBox fast_inv_v2_F_ant_cb;
+        private CheckBox fast_inv_v2_E_ant_cb;
+        private CheckBox fast_inv_v2_D_ant_cb;
+        private CheckBox fast_inv_v2_C_ant_cb;
+        private CheckBox fast_inv_v2_A_ant_cb;
+        private CheckBox fast_inv_v2_B_ant_cb;
+        private CheckBox savelog_cb;
     }
 }
 
