@@ -21,6 +21,7 @@ using System.Net.NetworkInformation;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
+using System.Collections;
 
 namespace UHFDemo
 {
@@ -162,7 +163,8 @@ namespace UHFDemo
                 cmbComPort.SelectedIndex = cmbComPort.Items.Count - 1;
             }
             cmbBaudrate.SelectedIndex = 1;
-            ipIpServer.IpAddressStr = "192.168.0.178";
+            //ipIpServer.IpAddressStr = "192.168.0.178";
+            ipIpServer.IpAddressStr = "172.16.13.28";
             txtTcpPort.Text = "4001";
 
 
@@ -1885,7 +1887,7 @@ namespace UHFDemo
 
             gbCmdManual.Enabled = bIsEnable;
 
-            tabEpcTest.Enabled = bIsEnable;
+            tab_6c_Tags_Test.Enabled = bIsEnable;
 
             gbMonza.Enabled = bIsEnable;
             lbChangeBaudrate.Enabled = bIsEnable;
@@ -3574,6 +3576,14 @@ namespace UHFDemo
         {
             string strCmd = "快速天线盘存";
             string strErrorCode = string.Empty;
+
+            #region FastInventory_8A_v2
+            if (fast_inv_v2_cb.Checked)
+            {
+                parseFastInventoryV2(msgTran.AryTranData);
+                return;
+            }
+            #endregion FastInventory_8A_v2
 
             if (msgTran.AryData.Length == 1)
             {
@@ -10333,6 +10343,616 @@ namespace UHFDemo
         }
 
         #endregion Johar
+
+        #region FastInventory_8A_v2
+        string[] ants = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" };
+        string curChannel = "0";
+        ComboBox[] antCbs;
+        CheckBox[] antChkbs;
+        TextBox[] antStays;
+        TextBox[] antPowers;
+        List<Antenna> antennaList;
+        static TagDB tagdb = null;
+        bool doFastInventory = false;
+        bool FastInventorying = false;
+        bool fastInventorySuccess = false;
+
+        private void fast_inventory_v2_clear_btn_Click(object sender, EventArgs e)
+        {
+            this.BeginInvoke(new ThreadStart(delegate ()
+            {
+                tagdb.Clear();
+                fast_inv_v2_totalread_label.Text = tagdb.TotalTagCount + "次";
+                fast_inv_v2_totaltagcount_label.Text = tagdb.UniqueTagCount + "个";
+                fast_inv_v2_cmd_totalread_label.Text = "0 个";
+                fast_inv_v2_cmd_time_label.Text = "0 ms";
+                fast_inv_v2_cmd_exec_rate.Text = "0 个/s";
+                fast_inv_v2_total_cmd_time_label.Text = tagdb.TotalCommandTime + "ms";
+            }));
+        }
+
+        private void fast_inventory_v2_start_btn_Click(object sender, EventArgs e)
+        {
+            if(fast_inventory_v2_start_btn.Text.Equals("开始"))
+            {
+                fast_inventory_v2_start_btn.Text = "停止";
+                new Thread(new ThreadStart(startFastInventory)).Start();
+            }
+            else if (fast_inventory_v2_start_btn.Text.Equals("停止"))
+            {
+                stopFastInventory();
+                
+                fast_inventory_v2_start_btn.Text = "开始";
+            }
+        }
+
+        private void stopFastInventory()
+        {
+            doFastInventory = false;
+            while (FastInventorying)
+            {
+                Thread.Sleep(200);
+            }
+            if(antChkbs.Length>0)
+            {
+                foreach (CheckBox cb in antChkbs)
+                {
+                    cb.ForeColor = Color.Black;
+                }
+            }
+        }
+
+        private void startFastInventory()
+        {
+            doFastInventory = true;
+            fastInventoryV2Send();
+            while (doFastInventory)
+            {
+                if(fastInventorySuccess)
+                {
+                    fastInventorySuccess = false;
+                    fastInventoryV2Send();
+                }
+                Thread.Sleep(200);
+            }
+            FastInventorying = false;
+            //Console.WriteLine("startFastInventory End!");
+        }
+
+        private void parseFastInventoryV2(byte[] data)
+        {
+            bool ReadPhase = fast_inv_v2_phase_cb.Checked;
+
+            byte[] rawData;
+            rawData = new byte[data.Length];
+            Array.Copy(data, 0, rawData, 0, rawData.Length);
+            parseMessage(rawData);
+        }
+
+        private void parseMessage(byte[] rawData )
+        {
+            byte hdr;
+            byte len;
+            byte addr;
+            byte cmd;
+            byte[] data;
+            byte check;
+
+            //Console.WriteLine("parseMessage");
+            int msgLen = rawData.Length;
+            int writeIndex = 0;
+            hdr = rawData[writeIndex++];
+            //Console.WriteLine("#1 RfMessage [{1}]hdr={0:x2}", hdr, writeIndex);
+
+            len = rawData[writeIndex++];
+            //Console.WriteLine("#1 RfMessage [{1}]len={0:x2}", len, writeIndex);
+
+            addr = rawData[writeIndex++];
+            //Console.WriteLine("#1 RfMessage [{1}]addr={0:x2}", addr, writeIndex);
+
+            cmd = rawData[writeIndex++];
+            //Console.WriteLine("#1 RfMessage [{1}]cmd={0:x2}", cmd, writeIndex);
+
+            data = new byte[msgLen - 5]; // hdr + len + addr + cmd + check
+            Array.Copy(rawData, writeIndex, data, 0, data.Length);
+            writeIndex += data.Length;
+            //Console.WriteLine("#1 RfMessage [{1}]data={0:x2}", CCommondMethod.ToHex(data, "", " "), writeIndex);
+
+            check = rawData[writeIndex++];
+            //Console.WriteLine("#1 RfMessage [{1}]check={0:x2}", check, writeIndex);
+
+            switch (cmd)
+            {
+                case 0x8A:
+                    parseCmd8AData(len, data);
+                    break;
+                default:
+                    Console.WriteLine("#1 parseData by default!");
+                    break;
+            }
+        }
+
+        private void parseCmd8AData(byte len, byte[] data)
+        {
+            switch (len)
+            {
+                // failed
+                case 0x04:
+                    ErrorHandle(data);
+                    break;
+                // success
+                case 0x0A:
+                    // totalRead commandDuration
+                    FastInvV2Success(data);
+                    break;
+                // antenna detect
+                case 0x05:
+                    //天线未连接
+                    // antId ErrorCode
+                    AntennaDetectError(data);
+                    break;
+                // get tags
+                default:
+                    //Console.WriteLine("$$$$ parseCmd8AData data[{1}]={0}", CCommondMethod.ToHex(data, "", " "), data.Length);
+                    bool readPhase = fast_inv_v2_phase_cb.Checked;
+                    if (data.Length > 2)// pc
+                        parseTag(readPhase, data);
+                    break;
+            }
+
+        }
+
+        private void parseTag(bool readPhase, byte[] data)
+        {
+            //Console.WriteLine("parseTag {0}", readPhase);
+            this.BeginInvoke(new ThreadStart(delegate ()
+            {
+                lock(tagdb)
+                {
+                    Tag tag = new Tag(data, readPhase);
+                    tagdb.Add(tag);
+                }
+            }));
+
+            this.BeginInvoke(new ThreadStart(delegate ()
+            {
+                lock (tagdb)
+                {
+                    fast_inv_v2_totalread_label.Text = tagdb.TotalTagCount + "次";
+                    fast_inv_v2_totaltagcount_label.Text = tagdb.UniqueTagCount + "个";
+                }
+            }));
+        }
+
+        private void ErrorHandle(byte[] data)
+        {
+            // ErrorCode
+            //Console.WriteLine("ErrorCode={0}\r\n", CCommondMethod.ToHex(data, "0x", " "));
+            MessageBox.Show("ErrorCode: {0}" + CCommondMethod.ToHex(data, "0x", " "));
+        }
+
+        private void FastInvV2Success(byte[] data)
+        {
+            //Console.WriteLine("FastInvV2Success len={0}, data={1}", data.Length, CCommondMethod.ToHex(data, "", " "));
+            int readIndex = 0;
+            byte[] bTotalRead = new byte[3];
+            Array.Copy(data, 0, bTotalRead, 0, bTotalRead.Length);
+            readIndex += bTotalRead.Length;
+
+            byte[] bCommandDuration = new byte[4];
+            Array.Copy(data, readIndex, bCommandDuration, 0, bCommandDuration.Length);
+            readIndex += bCommandDuration.Length;
+
+            byte[] temp = new byte[4];
+            temp[0] = 0x00;
+            Array.Copy(bTotalRead, 0, temp, 1, bTotalRead.Length);
+            uint totalRead = CCommondMethod.ToU32(temp, 0);
+            uint commandDuration = CCommondMethod.ToU32(bCommandDuration, 0); ;
+            //Console.WriteLine("totalRead={0}, commandDuration={1}\r\n", totalRead, commandDuration);
+
+            this.BeginInvoke(new ThreadStart(delegate ()
+            {
+                lock (tagdb)
+                {
+                    tagdb.UpdateTotalCommandTime(commandDuration);
+
+                    fast_inv_v2_cmd_totalread_label.Text = totalRead + "个";
+                    fast_inv_v2_cmd_time_label.Text = commandDuration + "ms";
+                    fast_inv_v2_cmd_exec_rate.Text = ((totalRead * 1000)/ commandDuration).ToString() + " 个/s";
+                    fast_inv_v2_total_cmd_time_label.Text = tagdb.TotalCommandTime + "ms";
+                }
+            }));
+            fastInventorySuccess = true;
+        }
+
+        private void AntennaDetectError(byte[] data)
+        {
+            //Console.WriteLine("antId={0}, ErrCode={1}\r\n", data[0], data[1]);
+            byte antId = data[0];
+            antChkbs[antId].ForeColor = Color.Red;
+        }
+
+        private void fastInventoryV2Send()
+        {
+            // ToDo: 固件版本>=8.2.9
+            //ValidateFwVersion();
+            int writeIndex = 0;
+            byte[] rawData = new byte[256];
+            rawData[writeIndex++] = 0xA0; // hdr
+
+            rawData[writeIndex++] = 0x03; // len minLen = 3
+
+            rawData[writeIndex++] = m_curSetting.btReadId; // addr
+
+            rawData[writeIndex++] = 0x8A; // cmd
+
+            // data
+
+            foreach(Antenna ant in antennaList)
+            {
+                if(antChkbs[ant.No].Checked)
+                {
+                    rawData[writeIndex++] = ant.Ant; // A
+                    rawData[writeIndex++] = ant.Stay;
+                }
+                else
+                {
+                    rawData[writeIndex++] = ant.Ant; // A
+                    rawData[writeIndex++] = 0x00;
+                }
+            }
+
+            rawData[writeIndex++] = getFastInventoryV2Interval(); // Interval, 0 ms
+            
+            rawData[writeIndex++] = 0x00; // Reserve
+            rawData[writeIndex++] = 0x00;
+            rawData[writeIndex++] = 0x00;
+            rawData[writeIndex++] = 0x00;
+
+            rawData[writeIndex++] = getFastInventoryV2SelectFlag(); // SL
+
+            rawData[writeIndex++] = getFastInventoryV2Session(); // session
+
+            rawData[writeIndex++] = getFastInventoryV2Target(); // Target
+
+            rawData[writeIndex++] = getFastInventoryV2Phase(); // Phase
+
+            foreach (Antenna ant in antennaList)
+            {
+                if (antChkbs[ant.No].Checked)
+                {
+                    rawData[writeIndex++] = ant.Power;
+                }
+                else
+                {
+                    rawData[writeIndex++] = 0x00;
+                }   
+            }
+
+            rawData[writeIndex++] = getFastInventoryV2Repeat(); // Repeat
+
+            int msgLen = writeIndex + 1;
+            rawData[1] = (byte)(msgLen - 2); // except hdr+len
+            //Console.WriteLine("sendReadJoharMessage writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+
+            byte[] checkData = new byte[msgLen - 1];
+            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+            rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+            byte[] sendData = new byte[msgLen];
+            Array.Copy(rawData, 0, sendData, 0, msgLen);
+            //Console.WriteLine("fastInventoryV2Send: [{1}] {0}", CCommondMethod.ToHex(sendData, "", " "), antennaList.Count);
+            int nResult = reader.SendMessage(sendData);
+        }
+
+        private byte getFastInventoryV2Repeat()
+        {
+            string repeat = fast_inv_v2_repeat_tb.Text.Trim();
+            //Console.WriteLine("repeat={0}", repeat);
+            return Convert.ToByte(repeat);
+        }
+
+        private byte getFastInventoryV2SelectFlag()
+        {
+            if (fast_inv_v2_sl_00_rb.Checked)
+            {
+                return 0x00;
+            }
+            else if (fast_inv_v2_sl_01_rb.Checked)
+            {
+                return 0x01;
+            }
+            else if (fast_inv_v2_sl_02_rb.Checked)
+            {
+                return 0x02;
+            }
+            else if (fast_inv_v2_sl_03_rb.Checked)
+            {
+                return 0x03;
+            }
+            return 0x01; // default s1
+        }
+
+        private byte getFastInventoryV2Interval()
+        {
+            string interval = fast_inv_v2_interval_tb.Text.Trim();
+            //Console.WriteLine("interval={0}", interval);
+            return Convert.ToByte(interval);
+        }
+
+        private byte getFastInventoryV2Phase()
+        {
+            if(fast_inv_v2_phase_cb.Checked)
+            {
+                return 0x01;
+            }
+            else
+            {
+                return 0x00;
+            }
+        }
+
+        private byte getFastInventoryV2Target()
+        {
+            if (fast_inv_v2_target_A_rb.Checked)
+            {
+                return 0x00;
+            }
+            else if (fast_inv_v2_target_B_rb.Checked)
+            {
+                return 0x01;
+            }
+            return 0x00; // default A
+        }
+
+        private byte getFastInventoryV2Session()
+        {
+            if (fast_inv_v2_S0_rb.Checked)
+            {
+                return 0x00;
+            }
+            else if (fast_inv_v2_S1_rb.Checked)
+            {
+                return 0x01;
+            }
+            else if (fast_inv_v2_S2_rb.Checked)
+            {
+                return 0x02;
+            }
+            else if (fast_inv_v2__S3_rb.Checked)
+            {
+                return 0x03;
+            }
+            return 0x01; // default s1
+        }
+
+
+        private void fastInventoryLoadACfg()
+        {
+            fastInventoryLoadAntCfg();
+            fast_inv_v2_S1_rb.Checked = true;
+            fast_inv_v2_target_A_rb.Checked = true;
+            fast_inv_v2_sl_00_rb.Checked = true;
+            fast_inv_v2_interval_tb.Text = "0";
+            fast_inv_v2_repeat_tb.Text = "1";
+            fast_inv_v2_phase_cb.Checked = false;
+        }
+
+        private void fastInventoryLoadAntCfg()
+        {
+            antennaList = new List<Antenna>();
+            antChkbs = new CheckBox[] {
+                fast_inv_v2_A_ant_cb, fast_inv_v2_B_ant_cb, fast_inv_v2_C_ant_cb, fast_inv_v2_D_ant_cb,
+                fast_inv_v2_E_ant_cb, fast_inv_v2_F_ant_cb, fast_inv_v2_G_ant_cb, fast_inv_v2_H_ant_cb,
+            };
+            antCbs = new ComboBox[] { 
+                fast_inv_v2_A_ant_cbo, fast_inv_v2_B_ant_cbo, fast_inv_v2_C_ant_cbo, fast_inv_v2_D_ant_cbo,
+                fast_inv_v2_E_ant_cbo, fast_inv_v2_F_ant_cbo, fast_inv_v2_G_ant_cbo, fast_inv_v2_H_ant_cbo
+            };
+            antStays = new TextBox[] {
+                fast_inv_v2_A_stay_tb, fast_inv_v2_B_stay_tb, fast_inv_v2_C_stay_tb, fast_inv_v2_D_stay_tb,
+                fast_inv_v2_E_stay_tb, fast_inv_v2_F_stay_tb, fast_inv_v2_G_stay_tb, fast_inv_v2_H_stay_tb
+            };
+            antPowers = new TextBox[] {
+                fast_inv_v2_A_power_tb, fast_inv_v2_B_power_tb, fast_inv_v2_C_power_tb, fast_inv_v2_D_power_tb,
+                fast_inv_v2_E_power_tb, fast_inv_v2_F_power_tb, fast_inv_v2_G_power_tb, fast_inv_v2_H_power_tb
+            };
+
+            fast_inv_v2_channel_4.Checked = true;
+            channelChange(fast_inv_v2_channel_4);
+        }
+
+        private void fast_inv_v2_channel_1_CheckedChanged(object sender, EventArgs e)
+        {
+            channelChange((RadioButton)sender);
+        }
+
+        private void fast_inv_v2_channel_4_CheckedChanged(object sender, EventArgs e)
+        {
+            channelChange((RadioButton)sender);
+        }
+
+        private void fast_inv_v2_channel_8_CheckedChanged(object sender, EventArgs e)
+        {
+            channelChange((RadioButton)sender);
+        }
+
+        private void fast_inv_v2_channel_16_CheckedChanged(object sender, EventArgs e)
+        {
+            channelChange((RadioButton)sender);
+        }
+
+        private void channelChange(RadioButton rb)
+        {
+            //Console.WriteLine("{0}:{1}:{2}", rb.Name, rb.Text, rb.Checked);
+            if(rb.Name.Equals(curChannel))
+            {
+                return;
+            }
+            curChannel = rb.Name;
+            
+            int antNo = 0;
+            int channel = Convert.ToInt32(rb.Text);
+            antennaList.Clear();
+
+            // 更新ComboBox
+            foreach (CheckBox cb in antChkbs)
+            {
+                antCbs[antNo].Items.Clear();
+
+                if (antNo < channel)
+                {
+                    cb.Enabled = true;
+                    cb.Checked = true;
+
+                    antCbs[antNo].Enabled = true;
+                    antStays[antNo].Enabled = true;
+                    antPowers[antNo].Enabled = true;
+
+                    string[] strAnt = new string[channel];
+                    Array.Copy(ants, 0, strAnt, 0, channel);
+                    antCbs[antNo].Items.AddRange(strAnt);
+                    antCbs[antNo].SelectedIndex = antNo;
+
+                    antStays[antNo].Text = "1";
+                    antPowers[antNo].Text = "20";
+
+                    antennaList.Add(new Antenna(antNo, cb.Text, antStays[antNo].Text, antPowers[antNo].Text));
+                }
+                else
+                {
+                    cb.Enabled = false;
+                    cb.Checked = false;
+                    antCbs[antNo].Enabled = false;
+
+                    antStays[antNo].Enabled = false;
+                    antPowers[antNo].Enabled = false;
+                    antennaList.Add(new Antenna(antNo, (antNo + 1).ToString(), "0", "0"));
+                }
+                antNo++;
+            }
+            updateFastInventoryAnt();
+        }
+
+        private void updateFastInventoryAnt()
+        {
+            int antNo = 0;
+            foreach (CheckBox cb in antChkbs)
+            {
+                if(!cb.Enabled)
+                {
+                    antCbs[antNo].Items.Add(antNo);
+                    antCbs[antNo].SelectedIndex = 0;
+                    antStays[antNo].Text = "0";
+                    antPowers[antNo].Text = "0";
+                }
+                antNo++;
+            }
+        }
+        private void GenerateColmnsForDataGrid()
+        {
+            tags_dgv.AutoGenerateColumns = false;
+            tags_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            mSerialNumberColumn.DataPropertyName = "SerialNumber";
+            mSerialNumberColumn.HeaderText = "#";
+
+            mEpcColumn.DataPropertyName = "EPC";
+            mEpcColumn.HeaderText = "EPC";
+
+            mReadCountColumn.DataPropertyName = "ReadCount";
+            mReadCountColumn.HeaderText = "ReadCount";
+
+            mRssiColumn.DataPropertyName = "Rssi";
+            mRssiColumn.HeaderText = "Rssi(dBm)";
+
+            mFreqColumn.DataPropertyName = "Freq";
+            mFreqColumn.HeaderText = "Freq(MHz)";
+
+            mPhaseColumn.DataPropertyName = "Phase";
+            mPhaseColumn.HeaderText = "Phase";
+            mPhaseColumn.Visible = false;
+
+            mAntennaColumn.DataPropertyName = "Antenna";
+            mAntennaColumn.HeaderText = "Ant";
+
+            mDataColumn.DataPropertyName = "Data";
+            mDataColumn.HeaderText = "Data";
+            mDataColumn.Visible = false;
+
+            tags_dgv.DataSource = tagdb.TagList;
+        }
+        #endregion FastInventory_8A_v2
+
+        private void tab_6c_Tags_Test_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            #region FastInventory_8A_v2
+            if (tab_6c_Tags_Test.SelectedTab.Name.Equals("cmd_8a_v2_tabPage"))
+            {
+                Console.WriteLine("cmd_8a_v2_tabPage");
+                fast_inv_v2_cb.Checked = true;
+
+                fastInventoryLoadACfg();
+                if(tagdb == null)
+                    tagdb = new TagDB();
+                GenerateColmnsForDataGrid();
+                fast_inv_v2_sl_gb.Visible = false;
+                fast_inv_v2_cb.Visible = false;
+            }
+            else
+            {
+                fast_inv_v2_cb.Checked = false;
+            }
+            #endregion FastInventory_8A_v2
+        }
+
+        private void R2000UartDemo_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            #region FastInventory_8A_v2
+            stopFastInventory();
+            #endregion FastInventory_8A_v2
+        }
+
+        private void fast_inv_v2_phase_cb_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender;
+            mPhaseColumn.Visible = cb.Checked;
+        }
+    }
+
+    class Antenna
+    {
+        int antNo; // A - H, 0 - 7
+        int ant;
+        int stay;
+        int power;
+
+        public Antenna(int antNo, string ant, string stay, string power)
+        {
+            this.antNo = antNo;
+            this.ant = antNo;
+            this.stay = Convert.ToInt32(stay);
+            this.power = Convert.ToInt32(power);
+        }
+
+        public int No
+        {
+            get { return antNo; }
+        }
+
+        public byte Ant
+        {
+            get { return (byte)ant; }
+        }
+
+        public byte Stay
+        {
+            get { return (byte)stay; }
+        }
+
+        public byte Power
+        {
+            get { return (byte)power; }
+        }
     }
 
     public class NetCardSearch
