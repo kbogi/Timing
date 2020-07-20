@@ -10651,7 +10651,6 @@ namespace UHFDemo
             rawData[writeIndex++] = 0x8A; // cmd
 
             // data
-
             foreach(Antenna ant in antennaList)
             {
                 if(antChkbs[ant.No].Checked)
@@ -10668,8 +10667,8 @@ namespace UHFDemo
 
             rawData[writeIndex++] = getFastInventoryV2Interval(); // Interval, 0 ms
             
-            rawData[writeIndex++] = 0x00; // Reserve
-            rawData[writeIndex++] = 0x00;
+            rawData[writeIndex++] = 0xDE; // Reserve
+            rawData[writeIndex++] = 0xDE;
             rawData[writeIndex++] = 0x00;
             rawData[writeIndex++] = 0x00;
 
@@ -10855,13 +10854,12 @@ namespace UHFDemo
             foreach (CheckBox cb in antChkbs)
             {
                 antCbs[antNo].Items.Clear();
-
+                antCbs[antNo].Enabled = false;
                 if (antNo < channel)
                 {
                     cb.Enabled = true;
                     cb.Checked = true;
 
-                    antCbs[antNo].Enabled = true;
                     antStays[antNo].Enabled = true;
                     antPowers[antNo].Enabled = true;
 
@@ -10871,13 +10869,12 @@ namespace UHFDemo
                     antCbs[antNo].SelectedIndex = antNo;
 
                     antStays[antNo].Text = "1";
-                    antPowers[antNo].Text = "20";
+                    antPowers[antNo].Text = "30";
                 }
                 else
                 {
                     cb.Enabled = false;
                     cb.Checked = false;
-                    antCbs[antNo].Enabled = false;
 
                     antStays[antNo].Enabled = false;
                     antPowers[antNo].Enabled = false;
@@ -10896,7 +10893,7 @@ namespace UHFDemo
             int antNo = 0;
             foreach (CheckBox cb in antChkbs)
             {
-                if(!cb.Enabled)
+                if(!cb.Checked)
                 {
                     antCbs[antNo].Items.Add(antNo);
                     antCbs[antNo].SelectedIndex = 0;

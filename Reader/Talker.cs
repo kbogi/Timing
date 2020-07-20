@@ -23,10 +23,12 @@ namespace Reader
         int nPort;
         int tryReconnectTimes = 0;
         bool reconnecting = false;
+        private const int connectTimeout = 1000; // 连接超时时间
 
         public bool Connect(IPAddress ipAddress, int nPort, out string strException)
         {
-            if(tcpClient == null)
+            bool ret = false;
+            if (tcpClient == null)
             {
                 this.ipAddress = ipAddress;
                 this.nPort = nPort;
@@ -40,30 +42,44 @@ namespace Reader
             strException = String.Empty;
 
             tcpClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            
             IAsyncResult ar = tcpClient.BeginConnect(ipAddress, nPort, null, null);
-            bool success = ar.AsyncWaitHandle.WaitOne(1000);
+            bool success = ar.AsyncWaitHandle.WaitOne(connectTimeout);
             if (!success)
             {
                 strException = "连接超时，未连接到指定服务器";
-                return false;
+                ret = false;
             }
-
-            //client.Connect(ipAddress, nPort);
-            if(tcpClient != null)
-                tcpClient.IOControl(IOControlCode.KeepAliveValues, KeepAlive(1, 1000, 1000), null);//设置Keep-Alive参数
-
-            if (!IsConnect())
+            else
             {
-                //建立线程收取服务器发送数据
-                ThreadStart stThead = new ThreadStart(ReceivedData);
-                waitThread = new Thread(stThead);
-                waitThread.IsBackground = true;
-                waitThread.Start();
-            }
+                try
+                {
+                    tcpClient.EndConnect(ar);
+                    //开始KeppAlive检测
+                    if (tcpClient != null)
+                    {
+                        tcpClient.IOControl(IOControlCode.KeepAliveValues, KeepAlive(1, 300, 300), null);//设置Keep-Alive参数
+                    }
 
-            bIsConnect = true;
-            return true;
+                    if (!IsConnect())
+                    {
+                        //建立线程收取服务器发送数据
+                        ThreadStart stThead = new ThreadStart(ReceivedData);
+                        waitThread = new Thread(stThead);
+                        waitThread.IsBackground = true;
+                        waitThread.Start();
+                    }
+
+                    bIsConnect = true;
+                    ret = true;
+                }
+                catch (Exception e)
+                {
+                    strException = "连接异常： " + e.Message;
+                    Thread.Sleep(connectTimeout);
+                    ret = false;
+                }
+            }
+            return ret;
         }
 
         private byte[] KeepAlive(int onOff, int keepAliveTime, int keepAliveInterval)
@@ -116,6 +132,10 @@ namespace Reader
                                 }
                                 Reconnect();
                             }
+                            else
+                            {
+                                Console.WriteLine("SocketError={0}", err.ToString());
+                            }
                         }
                     }
                 }
@@ -138,7 +158,6 @@ namespace Reader
                     exStr = String.Format("[{1}@{2}] 第[{0}]次重连成功!!! ", tryReconnectTimes, ipAddress.ToString(), nPort);
                     reconnecting = false;
                     tryReconnectTimes = 0;
-
                 }
                 else
                 {
