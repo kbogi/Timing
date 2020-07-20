@@ -258,6 +258,14 @@ namespace UHFDemo
         private void TcpExcption(string strErr)
         {
             WriteLog(lrtxtLog, strErr, 1);
+            if(strErr.Contains("重连成功") && !btFastInventory.Text.Equals("开始盘存"))
+            {
+                BeginInvoke(new ThreadStart(delegate ()
+                {
+                    btFastInventory_Click(null, null);
+                    btFastInventory_Click(null, null);
+                }));
+            }
         }
 
         private void ReceiveData(byte[] btAryReceiveData)
