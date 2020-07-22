@@ -108,7 +108,6 @@ namespace Reader
                     continue;
                 if (tcpClient.Poll(3000, SelectMode.SelectRead))
                 {
-                    Console.WriteLine("ReceivedData Polling");
                     try
                     {
                         byte[] btAryBuffer = new byte[4096 * 10];

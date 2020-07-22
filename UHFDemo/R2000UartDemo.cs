@@ -9051,19 +9051,22 @@ namespace UHFDemo
             {
                 if (netCmdStarted)
                 {
-                    try
+                    if (netClient.Available > 0)
                     {
-                        byte[] buf = netClient.Receive(ref netEndpoint);
-                        string msg = CCommondMethod.ToHex(buf, "", " ");
-                        //Console.WriteLine("#2 Recv:{0}", msg);
-                        parseRecvData(buf);
-                    }
-                    catch (SocketException e)
-                    {
-                        Console.WriteLine("Error: {0}", e.SocketErrorCode);
-                        netCmdStarted = false;
-                        enableNetConfigUI(true);
-                        MessageBox.Show("操作超时!", "提示", MessageBoxButtons.OK);
+                        try
+                        {
+                            byte[] buf = netClient.Receive(ref netEndpoint);
+                            string msg = CCommondMethod.ToHex(buf, "", " ");
+                            //Console.WriteLine("#2 Recv:{0}", msg);
+                            parseRecvData(buf);
+                        }
+                        catch (SocketException e)
+                        {
+                            Console.WriteLine("Error: {0}", e.SocketErrorCode);
+                            netCmdStarted = false;
+                            enableNetConfigUI(true);
+                            MessageBox.Show("操作超时!", "提示", MessageBoxButtons.OK);
+                        }
                     }
                 }
             }
@@ -9087,6 +9090,8 @@ namespace UHFDemo
                 bool added = net_db.Add(recv.Mod_Mac, recv.ModSearch);
                 if(added)
                     UpdateNetSearch(recv);
+                if (searching)
+                    return;
             }
             else if (recv.Cmd == (byte)NET_ACK.NET_MODULE_ACK_GET)
             {
@@ -9104,15 +9109,9 @@ namespace UHFDemo
             {
                 MessageBox.Show("恢复出厂设置成功!", "提示", MessageBoxButtons.OK);
             }
-            if(searching)
-            {
-                Console.WriteLine("Searching ...");
-            }
-            else
-            {
-                netCmdStarted = false;
-                enableNetConfigUI(true);
-            }
+
+            netCmdStarted = false;
+            enableNetConfigUI(true);
         }
 
         delegate void UpdateNetSearchDelegate(NET_COMM recv);
@@ -9266,15 +9265,27 @@ namespace UHFDemo
             netCmdStarted = true;
             enableNetConfigUI(false);
 
-            BeginInvoke(new ThreadStart(delegate ()
-            {
-                Thread.Sleep(2000);
-                netClient.Send(message, message.Length, netEndpoint);
+            new Thread(new ThreadStart(delegate {
+                for (int i = 1; i <= 2; i++)
+                {
+                    try
+                    {
+                        netClient.SendAsync(message, message.Length, netEndpoint);
+                        Console.WriteLine("[{0}]Sending message ...", i);
+                        Thread.Sleep(3000);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
                 searching = false;
-            }));
+                netCmdStarted = false;
+                enableNetConfigUI(true);
+            })).Start();
         }
 
-        delegate void enableNetConfigUIDelegate(bool enable);
+    delegate void enableNetConfigUIDelegate(bool enable);
         private void enableNetConfigUI(bool enable)
         {
             enableNetConfigUIDelegate d = new enableNetConfigUIDelegate(enableNetConfigUI);
