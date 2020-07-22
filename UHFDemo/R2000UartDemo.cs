@@ -10418,7 +10418,6 @@ namespace UHFDemo
         {
             if(fast_inventory_v2_start_btn.Text.Equals("开始"))
             {
-
                 if (antChkbs != null && antChkbs.Length > 0)
                 {
                     foreach (CheckBox cb in antChkbs)

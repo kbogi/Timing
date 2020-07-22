@@ -6809,8 +6809,6 @@ namespace UHFDemo
             // 
             this.fast_inventory_v2_start_btn.Location = new System.Drawing.Point(15, 19);
             this.fast_inventory_v2_start_btn.Name = "fast_inventory_v2_start_btn";
-            this.fast_inventory_v2_start_btn.Size = new System.Drawing.Size(75, 23);
-            this.fast_inventory_v2_start_btn.TabIndex = 1;
             this.fast_inventory_v2_start_btn.Text = "开始";
             this.fast_inventory_v2_start_btn.UseVisualStyleBackColor = true;
             this.fast_inventory_v2_start_btn.Click += new System.EventHandler(this.fast_inventory_v2_start_btn_Click);
@@ -6821,8 +6819,6 @@ namespace UHFDemo
             this.panel1.Controls.Add(this.label187);
             this.panel1.Controls.Add(this.fast_inv_v2_cmd_exec_rate);
             this.panel1.Controls.Add(this.fast_inv_v2_total_cmd_time_label);
-            this.panel1.Controls.Add(this.fast_inv_v2_cmd_time_label);
-            this.panel1.Controls.Add(this.fast_inv_v2_totaltagcount_label);
             this.panel1.Controls.Add(this.fast_inv_v2_totalread_label);
             this.panel1.Controls.Add(this.fast_inventory_v2_clear_btn);
             this.panel1.Controls.Add(this.label201);
