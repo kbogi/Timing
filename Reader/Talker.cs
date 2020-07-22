@@ -16,22 +16,29 @@ namespace Reader
 
         //TcpClient client;
         Socket tcpClient;
-        private Thread waitThread;
+        private Thread waitThread = null;
+        private bool firstConnect = true;
 
         private bool bIsConnect = false;
-        IPAddress ipAddress;
-        int nPort;
-        int tryReconnectTimes = 0;
-        bool reconnecting = false;
+        private IPAddress ipAddress;
+        private int nPort;
+        private int tryReconnectTimes = 0;
+        private bool isRecv = false;
+        private bool receving = false;
+        private bool isReconnect = false;
+        private bool reconnecting = false;
+        private Thread reconnectThread = null;
+
         private const int connectTimeout = 1000; // 连接超时时间
 
         public bool Connect(IPAddress ipAddress, int nPort, out string strException)
         {
             bool ret = false;
-            if (tcpClient == null)
+            if (firstConnect)
             {
                 this.ipAddress = ipAddress;
                 this.nPort = nPort;
+                firstConnect = false;
             }
 
             if (tcpClient != null)
@@ -46,7 +53,7 @@ namespace Reader
             bool success = ar.AsyncWaitHandle.WaitOne(connectTimeout);
             if (!success)
             {
-                strException = "连接超时，未连接到指定服务器";
+                strException = String.Format("[{0}@{1}] 连接超时，未连接到指定服务器", ipAddress.ToString(), nPort);
                 ret = false;
             }
             else
@@ -74,7 +81,7 @@ namespace Reader
                 }
                 catch (Exception e)
                 {
-                    strException = "连接异常： " + e.Message;
+                    strException = String.Format("[{0}@{1}] 连接异常：{2}", ipAddress.ToString(), nPort, e.Message);
                     Thread.Sleep(connectTimeout);
                     ret = false;
                 }
@@ -93,12 +100,15 @@ namespace Reader
 
         private void ReceivedData()
         {
-            while (true)
+            isRecv = true;
+            receving = true;
+            while (isRecv)
             {
                 if (reconnecting)
                     continue;
-                if (tcpClient.Poll(-1, SelectMode.SelectRead))
+                if (tcpClient.Poll(3000, SelectMode.SelectRead))
                 {
+                    Console.WriteLine("ReceivedData Polling");
                     try
                     {
                         byte[] btAryBuffer = new byte[4096 * 10];
@@ -123,7 +133,7 @@ namespace Reader
                         if (ex is SocketException)
                         {
                             SocketError err = ((SocketException)ex).SocketErrorCode;
-                            exStr = String.Format("数据接收异常!!! [{0},{1}] {2}", ex.GetType().Name, err, ex.Message);
+                            exStr = String.Format("[{0}@{1}] 数据接收异常：{2}", ipAddress.ToString(), nPort, ex.Message);
                             if (err.Equals(SocketError.ConnectionReset))
                             {
                                 if (TcpExceptionReceived != null)
@@ -140,34 +150,39 @@ namespace Reader
                     }
                 }
             }
+            receving = false;
         }
 
         private void Reconnect()
         {
             reconnecting = true;
-            new Thread(new ThreadStart(TryReconnect)).Start();
+            reconnectThread = new Thread(new ThreadStart(TryReconnect));
+            reconnectThread.Start();
         }
 
         private void TryReconnect()
         {
+            isReconnect = true;
+            reconnecting = true;
             string exStr = String.Empty;
-            while (reconnecting)
+            while (isReconnect)
             {
                 if (Connect(this.ipAddress, this.nPort, out string strException))
                 {
-                    exStr = String.Format("[{1}@{2}] 第[{0}]次重连成功!!! ", tryReconnectTimes, ipAddress.ToString(), nPort);
-                    reconnecting = false;
-                    tryReconnectTimes = 0;
+                    exStr = String.Format("[{0}@{1}] 第[{2}]次重连成功!", ipAddress.ToString(), nPort, tryReconnectTimes);
+                    isReconnect = false;
                 }
                 else
                 {
-                    exStr = String.Format("[{1}@{2}] 第[{0}]次重连失败!!! , {3}", tryReconnectTimes++, ipAddress.ToString(), nPort, strException);
+                    exStr = String.Format("[{0}@{1}] 第[{2}]次重连失败! {3}", ipAddress.ToString(), nPort, tryReconnectTimes++, strException);
                 }
                 if (TcpExceptionReceived != null)
                 {
                     TcpExceptionReceived(exStr);
                 }
             }
+            reconnecting = false;
+            tryReconnectTimes = 0;
         }
 
         public bool SendMessage(byte[] btAryBuffer)
@@ -180,17 +195,36 @@ namespace Reader
                     return true;
                 }
             }
-            catch
+            catch (Exception e)
             {
+                string exStr = String.Format("[{0}@{1}] 数据发送失败", ipAddress.ToString(), nPort, e.Message);
+                if (TcpExceptionReceived != null)
+                {
+                    TcpExceptionReceived(exStr);
+                }
                 return false;
             }
         }
 
         public void SignOut()
         {
-            reconnecting = false;
-            waitThread.Abort();
+            //Console.WriteLine("SignOut");
+            string exStr = String.Format("[{0}@{1}] 登出!", ipAddress.ToString(), nPort);
+            if (TcpExceptionReceived != null)
+            {
+                TcpExceptionReceived(exStr);
+            }
+            Console.WriteLine("SignOut isRecv={0}, isReconnect={1}", isRecv, isReconnect);
+            isReconnect = false;
+            isRecv = false;
             bIsConnect = false;
+            firstConnect = true;
+
+            if (tcpClient != null)
+            {
+                tcpClient.Close();
+                tcpClient = null;
+            }
         }
 
         public bool IsConnect()
