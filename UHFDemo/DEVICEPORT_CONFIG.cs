@@ -40,73 +40,73 @@ namespace UHFDemo
             this.data = new byte[65];
             Array.Copy(parseData, 0, data, 0, data.Length);
             readIndex = 0;
-
+            /* (1) 端口序号 */
             bIndex = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bIndex={0}", bIndex);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bIndex={0:X2}", bIndex);
+            /* (2) 端口启用标志 1：启用后 ；0：不启用 */
             bPortEn = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bPortEn={0}", bPortEn);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bPortEn={0:X2}", bPortEn);
+            /* (3) 网络工作模式: 0: TCP SERVER;1: TCP CLENT; 2: UDP SERVER 3：UDP CLIENT; */
             bNetMode = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bNetMode={0}", bNetMode);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bNetMode={0:X2}", bNetMode);
+            /* (4) TCP 客户端模式下随即本地端口号，1：随机 0: 不随机*/
             bRandSportFlag = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bRandSportFlag={0}", bRandSportFlag);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bRandSportFlag={0:X2}", bRandSportFlag);
+            /* (5) [2]网络通讯端口号 */
             wNetPort = GetPort();
             //Console.WriteLine(" <---DEVICEPORT_CONFIG wNetPort={0}", wNetPort);
-
+            /* (6) [4]目的IP地址 */
             bDesIP = new byte[4];
             Array.Copy(data, readIndex, bDesIP, 0, bDesIP.Length);
             readIndex += bDesIP.Length;
             //Console.WriteLine(" <---DEVICEPORT_CONFIG bDesIP={0}", CCommondMethod.ToHex(bDesIP, "", "."));
-
+            /* (7) [2]工作于TCP Server模式时，允许外部连接的端口号 */
             wDesPort = GetPort();
             //Console.WriteLine(" <---DEVICEPORT_CONFIG wDesPort={0}", wDesPort);
-
+            /* (8) [4]串口波特率: 300---921600bps */
             dBaudRate = GetBaudrate();
             //Console.WriteLine(" <---DEVICEPORT_CONFIG dBaudRate={0}", dBaudRate);
-
+            /* (9) 串口数据位: 5---8位 */
             bDataSize = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDataSize={0}", bDataSize);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDataSize={0:X2}", bDataSize);
+            /* (10) 串口停止位: 1表示1个停止位; 2表示2个停止位 */
             bStopBits = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bStopBits={0}", bStopBits);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bStopBits={0:X2}", bStopBits);
+            /* (11) 串口校验位: 0表示奇校验; 1表示偶校验; 2表示标志位(MARK,置1); 3表示空白位(SPACE,清0);  */
             bParity = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bParity={0}", bParity);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bParity={0:X2}", bParity);
+            /* (12) PHY断开，Socket动作，1：关闭Socket 2、不动作*/
             bPHYChangeHandle = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bPHYChangeHandle={0}", bPHYChangeHandle);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bPHYChangeHandle={0:X2}", bPHYChangeHandle);
+            /* (13) [4] 串口RX数据打包长度，最大1024 */
             dRxPktlength = GetBaudrate();
             //Console.WriteLine(" <---DEVICEPORT_CONFIG dRxPktlength={0}", dRxPktlength);
-
+            /* (14) [4] 串口RX数据打包转发的最大等待时间,单位为: 10ms,0则表示关闭超时功能 */
             dRxPktTimeout = GetBaudrate();
             //Console.WriteLine(" <---DEVICEPORT_CONFIG dRxPktTimeout={0}", dRxPktTimeout);
-
+            /* (15) 工作于TCP CLIENT时，连接TCP SERVER的最大重试次数*/
             bReConnectCnt = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bReConnectCnt={0}", bReConnectCnt);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bReConnectCnt={0:X2}", bReConnectCnt);
+            /* (16) 串口复位操作: 0表示不清空串口数据缓冲区; 1表示连接时清空串口数据缓冲区 */
             bResetCtrl = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bResetCtrl={0}", bResetCtrl);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bResetCtrl={0:X2}", bResetCtrl);
+            /* (17) 域名功能启用标志，1：启用 2：不启用*/
             bDNSFlag = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDNSFlag={0}", bDNSFlag);
-
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDNSFlag={0:X2}", bDNSFlag);
+            /* (18) [20]域名*/
             szDomainname = new byte[20];
             Array.Copy(data, readIndex, szDomainname, 0, szDomainname.Length);
             readIndex += szDomainname.Length;
             //Console.WriteLine(" <---DEVICEPORT_CONFIG szDomainname={0}", CCommondMethod.ToHex(szDomainname, "", " "));
-
+            /* (19) [4]DNS 主机*/
             bDNSHostIP = new byte[4];
             Array.Copy(data, readIndex, bDNSHostIP, 0, bDNSHostIP.Length);
             readIndex += bDNSHostIP.Length;
             //Console.WriteLine(" <---DEVICEPORT_CONFIG bDNSHostIP={0}", CCommondMethod.ToHex(bDNSHostIP, "", "."));
-
+            /* (20) [2] DNS 端口*/
             wDNSHostPort = GetPort();
             //Console.WriteLine(" <---DEVICEPORT_CONFIG wDNSHostPort={0}", wDNSHostPort);
-
+            /* (21) [8] 保留*/
             breserved = new byte[8];
             Array.Copy(data, readIndex, breserved, 0, breserved.Length);
             readIndex += breserved.Length;
@@ -214,9 +214,8 @@ namespace UHFDemo
         {
             get { return data; }
         }
-        public byte Index { 
-            get => bIndex; 
-            set => bIndex = value; 
+        public string Index { 
+            get { return String.Format("{0:X2}", bIndex);  }
         }
         public bool PortEn { 
             get
@@ -266,10 +265,7 @@ namespace UHFDemo
          public bool RandSportFlag { 
             get
             {
-                if (bRandSportFlag == 0x01)
-                    return true;
-                else //if (bRandSportFlag == 0x00)
-                    return false;
+                return bRandSportFlag == 0x01 ? true : false;
             }
             set
             {
@@ -304,9 +300,10 @@ namespace UHFDemo
                 //Console.WriteLine("chris: set dest ip {0} -> {1}", CCommondMethod.ToHex(bDesIP, "", "."), CCommondMethod.ToHex(ip, "", "."));
             }
         }
-        public ushort DesPort { 
-            get => wDesPort; 
-            set => wDesPort = value; }
+        public ushort DesPort {
+            get { return wDesPort; }
+            set { wDesPort = value; }
+        }
         public string BaudRate { 
             get
             {
@@ -363,10 +360,7 @@ namespace UHFDemo
         public bool PHYChangeHandle { 
             get
             {
-                if (bPHYChangeHandle == 0x01)
-                    return true;
-                else //if (bPHYChangeHandle == 0x02)
-                    return false;
+                return bPHYChangeHandle == 0x01 ? true : false;
             }
             set
             {
@@ -380,39 +374,68 @@ namespace UHFDemo
                 }
             }
         }
-        public uint RxPktlength { 
-            get => dRxPktlength; 
-            set => dRxPktlength = value;
+        public uint RxPktlength {
+            get { return dRxPktlength; }
+            set { dRxPktlength = value; }
         }
-        public uint RxPktTimeout { 
-            get => dRxPktTimeout; 
-            set => dRxPktTimeout = value;
+        public uint RxPktTimeout {
+            get { return dRxPktTimeout; }
+            set { dRxPktTimeout = value; }
         }
         public byte ReConnectCnt { 
-            get => bReConnectCnt; 
-            set => bReConnectCnt = value; }
-        public byte ResetCtrl { 
-            get => bResetCtrl; 
-            set => bResetCtrl = value; 
+            get { return bReConnectCnt;}
+            set { bReConnectCnt = value; }
         }
-        public byte DNSFlag {
-            get => bDNSFlag; 
-            set => bDNSFlag = value; }
-        public byte[] DomainName { 
-            get => szDomainname; 
-            set => szDomainname = value; 
+        public bool ResetCtrl
+        {
+            get { return bResetCtrl == 0x00 ? false : true; } 
+            set { bResetCtrl = (byte)(value == true ? 0x00 : 0x01); }
         }
-        public byte[] DNSHostIP { 
-            get => bDNSHostIP; 
-            set => bDNSHostIP = value; 
+        public bool DNSFlag
+        {
+            get {
+                //Console.WriteLine("Port{0:X2} bDNSFlag={1:x2}", Index, bDNSFlag);
+                if (bDNSFlag == 0x01)
+                    return true;
+                else //if (bDNSFlag == 0x02)
+                    return false;
+            }
+            set { bDNSFlag = (byte)(value == true ? 0x01 : 0x00); }
         }
-        public ushort DNSHostPort { 
-            get => wDNSHostPort; 
-            set => wDNSHostPort = value;
+        public string DomainName {
+            get
+            {
+                return System.Text.Encoding.Default.GetString(szDomainname);
+            }
+
+            set
+            {
+                byte[] name = System.Text.Encoding.Default.GetBytes(value);
+                byte[] new_mod_name = new byte[szDomainname.Length];
+                Array.Copy(name, 0, new_mod_name, 0, name.Length <= 21 ? name.Length : 21);
+                Array.Copy(new_mod_name, 0, szDomainname, 0, new_mod_name.Length);
+            }
         }
-        public byte[] Reserved { 
-            get => breserved; 
-            set => breserved = value; 
+        public string DNSHostIP {
+            get 
+            {
+                return String.Format("{0}.{1}.{2}.{3}",
+                 Convert.ToInt32(bDNSHostIP[0]),
+                 Convert.ToInt32(bDNSHostIP[1]),
+                 Convert.ToInt32(bDNSHostIP[2]),
+                 Convert.ToInt32(bDNSHostIP[3]));
+            }
+            set
+            {
+                byte[] ip = IPAddress.Parse(value).GetAddressBytes();
+                Array.Copy(ip, 0, bDNSHostIP, 0, ip.Length);
+            }
+        }
+        public ushort DNSHostPort {
+            get { return wDNSHostPort; }
+        }
+        public string Reserved {
+            get { return CCommondMethod.ToHex(breserved, "", " "); }
         }
 
         int getu8()

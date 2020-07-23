@@ -8,6 +8,8 @@ namespace UHFDemo
         Dictionary<string, MODULE_SEARCH> modMacIndexSearch = new Dictionary<string, MODULE_SEARCH>();
         Dictionary<string, NET_DEVICE_CONFIG> modMacIndexNetDevCfg = new Dictionary<string, NET_DEVICE_CONFIG>();
 
+        int totalCounts = 0;
+
         public Dictionary<string, MODULE_SEARCH> IndexSearch
         {
             get { return modMacIndexSearch; }
@@ -23,6 +25,7 @@ namespace UHFDemo
             if (!modMacIndexSearch.ContainsKey(mod_mac))
             {
                 modMacIndexSearch.Add(mod_mac, mod_search);
+                totalCounts++;
                 return true;
             }
             else
@@ -44,6 +47,12 @@ namespace UHFDemo
         {
             modMacIndexSearch.Clear();
             modMacIndexNetDevCfg.Clear();
+            totalCounts = 0;
+        }
+
+        public int TotalCounts
+        {
+            get { return totalCounts; }
         }
     }
 }

@@ -43,27 +43,29 @@ namespace UHFDemo
             flag = new byte[16];
             Array.Copy(message, 0, flag, 0, flag.Length);
             readIndex += flag.Length;
-
+            /* 1 [16]通信标识，因为都是用广播方式进行通信的，所以这里加一个固定值*/
             cmd = message[readIndex++];
             //Console.WriteLine(" <---NET_COMM cmd={0}", cmd);
-
+            /* 2 命令头*/
             mod_mac = new byte[6];
             Array.Copy(message, readIndex, mod_mac, 0, mod_mac.Length);
             readIndex += mod_mac.Length;
             //Console.WriteLine(" <---NET_COMM mod_mac={0}", CCommondMethod.ToHex(mod_mac, "", ":"));
-
+            /* 3 [6]标识，标识是与某个模块在通信，若与所有的模块通信，则值0XFFFFFF,目标模块mac地址+ */
             pc_mac = new byte[6];
             Array.Copy(message, readIndex, pc_mac, 0, pc_mac.Length);
             readIndex += pc_mac.Length;
             //Console.WriteLine(" <---NET_COMM pc_mac={0}", CCommondMethod.ToHex(pc_mac, "", ":"));
-
+            /* 4 [6]配置软件端的MAC*/
             len = message[readIndex++];
             //Console.WriteLine(" <---NET_COMM len={0}", len);
-
+            /* 5 数据区长度*/
             if (cmd == (byte)NET_ACK.NET_MODULE_ACK_SET)
                 data = new byte[255];
             else
                 data = new byte[len + 1];
+
+            /* 6 [255]数据区缓冲区*/
             Array.Copy(message, readIndex, data, 0, data.Length);
             readIndex += data.Length;
 
@@ -238,3 +240,4 @@ namespace UHFDemo
         }
     }
 }
+ 

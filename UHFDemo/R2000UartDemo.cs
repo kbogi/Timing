@@ -8977,6 +8977,7 @@ namespace UHFDemo
         static bool netStarted = false;
         bool udpServerRunning = false;
         bool netCmdStarted = false;
+        bool searchDev = false;
         bool searching = false;
 
         string NET_MODULE_FLAG = "NET_MODULE_COMM\0"; // 用来标识通信_old
@@ -9089,9 +9090,13 @@ namespace UHFDemo
             {
                 bool added = net_db.Add(recv.Mod_Mac, recv.ModSearch);
                 if(added)
+                {
                     UpdateNetSearch(recv);
-                if (searching)
-                    return;
+                    BeginInvoke(new ThreadStart(delegate() {
+                        net_search_cnt_label.Text = net_db.TotalCounts  + "";
+                    }));
+                }
+                return;
             }
             else if (recv.Cmd == (byte)NET_ACK.NET_MODULE_ACK_GET)
             {
@@ -9191,98 +9196,226 @@ namespace UHFDemo
             }
             else
             {
+                net_base_info_lb.Items.Clear();
+                net_base_info_lb.Items.Add("---- 基础设置 ----");
+                net_base_info_lb.Items.Add("设备类型: " + recv.NetDevCfg.HW_CONFIG.DevType);
+                net_base_info_lb.Items.Add("设备子类型: " + recv.NetDevCfg.HW_CONFIG.AuxDevType);
+                net_base_info_lb.Items.Add("设备序号: " + recv.NetDevCfg.HW_CONFIG.Index);
+                net_base_info_lb.Items.Add("设备硬件版本号: " + recv.NetDevCfg.HW_CONFIG.DevHardwareVer);
+                net_base_info_lb.Items.Add("设备软件版本号: " + recv.NetDevCfg.HW_CONFIG.DevSoftwareVer);
+                net_base_info_lb.Items.Add("模块名: " + recv.NetDevCfg.HW_CONFIG.Modulename);
+                net_base_info_lb.Items.Add("模块网络MAC地址: " + recv.NetDevCfg.HW_CONFIG.DevMAC);
+                net_base_info_lb.Items.Add("模块IP地址: " + recv.NetDevCfg.HW_CONFIG.DevIP);
+                net_base_info_lb.Items.Add("模块网关IP: " + recv.NetDevCfg.HW_CONFIG.DevGWIP);
+                net_base_info_lb.Items.Add("模块子网掩码: " + recv.NetDevCfg.HW_CONFIG.DevIPMask);
+                net_base_info_lb.Items.Add("DHCP 使能: " + recv.NetDevCfg.HW_CONFIG.DhcpEnable);
+                net_base_info_lb.Items.Add("WEB网页地址: " + recv.NetDevCfg.HW_CONFIG.WebPort);
+                net_base_info_lb.Items.Add("用户名同模块名: " + recv.NetDevCfg.HW_CONFIG.Username);
+                net_base_info_lb.Items.Add("密码使能: " + recv.NetDevCfg.HW_CONFIG.PassWordEn);
+                net_base_info_lb.Items.Add("密码: " + recv.NetDevCfg.HW_CONFIG.PassWord);
+                net_base_info_lb.Items.Add("固件升级标志: " + recv.NetDevCfg.HW_CONFIG.UpdateFlag);
+                net_base_info_lb.Items.Add("串口协商进入配置模式使能: " + recv.NetDevCfg.HW_CONFIG.ComcfgEn);
+                net_base_info_lb.Items.Add("保留: " + recv.NetDevCfg.HW_CONFIG.Reserved);
+                net_base_info_lb.Items.Add("---- Port 1 ----------------------------------------------------------------------------------");
+                net_base_info_lb.Items.Add("端口序号: " + recv.NetDevCfg.PORT_CONFIG[1].Index);
+                net_base_info_lb.Items.Add("端口启用标志: " + recv.NetDevCfg.PORT_CONFIG[1].PortEn);
+                net_base_info_lb.Items.Add("网络工作模式: " + recv.NetDevCfg.PORT_CONFIG[1].NetMode);
+                net_base_info_lb.Items.Add("TCP 客户端模式下随即本地端口号: " + recv.NetDevCfg.PORT_CONFIG[1].RandSportFlag);
+                net_base_info_lb.Items.Add("网络通讯端口号: " + recv.NetDevCfg.PORT_CONFIG[1].NetPort);
+                net_base_info_lb.Items.Add("目的IP地址: " + recv.NetDevCfg.PORT_CONFIG[1].DesIP);
+                net_base_info_lb.Items.Add("工作于TCP Server模式时，允许外部连接的端口号: " + recv.NetDevCfg.PORT_CONFIG[1].DesPort);
+                net_base_info_lb.Items.Add("串口波特率: " + recv.NetDevCfg.PORT_CONFIG[1].BaudRate);
+                net_base_info_lb.Items.Add("串口数据位: " + recv.NetDevCfg.PORT_CONFIG[1].DataSize);
+                net_base_info_lb.Items.Add("串口停止位: " + recv.NetDevCfg.PORT_CONFIG[1].StopBits);
+                net_base_info_lb.Items.Add("串口校验位: " + recv.NetDevCfg.PORT_CONFIG[1].Parity);
+                net_base_info_lb.Items.Add("PHY断开，Socket动作: " + recv.NetDevCfg.PORT_CONFIG[1].PHYChangeHandle);
+                net_base_info_lb.Items.Add("串口RX数据打包长度(<1024): " + recv.NetDevCfg.PORT_CONFIG[1].RxPktlength);
+                net_base_info_lb.Items.Add("串口RX数据打包转发的最大等待时间(10ms): " + recv.NetDevCfg.PORT_CONFIG[1].RxPktTimeout);
+                net_base_info_lb.Items.Add("工作于TCP CLIENT时，连接TCP SERVER的最大重试次数: " + recv.NetDevCfg.PORT_CONFIG[1].ReConnectCnt);
+                net_base_info_lb.Items.Add("串口复位操作: " + (recv.NetDevCfg.PORT_CONFIG[1].ResetCtrl == true ? "清空缓存" : "不清空缓存"));
+                net_base_info_lb.Items.Add("域名功能启用标志: " + recv.NetDevCfg.PORT_CONFIG[1].DNSFlag);
+                net_base_info_lb.Items.Add("域名: " + recv.NetDevCfg.PORT_CONFIG[1].DomainName);
+                net_base_info_lb.Items.Add("DNS主机: " + recv.NetDevCfg.PORT_CONFIG[1].DNSHostIP);
+                net_base_info_lb.Items.Add("DNS 端口: " + recv.NetDevCfg.PORT_CONFIG[1].DNSHostPort);
+                net_base_info_lb.Items.Add("保留: " + recv.NetDevCfg.PORT_CONFIG[1].Reserved);
+                net_base_info_lb.Items.Add("---- 心跳 ----------------------------------------------------------------------------------");
+                net_base_info_lb.Items.Add("端口序号: " + recv.NetDevCfg.PORT_CONFIG[0].Index);
+                net_base_info_lb.Items.Add("端口启用标志: " + recv.NetDevCfg.PORT_CONFIG[0].PortEn);
+                net_base_info_lb.Items.Add("网络工作模式: " + recv.NetDevCfg.PORT_CONFIG[0].NetMode);
+                net_base_info_lb.Items.Add("TCP 客户端模式下随即本地端口号: " + recv.NetDevCfg.PORT_CONFIG[0].RandSportFlag);
+                net_base_info_lb.Items.Add("网络通讯端口号: " + recv.NetDevCfg.PORT_CONFIG[0].NetPort);
+                net_base_info_lb.Items.Add("目的IP地址: " + recv.NetDevCfg.PORT_CONFIG[0].DesIP);
+                net_base_info_lb.Items.Add("工作于TCP Server模式时，允许外部连接的端口号: " + recv.NetDevCfg.PORT_CONFIG[0].DesPort);
+                net_base_info_lb.Items.Add("串口波特率: " + recv.NetDevCfg.PORT_CONFIG[0].BaudRate);
+                net_base_info_lb.Items.Add("串口数据位: " + recv.NetDevCfg.PORT_CONFIG[0].DataSize);
+                net_base_info_lb.Items.Add("串口停止位: " + recv.NetDevCfg.PORT_CONFIG[0].StopBits);
+                net_base_info_lb.Items.Add("串口校验位: " + recv.NetDevCfg.PORT_CONFIG[0].Parity);
+                net_base_info_lb.Items.Add("PHY断开，Socket动作: " + recv.NetDevCfg.PORT_CONFIG[0].PHYChangeHandle);
+                net_base_info_lb.Items.Add("串口RX数据打包长度(<1024): " + recv.NetDevCfg.PORT_CONFIG[0].RxPktlength);
+                net_base_info_lb.Items.Add("串口RX数据打包转发的最大等待时间(10ms): USE FOR Heartbeat Interval");
+                net_base_info_lb.Items.Add("######################## 心跳间隔(50ms): " + recv.NetDevCfg.PORT_CONFIG[0].RxPktTimeout);
+                net_base_info_lb.Items.Add("工作于TCP CLIENT时，连接TCP SERVER的最大重试次数: " + recv.NetDevCfg.PORT_CONFIG[0].ReConnectCnt);
+                net_base_info_lb.Items.Add("串口复位操作: " + (recv.NetDevCfg.PORT_CONFIG[0].ResetCtrl == true ? "清空" : "不清空"));
+                net_base_info_lb.Items.Add("域名功能启用标志: " + recv.NetDevCfg.PORT_CONFIG[0].DNSFlag);
+                net_base_info_lb.Items.Add("域名:  USE FOR Heartbeat Content");
+                net_base_info_lb.Items.Add("######################## 心跳内容（< 20 Bytes）: " + recv.NetDevCfg.PORT_CONFIG[0].DomainName);
+                net_base_info_lb.Items.Add("DNS主机: " + recv.NetDevCfg.PORT_CONFIG[0].DNSHostIP);
+                net_base_info_lb.Items.Add("DNS 端口: " + recv.NetDevCfg.PORT_CONFIG[0].DNSHostPort);
+                net_base_info_lb.Items.Add("保留: " + recv.NetDevCfg.PORT_CONFIG[0].Reserved);
+
+                // 串口协商进入配置模式使能
+                net_base_comcfgEn_cb.Checked = recv.NetDevCfg.HW_CONFIG.ComcfgEn;
+                // 目标模块mac地址
                 net_base_mod_mac_tb.Text = recv.Mod_Mac;
+                // [21]模块名
                 net_base_mod_name_tb.Text = recv.NetDevCfg.HW_CONFIG.Modulename;
+                // DHCP 使能 
                 net_base_dhcp_enable_cb.Checked = recv.NetDevCfg.HW_CONFIG.DhcpEnable;
+                //[4]模块IP地址
                 net_base_mod_ip_tb.Text = recv.NetDevCfg.HW_CONFIG.DevIP;
+                //模块子网掩码
                 net_base_mod_mask_tb.Text = recv.NetDevCfg.HW_CONFIG.DevIPMask;
+                //模块网关IP
                 net_base_mod_gateway_tb.Text = recv.NetDevCfg.HW_CONFIG.DevGWIP;
 
                 // 端口0
                 int port_1_index = 1;
+                //端口序号
+                // 端口启用标志
                 net_port_1_enable_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_1_index].PortEn;
+                //网络工作模式
                 net_port_1_net_mode_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_1_index].NetMode;
+                // TCP 客户端模式下随即本地端口号
                 net_port_1_rand_port_flag_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_1_index].RandSportFlag;
+                // 网络通讯端口号
                 net_port_1_local_net_port_tb.Text = "" + recv.NetDevCfg.PORT_CONFIG[port_1_index].NetPort;
+                // 目的IP地址
                 net_port_1_dest_ip_tb.Text = recv.NetDevCfg.PORT_CONFIG[port_1_index].DesIP;
+                // 工作于TCP Server模式时，允许外部连接的端口号
                 net_port_1_dest_port_tb.Text = "" + recv.NetDevCfg.PORT_CONFIG[port_1_index].DesPort;
+                // 串口波特率
                 net_port_1_baudrate_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_1_index].BaudRate;
                 net_port_1_databits_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_1_index].DataSize;
                 net_port_1_stopbits_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_1_index].StopBits;
                 net_port_1_parity_bit_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_1_index].Parity;
+                // PHY断开，Socket动作
                 net_port_1_phyChangeHandle_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_1_index].PHYChangeHandle;
-                net_port_1_enable_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_1_index].PortEn;
+                // 串口RX数据打包长度
+                net_port_1_rx_pkg_size_tb.Text = String.Format("{0}", recv.NetDevCfg.PORT_CONFIG[port_1_index].RxPktlength);
+                // 串口RX数据打包转发的最大等待时间
+                net_port_1_rx_pkg_timeout_tb.Text = String.Format("{0}", recv.NetDevCfg.PORT_CONFIG[port_1_index].RxPktTimeout);
+                // 工作于TCP CLIENT时，连接TCP SERVER的最大重试次数
+                net_port_1_reconnectcnt_tb.Text = String.Format("{0}", recv.NetDevCfg.PORT_CONFIG[port_1_index].ReConnectCnt);
+                // 串口复位操作
+                net_port_1_resetctrl_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_1_index].ResetCtrl;
+                // 域名功能启用标志
+                net_port_1_dns_flag.Checked = recv.NetDevCfg.PORT_CONFIG[port_1_index].DNSFlag;
+                // 域名
+                net_port_1_dns_domain_tb.Text = recv.NetDevCfg.PORT_CONFIG[port_1_index].DomainName;
+                // DNS主机
+                net_port_1_dns_host_ip_tb.Text = string.Format("{0}", recv.NetDevCfg.PORT_CONFIG[port_1_index].DNSHostIP);
+                // DNS端口
+                net_port_1_dns_host_port_tb.Text = string.Format("{0}", recv.NetDevCfg.PORT_CONFIG[port_1_index].DNSHostPort);
+                // 保留
 
-                // 端口1
+                // 心跳包
                 int port_2_index = 0;
-                net_port_2_enable_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_2_index].PortEn;
-                net_port_2_net_mode_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_2_index].NetMode;
-                net_port_2_rand_port_flag_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_2_index].RandSportFlag;
-                net_port_2_local_net_port_tb.Text = "" + recv.NetDevCfg.PORT_CONFIG[port_2_index].NetPort;
-                net_port_2_dest_ip_tb.Text = recv.NetDevCfg.PORT_CONFIG[port_2_index].DesIP;
-                net_port_2_dest_port_tb.Text = "" + recv.NetDevCfg.PORT_CONFIG[port_2_index].DesPort;
-                net_port_2_baudrate_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_2_index].BaudRate;
-                net_port_2_databits_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_2_index].DataSize;
-                net_port_2_stopbits_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_2_index].StopBits;
-                net_port_2_parity_bit_cbo.SelectedItem = recv.NetDevCfg.PORT_CONFIG[port_2_index].Parity;
-                net_port_2_phyChangeHandle_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_2_index].PHYChangeHandle;
-                net_port_2_enable_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_2_index].PortEn;
+                net_use_heartbeat_cb.Checked = recv.NetDevCfg.PORT_CONFIG[port_2_index].PortEn;
+                net_heartbeat_content_tb.Text = recv.NetDevCfg.PORT_CONFIG[port_2_index].DomainName;
+                net_heartbeat_interval_tb.Text = "" + recv.NetDevCfg.PORT_CONFIG[port_2_index].RxPktTimeout;
 
             }
         }
 
         private void net_search_btn_Click(object sender, EventArgs e)
         {
-            if (!netStarted)
+            if(net_search_btn.Text.Equals("搜索设备"))
             {
-                if(udpServerRunning)
+                if (!netStarted)
                 {
-                    while (udpServerRunning)
+                    if (udpServerRunning)
                     {
-                        Thread.Sleep(200);
-                        Console.WriteLine("waiting for udpserver running done.");
+                        while (udpServerRunning)
+                        {
+                            Thread.Sleep(200);
+                            Console.WriteLine("waiting for udpserver running done.");
+                        }
                     }
                 }
+                StartNetUdpServer();
+
+                //// 清空原来的数据
+                //net_db.Clear();
+                //dev_dgv.Rows.Clear();
+
+                if (!CheckNetConfigStatus())
+                    return;
+
+                NET_COMM comm_cmd = new NET_COMM();
+                byte[] ch9121_cfg_flag = System.Text.Encoding.Default.GetBytes(CH9121_CFG_FLAG);
+                comm_cmd.setbytes(ch9121_cfg_flag);
+                comm_cmd.setu8((byte)NET_CMD.NET_MODULE_CMD_SEARCH); // 设置cmd
+
+                netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息 广播地址
+                byte[] message = comm_cmd.Message;
+                int ret = netClient.Send(message, message.Length, netEndpoint);
+
+                if (net_search_size.SelectedItem == null)
+                    net_search_size.SelectedIndex = 1;
+                string s = net_search_size.SelectedItem.ToString();
+                int searchCnt = Convert.ToInt32(s);
+                BeginInvoke(new ThreadStart(delegate () {
+                    enableNetConfigUI(false);
+                    if (searchCnt == -1)
+                    {
+                        net_search_btn.Enabled = true;
+                    }
+                    net_search_btn.Text = "正在搜索...";
+                }));
+                
+                new Thread(new ThreadStart(delegate {
+                    netCmdStarted = true;
+                    searchDev = true;
+                    searching = true;
+                    do
+                    {
+                        try
+                        {
+                            netClient.SendAsync(message, message.Length, netEndpoint);
+                            //Console.WriteLine("[{0}]Sending message ...", searchCnt);
+                            if (searchCnt == 1)
+                            {
+                                searchDev = false;
+                            }
+                            else
+                            {
+                                Thread.Sleep(3000);
+                            }
+                            if (searchCnt != -1)
+                                searchCnt--;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Searching Error: " + ex.Message);
+                            searchCnt = 1;
+                            searchDev = false;
+                            searching = false;
+                        }
+                    } while (searchDev);
+                    searching = false;
+                    BeginInvoke(new ThreadStart(delegate () {
+                        enableNetConfigUI(true);
+                        netCmdStarted = false;
+                        net_search_btn.Text = "搜索设备";
+                    }));
+
+                    Console.WriteLine("Searching done...");
+                })).Start();
             }
-            StartNetUdpServer();
-
-            //// 清空原来的数据
-            //net_db.Clear();
-            //dev_dgv.Rows.Clear();
-
-            if (!CheckNetConfigStatus())
-                return;
-
-            NET_COMM comm_cmd = new NET_COMM();
-            byte[] ch9121_cfg_flag = System.Text.Encoding.Default.GetBytes(CH9121_CFG_FLAG);
-            comm_cmd.setbytes(ch9121_cfg_flag);
-            comm_cmd.setu8((byte)NET_CMD.NET_MODULE_CMD_SEARCH); // 设置cmd
-
-            netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息 广播地址
-            byte[] message = comm_cmd.Message;
-            int ret = netClient.Send(message, message.Length, netEndpoint);
-            searching = true;
-            netCmdStarted = true;
-            enableNetConfigUI(false);
-
-            new Thread(new ThreadStart(delegate {
-                for (int i = 1; i <= 2; i++)
-                {
-                    try
-                    {
-                        netClient.SendAsync(message, message.Length, netEndpoint);
-                        Console.WriteLine("[{0}]Sending message ...", i);
-                        Thread.Sleep(3000);
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                    }
-                }
-                searching = false;
-                netCmdStarted = false;
-                enableNetConfigUI(true);
-            })).Start();
+            else
+            {
+                searchDev = false;
+            }
         }
 
     delegate void enableNetConfigUIDelegate(bool enable);
@@ -9301,6 +9434,7 @@ namespace UHFDemo
                 net_reset_btn.Enabled = enable;
                 net_refresh_netcard_btn.Enabled = enable;
                 net_card_combox.Enabled = enable;
+                net_reset_default.Enabled = enable;
             }
         }
 
@@ -9375,7 +9509,7 @@ namespace UHFDemo
 
         private bool CheckMacAddr(string macAddr)
         {
-            string ma = "/(([a-f0-9]{2}:)|([a-f0-9]{2}-)){5}[a-f0-9]{2}/gi";
+            string ma = "([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}";
 
             Regex r = new Regex(ma, RegexOptions.IgnoreCase);
 
@@ -9405,7 +9539,7 @@ namespace UHFDemo
                 return;
             }
 
-            if(CheckMacAddr(mod_mac))
+            if(!CheckMacAddr(mod_mac))
             {
                 MessageBox.Show("Mod Mac地址格式错误, eg: 11:22:33:44:55:66", "Mac地址", MessageBoxButtons.OK);
                 return;
@@ -9438,37 +9572,55 @@ namespace UHFDemo
             int port_2_index = 0;
 
             //Console.WriteLine("### port_1_index set ---> ");
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Index
             net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].PortEn = net_port_1_enable_cb.Checked;
             if (net_port_1_enable_cb.Checked)
             {
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].NetMode = net_port_1_net_mode_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].RandSportFlag = net_port_1_rand_port_flag_cb.Checked;
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].NetPort = Convert.ToUInt16(net_port_1_local_net_port_tb.Text);
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesIP = net_port_1_dest_ip_tb.Text;
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesPort = Convert.ToUInt16(net_port_1_dest_port_tb.Text);
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].BaudRate = net_port_1_baudrate_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DataSize = net_port_1_databits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].StopBits = net_port_1_stopbits_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Parity = net_port_1_parity_bit_cbo.SelectedItem.ToString();
                 net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].PHYChangeHandle = net_port_1_phyChangeHandle_cb.Checked;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesIP = net_port_1_dest_ip_tb.Text;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesPort = Convert.ToUInt16(net_port_1_dest_port_tb.Text);
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].RxPktlength = Convert.ToUInt32(net_port_1_rx_pkg_size_tb.Text.ToString());
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].RxPktTimeout = Convert.ToUInt32(net_port_1_rx_pkg_timeout_tb.Text.ToString());
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].ReConnectCnt = Convert.ToByte(net_port_1_reconnectcnt_tb.Text.ToString());
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].ResetCtrl = net_port_1_resetctrl_cb.Checked;
+                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DNSFlag = net_port_1_dns_flag.Checked;
+                //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DomainName
+                //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DNSHostIP
+                //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DNSHostPort
+                //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Reserved
             }
 
             //Console.WriteLine("### port_2_index set ---> ");
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].PortEn = net_port_2_enable_cb.Checked;
-            if (net_port_2_enable_cb.Checked)
-            {
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].NetMode = net_port_2_net_mode_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].RandSportFlag = net_port_2_rand_port_flag_cb.Checked;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].NetPort = Convert.ToUInt16(net_port_2_local_net_port_tb.Text);
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].BaudRate = net_port_2_baudrate_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DataSize = net_port_2_databits_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].StopBits = net_port_2_stopbits_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].Parity = net_port_2_parity_bit_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].PHYChangeHandle = net_port_2_phyChangeHandle_cb.Checked;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesIP = net_port_2_dest_ip_tb.Text;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesPort = Convert.ToUInt16(net_port_2_dest_port_tb.Text);
-            }
-
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Index
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].PortEn = net_use_heartbeat_cb.Checked;
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].NetMode = MODULE_TYPE.TCP_CLIENT.ToString();
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].RandSportFlag = true;
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].NetPort = 3000;
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesIP = "192.168.1.100";
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesPort = 2000;
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].BaudRate
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DataSize
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].StopBits
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].Parity
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].PHYChangeHandle = true;
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].RxPktlength = 1024;
+            // 心跳间隔时间
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].RxPktTimeout = Convert.ToUInt32(net_heartbeat_interval_tb.Text);
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].ReConnectCnt
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].ResetCtrl
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DNSFlag
+            // 心跳包内容
+            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DomainName = net_heartbeat_content_tb.Text.ToString();
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DNSHostIP
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DNSHostPort
+            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].Reserved
             NetSetCfg(mod_mac, net_db.IndexSearch[mod_mac]);
         }
 
@@ -9777,8 +9929,8 @@ namespace UHFDemo
             // port_parity
             rawdata[writeIndex++] = 0x04;
             /* PHY断开，Socket动作，1：关闭Socket 2、不动作*/
-            // port_phy_disconnect
-            rawdata[writeIndex++] = 0x02;
+                // port_phy_disconnect
+                rawdata[writeIndex++] = 0x02;
             // port_package_size
             int port2_package_size = 1024;
             rawdata[writeIndex++] = (byte)((port2_package_size >> 0) & 0xff);
@@ -9859,18 +10011,6 @@ namespace UHFDemo
             net_port_1_stopbits_cbo.Items.AddRange(Enum.GetNames(typeof(STOPBITS)));
             net_port_1_parity_bit_cbo.Items.Clear();
             net_port_1_parity_bit_cbo.Items.AddRange(Enum.GetNames(typeof(PARITY)));
-
-            net_port_2_net_mode_cbo.Items.Clear();
-            net_port_2_net_mode_cbo.Items.AddRange(Enum.GetNames(typeof(MODULE_TYPE)));
-            net_port_2_baudrate_cbo.Items.Clear();
-            net_port_2_baudrate_cbo.Items.AddRange(Enum.GetNames(typeof(BAUDRATE)));
-            net_port_2_databits_cbo.Items.Clear();
-            net_port_2_databits_cbo.Items.AddRange(Enum.GetNames(typeof(DATABITS)));
-            net_port_2_stopbits_cbo.Items.Clear();
-            net_port_2_stopbits_cbo.Items.AddRange(Enum.GetNames(typeof(STOPBITS)));
-            net_port_2_parity_bit_cbo.Items.Clear();
-            net_port_2_parity_bit_cbo.Items.AddRange(Enum.GetNames(typeof(PARITY)));
-
         }
 
         private void NetRefreshNetCard()
@@ -9955,23 +10095,15 @@ namespace UHFDemo
             net_port_1_baudrate_cbo.SelectedIndex = net_port_1_baudrate_cbo.Items.Count - 1;
             net_port_1_dest_port_tb.Text = "";
             net_port_1_dest_ip_tb.Text = "";
-            net_port_1_ip_domain_select_cbo.SelectedIndex = net_port_1_ip_domain_select_cbo.Items.Count - 1;
+            // 启用域名
             net_port_1_local_net_port_tb.Text = "";
             net_port_1_net_mode_cbo.SelectedIndex = net_port_1_net_mode_cbo.Items.Count - 1;
 
-            net_port_2_enable_cb.Checked = false;
-            net_port_2_rand_port_flag_cb.Checked = false;
-            net_port_2_parity_bit_cbo.SelectedIndex = net_port_2_parity_bit_cbo.Items.Count - 1;
-            net_port_2_stopbits_cbo.SelectedIndex = net_port_2_stopbits_cbo.Items.Count - 1;
-            net_port_2_databits_cbo.SelectedIndex = net_port_2_databits_cbo.Items.Count - 1;
-            net_port_2_baudrate_cbo.SelectedIndex = net_port_2_baudrate_cbo.Items.Count - 1;
-            net_port_2_dest_port_tb.Text = "";
-            net_port_2_dest_ip_tb.Text = "";
-            net_port_2_ip_domain_select_cbo.SelectedIndex = net_port_2_ip_domain_select_cbo.Items.Count - 1;
-            net_port_2_local_net_port_tb.Text = "";
-            net_port_2_net_mode_cbo.SelectedIndex = net_port_2_net_mode_cbo.Items.Count - 1;
+            net_heartbeat_interval_tb.Text = "";
+            net_heartbeat_content_tb.Text = "";
 
             net_db.Clear();
+            net_base_info_lb.Items.Clear();
         }
 
         private void net_card_combox_SelectedIndexChanged(object sender, EventArgs e)
@@ -10007,45 +10139,31 @@ namespace UHFDemo
             //Console.WriteLine(" ... {0}", net_port_1_net_mode_cbo.SelectedItem.ToString());
             if (net_port_1_net_mode_cbo.SelectedItem.Equals(MODULE_TYPE.TCP_SERVER.ToString()))
             {
-                EnablePort0ServerTypeView(false);
+                EnablePort0_TcpClient(false);
             }
             else
             {
-                EnablePort0ServerTypeView(true);
+                EnablePort0_TcpClient(true);
             }
         }
 
-        private void EnablePort0ServerTypeView(bool flag)
+        private void EnablePort0_TcpClient(bool flag)
         {
-            //Console.WriteLine("EnablePort0ServerTypeView ... ");
+            //Console.WriteLine("EnablePort0_TCPClient ... ");
+            // TcpClient 随机端口
             net_port_1_rand_port_flag_cb.Enabled = flag;
-            net_port_1_ip_domain_select_cbo.Enabled = flag;
+            // TcpClient 重连次数
+            net_port_1_reconnectcnt_tb.Enabled = flag;
+            // TcpClient 目标IP
             net_port_1_dest_ip_tb.Enabled = flag;
+            // TcpClient 目标端口
             net_port_1_dest_port_tb.Enabled = flag;
-            //Console.WriteLine("EnablePort0ServerTypeView end... ");
-        }
-
-        private void net_port_1_net_mode_cb_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //Console.WriteLine(" ... {0}", net_port_2_net_mode_cbo.SelectedItem.ToString());
-            if (net_port_2_net_mode_cbo.SelectedItem.Equals(MODULE_TYPE.TCP_SERVER.ToString()))
-            {
-                EnablePort1ServerTypeView(false);
-            }
-            else
-            {
-                EnablePort1ServerTypeView(true);
-            }
-        }
-
-        private void EnablePort1ServerTypeView(bool flag)
-        {
-            //Console.WriteLine("EnablePort1ServerTypeView ... ");
-            net_port_2_rand_port_flag_cb.Enabled = flag;
-            net_port_2_ip_domain_select_cbo.Enabled = flag;
-            net_port_2_dest_ip_tb.Enabled = flag;
-            net_port_2_dest_port_tb.Enabled = flag;
-            //Console.WriteLine("EnablePort1ServerTypeView end... ");
+            // TcpClient 域名启用
+            net_port_1_dns_flag.Enabled = flag;
+            net_port_1_dns_domain_tb.Enabled = flag;
+            net_port_1_dns_host_ip_tb.Enabled = flag;
+            net_port_1_dns_host_port_tb.Enabled = flag;
+            //Console.WriteLine("EnablePort0_TCPClient end... ");
         }
 
         private void net_reset_default_Click(object sender, EventArgs e)
@@ -11068,6 +11186,21 @@ namespace UHFDemo
             if(tagdb!=null)
                 tagdb.UpdateRegionInfo(data);
             
+        }
+
+        private void net_port_1_dns_flag_CheckStateChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine("############### net_port_1_dns_flag_CheckedChanged {0}", sender.ToString());
+            CheckBox cb = (CheckBox)sender;
+            if (cb.Checked)
+            {
+                //if (!net_port_1_net_mode_cbo.SelectedItem.Equals(MODULE_TYPE.TCP_SERVER.ToString()))
+                    net_port_1_dns_domain_tb.Enabled = true;
+            }
+            else
+            {
+                net_port_1_dns_domain_tb.Enabled = false;
+            }
         }
     }
 

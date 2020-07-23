@@ -36,71 +36,72 @@ namespace UHFDemo
             Array.Copy(parseData, 0, data, 0, data.Length);
 			readIndex = 0;
 
-			bDevType = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevType={0}", bDevType);
-
+            /* 1 设备类型,具体见设备类型表 */
+            bDevType = data[readIndex++];
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevType={0:X2}", bDevType);
+            /* 2 设备子类型 */
             bAuxDevType = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bAuxDevType={0}", bAuxDevType);
-
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bAuxDevType={0:X2}", bAuxDevType);
+            /* 3 设备序号 */
             bIndex = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bIndex={0}", bIndex);
-
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bIndex={0:X2}", bIndex);
+            /* 4 设备硬件版本号 */
             bDevHardwareVer = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevHardwareVer={0}", bDevHardwareVer);
-
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevHardwareVer={0:X2}", bDevHardwareVer);
+            /* 5 设备软件版本号 */
             bDevSoftwareVer = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevSoftwareVer={0}", bDevSoftwareVer);
-
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevSoftwareVer={0:X2}", bDevSoftwareVer);
+            /* 6 [21]模块名*/
             szModulename = new byte[21];
 			Array.Copy(data, readIndex, szModulename, 0, szModulename.Length);
 			readIndex += szModulename.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG szModulename={0}", CCommondMethod.ToHex(szModulename, "", " "));
-
+            /* 7 [6]模块网络MAC地址 */
             bDevMAC = new byte[6];
 			Array.Copy(data, readIndex, bDevMAC, 0, bDevMAC.Length);
 			readIndex += bDevMAC.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevMAC={0}", CCommondMethod.ToHex(bDevMAC, "", ":"));
-
+            /* 8 [4]模块IP地址*/
             bDevIP = new byte[4];
 			Array.Copy(data, readIndex, bDevIP, 0, bDevIP.Length);
 			readIndex += bDevIP.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIP={0}", CCommondMethod.ToHex(bDevIP, "", "."));
-
+            /* 9 [4]模块网关IP */
             bDevGWIP = new byte[4];
 			Array.Copy(data, readIndex, bDevGWIP, 0, bDevGWIP.Length);
 			readIndex += bDevGWIP.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevGWIP={0}", CCommondMethod.ToHex(bDevGWIP, "", "."));
-
+            /* 10 [4]模块子网掩码 */
             bDevIPMask = new byte[4];
 			Array.Copy(data, readIndex, bDevIPMask, 0, bDevIPMask.Length);
 			readIndex += bDevIPMask.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIPMask={0}", CCommondMethod.ToHex(bDevIPMask, "", "."));
-
+            /* 11 DHCP 使能，是否启用DHCP,1:启用，0：不启用*/
             bDhcpEnable = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bDhcpEnable={0}", bDhcpEnable);
-
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDhcpEnable={0:X2}", bDhcpEnable);
+            /* 12 [2]WEB网页地址 */
             wWebPort = GetPort();
             //Console.WriteLine(" <---DEVICEHW_CONFIG wWebPort={0}", wWebPort);
-
+            /* 13 [8]用户名同模块名*/
             szUsername = new byte[8];
 			Array.Copy(data, readIndex, szUsername, 0, szUsername.Length);
 			readIndex += szUsername.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG szUsername={0}", CCommondMethod.ToHex(szUsername, "", " "));
-
+            /* 14 密码使能 1：使能 0： 禁用*/
             bPassWordEn = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bPassWordEn={0}", bPassWordEn);
-
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bPassWordEn={0:X2}", bPassWordEn);
+            /* 15 [8]密码*/
             szPassWord = new byte[8];
             Array.Copy(data, readIndex, szPassWord, 0, szPassWord.Length);
             readIndex += szPassWord.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG szPassWord={0}", CCommondMethod.ToHex(szPassWord, "", " "));
-
+            /* 16 固件升级标志，1：升级 0：不升级*/
             bUpdateFlag = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bUpdateFlag={0}", bUpdateFlag);
-
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bUpdateFlag={0:X2}", bUpdateFlag);
+            /* 17 串口协商进入配置模式使能，1：使能 0:不使能 */
             bComcfgEn = data[readIndex++];
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bComcfgEn={0}", bComcfgEn);
-
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bComcfgEn={0:X2}", bComcfgEn);
+            /* 18 [8]保留*/
             breserved = new byte[8];
 			Array.Copy(data, readIndex, breserved, 0, breserved.Length);
 			readIndex += breserved.Length;
@@ -179,26 +180,7 @@ namespace UHFDemo
         {
             get
             {
-                string strType = "";
-                switch (bDevType)
-                {
-                    case (byte)MODULE_TYPE.TCP_SERVER:
-                        strType = "TCP SERVER";
-                        break;
-                    case (byte)MODULE_TYPE.TCP_CLIENT:
-                        strType = "TCP CLIENT";
-                        break;
-                    case (byte)MODULE_TYPE.UDP_SERVER:
-                        strType = "UDP SERVER";
-                        break;
-                    case (byte)MODULE_TYPE.UDP_CLIENT:
-                        strType = "UDP CLIENT";
-                        break;
-                    default:
-                        strType = Convert.ToString(bDevType);
-                        break;
-                }
-                return strType;
+                return String.Format("{0:X2}", bDevType);
             }
         }
 
@@ -207,7 +189,7 @@ namespace UHFDemo
         {
             get
             {
-                return Convert.ToString(bAuxDevType);
+                return String.Format("{0:X2}", bAuxDevType);
             }
         }
 
@@ -216,7 +198,7 @@ namespace UHFDemo
         {
             get
             {
-                return Convert.ToString(bIndex);
+                return String.Format("{0:X2}", bIndex); 
             }
         }
 
@@ -225,7 +207,7 @@ namespace UHFDemo
         {
             get
             {
-                return Convert.ToString(bDevHardwareVer);
+                return String.Format("{0:X2}", bDevHardwareVer);
             }
         }
 
@@ -234,7 +216,7 @@ namespace UHFDemo
         {
             get
             {
-                return Convert.ToString(bDevSoftwareVer);
+                return String.Format("{0:X2}", bDevSoftwareVer);
             }
         }
 
@@ -345,11 +327,11 @@ namespace UHFDemo
                 return System.Text.Encoding.Default.GetString(szUsername);
             }
         }// 密码使能 1：使能 0： 禁用
-        public string PassWordEn
+        public bool PassWordEn
         {
             get
             {
-                return Convert.ToString(bPassWordEn);
+                return bPassWordEn == 0x01 ? true : false;
             }
         }
         // 密码
@@ -361,19 +343,19 @@ namespace UHFDemo
             }
         }
         // 固件升级标志，1：升级 0：不升级
-        public string UpdateFlag
+        public bool UpdateFlag
         {
             get
             {
-                return Convert.ToString(bUpdateFlag);
+                return bUpdateFlag == 0x01 ? true : false;
             }
         }
         // 串口协商进入配置模式使能，1：使能 0:不使能
-        public string ComcfgEn
+        public bool ComcfgEn
         {
             get
             {
-                return Convert.ToString(bComcfgEn);
+                return bComcfgEn == 0x01 ? true : false;
             }
         }// 保留
         public string Reserved
