@@ -33,9 +33,9 @@ namespace UHFDemo
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(R2000UartDemo));
             this.tabCtrMain = new System.Windows.Forms.TabControl();
             this.PagReaderSetting = new System.Windows.Forms.TabPage();
@@ -852,6 +852,8 @@ namespace UHFDemo
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
             this.savelog_cb = new System.Windows.Forms.CheckBox();
+            this.net_save_cfg_btn = new System.Windows.Forms.Button();
+            this.net_load_cfg_btn = new System.Windows.Forms.Button();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -6941,14 +6943,14 @@ namespace UHFDemo
             // 
             // tags_dgv
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.tags_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tags_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.mSerialNumberColumn,
@@ -6959,24 +6961,24 @@ namespace UHFDemo
             this.mPhaseColumn,
             this.mAntennaColumn,
             this.mDataColumn});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle5;
             this.tags_dgv.Location = new System.Drawing.Point(5, 85);
             this.tags_dgv.Name = "tags_dgv";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.tags_dgv.RowTemplate.Height = 23;
             this.tags_dgv.Size = new System.Drawing.Size(652, 428);
             this.tags_dgv.TabIndex = 0;
@@ -8374,6 +8376,8 @@ namespace UHFDemo
             // 
             // net_configure_tabPage
             // 
+            this.net_configure_tabPage.Controls.Add(this.net_load_cfg_btn);
+            this.net_configure_tabPage.Controls.Add(this.net_save_cfg_btn);
             this.net_configure_tabPage.Controls.Add(this.label171);
             this.net_configure_tabPage.Controls.Add(this.net_search_cnt_label);
             this.net_configure_tabPage.Controls.Add(this.label170);
@@ -10256,6 +10260,26 @@ namespace UHFDemo
             this.savelog_cb.UseVisualStyleBackColor = true;
             this.savelog_cb.CheckedChanged += new System.EventHandler(this.savelog_cb_CheckedChanged);
             // 
+            // net_save_cfg_btn
+            // 
+            this.net_save_cfg_btn.Location = new System.Drawing.Point(610, 331);
+            this.net_save_cfg_btn.Name = "net_save_cfg_btn";
+            this.net_save_cfg_btn.Size = new System.Drawing.Size(75, 23);
+            this.net_save_cfg_btn.TabIndex = 82;
+            this.net_save_cfg_btn.Text = "保存到文件";
+            this.net_save_cfg_btn.UseVisualStyleBackColor = true;
+            this.net_save_cfg_btn.Click += new System.EventHandler(this.net_save_cfg_btn_Click);
+            // 
+            // net_load_cfg_btn
+            // 
+            this.net_load_cfg_btn.Location = new System.Drawing.Point(695, 331);
+            this.net_load_cfg_btn.Name = "net_load_cfg_btn";
+            this.net_load_cfg_btn.Size = new System.Drawing.Size(75, 23);
+            this.net_load_cfg_btn.TabIndex = 83;
+            this.net_load_cfg_btn.Text = "加载配置";
+            this.net_load_cfg_btn.UseVisualStyleBackColor = true;
+            this.net_load_cfg_btn.Click += new System.EventHandler(this.net_load_cfg_btn_Click);
+            // 
             // R2000UartDemo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -10273,7 +10297,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v4.0.16";
+            this.Text = "UHF RFID Reader Demo v4.0.17";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.R2000UartDemo_FormClosing);
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
@@ -11292,6 +11316,8 @@ namespace UHFDemo
         private Label net_search_cnt_label;
         private Label label170;
         private ComboBox net_search_size;
+        private Button net_load_cfg_btn;
+        private Button net_save_cfg_btn;
     }
 }
 

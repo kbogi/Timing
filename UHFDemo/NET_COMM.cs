@@ -103,16 +103,23 @@ namespace UHFDemo
         public String Flag
         {
             get { return System.Text.Encoding.Default.GetString(flag); }
+            set { flag = System.Text.Encoding.Default.GetBytes(value); }
         }
 
         public byte Cmd
         {
             get { return cmd; }
+            set { cmd = value; }
         }
 
         public String Mod_Mac
         {
             get { return CCommondMethod.ToHex(mod_mac, "", ":"); }
+            set
+            {
+                string param_mod_mac = value.Replace(":", "").ToLower();
+                mod_mac = CCommondMethod.FromHex(param_mod_mac);
+            }
         }
 
         public String Pc_Mac
@@ -121,11 +128,25 @@ namespace UHFDemo
             {
                 return CCommondMethod.ToHex(pc_mac, "", ":"); 
             }
+            set
+            {
+                string param_pc_mac = value.Replace(":", "").ToLower();
+                pc_mac = CCommondMethod.FromHex(param_pc_mac);
+            }
         }
 
         public byte Len
         {
             get { return len; }
+            set { len = value; }
+        }
+
+        public byte[] Data
+        {
+            set { 
+                data = new byte[value.Length];
+                Array.Copy(value, 0, data, 0, value.Length);
+            }
         }
 
         public MODULE_SEARCH ModSearch

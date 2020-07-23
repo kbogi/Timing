@@ -30,7 +30,6 @@ namespace UHFDemo
                 Array.Copy(rawData, writeIndex, dev_port_data, 0, dev_port_data.Length);
                 dev_port_cfg[i] = new DEVICEPORT_CONFIG(dev_port_data);
                 writeIndex += dev_port_data.Length;
-                
             }
         }
 
