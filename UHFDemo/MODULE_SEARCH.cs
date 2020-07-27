@@ -13,7 +13,7 @@ namespace UHFDemo
 
         // 为了关联 mod_cfg
         byte[] mod_mac;// 6
-        byte[] pc_mac;// 4
+        byte[] pc_mac;// 6
 
         int writeIndex;
         int readIndex;

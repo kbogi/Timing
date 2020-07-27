@@ -21,20 +21,33 @@ namespace UHFDemo
 		byte[] szUsername;                /* [8]用户名同模块名*/
 		byte bPassWordEn;                  /*密码使能 1：使能 0： 禁用*/
 		byte[] szPassWord;                /* [8]密码*/
-		byte bUpdateFlag;                  /* 固件升级标志，1：升级 0：不升级*/
+
+        byte bUpdateFlag;                  /* 固件升级标志，1：升级 0：不升级*/
 		byte bComcfgEn;                    /*串口协商进入配置模式使能，1：使能 0:不使能 */
 		byte[] breserved;             /* [8]保留*/
-		private byte[] data;
+		private byte[] rawData;
 
 		int readIndex;
         int writeIndex;
 
+        public void Update(byte[] dev_hw_data)
+        {
+            //Console.WriteLine("#2 DEVICEHW_CONFIG Update");
+            toParseData(dev_hw_data);
+        }
 
-        public DEVICEHW_CONFIG(byte[] parseData)
+        public DEVICEHW_CONFIG(byte[] rData)
 		{
-			this.data = new byte[parseData.Length];
-            Array.Copy(parseData, 0, data, 0, data.Length);
-			readIndex = 0;
+            //Console.WriteLine("#2 DEVICEHW_CONFIG New");
+            this.rawData = new byte[rData.Length];
+            Array.Copy(rData, 0, rawData, 0, rawData.Length);
+
+            toParseData(rawData);
+        }
+
+        private void toParseData(byte[] data)
+        {
+            readIndex = 0;
 
             /* 1 设备类型,具体见设备类型表 */
             bDevType = data[readIndex++];
@@ -53,28 +66,28 @@ namespace UHFDemo
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevSoftwareVer={0:X2}", bDevSoftwareVer);
             /* 6 [21]模块名*/
             szModulename = new byte[21];
-			Array.Copy(data, readIndex, szModulename, 0, szModulename.Length);
-			readIndex += szModulename.Length;
+            Array.Copy(data, readIndex, szModulename, 0, szModulename.Length);
+            readIndex += szModulename.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG szModulename={0}", CCommondMethod.ToHex(szModulename, "", " "));
             /* 7 [6]模块网络MAC地址 */
             bDevMAC = new byte[6];
-			Array.Copy(data, readIndex, bDevMAC, 0, bDevMAC.Length);
-			readIndex += bDevMAC.Length;
+            Array.Copy(data, readIndex, bDevMAC, 0, bDevMAC.Length);
+            readIndex += bDevMAC.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevMAC={0}", CCommondMethod.ToHex(bDevMAC, "", ":"));
             /* 8 [4]模块IP地址*/
             bDevIP = new byte[4];
-			Array.Copy(data, readIndex, bDevIP, 0, bDevIP.Length);
-			readIndex += bDevIP.Length;
+            Array.Copy(data, readIndex, bDevIP, 0, bDevIP.Length);
+            readIndex += bDevIP.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIP={0}", CCommondMethod.ToHex(bDevIP, "", "."));
             /* 9 [4]模块网关IP */
             bDevGWIP = new byte[4];
-			Array.Copy(data, readIndex, bDevGWIP, 0, bDevGWIP.Length);
-			readIndex += bDevGWIP.Length;
+            Array.Copy(data, readIndex, bDevGWIP, 0, bDevGWIP.Length);
+            readIndex += bDevGWIP.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevGWIP={0}", CCommondMethod.ToHex(bDevGWIP, "", "."));
             /* 10 [4]模块子网掩码 */
             bDevIPMask = new byte[4];
-			Array.Copy(data, readIndex, bDevIPMask, 0, bDevIPMask.Length);
-			readIndex += bDevIPMask.Length;
+            Array.Copy(data, readIndex, bDevIPMask, 0, bDevIPMask.Length);
+            readIndex += bDevIPMask.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIPMask={0}", CCommondMethod.ToHex(bDevIPMask, "", "."));
             /* 11 DHCP 使能，是否启用DHCP,1:启用，0：不启用*/
             bDhcpEnable = data[readIndex++];
@@ -84,8 +97,8 @@ namespace UHFDemo
             //Console.WriteLine(" <---DEVICEHW_CONFIG wWebPort={0}", wWebPort);
             /* 13 [8]用户名同模块名*/
             szUsername = new byte[8];
-			Array.Copy(data, readIndex, szUsername, 0, szUsername.Length);
-			readIndex += szUsername.Length;
+            Array.Copy(data, readIndex, szUsername, 0, szUsername.Length);
+            readIndex += szUsername.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG szUsername={0}", CCommondMethod.ToHex(szUsername, "", " "));
             /* 14 密码使能 1：使能 0： 禁用*/
             bPassWordEn = data[readIndex++];
@@ -103,8 +116,8 @@ namespace UHFDemo
             //Console.WriteLine(" <---DEVICEHW_CONFIG bComcfgEn={0:X2}", bComcfgEn);
             /* 18 [8]保留*/
             breserved = new byte[8];
-			Array.Copy(data, readIndex, breserved, 0, breserved.Length);
-			readIndex += breserved.Length;
+            Array.Copy(data, readIndex, breserved, 0, breserved.Length);
+            readIndex += breserved.Length;
             //Console.WriteLine(" <---DEVICEHW_CONFIG breserved={0}", CCommondMethod.ToHex(breserved, "", " "));
         }
 
@@ -112,13 +125,16 @@ namespace UHFDemo
         {
             int val;
             val = 0
-                | ((data[readIndex + 1] & 0xff) << 8)
-                | ((data[readIndex] & 0xff) << 0);
+                | ((rawData[readIndex + 1] & 0xff) << 8)
+                | ((rawData[readIndex] & 0xff) << 0);
             readIndex += 2;
             return Convert.ToUInt16(val);
         }
+
+
         public byte[] UpdateForSet()
         {
+            //Console.WriteLine("#1 DEVICEHW_CONFIG UpdateForSet");
             byte[] setdata = new byte[74];
             readIndex = 0;
 
@@ -172,7 +188,7 @@ namespace UHFDemo
 
         public byte[] RawData
         {
-            get { return data; }
+            get { return rawData; }
         }
 
         // 设备类型
@@ -368,21 +384,21 @@ namespace UHFDemo
 
         public void setu8(int val)
         {
-            data[writeIndex++] = (byte)(val & 0xff);
+            rawData[writeIndex++] = (byte)(val & 0xff);
         }
 
         void setu16(int val)
         {
-            data[writeIndex++] = (byte)((val >> 8) & 0xff);
-            data[writeIndex++] = (byte)((val >> 0) & 0xff);
+            rawData[writeIndex++] = (byte)((val >> 8) & 0xff);
+            rawData[writeIndex++] = (byte)((val >> 0) & 0xff);
         }
 
         void setu32(int val)
         {
-            data[writeIndex++] = (byte)((val >> 24) & 0xff);
-            data[writeIndex++] = (byte)((val >> 16) & 0xff);
-            data[writeIndex++] = (byte)((val >> 8) & 0xff);
-            data[writeIndex++] = (byte)((val >> 0) & 0xff);
+            rawData[writeIndex++] = (byte)((val >> 24) & 0xff);
+            rawData[writeIndex++] = (byte)((val >> 16) & 0xff);
+            rawData[writeIndex++] = (byte)((val >> 8) & 0xff);
+            rawData[writeIndex++] = (byte)((val >> 0) & 0xff);
         }
 
         public void setbytes(byte[] array)
@@ -395,7 +411,7 @@ namespace UHFDemo
 
         void setbytes(byte[] array, int start, int length)
         {
-            Array.Copy(array, start, data, writeIndex, length);
+            Array.Copy(array, start, rawData, writeIndex, length);
             writeIndex += length;
         }
 
@@ -438,34 +454,34 @@ namespace UHFDemo
 
         void getbytes(byte[] destination, int length)
         {
-            Array.Copy(data, readIndex, destination, 0, length);
+            Array.Copy(rawData, readIndex, destination, 0, length);
             readIndex += length;
         }
 
         int getu8at(int offset)
         {
-            return data[offset] & 0xff;
+            return rawData[offset] & 0xff;
         }
 
         int getu16at(int offset)
         {
-            return ((data[offset] & 0xff) << 8)
-              | ((data[offset + 1] & 0xff) << 0);
+            return ((rawData[offset] & 0xff) << 8)
+              | ((rawData[offset + 1] & 0xff) << 0);
         }
 
         int getu24at(int offset)
         {
-            return ((data[offset] & 0xff) << 16)
-              | ((data[offset + 1] & 0xff) << 8)
-              | ((data[offset + 2] & 0xff) << 0);
+            return ((rawData[offset] & 0xff) << 16)
+              | ((rawData[offset + 1] & 0xff) << 8)
+              | ((rawData[offset + 2] & 0xff) << 0);
         }
 
         int getu32at(int offset)
         {
-            return ((data[offset] & 0xff) << 24)
-              | ((data[offset + 1] & 0xff) << 16)
-              | ((data[offset + 2] & 0xff) << 8)
-              | ((data[offset + 3] & 0xff) << 0);
+            return ((rawData[offset] & 0xff) << 24)
+              | ((rawData[offset + 1] & 0xff) << 16)
+              | ((rawData[offset + 2] & 0xff) << 8)
+              | ((rawData[offset + 3] & 0xff) << 0);
         }
     }
 }

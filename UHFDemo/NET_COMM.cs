@@ -36,6 +36,13 @@ namespace UHFDemo
             toParseMessage(message);
         }
 
+        public void UpdateMessage()
+        {
+            //Console.WriteLine("UpdateMessage");
+            toParseMessage(message);
+            net_dev_cfg = parseCfgData(data);
+        }
+
         private void toParseMessage(byte[] message)
         {
             readIndex = 0;

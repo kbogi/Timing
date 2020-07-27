@@ -1,6 +1,9 @@
 !Outputs/Release/*.dll
 !Outputs/Release/*.exe
+Outputs/
 
+CustomControl/bin
+Reader/bin
 
 # User-specific files
 *.suo
@@ -23,5 +26,4 @@ bld/
 Dlls/*.pdb
 # Visual Studio 2015 cache/options directory
 .vs/
-
 

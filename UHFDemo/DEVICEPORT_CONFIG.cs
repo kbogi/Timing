@@ -27,18 +27,30 @@ namespace UHFDemo
 		byte bResetCtrl;               /* 串口复位操作: 0表示不清空串口数据缓冲区; 1表示连接时清空串口数据缓冲区 */
 		byte bDNSFlag;             /* 域名功能启用标志，1：启用 2：不启用*/
 		byte[] szDomainname;     /* [20]域名*/
-		byte[] bDNSHostIP;            /* [4]DNS 主机*/
+
+        byte[] bDNSHostIP;            /* [4]DNS 主机*/
 		ushort wDNSHostPort;            /*[2] DNS 端口*/
 		byte[] breserved;         /*[8] 保留*/
 
-		private byte[] data;
+		private byte[] rawData;
         private int readIndex;
         private int writeIndex;
 
-        public DEVICEPORT_CONFIG(byte[] parseData)
+        public DEVICEPORT_CONFIG(byte[] rData)
 		{
-            this.data = new byte[65];
-            Array.Copy(parseData, 0, data, 0, data.Length);
+            this.rawData = new byte[65];
+            Array.Copy(rData, 0, rawData, 0, rawData.Length);
+            toParseData(rawData);
+        }
+
+        public void Update(byte[] dev_port_data)
+        {
+            //Console.WriteLine("#3 DEVICEPORT_CONFIG Update");
+            toParseData(dev_port_data);
+        }
+
+        private void toParseData(byte[] data)
+        {
             readIndex = 0;
             /* (1) 端口序号 */
             bIndex = data[readIndex++];
@@ -117,8 +129,8 @@ namespace UHFDemo
         {
             int val;
             val = 0
-                | ((data[readIndex + 1] & 0xff) << 8)
-                | ((data[readIndex] & 0xff) << 0);
+                | ((rawData[readIndex + 1] & 0xff) << 8)
+                | ((rawData[readIndex] & 0xff) << 0);
             readIndex += 2;
             return Convert.ToUInt16(val);
         }
@@ -126,15 +138,16 @@ namespace UHFDemo
         {
             int val;
             val = 0 
-              | ((data[readIndex + 3] & 0xff) << 24)
-              | ((data[readIndex + 2] & 0xff) << 16)
-              | ((data[readIndex + 1] & 0xff) << 8)
-              | ((data[readIndex + 0] & 0xff) << 0);
+              | ((rawData[readIndex + 3] & 0xff) << 24)
+              | ((rawData[readIndex + 2] & 0xff) << 16)
+              | ((rawData[readIndex + 1] & 0xff) << 8)
+              | ((rawData[readIndex + 0] & 0xff) << 0);
             readIndex += 4;
             return Convert.ToUInt32(val);
         }
         public byte[] UpdateDevCfgForSet()
         {
+            //Console.WriteLine("#3 DEVICEPORT_CONFIG UpdateDevCfgForSet");
             byte[] setdata = new byte[65];
             writeIndex = 0;
 
@@ -212,7 +225,7 @@ namespace UHFDemo
         }
         public byte[] RawData
         {
-            get { return data; }
+            get { return rawData; }
         }
         public string Index { 
             get { return String.Format("{0:X2}", bIndex);  }
@@ -477,34 +490,34 @@ namespace UHFDemo
 
         void getbytes(byte[] destination, int length)
         {
-            Array.Copy(data, readIndex, destination, 0, length);
+            Array.Copy(rawData, readIndex, destination, 0, length);
             readIndex += length;
         }
 
         int getu8at(int offset)
         {
-            return data[offset] & 0xff;
+            return rawData[offset] & 0xff;
         }
 
         int getu16at(int offset)
         {
-            return ((data[offset] & 0xff) << 8)
-              | ((data[offset + 1] & 0xff) << 0);
+            return ((rawData[offset] & 0xff) << 8)
+              | ((rawData[offset + 1] & 0xff) << 0);
         }
 
         int getu24at(int offset)
         {
-            return ((data[offset] & 0xff) << 16)
-              | ((data[offset + 1] & 0xff) << 8)
-              | ((data[offset + 2] & 0xff) << 0);
+            return ((rawData[offset] & 0xff) << 16)
+              | ((rawData[offset + 1] & 0xff) << 8)
+              | ((rawData[offset + 2] & 0xff) << 0);
         }
 
         int getu32at(int offset)
         {
-            return ((data[offset] & 0xff) << 24)
-              | ((data[offset + 1] & 0xff) << 16)
-              | ((data[offset + 2] & 0xff) << 8)
-              | ((data[offset + 3] & 0xff) << 0);
+            return ((rawData[offset] & 0xff) << 24)
+              | ((rawData[offset + 1] & 0xff) << 16)
+              | ((rawData[offset + 2] & 0xff) << 8)
+              | ((rawData[offset + 3] & 0xff) << 0);
         }
     }
 }

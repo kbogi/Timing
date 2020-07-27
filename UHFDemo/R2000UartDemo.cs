@@ -9084,6 +9084,7 @@ namespace UHFDemo
 
         private void parseRecvData(byte[] buf)
         {
+            //Console.WriteLine("###### parseRecvData");
             NET_COMM recv = new NET_COMM(buf);
             if (recv.Cmd == (byte)NET_ACK.NET_MODULE_ACK_SEARCH)
             {
@@ -9114,7 +9115,7 @@ namespace UHFDemo
                 MessageBox.Show("恢复出厂设置成功!", "提示", MessageBoxButtons.OK);
                 clearDevCfgViews();
             }
-
+            
             netCmdStarted = false;
             enableNetConfigUI(true);
         }
@@ -9477,7 +9478,7 @@ namespace UHFDemo
         private void NetGetCfg(MODULE_SEARCH search)
         {
             if (!CheckNetConfigStatus())
-                return;
+                StartNetUdpServer();
             NET_COMM comm_cmd = new NET_COMM();
             byte[] ch9121_cfg_flag = System.Text.Encoding.Default.GetBytes(CH9121_CFG_FLAG);
             comm_cmd.setbytes(ch9121_cfg_flag);
@@ -9529,12 +9530,14 @@ namespace UHFDemo
 
         private void net_setCfg_btn_Click(object sender, EventArgs e)
         {
-            string mod_mac = net_base_mod_mac_tb.Text;
-            string mod_name = net_base_mod_name_tb.Text;
-            string mod_ip = net_base_mod_ip_tb.Text;
-            string mod_mask = net_base_mod_mask_tb.Text;
-            string mod_gateway = net_base_mod_gateway_tb.Text;
-            bool mod_dhcp_enable = net_base_dhcp_enable_cb.Checked;
+            if (!CheckNetConfigStatus())
+                StartNetUdpServer();
+            string mod_mac = net_base_mod_mac_tb.Text.ToString();
+            string mod_ip = net_base_mod_ip_tb.Text.ToString();
+            string mod_mask = net_base_mod_mask_tb.Text.ToString();
+            string mod_gateway = net_base_mod_gateway_tb.Text.ToString();
+            string pc_mac = net_pc_mac_label.Text.ToString();
+
             if (!net_db.IndexNetDevCfg.ContainsKey(mod_mac))
             {
                 MessageBox.Show("请先在列表中选择设备", "提示", MessageBoxButtons.OK);
@@ -9564,67 +9567,382 @@ namespace UHFDemo
                 return;
             }
 
-            net_db.IndexNetDevCfg[mod_mac].HW_CONFIG.Modulename = mod_name;
-            net_db.IndexNetDevCfg[mod_mac].HW_CONFIG.DevIP = mod_ip;
-            net_db.IndexNetDevCfg[mod_mac].HW_CONFIG.DevIPMask = mod_mask;
-            net_db.IndexNetDevCfg[mod_mac].HW_CONFIG.DevGWIP = mod_gateway;
-            net_db.IndexNetDevCfg[mod_mac].HW_CONFIG.DhcpEnable = mod_dhcp_enable;
-
-            int port_1_index = 1;
-            int port_2_index = 0;
-
-            //Console.WriteLine("### port_1_index set ---> ");
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Index
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].PortEn = net_port_1_enable_cb.Checked;
-            if (net_port_1_enable_cb.Checked)
+            if (!CheckMacAddr(pc_mac))
             {
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].NetMode = net_port_1_net_mode_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].RandSportFlag = net_port_1_rand_port_flag_cb.Checked;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].NetPort = Convert.ToUInt16(net_port_1_local_net_port_tb.Text);
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesIP = net_port_1_dest_ip_tb.Text;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DesPort = Convert.ToUInt16(net_port_1_dest_port_tb.Text);
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].BaudRate = net_port_1_baudrate_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DataSize = net_port_1_databits_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].StopBits = net_port_1_stopbits_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Parity = net_port_1_parity_bit_cbo.SelectedItem.ToString();
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].PHYChangeHandle = net_port_1_phyChangeHandle_cb.Checked;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].RxPktlength = Convert.ToUInt32(net_port_1_rx_pkg_size_tb.Text.ToString());
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].RxPktTimeout = Convert.ToUInt32(net_port_1_rx_pkg_timeout_tb.Text.ToString());
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].ReConnectCnt = Convert.ToByte(net_port_1_reconnectcnt_tb.Text.ToString());
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].ResetCtrl = net_port_1_resetctrl_cb.Checked;
-                net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DNSFlag = net_port_1_dns_flag.Checked;
-                //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DomainName
-                //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DNSHostIP
-                //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].DNSHostPort
-                //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Reserved
+                MessageBox.Show("Pc Mac地址格式错误, eg: 11:22:33:44:55:66", "Mac地址", MessageBoxButtons.OK);
+                return;
             }
 
-            //Console.WriteLine("### port_2_index set ---> ");
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_1_index].Index
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].PortEn = net_use_heartbeat_cb.Checked;
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].NetMode = MODULE_TYPE.TCP_CLIENT.ToString();
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].RandSportFlag = true;
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].NetPort = 3000;
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesIP = "192.168.1.100";
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DesPort = 2000;
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].BaudRate
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DataSize
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].StopBits
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].Parity
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].PHYChangeHandle = true;
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].RxPktlength = 1024;
-            // 心跳间隔时间
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].RxPktTimeout = Convert.ToUInt32(net_heartbeat_interval_tb.Text);
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].ReConnectCnt
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].ResetCtrl
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DNSFlag
-            // 心跳包内容
-            net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DomainName = net_heartbeat_content_tb.Text.ToString();
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DNSHostIP
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].DNSHostPort
-            //net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[port_2_index].Reserved
-            NetSetCfg(mod_mac, net_db.IndexSearch[mod_mac]);
+            byte[] rawdata = NewNetComm();
+
+            netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息
+            int ret = netClient.Send(rawdata, rawdata.Length, netEndpoint);
+
+            netCmdStarted = true;
+            enableNetConfigUI(false);
         }
+
+        private byte[] NewNetComm()
+        {
+            string mod_mac = net_base_mod_mac_tb.Text.ToString();
+            string pc_mac = net_pc_mac_label.Text.ToString();
+            string dev_net_ip = net_base_mod_ip_tb.Text.ToString();
+            string dev_gateway_ip = net_base_mod_gateway_tb.Text.ToString();
+            string dev_mask = net_base_mod_mask_tb.Text.ToString();
+            int writeIndex = 0;
+            byte[] rawdata = new byte[285];
+
+            #region NET_COMM
+            // [16] 用来标识通信_new
+            string flag = "CH9121_CFG_FLAG\0";
+            byte[] bflag = Encoding.Default.GetBytes(flag);
+            Array.Copy(bflag, 0, rawdata, writeIndex, bflag.Length);
+            writeIndex += bflag.Length;
+            //Console.WriteLine("flag={0}", CCommondMethod.ToHex(bflag, "", " "));
+
+            // CMD
+            byte cmd = (byte)NET_CMD.NET_MODULE_CMD_SET;
+            rawdata[writeIndex++] = cmd; // 设置cmd
+            //Console.WriteLine("cmd={0}", cmd);
+
+            // mod_mac [6]
+            byte[] b_mod_mac = CCommondMethod.FromHex(mod_mac.Replace(":", ""));// 设置mod_mac
+            Array.Copy(b_mod_mac, 0, rawdata, writeIndex, b_mod_mac.Length);
+            writeIndex += b_mod_mac.Length;
+            //Console.WriteLine("mod_mac={0}", CCommondMethod.ToHex(b_mod_mac, "", ":"));
+
+            // pc_mac [6]
+            byte[] b_pc_mac = CCommondMethod.FromHex(pc_mac.Replace(":", "")); // 设置pc_mac
+            Array.Copy(b_pc_mac, 0, rawdata, writeIndex, b_pc_mac.Length);
+            writeIndex += b_pc_mac.Length;
+            //Console.WriteLine("pc_mac={0}", CCommondMethod.ToHex(b_pc_mac, "", ":"));
+
+            // len在后面才算
+            int lenIndex = writeIndex;
+            byte blen = 0x0;
+            rawdata[writeIndex++] = blen;
+
+            #region HW_CFG
+            //DEVICEHW_CONFIG hw_cfg = new DEVICEHW_CONFIG();
+            // dev_type
+            rawdata[writeIndex++] = 0x21;
+            // dev_sub_type
+            rawdata[writeIndex++] = 0x21;
+            // dev_id
+            rawdata[writeIndex++] = 0x01;
+            // dev_hw_ver
+            rawdata[writeIndex++] = 0x02;
+            // dev_sw_ver
+            rawdata[writeIndex++] = 0x03;
+
+            // dev_name [21] 模块名
+            byte[] bdev_name = Encoding.Default.GetBytes(net_base_mod_name_tb.Text.ToString());
+            Array.Copy(bdev_name, 0, rawdata, writeIndex, bdev_name.Length);
+            writeIndex += bdev_name.Length;
+            //Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
+
+            int dev_last_len = 21 - bdev_name.Length;
+            byte[] dev_name_last = new byte[dev_last_len];
+            Array.Copy(dev_name_last, 0, rawdata, writeIndex, dev_name_last.Length);
+            writeIndex += dev_name_last.Length;
+            //Console.WriteLine("dev_name_last={0}", CCommondMethod.ToHex(dev_name_last, "", " "));
+
+            // dev_net_mac [6]
+            string dev_net_mac = "02:03:04:05:06:07";
+            byte[] b_dev_net_mac = CCommondMethod.FromHex(dev_net_mac.Replace(":", ""));
+            Array.Copy(b_dev_net_mac, 0, rawdata, writeIndex, b_dev_net_mac.Length);
+            writeIndex += b_dev_net_mac.Length;
+            //Console.WriteLine("dev_net_mac={0}", CCommondMethod.ToHex(b_dev_net_mac, "", ":"));
+
+            // dev_net_ip [4]
+            byte[] b_dev_net_ip = IPAddress.Parse(dev_net_ip).GetAddressBytes();
+            Array.Copy(b_dev_net_ip, 0, rawdata, writeIndex, b_dev_net_ip.Length);
+            writeIndex += b_dev_net_ip.Length;
+            //Console.WriteLine("dev_net_ip={0}", CCommondMethod.ToHex(b_dev_net_ip, "", "."));
+
+            // dev_gateway_ip [4]
+            byte[] b_dev_gateway_ip = IPAddress.Parse(dev_gateway_ip).GetAddressBytes();
+            Array.Copy(b_dev_gateway_ip, 0, rawdata, writeIndex, b_dev_gateway_ip.Length);
+            writeIndex += b_dev_gateway_ip.Length;
+            //Console.WriteLine("dev_gateway_ip={0}", CCommondMethod.ToHex(b_dev_gateway_ip, "", "."));
+
+            // dev_mask [4]
+            byte[] b_dev_mask = IPAddress.Parse(dev_mask).GetAddressBytes();
+            Array.Copy(b_dev_mask, 0, rawdata, writeIndex, b_dev_mask.Length);
+            writeIndex += b_dev_mask.Length;
+            //Console.WriteLine("dev_mask={0}", CCommondMethod.ToHex(b_dev_mask, "", "."));
+
+            // dev_dhcp_enable
+            rawdata[writeIndex++] = (byte)(net_base_dhcp_enable_cb.Checked == true ? 0x01 : 0x00);
+
+            // dev_web_port 0050 -> 80
+            byte[] bdev_web_port = new byte[2] { 0x50, 0x00 };
+            Array.Copy(bdev_web_port, 0, rawdata, writeIndex, bdev_web_port.Length);
+            writeIndex += bdev_web_port.Length;
+            //Console.WriteLine("dev_web_port={0}", CCommondMethod.ToHex(bdev_web_port, "", " "));
+
+            // dev_user_name 
+            byte[] bdev_user_name = new byte[8];
+            Array.Copy(bdev_user_name, 0, rawdata, writeIndex, bdev_user_name.Length);
+            writeIndex += bdev_user_name.Length;
+            //Console.WriteLine("dev_user_name={0}", CCommondMethod.ToHex(bdev_user_name, "", " "));
+
+            // dev_pw_enable
+            rawdata[writeIndex++] = 0x00;
+
+            // dev_pw
+            byte[] b_dev_pw = new byte[8];
+            Array.Copy(b_dev_pw, 0, rawdata, writeIndex, b_dev_pw.Length);
+            writeIndex += b_dev_pw.Length;
+            //Console.WriteLine("dev_pw={0}", CCommondMethod.ToHex(b_dev_pw, "", " "));
+
+            // dev_update_flag
+            rawdata[writeIndex++] = 0x00;
+
+            // dev_com_enable
+            rawdata[writeIndex++] = (byte)(net_base_comcfgEn_cb.Checked == true ? 0x01 : 0x00);
+
+            // dev_reserved
+            byte[] b_dev_reserved = new byte[8];
+            Array.Copy(b_dev_reserved, 0, rawdata, writeIndex, b_dev_reserved.Length);
+            writeIndex += b_dev_reserved.Length;
+            //Console.WriteLine("dev_reserved={0}", CCommondMethod.ToHex(b_dev_reserved, "", " "));
+            #endregion HW_CFG
+
+            #region HeartBeat
+            // 心跳包 port index = 0x00
+            //DEVICEPORT_CONFIG dev_port_1 = new DEVICEPORT_CONFIG();
+            // port_id
+            rawdata[writeIndex++] = 0x00;
+            // port_enable
+            rawdata[writeIndex++] = (byte)(net_use_heartbeat_cb.Checked == true ? 0x01 : 0x00);
+
+            // port_net_mode
+            rawdata[writeIndex++] = 0x01; // 0x00 TCP_Client
+            // port_port_rand_enable
+            rawdata[writeIndex++] = 0x01;
+            // port_net_port
+            byte[] bport2_net_port = new byte[2] { 0xB8, 0x0B }; // 3000
+            Array.Copy(bport2_net_port, 0, rawdata, writeIndex, bport2_net_port.Length);
+            writeIndex += bport2_net_port.Length;
+            // port_dest_ip
+            string port2_dest_ip = "192.168.0.100";
+            byte[] b_port2_dest_ip = IPAddress.Parse(port2_dest_ip).GetAddressBytes();
+            Array.Copy(b_port2_dest_ip, 0, rawdata, writeIndex, b_port2_dest_ip.Length);
+            writeIndex += b_port2_dest_ip.Length;
+            // port_dest_port 07D0 -> 2000
+            byte[] bport2_dest_port = new byte[2] { 0xD0, 0xD0 };
+            Array.Copy(bport2_dest_port, 0, rawdata, writeIndex, bport2_dest_port.Length);
+            writeIndex += bport2_dest_port.Length;
+            // port_baudrate
+            int port2_baudrate = 115200;
+            rawdata[writeIndex++] = (byte)((port2_baudrate >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_baudrate >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_baudrate >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_baudrate >> 24) & 0xff);
+            // port_datasize
+            rawdata[writeIndex++] = 0x08;
+            // port_stopbit
+            rawdata[writeIndex++] = 0x01;
+            // port_parity
+            rawdata[writeIndex++] = 0x04;
+            /* PHY断开，Socket动作，1：关闭Socket 2、不动作*/
+            // port_phy_disconnect
+            rawdata[writeIndex++] = 0x02;
+            // port_package_size
+            int port2_package_size = 1024;
+            rawdata[writeIndex++] = (byte)((port2_package_size >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_size >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_size >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_size >> 24) & 0xff);
+            // port_package_timeout
+            int port2_package_timeout = Convert.ToInt32(net_heartbeat_interval_tb.Text.ToString());
+            rawdata[writeIndex++] = (byte)((port2_package_timeout >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_timeout >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_timeout >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_package_timeout >> 24) & 0xff);
+            // connect_count
+            rawdata[writeIndex++] = 0x00;
+            // port_reset_ctrl
+            rawdata[writeIndex++] = 0x00;
+            // port_dns_enable
+            rawdata[writeIndex++] = 0x00;
+            // port_domain
+            byte[] heartbeatContent = new byte[20];
+            string str_heartbeatContent = net_heartbeat_content_tb.Text.ToString();
+            byte[] bheartbeatContent = Encoding.Default.GetBytes(str_heartbeatContent);
+            Array.Copy(bheartbeatContent, 0, heartbeatContent, 0, bheartbeatContent.Length);
+            //Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
+
+            int heartbeatContent_last_len = 20 - bheartbeatContent.Length;
+            if (heartbeatContent_last_len > 0)
+            {
+                byte[] heartbeatContent_last = new byte[heartbeatContent_last_len];
+                Array.Copy(heartbeatContent_last, 0, heartbeatContent, bheartbeatContent.Length, heartbeatContent_last.Length);
+                //Console.WriteLine("dev_name_last={0}", CCommondMethod.ToHex(dev_name_last, "", " "));
+            }
+            Array.Copy(heartbeatContent, 0, rawdata, writeIndex, heartbeatContent.Length);
+            writeIndex += heartbeatContent.Length;
+            // port_host_ip
+            string port2_host_ip = "0.0.0.0";
+            byte[] b_port2_host_ip = IPAddress.Parse(port2_host_ip).GetAddressBytes();
+            Array.Copy(b_port2_host_ip, 0, rawdata, writeIndex, b_port2_host_ip.Length);
+            writeIndex += b_port2_host_ip.Length;
+            // port_dns_port
+            int port2_dns_port = 0;
+            rawdata[writeIndex++] = (byte)((port2_dns_port >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port2_dns_port >> 8) & 0xff);
+
+            byte[] b_port2_reserved = new byte[8];
+            Array.Copy(b_port2_reserved, 0, rawdata, writeIndex, b_port2_reserved.Length);
+            writeIndex += b_port2_reserved.Length;
+            #endregion HeartBeat
+
+            #region PORT_1
+            // Port 0x01 端口1
+            string str_port_1_net_mode = net_port_1_net_mode_cbo.SelectedItem.ToString();
+            //DEVICEPORT_CONFIG dev_port_2 = new DEVICEPORT_CONFIG();
+            // port_id
+            rawdata[writeIndex++] = 0x01;
+            // port_enable
+            rawdata[writeIndex++] = (byte)(net_port_1_enable_cb.Checked == true ? 0x01 : 0x00);
+
+            // port_net_mode
+            byte port_1_net_mode;
+            if (MODULE_TYPE.TCP_SERVER.ToString().Equals(str_port_1_net_mode))
+            {
+                port_1_net_mode = 0x00;
+            }
+            else if (MODULE_TYPE.TCP_CLIENT.ToString().Equals(str_port_1_net_mode))
+            {
+                port_1_net_mode = 0x01;
+            }
+            else if (MODULE_TYPE.UDP_SERVER.ToString().Equals(str_port_1_net_mode))
+            {
+                port_1_net_mode = 0x02;
+            }
+            else //if (MODULE_TYPE.UDP_CLIENT.ToString().Equals(str_port_1_net_mode))
+            {
+                port_1_net_mode = 0x03;
+            }
+            rawdata[writeIndex++] = port_1_net_mode;
+
+            // port_port_rand_enable
+            rawdata[writeIndex++] = (byte)(net_port_1_rand_port_flag_cb.Checked == true ? 0x01 : 0x00); ;
+            // port_net_port 0fa1 -> 4001 本地端口
+            int net_port = Convert.ToInt32(net_port_1_local_net_port_tb.Text.ToString());
+            byte[] bport_net_port = new byte[2] {
+                (byte)((net_port >> 0) & 0xff), // 0xa1
+                (byte)((net_port >> 8) & 0xff) // 0x0f
+            };
+            Array.Copy(bport_net_port, 0, rawdata, writeIndex, bport_net_port.Length);
+            writeIndex += bport_net_port.Length;
+            //Console.WriteLine("port_net_port={0}", CCommondMethod.ToHex(bport_net_port, "", " "));
+
+            // port_dest_ip 
+            string port_dest_ip = net_port_1_dest_ip_tb.Text.ToString();
+            byte[] b_port_dest_ip = IPAddress.Parse(port_dest_ip).GetAddressBytes();
+            Array.Copy(b_port_dest_ip, 0, rawdata, writeIndex, b_port_dest_ip.Length);
+            writeIndex += b_port_dest_ip.Length;
+            //Console.WriteLine("b_port_dest_ip={0}", CCommondMethod.ToHex(b_port_dest_ip, "", " "));
+
+            // port_dest_port 03e8 -> 1000 目标端口
+            int des_net_port = Convert.ToInt32(net_port_1_dest_port_tb.Text.ToString());
+            byte[] bport_dest_port = new byte[2] {
+                (byte)((net_port >> 0) & 0xff), // 0xe8
+                (byte)((net_port >> 8) & 0xff) // 0x03
+            };
+            Array.Copy(bport_dest_port, 0, rawdata, writeIndex, bport_dest_port.Length);
+            writeIndex += bport_dest_port.Length;
+            //Console.WriteLine("bport_dest_port={0}", CCommondMethod.ToHex(bport_dest_port, "", " "));
+
+            // port_baudrate
+            uint baudrate = (uint)GetEnumValue(typeof(BAUDRATE), net_port_1_baudrate_cbo.SelectedItem.ToString());
+            rawdata[writeIndex++] = (byte)((baudrate >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((baudrate >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((baudrate >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((baudrate >> 24) & 0xff);
+
+            // port_datasize
+            rawdata[writeIndex++] = (byte)GetEnumValue(typeof(DATABITS), net_port_1_databits_cbo.SelectedItem.ToString());
+            // port_stopbit
+            rawdata[writeIndex++] = (byte)GetEnumValue(typeof(STOPBITS), net_port_1_stopbits_cbo.SelectedItem.ToString());
+            // port_parity
+            rawdata[writeIndex++] = (byte)GetEnumValue(typeof(PARITY), net_port_1_parity_bit_cbo.SelectedItem.ToString()); ;
+            // port_phy_disconnect
+            rawdata[writeIndex++] = (byte)(net_port_1_phyChangeHandle_cb.Checked == true ? 0x01 : 0x02);
+            // port_package_size
+            int package_size = Convert.ToInt32(net_port_1_rx_pkg_size_tb.Text.ToString());
+            rawdata[writeIndex++] = (byte)((package_size >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_size >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_size >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_size >> 24) & 0xff);
+            // port_package_timeout
+            int package_timeout = Convert.ToInt32(net_port_1_rx_pkg_timeout_tb.Text.ToString()); ;
+            rawdata[writeIndex++] = (byte)((package_timeout >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_timeout >> 8) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_timeout >> 16) & 0xff);
+            rawdata[writeIndex++] = (byte)((package_timeout >> 24) & 0xff);
+            // connect_count
+            rawdata[writeIndex++] = Convert.ToByte(net_port_1_reconnectcnt_tb.Text.ToString());
+            // port_reset_ctrl
+            rawdata[writeIndex++] = (byte)(net_port_1_resetctrl_cb.Checked == true ? 0x01 : 0x00);
+            // port_dns_enable
+            rawdata[writeIndex++] = (byte)(net_port_1_dns_flag.Checked == true ? 0x01 : 0x00); ;
+
+            // port_domain
+            byte[] bport_domain = new byte[20];
+            string domain_name = net_port_1_dns_domain_tb.Text.ToString();
+            byte[] bdomain_name = Encoding.Default.GetBytes(domain_name);
+            Array.Copy(bdomain_name, 0, bport_domain, 0, bdomain_name.Length);
+            //Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
+            int domain_name_last_len = 20 - bdomain_name.Length;
+            if (domain_name_last_len > 0)
+            {
+                byte[] domain_name_last = new byte[domain_name_last_len];
+                Array.Copy(domain_name_last, 0, bport_domain, bdomain_name.Length, domain_name_last.Length);
+                //Console.WriteLine("dev_name_last={0}", CCommondMethod.ToHex(dev_name_last, "", " "));
+            }
+            Array.Copy(bport_domain, 0, rawdata, writeIndex, bport_domain.Length);
+            writeIndex += bport_domain.Length;
+
+            // port_host_ip
+            string port_host_ip = net_port_1_dns_host_ip_tb.Text.ToString();
+            byte[] b_port_host_ip = IPAddress.Parse(port_host_ip).GetAddressBytes();
+            Array.Copy(b_port_host_ip, 0, rawdata, writeIndex, b_port_host_ip.Length);
+            writeIndex += b_port_host_ip.Length;
+            //Console.WriteLine("b_port_host_ip={0}", CCommondMethod.ToHex(b_port_host_ip, "", " "));
+
+            // port_dns_port
+            int port_dns_port = Convert.ToInt32(net_port_1_dns_host_port_tb.Text.ToString());
+            rawdata[writeIndex++] = (byte)((port_dns_port >> 0) & 0xff);
+            rawdata[writeIndex++] = (byte)((port_dns_port >> 8) & 0xff);
+
+            byte[] b_port_reserved = new byte[8];
+            Array.Copy(b_port_reserved, 0, rawdata, writeIndex, b_port_reserved.Length);
+            writeIndex += b_port_reserved.Length;
+            //Console.WriteLine("b_port_reserved={0}", CCommondMethod.ToHex(b_port_reserved, "", " "));
+            #endregion PORT_1
+            //NET_DEVICE_CONFIG dev_cfg = new NET_DEVICE_CONFIG();
+
+            int len = writeIndex - 30;
+            rawdata[lenIndex] = (byte)len;
+            #endregion NET_COMM
+
+            return rawdata;
+        }
+
+        public static int GetEnumValue(Type enumType, string enumName)
+        {
+            System.Array values = System.Enum.GetValues(enumType);
+            foreach (var value in values)
+            {
+                if (value.ToString().Equals(enumName))
+                    return (int)value;
+            }
+            return 0;
+        }
+
 
         private void NetSetCfg(string mod_mac, MODULE_SEARCH mod_search)
         {
@@ -9653,13 +9971,13 @@ namespace UHFDemo
             comm_cmd.setu8(len);
             setindex++;
 
-            comm_cmd.setbytes(net_db.IndexNetDevCfg[mod_mac].HW_CONFIG.UpdateForSet());
+            comm_cmd.setbytes(net_db.IndexNetDevCfg[mod_mac].HW_CONFIG.RawData);
             setindex += net_db.IndexNetDevCfg[mod_mac].HW_CONFIG.RawData.Length;
 
-            comm_cmd.setbytes(net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[0].UpdateDevCfgForSet());
+            comm_cmd.setbytes(net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[0].RawData);
             setindex += net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[0].RawData.Length;
 
-            comm_cmd.setbytes(net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[1].UpdateDevCfgForSet());
+            comm_cmd.setbytes(net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[1].RawData);
             setindex += net_db.IndexNetDevCfg[mod_mac].PORT_CONFIG[1].RawData.Length;
 
             netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息
@@ -9670,46 +9988,58 @@ namespace UHFDemo
             enableNetConfigUI(false);
         }
 
-        private void NetSetCfgForLoadCfg(string mod_mac, MODULE_SEARCH mod_search, byte[] data)
+        private void NetSetCfgForLoadCfg(byte[] data)
         {
-            //Console.WriteLine("NetSetCfgForLoadCfg ...");
+            Console.WriteLine("NetSetCfgForLoadCfg ...");
             int setindex = 0;
-            if (!CheckNetConfigStatus())
-                return;
             NET_COMM comm_cmd = new NET_COMM();
             byte[] ch9121_cfg_flag = System.Text.Encoding.Default.GetBytes(CH9121_CFG_FLAG);
             comm_cmd.setbytes(ch9121_cfg_flag);
             comm_cmd.setu8((byte)NET_CMD.NET_MODULE_CMD_SET); // 设置cmd
             setindex++;
-
-            string param_mod_mac = mod_search.ModMac.Replace(":", "").ToLower();
+            string mod_mac = net_base_mod_mac_tb.Text.ToString();
+            if(mod_mac.Trim().Length == 0)
+            {
+                mod_mac = "00:00:00:00:00:00";
+            }
+            string param_mod_mac = mod_mac.Replace(":", "").ToLower();
             byte[] b_mod_mac = CCommondMethod.FromHex(param_mod_mac);
             comm_cmd.setbytes(b_mod_mac); // 设置mod_mac
             setindex += b_mod_mac.Length;
 
-            //string param_pc_mac = mod_search.PcMac.Replace(":", "").ToLower();
-            string param_pc_mac = net_pc_mac_label.Text.Replace(":", "").ToLower();
+            string pc_mac = net_pc_mac_label.Text.ToString();
+            if (pc_mac.Trim().Length == 0)
+            {
+                pc_mac = "00:00:00:00:00:00";
+            }
+            string param_pc_mac = pc_mac.Replace(":", "").ToLower();
 
             byte[] b_pc_mac = CCommondMethod.FromHex(param_pc_mac);
             comm_cmd.setbytes(b_pc_mac); // 设置pc_mac
             setindex += b_pc_mac.Length;
 
-            int len = net_db.IndexNetDevCfg[mod_mac].RawData.Length - 1;
+            int len = data.Length - 1;
             comm_cmd.setu8(len);
             setindex++;
 
             comm_cmd.setbytes(data);
             setindex += data.Length;
 
-            netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息
-            int ret = netClient.Send(comm_cmd.Message, comm_cmd.Message.Length, netEndpoint);
+            comm_cmd.UpdateMessage();
 
-            netCmdStarted = true;
-            enableNetConfigUI(false);
+            UpdateDevCfgUI(comm_cmd);
+
+            //netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // 目的地址信息
+            //int ret = netClient.Send(comm_cmd.Message, comm_cmd.Message.Length, netEndpoint);
+
+            //netCmdStarted = true;
+            //enableNetConfigUI(false);
         }
 
         private void net_reset_btn_Click(object sender, EventArgs e)
         {
+            if (!CheckNetConfigStatus())
+                StartNetUdpServer();
             string mod_mac = net_base_mod_mac_tb.Text;
             string pc_mac = net_pc_mac_label.Text.Replace(":", "").ToLower();
             if (!net_db.IndexSearch.ContainsKey(mod_mac))
@@ -9801,7 +10131,7 @@ namespace UHFDemo
             //Console.WriteLine("dev_gateway_ip={0}", CCommondMethod.ToHex(b_dev_gateway_ip, "", "."));
 
             // dev_mask [4]
-            string dev_mask = "255.255.0.0";
+            string dev_mask = "255.255.255.0";
             byte[] b_dev_mask = IPAddress.Parse(dev_mask).GetAddressBytes();
             Array.Copy(b_dev_mask, 0, rawdata, writeIndex, b_dev_mask.Length);
             writeIndex += b_dev_mask.Length;
@@ -10129,15 +10459,15 @@ namespace UHFDemo
 
                 net_port_1_enable_cb.Checked = false;
                 net_port_1_rand_port_flag_cb.Checked = false;
-                net_port_1_parity_bit_cbo.SelectedIndex = net_port_1_parity_bit_cbo.Items.Count - 1;
-                net_port_1_stopbits_cbo.SelectedIndex = net_port_1_stopbits_cbo.Items.Count - 1;
-                net_port_1_databits_cbo.SelectedIndex = net_port_1_databits_cbo.Items.Count - 1;
-                net_port_1_baudrate_cbo.SelectedIndex = net_port_1_baudrate_cbo.Items.Count - 1;
+                net_port_1_parity_bit_cbo.SelectedIndex =  -1;
+                net_port_1_stopbits_cbo.SelectedIndex = -1;
+                net_port_1_databits_cbo.SelectedIndex = -1;
+                net_port_1_baudrate_cbo.SelectedIndex = -1;
                 net_port_1_dest_port_tb.Text = "";
                 net_port_1_dest_ip_tb.Text = "";
                 // 启用域名
                 net_port_1_local_net_port_tb.Text = "";
-                net_port_1_net_mode_cbo.SelectedIndex = net_port_1_net_mode_cbo.Items.Count - 1;
+                net_port_1_net_mode_cbo.SelectedIndex = -1;
 
                 net_heartbeat_interval_tb.Text = "";
                 net_heartbeat_content_tb.Text = "";
@@ -10149,6 +10479,8 @@ namespace UHFDemo
                 net_port_1_reconnectcnt_tb.Text = "";
                 net_port_1_dns_host_ip_tb.Text = "";
                 net_port_1_dns_host_port_tb.Text = "";
+                net_port_1_phyChangeHandle_cb.Checked = false;
+                net_base_comcfgEn_cb.Checked = false;
             }));
         }
 
@@ -10166,6 +10498,8 @@ namespace UHFDemo
             StopNetUdpServer();
             if(netStarted && udpServerRunning)
                 UpdateUdpServerStatus("stoping");
+
+            clearDevCfgViews();
         }
 
         private void old_net_port_link_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -10182,6 +10516,8 @@ namespace UHFDemo
 
         private void net_port_net_mode_cb_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (net_port_1_net_mode_cbo.SelectedIndex == -1)
+                return;
             //Console.WriteLine(" ... {0}", net_port_1_net_mode_cbo.SelectedItem.ToString());
             if (net_port_1_net_mode_cbo.SelectedItem.Equals(MODULE_TYPE.TCP_SERVER.ToString()))
             {
@@ -10214,8 +10550,17 @@ namespace UHFDemo
 
         private void net_reset_default_Click(object sender, EventArgs e)
         {
+            if (!CheckNetConfigStatus())
+                StartNetUdpServer();
             string mod_mac = net_base_mod_mac_tb.Text;
             string pc_mac = net_pc_mac_label.Text.Replace(":", "").ToLower();
+
+            if (!net_db.IndexNetDevCfg.ContainsKey(mod_mac))
+            {
+                MessageBox.Show("请先在列表中选择设备", "提示", MessageBoxButtons.OK);
+                return;
+            }
+
             if (!CheckMacAddr(mod_mac))
             {
                 MessageBox.Show("Mod Mac地址格式错误, eg: 11:22:33:44:55:66", "Mac地址", MessageBoxButtons.OK);
@@ -10227,7 +10572,6 @@ namespace UHFDemo
                 return;
             }
             NetSetDefaultCFG(mod_mac, pc_mac);
-            netCmdStarted = true;
         }
 
 
@@ -10248,15 +10592,28 @@ namespace UHFDemo
 
         private void net_save_cfg_btn_Click(object sender, EventArgs e)
         {
-            string mod_mac = net_base_mod_mac_tb.Text;
-            if(net_db.IndexNetDevCfg.ContainsKey(mod_mac))
+            string mod_mac = net_base_mod_mac_tb.Text.ToString();
+            if(mod_mac.Trim().Length == 0)
             {
-                saveNetCfg(net_db.IndexNetDevCfg[mod_mac]);
+                MessageBox.Show("请先加载配置！");
+                return;
             }
-            else
+            //if(net_db.IndexNetDevCfg.ContainsKey(mod_mac))
+            //{
+            byte[] rawdata = NewNetComm();
+            if (rawdata.Length < 285)
             {
-                MessageBox.Show("没有需要保存配置文件的设备！");
+                MessageBox.Show("请保存完整的配置文件！");
+                return;
             }
+            NET_COMM nc = new NET_COMM(rawdata);
+                nc.UpdateMessage();
+                saveNetCfg(nc.NetDevCfg);
+            //}
+            //else
+            //{
+            //    MessageBox.Show("没有需要保存配置文件的设备！");
+            //}
         }
 
         private void saveNetCfg(NET_DEVICE_CONFIG cfg)
@@ -10283,7 +10640,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    MessageBox.Show("未保存！");
+                    MessageBox.Show("未保存配置文件！");
                 }
                 
             }
@@ -10295,22 +10652,22 @@ namespace UHFDemo
 
         private void net_load_cfg_btn_Click(object sender, EventArgs e)
         {
-            string mod_mac = net_base_mod_mac_tb.Text;
-            if (net_db.IndexNetDevCfg.ContainsKey(mod_mac))
+            
+            //if (net_db.IndexNetDevCfg.ContainsKey(mod_mac))
+            //{
+            byte[] data = loadNetCfg();
+            if (data == null)
             {
-                byte[] data = loadNetCfg();
-                if(data == null)
-                {
-                    MessageBox.Show("Load NetCfg Failed!");
-                    return;
-                }
-
-                NetSetCfgForLoadCfg(mod_mac, net_db.IndexSearch[mod_mac], data);
+                MessageBox.Show("未加载配置文件!");
+                return;
             }
-            else
-            {
-                MessageBox.Show("没有需要加载配置文件的设备！");
-            }
+            NetSetCfgForLoadCfg(data);
+            MessageBox.Show("加载成功！!");
+            //}
+            //else
+            //{
+            //    MessageBox.Show("没有需要加载配置文件的设备！");
+            //}
         }
 
 
@@ -10332,7 +10689,7 @@ namespace UHFDemo
                     {
                         cfgStr.Append(sr.ReadLine());
                     }
-                    Console.WriteLine("cfgStr={0}", cfgStr.Replace(" ", ""));
+                    //Console.WriteLine("cfgStr={0}", cfgStr.Replace(" ", ""));
                     
                     return CCommondMethod.FromHex(cfgStr.Replace(" ", "").ToString());
                 }
