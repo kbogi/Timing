@@ -33,9 +33,9 @@ namespace UHFDemo
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(R2000UartDemo));
             this.tabCtrMain = new System.Windows.Forms.TabControl();
             this.PagReaderSetting = new System.Windows.Forms.TabPage();
@@ -526,6 +526,8 @@ namespace UHFDemo
             this.fast_inv_v2_B_ant_cb = new System.Windows.Forms.CheckBox();
             this.fast_inventory_v2_start_btn = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.fast_inv_v2_cmd_time_label = new System.Windows.Forms.Label();
+            this.fast_inv_v2_totaltagcount_label = new System.Windows.Forms.Label();
             this.fast_inv_v2_cmd_totalread_label = new System.Windows.Forms.Label();
             this.label187 = new System.Windows.Forms.Label();
             this.fast_inv_v2_cmd_exec_rate = new System.Windows.Forms.Label();
@@ -679,6 +681,8 @@ namespace UHFDemo
             this.htxtCheckData = new CustomControl.HexTextBox();
             this.lrtxtDataTran = new CustomControl.LogRichTextBox();
             this.net_configure_tabPage = new System.Windows.Forms.TabPage();
+            this.net_load_cfg_btn = new System.Windows.Forms.Button();
+            this.net_save_cfg_btn = new System.Windows.Forms.Button();
             this.label171 = new System.Windows.Forms.Label();
             this.net_search_cnt_label = new System.Windows.Forms.Label();
             this.label170 = new System.Windows.Forms.Label();
@@ -796,8 +800,6 @@ namespace UHFDemo
             this.johar_cb = new System.Windows.Forms.CheckBox();
             this.johar_read_btn = new System.Windows.Forms.Button();
             this.johar_tag_dgv = new System.Windows.Forms.DataGridView();
-            this.fast_inv_v2_cmd_time_label = new System.Windows.Forms.Label();
-            this.fast_inv_v2_totaltagcount_label = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.ckDisplayLog = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -852,8 +854,8 @@ namespace UHFDemo
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
             this.savelog_cb = new System.Windows.Forms.CheckBox();
-            this.net_save_cfg_btn = new System.Windows.Forms.Button();
-            this.net_load_cfg_btn = new System.Windows.Forms.Button();
+            this.label172 = new System.Windows.Forms.Label();
+            this.module_info = new System.Windows.Forms.Label();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -6223,6 +6225,8 @@ namespace UHFDemo
             // 
             // groupBox31
             // 
+            this.groupBox31.Controls.Add(this.module_info);
+            this.groupBox31.Controls.Add(this.label172);
             this.groupBox31.Controls.Add(this.fast_inv_v2_cb);
             this.groupBox31.Controls.Add(this.fast_inv_v2_phase_cb);
             this.groupBox31.Controls.Add(this.label196);
@@ -6234,7 +6238,7 @@ namespace UHFDemo
             this.groupBox31.Controls.Add(this.groupBox33);
             this.groupBox31.Location = new System.Drawing.Point(6, 316);
             this.groupBox31.Name = "groupBox31";
-            this.groupBox31.Size = new System.Drawing.Size(318, 181);
+            this.groupBox31.Size = new System.Drawing.Size(318, 197);
             this.groupBox31.TabIndex = 4;
             this.groupBox31.TabStop = false;
             this.groupBox31.Text = "参数";
@@ -6825,6 +6829,8 @@ namespace UHFDemo
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.fast_inv_v2_cmd_time_label);
+            this.panel1.Controls.Add(this.fast_inv_v2_totaltagcount_label);
             this.panel1.Controls.Add(this.fast_inv_v2_cmd_totalread_label);
             this.panel1.Controls.Add(this.label187);
             this.panel1.Controls.Add(this.fast_inv_v2_cmd_exec_rate);
@@ -6840,6 +6846,24 @@ namespace UHFDemo
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(652, 75);
             this.panel1.TabIndex = 2;
+            // 
+            // fast_inv_v2_cmd_time_label
+            // 
+            this.fast_inv_v2_cmd_time_label.AutoSize = true;
+            this.fast_inv_v2_cmd_time_label.Location = new System.Drawing.Point(289, 10);
+            this.fast_inv_v2_cmd_time_label.Name = "fast_inv_v2_cmd_time_label";
+            this.fast_inv_v2_cmd_time_label.Size = new System.Drawing.Size(11, 12);
+            this.fast_inv_v2_cmd_time_label.TabIndex = 14;
+            this.fast_inv_v2_cmd_time_label.Text = "0";
+            // 
+            // fast_inv_v2_totaltagcount_label
+            // 
+            this.fast_inv_v2_totaltagcount_label.AutoSize = true;
+            this.fast_inv_v2_totaltagcount_label.Location = new System.Drawing.Point(86, 48);
+            this.fast_inv_v2_totaltagcount_label.Name = "fast_inv_v2_totaltagcount_label";
+            this.fast_inv_v2_totaltagcount_label.Size = new System.Drawing.Size(11, 12);
+            this.fast_inv_v2_totaltagcount_label.TabIndex = 13;
+            this.fast_inv_v2_totaltagcount_label.Text = "0";
             // 
             // fast_inv_v2_cmd_totalread_label
             // 
@@ -6943,14 +6967,14 @@ namespace UHFDemo
             // 
             // tags_dgv
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tags_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tags_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.mSerialNumberColumn,
@@ -6961,24 +6985,24 @@ namespace UHFDemo
             this.mPhaseColumn,
             this.mAntennaColumn,
             this.mDataColumn});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle2;
             this.tags_dgv.Location = new System.Drawing.Point(5, 85);
             this.tags_dgv.Name = "tags_dgv";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.tags_dgv.RowTemplate.Height = 23;
             this.tags_dgv.Size = new System.Drawing.Size(652, 428);
             this.tags_dgv.TabIndex = 0;
@@ -8411,6 +8435,26 @@ namespace UHFDemo
             this.net_configure_tabPage.Text = "网口配置";
             this.net_configure_tabPage.UseVisualStyleBackColor = true;
             // 
+            // net_load_cfg_btn
+            // 
+            this.net_load_cfg_btn.Location = new System.Drawing.Point(695, 331);
+            this.net_load_cfg_btn.Name = "net_load_cfg_btn";
+            this.net_load_cfg_btn.Size = new System.Drawing.Size(75, 23);
+            this.net_load_cfg_btn.TabIndex = 83;
+            this.net_load_cfg_btn.Text = "加载配置";
+            this.net_load_cfg_btn.UseVisualStyleBackColor = true;
+            this.net_load_cfg_btn.Click += new System.EventHandler(this.net_load_cfg_btn_Click);
+            // 
+            // net_save_cfg_btn
+            // 
+            this.net_save_cfg_btn.Location = new System.Drawing.Point(610, 331);
+            this.net_save_cfg_btn.Name = "net_save_cfg_btn";
+            this.net_save_cfg_btn.Size = new System.Drawing.Size(75, 23);
+            this.net_save_cfg_btn.TabIndex = 82;
+            this.net_save_cfg_btn.Text = "保存到文件";
+            this.net_save_cfg_btn.UseVisualStyleBackColor = true;
+            this.net_save_cfg_btn.Click += new System.EventHandler(this.net_save_cfg_btn_Click);
+            // 
             // label171
             // 
             this.label171.AutoSize = true;
@@ -9602,24 +9646,6 @@ namespace UHFDemo
             this.johar_tag_dgv.Size = new System.Drawing.Size(737, 485);
             this.johar_tag_dgv.TabIndex = 0;
             // 
-            // fast_inv_v2_cmd_time_label
-            // 
-            this.fast_inv_v2_cmd_time_label.AutoSize = true;
-            this.fast_inv_v2_cmd_time_label.Location = new System.Drawing.Point(289, 10);
-            this.fast_inv_v2_cmd_time_label.Name = "fast_inv_v2_cmd_time_label";
-            this.fast_inv_v2_cmd_time_label.Size = new System.Drawing.Size(11, 12);
-            this.fast_inv_v2_cmd_time_label.TabIndex = 8;
-            this.fast_inv_v2_cmd_time_label.Text = "0";
-            // 
-            // fast_inv_v2_totaltagcount_label
-            // 
-            this.fast_inv_v2_totaltagcount_label.AutoSize = true;
-            this.fast_inv_v2_totaltagcount_label.Location = new System.Drawing.Point(86, 48);
-            this.fast_inv_v2_totaltagcount_label.Name = "fast_inv_v2_totaltagcount_label";
-            this.fast_inv_v2_totaltagcount_label.Size = new System.Drawing.Size(11, 12);
-            this.fast_inv_v2_totaltagcount_label.TabIndex = 7;
-            this.fast_inv_v2_totaltagcount_label.Text = "0";
-            // 
             // label35
             // 
             this.label35.AutoSize = true;
@@ -10260,25 +10286,23 @@ namespace UHFDemo
             this.savelog_cb.UseVisualStyleBackColor = true;
             this.savelog_cb.CheckedChanged += new System.EventHandler(this.savelog_cb_CheckedChanged);
             // 
-            // net_save_cfg_btn
+            // label172
             // 
-            this.net_save_cfg_btn.Location = new System.Drawing.Point(610, 331);
-            this.net_save_cfg_btn.Name = "net_save_cfg_btn";
-            this.net_save_cfg_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_save_cfg_btn.TabIndex = 82;
-            this.net_save_cfg_btn.Text = "保存到文件";
-            this.net_save_cfg_btn.UseVisualStyleBackColor = true;
-            this.net_save_cfg_btn.Click += new System.EventHandler(this.net_save_cfg_btn_Click);
+            this.label172.AutoSize = true;
+            this.label172.Location = new System.Drawing.Point(10, 157);
+            this.label172.Name = "label172";
+            this.label172.Size = new System.Drawing.Size(89, 12);
+            this.label172.TabIndex = 15;
+            this.label172.Text = "模块版本信息：";
             // 
-            // net_load_cfg_btn
+            // module_info
             // 
-            this.net_load_cfg_btn.Location = new System.Drawing.Point(695, 331);
-            this.net_load_cfg_btn.Name = "net_load_cfg_btn";
-            this.net_load_cfg_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_load_cfg_btn.TabIndex = 83;
-            this.net_load_cfg_btn.Text = "加载配置";
-            this.net_load_cfg_btn.UseVisualStyleBackColor = true;
-            this.net_load_cfg_btn.Click += new System.EventHandler(this.net_load_cfg_btn_Click);
+            this.module_info.AutoSize = true;
+            this.module_info.Location = new System.Drawing.Point(100, 157);
+            this.module_info.Name = "module_info";
+            this.module_info.Size = new System.Drawing.Size(35, 12);
+            this.module_info.TabIndex = 16;
+            this.module_info.Text = "0.0.0";
             // 
             // R2000UartDemo
             // 
@@ -10297,7 +10321,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v4.0.18";
+            this.Text = "UHF RFID Reader Demo v4.0.19";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.R2000UartDemo_FormClosing);
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
@@ -11251,8 +11275,6 @@ namespace UHFDemo
         private Panel panel1;
         private Label fast_inv_v2_cmd_exec_rate;
         private Label fast_inv_v2_total_cmd_time_label;
-        private Label fast_inv_v2_cmd_time_label;
-        private Label fast_inv_v2_totaltagcount_label;
         private Label fast_inv_v2_totalread_label;
         private Button fast_inventory_v2_clear_btn;
         private Label label201;
@@ -11318,6 +11340,10 @@ namespace UHFDemo
         private ComboBox net_search_size;
         private Button net_load_cfg_btn;
         private Button net_save_cfg_btn;
+        private Label fast_inv_v2_totaltagcount_label;
+        private Label fast_inv_v2_cmd_time_label;
+        private Label module_info;
+        private Label label172;
     }
 }
 

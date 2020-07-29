@@ -163,8 +163,7 @@ namespace UHFDemo
                 cmbComPort.SelectedIndex = cmbComPort.Items.Count - 1;
             }
             cmbBaudrate.SelectedIndex = 1;
-            //ipIpServer.IpAddressStr = "192.168.0.178";
-            ipIpServer.IpAddressStr = "172.16.13.28";
+            ipIpServer.IpAddressStr = "192.168.0.178";
             txtTcpPort.Text = "4001";
 
 
@@ -10626,6 +10625,7 @@ namespace UHFDemo
                 string strDestinationFile = "NetPortConfigure"
                     + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + @".cfg";
                 saveFileDialog1.FileName = strDestinationFile;
+                //saveFileDialog1.InitialDirectory = "D://";
                 // Show the Dialog.
                 // If the user clicked OK in the dialog and
                 // a .txt file was selected, open it.
@@ -11026,7 +11026,6 @@ namespace UHFDemo
         static TagDB tagdb = null;
         bool doFastInventory = false;
         bool FastInventorying = false;
-        bool fastInventorySuccess = false;
 
         /// <summary>
         /// Define a variable for the inventory test log
@@ -11102,13 +11101,10 @@ namespace UHFDemo
         {
             doFastInventory = true;
             cmdFastInventoryV2Send();
+            FastInventorying = true;
             while (doFastInventory)
             {
-                if (fastInventorySuccess)
-                {
-                    fastInventorySuccess = false;
-                    cmdFastInventoryV2Send();
-                }
+                Thread.Sleep(1000);
             }
             FastInventorying = false;
             //Console.WriteLine("startFastInventory End!");
@@ -11279,7 +11275,11 @@ namespace UHFDemo
                     transportLogFile.Flush();
                 }
             }));
-            fastInventorySuccess = true;
+
+            if (FastInventorying)
+            {
+                cmdFastInventoryV2Send();
+            }
         }
 
         private void AntennaDetectError(byte[] data)
@@ -11357,8 +11357,9 @@ namespace UHFDemo
 
             byte[] sendData = new byte[msgLen];
             Array.Copy(rawData, 0, sendData, 0, msgLen);
-            Console.WriteLine("fastInventoryV2Send: {0}", CCommondMethod.ToHex(sendData, "", " "));
+            //Console.WriteLine("fastInventoryV2Send: {0}", CCommondMethod.ToHex(sendData, "", " "));
             int nResult = reader.SendMessage(sendData);
+            //Console.WriteLine("fastInventoryV2Send: [{0}] {1}", nResult, CCommondMethod.ToHex(sendData, "", " "));
         }
 
         private byte getFastInventoryV2Repeat()
