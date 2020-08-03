@@ -81,6 +81,11 @@ namespace UHFDemo
             {
                 return CCommondMethod.ToHex(pc_mac, "", ":");
             }
+            set
+            {
+                string param_pc_mac = value.Replace(":", "").ToLower();
+                pc_mac = CCommondMethod.FromHex(param_pc_mac);
+            }
         }
     }
 }

@@ -9089,6 +9089,9 @@ namespace UHFDemo
             NET_COMM recv = new NET_COMM(buf);
             if (recv.Cmd == (byte)NET_ACK.NET_MODULE_ACK_SEARCH)
             {
+                recv.Pc_Mac = net_card_dict[cur_desc].PC_MAC;
+                recv.ModSearch.PcMac = net_card_dict[cur_desc].PC_MAC;
+                //Console.WriteLine("###### parseRecvData mac={0} -> {1}", recv.Pc_Mac, recv.ModSearch.PcMac);
                 bool added = net_db.Add(recv.Mod_Mac, recv.ModSearch);
                 if(added)
                 {
@@ -9136,6 +9139,7 @@ namespace UHFDemo
                 dev_dgv.Rows[index].Cells[ModIp.Name].Value = recv.ModSearch.ModIp;
                 dev_dgv.Rows[index].Cells[ModMac.Name].Value = recv.ModSearch.ModMac;
                 dev_dgv.Rows[index].Cells[ModVer.Name].Value = recv.ModSearch.ModVer;
+                dev_dgv.Rows[index].Cells[PcMac.Name].Value = recv.ModSearch.PcMac;
             }
         }
 
@@ -9478,6 +9482,11 @@ namespace UHFDemo
 
         private void NetGetCfg(MODULE_SEARCH search)
         {
+            if(!net_card_dict[cur_desc].PC_MAC.Equals(search.PcMac))
+            {
+                MessageBox.Show(String.Format("请选择与主机mac: {0} 对应的网卡", search.PcMac), "NetGetCfg Error", MessageBoxButtons.OK);
+                return;
+            }
             if (!CheckNetConfigStatus())
                 StartNetUdpServer();
             NET_COMM comm_cmd = new NET_COMM();
@@ -9749,7 +9758,7 @@ namespace UHFDemo
             rawdata[writeIndex++] = 0x04;
             /* PHY断开，Socket动作，1：关闭Socket 2、不动作*/
             // port_phy_disconnect
-            rawdata[writeIndex++] = 0x02;
+            rawdata[writeIndex++] = 0x01;
             // port_package_size
             int port2_package_size = 1024;
             rawdata[writeIndex++] = (byte)((port2_package_size >> 0) & 0xff);
@@ -9879,7 +9888,7 @@ namespace UHFDemo
             // port_parity
             rawdata[writeIndex++] = (byte)GetEnumValue(typeof(PARITY), net_port_1_parity_bit_cbo.SelectedItem.ToString()); ;
             // port_phy_disconnect
-            rawdata[writeIndex++] = (byte)(net_port_1_phyChangeHandle_cb.Checked == true ? 0x01 : 0x02);
+            rawdata[writeIndex++] = (byte)(net_port_1_phyChangeHandle_cb.Checked == true ? 0x01 : 0x00);
             // port_package_size
             int package_size = Convert.ToInt32(net_port_1_rx_pkg_size_tb.Text.ToString());
             rawdata[writeIndex++] = (byte)((package_size >> 0) & 0xff);
@@ -10223,7 +10232,7 @@ namespace UHFDemo
             // port_parity
             rawdata[writeIndex++] = 0x04;
             // port_phy_disconnect
-            rawdata[writeIndex++] = 0x02;
+            rawdata[writeIndex++] = 0x01;
             // port_package_size
             int package_size = 1024;
             rawdata[writeIndex++] = (byte)((package_size >> 0) & 0xff);
@@ -10299,8 +10308,8 @@ namespace UHFDemo
             // port_parity
             rawdata[writeIndex++] = 0x04;
             /* PHY断开，Socket动作，1：关闭Socket 2、不动作*/
-                // port_phy_disconnect
-                rawdata[writeIndex++] = 0x02;
+            // port_phy_disconnect
+            rawdata[writeIndex++] = 0x01;
             // port_package_size
             int port2_package_size = 1024;
             rawdata[writeIndex++] = (byte)((port2_package_size >> 0) & 0xff);

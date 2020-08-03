@@ -184,7 +184,7 @@ namespace UHFDemo
             setdata[writeIndex++] = bParity;
             //Console.WriteLine(" --> DEVICEPORT_CONFIG bParity={0}", bParity);
             setdata[writeIndex++] = bPHYChangeHandle;
-            //Console.WriteLine(" --> DEVICEPORT_CONFIG bPHYChangeHandle={0}", bPHYChangeHandle);
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bPHYChangeHandle={0:X2}", bPHYChangeHandle);
 
             setdata[writeIndex++] = (byte)((dRxPktlength >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((dRxPktlength >> 8) & 0xff);
@@ -383,7 +383,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    bPHYChangeHandle = 0x02;
+                    bPHYChangeHandle = 0x00;
                 }
             }
         }
