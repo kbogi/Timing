@@ -252,6 +252,8 @@ namespace UHFDemo
             tagdb = new TagDB();
             tags_dgv.DataSource = tagdb.TagList;
             #endregion FastInventory_8A_v2
+
+            autoInventoryrb.Visible = false;
         }
 
         private void TcpExcption(string strErr)
@@ -9755,7 +9757,11 @@ namespace UHFDemo
             rawdata[writeIndex++] = (byte)((port2_package_size >> 16) & 0xff);
             rawdata[writeIndex++] = (byte)((port2_package_size >> 24) & 0xff);
             // port_package_timeout
-            int port2_package_timeout = Convert.ToInt32(net_heartbeat_interval_tb.Text.ToString());
+            int port2_package_timeout = 0;
+            if (net_use_heartbeat_cb.Checked)
+            {
+                port2_package_timeout = Convert.ToInt32(net_heartbeat_interval_tb.Text.ToString());
+            }
             rawdata[writeIndex++] = (byte)((port2_package_timeout >> 0) & 0xff);
             rawdata[writeIndex++] = (byte)((port2_package_timeout >> 8) & 0xff);
             rawdata[writeIndex++] = (byte)((port2_package_timeout >> 16) & 0xff);
@@ -9766,9 +9772,13 @@ namespace UHFDemo
             rawdata[writeIndex++] = 0x00;
             // port_dns_enable
             rawdata[writeIndex++] = 0x00;
-            // port_domain
+            // port_domain 心跳内容
             byte[] heartbeatContent = new byte[20];
-            string str_heartbeatContent = net_heartbeat_content_tb.Text.ToString();
+            string str_heartbeatContent = "";
+            if(net_use_heartbeat_cb.Checked)
+            {
+                str_heartbeatContent = net_heartbeat_content_tb.Text.ToString();
+            }
             byte[] bheartbeatContent = Encoding.Default.GetBytes(str_heartbeatContent);
             Array.Copy(bheartbeatContent, 0, heartbeatContent, 0, bheartbeatContent.Length);
             //Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
@@ -11662,6 +11672,8 @@ namespace UHFDemo
         private void savelog_cb_CheckedChanged(object sender, EventArgs e)
         {
             saveLog();
+            if (savelog_cb.Checked)
+                savelog_cb.Enabled = false;
         }
 
         private void saveLog()
@@ -11671,7 +11683,7 @@ namespace UHFDemo
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "Text Files (.txt)|*.txt";
                 saveFileDialog1.Title = "Select a File to save transport layer logging";
-                string strDestinationFile = "FastInventoryTesting"
+                string strDestinationFile = "FastInventoryTesting-"
                     + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + @".txt";
                 saveFileDialog1.FileName = strDestinationFile;
                 // Show the Dialog.

@@ -854,8 +854,6 @@ namespace UHFDemo
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
             this.savelog_cb = new System.Windows.Forms.CheckBox();
-            this.label172 = new System.Windows.Forms.Label();
-            this.module_info = new System.Windows.Forms.Label();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -3044,9 +3042,11 @@ namespace UHFDemo
             // sessionInventoryrb
             // 
             this.sessionInventoryrb.AutoSize = true;
+            this.sessionInventoryrb.Checked = true;
+            this.sessionInventoryrb.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sessionInventoryrb.Location = new System.Drawing.Point(392, 28);
             this.sessionInventoryrb.Name = "sessionInventoryrb";
-            this.sessionInventoryrb.Size = new System.Drawing.Size(116, 18);
+            this.sessionInventoryrb.Size = new System.Drawing.Size(115, 18);
             this.sessionInventoryrb.TabIndex = 67;
             this.sessionInventoryrb.TabStop = true;
             this.sessionInventoryrb.Text = "自定义Session";
@@ -3056,12 +3056,10 @@ namespace UHFDemo
             // autoInventoryrb
             // 
             this.autoInventoryrb.AutoSize = true;
-            this.autoInventoryrb.Checked = true;
             this.autoInventoryrb.Location = new System.Drawing.Point(393, 4);
             this.autoInventoryrb.Name = "autoInventoryrb";
             this.autoInventoryrb.Size = new System.Drawing.Size(53, 18);
             this.autoInventoryrb.TabIndex = 66;
-            this.autoInventoryrb.TabStop = true;
             this.autoInventoryrb.Text = "自动";
             this.autoInventoryrb.UseVisualStyleBackColor = true;
             this.autoInventoryrb.CheckedChanged += new System.EventHandler(this.autoInventoryrb_CheckedChanged);
@@ -3192,7 +3190,6 @@ namespace UHFDemo
             // cmbTarget
             // 
             this.cmbTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTarget.Enabled = false;
             this.cmbTarget.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbTarget.FormattingEnabled = true;
             this.cmbTarget.Items.AddRange(new object[] {
@@ -3217,7 +3214,6 @@ namespace UHFDemo
             // cmbSession
             // 
             this.cmbSession.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSession.Enabled = false;
             this.cmbSession.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cmbSession.FormattingEnabled = true;
             this.cmbSession.Items.AddRange(new object[] {
@@ -6225,8 +6221,6 @@ namespace UHFDemo
             // 
             // groupBox31
             // 
-            this.groupBox31.Controls.Add(this.module_info);
-            this.groupBox31.Controls.Add(this.label172);
             this.groupBox31.Controls.Add(this.fast_inv_v2_cb);
             this.groupBox31.Controls.Add(this.fast_inv_v2_phase_cb);
             this.groupBox31.Controls.Add(this.label196);
@@ -10286,24 +10280,6 @@ namespace UHFDemo
             this.savelog_cb.UseVisualStyleBackColor = true;
             this.savelog_cb.CheckedChanged += new System.EventHandler(this.savelog_cb_CheckedChanged);
             // 
-            // label172
-            // 
-            this.label172.AutoSize = true;
-            this.label172.Location = new System.Drawing.Point(10, 157);
-            this.label172.Name = "label172";
-            this.label172.Size = new System.Drawing.Size(89, 12);
-            this.label172.TabIndex = 15;
-            this.label172.Text = "模块版本信息：";
-            // 
-            // module_info
-            // 
-            this.module_info.AutoSize = true;
-            this.module_info.Location = new System.Drawing.Point(100, 157);
-            this.module_info.Name = "module_info";
-            this.module_info.Size = new System.Drawing.Size(35, 12);
-            this.module_info.TabIndex = 16;
-            this.module_info.Text = "0.0.0";
-            // 
             // R2000UartDemo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -10321,7 +10297,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v4.0.19";
+            this.Text = "UHF RFID Reader Demo v4.0.20";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.R2000UartDemo_FormClosing);
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
@@ -11342,8 +11318,6 @@ namespace UHFDemo
         private Button net_save_cfg_btn;
         private Label fast_inv_v2_totaltagcount_label;
         private Label fast_inv_v2_cmd_time_label;
-        private Label module_info;
-        private Label label172;
     }
 }
 
