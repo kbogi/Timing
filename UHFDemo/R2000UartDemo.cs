@@ -10232,7 +10232,7 @@ namespace UHFDemo
             // port_parity
             rawdata[writeIndex++] = 0x04;
             // port_phy_disconnect
-            rawdata[writeIndex++] = 0x01;
+            rawdata[writeIndex++] = 0x00;
             // port_package_size
             int package_size = 1024;
             rawdata[writeIndex++] = (byte)((package_size >> 0) & 0xff);
@@ -10309,7 +10309,7 @@ namespace UHFDemo
             rawdata[writeIndex++] = 0x04;
             /* PHY断开，Socket动作，1：关闭Socket 2、不动作*/
             // port_phy_disconnect
-            rawdata[writeIndex++] = 0x01;
+            rawdata[writeIndex++] = 0x00;
             // port_package_size
             int port2_package_size = 1024;
             rawdata[writeIndex++] = (byte)((port2_package_size >> 0) & 0xff);

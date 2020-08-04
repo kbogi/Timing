@@ -10297,7 +10297,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v4.0.22";
+            this.Text = "UHF RFID Reader Demo v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.R2000UartDemo_FormClosing);
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
