@@ -133,6 +133,9 @@ namespace UHFDemo
             this.m_new_fast_inventory_flag.SelectedIndex = 0;
 
             this.columnHeader37.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
+
+            cmbx_realinv_workant.Items.AddRange(new string[] { "天线1", "天线2", "天线3", "天线4", "天线5", "天线6", "天线7", "天线8", "天线9", "天线10", "天线11", "天线12", "天线13", "天线14", "天线15", "天线16" });
+            cmbx_realinv_workant.SelectedIndex = 0;
         }
 
         private void R2000UartDemo_Load(object sender, EventArgs e)
@@ -259,7 +262,7 @@ namespace UHFDemo
         private void TcpExcption(string strErr)
         {
             WriteLog(lrtxtLog, strErr, 1);
-            if(strErr.Contains("重连成功") && !btFastInventory.Text.Equals("开始盘存"))
+            if (strErr.Contains("重连成功") && !btFastInventory.Text.Equals("开始盘存"))
             {
                 BeginInvoke(new ThreadStart(delegate ()
                 {
@@ -271,7 +274,7 @@ namespace UHFDemo
 
         private void ReceiveData(byte[] btAryReceiveData)
         {
-            
+
             if (m_bDisplayLog)
             {
                 string strLog = CCommondMethod.ByteArrayToString(btAryReceiveData, 0, btAryReceiveData.Length);
@@ -659,7 +662,7 @@ namespace UHFDemo
                             int nTagCount = m_curInventoryBuffer.dtTagTable.Rows.Count;
                             int nTotalRead = m_nTotal;// m_curInventoryBuffer.dtTagDetailTable.Rows.Count;
                             TimeSpan ts = m_curInventoryBuffer.dtEndInventory - m_curInventoryBuffer.dtStartInventory;
-                            int nTotalTime = (int)(ts.Ticks/10000);
+                            int nTotalTime = (int)(ts.Ticks / 10000);
                             int nCaculatedReadRate = 0;
                             int nCommandDuation = 0;
 
@@ -1461,8 +1464,6 @@ namespace UHFDemo
                 {
                     if (m_curInventoryBuffer.nCommond == 0)
                     {
-                        m_curInventoryBuffer.nCommond = 1;
-
                         if (m_curInventoryBuffer.bLoopInventoryReal)
                         {
                             //m_bLockTab = true;
@@ -1478,6 +1479,7 @@ namespace UHFDemo
                         }
                         else
                         {
+                            m_curInventoryBuffer.nCommond = 1;
                             if (m_curInventoryBuffer.bLoopInventory)
                                 reader.Inventory(m_curSetting.btReadId, m_curInventoryBuffer.btRepeat);
                         }
@@ -2665,7 +2667,7 @@ namespace UHFDemo
             string strErrorCode = string.Empty;
 
             #region FastInventory_8A_v2
-            if(fast_inv_v2_cb.Checked)
+            if (fast_inv_v2_cb.Checked)
             {
                 parseMessage(msgTran.AryTranData);
                 return;
@@ -3176,7 +3178,6 @@ namespace UHFDemo
                         byte btWorkAntenna;
                         if (m_curSetting.btAntGroup == (byte)0x00)
                         {
-                            m_curInventoryBuffer.nIndexAntenna = 0;
                             btWorkAntenna = m_curInventoryBuffer.lAntenna[m_curInventoryBuffer.nIndexAntenna];
                         }
                         else
@@ -5514,7 +5515,7 @@ namespace UHFDemo
                 johar_readmode_mode3.Checked = true;
                 johar_cmd_interval_cb.SelectedIndex = 2;
 
-                if(johardb==null)
+                if (johardb == null)
                 {
                     johardb = new JoharTagDB();
                     johar_tag_dgv.DataSource = johardb.TagList;
@@ -5801,86 +5802,6 @@ namespace UHFDemo
                     m_curInventoryBuffer.bLoopCustomizedSession = false;
                 }
 
-                if (cbRealWorkant1.Checked)
-                {
-                    m_curInventoryBuffer.lAntenna.Add(0x00);
-                }
-                if (cbRealWorkant2.Checked)
-                {
-                    m_curInventoryBuffer.lAntenna.Add(0x01);
-                }
-                if (cbRealWorkant3.Checked)
-                {
-                    m_curInventoryBuffer.lAntenna.Add(0x02);
-                }
-                if (cbRealWorkant4.Checked)
-                {
-                    m_curInventoryBuffer.lAntenna.Add(0x03);
-                }
-                if (cbRealWorkant5.Checked)
-                {
-                    m_curInventoryBuffer.lAntenna.Add(0x04);
-                }
-                if (cbRealWorkant6.Checked)
-                {
-                    m_curInventoryBuffer.lAntenna.Add(0x05);
-                }
-                if (cbRealWorkant7.Checked)
-                {
-                    m_curInventoryBuffer.lAntenna.Add(0x06);
-                }
-                if (cbRealWorkant8.Checked)
-                {
-                    m_curInventoryBuffer.lAntenna.Add(0x07);
-                }
-                if (antType16.Checked)
-                {
-                    if (cbRealWorkant9.Checked)
-                    {
-                        m_curInventoryBuffer.lAntenna.Add(0x08);
-                    }
-                    if (cbRealWorkant10.Checked)
-                    {
-                        m_curInventoryBuffer.lAntenna.Add(0x09);
-                    }
-                    if (cbRealWorkant11.Checked)
-                    {
-                        m_curInventoryBuffer.lAntenna.Add(0x0A);
-                    }
-                    if (cbRealWorkant12.Checked)
-                    {
-                        m_curInventoryBuffer.lAntenna.Add(0x0B);
-                    }
-                    if (cbRealWorkant13.Checked)
-                    {
-                        m_curInventoryBuffer.lAntenna.Add(0x0C);
-                    }
-                    if (cbRealWorkant14.Checked)
-                    {
-                        m_curInventoryBuffer.lAntenna.Add(0x0D);
-                    }
-                    if (cbRealWorkant15.Checked)
-                    {
-                        m_curInventoryBuffer.lAntenna.Add(0x0E);
-                    }
-                    if (cbRealWorkant16.Checked)
-                    {
-                        m_curInventoryBuffer.lAntenna.Add(0x0F);
-                    }
-                    if (m_curInventoryBuffer.lAntenna.Count == 0)
-                    {
-                        MessageBox.Show("请至少选择一个天线");
-                        return;
-                    }
-                }
-                else
-                {
-                    if (m_curInventoryBuffer.lAntenna.Count == 0)
-                    {
-                        MessageBox.Show("请至少选择一个天线");
-                        return;
-                    }
-                }
                 //默认循环发送命令
                 if (m_curInventoryBuffer.bLoopInventory)
                 {
@@ -5928,6 +5849,12 @@ namespace UHFDemo
                 m_nTotal = 0;
 
                 this.m_InventoryStarTime = DateTime.Now;
+                if(cmbx_realinv_workant.SelectedIndex > -1)
+                {
+                    m_curInventoryBuffer.lAntenna.Add((byte)(cmbx_realinv_workant.SelectedIndex));
+                }
+                else
+                    m_curInventoryBuffer.lAntenna.Add(0x00);
 
                 m_curInventoryBuffer.nIndexAntenna = 0;
                 byte btWorkAntenna = m_curInventoryBuffer.lAntenna[m_curInventoryBuffer.nIndexAntenna];
@@ -5964,25 +5891,7 @@ namespace UHFDemo
             tbRealMaxRssi.Text = "0";
             tbRealMinRssi.Text = "0";
             textRealRound.Text = "1";
-            cbRealWorkant1.Checked = true;
-            cbRealWorkant2.Checked = false;
-            cbRealWorkant3.Checked = false;
-            cbRealWorkant4.Checked = false;
-            cbRealWorkant5.Checked = false;
-            cbRealWorkant6.Checked = false;
-            cbRealWorkant7.Checked = false;
-            cbRealWorkant8.Checked = false;
-            cbRealWorkant9.Checked = false;
-            cbRealWorkant10.Checked = false;
-            cbRealWorkant11.Checked = false;
-            cbRealWorkant12.Checked = false;
-            cbRealWorkant13.Checked = false;
-            cbRealWorkant14.Checked = false;
-            cbRealWorkant15.Checked = false;
-            cbRealWorkant16.Checked = false;
             lbRealTagCount.Text = "标签列表：";
-
-
         }
 
         private void btBufferInventory_Click(object sender, EventArgs e)
@@ -7982,6 +7891,28 @@ namespace UHFDemo
             }
         }
 
+        private void antType_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton btn = (RadioButton)sender;
+            if (!btn.Checked)
+                return;
+            switch (btn.Name)
+            {
+                case "antType1":
+                    antType1_CheckedChanged(sender, e);
+                    break;
+                case "antType4":
+                    antType4_CheckedChanged(sender, e);
+                    break;
+                case "antType8":
+                    antType8_CheckedChanged(sender, e);
+                    break;
+                case "antType16":
+                    antType16_CheckedChanged(sender, e);
+                    break;
+            }
+        }
+
         private void antType1_CheckedChanged(object sender, EventArgs e)
         {
             if (antType1.Checked)
@@ -8008,23 +7939,6 @@ namespace UHFDemo
 
                 columnHeader40.Text = "识别次数";
 
-                cbRealWorkant1.Enabled = false;
-                cbRealWorkant2.Enabled = false;
-                cbRealWorkant3.Enabled = false;
-                cbRealWorkant4.Enabled = false;
-                cbRealWorkant5.Enabled = false;
-                cbRealWorkant6.Enabled = false;
-                cbRealWorkant7.Enabled = false;
-                cbRealWorkant8.Enabled = false;
-                cbRealWorkant9.Enabled = false;
-                cbRealWorkant10.Enabled = false;
-                cbRealWorkant11.Enabled = false;
-                cbRealWorkant12.Enabled = false;
-                cbRealWorkant13.Enabled = false;
-                cbRealWorkant14.Enabled = false;
-                cbRealWorkant15.Enabled = false;
-                cbRealWorkant16.Enabled = false;
-
                 //set work ant
                 this.cmbWorkAnt.Items.Clear();
                 this.cmbWorkAnt.Items.AddRange(new object[] {
@@ -8033,23 +7947,6 @@ namespace UHFDemo
 
 
                 //select ant
-                cbRealWorkant1.Checked = true;
-                cbRealWorkant2.Checked = false;
-                cbRealWorkant3.Checked = false;
-                cbRealWorkant4.Checked = false;
-                cbRealWorkant5.Checked = false;
-                cbRealWorkant6.Checked = false;
-                cbRealWorkant7.Checked = false;
-                cbRealWorkant8.Checked = false;
-                cbRealWorkant9.Checked = false;
-                cbRealWorkant10.Checked = false;
-                cbRealWorkant11.Checked = false;
-                cbRealWorkant12.Checked = false;
-                cbRealWorkant13.Checked = false;
-                cbRealWorkant14.Checked = false;
-                cbRealWorkant15.Checked = false;
-                cbRealWorkant16.Checked = false;
-
                 cbBufferWorkant2.Checked = false;
                 cbBufferWorkant3.Checked = false;
                 cbBufferWorkant4.Checked = false;
@@ -8150,25 +8047,6 @@ namespace UHFDemo
                 tb_dbm_15.Enabled = false;
                 tb_dbm_16.Enabled = false;
 
-
-
-                cbRealWorkant1.Enabled = true;
-                cbRealWorkant2.Enabled = true;
-                cbRealWorkant3.Enabled = true;
-                cbRealWorkant4.Enabled = true;
-                cbRealWorkant5.Enabled = false;
-                cbRealWorkant6.Enabled = false;
-                cbRealWorkant7.Enabled = false;
-                cbRealWorkant8.Enabled = false;
-                cbRealWorkant9.Enabled = false;
-                cbRealWorkant10.Enabled = false;
-                cbRealWorkant11.Enabled = false;
-                cbRealWorkant12.Enabled = false;
-                cbRealWorkant13.Enabled = false;
-                cbRealWorkant14.Enabled = false;
-                cbRealWorkant15.Enabled = false;
-                cbRealWorkant16.Enabled = false;
-
                 cbBufferWorkant1.Enabled = true;
                 cbBufferWorkant2.Enabled = true;
                 cbBufferWorkant3.Enabled = true;
@@ -8217,19 +8095,6 @@ namespace UHFDemo
 
 
                 //select ant
-                cbRealWorkant5.Checked = false;
-                cbRealWorkant6.Checked = false;
-                cbRealWorkant7.Checked = false;
-                cbRealWorkant8.Checked = false;
-                cbRealWorkant9.Checked = false;
-                cbRealWorkant10.Checked = false;
-                cbRealWorkant11.Checked = false;
-                cbRealWorkant12.Checked = false;
-                cbRealWorkant13.Checked = false;
-                cbRealWorkant14.Checked = false;
-                cbRealWorkant15.Checked = false;
-                cbRealWorkant16.Checked = false;
-
                 cbBufferWorkant2.Checked = false;
                 cbBufferWorkant3.Checked = false;
                 cbBufferWorkant4.Checked = false;
@@ -8329,32 +8194,6 @@ namespace UHFDemo
                 tb_dbm_14.Enabled = false;
                 tb_dbm_15.Enabled = false;
                 tb_dbm_16.Enabled = false;
-
-                cbRealWorkant1.Enabled = true;
-                cbRealWorkant2.Enabled = true;
-                cbRealWorkant3.Enabled = true;
-                cbRealWorkant4.Enabled = true;
-                cbRealWorkant5.Enabled = true;
-                cbRealWorkant6.Enabled = true;
-                cbRealWorkant7.Enabled = true;
-                cbRealWorkant8.Enabled = true;
-                cbRealWorkant9.Enabled = false;
-                cbRealWorkant10.Enabled = false;
-                cbRealWorkant11.Enabled = false;
-                cbRealWorkant12.Enabled = false;
-                cbRealWorkant13.Enabled = false;
-                cbRealWorkant14.Enabled = false;
-                cbRealWorkant15.Enabled = false;
-                cbRealWorkant16.Enabled = false;
-
-                cbRealWorkant9.Checked = false;
-                cbRealWorkant10.Checked = false;
-                cbRealWorkant11.Checked = false;
-                cbRealWorkant12.Checked = false;
-                cbRealWorkant13.Checked = false;
-                cbRealWorkant14.Checked = false;
-                cbRealWorkant15.Checked = false;
-                cbRealWorkant16.Checked = false;
 
                 cbBufferWorkant1.Enabled = true;
                 cbBufferWorkant2.Enabled = true;
@@ -8509,23 +8348,6 @@ namespace UHFDemo
                 tb_dbm_14.Enabled = true;
                 tb_dbm_15.Enabled = true;
                 tb_dbm_16.Enabled = true;
-
-                cbRealWorkant1.Enabled = true;
-                cbRealWorkant2.Enabled = true;
-                cbRealWorkant3.Enabled = true;
-                cbRealWorkant4.Enabled = true;
-                cbRealWorkant5.Enabled = true;
-                cbRealWorkant6.Enabled = true;
-                cbRealWorkant7.Enabled = true;
-                cbRealWorkant8.Enabled = true;
-                cbRealWorkant9.Enabled = true;
-                cbRealWorkant10.Enabled = true;
-                cbRealWorkant11.Enabled = true;
-                cbRealWorkant12.Enabled = true;
-                cbRealWorkant13.Enabled = true;
-                cbRealWorkant14.Enabled = true;
-                cbRealWorkant15.Enabled = true;
-                cbRealWorkant16.Enabled = true;
 
                 cbBufferWorkant1.Enabled = true;
                 cbBufferWorkant2.Enabled = true;

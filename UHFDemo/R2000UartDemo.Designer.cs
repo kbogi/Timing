@@ -210,6 +210,8 @@ namespace UHFDemo
             this.pageEpcTest = new System.Windows.Forms.TabPage();
             this.tab_6c_Tags_Test = new System.Windows.Forms.TabControl();
             this.pageRealMode = new System.Windows.Forms.TabPage();
+            this.lbl_realinv_workant = new System.Windows.Forms.Label();
+            this.cmbx_realinv_workant = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.customizedExeTime = new System.Windows.Forms.TextBox();
@@ -238,24 +240,6 @@ namespace UHFDemo
             this.excel_format_rb = new System.Windows.Forms.RadioButton();
             this.txt_format_rb = new System.Windows.Forms.RadioButton();
             this.button8 = new System.Windows.Forms.Button();
-            this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.cbRealWorkant16 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant15 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant14 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant13 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant9 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant12 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant11 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant10 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant8 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant7 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant6 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant5 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant1 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant4 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant3 = new System.Windows.Forms.CheckBox();
-            this.cbRealWorkant2 = new System.Windows.Forms.CheckBox();
-            this.label19 = new System.Windows.Forms.Label();
             this.tbRealMinRssi = new System.Windows.Forms.TextBox();
             this.tbRealMaxRssi = new System.Windows.Forms.TextBox();
             this.btRealFresh = new System.Windows.Forms.Button();
@@ -889,7 +873,6 @@ namespace UHFDemo
             this.pageRealMode.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.groupBox20.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ledReal3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledReal5)).BeginInit();
@@ -1066,7 +1049,7 @@ namespace UHFDemo
             this.antType16.TabStop = true;
             this.antType16.Text = "16天线";
             this.antType16.UseVisualStyleBackColor = true;
-            this.antType16.CheckedChanged += new System.EventHandler(this.antType16_CheckedChanged);
+            this.antType16.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
             // 
             // antType8
             // 
@@ -1078,7 +1061,7 @@ namespace UHFDemo
             this.antType8.TabStop = true;
             this.antType8.Text = "8天线";
             this.antType8.UseVisualStyleBackColor = true;
-            this.antType8.CheckedChanged += new System.EventHandler(this.antType8_CheckedChanged);
+            this.antType8.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
             // 
             // antType4
             // 
@@ -1090,7 +1073,7 @@ namespace UHFDemo
             this.antType4.TabStop = true;
             this.antType4.Text = "4天线";
             this.antType4.UseVisualStyleBackColor = true;
-            this.antType4.CheckedChanged += new System.EventHandler(this.antType4_CheckedChanged);
+            this.antType4.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
             // 
             // antType1
             // 
@@ -1102,7 +1085,7 @@ namespace UHFDemo
             this.antType1.TabStop = true;
             this.antType1.Text = "1天线";
             this.antType1.UseVisualStyleBackColor = true;
-            this.antType1.CheckedChanged += new System.EventHandler(this.antType1_CheckedChanged);
+            this.antType1.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
             // 
             // btReaderSetupRefresh
             // 
@@ -2882,11 +2865,11 @@ namespace UHFDemo
             // tab_6c_Tags_Test
             // 
             this.tab_6c_Tags_Test.Controls.Add(this.pageRealMode);
-            this.tab_6c_Tags_Test.Controls.Add(this.pageBufferedMode);
             this.tab_6c_Tags_Test.Controls.Add(this.pageFast4AntMode);
             this.tab_6c_Tags_Test.Controls.Add(this.cmd_8a_v2_tabPage);
             this.tab_6c_Tags_Test.Controls.Add(this.pageAcessTag);
             this.tab_6c_Tags_Test.Controls.Add(this.tabPage3);
+            this.tab_6c_Tags_Test.Controls.Add(this.pageBufferedMode);
             this.tab_6c_Tags_Test.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tab_6c_Tags_Test.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tab_6c_Tags_Test.Location = new System.Drawing.Point(0, 5);
@@ -2899,11 +2882,12 @@ namespace UHFDemo
             // pageRealMode
             // 
             this.pageRealMode.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pageRealMode.Controls.Add(this.lbl_realinv_workant);
+            this.pageRealMode.Controls.Add(this.cmbx_realinv_workant);
             this.pageRealMode.Controls.Add(this.tableLayoutPanel1);
             this.pageRealMode.Controls.Add(this.excel_format_rb);
             this.pageRealMode.Controls.Add(this.txt_format_rb);
             this.pageRealMode.Controls.Add(this.button8);
-            this.pageRealMode.Controls.Add(this.groupBox20);
             this.pageRealMode.Controls.Add(this.tbRealMinRssi);
             this.pageRealMode.Controls.Add(this.tbRealMaxRssi);
             this.pageRealMode.Controls.Add(this.btRealFresh);
@@ -2918,7 +2902,25 @@ namespace UHFDemo
             this.pageRealMode.Padding = new System.Windows.Forms.Padding(3);
             this.pageRealMode.Size = new System.Drawing.Size(1000, 522);
             this.pageRealMode.TabIndex = 1;
-            this.pageRealMode.Text = "盘存标签(实时模式)";
+            this.pageRealMode.Text = "单天线盘存";
+            // 
+            // lbl_realinv_workant
+            // 
+            this.lbl_realinv_workant.AutoSize = true;
+            this.lbl_realinv_workant.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lbl_realinv_workant.Location = new System.Drawing.Point(13, 84);
+            this.lbl_realinv_workant.Name = "lbl_realinv_workant";
+            this.lbl_realinv_workant.Size = new System.Drawing.Size(59, 12);
+            this.lbl_realinv_workant.TabIndex = 72;
+            this.lbl_realinv_workant.Text = "工作天线:";
+            // 
+            // cmbx_realinv_workant
+            // 
+            this.cmbx_realinv_workant.FormattingEnabled = true;
+            this.cmbx_realinv_workant.Location = new System.Drawing.Point(76, 79);
+            this.cmbx_realinv_workant.Name = "cmbx_realinv_workant";
+            this.cmbx_realinv_workant.Size = new System.Drawing.Size(82, 22);
+            this.cmbx_realinv_workant.TabIndex = 65;
             // 
             // tableLayoutPanel1
             // 
@@ -3271,220 +3273,6 @@ namespace UHFDemo
             this.button8.Text = "保存标签";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // groupBox20
-            // 
-            this.groupBox20.Controls.Add(this.cbRealWorkant16);
-            this.groupBox20.Controls.Add(this.cbRealWorkant15);
-            this.groupBox20.Controls.Add(this.cbRealWorkant14);
-            this.groupBox20.Controls.Add(this.cbRealWorkant13);
-            this.groupBox20.Controls.Add(this.cbRealWorkant9);
-            this.groupBox20.Controls.Add(this.cbRealWorkant12);
-            this.groupBox20.Controls.Add(this.cbRealWorkant11);
-            this.groupBox20.Controls.Add(this.cbRealWorkant10);
-            this.groupBox20.Controls.Add(this.cbRealWorkant8);
-            this.groupBox20.Controls.Add(this.cbRealWorkant7);
-            this.groupBox20.Controls.Add(this.cbRealWorkant6);
-            this.groupBox20.Controls.Add(this.cbRealWorkant5);
-            this.groupBox20.Controls.Add(this.cbRealWorkant1);
-            this.groupBox20.Controls.Add(this.cbRealWorkant4);
-            this.groupBox20.Controls.Add(this.cbRealWorkant3);
-            this.groupBox20.Controls.Add(this.cbRealWorkant2);
-            this.groupBox20.Controls.Add(this.label19);
-            this.groupBox20.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.groupBox20.ForeColor = System.Drawing.Color.Black;
-            this.groupBox20.Location = new System.Drawing.Point(3, 66);
-            this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(994, 53);
-            this.groupBox20.TabIndex = 49;
-            this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "选择天线 ";
-            // 
-            // cbRealWorkant16
-            // 
-            this.cbRealWorkant16.AutoSize = true;
-            this.cbRealWorkant16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant16.Location = new System.Drawing.Point(932, 20);
-            this.cbRealWorkant16.Name = "cbRealWorkant16";
-            this.cbRealWorkant16.Size = new System.Drawing.Size(60, 16);
-            this.cbRealWorkant16.TabIndex = 91;
-            this.cbRealWorkant16.Text = "天线16";
-            this.cbRealWorkant16.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant15
-            // 
-            this.cbRealWorkant15.AutoSize = true;
-            this.cbRealWorkant15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant15.Location = new System.Drawing.Point(869, 20);
-            this.cbRealWorkant15.Name = "cbRealWorkant15";
-            this.cbRealWorkant15.Size = new System.Drawing.Size(60, 16);
-            this.cbRealWorkant15.TabIndex = 90;
-            this.cbRealWorkant15.Text = "天线15";
-            this.cbRealWorkant15.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant14
-            // 
-            this.cbRealWorkant14.AutoSize = true;
-            this.cbRealWorkant14.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant14.Location = new System.Drawing.Point(805, 20);
-            this.cbRealWorkant14.Name = "cbRealWorkant14";
-            this.cbRealWorkant14.Size = new System.Drawing.Size(60, 16);
-            this.cbRealWorkant14.TabIndex = 89;
-            this.cbRealWorkant14.Text = "天线14";
-            this.cbRealWorkant14.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant13
-            // 
-            this.cbRealWorkant13.AutoSize = true;
-            this.cbRealWorkant13.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant13.Location = new System.Drawing.Point(741, 20);
-            this.cbRealWorkant13.Name = "cbRealWorkant13";
-            this.cbRealWorkant13.Size = new System.Drawing.Size(60, 16);
-            this.cbRealWorkant13.TabIndex = 88;
-            this.cbRealWorkant13.Text = "天线13";
-            this.cbRealWorkant13.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant9
-            // 
-            this.cbRealWorkant9.AutoSize = true;
-            this.cbRealWorkant9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant9.Location = new System.Drawing.Point(491, 20);
-            this.cbRealWorkant9.Name = "cbRealWorkant9";
-            this.cbRealWorkant9.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant9.TabIndex = 87;
-            this.cbRealWorkant9.Text = "天线9";
-            this.cbRealWorkant9.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant12
-            // 
-            this.cbRealWorkant12.AutoSize = true;
-            this.cbRealWorkant12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant12.Location = new System.Drawing.Point(680, 20);
-            this.cbRealWorkant12.Name = "cbRealWorkant12";
-            this.cbRealWorkant12.Size = new System.Drawing.Size(60, 16);
-            this.cbRealWorkant12.TabIndex = 86;
-            this.cbRealWorkant12.Text = "天线12";
-            this.cbRealWorkant12.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant11
-            // 
-            this.cbRealWorkant11.AutoSize = true;
-            this.cbRealWorkant11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant11.Location = new System.Drawing.Point(617, 20);
-            this.cbRealWorkant11.Name = "cbRealWorkant11";
-            this.cbRealWorkant11.Size = new System.Drawing.Size(60, 16);
-            this.cbRealWorkant11.TabIndex = 85;
-            this.cbRealWorkant11.Text = "天线11";
-            this.cbRealWorkant11.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant10
-            // 
-            this.cbRealWorkant10.AutoSize = true;
-            this.cbRealWorkant10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant10.Location = new System.Drawing.Point(551, 20);
-            this.cbRealWorkant10.Name = "cbRealWorkant10";
-            this.cbRealWorkant10.Size = new System.Drawing.Size(60, 16);
-            this.cbRealWorkant10.TabIndex = 84;
-            this.cbRealWorkant10.Text = "天线10";
-            this.cbRealWorkant10.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant8
-            // 
-            this.cbRealWorkant8.AutoSize = true;
-            this.cbRealWorkant8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant8.Location = new System.Drawing.Point(431, 20);
-            this.cbRealWorkant8.Name = "cbRealWorkant8";
-            this.cbRealWorkant8.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant8.TabIndex = 72;
-            this.cbRealWorkant8.Text = "天线8";
-            this.cbRealWorkant8.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant7
-            // 
-            this.cbRealWorkant7.AutoSize = true;
-            this.cbRealWorkant7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant7.Location = new System.Drawing.Point(370, 20);
-            this.cbRealWorkant7.Name = "cbRealWorkant7";
-            this.cbRealWorkant7.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant7.TabIndex = 71;
-            this.cbRealWorkant7.Text = "天线7";
-            this.cbRealWorkant7.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant6
-            // 
-            this.cbRealWorkant6.AutoSize = true;
-            this.cbRealWorkant6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant6.Location = new System.Drawing.Point(309, 20);
-            this.cbRealWorkant6.Name = "cbRealWorkant6";
-            this.cbRealWorkant6.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant6.TabIndex = 70;
-            this.cbRealWorkant6.Text = "天线6";
-            this.cbRealWorkant6.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant5
-            // 
-            this.cbRealWorkant5.AutoSize = true;
-            this.cbRealWorkant5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant5.Location = new System.Drawing.Point(248, 20);
-            this.cbRealWorkant5.Name = "cbRealWorkant5";
-            this.cbRealWorkant5.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant5.TabIndex = 69;
-            this.cbRealWorkant5.Text = "天线5";
-            this.cbRealWorkant5.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant1
-            // 
-            this.cbRealWorkant1.AutoSize = true;
-            this.cbRealWorkant1.Checked = true;
-            this.cbRealWorkant1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbRealWorkant1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant1.Location = new System.Drawing.Point(8, 20);
-            this.cbRealWorkant1.Name = "cbRealWorkant1";
-            this.cbRealWorkant1.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant1.TabIndex = 68;
-            this.cbRealWorkant1.Text = "天线1";
-            this.cbRealWorkant1.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant4
-            // 
-            this.cbRealWorkant4.AutoSize = true;
-            this.cbRealWorkant4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant4.Location = new System.Drawing.Point(188, 20);
-            this.cbRealWorkant4.Name = "cbRealWorkant4";
-            this.cbRealWorkant4.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant4.TabIndex = 67;
-            this.cbRealWorkant4.Text = "天线4";
-            this.cbRealWorkant4.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant3
-            // 
-            this.cbRealWorkant3.AutoSize = true;
-            this.cbRealWorkant3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant3.Location = new System.Drawing.Point(128, 20);
-            this.cbRealWorkant3.Name = "cbRealWorkant3";
-            this.cbRealWorkant3.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant3.TabIndex = 66;
-            this.cbRealWorkant3.Text = "天线3";
-            this.cbRealWorkant3.UseVisualStyleBackColor = true;
-            // 
-            // cbRealWorkant2
-            // 
-            this.cbRealWorkant2.AutoSize = true;
-            this.cbRealWorkant2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.cbRealWorkant2.Location = new System.Drawing.Point(68, 20);
-            this.cbRealWorkant2.Name = "cbRealWorkant2";
-            this.cbRealWorkant2.Size = new System.Drawing.Size(54, 16);
-            this.cbRealWorkant2.TabIndex = 65;
-            this.cbRealWorkant2.Text = "天线2";
-            this.cbRealWorkant2.UseVisualStyleBackColor = true;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(51, 19);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(0, 12);
-            this.label19.TabIndex = 0;
             // 
             // tbRealMinRssi
             // 
@@ -4398,7 +4186,7 @@ namespace UHFDemo
             this.pageFast4AntMode.Padding = new System.Windows.Forms.Padding(3);
             this.pageFast4AntMode.Size = new System.Drawing.Size(1000, 522);
             this.pageFast4AntMode.TabIndex = 0;
-            this.pageFast4AntMode.Text = "快速天线盘存";
+            this.pageFast4AntMode.Text = "多天线盘存";
             this.pageFast4AntMode.Enter += new System.EventHandler(this.pageFast4AntMode_Enter);
             // 
             // txt_format_fast_rb
@@ -6131,7 +5919,7 @@ namespace UHFDemo
             this.cmd_8a_v2_tabPage.Padding = new System.Windows.Forms.Padding(3);
             this.cmd_8a_v2_tabPage.Size = new System.Drawing.Size(1000, 522);
             this.cmd_8a_v2_tabPage.TabIndex = 5;
-            this.cmd_8a_v2_tabPage.Text = "快速盘点（临时功率）";
+            this.cmd_8a_v2_tabPage.Text = "多天线盘存（临时功率）";
             this.cmd_8a_v2_tabPage.UseVisualStyleBackColor = true;
             this.cmd_8a_v2_tabPage.Enter += new System.EventHandler(this.cmd_8a_v2_tabPage_Enter);
             this.cmd_8a_v2_tabPage.Leave += new System.EventHandler(this.cmd_8a_v2_tabPage_Leave);
@@ -10297,7 +10085,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text = "UHF RFID Reader Demo v16.0.0.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.R2000UartDemo_FormClosing);
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
@@ -10359,8 +10147,6 @@ namespace UHFDemo
             this.tableLayoutPanel1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            this.groupBox20.ResumeLayout(false);
-            this.groupBox20.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ledReal3)).EndInit();
@@ -10852,12 +10638,6 @@ namespace UHFDemo
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.GroupBox groupBox20;
-        private System.Windows.Forms.CheckBox cbRealWorkant1;
-        private System.Windows.Forms.CheckBox cbRealWorkant4;
-        private System.Windows.Forms.CheckBox cbRealWorkant3;
-        private System.Windows.Forms.CheckBox cbRealWorkant2;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ComboBox cmbTarget;
         private System.Windows.Forms.Label label98;
         private System.Windows.Forms.ComboBox cmbSession;
@@ -10957,10 +10737,6 @@ namespace UHFDemo
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.CheckBox cbRealWorkant8;
-        private System.Windows.Forms.CheckBox cbRealWorkant7;
-        private System.Windows.Forms.CheckBox cbRealWorkant6;
-        private System.Windows.Forms.CheckBox cbRealWorkant5;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.Label label124;
@@ -11100,14 +10876,6 @@ namespace UHFDemo
         private TextBox tb_dbm_11;
         private TextBox tb_dbm_10;
         private TextBox tb_dbm_9;
-        private CheckBox cbRealWorkant16;
-        private CheckBox cbRealWorkant15;
-        private CheckBox cbRealWorkant14;
-        private CheckBox cbRealWorkant13;
-        private CheckBox cbRealWorkant9;
-        private CheckBox cbRealWorkant12;
-        private CheckBox cbRealWorkant11;
-        private CheckBox cbRealWorkant10;
         private TabPage net_configure_tabPage;
         private LinkLabel net_port_config_tool_linkLabel;
         private Label label165;
@@ -11318,6 +11086,8 @@ namespace UHFDemo
         private Button net_save_cfg_btn;
         private Label fast_inv_v2_totaltagcount_label;
         private Label fast_inv_v2_cmd_time_label;
+        private Label lbl_realinv_workant;
+        private ComboBox cmbx_realinv_workant;
     }
 }
 
