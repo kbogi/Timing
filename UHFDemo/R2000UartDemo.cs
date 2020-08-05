@@ -115,6 +115,11 @@ namespace UHFDemo
         public R2000UartDemo()
         {
             InitializeComponent();
+            this.Text = string.Format("{0}{1}.{2}",
+                "UHF RFID Reader Demo v",
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major,
+                System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Minor);
+
             this.DoubleBuffered = true;
 
 
@@ -7562,7 +7567,8 @@ namespace UHFDemo
                 {
                     fast_inv_ants[i].Visible = true;
                     fast_inv_ants[i].Enabled = true;
-                    fast_inv_ants[i].Checked = true;
+                    if(i == 0) // 默认选1
+                        fast_inv_ants[i].Checked = true;
 
                     fast_inv_stays[i].Visible = true;
                     fast_inv_stays[i].Enabled = true;
@@ -10909,6 +10915,15 @@ namespace UHFDemo
             if(tagdb!=null)
                 tagdb.UpdateRegionInfo(data);
             
+        }
+
+        private void cb_fast_inv_check_all_ant_CheckedChanged(object sender, EventArgs e)
+        {
+            bool check = cb_fast_inv_check_all_ant.Checked;
+            foreach (CheckBox cb in fast_inv_ants)
+            {
+                cb.Checked = check;
+            }
         }
     }
 

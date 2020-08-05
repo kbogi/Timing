@@ -811,6 +811,7 @@ namespace UHFDemo
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
             this.savelog_cb = new System.Windows.Forms.CheckBox();
+            this.cb_fast_inv_check_all_ant = new System.Windows.Forms.CheckBox();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -3628,6 +3629,7 @@ namespace UHFDemo
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cb_fast_inv_check_all_ant);
             this.groupBox2.Controls.Add(this.groupBox20);
             this.groupBox2.Controls.Add(this.btFastInventory);
             this.groupBox2.Controls.Add(this.groupBox25);
@@ -9527,6 +9529,17 @@ namespace UHFDemo
             this.savelog_cb.UseVisualStyleBackColor = true;
             this.savelog_cb.CheckedChanged += new System.EventHandler(this.savelog_cb_CheckedChanged);
             // 
+            // cb_fast_inv_check_all_ant
+            // 
+            this.cb_fast_inv_check_all_ant.AutoSize = true;
+            this.cb_fast_inv_check_all_ant.Location = new System.Drawing.Point(138, 37);
+            this.cb_fast_inv_check_all_ant.Name = "cb_fast_inv_check_all_ant";
+            this.cb_fast_inv_check_all_ant.Size = new System.Drawing.Size(48, 16);
+            this.cb_fast_inv_check_all_ant.TabIndex = 77;
+            this.cb_fast_inv_check_all_ant.Text = "全选";
+            this.cb_fast_inv_check_all_ant.UseVisualStyleBackColor = true;
+            this.cb_fast_inv_check_all_ant.CheckedChanged += new System.EventHandler(this.cb_fast_inv_check_all_ant_CheckedChanged);
+            // 
             // R2000UartDemo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -9544,7 +9557,7 @@ namespace UHFDemo
             this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UHF RFID Reader Demo v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text = "UHF RFID Reader Demo v16.0";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.R2000UartDemo_FormClosing);
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
@@ -9616,6 +9629,7 @@ namespace UHFDemo
             this.pageFast4AntMode.ResumeLayout(false);
             this.pageFast4AntMode.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel5.PerformLayout();
@@ -10518,6 +10532,7 @@ namespace UHFDemo
         private TextBox txt_fast_inv_Stay_14;
         private TextBox txt_fast_inv_Stay_15;
         private TextBox txt_fast_inv_Stay_16;
+        private CheckBox cb_fast_inv_check_all_ant;
     }
 }
 
