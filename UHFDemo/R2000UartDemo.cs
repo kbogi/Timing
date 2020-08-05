@@ -109,6 +109,9 @@ namespace UHFDemo
         private bool m_setWorkAnt = false;
         private bool m_getWorkAnt = false;
 
+        private CheckBox[] fast_inv_ants = null;
+        private TextBox[] fast_inv_stays = null;
+
         public R2000UartDemo()
         {
             InitializeComponent();
@@ -136,6 +139,19 @@ namespace UHFDemo
 
             cmbx_realinv_workant.Items.AddRange(new string[] { "天线1", "天线2", "天线3", "天线4", "天线5", "天线6", "天线7", "天线8", "天线9", "天线10", "天线11", "天线12", "天线13", "天线14", "天线15", "天线16" });
             cmbx_realinv_workant.SelectedIndex = 0;
+
+            fast_inv_ants = new CheckBox[] { 
+                chckbx_fast_inv_ant_1, chckbx_fast_inv_ant_2, chckbx_fast_inv_ant_3, chckbx_fast_inv_ant_4,
+                chckbx_fast_inv_ant_5, chckbx_fast_inv_ant_6, chckbx_fast_inv_ant_7, chckbx_fast_inv_ant_8,
+                chckbx_fast_inv_ant_9, chckbx_fast_inv_ant_10, chckbx_fast_inv_ant_11, chckbx_fast_inv_ant_12,
+                chckbx_fast_inv_ant_13, chckbx_fast_inv_ant_14, chckbx_fast_inv_ant_15, chckbx_fast_inv_ant_16
+            };
+            fast_inv_stays = new TextBox[] { 
+                txt_fast_inv_Stay_1, txt_fast_inv_Stay_2, txt_fast_inv_Stay_3, txt_fast_inv_Stay_4,
+                txt_fast_inv_Stay_5, txt_fast_inv_Stay_6, txt_fast_inv_Stay_7, txt_fast_inv_Stay_8,
+                txt_fast_inv_Stay_9, txt_fast_inv_Stay_10, txt_fast_inv_Stay_11, txt_fast_inv_Stay_12,
+                txt_fast_inv_Stay_13,txt_fast_inv_Stay_14, txt_fast_inv_Stay_15, txt_fast_inv_Stay_16
+            };
         }
 
         private void R2000UartDemo_Load(object sender, EventArgs e)
@@ -6048,16 +6064,19 @@ namespace UHFDemo
 
         private void btFastInventory_Click(object sender, EventArgs e)
         {
+            // 检查是否选择天线
+            if (!checkFastInvAnt())
+            {
+                MessageBox.Show("请至少选择一个天线至少轮询一次，重复次数至少一次。");
+                m_bInventory = false;
+                m_curInventoryBuffer.bLoopInventory = false;
+                m_curInventoryBuffer.bLoopInventoryReal = false;
+                btFastInventory.BackColor = Color.WhiteSmoke;
+                btFastInventory.ForeColor = Color.DarkBlue;
+                btFastInventory.Text = "开始盘存";
+                return;
+            }
 
-            short antASelection = 1;
-            short antBSelection = 1;
-            short antCSelection = 1;
-            short antDSelection = 1;
-
-            short antESelection = 1;
-            short antFSelection = 1;
-            short antGSelection = 1;
-            short antHSelection = 1;
             try
             {
                 if (Convert.ToInt32(mFastExeCount.Text) == 0)
@@ -6065,7 +6084,6 @@ namespace UHFDemo
                     MessageBox.Show("无效参数运行次数不能为0!");
                     return;
                 }
-
 
                 //默认循环发送命令
                 if (m_curInventoryBuffer.bLoopInventory)
@@ -6077,7 +6095,6 @@ namespace UHFDemo
                     btFastInventory.ForeColor = Color.DarkBlue;
                     btFastInventory.Text = "开始盘存";
 
-                    //this.totalTime.Enabled = false;
                     return;
                 }
                 else
@@ -6103,19 +6120,6 @@ namespace UHFDemo
                     btFastInventory.Text = "停止盘存";
                 }
 
-                /*
-                if (mFastSession.Checked)
-                {
-                    m_btAryData = new byte[24];
-                    m_btAryData_4 = new byte[16];
-                }
-                else
-                {
-                    m_btAryData = new byte[23];
-                    m_btAryData_4 = new byte[15];
-                } */
-
-
                 this.m_FastSessionCount = 0;
 
                 mFastSessionTimer.Interval = Convert.ToInt32(mFastIntervalTime.Text) + 1;
@@ -6127,17 +6131,45 @@ namespace UHFDemo
                 m_curInventoryBuffer.ClearInventoryRealResult();
                 lvFastList.Items.Clear();
 
-
                 if (antType8.Checked || antType16.Checked)
                 {
                     if (m_new_fast_inventory.Checked)
                     {
+                        // 
+                        // [antennas AB...GH][interval][reserved][session][target][optimize][ongoing][target quantity][phase][repeat]
+                        // [        16      ][    1   ][    5   ][    1  ][    1 ][    1   ][    1  ][    1          ][  1  ][   1  ]
                         m_btAryData = new byte[29];
-                        m_btAryData[17] = Convert.ToByte(this.mPower1.Text);
-                        m_btAryData[18] = Convert.ToByte(this.mPower2.Text);
-                        m_btAryData[19] = Convert.ToByte(this.mPower3.Text);
-                        m_btAryData[20] = Convert.ToByte(this.mPower4.Text);
-                        m_btAryData[21] = Convert.ToByte(this.mPower5.Text);
+                        int antIndex = 0;
+                        for(int i = 0; i < 16;)
+                        {
+                            if(fast_inv_ants[antIndex].Enabled)
+                            {
+                                if(fast_inv_ants[antIndex].Checked)
+                                {
+                                    m_btAryData[i++] = (byte)antIndex;
+                                    m_btAryData[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
+                                }
+                                else
+                                {
+                                    m_btAryData[i++] = (byte)antIndex;
+                                    m_btAryData[i++] = 0x00;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("#antIndex={0}, Stay={1}", antIndex, fast_inv_stays[antIndex].Text);
+                                m_btAryData[i++] = 0xFF;
+                                m_btAryData[i++] = 0x00;
+                            }
+                            antIndex++;
+                        }
+
+                        m_btAryData[16] = Convert.ToByte(this.txtInterval.Text);
+                        m_btAryData[17] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text);
+                        m_btAryData[18] = Convert.ToByte(tb_fast_inv_reserved_2.Text);
+                        m_btAryData[19] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
+                        m_btAryData[20] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
+                        m_btAryData[21] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
 
                         m_btAryData[22] = Convert.ToByte(m_new_fast_inventory_session.SelectedIndex);
                         m_btAryData[23] = Convert.ToByte(m_new_fast_inventory_flag.SelectedIndex);
@@ -6145,15 +6177,46 @@ namespace UHFDemo
                         m_btAryData[25] = Convert.ToByte(m_new_fast_inventory_continue.Text, 16);
                         m_btAryData[26] = Convert.ToByte(m_new_fast_inventory_target_count.Text);
                         m_btAryData[27] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00;
+                        if (txtRepeat.Text.Length == 0)
+                        {
+                            m_btAryData[28] = 0x00;
+                        }
+                        else
+                        {
+                            m_btAryData[28] = Convert.ToByte(txtRepeat.Text);
+                        }
 
                         if (antType16.Checked)
                         {
                             m_btAryData_group2 = new byte[29];
-                            m_btAryData_group2[17] = Convert.ToByte(this.mPower1.Text);
-                            m_btAryData_group2[18] = Convert.ToByte(this.mPower2.Text);
-                            m_btAryData_group2[19] = Convert.ToByte(this.mPower3.Text);
-                            m_btAryData_group2[20] = Convert.ToByte(this.mPower4.Text);
-                            m_btAryData_group2[21] = Convert.ToByte(this.mPower5.Text);
+                            for (int i = 0; i < 16;)
+                            {
+                                if (fast_inv_ants[antIndex].Enabled)
+                                {
+                                    if (fast_inv_ants[antIndex].Checked)
+                                    {
+                                        m_btAryData_group2[i++] = (byte)(antIndex - 8);
+                                        m_btAryData_group2[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
+                                    }
+                                    else
+                                    {
+                                        m_btAryData_group2[i++] = (byte)antIndex;
+                                        m_btAryData_group2[i++] = 0x00;
+                                    }
+                                }
+                                else
+                                {
+                                    m_btAryData_group2[i++] = 0xFF;
+                                    m_btAryData_group2[i++] = 0x00;
+                                }
+                                antIndex++;
+                            }
+                            m_btAryData_group2[16] = Convert.ToByte(this.txtInterval.Text);
+                            m_btAryData_group2[17] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text);
+                            m_btAryData_group2[18] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
+                            m_btAryData_group2[19] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
+                            m_btAryData_group2[20] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
+                            m_btAryData_group2[21] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
 
                             m_btAryData_group2[22] = Convert.ToByte(m_new_fast_inventory_session.SelectedIndex);
                             m_btAryData_group2[23] = Convert.ToByte(m_new_fast_inventory_flag.SelectedIndex);
@@ -6161,13 +6224,90 @@ namespace UHFDemo
                             m_btAryData_group2[25] = Convert.ToByte(m_new_fast_inventory_continue.Text, 16);
                             m_btAryData_group2[26] = Convert.ToByte(m_new_fast_inventory_target_count.Text);
                             m_btAryData_group2[27] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00;
+
+                            if (txtRepeat.Text.Length == 0)
+                            {
+                                m_btAryData_group2[28] = 0x00;
+                            }
+                            else
+                            {
+                                m_btAryData_group2[28] = Convert.ToByte(txtRepeat.Text);
+                            }
                         }
                     }
                     else
                     {
+                        // 
+                        // [antennas AB...GH][interval][repeat]
+                        // [        16      ][    1   ][   1  ]
                         m_btAryData = new byte[18];
+                        int antIndex = 0;
+                        for (int i = 0; i < 16;)
+                        {
+                            if (fast_inv_ants[antIndex].Enabled)
+                            {
+                                if (fast_inv_ants[antIndex].Checked)
+                                {
+                                    m_btAryData[i++] = (byte)antIndex;
+                                    m_btAryData[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
+                                }
+                                else
+                                {
+                                    m_btAryData[i++] = (byte)antIndex;
+                                    m_btAryData[i++] = 0x00;
+                                }
+                            }
+                            else
+                            {
+                                m_btAryData[i++] = 0xFF;
+                                m_btAryData[i++] = 0x00;
+                            }
+                            antIndex++;
+                        }
+                        m_btAryData[16] = Convert.ToByte(this.txtInterval.Text);
+                        if (txtRepeat.Text.Length == 0)
+                        {
+                            m_btAryData[17] = 0x00;
+                        }
+                        else
+                        {
+                            m_btAryData[17] = Convert.ToByte(txtRepeat.Text);
+                        }
                         if (antType16.Checked)
+                        {
                             m_btAryData_group2 = new byte[18];
+                            for (int i = 0; i < 16;)
+                            {
+                                if (fast_inv_ants[antIndex].Enabled)
+                                {
+                                    if (fast_inv_ants[antIndex].Checked)
+                                    {
+                                        m_btAryData_group2[i++] = (byte)(antIndex - 8);
+                                        m_btAryData_group2[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
+                                    }
+                                    else
+                                    {
+                                        m_btAryData_group2[i++] = (byte)antIndex;
+                                        m_btAryData_group2[i++] = 0x00;
+                                    }
+                                }
+                                else
+                                {
+                                    m_btAryData_group2[i++] = 0xFF;
+                                    m_btAryData_group2[i++] = 0x00;
+                                }
+                                antIndex++;
+                            }
+                            m_btAryData_group2[16] = Convert.ToByte(this.txtInterval.Text);
+                            if (txtRepeat.Text.Length == 0)
+                            {
+                                m_btAryData_group2[17] = 0x00;
+                            }
+                            else
+                            {
+                                m_btAryData_group2[17] = Convert.ToByte(txtRepeat.Text);
+                            }
+                        }
                     }
                 }
 
@@ -6175,113 +6315,33 @@ namespace UHFDemo
                 {
                     if (m_new_fast_inventory.Checked)
                     {
+                        // 
+                        // [antennas AB...GH][interval][reserved][session][target][optimize][ongoing][target quantity][phase][repeat]
+                        // [        16      ][    1   ][    5   ][    1  ][    1 ][    1   ][    1  ][    1          ][  1  ][   1  ]
                         m_btAryData_4 = new byte[29];
-
-                        m_btAryData_4[8] = 0xFF;
-                        m_btAryData_4[9] = 0x00;
-                        m_btAryData_4[10] = 0xFF;
-                        m_btAryData_4[11] = 0x00;
-                        m_btAryData_4[12] = 0xFF;
-                        m_btAryData_4[13] = 0x00;
-                        m_btAryData_4[14] = 0xFF;
-                        m_btAryData_4[15] = 0x00;
-
-                        m_btAryData_4[17] = Convert.ToByte(this.mPower1.Text);
-                        m_btAryData_4[18] = Convert.ToByte(this.mPower2.Text);
-                        m_btAryData_4[19] = Convert.ToByte(this.mPower3.Text);
-                        m_btAryData_4[20] = Convert.ToByte(this.mPower4.Text);
-                        m_btAryData_4[21] = Convert.ToByte(this.mPower5.Text);
-
-                        m_btAryData_4[22] = Convert.ToByte(m_new_fast_inventory_session.SelectedIndex);
-                        m_btAryData_4[23] = Convert.ToByte(m_new_fast_inventory_flag.SelectedIndex);
-                        m_btAryData_4[24] = Convert.ToByte(m_new_fast_inventory_optimized.Text, 16);
-                        m_btAryData_4[25] = Convert.ToByte(m_new_fast_inventory_continue.Text, 16);
-                        m_btAryData_4[26] = Convert.ToByte(m_new_fast_inventory_target_count.Text);
-                        m_btAryData_4[27] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00;
-                    }
-                    else
-                    {
-                        m_btAryData_4 = new byte[10];
-                    }
-                }
-                //this.totalTime.Enabled = true;
-
-                m_nTotal = 0;
-
-                //judge 4 ant 
-                if (antType4.Checked)
-                {
-                    if ((cmbAntSelect1.SelectedIndex < 0) || (cmbAntSelect1.SelectedIndex > 3))
-                    {
-                        m_btAryData_4[0] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData_4[0] = Convert.ToByte(cmbAntSelect1.SelectedIndex);
-                    }
-                    if (txtAStay.Text.Length == 0)
-                    {
-                        m_btAryData_4[1] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData_4[1] = Convert.ToByte(txtAStay.Text);
-                    }
-
-                    if ((cmbAntSelect2.SelectedIndex < 0) || (cmbAntSelect2.SelectedIndex > 3))
-                    {
-                        m_btAryData_4[2] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData_4[2] = Convert.ToByte(cmbAntSelect2.SelectedIndex);
-                    }
-                    if (txtBStay.Text.Length == 0)
-                    {
-                        m_btAryData_4[3] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData_4[3] = Convert.ToByte(txtBStay.Text);
-                    }
-
-                    if ((cmbAntSelect3.SelectedIndex < 0) || (cmbAntSelect3.SelectedIndex > 3))
-                    {
-                        m_btAryData_4[4] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData_4[4] = Convert.ToByte(cmbAntSelect3.SelectedIndex);
-                    }
-                    if (txtCStay.Text.Length == 0)
-                    {
-                        m_btAryData_4[5] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData_4[5] = Convert.ToByte(txtCStay.Text);
-                    }
-
-                    if ((cmbAntSelect4.SelectedIndex < 0) || (cmbAntSelect4.SelectedIndex > 3))
-                    {
-                        m_btAryData_4[6] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData_4[6] = Convert.ToByte(cmbAntSelect4.SelectedIndex);
-                    }
-                    if (txtDStay.Text.Length == 0)
-                    {
-                        m_btAryData_4[7] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData_4[7] = Convert.ToByte(txtDStay.Text);
-                    }
-
-
-                    if (m_new_fast_inventory.Checked)
-                    {
+                        int antIndex = 0;
+                        for (int i = 0; i < 16;)
+                        {
+                            if (fast_inv_ants[antIndex].Enabled)
+                            {
+                                if (fast_inv_ants[antIndex].Checked)
+                                {
+                                    m_btAryData_4[i++] = (byte)antIndex;
+                                    m_btAryData_4[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
+                                }
+                                else
+                                {
+                                    m_btAryData_4[i++] = (byte)antIndex;
+                                    m_btAryData_4[i++] = 0x00;
+                                }
+                            }
+                            else
+                            {
+                                m_btAryData_4[i++] = 0xFF;
+                                m_btAryData_4[i++] = 0x00;
+                            }
+                            antIndex++;
+                        }
                         if (txtInterval.Text.Length == 0)
                         {
                             m_btAryData_4[16] = 0x00;
@@ -6290,6 +6350,19 @@ namespace UHFDemo
                         {
                             m_btAryData_4[16] = Convert.ToByte(txtInterval.Text);
                         }
+
+                        m_btAryData_4[17] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text);
+                        m_btAryData_4[18] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
+                        m_btAryData_4[19] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
+                        m_btAryData_4[20] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
+                        m_btAryData_4[21] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
+
+                        m_btAryData_4[22] = Convert.ToByte(m_new_fast_inventory_session.SelectedIndex);
+                        m_btAryData_4[23] = Convert.ToByte(m_new_fast_inventory_flag.SelectedIndex);
+                        m_btAryData_4[24] = Convert.ToByte(m_new_fast_inventory_optimized.Text, 16);
+                        m_btAryData_4[25] = Convert.ToByte(m_new_fast_inventory_continue.Text, 16);
+                        m_btAryData_4[26] = Convert.ToByte(m_new_fast_inventory_target_count.Text);
+                        m_btAryData_4[27] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00;
 
                         if (txtRepeat.Text.Length == 0)
                         {
@@ -6302,6 +6375,34 @@ namespace UHFDemo
                     }
                     else
                     {
+                        // 
+                        // [antennas ABCD][interval][repeat]
+                        // [      8      ][    1   ][   1  ]
+                        m_btAryData_4 = new byte[10];
+
+                        int antIndex = 0;
+                        for (int i = 0; i < 8;)
+                        {
+                            if (fast_inv_ants[antIndex].Enabled)
+                            {
+                                if (fast_inv_ants[antIndex].Checked)
+                                {
+                                    m_btAryData_4[i++] = (byte)antIndex;
+                                    m_btAryData_4[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
+                                }
+                                else
+                                {
+                                    m_btAryData_4[i++] = (byte)antIndex;
+                                    m_btAryData_4[i++] = 0x00;
+                                }
+                            }
+                            else
+                            {
+                                m_btAryData_4[i++] = 0xFF;
+                                m_btAryData_4[i++] = 0x00;
+                            }
+                            antIndex++;
+                        }
                         if (txtInterval.Text.Length == 0)
                         {
                             m_btAryData_4[8] = 0x00;
@@ -6320,482 +6421,9 @@ namespace UHFDemo
                             m_btAryData_4[9] = Convert.ToByte(txtRepeat.Text);
                         }
                     }
-
-
-                    if (m_btAryData_4[0] > 3)
-                    {
-                        antASelection = 0;
-                    }
-
-                    if (m_btAryData_4[2] > 3)
-                    {
-                        antBSelection = 0;
-                    }
-
-                    if (m_btAryData_4[4] > 3)
-                    {
-                        antCSelection = 0;
-                    }
-
-                    if (m_btAryData_4[6] > 3)
-                    {
-                        antDSelection = 0;
-                    }
-
-                    if ((antASelection * m_btAryData_4[1] + antBSelection * m_btAryData_4[3] + antCSelection * m_btAryData_4[5] + antDSelection * m_btAryData_4[7] == 0))
-                    {
-                        MessageBox.Show("请至少选择一个天线至少轮询一次，重复次数至少一次。");
-                        m_bInventory = false;
-                        m_curInventoryBuffer.bLoopInventory = false;
-                        m_curInventoryBuffer.bLoopInventoryReal = false;
-                        btFastInventory.BackColor = Color.WhiteSmoke;
-                        btFastInventory.ForeColor = Color.DarkBlue;
-                        btFastInventory.Text = "开始盘存";
-                        return;
-                    }
-
                 }
-                // judge the ant 8 can use or not
-                if (antType8.Checked || antType16.Checked)
-                {
-                    if ((cmbAntSelect1.SelectedIndex < 0) || (cmbAntSelect1.SelectedIndex > 7))
-                    {
-                        m_btAryData[0] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData[0] = Convert.ToByte(cmbAntSelect1.SelectedIndex);
-                    }
-                    if (txtAStay.Text.Length == 0)
-                    {
-                        m_btAryData[1] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[1] = Convert.ToByte(txtAStay.Text);
-                    }
 
-                    if ((cmbAntSelect2.SelectedIndex < 0) || (cmbAntSelect2.SelectedIndex > 7))
-                    {
-                        m_btAryData[2] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData[2] = Convert.ToByte(cmbAntSelect2.SelectedIndex);
-                    }
-                    if (txtBStay.Text.Length == 0)
-                    {
-                        m_btAryData[3] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[3] = Convert.ToByte(txtBStay.Text);
-                    }
-
-                    if ((cmbAntSelect3.SelectedIndex < 0) || (cmbAntSelect3.SelectedIndex > 7))
-                    {
-                        m_btAryData[4] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData[4] = Convert.ToByte(cmbAntSelect3.SelectedIndex);
-                    }
-                    if (txtCStay.Text.Length == 0)
-                    {
-                        m_btAryData[5] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[5] = Convert.ToByte(txtCStay.Text);
-                    }
-
-                    if ((cmbAntSelect4.SelectedIndex < 0) || (cmbAntSelect4.SelectedIndex > 7))
-                    {
-                        m_btAryData[6] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData[6] = Convert.ToByte(cmbAntSelect4.SelectedIndex);
-                    }
-                    if (txtDStay.Text.Length == 0)
-                    {
-                        m_btAryData[7] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[7] = Convert.ToByte(txtDStay.Text);
-                    }
-
-                    // ant8 
-                    if ((comboBox1.SelectedIndex < 0) || (comboBox1.SelectedIndex > 7))
-                    {
-                        m_btAryData[8] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData[8] = Convert.ToByte(comboBox1.SelectedIndex);
-                    }
-                    if (textBox13.Text.Length == 0)
-                    {
-                        m_btAryData[9] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[9] = Convert.ToByte(textBox13.Text);
-                    }
-
-                    if ((comboBox2.SelectedIndex < 0) || (comboBox2.SelectedIndex > 7))
-                    {
-                        m_btAryData[10] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData[10] = Convert.ToByte(comboBox2.SelectedIndex);
-                    }
-                    if (textBox14.Text.Length == 0)
-                    {
-                        m_btAryData[11] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[11] = Convert.ToByte(textBox14.Text);
-                    }
-
-                    if ((comboBox3.SelectedIndex < 0) || (comboBox3.SelectedIndex > 7))
-                    {
-                        m_btAryData[12] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData[12] = Convert.ToByte(comboBox3.SelectedIndex);
-                    }
-                    if (textBox15.Text.Length == 0)
-                    {
-                        m_btAryData[13] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[13] = Convert.ToByte(textBox15.Text);
-                    }
-
-                    if ((comboBox4.SelectedIndex < 0) || (comboBox4.SelectedIndex > 7))
-                    {
-                        m_btAryData[14] = 0xFF;
-                    }
-                    else
-                    {
-                        m_btAryData[14] = Convert.ToByte(comboBox4.SelectedIndex);
-                    }
-                    if (textBox16.Text.Length == 0)
-                    {
-                        m_btAryData[15] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[15] = Convert.ToByte(textBox16.Text);
-                    }
-                    if (antType16.Checked)
-                    {
-                        //ant16天线的另外一组
-                        if ((cmbAntSelect9.SelectedIndex < 0) || (cmbAntSelect9.SelectedIndex > 7))
-                        {
-                            m_btAryData_group2[0] = 0xFF;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[0] = Convert.ToByte(cmbAntSelect9.SelectedIndex);
-                        }
-                        if (txtIStay.Text.Length == 0)
-                        {
-                            m_btAryData_group2[1] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[1] = Convert.ToByte(txtIStay.Text);
-                        }
-
-                        if ((cmbAntSelect10.SelectedIndex < 0) || (cmbAntSelect10.SelectedIndex > 7))
-                        {
-                            m_btAryData_group2[2] = 0xFF;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[2] = Convert.ToByte(cmbAntSelect10.SelectedIndex);
-                        }
-                        if (txtJStay.Text.Length == 0)
-                        {
-                            m_btAryData_group2[3] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[3] = Convert.ToByte(txtJStay.Text);
-                        }
-
-                        if ((cmbAntSelect11.SelectedIndex < 0) || (cmbAntSelect11.SelectedIndex > 7))
-                        {
-                            m_btAryData_group2[4] = 0xFF;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[4] = Convert.ToByte(cmbAntSelect11.SelectedIndex);
-                        }
-                        if (txtKStay.Text.Length == 0)
-                        {
-                            m_btAryData_group2[5] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[5] = Convert.ToByte(txtKStay.Text);
-                        }
-
-                        if ((cmbAntSelect12.SelectedIndex < 0) || (cmbAntSelect12.SelectedIndex > 7))
-                        {
-                            m_btAryData_group2[6] = 0xFF;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[6] = Convert.ToByte(cmbAntSelect12.SelectedIndex);
-                        }
-                        if (txtLStay.Text.Length == 0)
-                        {
-                            m_btAryData_group2[7] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[7] = Convert.ToByte(txtLStay.Text);
-                        }
-
-                        if ((cmbAntSelect13.SelectedIndex < 0) || (cmbAntSelect13.SelectedIndex > 7))
-                        {
-                            m_btAryData_group2[8] = 0xFF;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[8] = Convert.ToByte(cmbAntSelect13.SelectedIndex);
-                        }
-                        if (txtMStay.Text.Length == 0)
-                        {
-                            m_btAryData_group2[9] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[9] = Convert.ToByte(txtMStay.Text);
-                        }
-
-                        if ((cmbAntSelect14.SelectedIndex < 0) || (cmbAntSelect14.SelectedIndex > 7))
-                        {
-                            m_btAryData_group2[10] = 0xFF;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[10] = Convert.ToByte(cmbAntSelect14.SelectedIndex);
-                        }
-                        if (txtNStay.Text.Length == 0)
-                        {
-                            m_btAryData_group2[11] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[11] = Convert.ToByte(txtNStay.Text);
-                        }
-
-                        if ((cmbAntSelect15.SelectedIndex < 0) || (cmbAntSelect15.SelectedIndex > 7))
-                        {
-                            m_btAryData_group2[12] = 0xFF;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[12] = Convert.ToByte(cmbAntSelect15.SelectedIndex);
-                        }
-                        if (txtOStay.Text.Length == 0)
-                        {
-                            m_btAryData_group2[13] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[13] = Convert.ToByte(txtOStay.Text);
-                        }
-
-                        if ((cmbAntSelect16.SelectedIndex < 0) || (cmbAntSelect16.SelectedIndex > 7))
-                        {
-                            m_btAryData_group2[14] = 0xFF;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[14] = Convert.ToByte(cmbAntSelect16.SelectedIndex);
-                        }
-                        if (txtPStay.Text.Length == 0)
-                        {
-                            m_btAryData_group2[15] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData_group2[15] = Convert.ToByte(txtPStay.Text);
-                        }
-                    }
-
-
-                    if (txtInterval.Text.Length == 0)
-                    {
-                        m_btAryData[16] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[16] = Convert.ToByte(txtInterval.Text);
-                    }
-
-                    if (txtRepeat.Text.Length == 0)
-                    {
-                        m_btAryData[m_btAryData.Length - 1] = 0x00;
-                    }
-                    else
-                    {
-                        m_btAryData[m_btAryData.Length - 1] = Convert.ToByte(txtRepeat.Text);
-                    }
-
-                    if (antType16.Checked)
-                    {
-                        m_btAryData_group2[16] = m_btAryData[16];
-                        m_btAryData_group2[m_btAryData_group2.Length - 1] = m_btAryData[m_btAryData.Length - 1];
-                    }
-
-                    /*
-                    if (mFastSession.Checked)
-                    {
-                        m_btAryData[22] = Convert.ToByte(mFastSessionSelect.SelectedIndex);
-                        if (txtRepeat.Text.Length == 0)
-                        {
-                            m_btAryData[23] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData[23] = Convert.ToByte(txtRepeat.Text);
-                        }
-                    }
-                    else
-                    {
-                        if (txtRepeat.Text.Length == 0)
-                        {
-                            m_btAryData[22] = 0x00;
-                        }
-                        else
-                        {
-                            m_btAryData[22] = Convert.ToByte(txtRepeat.Text);
-                        }
-                    }
-                     * */
-
-
-
-
-                    //ant 8
-
-
-
-                    if (m_btAryData[0] > 7)
-                    {
-                        antASelection = 0;
-                    }
-
-                    if (m_btAryData[2] > 7)
-                    {
-                        antBSelection = 0;
-                    }
-
-                    if (m_btAryData[4] > 7)
-                    {
-                        antCSelection = 0;
-                    }
-
-                    if (m_btAryData[6] > 7)
-                    {
-                        antDSelection = 0;
-                    }
-
-                    // ant8
-
-                    if (m_btAryData[8] > 7)
-                    {
-                        antESelection = 0;
-                    }
-
-                    if (m_btAryData[10] > 7)
-                    {
-                        antFSelection = 0;
-                    }
-
-                    if (m_btAryData[12] > 7)
-                    {
-                        antGSelection = 0;
-                    }
-
-                    if (m_btAryData[14] > 7)
-                    {
-                        antHSelection = 0;
-                    }
-
-
-
-                    //ant8
-                    if (antType16.Checked)
-                    {
-
-                        short antISelection = 1;
-                        short antJSelection = 1;
-                        short antKSelection = 1;
-                        short antLSelection = 1;
-                        short antMSelection = 1;
-                        short antNSelection = 1;
-                        short antOSelection = 1;
-                        short antPSelection = 1;
-                        if (m_btAryData_group2[0] > 7)
-                            antISelection = 0;
-                        if (m_btAryData_group2[2] > 7)
-                            antJSelection = 0;
-                        if (m_btAryData_group2[4] > 7)
-                            antKSelection = 0;
-                        if (m_btAryData_group2[6] > 7)
-                            antLSelection = 0;
-                        if (m_btAryData_group2[8] > 7)
-                            antMSelection = 0;
-                        if (m_btAryData_group2[10] > 7)
-                            antNSelection = 0;
-                        if (m_btAryData_group2[12] > 7)
-                            antOSelection = 0;
-                        if (m_btAryData_group2[14] > 7)
-                            antPSelection = 0;
-
-                        if ((antASelection * m_btAryData[1] + antBSelection * m_btAryData[3] + antCSelection * m_btAryData[5] + antDSelection * m_btAryData[7]
-                           + antESelection * m_btAryData[9] + antFSelection * m_btAryData[11] + antGSelection * m_btAryData[13] + antHSelection * m_btAryData[15]) == 0 &&
-                           (antISelection * m_btAryData_group2[1] + antJSelection * m_btAryData_group2[3] + antKSelection * m_btAryData_group2[5] + antLSelection * m_btAryData_group2[7]
-                           + antMSelection * m_btAryData_group2[9] + antNSelection * m_btAryData_group2[11] + antOSelection * m_btAryData_group2[13] + antPSelection * m_btAryData_group2[15]) == 0)
-                        {
-                            MessageBox.Show("请至少选择一个天线至少轮询一次，重复次数至少一次。");
-                            m_bInventory = false;
-                            m_curInventoryBuffer.bLoopInventory = false;
-                            m_curInventoryBuffer.bLoopInventoryReal = false;
-                            btFastInventory.BackColor = Color.WhiteSmoke;
-                            btFastInventory.ForeColor = Color.DarkBlue;
-                            btFastInventory.Text = "开始盘存";
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        if ((antASelection * m_btAryData[1] + antBSelection * m_btAryData[3] + antCSelection * m_btAryData[5] + antDSelection * m_btAryData[7]
-                           + antESelection * m_btAryData[9] + antFSelection * m_btAryData[11] + antGSelection * m_btAryData[13] + antHSelection * m_btAryData[15]) == 0)
-                        {
-                            MessageBox.Show("请至少选择一个天线至少轮询一次，重复次数至少一次。");
-                            m_bInventory = false;
-                            m_curInventoryBuffer.bLoopInventory = false;
-                            m_curInventoryBuffer.bLoopInventoryReal = false;
-                            btFastInventory.BackColor = Color.WhiteSmoke;
-                            btFastInventory.ForeColor = Color.DarkBlue;
-                            btFastInventory.Text = "开始盘存";
-                            return;
-                        }
-                    }
-                }
+                m_nTotal = 0;
 
                 m_nSwitchTotal = 0;
                 m_nSwitchTime = 0;
@@ -6828,13 +6456,38 @@ namespace UHFDemo
                         reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
                     }
                 }
-
-
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private bool checkFastInvAnt()
+        {
+            int antCount = 0;
+            for(int i = 0; i < 16; i++)
+            {
+                if(fast_inv_ants[i].Enabled)
+                {
+                    if (fast_inv_ants[i].Checked)
+                    {
+                        //Console.WriteLine("天线{0} stay={1}", fast_inv_ants[i].Text, fast_inv_stays[i].Text);
+                    }
+                    else
+                    {
+                        //Console.WriteLine("天线 {0} Not Use but Visible", fast_inv_ants[i].Text);
+                    }
+                    antCount++;
+                }
+                else
+                {
+                    //Console.WriteLine("天线{0} Not Use", fast_inv_ants[i].Text);
+                }
+            }
+            if (antCount > 0)
+                return true;
+            return false;
         }
 
         private void buttonFastFresh_Click(object sender, EventArgs e)
@@ -6855,21 +6508,7 @@ namespace UHFDemo
 
             mDynamicPoll.Checked = false;
 
-            cmbAntSelect1.SelectedIndex = 0;
-            cmbAntSelect2.SelectedIndex = 1;
-            cmbAntSelect3.SelectedIndex = 2;
-            cmbAntSelect4.SelectedIndex = 3;
-
-            comboBox1.SelectedIndex = 4;
-            comboBox2.SelectedIndex = 5;
-            comboBox3.SelectedIndex = 6;
-            comboBox4.SelectedIndex = 7;
-
-            txtAStay.Text = "1";
-            txtBStay.Text = "1";
-            txtCStay.Text = "1";
-            txtDStay.Text = "1";
-
+            // Todo: refresh antenna
             txtInterval.Text = "0";
             txtRepeat.Text = "1";
 
@@ -7893,23 +7532,51 @@ namespace UHFDemo
 
         private void antType_CheckedChanged(object sender, EventArgs e)
         {
+            int channels = 1;
             RadioButton btn = (RadioButton)sender;
             if (!btn.Checked)
                 return;
             switch (btn.Name)
             {
                 case "antType1":
+                    channels = 1;
                     antType1_CheckedChanged(sender, e);
                     break;
                 case "antType4":
+                    channels = 4;
                     antType4_CheckedChanged(sender, e);
                     break;
                 case "antType8":
+                    channels = 8;
                     antType8_CheckedChanged(sender, e);
                     break;
                 case "antType16":
+                    channels = 16;
                     antType16_CheckedChanged(sender, e);
                     break;
+            }
+
+            for (int i = 0; i < 16; i++)
+            {
+                if (i < channels)
+                {
+                    fast_inv_ants[i].Visible = true;
+                    fast_inv_ants[i].Enabled = true;
+                    fast_inv_ants[i].Checked = true;
+
+                    fast_inv_stays[i].Visible = true;
+                    fast_inv_stays[i].Enabled = true;
+                }
+                else
+                {
+                    fast_inv_ants[i].Visible = false;
+                    fast_inv_ants[i].Enabled = false;
+                    fast_inv_ants[i].Checked = false;
+
+                    fast_inv_stays[i].Visible = false;
+                    fast_inv_stays[i].Enabled = false;
+
+                }
             }
         }
 
@@ -7969,42 +7636,6 @@ namespace UHFDemo
                 checkBox2.Enabled = false;
                 checkBox3.Enabled = false;
                 checkBox4.Enabled = false;
-
-                cmbAntSelect1.Enabled = false;
-                cmbAntSelect2.Enabled = false;
-                cmbAntSelect3.Enabled = false;
-                cmbAntSelect4.Enabled = false;
-                txtAStay.Enabled = false;
-                txtBStay.Enabled = false;
-                txtCStay.Enabled = false;
-                txtDStay.Enabled = false;
-
-                comboBox1.Enabled = false;
-                comboBox2.Enabled = false;
-                comboBox3.Enabled = false;
-                comboBox4.Enabled = false;
-
-                textBox13.Enabled = false;
-                textBox14.Enabled = false;
-                textBox15.Enabled = false;
-                textBox16.Enabled = false;
-
-                cmbAntSelect9.Enabled = false;
-                cmbAntSelect10.Enabled = false;
-                cmbAntSelect11.Enabled = false;
-                cmbAntSelect12.Enabled = false;
-                cmbAntSelect13.Enabled = false;
-                cmbAntSelect14.Enabled = false;
-                cmbAntSelect15.Enabled = false;
-                cmbAntSelect16.Enabled = false;
-                txtIStay.Enabled = false;
-                txtJStay.Enabled = false;
-                txtKStay.Enabled = false;
-                txtLStay.Enabled = false;
-                txtMStay.Enabled = false;
-                txtNStay.Enabled = false;
-                txtOStay.Enabled = false;
-                txtPStay.Enabled = false;
             }
         }
 
@@ -8057,43 +7688,6 @@ namespace UHFDemo
                 checkBox3.Enabled = false;
                 checkBox4.Enabled = false;
 
-                cmbAntSelect1.Enabled = true;
-                cmbAntSelect2.Enabled = true;
-                cmbAntSelect3.Enabled = true;
-                cmbAntSelect4.Enabled = true;
-                txtAStay.Enabled = true;
-                txtBStay.Enabled = true;
-                txtCStay.Enabled = true;
-                txtDStay.Enabled = true;
-
-                comboBox1.Enabled = false;
-                comboBox2.Enabled = false;
-                comboBox3.Enabled = false;
-                comboBox4.Enabled = false;
-
-                textBox13.Enabled = false;
-                textBox14.Enabled = false;
-                textBox15.Enabled = false;
-                textBox16.Enabled = false;
-
-                cmbAntSelect9.Enabled = false;
-                cmbAntSelect10.Enabled = false;
-                cmbAntSelect11.Enabled = false;
-                cmbAntSelect12.Enabled = false;
-                cmbAntSelect13.Enabled = false;
-                cmbAntSelect14.Enabled = false;
-                cmbAntSelect15.Enabled = false;
-                cmbAntSelect16.Enabled = false;
-                txtIStay.Enabled = false;
-                txtJStay.Enabled = false;
-                txtKStay.Enabled = false;
-                txtLStay.Enabled = false;
-                txtMStay.Enabled = false;
-                txtNStay.Enabled = false;
-                txtOStay.Enabled = false;
-                txtPStay.Enabled = false;
-
-
                 //select ant
                 cbBufferWorkant2.Checked = false;
                 cbBufferWorkant3.Checked = false;
@@ -8114,43 +7708,6 @@ namespace UHFDemo
                 comboBox3.SelectedIndex = 8;
                 comboBox4.SelectedIndex = 8;
                  */
-
-                //change  selelct ant
-                cmbAntSelect1.Items.Clear();
-                cmbAntSelect1.Items.AddRange(new object[] {
-                "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "不选"});
-                cmbAntSelect1.SelectedIndex = 0;
-                cmbAntSelect2.Items.Clear();
-                cmbAntSelect2.Items.AddRange(new object[] {
-                "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "不选"});
-                cmbAntSelect2.SelectedIndex = 1;
-                cmbAntSelect3.Items.Clear();
-                cmbAntSelect3.Items.AddRange(new object[] {
-                "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "不选"});
-                cmbAntSelect3.SelectedIndex = 2;
-                cmbAntSelect4.Items.Clear();
-                cmbAntSelect4.Items.AddRange(new object[] {
-                "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "不选"});
-                cmbAntSelect4.SelectedIndex = 3;
-
-                //change  selelct ant
-
             }
         }
 
@@ -8204,99 +7761,6 @@ namespace UHFDemo
                 checkBox2.Enabled = true;
                 checkBox3.Enabled = true;
                 checkBox4.Enabled = true;
-
-                cmbAntSelect1.Enabled = true;
-                cmbAntSelect2.Enabled = true;
-                cmbAntSelect3.Enabled = true;
-                cmbAntSelect4.Enabled = true;
-                txtAStay.Enabled = true;
-                txtBStay.Enabled = true;
-                txtCStay.Enabled = true;
-                txtDStay.Enabled = true;
-
-                comboBox1.Enabled = true;
-                comboBox2.Enabled = true;
-                comboBox3.Enabled = true;
-                comboBox4.Enabled = true;
-
-                textBox13.Enabled = true;
-                textBox14.Enabled = true;
-                textBox15.Enabled = true;
-                textBox16.Enabled = true;
-
-                cmbAntSelect9.Enabled = false;
-                cmbAntSelect10.Enabled = false;
-                cmbAntSelect11.Enabled = false;
-                cmbAntSelect12.Enabled = false;
-                cmbAntSelect13.Enabled = false;
-                cmbAntSelect14.Enabled = false;
-                cmbAntSelect15.Enabled = false;
-                cmbAntSelect16.Enabled = false;
-                txtIStay.Enabled = false;
-                txtJStay.Enabled = false;
-                txtKStay.Enabled = false;
-                txtLStay.Enabled = false;
-                txtMStay.Enabled = false;
-                txtNStay.Enabled = false;
-                txtOStay.Enabled = false;
-                txtPStay.Enabled = false;
-
-
-                //change  selelct ant
-                cmbAntSelect1.Items.Clear();
-                cmbAntSelect1.Items.AddRange(new object[] {
-                "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "天线5",
-                "天线6",
-                "天线7",
-                "天线8",
-                "不选"});
-                cmbAntSelect1.SelectedIndex = 0;
-                cmbAntSelect2.Items.Clear();
-                cmbAntSelect2.Items.AddRange(new object[] {
-                 "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "天线5",
-                "天线6",
-                "天线7",
-                "天线8",
-                "不选"});
-                cmbAntSelect2.SelectedIndex = 1;
-                cmbAntSelect3.Items.Clear();
-                cmbAntSelect3.Items.AddRange(new object[] {
-                "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "天线5",
-                "天线6",
-                "天线7",
-                "天线8",
-                "不选"});
-                cmbAntSelect3.SelectedIndex = 2;
-                cmbAntSelect4.Items.Clear();
-                cmbAntSelect4.Items.AddRange(new object[] {
-                 "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "天线5",
-                "天线6",
-                "天线7",
-                "天线8",
-                "不选"});
-                cmbAntSelect4.SelectedIndex = 3;
-
-                comboBox1.SelectedIndex = 4;
-                comboBox2.SelectedIndex = 5;
-                comboBox3.SelectedIndex = 6;
-                comboBox4.SelectedIndex = 7;
-                //change  selelct ant
             }
         }
 
@@ -8358,108 +7822,6 @@ namespace UHFDemo
                 checkBox2.Enabled = true;
                 checkBox3.Enabled = true;
                 checkBox4.Enabled = true;
-
-                cmbAntSelect1.Enabled = true;
-                cmbAntSelect2.Enabled = true;
-                cmbAntSelect3.Enabled = true;
-                cmbAntSelect4.Enabled = true;
-                txtAStay.Enabled = true;
-                txtBStay.Enabled = true;
-                txtCStay.Enabled = true;
-                txtDStay.Enabled = true;
-
-                comboBox1.Enabled = true;
-                comboBox2.Enabled = true;
-                comboBox3.Enabled = true;
-                comboBox4.Enabled = true;
-
-                textBox13.Enabled = true;
-                textBox14.Enabled = true;
-                textBox15.Enabled = true;
-                textBox16.Enabled = true;
-
-                cmbAntSelect9.Enabled = true;
-                cmbAntSelect10.Enabled = true;
-                cmbAntSelect11.Enabled = true;
-                cmbAntSelect12.Enabled = true;
-                cmbAntSelect13.Enabled = true;
-                cmbAntSelect14.Enabled = true;
-                cmbAntSelect15.Enabled = true;
-                cmbAntSelect16.Enabled = true;
-                txtIStay.Enabled = true;
-                txtJStay.Enabled = true;
-                txtKStay.Enabled = true;
-                txtLStay.Enabled = true;
-                txtMStay.Enabled = true;
-                txtNStay.Enabled = true;
-                txtOStay.Enabled = true;
-                txtPStay.Enabled = true;
-
-
-                //change  selelct ant
-                cmbAntSelect1.Items.Clear();
-                cmbAntSelect1.Items.AddRange(new object[] {
-                "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "天线5",
-                "天线6",
-                "天线7",
-                "天线8",
-                "不选"});
-                cmbAntSelect1.SelectedIndex = 0;
-                cmbAntSelect2.Items.Clear();
-                cmbAntSelect2.Items.AddRange(new object[] {
-                 "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "天线5",
-                "天线6",
-                "天线7",
-                "天线8",
-                "不选"});
-                cmbAntSelect2.SelectedIndex = 1;
-                cmbAntSelect3.Items.Clear();
-                cmbAntSelect3.Items.AddRange(new object[] {
-                "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "天线5",
-                "天线6",
-                "天线7",
-                "天线8",
-                "不选"});
-                cmbAntSelect3.SelectedIndex = 2;
-                cmbAntSelect4.Items.Clear();
-                cmbAntSelect4.Items.AddRange(new object[] {
-                 "天线1",
-                "天线2",
-                "天线3",
-                "天线4",
-                "天线5",
-                "天线6",
-                "天线7",
-                "天线8",
-                "不选"});
-                cmbAntSelect4.SelectedIndex = 3;
-
-                comboBox1.SelectedIndex = 4;
-                comboBox2.SelectedIndex = 5;
-                comboBox3.SelectedIndex = 6;
-                comboBox4.SelectedIndex = 7;
-
-                cmbAntSelect9.SelectedIndex = 0;
-                cmbAntSelect10.SelectedIndex = 1;
-                cmbAntSelect11.SelectedIndex = 2;
-                cmbAntSelect12.SelectedIndex = 3;
-                cmbAntSelect13.SelectedIndex = 4;
-                cmbAntSelect14.SelectedIndex = 5;
-                cmbAntSelect15.SelectedIndex = 6;
-                cmbAntSelect16.SelectedIndex = 7;
-                //change  selelct ant
             }
         }
 
@@ -8638,11 +8000,11 @@ namespace UHFDemo
                 this.m_new_fast_inventory_session.Enabled = true;
                 this.m_phase_value.Enabled = true;
 
-                mPower1.Enabled = true;
-                mPower2.Enabled = true;
-                mPower3.Enabled = true;
-                mPower4.Enabled = true;
-                mPower5.Enabled = true;
+                tb_fast_inv_reserved_1.Enabled = true;
+                tb_fast_inv_reserved_2.Enabled = true;
+                tb_fast_inv_reserved_3.Enabled = true;
+                tb_fast_inv_reserved_4.Enabled = true;
+                tb_fast_inv_reserved_5.Enabled = true;
 
                 mReserve.Enabled = true;
 
@@ -8663,17 +8025,17 @@ namespace UHFDemo
                 this.m_phase_value.Enabled = false;
                 this.m_phase_value.Checked = false;
 
-                mPower1.Enabled = false;
-                mPower2.Enabled = false;
-                mPower3.Enabled = false;
-                mPower4.Enabled = false;
-                mPower5.Enabled = false;
+                tb_fast_inv_reserved_1.Enabled = false;
+                tb_fast_inv_reserved_2.Enabled = false;
+                tb_fast_inv_reserved_3.Enabled = false;
+                tb_fast_inv_reserved_4.Enabled = false;
+                tb_fast_inv_reserved_5.Enabled = false;
 
-                mPower1.Text = "0";
-                mPower2.Text = "0";
-                mPower3.Text = "0";
-                mPower4.Text = "0";
-                mPower5.Text = "0";
+                tb_fast_inv_reserved_1.Text = "0";
+                tb_fast_inv_reserved_2.Text = "0";
+                tb_fast_inv_reserved_3.Text = "0";
+                tb_fast_inv_reserved_4.Text = "0";
+                tb_fast_inv_reserved_5.Text = "0";
 
                 mReserve.Enabled = false;
 
