@@ -916,6 +916,7 @@ namespace UHFDemo
                             m_bInventory = false;
                             m_curInventoryBuffer.bLoopInventory = false;
                             m_curInventoryBuffer.bLoopInventoryReal = false;
+                            m_curInventoryBuffer.bLoopInventoryFast = false;
                             btRealTimeInventory.BackColor = Color.WhiteSmoke;
                             btRealTimeInventory.ForeColor = Color.DarkBlue;
                             btRealTimeInventory.Text = "开始盘存";
@@ -1519,6 +1520,11 @@ namespace UHFDemo
                         }
                         else
                         {
+                            if(m_curSetting.btAntGroup == (byte)0x01)
+                            {
+                                m_curSetting.btAntGroup = 0x00;
+                                reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+                            }
                             m_curInventoryBuffer.nCommond = 1;
                             if (m_curInventoryBuffer.bLoopInventory)
                                 reader.Inventory(m_curSetting.btReadId, m_curInventoryBuffer.btRepeat);
@@ -1726,6 +1732,7 @@ namespace UHFDemo
                                 m_bInventory = false;
                                 m_curInventoryBuffer.bLoopInventory = false;
                                 m_curInventoryBuffer.bLoopInventoryReal = false;
+                                m_curInventoryBuffer.bLoopInventoryFast = false;
                                 btFastInventory.BackColor = Color.WhiteSmoke;
                                 btFastInventory.ForeColor = Color.DarkBlue;
                                 btFastInventory.Text = "开始盘存";
@@ -3251,7 +3258,7 @@ namespace UHFDemo
                             reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_group2);
                         }
                     }
-                    else
+                    else if(m_curInventoryBuffer.bLoopInventoryFast)
                     {
                         if (m_curSetting.btAntGroup == (byte)0x00)
                         {
@@ -3263,6 +3270,10 @@ namespace UHFDemo
                             //Console.WriteLine("设置天线组1成功, 开始快速盘存");
                             reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_group2);
                         }
+                    }
+                    else
+                    {
+                        // 其他情况
                     }
                     return;
                 }
@@ -5111,6 +5122,7 @@ namespace UHFDemo
             {
                 m_bContinue = false;
                 m_curInventoryBuffer.bLoopInventoryReal = false;
+                m_curInventoryBuffer.bLoopInventoryFast = false;
                 btnInventoryISO18000.BackColor = Color.WhiteSmoke;
                 btnInventoryISO18000.ForeColor = Color.Indigo;
                 btnInventoryISO18000.Text = "开始盘存";
@@ -5856,6 +5868,7 @@ namespace UHFDemo
                     m_bInventory = false;
                     m_curInventoryBuffer.bLoopInventory = false;
                     m_curInventoryBuffer.bLoopInventoryReal = false;
+                    m_curInventoryBuffer.bLoopInventoryFast = false;
                     btRealTimeInventory.BackColor = Color.WhiteSmoke;
                     btRealTimeInventory.ForeColor = Color.DarkBlue;
                     btRealTimeInventory.Text = "开始盘存";
@@ -5910,7 +5923,9 @@ namespace UHFDemo
                     m_curSetting.btAntGroup = 0x01;
                 else
                     m_curSetting.btAntGroup = 0x00;
-                reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+                //reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+
+                startRealtimeInv();
 
                 timerInventory.Enabled = true;
 
@@ -5921,8 +5936,22 @@ namespace UHFDemo
             {
                 MessageBox.Show(ex.Message);
             }
+        }
 
+        private void startRealtimeInv()
+        {
+            if(m_curSetting.btAntGroup == 0x01)
+            {
+                reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+            }
+            else 
+            {
+                byte btWorkAntenna;
+                btWorkAntenna = m_curInventoryBuffer.lAntenna[m_curInventoryBuffer.nIndexAntenna];
 
+                reader.SetWorkAntenna(m_curSetting.btReadId, btWorkAntenna);
+                m_curSetting.btWorkAntenna = btWorkAntenna;
+            }
         }
 
         private void btRealFresh_Click(object sender, EventArgs e)
@@ -6103,6 +6132,7 @@ namespace UHFDemo
                 m_bInventory = false;
                 m_curInventoryBuffer.bLoopInventory = false;
                 m_curInventoryBuffer.bLoopInventoryReal = false;
+                m_curInventoryBuffer.bLoopInventoryFast = false;
                 btFastInventory.BackColor = Color.WhiteSmoke;
                 btFastInventory.ForeColor = Color.DarkBlue;
                 btFastInventory.Text = "开始盘存";
@@ -6123,6 +6153,7 @@ namespace UHFDemo
                     m_bInventory = false;
                     m_curInventoryBuffer.bLoopInventory = false;
                     m_curInventoryBuffer.bLoopInventoryReal = false;
+                    m_curInventoryBuffer.bLoopInventoryFast = false;
                     btFastInventory.BackColor = Color.WhiteSmoke;
                     btFastInventory.ForeColor = Color.DarkBlue;
                     btFastInventory.Text = "开始盘存";
@@ -6472,6 +6503,7 @@ namespace UHFDemo
                 }
                 else
                 {
+                    m_curInventoryBuffer.bLoopInventoryFast = true;
                     if (antType4.Checked)
                     {
                         //Console.WriteLine("第一次开始四天线快速盘存");
@@ -10291,7 +10323,6 @@ namespace UHFDemo
         static TagDB tagdb = null;
         bool useAntG1 = true;
         int FastExecTimes = 0;
-        bool FastInvV2Reading = false;
 
         /// <summary>
         /// Define a variable for the inventory test log
@@ -10341,7 +10372,7 @@ namespace UHFDemo
         {
             if(fast_inventory_v2_start_btn.Text.Equals("停止"))
             {
-                FastInvV2Reading = false;
+                m_curInventoryBuffer.bLoopInventoryFast = false;
                 fast_inventory_v2_start_btn.Text = "开始";
                 return;
             }
@@ -10372,7 +10403,7 @@ namespace UHFDemo
 
         private void startInvV2()
         {
-            FastInvV2Reading = true;
+            m_curInventoryBuffer.bLoopInventoryFast = true;
             if (checkAntG1Count())
             {
                 cmdFastInventoryV2Send(useAntG1);
@@ -10385,7 +10416,7 @@ namespace UHFDemo
             {
                 useAntG1 = true;
                 FastExecTimes = 0;
-                FastInvV2Reading = false;
+                m_curInventoryBuffer.bLoopInventoryFast = false;
                 stopInvV2();
                 MessageBox.Show("No Antenna select!");
             }
@@ -10508,7 +10539,7 @@ namespace UHFDemo
             switch (len)
             {
                 case 0x04:
-                    if (FastInvV2Reading)
+                    if (m_curInventoryBuffer.bLoopInventoryFast)
                         cmdFastInventoryV2Send(useAntG1);
                     break;
                 default:
@@ -10639,13 +10670,13 @@ namespace UHFDemo
                     }
                     else
                     {
-                        FastInvV2Reading = false;
+                        m_curInventoryBuffer.bLoopInventoryFast = false;
                         stopInvV2();
                     }
                 }
             }
 
-            if(FastInvV2Reading)
+            if(m_curInventoryBuffer.bLoopInventoryFast)
             {
                 if (useAntG1)
                 {
@@ -10664,11 +10695,11 @@ namespace UHFDemo
                             }
                             else
                             {
-                                FastInvV2Reading = false;
+                                m_curInventoryBuffer.bLoopInventoryFast = false;
                                 stopInvV2();
                             }
                         }
-                        if (FastInvV2Reading)
+                        if (m_curInventoryBuffer.bLoopInventoryFast)
                             cmdFastInventoryV2Send(useAntG1);
                     }
                 }
@@ -10688,7 +10719,7 @@ namespace UHFDemo
             {
                 if(!useAntG1)
                 {
-                    //Console.WriteLine("FastInvV2Reading={0}", FastInvV2Reading);
+                    //Console.WriteLine("m_curInventoryBuffer.bLoopInventoryFast={0}", m_curInventoryBuffer.bLoopInventoryFast);
                     cmdSwitchAntG1();
                 }
             }
@@ -11057,7 +11088,7 @@ namespace UHFDemo
         private void cmd_8a_v2_tabPage_Leave(object sender, EventArgs e)
         {
             Console.WriteLine("cmd_8a_v2_tabPage_Leave");
-            if (!FastInvV2Reading)
+            if (!m_curInventoryBuffer.bLoopInventoryFast)
             {
                 fast_inv_v2_cb.Checked = false;
             }
@@ -11066,7 +11097,7 @@ namespace UHFDemo
         private void cmd_8a_v2_tabPage_Enter(object sender, EventArgs e)
         {
             Console.WriteLine("cmd_8a_v2_tabPage_Enter");
-            if(!FastInvV2Reading)
+            if(!m_curInventoryBuffer.bLoopInventoryFast)
             {
                 fast_inv_v2_cb.Checked = true;
             }
