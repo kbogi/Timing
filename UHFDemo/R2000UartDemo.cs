@@ -157,6 +157,25 @@ namespace UHFDemo
                 txt_fast_inv_Stay_9, txt_fast_inv_Stay_10, txt_fast_inv_Stay_11, txt_fast_inv_Stay_12,
                 txt_fast_inv_Stay_13,txt_fast_inv_Stay_14, txt_fast_inv_Stay_15, txt_fast_inv_Stay_16
             };
+
+            antChkbs = new CheckBox[] {
+                cb_fast_inv_v2_ant_1, cb_fast_inv_v2_ant_2, cb_fast_inv_v2_ant_3, cb_fast_inv_v2_ant_4,
+                cb_fast_inv_v2_ant_5, cb_fast_inv_v2_ant_6, cb_fast_inv_v2_ant_7, cb_fast_inv_v2_ant_8,
+                cb_fast_inv_v2_ant_9, cb_fast_inv_v2_ant_10, cb_fast_inv_v2_ant_11, cb_fast_inv_v2_ant_12,
+                cb_fast_inv_v2_ant_13, cb_fast_inv_v2_ant_14, cb_fast_inv_v2_ant_15, cb_fast_inv_v2_ant_16
+            };
+            antStays = new TextBox[] {
+                tb_fast_inv_v2_stay_1, tb_fast_inv_v2_stay_2, tb_fast_inv_v2_stay_3, tb_fast_inv_v2_stay_4,
+                tb_fast_inv_v2_stay_5, tb_fast_inv_v2_stay_6, tb_fast_inv_v2_stay_7, tb_fast_inv_v2_stay_8,
+                tb_fast_inv_v2_stay_9, tb_fast_inv_v2_stay_10, tb_fast_inv_v2_stay_11, tb_fast_inv_v2_stay_12,
+                tb_fast_inv_v2_stay_13, tb_fast_inv_v2_stay_14, tb_fast_inv_v2_stay_15, tb_fast_inv_v2_stay_16
+            };
+            antPowers = new TextBox[] {
+                tb_fast_inv_v2_power_1, tb_fast_inv_v2_power_2, tb_fast_inv_v2_power_3, tb_fast_inv_v2_power_4,
+                tb_fast_inv_v2_power_5, tb_fast_inv_v2_power_6, tb_fast_inv_v2_power_7, tb_fast_inv_v2_power_8,
+                tb_fast_inv_v2_power_9, tb_fast_inv_v2_power_10, tb_fast_inv_v2_power_11, tb_fast_inv_v2_power_12,
+                tb_fast_inv_v2_power_13, tb_fast_inv_v2_power_14, tb_fast_inv_v2_power_15, tb_fast_inv_v2_power_16
+            };
         }
 
         private void R2000UartDemo_Load(object sender, EventArgs e)
@@ -3131,6 +3150,14 @@ namespace UHFDemo
         {
             string strCmd = "设置天线组 " + m_curSetting.btAntGroup;
             string strErrorCode;
+
+            #region FastInventory_8A_v2
+            if (fast_inv_v2_cb.Checked)
+            {
+                parseFastInventoryV2(msgTran.AryTranData);
+                return;
+            }
+            #endregion FastInventory_8A_v2
 
             if (msgTran.AryData.Length == 1)
             {
@@ -7546,18 +7573,38 @@ namespace UHFDemo
                 case "antType1":
                     channels = 1;
                     antType1_CheckedChanged(sender, e);
+                    fast_inv_v2_channel_1.Checked = true;
+                    cmbx_realinv_workant.Items.Clear();
+                    cmbx_realinv_workant.Items.Add("天线1");
+                    cmbx_realinv_workant.SelectedIndex = 0;
                     break;
                 case "antType4":
                     channels = 4;
                     antType4_CheckedChanged(sender, e);
+                    fast_inv_v2_channel_4.Checked = true;
+                    cmbx_realinv_workant.Items.Clear();
+                    cmbx_realinv_workant.Items.AddRange(new String[] { "天线1", "天线2", "天线3", "天线4" });
+                    cmbx_realinv_workant.SelectedIndex = 0;
                     break;
                 case "antType8":
                     channels = 8;
                     antType8_CheckedChanged(sender, e);
+                    fast_inv_v2_channel_8.Checked = true;
+                    cmbx_realinv_workant.Items.Clear();
+                    cmbx_realinv_workant.Items.AddRange(new String[] { "天线1", "天线2", "天线3", "天线4", "天线5", "天线6", "天线7", "天线8" });
+                    cmbx_realinv_workant.SelectedIndex = 0;
                     break;
                 case "antType16":
                     channels = 16;
                     antType16_CheckedChanged(sender, e);
+                    fast_inv_v2_channel_16.Checked = true;
+
+                    cmbx_realinv_workant.Items.Clear();
+                    cmbx_realinv_workant.Items.AddRange(new String[] { 
+                        "天线1", "天线2", "天线3", "天线4", "天线5", "天线6", "天线7", "天线8",
+                        "天线9", "天线10", "天线11", "天线12", "天线13", "天线14", "天线15", "天线16"
+                    });
+                    cmbx_realinv_workant.SelectedIndex = 0;
                     break;
             }
 
@@ -7590,6 +7637,9 @@ namespace UHFDemo
         {
             if (antType1.Checked)
             {
+                label_fast_inv_ant_title_c2.Visible = false;
+                label_fast_inv_stay_title_c2.Visible = false;
+
                 //disable fast ant switch inventory.
                 btFastInventory.Enabled = false;
                 //disable fast ant switch inventory.
@@ -7649,6 +7699,9 @@ namespace UHFDemo
         {
             if (antType4.Checked)
             {
+                label_fast_inv_ant_title_c2.Visible = false;
+                label_fast_inv_stay_title_c2.Visible = false;
+
                 //Enable fast ant switch inventory.
                 btFastInventory.Enabled = true;
                 //Enable fast ant switch inventory.
@@ -7721,6 +7774,9 @@ namespace UHFDemo
         {
             if (antType8.Checked)
             {
+                label_fast_inv_ant_title_c2.Visible = false;
+                label_fast_inv_stay_title_c2.Visible = false;
+
                 //Enable fast ant switch inventory.
                 btFastInventory.Enabled = true;
                 //Enable fast ant switch inventory.
@@ -7774,6 +7830,9 @@ namespace UHFDemo
         {
             if (antType16.Checked)
             {
+                label_fast_inv_ant_title_c2.Visible = true;
+                label_fast_inv_stay_title_c2.Visible = true;
+
                 //Enable fast ant switch inventory.
                 btFastInventory.Enabled = true;
                 //Enable fast ant switch inventory.
@@ -10225,23 +10284,20 @@ namespace UHFDemo
         #endregion Johar
 
         #region FastInventory_8A_v2
-        string[] ants = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16" };
         string curChannel = "0";
-        ComboBox[] antCbs = null;
         CheckBox[] antChkbs = null;
         TextBox[] antStays = null;
         TextBox[] antPowers = null;
-        List<Antenna> antennaList = null;
         static TagDB tagdb = null;
-        bool doFastInventory = false;
-        bool FastInventorying = false;
+        bool useAntG1 = true;
+        int FastExecTimes = 0;
+        bool FastInvV2Reading = false;
 
         /// <summary>
         /// Define a variable for the inventory test log
         /// </summary>
         TextWriter transportLogFile = null;
         uint inventory_times = 0;
-        bool updateRegion = false;
 
         private void fast_inventory_v2_clear_btn_Click(object sender, EventArgs e)
         {
@@ -10257,66 +10313,112 @@ namespace UHFDemo
             }));
         }
 
+
+        private void cb_fast_inv_v2_check_all_ant_CheckedChanged(object sender, EventArgs e)
+        {
+            bool check = cb_fast_inv_v2_check_all_ant.Checked;
+            foreach (CheckBox cb in antChkbs)
+            {
+                if (cb.Enabled)
+                    cb.Checked = check;
+            }
+        }
+
+        private bool checkFastInvV2Ant()
+        {
+            int antCount = 0;
+            for (int i = 0; i < 16; i++)
+            {
+                if (antChkbs[i].Enabled)
+                    antCount++;
+            }
+            if (antCount > 0)
+                return true;
+            return false;
+        }
+
         private void fast_inventory_v2_start_btn_Click(object sender, EventArgs e)
         {
-            if(fast_inventory_v2_start_btn.Text.Equals("开始"))
+            if(fast_inventory_v2_start_btn.Text.Equals("停止"))
             {
-                if (antChkbs != null && antChkbs.Length > 0)
-                {
-                    foreach (CheckBox cb in antChkbs)
-                    {
-                        cb.ForeColor = Color.Black;
-                    }
-                }
-
-                if (!updateRegion)
-                    cmdGetFrequencyRegion();
-                if(!savelog_cb.Checked)
-                {
-                    savelog_cb.Checked = true;
-                }
-                fast_inventory_v2_start_btn.Text = "停止";
-                antennaList = getFastInventoryAntList();
-                new Thread(new ThreadStart(startFastInventory)).Start();
-            }
-            else if (fast_inventory_v2_start_btn.Text.Equals("停止"))
-            {
-                stopFastInventory();
-                
+                FastInvV2Reading = false;
                 fast_inventory_v2_start_btn.Text = "开始";
+                return;
             }
+            if (!checkFastInvV2Ant())
+            {
+                MessageBox.Show("请至少选择一个天线");
+                fast_inventory_v2_start_btn.Text = "开始";
+                return;
+            }
+
+            fast_inventory_v2_start_btn.Text = "停止";
+
+            foreach (CheckBox cb in antChkbs)
+            {
+                cb.ForeColor = Color.Black;
+            }
+
+            FastExecTimes = Convert.ToInt32(tb_fast_inv2_exec_times.Text.ToString());
+
+            cmdGetFrequencyRegion();
+            if (!savelog_cb.Checked)
+            {
+                savelog_cb.Checked = true;
+            }
+
+            //startInvV2();
+        }
+
+        private void startInvV2()
+        {
+            FastInvV2Reading = true;
+            if (checkAntG1Count())
+            {
+                useAntG1 = true;
+                cmdFastInventoryV2Send(useAntG1);
+            }
+            else //if (checkAntG2Count())
+            {
+                useAntG1 = false;
+                cmdSwitchAntG2();
+            }
+        }
+
+        private bool checkAntG1Count()
+        {
+            for(int i = 0; i<8; i++)
+            {
+                if(antChkbs[i].Enabled)
+                {
+                    if (antChkbs[i].Checked)
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        private bool checkAntG2Count()
+        {
+            for (int i = 8; i < 16; i++)
+            {
+                if (antChkbs[i].Enabled)
+                {
+                    if (antChkbs[i].Checked)
+                        return true;
+                }
+            }
+            return false;
         }
 
         private List<Antenna> getFastInventoryAntList()
         {
             List<Antenna> antList = new List<Antenna>();
-            for (int antNo = 0; antNo < 8; antNo++)
+            for (int antNo = 0; antNo < 16; antNo++)
             {
-                antList.Add(new Antenna(antNo, antCbs[antNo].Text, antStays[antNo].Text, antPowers[antNo].Text));
+                antList.Add(new Antenna(antNo, antStays[antNo].Text, antPowers[antNo].Text));
             }
             return antList;
-        }
-
-        private void stopFastInventory()
-        {
-            doFastInventory = false;
-            while (FastInventorying)
-            {
-                Thread.Sleep(200);
-            }
-        }
-
-        private void startFastInventory()
-        {
-            doFastInventory = true;
-            cmdFastInventoryV2Send();
-            FastInventorying = true;
-            while (doFastInventory)
-            {
-                Thread.Sleep(1000);
-            }
-            FastInventorying = false;
-            //Console.WriteLine("startFastInventory End!");
         }
 
         private void parseFastInventoryV2(byte[] data)
@@ -10363,16 +10465,35 @@ namespace UHFDemo
 
             switch (cmd)
             {
+                case 0x6C:
+                    parseCmd6CData(len, data);
+                    break;
                 case 0x8A:
                     parseCmd8AData(len, data);
                     break;
                 case 0x79:
                     parseGetFrequencyRegion(data);
+                    startInvV2();
                     break;
                 default:
                     Console.WriteLine("#1 parseData by default!");
                     break;
             }
+        }
+
+        private void parseCmd6CData(byte len, byte[] data)
+        {
+            switch (len)
+            {
+                case 0x04:
+                    if(FastInvV2Reading)
+                        cmdFastInventoryV2Send(useAntG1);
+                    break;
+                default:
+                    Console.WriteLine("parseCmd6CData={0}", CCommondMethod.ToHex(data, "", " "));
+                    break;
+            }
+
         }
 
         private void parseCmd8AData(byte len, byte[] data)
@@ -10430,7 +10551,7 @@ namespace UHFDemo
         private void ErrorHandle(byte[] data)
         {
             // ErrorCode
-            //Console.WriteLine("ErrorCode={0}\r\n", CCommondMethod.ToHex(data, "0x", " "));
+            Console.WriteLine("ErrorCode={0}\r\n", CCommondMethod.ToHex(data, "0x", " "));
             MessageBox.Show("ErrorCode: {0}" + CCommondMethod.ToHex(data, "0x", " "));
         }
 
@@ -10485,10 +10606,97 @@ namespace UHFDemo
                 }
             }));
 
-            if (FastInventorying)
+            if(FastExecTimes == -1)
             {
-                cmdFastInventoryV2Send();
+
             }
+            else
+            {
+                if (FastExecTimes > 1)
+                {
+                    FastExecTimes--;
+                }
+                else
+                {
+                    FastInvV2Reading = false;
+                }
+            }
+
+            if(FastInvV2Reading)
+            {
+                if (useAntG1)
+                {
+                    if (checkAntG2Count())
+                    {
+                        useAntG1 = false;
+                        cmdSwitchAntG2();
+                    }
+                    else
+                    {
+                        cmdFastInventoryV2Send(useAntG1);
+                    }
+                }
+                else
+                {
+                    if (checkAntG1Count())
+                    {
+                        useAntG1 = true;
+                        cmdSwitchAntG1();
+                    }
+                    else
+                    {
+                        cmdFastInventoryV2Send(useAntG1);
+                    }
+                }
+            }
+            else
+            {
+                if(!useAntG1)
+                {
+                    cmdSwitchAntG1();
+                }
+            }
+        }
+
+        private void cmdSwitchAntG1()
+        {
+            //Console.WriteLine("cmdSwitchAntG1");
+            cmdSwitchAntGroup(0x00);
+        }
+
+        private void cmdSwitchAntG2()
+        {
+            //Console.WriteLine("cmdSwitchAntG2");
+            cmdSwitchAntGroup(0x01);
+        }
+
+        private void cmdSwitchAntGroup(byte groupid)
+        {
+            int writeIndex = 0;
+            byte[] rawData = new byte[256];
+            rawData[writeIndex++] = 0xA0; // hdr
+
+            rawData[writeIndex++] = 0x03; // len minLen = 3
+
+            rawData[writeIndex++] = m_curSetting.btReadId; // addr
+
+            rawData[writeIndex++] = 0x6C; // cmd
+
+            rawData[writeIndex++] = groupid; // groupId G1=0x00, g2=0x01
+
+            int msgLen = writeIndex + 1;
+            rawData[1] = (byte)(msgLen - 2); // except hdr+len
+            //Console.WriteLine("cmdSwitchAntGroup writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+
+            byte[] checkData = new byte[msgLen - 1];
+            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+            rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+            byte[] sendData = new byte[msgLen];
+            Array.Copy(rawData, 0, sendData, 0, msgLen);
+            //Console.WriteLine("cmdSwitchAntGroup: {0}", CCommondMethod.ToHex(sendData, "", " "));
+            int nResult = reader.SendMessage(sendData);
+            //Console.WriteLine("cmdSwitchAntGroup: [{0}] {1}", nResult, CCommondMethod.ToHex(sendData, "", " "));
         }
 
         private void AntennaDetectError(byte[] data)
@@ -10498,8 +10706,9 @@ namespace UHFDemo
             antChkbs[antId].ForeColor = Color.Red;
         }
 
-        private void cmdFastInventoryV2Send()
+        private void cmdFastInventoryV2Send(bool antG1)
         {
+            Console.WriteLine("cmdFastInventoryV2Send 天线组{0}", antG1==true?"1":"2");
             // ToDo: 固件版本>=8.2.9
             //ValidateFwVersion();
             int writeIndex = 0;
@@ -10513,17 +10722,36 @@ namespace UHFDemo
             rawData[writeIndex++] = 0x8A; // cmd
 
             // data
-            foreach(Antenna ant in antennaList)
+           if(antG1)
             {
-                if(antChkbs[ant.No].Checked)
+                for(int i = 0; i < 8; i++)
                 {
-                    rawData[writeIndex++] = ant.Ant; // A
-                    rawData[writeIndex++] = ant.Stay;
+                    if (antChkbs[i].Checked)
+                    {
+                        rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 1);
+                        rawData[writeIndex++] = Convert.ToByte(antStays[i].Text);
+                    }
+                    else
+                    {
+                        rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 1);
+                        rawData[writeIndex++] = 0x00;
+                    }
                 }
-                else
+            }
+           else
+            {
+                for (int i = 8; i < 16; i++)
                 {
-                    rawData[writeIndex++] = ant.Ant; // A
-                    rawData[writeIndex++] = 0x00;
+                    if (antChkbs[i].Checked)
+                    {
+                        rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 8);
+                        rawData[writeIndex++] = Convert.ToByte(antStays[i].Text);
+                    }
+                    else
+                    {
+                        rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 8);
+                        rawData[writeIndex++] = 0x00;
+                    }
                 }
             }
 
@@ -10542,16 +10770,33 @@ namespace UHFDemo
 
             rawData[writeIndex++] = getFastInventoryV2Phase(); // Phase
 
-            foreach (Antenna ant in antennaList)
+            if(antG1)
             {
-                if (antChkbs[ant.No].Checked)
+                for (int i = 0; i < 8; i++)
                 {
-                    rawData[writeIndex++] = ant.Power;
+                    if (antChkbs[i].Checked)
+                    {
+                        rawData[writeIndex++] = Convert.ToByte(antPowers[i].Text);
+                    }
+                    else
+                    {
+                        rawData[writeIndex++] = 0x00;
+                    }
                 }
-                else
+            }
+            else
+            {
+                for (int i = 8; i < 16; i++)
                 {
-                    rawData[writeIndex++] = 0x00;
-                }   
+                    if (antChkbs[i].Checked)
+                    {
+                        rawData[writeIndex++] = Convert.ToByte(antPowers[i].Text);
+                    }
+                    else
+                    {
+                        rawData[writeIndex++] = 0x00;
+                    }
+                }
             }
 
             rawData[writeIndex++] = getFastInventoryV2Repeat(); // Repeat
@@ -10654,50 +10899,44 @@ namespace UHFDemo
 
         private void fastInventoryLoadCfg()
         {
-            antChkbs = new CheckBox[] {
-                fast_inv_v2_A_ant_cb, fast_inv_v2_B_ant_cb, fast_inv_v2_C_ant_cb, fast_inv_v2_D_ant_cb,
-                fast_inv_v2_E_ant_cb, fast_inv_v2_F_ant_cb, fast_inv_v2_G_ant_cb, fast_inv_v2_H_ant_cb,
-            };
-            antCbs = new ComboBox[] { 
-                fast_inv_v2_A_ant_cbo, fast_inv_v2_B_ant_cbo, fast_inv_v2_C_ant_cbo, fast_inv_v2_D_ant_cbo,
-                fast_inv_v2_E_ant_cbo, fast_inv_v2_F_ant_cbo, fast_inv_v2_G_ant_cbo, fast_inv_v2_H_ant_cbo
-            };
-            antStays = new TextBox[] {
-                fast_inv_v2_A_stay_tb, fast_inv_v2_B_stay_tb, fast_inv_v2_C_stay_tb, fast_inv_v2_D_stay_tb,
-                fast_inv_v2_E_stay_tb, fast_inv_v2_F_stay_tb, fast_inv_v2_G_stay_tb, fast_inv_v2_H_stay_tb
-            };
-            antPowers = new TextBox[] {
-                fast_inv_v2_A_power_tb, fast_inv_v2_B_power_tb, fast_inv_v2_C_power_tb, fast_inv_v2_D_power_tb,
-                fast_inv_v2_E_power_tb, fast_inv_v2_F_power_tb, fast_inv_v2_G_power_tb, fast_inv_v2_H_power_tb
-            };
-
             fast_inv_v2_S1_rb.Checked = true;
             fast_inv_v2_target_A_rb.Checked = true;
             fast_inv_v2_sl_00_rb.Checked = true;
             fast_inv_v2_interval_tb.Text = "0";
             fast_inv_v2_repeat_tb.Text = "1";
             fast_inv_v2_phase_cb.Checked = false;
-
-            fast_inv_v2_channel_8.Checked = true;
         }
 
         private void fast_inv_v2_channel_1_CheckedChanged(object sender, EventArgs e)
         {
+            label_fast_inv_v2_ant_title_c2.Visible = false;
+            label_fast_inv_v2_stay_title_c2.Visible = false;
+            label_fast_inv_v2_power_title_c2.Visible = false;
+
             channelChange((RadioButton)sender);
         }
 
         private void fast_inv_v2_channel_4_CheckedChanged(object sender, EventArgs e)
         {
+            label_fast_inv_v2_ant_title_c2.Visible = false;
+            label_fast_inv_v2_stay_title_c2.Visible = false;
+            label_fast_inv_v2_power_title_c2.Visible = false;
             channelChange((RadioButton)sender);
         }
 
         private void fast_inv_v2_channel_8_CheckedChanged(object sender, EventArgs e)
         {
+            label_fast_inv_v2_ant_title_c2.Visible = false;
+            label_fast_inv_v2_stay_title_c2.Visible = false;
+            label_fast_inv_v2_power_title_c2.Visible = false;
             channelChange((RadioButton)sender);
         }
 
         private void fast_inv_v2_channel_16_CheckedChanged(object sender, EventArgs e)
         {
+            label_fast_inv_v2_ant_title_c2.Visible = true;
+            label_fast_inv_v2_stay_title_c2.Visible = true;
+            label_fast_inv_v2_power_title_c2.Visible = true;
             channelChange((RadioButton)sender);
         }
 
@@ -10710,62 +10949,39 @@ namespace UHFDemo
             }
             curChannel = rb.Name;
             
-            int antNo = 0;
             int channel = Convert.ToInt32(rb.Text);
 
-            // 更新ComboBox
-            foreach (CheckBox cb in antChkbs)
+            for(int i=0; i<16; i++)
             {
-                antCbs[antNo].Items.Clear();
-                antCbs[antNo].Enabled = false;
-                if (antNo < channel)
+                if(i<channel)
                 {
-                    cb.Enabled = true;
-                    cb.Checked = true;
+                    antChkbs[i].Visible = true;
+                    antChkbs[i].Enabled = true;
+                    antChkbs[i].Checked = (i < 1 ? true : false);//默认选1
 
-                    antStays[antNo].Enabled = true;
-                    antPowers[antNo].Enabled = true;
+                    antStays[i].Visible = true;
+                    antStays[i].Enabled = true;
+                    antStays[i].Text = "1";
 
-                    string[] strAnt = new string[channel];
-                    Array.Copy(ants, 0, strAnt, 0, channel);
-                    antCbs[antNo].Items.AddRange(strAnt);
-                    antCbs[antNo].SelectedIndex = antNo;
-
-                    antStays[antNo].Text = "1";
-                    antPowers[antNo].Text = "30";
+                    antPowers[i].Visible = true;
+                    antPowers[i].Enabled = true;
+                    antPowers[i].Text = "30";
                 }
                 else
                 {
-                    cb.Enabled = false;
-                    cb.Checked = false;
+                    antChkbs[i].Visible = false;
+                    antChkbs[i].Enabled = false;
+                    antChkbs[i].Checked = false;
 
-                    antStays[antNo].Enabled = false;
-                    antPowers[antNo].Enabled = false;
+                    antStays[i].Visible = false;
+                    antStays[i].Enabled = false;
 
-                    antCbs[antNo].Items.Add(antNo);
-                    antCbs[antNo].SelectedIndex = 0;
-                    antStays[antNo].Text = "0";
+                    antPowers[i].Visible = false;
+                    antPowers[i].Enabled = false;
                 }
-                antNo++;
-            }
-            updateFastInventoryAnt();
-        }
-
-        private void updateFastInventoryAnt()
-        {
-            int antNo = 0;
-            foreach (CheckBox cb in antChkbs)
-            {
-                if(!cb.Checked)
-                {
-                    antCbs[antNo].Items.Add(antNo);
-                    antCbs[antNo].SelectedIndex = 0;
-                    antStays[antNo].Text = "0";
-                    antPowers[antNo].Text = "0";
-                }
-                antNo++;
             }
         }
+
         private void GenerateColmnsForDataGrid()
         {
             tags_dgv.AutoGenerateColumns = false;
@@ -10803,18 +11019,19 @@ namespace UHFDemo
         private void cmd_8a_v2_tabPage_Leave(object sender, EventArgs e)
         {
             Console.WriteLine("cmd_8a_v2_tabPage_Leave");
-            if(!FastInventorying)
+            if (!FastInvV2Reading)
             {
                 fast_inv_v2_cb.Checked = false;
-                updateRegion = false;
             }
-            
         }
 
         private void cmd_8a_v2_tabPage_Enter(object sender, EventArgs e)
         {
             Console.WriteLine("cmd_8a_v2_tabPage_Enter");
-            fast_inv_v2_cb.Checked = true;
+            if(!FastInvV2Reading)
+            {
+                fast_inv_v2_cb.Checked = true;
+            }
 
             if (tagdb == null)
             {
@@ -10854,7 +11071,6 @@ namespace UHFDemo
         private void R2000UartDemo_FormClosing(object sender, FormClosingEventArgs e)
         {
             #region FastInventory_8A_v2
-            stopFastInventory();
             if (null != transportLogFile)
             {
                 transportLogFile.Close();
@@ -10882,13 +11098,14 @@ namespace UHFDemo
                 SaveFileDialog saveFileDialog1 = new SaveFileDialog();
                 saveFileDialog1.Filter = "Text Files (.txt)|*.txt";
                 saveFileDialog1.Title = "Select a File to save transport layer logging";
-                string strDestinationFile = "FastInventoryTesting-"
-                    + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + @".txt";
+                string strDestinationFile = "FastInventoryTesting-log"
+                    /*+ DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") */+ @".txt";
                 saveFileDialog1.FileName = strDestinationFile;
+                saveFileDialog1.InitialDirectory = Application.StartupPath;
                 // Show the Dialog.
                 // If the user clicked OK in the dialog and
                 // a .txt file was selected, open it.
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                if (true)//saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     StreamWriter writer = new StreamWriter(saveFileDialog1.FileName);
                     writer.AutoFlush = true;
@@ -10934,10 +11151,10 @@ namespace UHFDemo
         int stay;
         int power;
 
-        public Antenna(int antNo, string ant, string stay, string power)
+        public Antenna(int antNo, string stay, string power)
         {
             this.antNo = antNo;
-            this.ant = antNo;
+            this.ant = antNo >= 8 ? (antNo -8):antNo;
             this.stay = Convert.ToInt32(stay);
             this.power = Convert.ToInt32(power);
         }
