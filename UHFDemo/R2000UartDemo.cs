@@ -10407,21 +10407,29 @@ namespace UHFDemo
         private void startInvV2()
         {
             m_curInventoryBuffer.bLoopInventoryFast = true;
-            if (checkAntG1Count())
+            if(antType16.Checked)
             {
-                cmdFastInventoryV2Send(useAntG1);
-            }
-            else if (checkAntG2Count())
-            {
-                cmdSwitchAntG2();
+                if (checkAntG1Count())
+                {
+                    cmdFastInventoryV2Send(useAntG1);
+                }
+                else if (checkAntG2Count())
+                {
+                    cmdSwitchAntG2();
+                }
+                else
+                {
+                    useAntG1 = true;
+                    FastExecTimes = 0;
+                    m_curInventoryBuffer.bLoopInventoryFast = false;
+                    stopInvV2();
+                    MessageBox.Show("No Antenna select!");
+                }
             }
             else
             {
                 useAntG1 = true;
-                FastExecTimes = 0;
-                m_curInventoryBuffer.bLoopInventoryFast = false;
-                stopInvV2();
-                MessageBox.Show("No Antenna select!");
+                cmdFastInventoryV2Send(useAntG1);
             }
         }
 
@@ -10673,7 +10681,7 @@ namespace UHFDemo
                 }
             }));
 
-            if(!useAntG1)
+            if(!useAntG1 || !antType16.Checked)
             {
                 if (FastExecTimes != -1)
                 {
@@ -10692,41 +10700,48 @@ namespace UHFDemo
 
             if(m_curInventoryBuffer.bLoopInventoryFast)
             {
-                if (useAntG1)
+                if(antType16.Checked)
                 {
-                    if (checkAntG2Count())
+                    if (useAntG1)
                     {
-                        cmdSwitchAntG2();
+                        if (checkAntG2Count())
+                        {
+                            cmdSwitchAntG2();
+                        }
+                        else
+                        {
+                            if (FastExecTimes != -1)
+                            {
+                                if (FastExecTimes > 1)
+                                {
+                                    FastExecTimes--;
+                                    //Console.WriteLine("# --> FastExecTimes={0}", FastExecTimes);
+                                }
+                                else
+                                {
+                                    m_curInventoryBuffer.bLoopInventoryFast = false;
+                                    stopInvV2();
+                                }
+                            }
+                            if (m_curInventoryBuffer.bLoopInventoryFast)
+                                cmdFastInventoryV2Send(useAntG1);
+                        }
                     }
                     else
                     {
-                        if (FastExecTimes != -1)
+                        if (checkAntG1Count())
                         {
-                            if (FastExecTimes > 1)
-                            {
-                                FastExecTimes--;
-                                //Console.WriteLine("# --> FastExecTimes={0}", FastExecTimes);
-                            }
-                            else
-                            {
-                                m_curInventoryBuffer.bLoopInventoryFast = false;
-                                stopInvV2();
-                            }
+                            cmdSwitchAntG1();
                         }
-                        if (m_curInventoryBuffer.bLoopInventoryFast)
+                        else
+                        {
                             cmdFastInventoryV2Send(useAntG1);
+                        }
                     }
                 }
                 else
                 {
-                    if (checkAntG1Count())
-                    {
-                        cmdSwitchAntG1();
-                    }
-                    else
-                    {
-                        cmdFastInventoryV2Send(useAntG1);
-                    }
+                    cmdFastInventoryV2Send(useAntG1);
                 }
             }
             else
