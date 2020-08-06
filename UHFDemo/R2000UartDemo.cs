@@ -10539,14 +10539,18 @@ namespace UHFDemo
 
         private void parseCmd6CData(byte len, byte[] data)
         {
+            string strCmd = "设置天线组 " + m_curSetting.btAntGroup;
+            string strErrorCode;
             switch (len)
             {
                 case 0x04:
+                    WriteLog(lrtxtLog, strCmd, 0);
                     if (m_curInventoryBuffer.bLoopInventoryFast)
                         cmdFastInventoryV2Send(useAntG1);
                     break;
                 default:
-                    Console.WriteLine("parseCmd6CData={0}", CCommondMethod.ToHex(data, "", " "));
+                    strErrorCode = CCommondMethod.ToHex(data, "", " ");
+                    WriteLog(lrtxtLog, "strErrorCode="+ strErrorCode, 1);
                     break;
             }
 
@@ -10554,22 +10558,30 @@ namespace UHFDemo
 
         private void parseCmd8AData(byte len, byte[] data)
         {
+            string strCmd = "快速天线盘存";
+            string strErrorCode;
             switch (len)
             {
                 // failed
                 case 0x04:
                     ErrorHandle(data);
+                    strErrorCode = CCommondMethod.ToHex(data, "0x", " ");
+                    WriteLog(lrtxtLog, strErrorCode, 1);
                     break;
                 // success
                 case 0x0A:
                     // totalRead commandDuration
                     FastInvV2Success(data);
+                    WriteLog(lrtxtLog, strCmd, 0);
                     break;
                 // antenna detect
                 case 0x05:
                     //天线未连接
                     // antId ErrorCode
                     AntennaDetectError(data);
+                    strErrorCode = CCommondMethod.FormatErrorCode(data[1]);
+                    string strLog = strCmd + "失败，失败原因： " + strErrorCode + "--" + "天线" + (data[0]);
+                    WriteLog(lrtxtLog, strLog, 1);
                     break;
                 // get tags
                 default:
@@ -10608,7 +10620,6 @@ namespace UHFDemo
         {
             // ErrorCode
             Console.WriteLine("ErrorCode={0}\r\n", CCommondMethod.ToHex(data, "0x", " "));
-            MessageBox.Show("ErrorCode: {0}" + CCommondMethod.ToHex(data, "0x", " "));
         }
 
         private void FastInvV2Success(byte[] data)
@@ -10732,14 +10743,16 @@ namespace UHFDemo
         {
             //Console.WriteLine("切换到天线组1");
             useAntG1 = true;
-            cmdSwitchAntGroup(0x00);
+            m_curSetting.btAntGroup = 0x00;
+            cmdSwitchAntGroup(m_curSetting.btAntGroup);
         }
 
         private void cmdSwitchAntG2()
         {
             //Console.WriteLine("切换到天线组2");
             useAntG1 = false;
-            cmdSwitchAntGroup(0x01);
+            m_curSetting.btAntGroup = 0x01;
+            cmdSwitchAntGroup(m_curSetting.btAntGroup);
         }
 
         private void cmdSwitchAntGroup(byte groupid)
@@ -11170,10 +11183,11 @@ namespace UHFDemo
 
         private void parseGetFrequencyRegion(byte[] data)
         {
-            Console.WriteLine("parseGetFrequencyRegion: {0}", CCommondMethod.ToHex(data, "", " "));
+            string strCmd = "取得射频规范 ";
             if(tagdb!=null)
                 tagdb.UpdateRegionInfo(data);
-            
+            WriteLog(lrtxtLog, strCmd, 0);
+
         }
 
         private void cb_fast_inv_check_all_ant_CheckedChanged(object sender, EventArgs e)
