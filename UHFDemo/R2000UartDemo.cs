@@ -151,12 +151,15 @@ namespace UHFDemo
                 chckbx_fast_inv_ant_9, chckbx_fast_inv_ant_10, chckbx_fast_inv_ant_11, chckbx_fast_inv_ant_12,
                 chckbx_fast_inv_ant_13, chckbx_fast_inv_ant_14, chckbx_fast_inv_ant_15, chckbx_fast_inv_ant_16
             };
+
             fast_inv_stays = new TextBox[] { 
                 txt_fast_inv_Stay_1, txt_fast_inv_Stay_2, txt_fast_inv_Stay_3, txt_fast_inv_Stay_4,
                 txt_fast_inv_Stay_5, txt_fast_inv_Stay_6, txt_fast_inv_Stay_7, txt_fast_inv_Stay_8,
                 txt_fast_inv_Stay_9, txt_fast_inv_Stay_10, txt_fast_inv_Stay_11, txt_fast_inv_Stay_12,
                 txt_fast_inv_Stay_13,txt_fast_inv_Stay_14, txt_fast_inv_Stay_15, txt_fast_inv_Stay_16
             };
+
+            bindInvAntTableEvents();
 
             antChkbs = new CheckBox[] {
                 cb_fast_inv_v2_ant_1, cb_fast_inv_v2_ant_2, cb_fast_inv_v2_ant_3, cb_fast_inv_v2_ant_4,
@@ -176,6 +179,54 @@ namespace UHFDemo
                 tb_fast_inv_v2_power_9, tb_fast_inv_v2_power_10, tb_fast_inv_v2_power_11, tb_fast_inv_v2_power_12,
                 tb_fast_inv_v2_power_13, tb_fast_inv_v2_power_14, tb_fast_inv_v2_power_15, tb_fast_inv_v2_power_16
             };
+
+            bindInvV2AntTableEvents();
+        }
+
+        private void bindInvAntTableEvents()
+        {
+            foreach (CheckBox cb in fast_inv_ants)
+            {
+                cb.CheckedChanged += new EventHandler(fastInvAntChecked);
+            }
+        }
+
+        private void fastInvAntChecked(object sender, EventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender;
+            int antNo = Convert.ToInt32(cb.Text) - 1;
+            if (cb.Checked)
+            {
+                fast_inv_stays[antNo].Text = "1";
+            }
+            else
+            {
+                fast_inv_stays[antNo].Text = "0";
+            }
+        }
+
+        private void bindInvV2AntTableEvents()
+        {
+            foreach (CheckBox cb in antChkbs)
+            {
+                cb.CheckedChanged += new EventHandler(fastInvV2AntChecked);
+            }
+        }
+
+        private void fastInvV2AntChecked(object sender, EventArgs e)
+        {
+            CheckBox cb = (CheckBox)sender;
+            int antNo = Convert.ToInt32(cb.Text) - 1;
+            if (cb.Checked)
+            {
+                antStays[antNo].Text = "1";
+                antPowers[antNo].Text = "30";
+            }
+            else
+            {
+                antStays[antNo].Text = "0";
+                antPowers[antNo].Text = "0";
+            }
         }
 
         private void R2000UartDemo_Load(object sender, EventArgs e)
@@ -6207,16 +6258,8 @@ namespace UHFDemo
                         {
                             if(fast_inv_ants[antIndex].Enabled)
                             {
-                                if(fast_inv_ants[antIndex].Checked)
-                                {
-                                    m_btAryData[i++] = (byte)antIndex;
-                                    m_btAryData[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                }
-                                else
-                                {
-                                    m_btAryData[i++] = (byte)antIndex;
-                                    m_btAryData[i++] = 0x00;
-                                }
+                                m_btAryData[i++] = (byte)antIndex;
+                                m_btAryData[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
                             }
                             else
                             {
@@ -6256,16 +6299,8 @@ namespace UHFDemo
                             {
                                 if (fast_inv_ants[antIndex].Enabled)
                                 {
-                                    if (fast_inv_ants[antIndex].Checked)
-                                    {
-                                        m_btAryData_group2[i++] = (byte)(antIndex - 8);
-                                        m_btAryData_group2[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                    }
-                                    else
-                                    {
-                                        m_btAryData_group2[i++] = (byte)antIndex;
-                                        m_btAryData_group2[i++] = 0x00;
-                                    }
+                                    m_btAryData_group2[i++] = (byte)(antIndex - 8);
+                                    m_btAryData_group2[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
                                 }
                                 else
                                 {
@@ -6309,16 +6344,8 @@ namespace UHFDemo
                         {
                             if (fast_inv_ants[antIndex].Enabled)
                             {
-                                if (fast_inv_ants[antIndex].Checked)
-                                {
-                                    m_btAryData[i++] = (byte)antIndex;
-                                    m_btAryData[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                }
-                                else
-                                {
-                                    m_btAryData[i++] = (byte)antIndex;
-                                    m_btAryData[i++] = 0x00;
-                                }
+                                m_btAryData[i++] = (byte)antIndex;
+                                m_btAryData[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
                             }
                             else
                             {
@@ -6343,16 +6370,8 @@ namespace UHFDemo
                             {
                                 if (fast_inv_ants[antIndex].Enabled)
                                 {
-                                    if (fast_inv_ants[antIndex].Checked)
-                                    {
-                                        m_btAryData_group2[i++] = (byte)(antIndex - 8);
-                                        m_btAryData_group2[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                    }
-                                    else
-                                    {
-                                        m_btAryData_group2[i++] = (byte)antIndex;
-                                        m_btAryData_group2[i++] = 0x00;
-                                    }
+                                    m_btAryData_group2[i++] = (byte)(antIndex - 8);
+                                    m_btAryData_group2[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
                                 }
                                 else
                                 {
@@ -6387,16 +6406,8 @@ namespace UHFDemo
                         {
                             if (fast_inv_ants[antIndex].Enabled)
                             {
-                                if (fast_inv_ants[antIndex].Checked)
-                                {
-                                    m_btAryData_4[i++] = (byte)antIndex;
-                                    m_btAryData_4[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                }
-                                else
-                                {
-                                    m_btAryData_4[i++] = (byte)antIndex;
-                                    m_btAryData_4[i++] = 0x00;
-                                }
+                                m_btAryData_4[i++] = (byte)antIndex;
+                                m_btAryData_4[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
                             }
                             else
                             {
@@ -6448,16 +6459,8 @@ namespace UHFDemo
                         {
                             if (fast_inv_ants[antIndex].Enabled)
                             {
-                                if (fast_inv_ants[antIndex].Checked)
-                                {
-                                    m_btAryData_4[i++] = (byte)antIndex;
-                                    m_btAryData_4[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                }
-                                else
-                                {
-                                    m_btAryData_4[i++] = (byte)antIndex;
-                                    m_btAryData_4[i++] = 0x00;
-                                }
+                                m_btAryData_4[i++] = (byte)antIndex;
+                                m_btAryData_4[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
                             }
                             else
                             {
@@ -10795,32 +10798,16 @@ namespace UHFDemo
             {
                 for(int i = 0; i < 8; i++)
                 {
-                    if (antChkbs[i].Checked)
-                    {
-                        rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 1);
-                        rawData[writeIndex++] = Convert.ToByte(antStays[i].Text);
-                    }
-                    else
-                    {
-                        rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 1);
-                        rawData[writeIndex++] = 0x00;
-                    }
+                    rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 1);
+                    rawData[writeIndex++] = Convert.ToByte(antStays[i].Text);
                 }
             }
            else
             {
                 for (int i = 8; i < 16; i++)
                 {
-                    if (antChkbs[i].Checked)
-                    {
-                        rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 8);
-                        rawData[writeIndex++] = Convert.ToByte(antStays[i].Text);
-                    }
-                    else
-                    {
-                        rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 8);
-                        rawData[writeIndex++] = 0x00;
-                    }
+                    rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 8);
+                    rawData[writeIndex++] = Convert.ToByte(antStays[i].Text);
                 }
             }
 
@@ -10843,28 +10830,14 @@ namespace UHFDemo
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    if (antChkbs[i].Checked)
-                    {
-                        rawData[writeIndex++] = Convert.ToByte(antPowers[i].Text);
-                    }
-                    else
-                    {
-                        rawData[writeIndex++] = 0x00;
-                    }
+                    rawData[writeIndex++] = Convert.ToByte(antPowers[i].Text);
                 }
             }
             else
             {
                 for (int i = 8; i < 16; i++)
                 {
-                    if (antChkbs[i].Checked)
-                    {
-                        rawData[writeIndex++] = Convert.ToByte(antPowers[i].Text);
-                    }
-                    else
-                    {
-                        rawData[writeIndex++] = 0x00;
-                    }
+                    rawData[writeIndex++] = Convert.ToByte(antPowers[i].Text);
                 }
             }
 
@@ -11030,11 +11003,11 @@ namespace UHFDemo
 
                     antStays[i].Visible = true;
                     antStays[i].Enabled = true;
-                    antStays[i].Text = "1";
+                    //antStays[i].Text = "1";
 
                     antPowers[i].Visible = true;
                     antPowers[i].Enabled = true;
-                    antPowers[i].Text = "30";
+                    //antPowers[i].Text = "30";
                 }
                 else
                 {

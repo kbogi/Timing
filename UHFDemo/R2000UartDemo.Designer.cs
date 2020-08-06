@@ -388,6 +388,7 @@ namespace UHFDemo
             this.label_fast_inv_v2_stay_title_c1 = new System.Windows.Forms.Label();
             this.label_fast_inv_v2_power_title_c1 = new System.Windows.Forms.Label();
             this.cb_fast_inv_v2_ant_1 = new System.Windows.Forms.CheckBox();
+            this.tb_fast_inv_v2_stay_16 = new System.Windows.Forms.TextBox();
             this.tb_fast_inv_v2_stay_1 = new System.Windows.Forms.TextBox();
             this.cb_fast_inv_v2_ant_2 = new System.Windows.Forms.CheckBox();
             this.cb_fast_inv_v2_ant_3 = new System.Windows.Forms.CheckBox();
@@ -426,11 +427,10 @@ namespace UHFDemo
             this.tb_fast_inv_v2_power_14 = new System.Windows.Forms.TextBox();
             this.tb_fast_inv_v2_stay_15 = new System.Windows.Forms.TextBox();
             this.cb_fast_inv_v2_ant_8 = new System.Windows.Forms.CheckBox();
-            this.tb_fast_inv_v2_stay_16 = new System.Windows.Forms.TextBox();
-            this.tb_fast_inv_v2_power_16 = new System.Windows.Forms.TextBox();
             this.cb_fast_inv_v2_ant_16 = new System.Windows.Forms.CheckBox();
             this.tb_fast_inv_v2_stay_8 = new System.Windows.Forms.TextBox();
             this.tb_fast_inv_v2_power_8 = new System.Windows.Forms.TextBox();
+            this.tb_fast_inv_v2_power_16 = new System.Windows.Forms.TextBox();
             this.fast_inv_v2_channel_gb = new System.Windows.Forms.GroupBox();
             this.fast_inv_v2_channel_1 = new System.Windows.Forms.RadioButton();
             this.fast_inv_v2_channel_4 = new System.Windows.Forms.RadioButton();
@@ -3833,7 +3833,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_8.Name = "txt_fast_inv_Stay_8";
             this.txt_fast_inv_Stay_8.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_8.TabIndex = 35;
-            this.txt_fast_inv_Stay_8.Text = "1";
+            this.txt_fast_inv_Stay_8.Text = "0";
             // 
             // txt_fast_inv_Stay_7
             // 
@@ -3841,7 +3841,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_7.Name = "txt_fast_inv_Stay_7";
             this.txt_fast_inv_Stay_7.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_7.TabIndex = 31;
-            this.txt_fast_inv_Stay_7.Text = "1";
+            this.txt_fast_inv_Stay_7.Text = "0";
             // 
             // txt_fast_inv_Stay_6
             // 
@@ -3849,7 +3849,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_6.Name = "txt_fast_inv_Stay_6";
             this.txt_fast_inv_Stay_6.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_6.TabIndex = 27;
-            this.txt_fast_inv_Stay_6.Text = "1";
+            this.txt_fast_inv_Stay_6.Text = "0";
             // 
             // txt_fast_inv_Stay_5
             // 
@@ -3857,7 +3857,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_5.Name = "txt_fast_inv_Stay_5";
             this.txt_fast_inv_Stay_5.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_5.TabIndex = 23;
-            this.txt_fast_inv_Stay_5.Text = "1";
+            this.txt_fast_inv_Stay_5.Text = "0";
             // 
             // txt_fast_inv_Stay_4
             // 
@@ -3865,7 +3865,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_4.Name = "txt_fast_inv_Stay_4";
             this.txt_fast_inv_Stay_4.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_4.TabIndex = 19;
-            this.txt_fast_inv_Stay_4.Text = "1";
+            this.txt_fast_inv_Stay_4.Text = "0";
             // 
             // txt_fast_inv_Stay_3
             // 
@@ -3873,7 +3873,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_3.Name = "txt_fast_inv_Stay_3";
             this.txt_fast_inv_Stay_3.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_3.TabIndex = 15;
-            this.txt_fast_inv_Stay_3.Text = "1";
+            this.txt_fast_inv_Stay_3.Text = "0";
             // 
             // txt_fast_inv_Stay_2
             // 
@@ -3881,7 +3881,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_2.Name = "txt_fast_inv_Stay_2";
             this.txt_fast_inv_Stay_2.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_2.TabIndex = 11;
-            this.txt_fast_inv_Stay_2.Text = "1";
+            this.txt_fast_inv_Stay_2.Text = "0";
             // 
             // txt_fast_inv_Stay_1
             // 
@@ -3889,7 +3889,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_1.Name = "txt_fast_inv_Stay_1";
             this.txt_fast_inv_Stay_1.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_1.TabIndex = 4;
-            this.txt_fast_inv_Stay_1.Text = "1";
+            this.txt_fast_inv_Stay_1.Text = "0";
             // 
             // chckbx_fast_inv_ant_1
             // 
@@ -4019,7 +4019,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_9.Name = "txt_fast_inv_Stay_9";
             this.txt_fast_inv_Stay_9.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_9.TabIndex = 79;
-            this.txt_fast_inv_Stay_9.Text = "1";
+            this.txt_fast_inv_Stay_9.Text = "0";
             // 
             // txt_fast_inv_Stay_10
             // 
@@ -4027,7 +4027,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_10.Name = "txt_fast_inv_Stay_10";
             this.txt_fast_inv_Stay_10.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_10.TabIndex = 80;
-            this.txt_fast_inv_Stay_10.Text = "1";
+            this.txt_fast_inv_Stay_10.Text = "0";
             // 
             // txt_fast_inv_Stay_11
             // 
@@ -4035,7 +4035,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_11.Name = "txt_fast_inv_Stay_11";
             this.txt_fast_inv_Stay_11.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_11.TabIndex = 81;
-            this.txt_fast_inv_Stay_11.Text = "1";
+            this.txt_fast_inv_Stay_11.Text = "0";
             // 
             // txt_fast_inv_Stay_12
             // 
@@ -4043,7 +4043,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_12.Name = "txt_fast_inv_Stay_12";
             this.txt_fast_inv_Stay_12.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_12.TabIndex = 82;
-            this.txt_fast_inv_Stay_12.Text = "1";
+            this.txt_fast_inv_Stay_12.Text = "0";
             // 
             // txt_fast_inv_Stay_13
             // 
@@ -4051,7 +4051,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_13.Name = "txt_fast_inv_Stay_13";
             this.txt_fast_inv_Stay_13.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_13.TabIndex = 83;
-            this.txt_fast_inv_Stay_13.Text = "1";
+            this.txt_fast_inv_Stay_13.Text = "0";
             // 
             // txt_fast_inv_Stay_14
             // 
@@ -4059,7 +4059,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_14.Name = "txt_fast_inv_Stay_14";
             this.txt_fast_inv_Stay_14.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_14.TabIndex = 84;
-            this.txt_fast_inv_Stay_14.Text = "1";
+            this.txt_fast_inv_Stay_14.Text = "0";
             // 
             // txt_fast_inv_Stay_15
             // 
@@ -4067,7 +4067,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_15.Name = "txt_fast_inv_Stay_15";
             this.txt_fast_inv_Stay_15.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_15.TabIndex = 85;
-            this.txt_fast_inv_Stay_15.Text = "1";
+            this.txt_fast_inv_Stay_15.Text = "0";
             // 
             // txt_fast_inv_Stay_16
             // 
@@ -4075,7 +4075,7 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_16.Name = "txt_fast_inv_Stay_16";
             this.txt_fast_inv_Stay_16.Size = new System.Drawing.Size(64, 21);
             this.txt_fast_inv_Stay_16.TabIndex = 86;
-            this.txt_fast_inv_Stay_16.Text = "1";
+            this.txt_fast_inv_Stay_16.Text = "0";
             // 
             // btFastInventory
             // 
@@ -4910,6 +4910,7 @@ namespace UHFDemo
             this.tableLayoutPanel2.Controls.Add(this.label_fast_inv_v2_stay_title_c1, 1, 0);
             this.tableLayoutPanel2.Controls.Add(this.label_fast_inv_v2_power_title_c1, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.cb_fast_inv_v2_ant_1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_stay_16, 4, 8);
             this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_stay_1, 1, 1);
             this.tableLayoutPanel2.Controls.Add(this.cb_fast_inv_v2_ant_2, 0, 2);
             this.tableLayoutPanel2.Controls.Add(this.cb_fast_inv_v2_ant_3, 0, 3);
@@ -4948,11 +4949,10 @@ namespace UHFDemo
             this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_power_14, 5, 6);
             this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_stay_15, 4, 7);
             this.tableLayoutPanel2.Controls.Add(this.cb_fast_inv_v2_ant_8, 0, 8);
-            this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_stay_16, 4, 8);
-            this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_power_16, 4, 8);
             this.tableLayoutPanel2.Controls.Add(this.cb_fast_inv_v2_ant_16, 3, 8);
             this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_stay_8, 1, 8);
             this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_power_8, 2, 8);
+            this.tableLayoutPanel2.Controls.Add(this.tb_fast_inv_v2_power_16, 5, 8);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 20);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 9;
@@ -4982,7 +4982,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_9.Name = "tb_fast_inv_v2_stay_9";
             this.tb_fast_inv_v2_stay_9.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_9.TabIndex = 10;
-            this.tb_fast_inv_v2_stay_9.Text = "1";
+            this.tb_fast_inv_v2_stay_9.Text = "0";
             // 
             // cb_fast_inv_v2_ant_9
             // 
@@ -5066,13 +5066,21 @@ namespace UHFDemo
             this.cb_fast_inv_v2_ant_1.Text = "1";
             this.cb_fast_inv_v2_ant_1.UseVisualStyleBackColor = true;
             // 
+            // tb_fast_inv_v2_stay_16
+            // 
+            this.tb_fast_inv_v2_stay_16.Location = new System.Drawing.Point(198, 211);
+            this.tb_fast_inv_v2_stay_16.Name = "tb_fast_inv_v2_stay_16";
+            this.tb_fast_inv_v2_stay_16.Size = new System.Drawing.Size(39, 21);
+            this.tb_fast_inv_v2_stay_16.TabIndex = 53;
+            this.tb_fast_inv_v2_stay_16.Text = "0";
+            // 
             // tb_fast_inv_v2_stay_1
             // 
             this.tb_fast_inv_v2_stay_1.Location = new System.Drawing.Point(48, 29);
             this.tb_fast_inv_v2_stay_1.Name = "tb_fast_inv_v2_stay_1";
             this.tb_fast_inv_v2_stay_1.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_1.TabIndex = 7;
-            this.tb_fast_inv_v2_stay_1.Text = "1";
+            this.tb_fast_inv_v2_stay_1.Text = "0";
             // 
             // cb_fast_inv_v2_ant_2
             // 
@@ -5208,7 +5216,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_2.Name = "tb_fast_inv_v2_stay_2";
             this.tb_fast_inv_v2_stay_2.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_2.TabIndex = 13;
-            this.tb_fast_inv_v2_stay_2.Text = "1";
+            this.tb_fast_inv_v2_stay_2.Text = "0";
             // 
             // tb_fast_inv_v2_stay_3
             // 
@@ -5216,7 +5224,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_3.Name = "tb_fast_inv_v2_stay_3";
             this.tb_fast_inv_v2_stay_3.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_3.TabIndex = 29;
-            this.tb_fast_inv_v2_stay_3.Text = "1";
+            this.tb_fast_inv_v2_stay_3.Text = "0";
             // 
             // tb_fast_inv_v2_stay_4
             // 
@@ -5224,7 +5232,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_4.Name = "tb_fast_inv_v2_stay_4";
             this.tb_fast_inv_v2_stay_4.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_4.TabIndex = 31;
-            this.tb_fast_inv_v2_stay_4.Text = "1";
+            this.tb_fast_inv_v2_stay_4.Text = "0";
             // 
             // tb_fast_inv_v2_stay_5
             // 
@@ -5232,7 +5240,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_5.Name = "tb_fast_inv_v2_stay_5";
             this.tb_fast_inv_v2_stay_5.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_5.TabIndex = 28;
-            this.tb_fast_inv_v2_stay_5.Text = "1";
+            this.tb_fast_inv_v2_stay_5.Text = "0";
             // 
             // tb_fast_inv_v2_stay_6
             // 
@@ -5240,7 +5248,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_6.Name = "tb_fast_inv_v2_stay_6";
             this.tb_fast_inv_v2_stay_6.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_6.TabIndex = 34;
-            this.tb_fast_inv_v2_stay_6.Text = "1";
+            this.tb_fast_inv_v2_stay_6.Text = "0";
             // 
             // tb_fast_inv_v2_power_2
             // 
@@ -5288,7 +5296,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_7.Name = "tb_fast_inv_v2_stay_7";
             this.tb_fast_inv_v2_stay_7.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_7.TabIndex = 42;
-            this.tb_fast_inv_v2_stay_7.Text = "1";
+            this.tb_fast_inv_v2_stay_7.Text = "0";
             // 
             // tb_fast_inv_v2_power_10
             // 
@@ -5304,7 +5312,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_10.Name = "tb_fast_inv_v2_stay_10";
             this.tb_fast_inv_v2_stay_10.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_10.TabIndex = 39;
-            this.tb_fast_inv_v2_stay_10.Text = "1";
+            this.tb_fast_inv_v2_stay_10.Text = "0";
             // 
             // tb_fast_inv_v2_stay_11
             // 
@@ -5312,7 +5320,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_11.Name = "tb_fast_inv_v2_stay_11";
             this.tb_fast_inv_v2_stay_11.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_11.TabIndex = 41;
-            this.tb_fast_inv_v2_stay_11.Text = "1";
+            this.tb_fast_inv_v2_stay_11.Text = "0";
             // 
             // tb_fast_inv_v2_power_12
             // 
@@ -5336,7 +5344,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_12.Name = "tb_fast_inv_v2_stay_12";
             this.tb_fast_inv_v2_stay_12.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_12.TabIndex = 46;
-            this.tb_fast_inv_v2_stay_12.Text = "1";
+            this.tb_fast_inv_v2_stay_12.Text = "0";
             // 
             // tb_fast_inv_v2_power_13
             // 
@@ -5352,7 +5360,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_14.Name = "tb_fast_inv_v2_stay_14";
             this.tb_fast_inv_v2_stay_14.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_14.TabIndex = 44;
-            this.tb_fast_inv_v2_stay_14.Text = "1";
+            this.tb_fast_inv_v2_stay_14.Text = "0";
             // 
             // tb_fast_inv_v2_stay_13
             // 
@@ -5360,7 +5368,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_13.Name = "tb_fast_inv_v2_stay_13";
             this.tb_fast_inv_v2_stay_13.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_13.TabIndex = 45;
-            this.tb_fast_inv_v2_stay_13.Text = "1";
+            this.tb_fast_inv_v2_stay_13.Text = "0";
             // 
             // tb_fast_inv_v2_power_15
             // 
@@ -5384,7 +5392,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_15.Name = "tb_fast_inv_v2_stay_15";
             this.tb_fast_inv_v2_stay_15.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_15.TabIndex = 48;
-            this.tb_fast_inv_v2_stay_15.Text = "1";
+            this.tb_fast_inv_v2_stay_15.Text = "0";
             // 
             // cb_fast_inv_v2_ant_8
             // 
@@ -5395,22 +5403,6 @@ namespace UHFDemo
             this.cb_fast_inv_v2_ant_8.TabIndex = 51;
             this.cb_fast_inv_v2_ant_8.Text = "8";
             this.cb_fast_inv_v2_ant_8.UseVisualStyleBackColor = true;
-            // 
-            // tb_fast_inv_v2_stay_16
-            // 
-            this.tb_fast_inv_v2_stay_16.Location = new System.Drawing.Point(243, 211);
-            this.tb_fast_inv_v2_stay_16.Name = "tb_fast_inv_v2_stay_16";
-            this.tb_fast_inv_v2_stay_16.Size = new System.Drawing.Size(57, 21);
-            this.tb_fast_inv_v2_stay_16.TabIndex = 53;
-            this.tb_fast_inv_v2_stay_16.Text = "1";
-            // 
-            // tb_fast_inv_v2_power_16
-            // 
-            this.tb_fast_inv_v2_power_16.Location = new System.Drawing.Point(198, 211);
-            this.tb_fast_inv_v2_power_16.Name = "tb_fast_inv_v2_power_16";
-            this.tb_fast_inv_v2_power_16.Size = new System.Drawing.Size(39, 21);
-            this.tb_fast_inv_v2_power_16.TabIndex = 52;
-            this.tb_fast_inv_v2_power_16.Text = "0";
             // 
             // cb_fast_inv_v2_ant_16
             // 
@@ -5428,7 +5420,7 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_8.Name = "tb_fast_inv_v2_stay_8";
             this.tb_fast_inv_v2_stay_8.Size = new System.Drawing.Size(39, 21);
             this.tb_fast_inv_v2_stay_8.TabIndex = 57;
-            this.tb_fast_inv_v2_stay_8.Text = "1";
+            this.tb_fast_inv_v2_stay_8.Text = "0";
             // 
             // tb_fast_inv_v2_power_8
             // 
@@ -5437,6 +5429,14 @@ namespace UHFDemo
             this.tb_fast_inv_v2_power_8.Size = new System.Drawing.Size(54, 21);
             this.tb_fast_inv_v2_power_8.TabIndex = 58;
             this.tb_fast_inv_v2_power_8.Text = "0";
+            // 
+            // tb_fast_inv_v2_power_16
+            // 
+            this.tb_fast_inv_v2_power_16.Location = new System.Drawing.Point(243, 211);
+            this.tb_fast_inv_v2_power_16.Name = "tb_fast_inv_v2_power_16";
+            this.tb_fast_inv_v2_power_16.Size = new System.Drawing.Size(57, 21);
+            this.tb_fast_inv_v2_power_16.TabIndex = 52;
+            this.tb_fast_inv_v2_power_16.Text = "0";
             // 
             // fast_inv_v2_channel_gb
             // 
