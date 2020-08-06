@@ -33,9 +33,9 @@ namespace UHFDemo
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(R2000UartDemo));
             this.tabCtrMain = new System.Windows.Forms.TabControl();
             this.PagReaderSetting = new System.Windows.Forms.TabPage();
@@ -377,8 +377,6 @@ namespace UHFDemo
             this.cb_fast_inv_v2_check_all_ant = new System.Windows.Forms.CheckBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.tb_fast_inv_v2_power_8 = new System.Windows.Forms.TextBox();
-            this.tb_fast_inv_v2_stay_8 = new System.Windows.Forms.TextBox();
             this.tb_fast_inv_v2_power_9 = new System.Windows.Forms.TextBox();
             this.tb_fast_inv_v2_stay_9 = new System.Windows.Forms.TextBox();
             this.cb_fast_inv_v2_ant_9 = new System.Windows.Forms.CheckBox();
@@ -431,6 +429,8 @@ namespace UHFDemo
             this.tb_fast_inv_v2_stay_16 = new System.Windows.Forms.TextBox();
             this.tb_fast_inv_v2_power_16 = new System.Windows.Forms.TextBox();
             this.cb_fast_inv_v2_ant_16 = new System.Windows.Forms.CheckBox();
+            this.tb_fast_inv_v2_stay_8 = new System.Windows.Forms.TextBox();
+            this.tb_fast_inv_v2_power_8 = new System.Windows.Forms.TextBox();
             this.fast_inv_v2_channel_gb = new System.Windows.Forms.GroupBox();
             this.fast_inv_v2_channel_1 = new System.Windows.Forms.RadioButton();
             this.fast_inv_v2_channel_4 = new System.Windows.Forms.RadioButton();
@@ -4968,22 +4968,6 @@ namespace UHFDemo
             this.tableLayoutPanel2.Size = new System.Drawing.Size(303, 235);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
-            // tb_fast_inv_v2_power_8
-            // 
-            this.tb_fast_inv_v2_power_8.Location = new System.Drawing.Point(93, 211);
-            this.tb_fast_inv_v2_power_8.Name = "tb_fast_inv_v2_power_8";
-            this.tb_fast_inv_v2_power_8.Size = new System.Drawing.Size(54, 21);
-            this.tb_fast_inv_v2_power_8.TabIndex = 58;
-            this.tb_fast_inv_v2_power_8.Text = "0";
-            // 
-            // tb_fast_inv_v2_stay_8
-            // 
-            this.tb_fast_inv_v2_stay_8.Location = new System.Drawing.Point(48, 211);
-            this.tb_fast_inv_v2_stay_8.Name = "tb_fast_inv_v2_stay_8";
-            this.tb_fast_inv_v2_stay_8.Size = new System.Drawing.Size(39, 21);
-            this.tb_fast_inv_v2_stay_8.TabIndex = 57;
-            this.tb_fast_inv_v2_stay_8.Text = "1";
-            // 
             // tb_fast_inv_v2_power_9
             // 
             this.tb_fast_inv_v2_power_9.Location = new System.Drawing.Point(243, 29);
@@ -5438,6 +5422,22 @@ namespace UHFDemo
             this.cb_fast_inv_v2_ant_16.Text = "16";
             this.cb_fast_inv_v2_ant_16.UseVisualStyleBackColor = true;
             // 
+            // tb_fast_inv_v2_stay_8
+            // 
+            this.tb_fast_inv_v2_stay_8.Location = new System.Drawing.Point(48, 211);
+            this.tb_fast_inv_v2_stay_8.Name = "tb_fast_inv_v2_stay_8";
+            this.tb_fast_inv_v2_stay_8.Size = new System.Drawing.Size(39, 21);
+            this.tb_fast_inv_v2_stay_8.TabIndex = 57;
+            this.tb_fast_inv_v2_stay_8.Text = "1";
+            // 
+            // tb_fast_inv_v2_power_8
+            // 
+            this.tb_fast_inv_v2_power_8.Location = new System.Drawing.Point(93, 211);
+            this.tb_fast_inv_v2_power_8.Name = "tb_fast_inv_v2_power_8";
+            this.tb_fast_inv_v2_power_8.Size = new System.Drawing.Size(54, 21);
+            this.tb_fast_inv_v2_power_8.TabIndex = 58;
+            this.tb_fast_inv_v2_power_8.Text = "0";
+            // 
             // fast_inv_v2_channel_gb
             // 
             this.fast_inv_v2_channel_gb.Controls.Add(this.fast_inv_v2_channel_1);
@@ -5451,6 +5451,7 @@ namespace UHFDemo
             this.fast_inv_v2_channel_gb.TabIndex = 9;
             this.fast_inv_v2_channel_gb.TabStop = false;
             this.fast_inv_v2_channel_gb.Text = "Channel";
+            this.fast_inv_v2_channel_gb.Visible = false;
             // 
             // fast_inv_v2_channel_1
             // 
@@ -5890,14 +5891,14 @@ namespace UHFDemo
             // 
             // tags_dgv
             // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.tags_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tags_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.mSerialNumberColumn,
@@ -5908,24 +5909,24 @@ namespace UHFDemo
             this.mPhaseColumn,
             this.mAntennaColumn,
             this.mDataColumn});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle2;
             this.tags_dgv.Location = new System.Drawing.Point(5, 85);
             this.tags_dgv.Name = "tags_dgv";
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.tags_dgv.RowTemplate.Height = 23;
             this.tags_dgv.Size = new System.Drawing.Size(652, 428);
             this.tags_dgv.TabIndex = 0;

@@ -10375,26 +10375,44 @@ namespace UHFDemo
             FastInvV2Reading = true;
             if (checkAntG1Count())
             {
-                useAntG1 = true;
                 cmdFastInventoryV2Send(useAntG1);
             }
-            else //if (checkAntG2Count())
+            else if (checkAntG2Count())
             {
-                useAntG1 = false;
                 cmdSwitchAntG2();
             }
+            else
+            {
+                useAntG1 = true;
+                FastExecTimes = 0;
+                FastInvV2Reading = false;
+                stopInvV2();
+                MessageBox.Show("No Antenna select!");
+            }
+        }
+
+        private void stopInvV2()
+        {
+            Console.WriteLine("stopInvV2 useAntG1={0}", useAntG1);
+            BeginInvoke(new ThreadStart(delegate {
+                fast_inventory_v2_start_btn.Text = "开始";
+            }));
         }
 
         private bool checkAntG1Count()
         {
-            for(int i = 0; i<8; i++)
+            for (int i = 0; i<8; i++)
             {
                 if(antChkbs[i].Enabled)
                 {
                     if (antChkbs[i].Checked)
+                    {
+                        useAntG1 = true;
                         return true;
+                    }
                 }
             }
+            useAntG1 = false;
             return false;
         }
 
@@ -10405,9 +10423,13 @@ namespace UHFDemo
                 if (antChkbs[i].Enabled)
                 {
                     if (antChkbs[i].Checked)
+                    {
+                        useAntG1 = false;
                         return true;
+                    }
                 }
             }
+            useAntG1 = true;
             return false;
         }
 
@@ -10486,7 +10508,7 @@ namespace UHFDemo
             switch (len)
             {
                 case 0x04:
-                    if(FastInvV2Reading)
+                    if (FastInvV2Reading)
                         cmdFastInventoryV2Send(useAntG1);
                     break;
                 default:
@@ -10606,19 +10628,20 @@ namespace UHFDemo
                 }
             }));
 
-            if(FastExecTimes == -1)
+            if(!useAntG1)
             {
-
-            }
-            else
-            {
-                if (FastExecTimes > 1)
+                if (FastExecTimes != -1)
                 {
-                    FastExecTimes--;
-                }
-                else
-                {
-                    FastInvV2Reading = false;
+                    if (FastExecTimes > 1)
+                    {
+                        FastExecTimes--;
+                        //Console.WriteLine("--> FastExecTimes={0}", FastExecTimes);
+                    }
+                    else
+                    {
+                        FastInvV2Reading = false;
+                        stopInvV2();
+                    }
                 }
             }
 
@@ -10628,19 +10651,31 @@ namespace UHFDemo
                 {
                     if (checkAntG2Count())
                     {
-                        useAntG1 = false;
                         cmdSwitchAntG2();
                     }
                     else
                     {
-                        cmdFastInventoryV2Send(useAntG1);
+                        if (FastExecTimes != -1)
+                        {
+                            if (FastExecTimes > 1)
+                            {
+                                FastExecTimes--;
+                                //Console.WriteLine("# --> FastExecTimes={0}", FastExecTimes);
+                            }
+                            else
+                            {
+                                FastInvV2Reading = false;
+                                stopInvV2();
+                            }
+                        }
+                        if (FastInvV2Reading)
+                            cmdFastInventoryV2Send(useAntG1);
                     }
                 }
                 else
                 {
                     if (checkAntG1Count())
                     {
-                        useAntG1 = true;
                         cmdSwitchAntG1();
                     }
                     else
@@ -10653,6 +10688,7 @@ namespace UHFDemo
             {
                 if(!useAntG1)
                 {
+                    //Console.WriteLine("FastInvV2Reading={0}", FastInvV2Reading);
                     cmdSwitchAntG1();
                 }
             }
@@ -10660,13 +10696,15 @@ namespace UHFDemo
 
         private void cmdSwitchAntG1()
         {
-            //Console.WriteLine("cmdSwitchAntG1");
+            //Console.WriteLine("切换到天线组1");
+            useAntG1 = true;
             cmdSwitchAntGroup(0x00);
         }
 
         private void cmdSwitchAntG2()
         {
-            //Console.WriteLine("cmdSwitchAntG2");
+            //Console.WriteLine("切换到天线组2");
+            useAntG1 = false;
             cmdSwitchAntGroup(0x01);
         }
 
@@ -10708,7 +10746,7 @@ namespace UHFDemo
 
         private void cmdFastInventoryV2Send(bool antG1)
         {
-            Console.WriteLine("cmdFastInventoryV2Send 天线组{0}", antG1==true?"1":"2");
+            //Console.WriteLine("cmdFastInventoryV2Send 天线组{0}", antG1 == true ? "1" : "2");
             // ToDo: 固件版本>=8.2.9
             //ValidateFwVersion();
             int writeIndex = 0;
