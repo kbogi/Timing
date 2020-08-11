@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -13,15 +12,11 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System.IO;
 using System.IO.Ports;
-using NPOI.Util;
 using Reader;
 using System.Net.Sockets;
 using System.Diagnostics;
-using System.Net.NetworkInformation;
 using System.Management;
 using System.Text.RegularExpressions;
-using System.Windows.Threading;
-using System.Collections;
 
 namespace UHFDemo
 {
@@ -520,6 +515,9 @@ namespace UHFDemo
                     break;
                 case 0x98:
                     ProcessTagMask(msgTran);
+                    break;
+                case 0xAA:
+                    ProcessGetInternalVersion(msgTran);
                     break;
                 case 0xb0:
                     ProcessInventoryISO18000(msgTran);
@@ -2206,6 +2204,9 @@ namespace UHFDemo
 
                 RefreshReadSetting(msgTran.Cmd);
                 WriteLog(lrtxtLog, strCmd, 0);
+
+                cmdGetInternalVersion();
+
                 return;
             }
             else if (msgTran.AryData.Length == 1)
@@ -2220,6 +2221,55 @@ namespace UHFDemo
             string strLog = strCmd + "失败，失败原因： " + strErrorCode;
             WriteLog(lrtxtLog, strLog, 1);
         }
+
+        #region GetInternalVersion
+        private void cmdGetInternalVersion()
+        {
+            // minLen = addr + cmd + check = 3
+            // [hdr][len][addr][cmd][data][check]
+            // 0xA0 len addr 0xAA 
+            int index = 0;
+            byte[] rawData = new byte[256];
+            rawData[index++] = 0xA0;
+            rawData[index++] = 3;
+            rawData[index++] = m_curSetting.btReadId;
+            rawData[index++] = 0xAA;
+
+            int msgLen = index + 1;
+            rawData[1] = (byte)(msgLen - 2); // update len, except hdr+len
+
+            byte[] checkData = new byte[msgLen - 1];
+            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+            rawData[index++] = reader.CheckValue(checkData);
+
+            byte[] sendData = new byte[msgLen];
+            Array.Copy(rawData, 0, sendData, 0, msgLen);
+            int nResult = reader.SendMessage(sendData);
+        }
+
+        private void ProcessGetInternalVersion(MessageTran msgTran)
+        {
+            string strCmd = "取得读写器内部版本号";
+            string strErrorCode = string.Empty;
+
+            if (msgTran.AryData.Length == 1)
+            {
+                m_curSetting.btInternalVersion = msgTran.AryData[0];
+                BeginInvoke(new ThreadStart(delegate () {
+                    txtFirmwareVersion.Text = String.Format("{0}.{1}.{2}", m_curSetting.btMajor, m_curSetting.btMinor, BitConverter.ToString(new byte[] { m_curSetting.btInternalVersion }));
+                }));
+                WriteLog(lrtxtLog, strCmd, 0);
+                return;
+            }
+            else
+            {
+                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+            }
+
+            string strLog = strCmd + "失败，失败原因： " + strErrorCode;
+            WriteLog(lrtxtLog, strLog, 1);
+        }
+        #endregion GetInternalVersion
 
         private void btnSetUartBaudrate_Click(object sender, EventArgs e)
         {

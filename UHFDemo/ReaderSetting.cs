@@ -10,6 +10,7 @@ namespace UHFDemo
         public byte btReadId;
         public byte btMajor;
         public byte btMinor;
+        public byte btInternalVersion;
         public byte btIndexBaudrate;
         public byte btPlusMinus;
         public byte btTemperature;
@@ -46,6 +47,7 @@ namespace UHFDemo
             btReadId = 0xFF;
             btMajor = 0x00;
             btMinor = 0x00;
+            btInternalVersion = 0x00;
             btIndexBaudrate = 0x00;
             btPlusMinus = 0x00;
             btTemperature = 0x00;
