@@ -456,7 +456,7 @@ namespace UHFDemo
         /// <param name="bytes">Source big-endian byte string</param>
         /// <param name="offset">Location to extract from</param>
         /// <returns>Unsigned 32-bit integer</returns>
-        public static UInt32 ToU32(byte[] bytes, int offset)
+        public static UInt32 ToU32(byte[] bytes, ref int offset)
         {
             return (UInt32)(0
                 | ((UInt32)(bytes[offset + 0]) << 24)

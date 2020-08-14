@@ -60,9 +60,6 @@ namespace UHFDemo
         private int m_nSwitchTime = 0;
 
         private int m_nReceiveFlag = 0;
-
-        //A,B Inventory Count
-        private int m_AStatusInventoryCount;
         private int m_BStatusInventoryCount;
 
         private DateTime m_InventoryStarTime;
@@ -107,6 +104,8 @@ namespace UHFDemo
         private CheckBox[] fast_inv_ants = null;
         private TextBox[] fast_inv_stays = null;
 
+        TagDB tagdb_real_inv = null;
+
         public R2000UartDemo()
         {
             InitializeComponent();
@@ -117,13 +116,9 @@ namespace UHFDemo
 
             this.DoubleBuffered = true;
 
-
-            lvRealList.SmallImageList = sortImageList;
+            dgv_real_inv_tags.DataSource = sortImageList;
             lvFastList.SmallImageList = sortImageList;
             lvBufferList.SmallImageList = sortImageList;
-
-            this.columnHeader37.ImageIndex = 0;
-            this.columnHeader38.ImageIndex = 0;
 
             this.columnHeader31.ImageIndex = 0;
             this.columnHeader32.ImageIndex = 0;
@@ -134,8 +129,6 @@ namespace UHFDemo
             this.refreshFastListView();
             this.m_new_fast_inventory_session.SelectedIndex = 1;
             this.m_new_fast_inventory_flag.SelectedIndex = 0;
-
-            this.columnHeader37.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
 
             cmbx_realinv_workant.Items.AddRange(new string[] { "天线1", "天线2", "天线3", "天线4", "天线5", "天线6", "天线7", "天线8", "天线9", "天线10", "天线11", "天线12", "天线13", "天线14", "天线15", "天线16" });
             cmbx_realinv_workant.SelectedIndex = 0;
@@ -245,13 +238,9 @@ namespace UHFDemo
 
 
             //初始化连接读写器默认配置
-            string[] portNames = SerialPort.GetPortNames();
-            if (portNames != null && portNames.Length > 0)
-            {
-                cmbComPort.Items.AddRange(portNames);
-                cmbComPort.SelectedIndex = cmbComPort.Items.Count - 1;
-            }
-            cmbBaudrate.SelectedIndex = 1;
+            RefreshComPorts();
+
+            cmbBaudrate.SelectedIndex = 1; // 115200
             ipIpServer.IpAddressStr = "192.168.0.178";
             txtTcpPort.Text = "4001";
 
@@ -293,12 +282,6 @@ namespace UHFDemo
 
 
             //ListView settings
-            this.lvRealList.ListViewItemSorter = new ListViewColumnSorter();
-            ListViewHelper lvRealHelper = new ListViewHelper();
-            lvRealHelper.addSortColumn(0);
-            lvRealHelper.addSortColumn(1);
-            this.lvRealList.ColumnClick += new ColumnClickEventHandler(lvRealHelper.ListView_ColumnClick);
-
             this.lvBufferList.ListViewItemSorter = new ListViewColumnSorter();
             ListViewHelper lvBufferHelper = new ListViewHelper();
             lvBufferHelper.addSortColumn(0);
@@ -343,6 +326,21 @@ namespace UHFDemo
             #endregion FastInventory_8A_v2
 
             autoInventoryrb.Visible = false;
+
+            GenerateColmnsDataGridForRealInv();
+            tagdb_real_inv = new TagDB();
+            dgv_real_inv_tags.DataSource = tagdb_real_inv.TagList;
+        }
+
+        private void RefreshComPorts()
+        {
+            cmbComPort.Items.Clear();
+            string[] portNames = SerialPort.GetPortNames();
+            if (portNames != null && portNames.Length > 0)
+            {
+                cmbComPort.Items.AddRange(portNames);
+            }
+            cmbComPort.SelectedIndex = cmbComPort.Items.Count - 1;
         }
 
         private void TcpExcption(string strErr)
@@ -772,172 +770,17 @@ namespace UHFDemo
                             int nEpcCount = 0;
                             int nEpcLength = m_curInventoryBuffer.dtTagTable.Rows.Count;
 
-                            ledReal1.Text = nTagCount.ToString();
-                            ledReal2.Text = nCaculatedReadRate.ToString();
+                            ledReal_totalread.Text = nTagCount.ToString();
+                            ledReal_readrate.Text = nCaculatedReadRate.ToString();
 
-                            ledReal5.Text = FormatLongToTimeStr(nTotalTime);
-                            ledReal3.Text = nTotalRead.ToString();
-                            ledReal4.Text = nCommandDuation.ToString();  //实际的命令执行时间
+                            ledReal_total_readtime.Text = FormatLongToTimeStr(nTotalTime);
+                            ledReal_total_tagcount.Text = nTotalRead.ToString();
+                            ledReal_cmd_duration.Text = nCommandDuation.ToString();  //实际的命令执行时间
                             tbRealMaxRssi.Text = (m_curInventoryBuffer.nMaxRSSI - 129).ToString() + "dBm";
                             tbRealMinRssi.Text = (m_curInventoryBuffer.nMinRSSI - 129).ToString() + "dBm";
                             lbRealTagCount.Text = "标签EPC号列表（不重复）： " + nTagCount.ToString() + "个";
 
-                            nEpcCount = lvRealList.Items.Count;
-
-
-                            if (nEpcCount < nEpcLength)
-                            {
-                                DataRow row = m_curInventoryBuffer.dtTagTable.Rows[nEpcLength - 1];
-
-                                ListViewItem item = new ListViewItem();
-                                item.Text = (nEpcCount + 1).ToString();
-                                item.SubItems.Add(row[2].ToString());
-                                item.SubItems.Add(row[0].ToString());
-                                //item.SubItems.Add(row[5].ToString());
-                                if (antType16.Checked)
-                                {
-                                    item.SubItems.Add(row[7].ToString() + "/" + row[8].ToString() + "/" + row[9].ToString() + "/" + row[10].ToString() + "/"
-                                    + row[11].ToString() + "/" + row[12].ToString() + "/" + row[13].ToString() + "/" + row[14].ToString() + "/"
-                                    + row[15].ToString() + "/" + row[16].ToString() + "/" + row[17].ToString() + "/" + row[18].ToString() + "/"
-                                    + row[19].ToString() + "/" + row[20].ToString() + "/" + row[21].ToString() + "/" + row[22].ToString());
-                                }
-                                else if (antType8.Checked)
-                                {
-                                    item.SubItems.Add(row[7].ToString() + "  /  " + row[8].ToString() + "  /  " + row[9].ToString() + "  /  " + row[10] + "  /  "
-                                    + row[11].ToString() + "  /  " + row[12].ToString() + "  /  " + row[13].ToString() + "  /  " + row[14]);
-                                }
-                                else if (antType4.Checked)
-                                {
-                                    item.SubItems.Add(row[7].ToString() + "  /  " + row[8].ToString() + "  /  " + row[9].ToString() + "  /  " + row[10]);
-                                }
-                                else if (antType1.Checked)
-                                {
-                                    item.SubItems.Add(row[7].ToString());
-                                }
-                                item.SubItems.Add((Convert.ToInt32(row[4]) - 129).ToString() + "dBm");
-                                item.SubItems.Add(row[6].ToString());
-
-                                //set Item backagroud color.
-                                //item.BackColor = Color.Red;
-
-                                lvRealList.Items.Add(item);
-
-                                //do not location the scrolling bar in the bottom.
-                                //lvRealList.Items[nEpcCount].EnsureVisible();
-                            }
-
-                            //else
-                            //{
-                            //    int nIndex = 0;
-                            //    foreach (DataRow row in m_curInventoryBuffer.dtTagTable.Rows)
-                            //    {
-                            //        ListViewItem item = ltvInventoryEpc.Items[nIndex];
-                            //        item.SubItems[3].Text = row[5].ToString();
-                            //        nIndex++;
-                            //    }
-                            //}
-
-                            //更新列表中读取的次数
-                            if (m_nTotal % m_nRealRate == 1)
-                            {
-                                int nIndex = 0;
-                                foreach (DataRow row in m_curInventoryBuffer.dtTagTable.Rows)
-                                {
-                                    ListViewItem item;
-                                    item = lvRealList.Items[nIndex];
-                                    //item.SubItems[3].Text = row[5].ToString();
-                                    if (antType16.Checked)
-                                    {
-                                        item.SubItems[3].Text = (row[7].ToString() + "/" + row[8].ToString() + "/" + row[9].ToString() + "/" + row[10].ToString() + "/"
-                                    + row[11].ToString() + "/" + row[12].ToString() + "/" + row[13].ToString() + "/" + row[14].ToString() + "/"
-                                    + row[15].ToString() + "/" + row[16].ToString() + "/" + row[17].ToString() + "/" + row[18].ToString() + "/"
-                                    + row[19].ToString() + "/" + row[20].ToString() + "/" + row[21].ToString() + "/" + row[22].ToString());
-                                    }
-                                    else if (antType8.Checked)
-                                    {
-                                        item.SubItems[3].Text = (row[7].ToString() + "  /  " + row[8].ToString() + "  /  " + row[9].ToString() + "  /  " + row[10] + "  /  "
-                                       + row[11].ToString() + "  /  " + row[12].ToString() + "  /  " + row[13].ToString() + "  /  " + row[14]);
-                                    }
-                                    else if (antType4.Checked)
-                                    {
-                                        item.SubItems[3].Text = (row[7].ToString() + "  /  " + row[8].ToString() + "  /  " + row[9].ToString() + "  /  " + row[10]);
-                                    }
-                                    else if (antType1.Checked)
-                                    {
-                                        item.SubItems[3].Text = (row[7].ToString());
-                                    }
-                                    item.SubItems[4].Text = (Convert.ToInt32(row[4]) - 129).ToString() + "dBm";
-                                    item.SubItems[5].Text = row[6].ToString();
-
-                                    nIndex++;
-                                }
-                            }
-
-                            //if (ltvInventoryEpc.SelectedIndices.Count != 0)
-                            //{
-                            //    int nDetailCount = ltvInventoryTag.Items.Count;
-                            //    int nDetailLength = m_curInventoryBuffer.dtTagDetailTable.Rows.Count;
-
-                            //    foreach (int nIndex in ltvInventoryEpc.SelectedIndices)
-                            //    {
-                            //        ListViewItem itemEpc = ltvInventoryEpc.Items[nIndex];
-                            //        DataRow row = m_curInventoryBuffer.dtTagDetailTable.Rows[nDetailLength - 1];
-                            //        if (itemEpc.SubItems[1].Text == row[0].ToString())
-                            //        {
-                            //            ListViewItem item = new ListViewItem();
-                            //            item.Text = (nDetailCount + 1).ToString();
-                            //            item.SubItems.Add(row[0].ToString());
-
-                            //            string strTemp = (Convert.ToInt32(row[1].ToString()) - 129).ToString() + "dBm";
-                            //            item.SubItems.Add(strTemp);
-                            //            byte byTemp = Convert.ToByte(row[1]);
-                            //            if (byTemp > 0x50)
-                            //            {
-                            //                item.BackColor = Color.PowderBlue;
-                            //            }
-                            //            else if (byTemp < 0x30)
-                            //            {
-                            //                item.BackColor = Color.LemonChiffon;
-                            //            }
-
-                            //            item.SubItems.Add(row[2].ToString());
-                            //            item.SubItems.Add(row[3].ToString());
-
-                            //            ltvInventoryTag.Items.Add(item);
-                            //            ltvInventoryTag.Items[nDetailCount].EnsureVisible();
-                            //        }
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    int nDetailCount = ltvInventoryTag.Items.Count;
-                            //    int nDetailLength = m_curInventoryBuffer.dtTagDetailTable.Rows.Count;
-
-                            //    DataRow row = m_curInventoryBuffer.dtTagDetailTable.Rows[nDetailLength - 1];
-                            //    ListViewItem item = new ListViewItem();
-                            //    item.Text = (nDetailCount + 1).ToString();
-                            //    item.SubItems.Add(row[0].ToString());
-
-                            //    string strTemp = (Convert.ToInt32(row[1].ToString()) - 129).ToString() + "dBm";
-                            //    item.SubItems.Add(strTemp);
-                            //    byte byTemp = Convert.ToByte(row[1]);
-                            //    if (byTemp > 0x50)
-                            //    {
-                            //        item.BackColor = Color.PowderBlue;
-                            //    }
-                            //    else if (byTemp < 0x30)
-                            //    {
-                            //        item.BackColor = Color.LemonChiffon;
-                            //    }
-
-                            //    item.SubItems.Add(row[2].ToString());
-                            //    item.SubItems.Add(row[3].ToString());
-
-                            //    ltvInventoryTag.Items.Add(item);
-                            //    ltvInventoryTag.Items[nDetailCount].EnsureVisible();
-                            //}
-
-
+                            //nEpcCount = lvRealList.Items.Count;
                         }
                         break;
 
@@ -970,7 +813,6 @@ namespace UHFDemo
                             btRealTimeInventory.ForeColor = Color.DarkBlue;
                             btRealTimeInventory.Text = "开始盘存";
                             timerInventory.Enabled = false;
-                            totalTime.Enabled = false;
                             //return;
                         }
 
@@ -2814,13 +2656,7 @@ namespace UHFDemo
             string strCmd = "取得射频规范";
             string strErrorCode = string.Empty;
 
-            #region FastInventory_8A_v2
-            if (fast_inv_v2_cb.Checked)
-            {
-                parseMessage(msgTran.AryTranData);
-                return;
-            }
-            #endregion FastInventory_8A_v2
+            parseMessage(msgTran.AryTranData);
 
             if (msgTran.AryData.Length == 3)
             {
@@ -4117,7 +3953,6 @@ namespace UHFDemo
 
         private void ProcessInventoryReal(Reader.MessageTran msgTran)
         {
-
             m_curInventoryBuffer.dtEndInventory = DateTime.Now;
             TimeSpan ts = DateTime.Now - m_InventoryStarTime;
             int consume = ts.Minutes * 60 * 1000 + ts.Seconds * 1000 + ts.Milliseconds;
@@ -4152,253 +3987,48 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 7)
             {
-                m_curInventoryBuffer.nReadRate = Convert.ToInt32(msgTran.AryData[1]) * 256 + Convert.ToInt32(msgTran.AryData[2]);
-                m_curInventoryBuffer.nDataCount = Convert.ToInt32(msgTran.AryData[3]) * 256 * 256 * 256 + Convert.ToInt32(msgTran.AryData[4]) * 256 * 256 + Convert.ToInt32(msgTran.AryData[5]) * 256 + Convert.ToInt32(msgTran.AryData[6]);
-
                 m_curInventoryBuffer.dtEndInventory = DateTime.Now;
-
                 WriteLog(lrtxtLog, strCmd, 0);
-                RefreshInventoryReal(0x89);
+                //RefreshInventoryReal(0x89);
+                tagdb_real_inv.UpdateCmd89ExecuteSuccess(msgTran.AryData);
+                BeginInvoke(new ThreadStart(delegate() {
+                    ledReal_readrate.Text = tagdb_real_inv.CmdReadRate.ToString();
+                    ledReal_cmd_duration.Text = tagdb_real_inv.CommandDuration.ToString();
+                    ledReal_total_readtime.Text = FormatLongToTimeStr(tagdb_real_inv.TotalCommandTime);
+                }));
                 RunLoopInventroy();
             }
-            else
+            else // 解析标签
             {
-                m_nTotal++;
-                int nLength = msgTran.AryData.Length;
-                int nEpcLength = nLength - 4;
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, nEpcLength);
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 2);
-                //string strPC = CCommondMethod.ByteArrayToString(new byte[]{msgTran.ReadId},0,1);
-                string strRSSI = (msgTran.AryData[nLength - 1] & 0x7F).ToString();
-                SetMaxMinRSSI(Convert.ToInt32(msgTran.AryData[nLength - 1] & 0x7F));
-                byte btTemp = msgTran.AryData[0];
-                byte btAntId = (byte)((btTemp & 0x03) + 1);
-                if ((msgTran.AryData[nLength - 1] & 0x80) != 0) btAntId += 4;
-                m_curInventoryBuffer.nCurrentAnt = (int)btAntId;
-                string strAntId = btAntId.ToString();
-                byte btFreq = (byte)(btTemp >> 2);
-
-
-                string strFreq = GetFreqString(btFreq);
-
-                //DataRow row = m_curInventoryBuffer.dtTagDetailTable.NewRow();
-                //row[0] = strEPC;
-                //row[1] = strRSSI;
-                //row[2] = strAntId;
-                //row[3] = strFreq;
-
-                //m_curInventoryBuffer.dtTagDetailTable.Rows.Add(row);
-                //m_curInventoryBuffer.dtTagDetailTable.AcceptChanges();
-
-                ////增加标签表
-                //DataRow[] drsDetail = m_curInventoryBuffer.dtTagDetailTable.Select(string.Format("COLEPC = '{0}'", strEPC));
-                //int nDetailCount = drsDetail.Length;
-                DataRow[] drs = m_curInventoryBuffer.dtTagTable.Select(string.Format("COLEPC = '{0}'", strEPC));
-                if (drs.Length == 0)
-                {
-                    DataRow row1 = m_curInventoryBuffer.dtTagTable.NewRow();
-                    row1[0] = strPC;
-                    row1[2] = strEPC;
-                    row1[4] = strRSSI;
-                    row1[5] = "1";
-                    row1[6] = strFreq;
-                    row1[7] = "0";
-                    row1[8] = "0";
-                    row1[9] = "0";
-                    row1[10] = "0";
-                    row1[11] = "0";
-                    row1[12] = "0";
-                    row1[13] = "0";
-                    row1[14] = "0";
-                    row1[15] = "0";
-                    row1[16] = "0";
-                    row1[17] = "0";
-                    row1[18] = "0";
-                    row1[19] = "0";
-                    row1[20] = "0";
-                    row1[21] = "0";
-                    row1[22] = "0";
-                    switch (btAntId)
-                    {
-                        case 0x01:
-                            if (m_curSetting.btAntGroup == (byte)0x00)
-                                row1[7] = "1";
-                            else
-                                row1[15] = "1";
-                            break;
-                        case 0x02:
-                            if (m_curSetting.btAntGroup == (byte)0x00)
-                                row1[8] = "1";
-                            else
-                                row1[16] = "1";
-                            break;
-                        case 0x03:
-                            if (m_curSetting.btAntGroup == (byte)0x00)
-                                row1[9] = "1";
-                            else
-                                row1[17] = "1";
-                            break;
-                        case 0x04:
-                            if (m_curSetting.btAntGroup == (byte)0x00)
-                                row1[10] = "1";
-                            else
-                                row1[18] = "1";
-                            break;
-                        case 0x05:
-                            if (m_curSetting.btAntGroup == (byte)0x00)
-                                row1[11] = "1";
-                            else
-                                row1[19] = "1";
-                            break;
-                        case 0x06:
-                            if (m_curSetting.btAntGroup == (byte)0x00)
-                                row1[12] = "1";
-                            else
-                                row1[20] = "1";
-                            break;
-                        case 0x07:
-                            if (m_curSetting.btAntGroup == (byte)0x00)
-                                row1[13] = "1";
-                            else
-                                row1[21] = "1";
-                            break;
-                        case 0x08:
-                            if (m_curSetting.btAntGroup == (byte)0x00)
-                                row1[14] = "1";
-                            else
-                                row1[22] = "1";
-                            break;
-                        default:
-                            break;
-                    }
-
-                    m_curInventoryBuffer.dtTagTable.Rows.Add(row1);
-                    m_curInventoryBuffer.dtTagTable.AcceptChanges();
-                }
-                else
-                {
-                    foreach (DataRow dr in drs)
-                    {
-                        dr.BeginEdit();
-                        int nTemp = 0;
-
-                        dr[4] = strRSSI;
-                        //dr[5] = (Convert.ToInt32(dr[5]) + 1).ToString();
-                        nTemp = Convert.ToInt32(dr[5]);
-                        dr[5] = (nTemp + 1).ToString();
-                        dr[6] = strFreq;
-
-                        switch (btAntId)
-                        {
-                            case 0x01:
-                                if (m_curSetting.btAntGroup == (byte)0x00)
-                                {
-                                    nTemp = Convert.ToInt32(dr[7]);
-                                    dr[7] = (nTemp + 1).ToString();
-                                }
-                                else
-                                {
-                                    nTemp = Convert.ToInt32(dr[15]);
-                                    dr[15] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x02:
-                                if (m_curSetting.btAntGroup == (byte)0x00)
-                                {
-                                    nTemp = Convert.ToInt32(dr[8]);
-                                    dr[8] = (nTemp + 1).ToString();
-                                }
-                                else
-                                {
-                                    nTemp = Convert.ToInt32(dr[16]);
-                                    dr[16] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x03:
-                                if (m_curSetting.btAntGroup == (byte)0x00)
-                                {
-                                    nTemp = Convert.ToInt32(dr[9]);
-                                    dr[9] = (nTemp + 1).ToString();
-                                }
-                                else
-                                {
-                                    nTemp = Convert.ToInt32(dr[17]);
-                                    dr[17] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x04:
-                                if (m_curSetting.btAntGroup == (byte)0x00)
-                                {
-                                    nTemp = Convert.ToInt32(dr[10]);
-                                    dr[10] = (nTemp + 1).ToString();
-                                }
-                                else
-                                {
-                                    nTemp = Convert.ToInt32(dr[18]);
-                                    dr[18] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x05:
-                                if (m_curSetting.btAntGroup == (byte)0x00)
-                                {
-                                    nTemp = Convert.ToInt32(dr[11]);
-                                    dr[11] = (nTemp + 1).ToString();
-                                }
-                                else
-                                {
-                                    nTemp = Convert.ToInt32(dr[19]);
-                                    dr[19] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x06:
-                                if (m_curSetting.btAntGroup == (byte)0x00)
-                                {
-                                    nTemp = Convert.ToInt32(dr[12]);
-                                    dr[12] = (nTemp + 1).ToString();
-                                }
-                                else
-                                {
-                                    nTemp = Convert.ToInt32(dr[20]);
-                                    dr[20] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x07:
-                                if (m_curSetting.btAntGroup == (byte)0x00)
-                                {
-                                    nTemp = Convert.ToInt32(dr[13]);
-                                    dr[13] = (nTemp + 1).ToString();
-                                }
-                                else
-                                {
-                                    nTemp = Convert.ToInt32(dr[21]);
-                                    dr[21] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x08:
-                                if (m_curSetting.btAntGroup == (byte)0x00)
-                                {
-                                    nTemp = Convert.ToInt32(dr[14]);
-                                    dr[14] = (nTemp + 1).ToString();
-                                }
-                                else
-                                {
-                                    nTemp = Convert.ToInt32(dr[22]);
-                                    dr[22] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-
-                        dr.EndEdit();
-                    }
-                    m_curInventoryBuffer.dtTagTable.AcceptChanges();
-                }
-                RefreshInventoryReal(0x89);
+                parseTagRealInv(false, msgTran.AryData);
             }
         }
 
+        private void parseTagRealInv(bool readPhase, byte[] data)
+        {
+            //Console.WriteLine("parseTagRealInv {0}", readPhase);
+            this.BeginInvoke(new ThreadStart(delegate ()
+            {
+                lock (tagdb_real_inv)
+                {
+                    Tag tag = new Tag(data, readPhase);
+                    tagdb_real_inv.Add(tag);
+                    SetMaxMinRSSI(Convert.ToInt32(tag.Rssi));
+                }
+            }));
 
+            this.BeginInvoke(new ThreadStart(delegate ()
+            {
+                lock (tagdb_real_inv)
+                {
+                    tbRealMaxRssi.Text = m_curInventoryBuffer.nMaxRSSI + "dBm";
+                    tbRealMinRssi.Text = m_curInventoryBuffer.nMinRSSI + "dBm";
+                    ledReal_total_tagcount.Text = tagdb_real_inv.TotalTagCount.ToString();
+                    ledReal_totalread.Text = tagdb_real_inv.CmdTotalRead.ToString();
+                    lbRealTagCount.Text = "标签EPC号列表（不重复）： " + tagdb_real_inv.UniqueTagCount + "个";
+                }
+            }));
+        }
 
         private void ProcessInventory(Reader.MessageTran msgTran)
         {
@@ -4449,18 +4079,22 @@ namespace UHFDemo
 
         private void SetMaxMinRSSI(int nRSSI)
         {
-            if (m_curInventoryBuffer.nMaxRSSI < nRSSI)
+            if (m_curInventoryBuffer.nMinRSSI == 0 && m_curInventoryBuffer.nMinRSSI == 0)
             {
                 m_curInventoryBuffer.nMaxRSSI = nRSSI;
+                m_curInventoryBuffer.nMinRSSI = nRSSI;
             }
+            else
+            {
+                if (m_curInventoryBuffer.nMaxRSSI < nRSSI)
+                {
+                    m_curInventoryBuffer.nMaxRSSI = nRSSI;
+                }
 
-            if (m_curInventoryBuffer.nMinRSSI == 0)
-            {
-                m_curInventoryBuffer.nMinRSSI = nRSSI;
-            }
-            else if (m_curInventoryBuffer.nMinRSSI > nRSSI)
-            {
-                m_curInventoryBuffer.nMinRSSI = nRSSI;
+                if (m_curInventoryBuffer.nMinRSSI > nRSSI)
+                {
+                    m_curInventoryBuffer.nMinRSSI = nRSSI;
+                }
             }
         }
 
@@ -5789,34 +5423,7 @@ namespace UHFDemo
         private void btnClearInventoryRealResult_Click(object sender, EventArgs e)
         {
             m_curInventoryBuffer.ClearInventoryRealResult();
-
-
-
-            lvRealList.Items.Clear();
-            //ltvInventoryTag.Items.Clear();
-        }
-
-        private void ltvInventoryEpc_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            //ltvInventoryTag.Items.Clear();
-            DataRow[] drs;
-
-            if (lvRealList.SelectedItems.Count == 0)
-            {
-                drs = m_curInventoryBuffer.dtTagDetailTable.Select();
-                //ShowListView(ltvInventoryTag, drs);
-            }
-            else
-            {
-                foreach (ListViewItem itemEpc in lvRealList.SelectedItems)
-                {
-                    //ListViewItem itemEpc = ltvInventoryEpc.Items[nIndex];
-                    string strEpc = itemEpc.SubItems[1].Text;
-
-                    drs = m_curInventoryBuffer.dtTagDetailTable.Select(string.Format("COLEPC = '{0}'", strEpc));
-                    //ShowListView(ltvInventoryTag, drs);
-                }
-            }
+            tagdb_real_inv.Clear();
         }
 
         private void ShowListView(ListView ltvListView, DataRow[] drSelect)
@@ -5975,7 +5582,6 @@ namespace UHFDemo
                     btRealTimeInventory.Text = "开始盘存";
                     timerInventory.Enabled = false;
 
-                    totalTime.Enabled = false;
                     return;
                 }
                 else
@@ -6004,8 +5610,6 @@ namespace UHFDemo
                 m_curInventoryBuffer.bLoopInventoryReal = true;
 
                 m_curInventoryBuffer.ClearInventoryRealResult();
-                lvRealList.Items.Clear();
-                lvRealList.Items.Clear();
                 tbRealMaxRssi.Text = "0";
                 tbRealMinRssi.Text = "0";
                 m_nTotal = 0;
@@ -6030,7 +5634,6 @@ namespace UHFDemo
 
                 timerInventory.Enabled = true;
 
-                totalTime.Enabled = true;
 
             }
             catch (System.Exception ex)
@@ -6059,16 +5662,15 @@ namespace UHFDemo
         {
             m_curInventoryBuffer.ClearInventoryRealResult();
 
-            lvRealList.Items.Clear();
-            lvRealList.Items.Clear();
-            ledReal1.Text = "0";
-            ledReal2.Text = "0";
-            ledReal3.Text = "0";
-            ledReal4.Text = "0";
-            ledReal5.Text = "0";
+            tagdb_real_inv.Clear();
+
+            ledReal_totalread.Text = "0";
+            ledReal_readrate.Text = "0";
+            ledReal_total_tagcount.Text = "0";
+            ledReal_cmd_duration.Text = "0";
+            ledReal_total_readtime.Text = "0";
             tbRealMaxRssi.Text = "0";
             tbRealMinRssi.Text = "0";
-            textRealRound.Text = "1";
             lbRealTagCount.Text = "标签列表：";
         }
 
@@ -6874,7 +6476,7 @@ namespace UHFDemo
             TimeSpan sp = DateTime.Now - m_curInventoryBuffer.dtStartInventory;
             int totalTime = (int)(sp.Ticks / 10000);
 
-            ledReal5.Text = FormatLongToTimeStr(totalTime);
+            ledReal_total_readtime.Text = FormatLongToTimeStr(totalTime);
             //RefreshInventoryReal(0x00);
         }
 
@@ -7018,84 +6620,86 @@ namespace UHFDemo
             reader.getTagMask((byte)0xFF);
         }
 
-        private void button8_Click(object sender, EventArgs e)
+        private void save_tags_result_to_cvs_Click(object sender, EventArgs e)
         {
-            // Displays a SaveFileDialog so the user can save the Image
-            // assigned to Button2.
-            Encoder encoder = Encoding.UTF8.GetEncoder();
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveData();
+        }
 
-            if (txt_format_rb.Checked)
+        private void saveData()
+        {
+            string strDestinationFile = string.Empty;
+            try
             {
-                saveFileDialog1.Filter = "txt files (*.txt)|*.txt";
-                saveFileDialog1.Title = "Save an text File";
-                saveFileDialog1.ShowDialog();
-
-                // If the file name is not an empty string open it for saving.
-                if (saveFileDialog1.FileName != "")
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "CSV Files (*.csv)|*.csv";
+                strDestinationFile = "InventoryResult"
+                        + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + @".csv";
+                saveFileDialog1.FileName = strDestinationFile;
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
                 {
-                    // Saves the Image via a FileStream created by the OpenFile method.
-                    System.IO.FileStream fs =
-                       (System.IO.FileStream)saveFileDialog1.OpenFile();
-                    // Saves the Image in the appropriate ImageFormat based upon the
-                    // File type selected in the dialog box.
-                    // NOTE that the FilterIndex property is one-based.
-                    //String strHead = "---------------------------------------------------------------------------------------------------------------------------\r\n";
+                    strDestinationFile = saveFileDialog1.FileName;
+                    TextWriter tw = new StreamWriter(strDestinationFile);
+                    StringBuilder sb = new StringBuilder();
+                    //writing the header
+                    int columnCount = dgv_real_inv_tags.Columns.Count;
 
-                    DataTable table = ListViewToDataTable(lvRealList);
-                    String title = String.Empty;
-                    foreach (ColumnHeader header in lvRealList.Columns)
+                    for (int count = 0; count < columnCount; count++)
                     {
-                        title += header.Text + "\t";
+                        string colHeader = dgv_real_inv_tags.Columns[count].HeaderText;
+                        sb.Append(colHeader + ", ");
                     }
-                    title += "\r\n";
-                    byte[] byteTitile = System.Text.Encoding.UTF8.GetBytes(title);
-                    fs.Write(byteTitile, 0, byteTitile.Length);
-                    for (int i = 0; i < table.Rows.Count; i++)
+                    tw.WriteLine(sb.ToString());
+
+                    //writing the data
+                    TagRecord rda = null;
+                    for (int rowCount = 0; rowCount <= tagdb_real_inv.TagList.Count - 1; rowCount++)
                     {
-                        DataRow row = table.Rows[i];
-                        String strData = String.Empty;
-                        for (int j = 0; j < table.Columns.Count; j++)
-                        {
-                            if (j != table.Columns.Count - 1)
-                            {
-                                strData += row[j].ToString() + "\t";
-                            }
-                            else
-                            {
-                                strData += row[j].ToString() + "\t\r\n";
-                            }
-                        }
-                        Char[] charData = strData.ToString().ToArray();
-                        Byte[] byData = new byte[charData.Length];
-                        encoder.GetBytes(charData, 0, charData.Length, byData, 0, true);
-                        fs.Write(byData, 0, byData.Length);
+                        rda = tagdb_real_inv.TagList[rowCount];
+                        textWrite(tw, rda, rowCount + 1);
                     }
-                    fs.Close();
+                    tw.Close();
                     MessageBox.Show("数据导出成功！");
                 }
             }
-            else if (excel_format_rb.Checked)
+            catch (Exception ex)
             {
-                saveFileDialog1.Filter = "97-2003文档（*.xls）|*.xls|2007文档(*.xlsx)|*.xlsx";
-                saveFileDialog1.Title = "Save an excel File";
-                saveFileDialog1.ShowDialog();
-
-                DataTable tmp = ListViewToDataTable(lvRealList);
-
-                if (saveFileDialog1.FileName != "")
-                {
-                    string suffix = saveFileDialog1.FileName.Substring(saveFileDialog1.FileName.LastIndexOf(".") + 1, saveFileDialog1.FileName.Length - saveFileDialog1.FileName.LastIndexOf(".") - 1);
-                    if (suffix == "xls")
-                    {
-                        RenderToExcel(tmp, saveFileDialog1.FileName);
-                    }
-                    else
-                    {
-                        TableToExcelForXLSX(tmp, saveFileDialog1.FileName);
-                    }
-                }
+                MessageBox.Show(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// For readability sake in the text file.
+        /// </summary>
+        /// <param name="tw"></param>
+        /// <param name="rda"></param>
+        private void textWrite(TextWriter tw, TagRecord rda, int rowNumber)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(rda.SerialNumber + ", ");
+
+            sb.Append(rda.ReadCount + ", ");
+
+            sb.Append(rda.PC + ", ");
+
+            sb.Append(rda.EPC + ", ");
+
+            sb.Append(rda.Antenna + ", ");
+
+            sb.Append(rda.Rssi + ", ");
+
+            sb.Append(rda.Freq + ", ");
+
+            sb.Append(rda.Phase);
+
+            sb.Append(rda.Data + ", ");
+
+
+            //sb.Append(rda.Protocol + ", ");
+
+            //sb.Append(rda.TimeStamp.ToString("MM-dd-yyyy HH:mm:ss:fff") + ", ");
+
+            tw.Write(sb.ToString());
+            tw.WriteLine();
         }
 
 
@@ -7745,8 +7349,6 @@ namespace UHFDemo
                 tb_dbm_15.Enabled = false;
                 tb_dbm_16.Enabled = false;
 
-                columnHeader40.Text = "识别次数";
-
                 //set work ant
                 this.cmbWorkAnt.Items.Clear();
                 this.cmbWorkAnt.Items.AddRange(new object[] {
@@ -7793,8 +7395,6 @@ namespace UHFDemo
 
                 //set fast 4 ant
                 columnHeader34.Text = "识别次数(ANT1/2/3/4)";
-                //init selelct ant
-                columnHeader40.Text = "识别次数(ANT1/2/3/4)";
 
                 //set work ant
                 this.cmbWorkAnt.Items.Clear();
@@ -7868,7 +7468,6 @@ namespace UHFDemo
 
                 //set fast 8 ant
                 columnHeader34.Text = "识别次数(ANT1/2/3/4/5/6/7/8)";
-                columnHeader40.Text = "识别次数(ANT1/2/3/4/5/6/7/8)";
                 //set work ant
                 this.cmbWorkAnt.Items.Clear();
                 this.cmbWorkAnt.Items.AddRange(new object[] {
@@ -7924,7 +7523,6 @@ namespace UHFDemo
 
                 //set fast 16 ant
                 columnHeader34.Text = "识别次数(ANT1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16)";
-                columnHeader40.Text = "识别次数(ANT1/2/3/4/5/6/7/8/9/10/11/12/13/14/15/16)";
                 //set work ant
                 this.cmbWorkAnt.Items.Clear();
                 this.cmbWorkAnt.Items.AddRange(new object[] {
@@ -10587,7 +10185,12 @@ namespace UHFDemo
                     break;
                 case 0x79:
                     parseGetFrequencyRegion(data);
-                    startInvV2();
+                    #region FastInventory_8A_v2
+                    if (fast_inv_v2_cb.Checked)
+                    {
+                        startInvV2();
+                    }
+                    #endregion FastInventory_8A_v2
                     break;
                 default:
                     Console.WriteLine("#1 parseData by default!");
@@ -10695,8 +10298,8 @@ namespace UHFDemo
             byte[] temp = new byte[4];
             temp[0] = 0x00;
             Array.Copy(bTotalRead, 0, temp, 1, bTotalRead.Length);
-            uint totalRead = CCommondMethod.ToU32(temp, 0);
-            uint commandDuration = CCommondMethod.ToU32(bCommandDuration, 0); ;
+            uint totalRead = CCommondMethod.ToU32(temp, ref readIndex);
+            uint commandDuration = CCommondMethod.ToU32(bCommandDuration, ref readIndex); ;
             //Console.WriteLine("totalRead={0}, commandDuration={1}\r\n", totalRead, commandDuration);
 
             this.BeginInvoke(new ThreadStart(delegate ()
@@ -11106,6 +10709,7 @@ namespace UHFDemo
         {
             tags_dgv.AutoGenerateColumns = false;
             tags_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+
             mSerialNumberColumn.DataPropertyName = "SerialNumber";
             mSerialNumberColumn.HeaderText = "#";
 
@@ -11133,6 +10737,49 @@ namespace UHFDemo
             mDataColumn.Visible = false;
 
             //tags_dgv.DataSource = tagdb.TagList;
+        }
+
+        private void GenerateColmnsDataGridForRealInv()
+        {
+            dgv_real_inv_tags.AutoGenerateColumns = false;
+            dgv_real_inv_tags.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dgv_real_inv_tags.BackgroundColor = Color.White;
+
+            SerialNumber_real_inv.DataPropertyName = "SerialNumber";
+            SerialNumber_real_inv.HeaderText = "#";
+
+            PC_real_inv.DataPropertyName = "PC";
+            PC_real_inv.HeaderText = "PC";
+
+            EPC_real_inv.DataPropertyName = "EPC";
+            EPC_real_inv.HeaderText = "EPC";
+            EPC_real_inv.MinimumWidth = 120;
+            EPC_real_inv.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            ReadCount_real_inv.DataPropertyName = "ReadCount";
+            //ReadCount_real_inv.HeaderText = "ReadCount";
+            ReadCount_real_inv.HeaderText = "识别次数";
+
+            Rssi_real_inv.DataPropertyName = "Rssi";
+            Rssi_real_inv.HeaderText = "Rssi(dBm)";
+
+            Freq_real_inv.DataPropertyName = "Freq";
+            //Freq_real_inv.HeaderText = "Freq(MHz)";
+            Freq_real_inv.HeaderText = "载波频率(MHz)";
+
+            Phase_real_inv.DataPropertyName = "Phase";
+            Phase_real_inv.HeaderText = "Phase";
+            Phase_real_inv.Visible = false;
+
+            Antenna_real_inv.DataPropertyName = "Antenna";
+            Antenna_real_inv.HeaderText = "Ant";
+
+            Data_real_inv.DataPropertyName = "Data";
+            Data_real_inv.HeaderText = "Data";
+            Data_real_inv.MinimumWidth = 120;
+            Data_real_inv.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Data_real_inv.Visible = false;
+            //dgv_real_inv_tags.DataSource = tagdb_real_inv.TagList;
         }
 
 
@@ -11251,6 +10898,8 @@ namespace UHFDemo
             string strCmd = "取得射频规范 ";
             if(tagdb!=null)
                 tagdb.UpdateRegionInfo(data);
+            if (tagdb_real_inv != null)
+                tagdb_real_inv.UpdateRegionInfo(data);
             WriteLog(lrtxtLog, strCmd, 0);
 
         }
@@ -11262,6 +10911,11 @@ namespace UHFDemo
             {
                 cb.Checked = check;
             }
+        }
+
+        private void btn_refresh_comports_Click(object sender, EventArgs e)
+        {
+            RefreshComPorts();
         }
     }
 

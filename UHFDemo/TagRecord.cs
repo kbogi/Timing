@@ -282,6 +282,12 @@ namespace UHFDemo
                         return a.ReadCount - b.ReadCount;
                     });
                     break;
+                case "PC":
+                    comparer = new Comparison<TagRecord>(delegate (TagRecord a, TagRecord b)
+                    {
+                        return String.Compare(a.PC, b.PC);
+                    });
+                    break;
                 case "EPC":
                     comparer = new Comparison<TagRecord>(delegate (TagRecord a, TagRecord b)
                     {
@@ -336,6 +342,9 @@ namespace UHFDemo
         static long UniqueTagCounts = 0;
         static long TotalReadCounts = 0;
         static uint TotalCommandTimes = 0;
+        uint cmdTotalRead = 0;
+        uint cmdCommandDuration = 0;
+        ushort cmdReadRate = 0;
 
         #region 0x79
         byte region;
@@ -360,6 +369,42 @@ namespace UHFDemo
 
         public uint TotalCommandTime { 
             get { return TotalCommandTimes; } 
+        }
+
+        public uint CommandDuration
+        {
+            get { return cmdCommandDuration; }
+        }
+
+        public long CmdTotalRead
+        {
+            get { return cmdTotalRead; }
+        }
+
+        public int CmdReadRate
+        {
+            get { return cmdReadRate; }
+        }
+
+        public void UpdateCmd89ExecuteSuccess(byte[] data)
+        {
+            //msg : [hdr][len][addr][cmd][data][check]
+            //data: [antId][TotalRead][CommandDuration]
+            //      [  1  ][  2      ][      4        ] 
+            //Console.WriteLine("data={0}", CCommondMethod.ToHex(data, "", " "));
+            int readIndex = 0;
+            byte antId = data[readIndex++];
+
+            ushort readRate = CCommondMethod.ToU16(data, ref readIndex);
+            
+            uint totalRead = CCommondMethod.ToU32(data, ref readIndex);
+
+            cmdTotalRead = totalRead;
+            cmdReadRate = readRate;
+            cmdCommandDuration = cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate);
+            TotalCommandTimes += cmdCommandDuration;
+            //Console.WriteLine("antId={0}, readRate={1}, totalRead={2}, totalTime={3}", antId, readRate, totalRead, cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate));
+
         }
 
         public void UpdateTotalCommandTime(uint commandDuration)
@@ -498,6 +543,11 @@ namespace UHFDemo
         public int ReadCount
         {
             get { return RawRead.ReadCount; }
+        }
+
+        public string PC
+        {
+            get { return RawRead.PC; }
         }
 
         public string EPC
