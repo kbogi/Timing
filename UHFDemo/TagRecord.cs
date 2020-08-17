@@ -394,7 +394,6 @@ namespace UHFDemo
             //Console.WriteLine("data={0}", CCommondMethod.ToHex(data, "", " "));
             int readIndex = 0;
             byte antId = data[readIndex++];
-
             ushort readRate = CCommondMethod.ToU16(data, ref readIndex);
             
             uint totalRead = CCommondMethod.ToU32(data, ref readIndex);
@@ -404,12 +403,29 @@ namespace UHFDemo
             cmdCommandDuration = cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate);
             TotalCommandTimes += cmdCommandDuration;
             //Console.WriteLine("antId={0}, readRate={1}, totalRead={2}, totalTime={3}", antId, readRate, totalRead, cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate));
-
         }
 
-        public void UpdateTotalCommandTime(uint commandDuration)
+        public void UpdateCmd8AExecuteSuccess(byte[] data)
         {
-            TotalCommandTimes += commandDuration;
+            //msg : [hdr][len][addr][cmd][data][check]
+            //data: [TotalRead][CommandDuration]
+            //      [  3      ][      4        ] 
+            //Console.WriteLine("data={0}", CCommondMethod.ToHex(data, "", " "));
+            int readIndex = 0;
+            byte[] bTotalRead = new byte[4];
+            Array.Copy(data, 0, bTotalRead, 1, bTotalRead.Length - 1);
+            uint totalRead = CCommondMethod.ToU32(bTotalRead, ref readIndex);
+            readIndex--;
+
+            //Console.WriteLine("readIndex={0}, bTotalRead={1}", readIndex, CCommondMethod.ToHex(bTotalRead, "", " "));
+            uint commandDuration = CCommondMethod.ToU32(data, ref readIndex);
+            //Console.WriteLine("readIndex={0}, totalRead={1}, commandDuration={2}", readIndex, totalRead, commandDuration);
+
+            cmdTotalRead = totalRead;
+            cmdCommandDuration = commandDuration;
+            cmdReadRate = (cmdCommandDuration == 0 ? cmdReadRate : (ushort)(cmdTotalRead * 1000 / cmdCommandDuration));
+            TotalCommandTimes += cmdCommandDuration;
+            //Console.WriteLine("antId={0}, readRate={1}, totalRead={2}, totalTime={3}", antId, readRate, totalRead, cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate));
         }
 
         public void Clear()

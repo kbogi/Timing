@@ -459,10 +459,10 @@ namespace UHFDemo
         public static UInt32 ToU32(byte[] bytes, ref int offset)
         {
             return (UInt32)(0
-                | ((UInt32)(bytes[offset + 0]) << 24)
-                | ((UInt32)(bytes[offset + 1]) << 16)
-                | ((UInt32)(bytes[offset + 2]) << 8)
-                | ((UInt32)(bytes[offset + 3]) << 0)
+                | ((UInt32)(bytes[offset++]) << 24)
+                | ((UInt32)(bytes[offset++]) << 16)
+                | ((UInt32)(bytes[offset++]) << 8)
+                | ((UInt32)(bytes[offset++]) << 0)
                 );
         }
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 
 namespace UHFDemo
@@ -23,7 +21,6 @@ namespace UHFDemo
         public int nIndexAntenna;
         public int nCommond;
         public bool bLoopInventoryReal;
-        public bool bLoopInventoryFast;
         public bool bLoopCustomizedSession;
 
         
@@ -51,7 +48,6 @@ namespace UHFDemo
             nIndexAntenna = 0;
             nCommond = 0;
             bLoopInventoryReal = false;
-            bLoopInventoryFast = false;
 
             nTagCount = 0;
             nReadRate = 0;
@@ -102,7 +98,6 @@ namespace UHFDemo
             nIndexAntenna = 0;
             nCommond = 0;
             bLoopInventoryReal = false;
-            bLoopInventoryFast = false;
             CustomizeSessionParameters.Clear();
         }
 

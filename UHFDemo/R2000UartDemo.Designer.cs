@@ -36,6 +36,9 @@ namespace UHFDemo
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(R2000UartDemo));
             this.tabCtrMain = new System.Windows.Forms.TabControl();
             this.PagReaderSetting = new System.Windows.Forms.TabPage();
@@ -176,34 +179,34 @@ namespace UHFDemo
             this.label152 = new System.Windows.Forms.Label();
             this.label153 = new System.Windows.Forms.Label();
             this.label154 = new System.Windows.Forms.Label();
-            this.tb_dbm_16 = new System.Windows.Forms.TextBox();
-            this.tb_dbm_15 = new System.Windows.Forms.TextBox();
-            this.tb_dbm_14 = new System.Windows.Forms.TextBox();
-            this.tb_dbm_13 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_16 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_15 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_14 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_13 = new System.Windows.Forms.TextBox();
             this.label147 = new System.Windows.Forms.Label();
             this.label148 = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
             this.label150 = new System.Windows.Forms.Label();
-            this.tb_dbm_12 = new System.Windows.Forms.TextBox();
-            this.tb_dbm_11 = new System.Windows.Forms.TextBox();
-            this.tb_dbm_10 = new System.Windows.Forms.TextBox();
-            this.tb_dbm_9 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_12 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_11 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_10 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_9 = new System.Windows.Forms.TextBox();
             this.label115 = new System.Windows.Forms.Label();
             this.label114 = new System.Windows.Forms.Label();
             this.label113 = new System.Windows.Forms.Label();
             this.label112 = new System.Windows.Forms.Label();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_8 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_7 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_6 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_5 = new System.Windows.Forms.TextBox();
             this.label34 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_4 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_3 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_2 = new System.Windows.Forms.TextBox();
+            this.tb_outputpower_1 = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.btnGetOutputPower = new System.Windows.Forms.Button();
             this.btnSetOutputPower = new System.Windows.Forms.Button();
@@ -268,8 +271,16 @@ namespace UHFDemo
             this.tbRealMaxRssi = new System.Windows.Forms.TextBox();
             this.tbRealMinRssi = new System.Windows.Forms.TextBox();
             this.pageFast4AntMode = new System.Windows.Forms.TabPage();
-            this.txt_format_fast_rb = new System.Windows.Forms.RadioButton();
-            this.excel_format_fast_rb = new System.Windows.Forms.RadioButton();
+            this.dgv_fast_inv_tags = new System.Windows.Forms.DataGridView();
+            this.SerialNumber_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ReadCount_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PC_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EPC_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Antenna_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Freq_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rssi_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phase_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Data_fast_inv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cb_fast_inv_check_all_ant = new System.Windows.Forms.CheckBox();
@@ -313,16 +324,16 @@ namespace UHFDemo
             this.txt_fast_inv_Stay_16 = new System.Windows.Forms.TextBox();
             this.btFastInventory = new System.Windows.Forms.Button();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
-            this.ledFast1 = new LxControl.LxLedControl();
+            this.ledFast_cmd_totalread = new LxControl.LxLedControl();
             this.label58 = new System.Windows.Forms.Label();
-            this.ledFast4 = new LxControl.LxLedControl();
-            this.ledFast2 = new LxControl.LxLedControl();
+            this.ledFast_totalread_count = new LxControl.LxLedControl();
+            this.ledFast_cmd_readrate = new LxControl.LxLedControl();
             this.label55 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
-            this.ledFast3 = new LxControl.LxLedControl();
+            this.ledFast_cmd_command_duration = new LxControl.LxLedControl();
             this.label57 = new System.Windows.Forms.Label();
             this.label54 = new System.Windows.Forms.Label();
-            this.ledFast5 = new LxControl.LxLedControl();
+            this.ledFast_total_execute_time = new LxControl.LxLedControl();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.m_new_fast_inventory_power2 = new System.Windows.Forms.TextBox();
             this.m_new_fast_inventory_power1 = new System.Windows.Forms.TextBox();
@@ -364,14 +375,6 @@ namespace UHFDemo
             this.txtFastMinRssi = new System.Windows.Forms.TextBox();
             this.buttonFastFresh = new System.Windows.Forms.Button();
             this.label22 = new System.Windows.Forms.Label();
-            this.lvFastList = new System.Windows.Forms.ListView();
-            this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader34 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader356 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader36 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label49 = new System.Windows.Forms.Label();
             this.txtFastTagList = new System.Windows.Forms.Label();
             this.cmd_8a_v2_tabPage = new System.Windows.Forms.TabPage();
@@ -441,7 +444,6 @@ namespace UHFDemo
             this.groupBox31 = new System.Windows.Forms.GroupBox();
             this.label116 = new System.Windows.Forms.Label();
             this.tb_fast_inv2_exec_times = new System.Windows.Forms.TextBox();
-            this.fast_inv_v2_cb = new System.Windows.Forms.CheckBox();
             this.fast_inv_v2_phase_cb = new System.Windows.Forms.CheckBox();
             this.label196 = new System.Windows.Forms.Label();
             this.fast_inv_v2_repeat_tb = new System.Windows.Forms.TextBox();
@@ -477,12 +479,13 @@ namespace UHFDemo
             this.label197 = new System.Windows.Forms.Label();
             this.tags_dgv = new System.Windows.Forms.DataGridView();
             this.mSerialNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mEpcColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mReadCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mPcColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mEpcColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.mAntennaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mRssiColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mFreqColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mPhaseColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.mAntennaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mDataColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pageAcessTag = new System.Windows.Forms.TabPage();
             this.ltvOperate = new System.Windows.Forms.ListView();
@@ -833,7 +836,6 @@ namespace UHFDemo
             this.mFastSessionTimer = new System.Windows.Forms.Timer(this.components);
             this.sortImageList = new System.Windows.Forms.ImageList(this.components);
             this.mSendFastSwitchTimer = new System.Windows.Forms.Timer(this.components);
-            this.savelog_cb = new System.Windows.Forms.CheckBox();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -877,15 +879,16 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.ledReal_cmd_duration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ledReal_totalread)).BeginInit();
             this.pageFast4AntMode.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_fast_inv_tags)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.groupBox25.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_cmd_totalread)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_totalread_count)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_cmd_readrate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_cmd_command_duration)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_total_execute_time)).BeginInit();
             this.groupBox28.SuspendLayout();
             this.groupBox27.SuspendLayout();
             this.cmd_8a_v2_tabPage.SuspendLayout();
@@ -2497,34 +2500,34 @@ namespace UHFDemo
             this.gbCmdOutputPower.Controls.Add(this.label152);
             this.gbCmdOutputPower.Controls.Add(this.label153);
             this.gbCmdOutputPower.Controls.Add(this.label154);
-            this.gbCmdOutputPower.Controls.Add(this.tb_dbm_16);
-            this.gbCmdOutputPower.Controls.Add(this.tb_dbm_15);
-            this.gbCmdOutputPower.Controls.Add(this.tb_dbm_14);
-            this.gbCmdOutputPower.Controls.Add(this.tb_dbm_13);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_16);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_15);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_14);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_13);
             this.gbCmdOutputPower.Controls.Add(this.label147);
             this.gbCmdOutputPower.Controls.Add(this.label148);
             this.gbCmdOutputPower.Controls.Add(this.label149);
             this.gbCmdOutputPower.Controls.Add(this.label150);
-            this.gbCmdOutputPower.Controls.Add(this.tb_dbm_12);
-            this.gbCmdOutputPower.Controls.Add(this.tb_dbm_11);
-            this.gbCmdOutputPower.Controls.Add(this.tb_dbm_10);
-            this.gbCmdOutputPower.Controls.Add(this.tb_dbm_9);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_12);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_11);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_10);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_9);
             this.gbCmdOutputPower.Controls.Add(this.label115);
             this.gbCmdOutputPower.Controls.Add(this.label114);
             this.gbCmdOutputPower.Controls.Add(this.label113);
             this.gbCmdOutputPower.Controls.Add(this.label112);
-            this.gbCmdOutputPower.Controls.Add(this.textBox10);
-            this.gbCmdOutputPower.Controls.Add(this.textBox9);
-            this.gbCmdOutputPower.Controls.Add(this.textBox8);
-            this.gbCmdOutputPower.Controls.Add(this.textBox7);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_8);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_7);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_6);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_5);
             this.gbCmdOutputPower.Controls.Add(this.label34);
             this.gbCmdOutputPower.Controls.Add(this.label21);
             this.gbCmdOutputPower.Controls.Add(this.label20);
             this.gbCmdOutputPower.Controls.Add(this.label18);
-            this.gbCmdOutputPower.Controls.Add(this.textBox4);
-            this.gbCmdOutputPower.Controls.Add(this.textBox3);
-            this.gbCmdOutputPower.Controls.Add(this.textBox2);
-            this.gbCmdOutputPower.Controls.Add(this.textBox1);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_4);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_3);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_2);
+            this.gbCmdOutputPower.Controls.Add(this.tb_outputpower_1);
             this.gbCmdOutputPower.Controls.Add(this.label15);
             this.gbCmdOutputPower.Controls.Add(this.btnGetOutputPower);
             this.gbCmdOutputPower.Controls.Add(this.btnSetOutputPower);
@@ -2573,37 +2576,37 @@ namespace UHFDemo
             this.label154.TabIndex = 33;
             this.label154.Text = "13";
             // 
-            // tb_dbm_16
+            // tb_outputpower_16
             // 
-            this.tb_dbm_16.Location = new System.Drawing.Point(388, 35);
-            this.tb_dbm_16.Name = "tb_dbm_16";
-            this.tb_dbm_16.Size = new System.Drawing.Size(17, 21);
-            this.tb_dbm_16.TabIndex = 32;
-            this.tb_dbm_16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_16.Location = new System.Drawing.Point(388, 35);
+            this.tb_outputpower_16.Name = "tb_outputpower_16";
+            this.tb_outputpower_16.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_16.TabIndex = 32;
+            this.tb_outputpower_16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tb_dbm_15
+            // tb_outputpower_15
             // 
-            this.tb_dbm_15.Location = new System.Drawing.Point(363, 35);
-            this.tb_dbm_15.Name = "tb_dbm_15";
-            this.tb_dbm_15.Size = new System.Drawing.Size(17, 21);
-            this.tb_dbm_15.TabIndex = 31;
-            this.tb_dbm_15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_15.Location = new System.Drawing.Point(363, 35);
+            this.tb_outputpower_15.Name = "tb_outputpower_15";
+            this.tb_outputpower_15.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_15.TabIndex = 31;
+            this.tb_outputpower_15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tb_dbm_14
+            // tb_outputpower_14
             // 
-            this.tb_dbm_14.Location = new System.Drawing.Point(341, 35);
-            this.tb_dbm_14.Name = "tb_dbm_14";
-            this.tb_dbm_14.Size = new System.Drawing.Size(17, 21);
-            this.tb_dbm_14.TabIndex = 30;
-            this.tb_dbm_14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_14.Location = new System.Drawing.Point(341, 35);
+            this.tb_outputpower_14.Name = "tb_outputpower_14";
+            this.tb_outputpower_14.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_14.TabIndex = 30;
+            this.tb_outputpower_14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tb_dbm_13
+            // tb_outputpower_13
             // 
-            this.tb_dbm_13.Location = new System.Drawing.Point(316, 35);
-            this.tb_dbm_13.Name = "tb_dbm_13";
-            this.tb_dbm_13.Size = new System.Drawing.Size(17, 21);
-            this.tb_dbm_13.TabIndex = 29;
-            this.tb_dbm_13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_13.Location = new System.Drawing.Point(316, 35);
+            this.tb_outputpower_13.Name = "tb_outputpower_13";
+            this.tb_outputpower_13.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_13.TabIndex = 29;
+            this.tb_outputpower_13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label147
             // 
@@ -2641,37 +2644,37 @@ namespace UHFDemo
             this.label150.TabIndex = 25;
             this.label150.Text = "9";
             // 
-            // tb_dbm_12
+            // tb_outputpower_12
             // 
-            this.tb_dbm_12.Location = new System.Drawing.Point(289, 35);
-            this.tb_dbm_12.Name = "tb_dbm_12";
-            this.tb_dbm_12.Size = new System.Drawing.Size(17, 21);
-            this.tb_dbm_12.TabIndex = 24;
-            this.tb_dbm_12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_12.Location = new System.Drawing.Point(289, 35);
+            this.tb_outputpower_12.Name = "tb_outputpower_12";
+            this.tb_outputpower_12.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_12.TabIndex = 24;
+            this.tb_outputpower_12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tb_dbm_11
+            // tb_outputpower_11
             // 
-            this.tb_dbm_11.Location = new System.Drawing.Point(264, 35);
-            this.tb_dbm_11.Name = "tb_dbm_11";
-            this.tb_dbm_11.Size = new System.Drawing.Size(17, 21);
-            this.tb_dbm_11.TabIndex = 23;
-            this.tb_dbm_11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_11.Location = new System.Drawing.Point(264, 35);
+            this.tb_outputpower_11.Name = "tb_outputpower_11";
+            this.tb_outputpower_11.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_11.TabIndex = 23;
+            this.tb_outputpower_11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tb_dbm_10
+            // tb_outputpower_10
             // 
-            this.tb_dbm_10.Location = new System.Drawing.Point(242, 35);
-            this.tb_dbm_10.Name = "tb_dbm_10";
-            this.tb_dbm_10.Size = new System.Drawing.Size(17, 21);
-            this.tb_dbm_10.TabIndex = 22;
-            this.tb_dbm_10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_10.Location = new System.Drawing.Point(242, 35);
+            this.tb_outputpower_10.Name = "tb_outputpower_10";
+            this.tb_outputpower_10.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_10.TabIndex = 22;
+            this.tb_outputpower_10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // tb_dbm_9
+            // tb_outputpower_9
             // 
-            this.tb_dbm_9.Location = new System.Drawing.Point(217, 35);
-            this.tb_dbm_9.Name = "tb_dbm_9";
-            this.tb_dbm_9.Size = new System.Drawing.Size(17, 21);
-            this.tb_dbm_9.TabIndex = 21;
-            this.tb_dbm_9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_9.Location = new System.Drawing.Point(217, 35);
+            this.tb_outputpower_9.Name = "tb_outputpower_9";
+            this.tb_outputpower_9.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_9.TabIndex = 21;
+            this.tb_outputpower_9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label115
             // 
@@ -2709,41 +2712,41 @@ namespace UHFDemo
             this.label112.TabIndex = 17;
             this.label112.Text = "5";
             // 
-            // textBox10
+            // tb_outputpower_8
             // 
-            this.textBox10.Location = new System.Drawing.Point(193, 35);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(17, 21);
-            this.textBox10.TabIndex = 16;
-            this.textBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox10.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
+            this.tb_outputpower_8.Location = new System.Drawing.Point(193, 35);
+            this.tb_outputpower_8.Name = "tb_outputpower_8";
+            this.tb_outputpower_8.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_8.TabIndex = 16;
+            this.tb_outputpower_8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_8.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
             // 
-            // textBox9
+            // tb_outputpower_7
             // 
-            this.textBox9.Location = new System.Drawing.Point(168, 35);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(17, 21);
-            this.textBox9.TabIndex = 15;
-            this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox9.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
+            this.tb_outputpower_7.Location = new System.Drawing.Point(168, 35);
+            this.tb_outputpower_7.Name = "tb_outputpower_7";
+            this.tb_outputpower_7.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_7.TabIndex = 15;
+            this.tb_outputpower_7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_7.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
             // 
-            // textBox8
+            // tb_outputpower_6
             // 
-            this.textBox8.Location = new System.Drawing.Point(146, 35);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(17, 21);
-            this.textBox8.TabIndex = 14;
-            this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox8.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
+            this.tb_outputpower_6.Location = new System.Drawing.Point(146, 35);
+            this.tb_outputpower_6.Name = "tb_outputpower_6";
+            this.tb_outputpower_6.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_6.TabIndex = 14;
+            this.tb_outputpower_6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_6.TextChanged += new System.EventHandler(this.textBox8_TextChanged);
             // 
-            // textBox7
+            // tb_outputpower_5
             // 
-            this.textBox7.Location = new System.Drawing.Point(121, 35);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(17, 21);
-            this.textBox7.TabIndex = 13;
-            this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            this.tb_outputpower_5.Location = new System.Drawing.Point(121, 35);
+            this.tb_outputpower_5.Name = "tb_outputpower_5";
+            this.tb_outputpower_5.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_5.TabIndex = 13;
+            this.tb_outputpower_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_5.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
             // 
             // label34
             // 
@@ -2781,41 +2784,41 @@ namespace UHFDemo
             this.label18.TabIndex = 9;
             this.label18.Text = "1";
             // 
-            // textBox4
+            // tb_outputpower_4
             // 
-            this.textBox4.Location = new System.Drawing.Point(96, 35);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(17, 21);
-            this.textBox4.TabIndex = 7;
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.tb_outputpower_4.Location = new System.Drawing.Point(96, 35);
+            this.tb_outputpower_4.Name = "tb_outputpower_4";
+            this.tb_outputpower_4.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_4.TabIndex = 7;
+            this.tb_outputpower_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             // 
-            // textBox3
+            // tb_outputpower_3
             // 
-            this.textBox3.Location = new System.Drawing.Point(71, 35);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(17, 21);
-            this.textBox3.TabIndex = 6;
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.tb_outputpower_3.Location = new System.Drawing.Point(71, 35);
+            this.tb_outputpower_3.Name = "tb_outputpower_3";
+            this.tb_outputpower_3.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_3.TabIndex = 6;
+            this.tb_outputpower_3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
             // 
-            // textBox2
+            // tb_outputpower_2
             // 
-            this.textBox2.Location = new System.Drawing.Point(49, 35);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(17, 21);
-            this.textBox2.TabIndex = 5;
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            this.tb_outputpower_2.Location = new System.Drawing.Point(49, 35);
+            this.tb_outputpower_2.Name = "tb_outputpower_2";
+            this.tb_outputpower_2.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_2.TabIndex = 5;
+            this.tb_outputpower_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
-            // textBox1
+            // tb_outputpower_1
             // 
-            this.textBox1.Location = new System.Drawing.Point(24, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(17, 21);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.tb_outputpower_1.Location = new System.Drawing.Point(24, 35);
+            this.tb_outputpower_1.Name = "tb_outputpower_1";
+            this.tb_outputpower_1.Size = new System.Drawing.Size(17, 21);
+            this.tb_outputpower_1.TabIndex = 4;
+            this.tb_outputpower_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_outputpower_1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label15
             // 
@@ -2930,7 +2933,7 @@ namespace UHFDemo
             // 
             // SerialNumber_real_inv
             // 
-            this.SerialNumber_real_inv.HeaderText = "No.";
+            this.SerialNumber_real_inv.HeaderText = "SerialNumber";
             this.SerialNumber_real_inv.Name = "SerialNumber_real_inv";
             // 
             // ReadCount_real_inv
@@ -3592,15 +3595,13 @@ namespace UHFDemo
             // pageFast4AntMode
             // 
             this.pageFast4AntMode.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pageFast4AntMode.Controls.Add(this.txt_format_fast_rb);
-            this.pageFast4AntMode.Controls.Add(this.excel_format_fast_rb);
+            this.pageFast4AntMode.Controls.Add(this.dgv_fast_inv_tags);
             this.pageFast4AntMode.Controls.Add(this.button7);
             this.pageFast4AntMode.Controls.Add(this.groupBox2);
             this.pageFast4AntMode.Controls.Add(this.txtFastMaxRssi);
             this.pageFast4AntMode.Controls.Add(this.txtFastMinRssi);
             this.pageFast4AntMode.Controls.Add(this.buttonFastFresh);
             this.pageFast4AntMode.Controls.Add(this.label22);
-            this.pageFast4AntMode.Controls.Add(this.lvFastList);
             this.pageFast4AntMode.Controls.Add(this.label49);
             this.pageFast4AntMode.Controls.Add(this.txtFastTagList);
             this.pageFast4AntMode.ForeColor = System.Drawing.SystemColors.Desktop;
@@ -3612,33 +3613,100 @@ namespace UHFDemo
             this.pageFast4AntMode.Text = "多天线盘存";
             this.pageFast4AntMode.Enter += new System.EventHandler(this.pageFast4AntMode_Enter);
             // 
-            // txt_format_fast_rb
+            // dgv_fast_inv_tags
             // 
-            this.txt_format_fast_rb.AutoSize = true;
-            this.txt_format_fast_rb.Checked = true;
-            this.txt_format_fast_rb.Location = new System.Drawing.Point(738, 331);
-            this.txt_format_fast_rb.Name = "txt_format_fast_rb";
-            this.txt_format_fast_rb.Size = new System.Drawing.Size(41, 16);
-            this.txt_format_fast_rb.TabIndex = 65;
-            this.txt_format_fast_rb.TabStop = true;
-            this.txt_format_fast_rb.Text = "TXT";
-            this.txt_format_fast_rb.UseVisualStyleBackColor = true;
+            this.dgv_fast_inv_tags.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_fast_inv_tags.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_fast_inv_tags.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_fast_inv_tags.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.SerialNumber_fast_inv,
+            this.ReadCount_fast_inv,
+            this.PC_fast_inv,
+            this.EPC_fast_inv,
+            this.Antenna_fast_inv,
+            this.Freq_fast_inv,
+            this.Rssi_fast_inv,
+            this.Phase_fast_inv,
+            this.Data_fast_inv});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_fast_inv_tags.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv_fast_inv_tags.Location = new System.Drawing.Point(3, 353);
+            this.dgv_fast_inv_tags.Name = "dgv_fast_inv_tags";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_fast_inv_tags.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgv_fast_inv_tags.RowTemplate.Height = 23;
+            this.dgv_fast_inv_tags.Size = new System.Drawing.Size(991, 163);
+            this.dgv_fast_inv_tags.TabIndex = 66;
             // 
-            // excel_format_fast_rb
+            // SerialNumber_fast_inv
             // 
-            this.excel_format_fast_rb.AutoSize = true;
-            this.excel_format_fast_rb.Location = new System.Drawing.Point(810, 331);
-            this.excel_format_fast_rb.Name = "excel_format_fast_rb";
-            this.excel_format_fast_rb.Size = new System.Drawing.Size(53, 16);
-            this.excel_format_fast_rb.TabIndex = 64;
-            this.excel_format_fast_rb.Text = "EXCEL";
-            this.excel_format_fast_rb.UseVisualStyleBackColor = true;
+            this.SerialNumber_fast_inv.HeaderText = "SerialNumber";
+            this.SerialNumber_fast_inv.Name = "SerialNumber_fast_inv";
+            // 
+            // ReadCount_fast_inv
+            // 
+            this.ReadCount_fast_inv.HeaderText = "ReadCount";
+            this.ReadCount_fast_inv.Name = "ReadCount_fast_inv";
+            // 
+            // PC_fast_inv
+            // 
+            this.PC_fast_inv.HeaderText = "PC";
+            this.PC_fast_inv.Name = "PC_fast_inv";
+            // 
+            // EPC_fast_inv
+            // 
+            this.EPC_fast_inv.HeaderText = "EPC";
+            this.EPC_fast_inv.Name = "EPC_fast_inv";
+            // 
+            // Antenna_fast_inv
+            // 
+            this.Antenna_fast_inv.HeaderText = "Antenna";
+            this.Antenna_fast_inv.Name = "Antenna_fast_inv";
+            // 
+            // Freq_fast_inv
+            // 
+            this.Freq_fast_inv.HeaderText = "Freq";
+            this.Freq_fast_inv.Name = "Freq_fast_inv";
+            // 
+            // Rssi_fast_inv
+            // 
+            this.Rssi_fast_inv.HeaderText = "Rssi";
+            this.Rssi_fast_inv.Name = "Rssi_fast_inv";
+            // 
+            // Phase_fast_inv
+            // 
+            this.Phase_fast_inv.HeaderText = "Phase";
+            this.Phase_fast_inv.Name = "Phase_fast_inv";
+            // 
+            // Data_fast_inv
+            // 
+            this.Data_fast_inv.HeaderText = "Data";
+            this.Data_fast_inv.Name = "Data_fast_inv";
             // 
             // button7
             // 
             this.button7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.button7.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.button7.Location = new System.Drawing.Point(885, 327);
+            this.button7.Location = new System.Drawing.Point(893, 324);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(89, 23);
             this.button7.TabIndex = 62;
@@ -4089,16 +4157,16 @@ namespace UHFDemo
             // 
             // groupBox25
             // 
-            this.groupBox25.Controls.Add(this.ledFast1);
+            this.groupBox25.Controls.Add(this.ledFast_cmd_totalread);
             this.groupBox25.Controls.Add(this.label58);
-            this.groupBox25.Controls.Add(this.ledFast4);
-            this.groupBox25.Controls.Add(this.ledFast2);
+            this.groupBox25.Controls.Add(this.ledFast_totalread_count);
+            this.groupBox25.Controls.Add(this.ledFast_cmd_readrate);
             this.groupBox25.Controls.Add(this.label55);
             this.groupBox25.Controls.Add(this.label56);
-            this.groupBox25.Controls.Add(this.ledFast3);
+            this.groupBox25.Controls.Add(this.ledFast_cmd_command_duration);
             this.groupBox25.Controls.Add(this.label57);
             this.groupBox25.Controls.Add(this.label54);
-            this.groupBox25.Controls.Add(this.ledFast5);
+            this.groupBox25.Controls.Add(this.ledFast_total_execute_time);
             this.groupBox25.Location = new System.Drawing.Point(256, 12);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(430, 296);
@@ -4106,27 +4174,27 @@ namespace UHFDemo
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "数据";
             // 
-            // ledFast1
+            // ledFast_cmd_totalread
             // 
-            this.ledFast1.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast1.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast1.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast1.BevelRate = 0.1F;
-            this.ledFast1.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast1.BorderWidth = 3;
-            this.ledFast1.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast1.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast1.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.ledFast1.HighlightOpaque = ((byte)(20));
-            this.ledFast1.Location = new System.Drawing.Point(15, 39);
-            this.ledFast1.Name = "ledFast1";
-            this.ledFast1.RoundCorner = true;
-            this.ledFast1.SegmentIntervalRatio = 50;
-            this.ledFast1.ShowHighlight = true;
-            this.ledFast1.Size = new System.Drawing.Size(281, 106);
-            this.ledFast1.TabIndex = 21;
-            this.ledFast1.Text = "0";
-            this.ledFast1.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast_cmd_totalread.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast_cmd_totalread.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast_cmd_totalread.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast_cmd_totalread.BevelRate = 0.1F;
+            this.ledFast_cmd_totalread.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast_cmd_totalread.BorderWidth = 3;
+            this.ledFast_cmd_totalread.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast_cmd_totalread.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast_cmd_totalread.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.ledFast_cmd_totalread.HighlightOpaque = ((byte)(20));
+            this.ledFast_cmd_totalread.Location = new System.Drawing.Point(15, 39);
+            this.ledFast_cmd_totalread.Name = "ledFast_cmd_totalread";
+            this.ledFast_cmd_totalread.RoundCorner = true;
+            this.ledFast_cmd_totalread.SegmentIntervalRatio = 50;
+            this.ledFast_cmd_totalread.ShowHighlight = true;
+            this.ledFast_cmd_totalread.Size = new System.Drawing.Size(281, 106);
+            this.ledFast_cmd_totalread.TabIndex = 21;
+            this.ledFast_cmd_totalread.Text = "0";
+            this.ledFast_cmd_totalread.TextAlignment = LxControl.LxLedControl.Alignment.Right;
             // 
             // label58
             // 
@@ -4139,49 +4207,49 @@ namespace UHFDemo
             this.label58.TabIndex = 26;
             this.label58.Text = "已盘存的标签总数量(个):";
             // 
-            // ledFast4
+            // ledFast_totalread_count
             // 
-            this.ledFast4.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast4.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast4.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast4.BevelRate = 0.1F;
-            this.ledFast4.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast4.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast4.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast4.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.ledFast4.HighlightOpaque = ((byte)(20));
-            this.ledFast4.Location = new System.Drawing.Point(164, 184);
-            this.ledFast4.Name = "ledFast4";
-            this.ledFast4.RoundCorner = true;
-            this.ledFast4.SegmentIntervalRatio = 50;
-            this.ledFast4.ShowHighlight = true;
-            this.ledFast4.Size = new System.Drawing.Size(252, 35);
-            this.ledFast4.TabIndex = 40;
-            this.ledFast4.Text = "0";
-            this.ledFast4.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.ledFast4.TotalCharCount = 14;
+            this.ledFast_totalread_count.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast_totalread_count.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast_totalread_count.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast_totalread_count.BevelRate = 0.1F;
+            this.ledFast_totalread_count.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast_totalread_count.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast_totalread_count.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast_totalread_count.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.ledFast_totalread_count.HighlightOpaque = ((byte)(20));
+            this.ledFast_totalread_count.Location = new System.Drawing.Point(164, 184);
+            this.ledFast_totalread_count.Name = "ledFast_totalread_count";
+            this.ledFast_totalread_count.RoundCorner = true;
+            this.ledFast_totalread_count.SegmentIntervalRatio = 50;
+            this.ledFast_totalread_count.ShowHighlight = true;
+            this.ledFast_totalread_count.Size = new System.Drawing.Size(252, 35);
+            this.ledFast_totalread_count.TabIndex = 40;
+            this.ledFast_totalread_count.Text = "0";
+            this.ledFast_totalread_count.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast_totalread_count.TotalCharCount = 14;
             // 
-            // ledFast2
+            // ledFast_cmd_readrate
             // 
-            this.ledFast2.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast2.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast2.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast2.BevelRate = 0.1F;
-            this.ledFast2.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast2.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast2.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast2.ForeColor = System.Drawing.Color.Purple;
-            this.ledFast2.HighlightOpaque = ((byte)(20));
-            this.ledFast2.Location = new System.Drawing.Point(15, 184);
-            this.ledFast2.Name = "ledFast2";
-            this.ledFast2.RoundCorner = true;
-            this.ledFast2.SegmentIntervalRatio = 50;
-            this.ledFast2.ShowHighlight = true;
-            this.ledFast2.Size = new System.Drawing.Size(124, 37);
-            this.ledFast2.TabIndex = 34;
-            this.ledFast2.Text = "0";
-            this.ledFast2.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.ledFast2.TotalCharCount = 6;
+            this.ledFast_cmd_readrate.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast_cmd_readrate.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast_cmd_readrate.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast_cmd_readrate.BevelRate = 0.1F;
+            this.ledFast_cmd_readrate.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast_cmd_readrate.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast_cmd_readrate.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast_cmd_readrate.ForeColor = System.Drawing.Color.Purple;
+            this.ledFast_cmd_readrate.HighlightOpaque = ((byte)(20));
+            this.ledFast_cmd_readrate.Location = new System.Drawing.Point(15, 184);
+            this.ledFast_cmd_readrate.Name = "ledFast_cmd_readrate";
+            this.ledFast_cmd_readrate.RoundCorner = true;
+            this.ledFast_cmd_readrate.SegmentIntervalRatio = 50;
+            this.ledFast_cmd_readrate.ShowHighlight = true;
+            this.ledFast_cmd_readrate.Size = new System.Drawing.Size(124, 37);
+            this.ledFast_cmd_readrate.TabIndex = 34;
+            this.ledFast_cmd_readrate.Text = "0";
+            this.ledFast_cmd_readrate.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast_cmd_readrate.TotalCharCount = 6;
             // 
             // label55
             // 
@@ -4205,27 +4273,27 @@ namespace UHFDemo
             this.label56.TabIndex = 28;
             this.label56.Text = "命令执行时间(毫秒):";
             // 
-            // ledFast3
+            // ledFast_cmd_command_duration
             // 
-            this.ledFast3.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast3.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast3.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast3.BevelRate = 0.1F;
-            this.ledFast3.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast3.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast3.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast3.ForeColor = System.Drawing.Color.Purple;
-            this.ledFast3.HighlightOpaque = ((byte)(20));
-            this.ledFast3.Location = new System.Drawing.Point(15, 248);
-            this.ledFast3.Name = "ledFast3";
-            this.ledFast3.RoundCorner = true;
-            this.ledFast3.SegmentIntervalRatio = 50;
-            this.ledFast3.ShowHighlight = true;
-            this.ledFast3.Size = new System.Drawing.Size(121, 34);
-            this.ledFast3.TabIndex = 33;
-            this.ledFast3.Text = "0";
-            this.ledFast3.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.ledFast3.TotalCharCount = 6;
+            this.ledFast_cmd_command_duration.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast_cmd_command_duration.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast_cmd_command_duration.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast_cmd_command_duration.BevelRate = 0.1F;
+            this.ledFast_cmd_command_duration.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast_cmd_command_duration.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast_cmd_command_duration.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast_cmd_command_duration.ForeColor = System.Drawing.Color.Purple;
+            this.ledFast_cmd_command_duration.HighlightOpaque = ((byte)(20));
+            this.ledFast_cmd_command_duration.Location = new System.Drawing.Point(15, 248);
+            this.ledFast_cmd_command_duration.Name = "ledFast_cmd_command_duration";
+            this.ledFast_cmd_command_duration.RoundCorner = true;
+            this.ledFast_cmd_command_duration.SegmentIntervalRatio = 50;
+            this.ledFast_cmd_command_duration.ShowHighlight = true;
+            this.ledFast_cmd_command_duration.Size = new System.Drawing.Size(121, 34);
+            this.ledFast_cmd_command_duration.TabIndex = 33;
+            this.ledFast_cmd_command_duration.Text = "0";
+            this.ledFast_cmd_command_duration.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast_cmd_command_duration.TotalCharCount = 6;
             // 
             // label57
             // 
@@ -4249,27 +4317,27 @@ namespace UHFDemo
             this.label54.TabIndex = 30;
             this.label54.Text = "累计运行的时间(毫秒):";
             // 
-            // ledFast5
+            // ledFast_total_execute_time
             // 
-            this.ledFast5.BackColor = System.Drawing.Color.Transparent;
-            this.ledFast5.BackColor_1 = System.Drawing.Color.Transparent;
-            this.ledFast5.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.ledFast5.BevelRate = 0.1F;
-            this.ledFast5.BorderColor = System.Drawing.Color.Lavender;
-            this.ledFast5.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.ledFast5.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.ledFast5.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.ledFast5.HighlightOpaque = ((byte)(20));
-            this.ledFast5.Location = new System.Drawing.Point(164, 248);
-            this.ledFast5.Name = "ledFast5";
-            this.ledFast5.RoundCorner = true;
-            this.ledFast5.SegmentIntervalRatio = 50;
-            this.ledFast5.ShowHighlight = true;
-            this.ledFast5.Size = new System.Drawing.Size(252, 35);
-            this.ledFast5.TabIndex = 35;
-            this.ledFast5.Text = "0";
-            this.ledFast5.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            this.ledFast5.TotalCharCount = 14;
+            this.ledFast_total_execute_time.BackColor = System.Drawing.Color.Transparent;
+            this.ledFast_total_execute_time.BackColor_1 = System.Drawing.Color.Transparent;
+            this.ledFast_total_execute_time.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.ledFast_total_execute_time.BevelRate = 0.1F;
+            this.ledFast_total_execute_time.BorderColor = System.Drawing.Color.Lavender;
+            this.ledFast_total_execute_time.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.ledFast_total_execute_time.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.ledFast_total_execute_time.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.ledFast_total_execute_time.HighlightOpaque = ((byte)(20));
+            this.ledFast_total_execute_time.Location = new System.Drawing.Point(164, 248);
+            this.ledFast_total_execute_time.Name = "ledFast_total_execute_time";
+            this.ledFast_total_execute_time.RoundCorner = true;
+            this.ledFast_total_execute_time.SegmentIntervalRatio = 50;
+            this.ledFast_total_execute_time.ShowHighlight = true;
+            this.ledFast_total_execute_time.Size = new System.Drawing.Size(252, 35);
+            this.ledFast_total_execute_time.TabIndex = 35;
+            this.ledFast_total_execute_time.Text = "0";
+            this.ledFast_total_execute_time.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.ledFast_total_execute_time.TotalCharCount = 14;
             // 
             // groupBox28
             // 
@@ -4646,6 +4714,7 @@ namespace UHFDemo
             // 
             // tb_fast_inv_reserved_2
             // 
+            this.tb_fast_inv_reserved_2.Enabled = false;
             this.tb_fast_inv_reserved_2.Location = new System.Drawing.Point(95, 73);
             this.tb_fast_inv_reserved_2.Name = "tb_fast_inv_reserved_2";
             this.tb_fast_inv_reserved_2.Size = new System.Drawing.Size(26, 21);
@@ -4712,7 +4781,7 @@ namespace UHFDemo
             // txtFastMaxRssi
             // 
             this.txtFastMaxRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtFastMaxRssi.Location = new System.Drawing.Point(503, 329);
+            this.txtFastMaxRssi.Location = new System.Drawing.Point(729, 326);
             this.txtFastMaxRssi.Name = "txtFastMaxRssi";
             this.txtFastMaxRssi.Size = new System.Drawing.Size(62, 21);
             this.txtFastMaxRssi.TabIndex = 40;
@@ -4720,7 +4789,7 @@ namespace UHFDemo
             // txtFastMinRssi
             // 
             this.txtFastMinRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtFastMinRssi.Location = new System.Drawing.Point(339, 330);
+            this.txtFastMinRssi.Location = new System.Drawing.Point(596, 326);
             this.txtFastMinRssi.Name = "txtFastMinRssi";
             this.txtFastMinRssi.Size = new System.Drawing.Size(62, 21);
             this.txtFastMinRssi.TabIndex = 41;
@@ -4729,7 +4798,7 @@ namespace UHFDemo
             // 
             this.buttonFastFresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.buttonFastFresh.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.buttonFastFresh.Location = new System.Drawing.Point(600, 327);
+            this.buttonFastFresh.Location = new System.Drawing.Point(798, 324);
             this.buttonFastFresh.Name = "buttonFastFresh";
             this.buttonFastFresh.Size = new System.Drawing.Size(89, 23);
             this.buttonFastFresh.TabIndex = 28;
@@ -4742,80 +4811,18 @@ namespace UHFDemo
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label22.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label22.Location = new System.Drawing.Point(438, 334);
+            this.label22.Location = new System.Drawing.Point(664, 329);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(59, 12);
             this.label22.TabIndex = 26;
             this.label22.Text = "Max RSSI:";
-            // 
-            // lvFastList
-            // 
-            this.lvFastList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader31,
-            this.columnHeader32,
-            this.columnHeader33,
-            this.columnHeader34,
-            this.columnHeader35,
-            this.columnHeader356,
-            this.columnHeader36});
-            this.lvFastList.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lvFastList.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lvFastList.GridLines = true;
-            this.lvFastList.HideSelection = false;
-            this.lvFastList.Location = new System.Drawing.Point(3, 356);
-            this.lvFastList.Name = "lvFastList";
-            this.lvFastList.Size = new System.Drawing.Size(994, 163);
-            this.lvFastList.TabIndex = 24;
-            this.lvFastList.UseCompatibleStateImageBehavior = false;
-            this.lvFastList.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader31
-            // 
-            this.columnHeader31.Text = "ID";
-            this.columnHeader31.Width = 56;
-            // 
-            // columnHeader32
-            // 
-            this.columnHeader32.Text = "EPC";
-            this.columnHeader32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader32.Width = 428;
-            // 
-            // columnHeader33
-            // 
-            this.columnHeader33.Text = "PC";
-            this.columnHeader33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader33.Width = 65;
-            // 
-            // columnHeader34
-            // 
-            this.columnHeader34.Text = "识别次数(ANT1/2/3/4/5/6/7/8)";
-            this.columnHeader34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader34.Width = 226;
-            // 
-            // columnHeader35
-            // 
-            this.columnHeader35.Text = "RSSI";
-            this.columnHeader35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader35.Width = 96;
-            // 
-            // columnHeader356
-            // 
-            this.columnHeader356.Text = "Phase";
-            this.columnHeader356.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader356.Width = 56;
-            // 
-            // columnHeader36
-            // 
-            this.columnHeader36.Text = "载波频率";
-            this.columnHeader36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader36.Width = 125;
             // 
             // label49
             // 
             this.label49.AutoSize = true;
             this.label49.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label49.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label49.Location = new System.Drawing.Point(274, 336);
+            this.label49.Location = new System.Drawing.Point(531, 329);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(59, 12);
             this.label49.TabIndex = 27;
@@ -4826,7 +4833,7 @@ namespace UHFDemo
             this.txtFastTagList.AutoSize = true;
             this.txtFastTagList.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtFastTagList.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.txtFastTagList.Location = new System.Drawing.Point(7, 342);
+            this.txtFastTagList.Location = new System.Drawing.Point(6, 324);
             this.txtFastTagList.Name = "txtFastTagList";
             this.txtFastTagList.Size = new System.Drawing.Size(65, 12);
             this.txtFastTagList.TabIndex = 23;
@@ -4842,8 +4849,6 @@ namespace UHFDemo
             this.cmd_8a_v2_tabPage.TabIndex = 5;
             this.cmd_8a_v2_tabPage.Text = "多天线盘存（临时功率）";
             this.cmd_8a_v2_tabPage.UseVisualStyleBackColor = true;
-            this.cmd_8a_v2_tabPage.Enter += new System.EventHandler(this.cmd_8a_v2_tabPage_Enter);
-            this.cmd_8a_v2_tabPage.Leave += new System.EventHandler(this.cmd_8a_v2_tabPage_Leave);
             // 
             // splitContainer2
             // 
@@ -5503,7 +5508,6 @@ namespace UHFDemo
             // 
             this.groupBox31.Controls.Add(this.label116);
             this.groupBox31.Controls.Add(this.tb_fast_inv2_exec_times);
-            this.groupBox31.Controls.Add(this.fast_inv_v2_cb);
             this.groupBox31.Controls.Add(this.fast_inv_v2_phase_cb);
             this.groupBox31.Controls.Add(this.label196);
             this.groupBox31.Controls.Add(this.fast_inv_v2_repeat_tb);
@@ -5538,16 +5542,6 @@ namespace UHFDemo
             this.tb_fast_inv2_exec_times.TabIndex = 70;
             this.tb_fast_inv2_exec_times.Text = "-1";
             this.tb_fast_inv2_exec_times.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // fast_inv_v2_cb
-            // 
-            this.fast_inv_v2_cb.AutoSize = true;
-            this.fast_inv_v2_cb.Location = new System.Drawing.Point(234, 176);
-            this.fast_inv_v2_cb.Name = "fast_inv_v2_cb";
-            this.fast_inv_v2_cb.Size = new System.Drawing.Size(78, 16);
-            this.fast_inv_v2_cb.TabIndex = 15;
-            this.fast_inv_v2_cb.Text = "CMD_8A_V2";
-            this.fast_inv_v2_cb.UseVisualStyleBackColor = true;
             // 
             // fast_inv_v2_phase_cb
             // 
@@ -5889,42 +5883,43 @@ namespace UHFDemo
             // 
             // tags_dgv
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.tags_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tags_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.mSerialNumberColumn,
-            this.mEpcColumn,
             this.mReadCountColumn,
+            this.mPcColumn,
+            this.mEpcColumn,
+            this.mAntennaColumn,
             this.mRssiColumn,
             this.mFreqColumn,
             this.mPhaseColumn,
-            this.mAntennaColumn,
             this.mDataColumn});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.tags_dgv.DefaultCellStyle = dataGridViewCellStyle5;
             this.tags_dgv.Location = new System.Drawing.Point(5, 85);
             this.tags_dgv.Name = "tags_dgv";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tags_dgv.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.tags_dgv.RowTemplate.Height = 23;
             this.tags_dgv.Size = new System.Drawing.Size(652, 428);
             this.tags_dgv.TabIndex = 0;
@@ -5934,15 +5929,25 @@ namespace UHFDemo
             this.mSerialNumberColumn.HeaderText = "SerialNumber";
             this.mSerialNumberColumn.Name = "mSerialNumberColumn";
             // 
+            // mReadCountColumn
+            // 
+            this.mReadCountColumn.HeaderText = "ReadCount";
+            this.mReadCountColumn.Name = "mReadCountColumn";
+            // 
+            // mPcColumn
+            // 
+            this.mPcColumn.HeaderText = "PC";
+            this.mPcColumn.Name = "mPcColumn";
+            // 
             // mEpcColumn
             // 
             this.mEpcColumn.HeaderText = "EPC";
             this.mEpcColumn.Name = "mEpcColumn";
             // 
-            // mReadCountColumn
+            // mAntennaColumn
             // 
-            this.mReadCountColumn.HeaderText = "ReadCount";
-            this.mReadCountColumn.Name = "mReadCountColumn";
+            this.mAntennaColumn.HeaderText = "Antenna";
+            this.mAntennaColumn.Name = "mAntennaColumn";
             // 
             // mRssiColumn
             // 
@@ -5958,11 +5963,6 @@ namespace UHFDemo
             // 
             this.mPhaseColumn.HeaderText = "Phase";
             this.mPhaseColumn.Name = "mPhaseColumn";
-            // 
-            // mAntennaColumn
-            // 
-            this.mAntennaColumn.HeaderText = "Antenna";
-            this.mAntennaColumn.Name = "mAntennaColumn";
             // 
             // mDataColumn
             // 
@@ -9760,23 +9760,11 @@ namespace UHFDemo
             this.sortImageList.TransparentColor = System.Drawing.Color.Transparent;
             this.sortImageList.Images.SetKeyName(0, "sort.png");
             // 
-            // savelog_cb
-            // 
-            this.savelog_cb.AutoSize = true;
-            this.savelog_cb.Location = new System.Drawing.Point(797, 586);
-            this.savelog_cb.Name = "savelog_cb";
-            this.savelog_cb.Size = new System.Drawing.Size(72, 16);
-            this.savelog_cb.TabIndex = 16;
-            this.savelog_cb.Text = "保存记录";
-            this.savelog_cb.UseVisualStyleBackColor = true;
-            this.savelog_cb.CheckedChanged += new System.EventHandler(this.savelog_cb_CheckedChanged);
-            // 
             // R2000UartDemo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1018, 740);
-            this.Controls.Add(this.savelog_cb);
             this.Controls.Add(this.ckClearOperationRec);
             this.Controls.Add(this.ckDisplayLog);
             this.Controls.Add(this.label35);
@@ -9860,6 +9848,7 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.ledReal_totalread)).EndInit();
             this.pageFast4AntMode.ResumeLayout(false);
             this.pageFast4AntMode.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_fast_inv_tags)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox20.ResumeLayout(false);
@@ -9867,11 +9856,11 @@ namespace UHFDemo
             this.tableLayoutPanel5.PerformLayout();
             this.groupBox25.ResumeLayout(false);
             this.groupBox25.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ledFast5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_cmd_totalread)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_totalread_count)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_cmd_readrate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_cmd_command_duration)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ledFast_total_execute_time)).EndInit();
             this.groupBox28.ResumeLayout(false);
             this.groupBox28.PerformLayout();
             this.groupBox27.ResumeLayout(false);
@@ -10047,13 +10036,6 @@ namespace UHFDemo
         private System.Windows.Forms.TabPage pageBufferedMode;
         private System.Windows.Forms.TabPage pageAcessTag;
         private System.Windows.Forms.Label txtFastTagList;
-        private System.Windows.Forms.ColumnHeader columnHeader31;
-        private System.Windows.Forms.ColumnHeader columnHeader32;
-        private System.Windows.Forms.ColumnHeader columnHeader33;
-        private System.Windows.Forms.ColumnHeader columnHeader34;
-        private System.Windows.Forms.ColumnHeader columnHeader35;
-        private System.Windows.Forms.ColumnHeader columnHeader356;
-        private System.Windows.Forms.ColumnHeader columnHeader36;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Button buttonFastFresh;
@@ -10213,17 +10195,17 @@ namespace UHFDemo
         private System.Windows.Forms.ColumnHeader columnHeader16;
         private System.Windows.Forms.Button btFastInventory;
         private System.Windows.Forms.GroupBox groupBox2;
-        private LxControl.LxLedControl ledFast4;
+        private LxControl.LxLedControl ledFast_totalread_count;
         private System.Windows.Forms.ComboBox comboBox7;
-        private LxControl.LxLedControl ledFast5;
-        private LxControl.LxLedControl ledFast2;
-        private LxControl.LxLedControl ledFast3;
+        private LxControl.LxLedControl ledFast_total_execute_time;
+        private LxControl.LxLedControl ledFast_cmd_readrate;
+        private LxControl.LxLedControl ledFast_cmd_command_duration;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
-        private LxControl.LxLedControl ledFast1;
+        private LxControl.LxLedControl ledFast_cmd_totalread;
         private System.Windows.Forms.TextBox txtRepeat;
         private System.Windows.Forms.TextBox txtInterval;
         private System.Windows.Forms.TabControl tabControl1;
@@ -10403,19 +10385,19 @@ namespace UHFDemo
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox tb_outputpower_4;
+        private System.Windows.Forms.TextBox tb_outputpower_3;
+        private System.Windows.Forms.TextBox tb_outputpower_2;
+        private System.Windows.Forms.TextBox tb_outputpower_1;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label115;
         private System.Windows.Forms.Label label114;
         private System.Windows.Forms.Label label113;
         private System.Windows.Forms.Label label112;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox tb_outputpower_8;
+        private System.Windows.Forms.TextBox tb_outputpower_7;
+        private System.Windows.Forms.TextBox tb_outputpower_6;
+        private System.Windows.Forms.TextBox tb_outputpower_5;
         private System.Windows.Forms.TextBox textBox12;
         private System.Windows.Forms.TextBox textBox11;
         private System.Windows.Forms.CheckBox checkBox4;
@@ -10440,9 +10422,6 @@ namespace UHFDemo
         private System.Windows.Forms.CheckBox m_session_sl_cb;
         private RadioButton excel_format_buffer_rb;
         private RadioButton txt_format_buffer_rb;
-        private RadioButton excel_format_fast_rb;
-        private System.Windows.Forms.ListView lvFastList;
-        private RadioButton txt_format_fast_rb;
         private Timer mFastSessionTimer;
         private ImageList sortImageList;
         private RadioButton sessionInventoryrb;
@@ -10492,18 +10471,18 @@ namespace UHFDemo
         private Label label152;
         private Label label153;
         private Label label154;
-        private TextBox tb_dbm_16;
-        private TextBox tb_dbm_15;
-        private TextBox tb_dbm_14;
-        private TextBox tb_dbm_13;
+        private TextBox tb_outputpower_16;
+        private TextBox tb_outputpower_15;
+        private TextBox tb_outputpower_14;
+        private TextBox tb_outputpower_13;
         private Label label147;
         private Label label148;
         private Label label149;
         private Label label150;
-        private TextBox tb_dbm_12;
-        private TextBox tb_dbm_11;
-        private TextBox tb_dbm_10;
-        private TextBox tb_dbm_9;
+        private TextBox tb_outputpower_12;
+        private TextBox tb_outputpower_11;
+        private TextBox tb_outputpower_10;
+        private TextBox tb_outputpower_9;
         private TabPage net_configure_tabPage;
         private LinkLabel net_port_config_tool_linkLabel;
         private Label label165;
@@ -10634,18 +10613,8 @@ namespace UHFDemo
         private RadioButton fast_inv_v2_channel_4;
         private RadioButton fast_inv_v2_channel_8;
         private RadioButton fast_inv_v2_channel_16;
-        private CheckBox fast_inv_v2_cb;
         private Label fast_inv_v2_cmd_totalread_label;
         private Label label187;
-        private DataGridViewTextBoxColumn mSerialNumberColumn;
-        private DataGridViewTextBoxColumn mEpcColumn;
-        private DataGridViewTextBoxColumn mReadCountColumn;
-        private DataGridViewTextBoxColumn mRssiColumn;
-        private DataGridViewTextBoxColumn mFreqColumn;
-        private DataGridViewTextBoxColumn mPhaseColumn;
-        private DataGridViewTextBoxColumn mAntennaColumn;
-        private DataGridViewTextBoxColumn mDataColumn;
-        private CheckBox savelog_cb;
         private Label label192;
         private Label label190;
         private Label label191;
@@ -10777,6 +10746,16 @@ namespace UHFDemo
         private TextBox tb_fast_inv2_exec_times;
         private CheckBox cb_fast_inv_v2_check_all_ant;
         private DataGridView dgv_real_inv_tags;
+        private Button btn_refresh_comports;
+        private DataGridViewTextBoxColumn mSerialNumberColumn;
+        private DataGridViewTextBoxColumn mReadCountColumn;
+        private DataGridViewTextBoxColumn mPcColumn;
+        private DataGridViewTextBoxColumn mEpcColumn;
+        private DataGridViewTextBoxColumn mAntennaColumn;
+        private DataGridViewTextBoxColumn mRssiColumn;
+        private DataGridViewTextBoxColumn mFreqColumn;
+        private DataGridViewTextBoxColumn mPhaseColumn;
+        private DataGridViewTextBoxColumn mDataColumn;
         private DataGridViewTextBoxColumn SerialNumber_real_inv;
         private DataGridViewTextBoxColumn ReadCount_real_inv;
         private DataGridViewTextBoxColumn PC_real_inv;
@@ -10786,7 +10765,16 @@ namespace UHFDemo
         private DataGridViewTextBoxColumn Freq_real_inv;
         private DataGridViewTextBoxColumn Phase_real_inv;
         private DataGridViewTextBoxColumn Data_real_inv;
-        private Button btn_refresh_comports;
+        private DataGridView dgv_fast_inv_tags;
+        private DataGridViewTextBoxColumn SerialNumber_fast_inv;
+        private DataGridViewTextBoxColumn ReadCount_fast_inv;
+        private DataGridViewTextBoxColumn PC_fast_inv;
+        private DataGridViewTextBoxColumn EPC_fast_inv;
+        private DataGridViewTextBoxColumn Antenna_fast_inv;
+        private DataGridViewTextBoxColumn Freq_fast_inv;
+        private DataGridViewTextBoxColumn Rssi_fast_inv;
+        private DataGridViewTextBoxColumn Phase_fast_inv;
+        private DataGridViewTextBoxColumn Data_fast_inv;
     }
 }
 
