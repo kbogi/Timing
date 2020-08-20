@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -338,13 +339,15 @@ namespace UHFDemo
         /// EPC index into tag list
         /// </summary>
         private Dictionary<string, TagRecord> EpcIndex = new Dictionary<string, TagRecord>();
+        private List<string> EpcIndexForTest = new List<string>();
 
-        static long UniqueTagCounts = 0;
-        static long TotalReadCounts = 0;
-        static uint TotalCommandTimes = 0;
-        uint cmdTotalRead = 0;
-        uint cmdCommandDuration = 0;
-        ushort cmdReadRate = 0;
+        static long uniqueTagCounts = 0; // 总标签数量
+        static long totalReadCounts = 0; // 总读取次数
+        static uint totalCommandTimes = 0; // 总执行时间
+        uint cmdTotalRead = 0; // 单次盘存读取标签数量（包含重复标签）
+        uint cmdCommandDuration = 0; // 单次执行指令时间
+        ushort cmdReadRate = 0; // 单次执行指令的盘点速率
+        uint cmdTotalUniqueRead = 0; // 单次盘存读取标签数量（不包含重复标签）
 
         #region 0x79
         byte region;
@@ -360,15 +363,15 @@ namespace UHFDemo
         }
         public long UniqueTagCount
         {
-            get { return UniqueTagCounts; }
+            get { return uniqueTagCounts; }
         }
         public long TotalTagCount
         {
-            get { return TotalReadCounts; }
+            get { return totalReadCounts; }
         }
 
         public uint TotalCommandTime { 
-            get { return TotalCommandTimes; } 
+            get { return totalCommandTimes; } 
         }
 
         public uint CommandDuration
@@ -386,6 +389,18 @@ namespace UHFDemo
             get { return cmdReadRate; }
         }
 
+        public uint UniqueTagCountForTest 
+        {
+            get { return cmdTotalUniqueRead; }
+            set {
+                if(value == 0)
+                {
+                    EpcIndexForTest.Clear();
+                }
+                cmdTotalUniqueRead = value; 
+            }
+        }
+
         public void UpdateCmd89ExecuteSuccess(byte[] data)
         {
             //msg : [hdr][len][addr][cmd][data][check]
@@ -401,7 +416,7 @@ namespace UHFDemo
             cmdTotalRead = totalRead;
             cmdReadRate = readRate;
             cmdCommandDuration = cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate);
-            TotalCommandTimes += cmdCommandDuration;
+            totalCommandTimes += cmdCommandDuration;
             //Console.WriteLine("antId={0}, readRate={1}, totalRead={2}, totalTime={3}", antId, readRate, totalRead, cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate));
         }
 
@@ -424,19 +439,26 @@ namespace UHFDemo
             cmdTotalRead = totalRead;
             cmdCommandDuration = commandDuration;
             cmdReadRate = (cmdCommandDuration == 0 ? cmdReadRate : (ushort)(cmdTotalRead * 1000 / cmdCommandDuration));
-            TotalCommandTimes += cmdCommandDuration;
+            totalCommandTimes += cmdCommandDuration;
             //Console.WriteLine("antId={0}, readRate={1}, totalRead={2}, totalTime={3}", antId, readRate, totalRead, cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate));
         }
 
         public void Clear()
         {
             EpcIndex.Clear();
-            UniqueTagCounts = 0;
-            TotalReadCounts = 0;
-            TotalCommandTimes = 0;
             _tagList.Clear();
+            uniqueTagCounts = 0;
+            totalReadCounts = 0;
+            totalCommandTimes = 0;
+            cmdCommandDuration = 0;
+            cmdReadRate = 0;
+            cmdTotalRead = 0;
             // Clear doesn't fire notifications on its own
             _tagList.ResetBindings();
+
+            EpcIndexForTest.Clear();
+            cmdTotalUniqueRead = 0;
+
         }
 
         public void Add(Tag addData)
@@ -446,8 +468,14 @@ namespace UHFDemo
                 string key = null;
                 key = addData.EPC;
 
-                UniqueTagCounts = 0;
-                TotalReadCounts = 0;
+                if(!EpcIndexForTest.Contains(key))
+                {
+                    cmdTotalUniqueRead++;
+                    EpcIndexForTest.Add(key);
+                }
+
+                uniqueTagCounts = 0;
+                totalReadCounts = 0;
 
                 if (!EpcIndex.ContainsKey(key))
                 {
@@ -476,13 +504,13 @@ namespace UHFDemo
         //Calculate total tag reads and unique tag reads.
         public void UpdateTagCountTextBox(Dictionary<string, TagRecord> EpcIndex)
         {
-            UniqueTagCounts += EpcIndex.Count;
+            uniqueTagCounts = EpcIndex.Count;
             TagRecord[] dataRecord = new TagRecord[EpcIndex.Count];
             EpcIndex.Values.CopyTo(dataRecord, 0);
-            TotalReadCounts = 0;
+            totalReadCounts = 0;
             for (int i = 0; i < dataRecord.Length; i++)
             {
-                TotalReadCounts += dataRecord[i].ReadCount;
+                totalReadCounts += dataRecord[i].ReadCount;
             }
         }
 

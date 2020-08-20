@@ -17,6 +17,7 @@ using System.Net.Sockets;
 using System.Diagnostics;
 using System.Management;
 using System.Text.RegularExpressions;
+using NPOI.SS.Formula;
 
 namespace UHFDemo
 {
@@ -31,8 +32,6 @@ namespace UHFDemo
 
         //盘存操作前，需要先设置工作天线，用于标识当前是否在执行盘存操作
         private bool m_bInventory = false;
-        //标识是否统计命令执行时间，当前仅盘存命令需要统计时间
-        private bool m_bReckonTime = false;
         //实时盘存锁定操作
         private bool m_bLockTab = false;
         //ISO18000标签连续盘存标识
@@ -45,44 +44,12 @@ namespace UHFDemo
         private int m_nBytes = 0;
         //记录ISO18000标签已经循环写入次数
         private int m_nLoopedTimes = 0;
-        //实时盘存次数
-        private int m_nTotal = 0;
-        //列表更新频率
-        private int m_nRealRate = 20;
-        //记录快速轮询天线参数
-        private byte[] m_btAryData = new byte[18];
-        //记录快速轮询第二组天线参数
-        private byte[] m_btAryData_group2 = new byte[18];
-        //4 ant
-        private byte[] m_btAryData_4 = new byte[10];
-        //记录快速轮询总次数
-        private int m_nSwitchTotal = 0;
-        private int m_nSwitchTime = 0;
 
         private int m_nReceiveFlag = 0;
-        private int m_BStatusInventoryCount;
-
         private DateTime m_InventoryStarTime;
         private volatile int m_ConsumTime;
 
-        private volatile bool m_runLoopTest = false;
-        private volatile int m_intervalTimeTest;
-
-        private int m_TestTagCount;
-
-        private DateTime m_startConsumTime;
-
-
-        private int m_FastInterval;
         private int m_FastExeCount;
-        private int m_FastCountStart;
-
-        private volatile int m_FastSessionPowerInternal;
-        private volatile int m_FastSessionCount;
-
-        private volatile int m_NewExeTimer;
-
-        private volatile bool m_nPhaseOpened = false;
 
         private volatile bool m_nRepeat1 = false;
         private volatile bool m_nRepeat2 = false;
@@ -96,15 +63,32 @@ namespace UHFDemo
 
         private CheckBox[] fast_inv_ants = null;
         private TextBox[] fast_inv_stays = null;
+        private TextBox[] fast_inv_temp_pows = null;
 
         TagDB tagdb_real_inv = null;
         TagDB tagdb_fast_inv = null;
-        bool isFastInvV2 = false;
-        bool doingFastInvV2 = false;
-
         bool isFastInv = false;
         bool doingFastInv = false;
         bool Inventorying = false;
+
+        private bool ReverseTarget = false;
+        private int stayBTimes = 0;
+        private bool invTargetB = false;
+
+        bool useAntG1 = true;
+        int FastExecTimes = 0;
+
+        /// <summary>
+        /// Define a variable for the inventory test log
+        /// </summary>
+        TextWriter transportLogFile = null;
+        uint inventory_times = 0;
+
+        RadioButton[] sessionArr = null;
+        RadioButton[] targetArr = null;
+        RadioButton[] selectFlagArr = null;
+
+        int channels = 1;
 
         public R2000UartDemo()
         {
@@ -116,13 +100,8 @@ namespace UHFDemo
 
             this.DoubleBuffered = true;
 
-            lvBufferList.SmallImageList = sortImageList;
-
             this.columnHeader49.ImageIndex = 0;
             this.columnHeader52.ImageIndex = 0;
-
-            this.m_new_fast_inventory_session.SelectedIndex = 1;
-            this.m_new_fast_inventory_flag.SelectedIndex = 0;
 
             cmbx_realinv_workant.Items.AddRange(new string[] { "天线1", "天线2", "天线3", "天线4", "天线5", "天线6", "天线7", "天线8", "天线9", "天线10", "天线11", "天线12", "天线13", "天线14", "天线15", "天线16" });
             cmbx_realinv_workant.SelectedIndex = 0;
@@ -141,28 +120,23 @@ namespace UHFDemo
                 txt_fast_inv_Stay_13,txt_fast_inv_Stay_14, txt_fast_inv_Stay_15, txt_fast_inv_Stay_16
             };
 
+            fast_inv_temp_pows = new TextBox[] {
+                tv_temp_pow_1, tv_temp_pow_2, tv_temp_pow_3, tv_temp_pow_4, tv_temp_pow_5, tv_temp_pow_6, tv_temp_pow_7, tv_temp_pow_8,
+                tv_temp_pow_9, tv_temp_pow_10, tv_temp_pow_11, tv_temp_pow_12, tv_temp_pow_13, tv_temp_pow_14, tv_temp_pow_15, tv_temp_pow_16
+            };
+
             bindInvAntTableEvents();
 
-            antChkbs = new CheckBox[] {
-                cb_fast_inv_v2_ant_1, cb_fast_inv_v2_ant_2, cb_fast_inv_v2_ant_3, cb_fast_inv_v2_ant_4,
-                cb_fast_inv_v2_ant_5, cb_fast_inv_v2_ant_6, cb_fast_inv_v2_ant_7, cb_fast_inv_v2_ant_8,
-                cb_fast_inv_v2_ant_9, cb_fast_inv_v2_ant_10, cb_fast_inv_v2_ant_11, cb_fast_inv_v2_ant_12,
-                cb_fast_inv_v2_ant_13, cb_fast_inv_v2_ant_14, cb_fast_inv_v2_ant_15, cb_fast_inv_v2_ant_16
-            };
-            antStays = new TextBox[] {
-                tb_fast_inv_v2_stay_1, tb_fast_inv_v2_stay_2, tb_fast_inv_v2_stay_3, tb_fast_inv_v2_stay_4,
-                tb_fast_inv_v2_stay_5, tb_fast_inv_v2_stay_6, tb_fast_inv_v2_stay_7, tb_fast_inv_v2_stay_8,
-                tb_fast_inv_v2_stay_9, tb_fast_inv_v2_stay_10, tb_fast_inv_v2_stay_11, tb_fast_inv_v2_stay_12,
-                tb_fast_inv_v2_stay_13, tb_fast_inv_v2_stay_14, tb_fast_inv_v2_stay_15, tb_fast_inv_v2_stay_16
-            };
-            antPowers = new TextBox[] {
-                tb_fast_inv_v2_power_1, tb_fast_inv_v2_power_2, tb_fast_inv_v2_power_3, tb_fast_inv_v2_power_4,
-                tb_fast_inv_v2_power_5, tb_fast_inv_v2_power_6, tb_fast_inv_v2_power_7, tb_fast_inv_v2_power_8,
-                tb_fast_inv_v2_power_9, tb_fast_inv_v2_power_10, tb_fast_inv_v2_power_11, tb_fast_inv_v2_power_12,
-                tb_fast_inv_v2_power_13, tb_fast_inv_v2_power_14, tb_fast_inv_v2_power_15, tb_fast_inv_v2_power_16
-            };
+            sessionArr = new RadioButton[] { radio_btn_S0, radio_btn_S1, radio_btn_S2, radio_btn_S3 };
+            targetArr = new RadioButton[] { radio_btn_target_A, radio_btn_target_B };
+            selectFlagArr = new RadioButton[] { radio_btn_sl_00, radio_btn_sl_01, radio_btn_sl_02, radio_btn_sl_03 };
 
-            bindInvV2AntTableEvents();
+            grb_sessions.Enabled = false;
+            radio_btn_S1.Checked = true;
+            grb_tagets.Enabled = false;
+            radio_btn_target_A.Checked = true;
+            grb_selectFlags.Enabled = false;
+            radio_btn_sl_00.Checked = true;
         }
 
         private void bindInvAntTableEvents()
@@ -180,34 +154,12 @@ namespace UHFDemo
             if (cb.Checked)
             {
                 fast_inv_stays[antNo].Text = "1";
+                fast_inv_temp_pows[antNo].Text = "20";
             }
             else
             {
                 fast_inv_stays[antNo].Text = "0";
-            }
-        }
-
-        private void bindInvV2AntTableEvents()
-        {
-            foreach (CheckBox cb in antChkbs)
-            {
-                cb.CheckedChanged += new EventHandler(fastInvV2AntChecked);
-            }
-        }
-
-        private void fastInvV2AntChecked(object sender, EventArgs e)
-        {
-            CheckBox cb = (CheckBox)sender;
-            int antNo = Convert.ToInt32(cb.Text) - 1;
-            if (cb.Checked)
-            {
-                antStays[antNo].Text = "1";
-                antPowers[antNo].Text = "30";
-            }
-            else
-            {
-                antStays[antNo].Text = "0";
-                antPowers[antNo].Text = "0";
+                fast_inv_temp_pows[antNo].Text = "0";
             }
         }
 
@@ -229,8 +181,6 @@ namespace UHFDemo
             rdbRS232.Checked = true;
             antType4.Checked = true;
 
-
-
             //初始化连接读写器默认配置
             RefreshComPorts();
 
@@ -247,8 +197,6 @@ namespace UHFDemo
 
             m_session_sl.SelectedIndex = 0;
 
-
-            rdbInventoryRealTag_CheckedChanged(sender, e);
             cmbSession.SelectedIndex = 0;
             cmbTarget.SelectedIndex = 0;
             cmbReturnLossFreq.SelectedIndex = 33;
@@ -285,20 +233,6 @@ namespace UHFDemo
             //保存盘点日志
             saveLog();
 
-            this.mFastSessionTimer.Tick += new EventHandler(this.mFastSessionTimer_Tick);
-
-            this.mSendFastSwitchTimer.Tick += new EventHandler(this.SendFastSwitchTimer_Tick);
-
-            //mFastSessionSelect.SelectedIndex = 0;
-
-            #region FastInventory_8A_v2
-            fastInventoryLoadCfg();
-            GenerateColmnsForDataGrid();
-            fast_inv_v2_sl_gb.Visible = false;
-            tagdb = new TagDB();
-            tags_dgv.DataSource = tagdb.TagList;
-            #endregion FastInventory_8A_v2
-
             autoInventoryrb.Visible = false;
 
             GenerateColmnsDataGridForRealInv();
@@ -308,6 +242,7 @@ namespace UHFDemo
             GenerateColmnsDataGridForFastInv();
             tagdb_fast_inv = new TagDB();
             dgv_fast_inv_tags.DataSource = tagdb_fast_inv.TagList;
+
         }
 
         private void RefreshComPorts()
@@ -722,60 +657,6 @@ namespace UHFDemo
                 Console.WriteLine("RefreshInventoryReal {0:X2}", btCmd);
                 switch (btCmd)
                 {
-                    case 0x89:
-                    case 0x8B:
-                        {
-                            int nTagCount = m_curInventoryBuffer.dtTagTable.Rows.Count;
-                            int nTotalRead = m_nTotal;// m_curInventoryBuffer.dtTagDetailTable.Rows.Count;
-                            TimeSpan ts = m_curInventoryBuffer.dtEndInventory - m_curInventoryBuffer.dtStartInventory;
-                            int nTotalTime = (int)(ts.Ticks / 10000);
-                            int nCaculatedReadRate = 0;
-                            int nCommandDuation = 0;
-
-                            if (m_curInventoryBuffer.nReadRate == 0) //读写器没有返回速度前软件测速度
-                            {
-                                if (nTotalTime > 0)
-                                {
-                                    nCaculatedReadRate = (nTotalRead * 1000 / nTotalTime);
-                                }
-                            }
-                            else
-                            {
-                                nCommandDuation = m_curInventoryBuffer.nDataCount * 1000 / m_curInventoryBuffer.nReadRate;
-                                nCaculatedReadRate = m_curInventoryBuffer.nReadRate;
-                            }
-
-                            //列表用变量
-                            int nEpcCount = 0;
-                            int nEpcLength = m_curInventoryBuffer.dtTagTable.Rows.Count;
-
-                            ledReal_totalread.Text = nTagCount.ToString();
-                            ledReal_readrate.Text = nCaculatedReadRate.ToString();
-
-                            ledReal_total_readtime.Text = FormatLongToTimeStr(nTotalTime);
-                            ledReal_total_tagcount.Text = nTotalRead.ToString();
-                            ledReal_cmd_duration.Text = nCommandDuation.ToString();  //实际的命令执行时间
-                            tbRealMaxRssi.Text = (m_curInventoryBuffer.nMaxRSSI - 129).ToString() + "dBm";
-                            tbRealMinRssi.Text = (m_curInventoryBuffer.nMinRSSI - 129).ToString() + "dBm";
-                            lbRealTagCount.Text = "标签EPC号列表（不重复）： " + nTagCount.ToString() + "个";
-
-                            //nEpcCount = lvRealList.Items.Count;
-                        }
-                        break;
-
-
-                    case 0x00:
-                    case 0x01:
-                        {
-                            m_bLockTab = false;
-
-                            //TimeSpan ts = m_curInventoryBuffer.dtEndInventory - m_curInventoryBuffer.dtStartInventory;
-                            //int nTotalTime = ts.Minutes * 60 * 1000 + ts.Seconds * 1000 + ts.Milliseconds;
-
-                            //ledReal5.Text = nTotalTime.ToString();
-
-                        }
-                        break;
                     case 0x02:
                         m_curInventoryBuffer.dtEndInventory = DateTime.Now;
                         TimeSpan tsp = DateTime.Now - m_InventoryStarTime;
@@ -789,10 +670,8 @@ namespace UHFDemo
                             btRealTimeInventory.BackColor = Color.WhiteSmoke;
                             btRealTimeInventory.ForeColor = Color.DarkBlue;
                             btRealTimeInventory.Text = "开始盘存";
-                            timerInventory.Enabled = false;
                             //return;
                         }
-
                         break;
                     default:
                         break;
@@ -1152,42 +1031,6 @@ namespace UHFDemo
             item.SubItems.Add(CCommondMethod.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[6] }, 0, 1).ToString());
             item.SubItems.Add(CCommondMethod.ByteArrayToString(maskValue, 0, maskValue.Length).ToString());
             listView2.Items.Add(item);
-
-            /**
-            if (m_curSetting.btsGetTagMask[1] == (byte)0xFF)
-            {
-                comboBox7.SelectedIndex = 5;
-            }
-            else
-            {
-                comboBox7.SelectedIndex = m_curSetting.btsGetTagMask[1];
-            }
-
-            if (m_curSetting.btsGetTagMask[2] == (byte)0xFF)
-            {
-                comboBox5.SelectedIndex = 8;
-            }
-            else
-            {
-                comboBox5.SelectedIndex = m_curSetting.btsGetTagMask[2];
-            }
-
-            if (m_curSetting.btsGetTagMask[3] == (byte)0xFF)
-            {
-                comboBox4.SelectedIndex = 4;
-            }
-            else
-            {
-                comboBox4.SelectedIndex = m_curSetting.btsGetTagMask[3];
-            }
-           hexTextBox6.Text = CCommondMethod.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[4] },0,1);
-           hexTextBox5.Text = CCommondMethod.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[5] },0, 1);
-           byte[] maskValue = new byte[m_curSetting.btsGetTagMask.Length - 8];
-           for (int i = 0; i < maskValue.Length; i++ )
-           {
-               maskValue[i] = m_curSetting.btsGetTagMask[i + 6];
-           }
-           hexTextBox4.Text = CCommondMethod.ByteArrayToString(maskValue,0,maskValue.Length); */
         }
 
         private delegate void RunLoopInventoryUnsafe();
@@ -1207,7 +1050,7 @@ namespace UHFDemo
                     {
                         if (m_curInventoryBuffer.bLoopInventoryReal)
                         {
-                            inventory_times++;
+                            RefreshInventoryInfo();
 
                             //m_bLockTab = true;
                             //btnInventory.Enabled = false;
@@ -1293,21 +1136,6 @@ namespace UHFDemo
             }
         }
 
-        private delegate void SendFastSwitchUnsafe();
-        private void SendFastSwitch()
-        {
-            if (this.InvokeRequired)
-            {
-                SendFastSwitchUnsafe InvokeSendFastSwitch = new SendFastSwitchUnsafe(SendFastSwitch);
-                this.Invoke(InvokeSendFastSwitch, new object[] { });
-            }
-            else
-            {
-                this.mSendFastSwitchTimer.Enabled = true;
-                this.mSendFastSwitchTimer.Start();
-            }
-        }
-
         private delegate void RunLoopFastSwitchUnsafe();
         private void RunLoopFastSwitch()
         {
@@ -1318,7 +1146,7 @@ namespace UHFDemo
             }
             else
             {
-                Console.WriteLine("-----------------RunLoopFastSwitch");
+                //Console.WriteLine("-----------------RunLoopFastSwitch");
                 if (mDynamicPoll.Checked && !m_nRepeat2 && !m_nRepeat1 && !m_nRepeat12)
                 {
                     if (!antType16.Checked || m_curSetting.btAntGroup == (byte)0x01)
@@ -1329,31 +1157,7 @@ namespace UHFDemo
                         reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
                         return;
                     }
-
-
-                    if (antType4.Checked)
-                    {
-                        m_btAryData_4[m_btAryData_4.Length - 1] = Convert.ToByte(m_new_fast_inventory_repeat1.Text);
-                        reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_4);
-                    }
-                    else if (antType8.Checked)
-                    {
-                        m_btAryData[m_btAryData.Length - 1] = Convert.ToByte(m_new_fast_inventory_repeat1.Text);
-                        reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData);
-                    }
-                    else if (antType16.Checked)
-                    {
-                        if (m_curSetting.btAntGroup == (byte)0x00)
-                        {
-                            m_btAryData[m_btAryData.Length - 1] = Convert.ToByte(m_new_fast_inventory_repeat1.Text);
-                            reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData);
-                        }
-                        else
-                        {
-                            m_btAryData_group2[m_btAryData_group2.Length - 1] = Convert.ToByte(m_new_fast_inventory_repeat1.Text);
-                            reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_group2);
-                        }
-                    }
+                    cmdFastInventorySend(useAntG1);
                 }
                 else if (mDynamicPoll.Checked && !m_nRepeat2 && m_nRepeat1 && !m_nRepeat12)
                 {
@@ -1372,30 +1176,7 @@ namespace UHFDemo
                         reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
                         return;
                     }
-
-                    if (antType4.Checked)
-                    {
-                        m_btAryData_4[m_btAryData_4.Length - 1] = Convert.ToByte(m_new_fast_inventory_repeat2.Text);
-                        reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_4);
-                    }
-                    else if (antType8.Checked)
-                    {
-                        m_btAryData[m_btAryData.Length - 1] = Convert.ToByte(m_new_fast_inventory_repeat2.Text);
-                        reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData);
-                    }
-                    else if (antType16.Checked)
-                    {
-                        if (m_curSetting.btAntGroup == (byte)0x00)
-                        {
-                            m_btAryData[m_btAryData.Length - 1] = Convert.ToByte(m_new_fast_inventory_repeat1.Text);
-                            reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData);
-                        }
-                        else
-                        {
-                            m_btAryData_group2[m_btAryData_group2.Length - 1] = Convert.ToByte(m_new_fast_inventory_repeat1.Text);
-                            reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_group2);
-                        }
-                    }
+                    cmdFastInventorySend(useAntG1);
                 }
                 else
                 {
@@ -1411,7 +1192,7 @@ namespace UHFDemo
                             {
                                 if(m_FastExeCount == -1)
                                 {
-                                    inventory_times++;
+                                    RefreshInventoryInfo();
                                     cmdFastInventorySend(useAntG1);
                                 }
                                 else
@@ -1419,7 +1200,7 @@ namespace UHFDemo
                                     if (m_FastExeCount > 1)
                                     {
                                         m_FastExeCount--;
-                                        inventory_times++;
+                                        RefreshInventoryInfo();
                                         cmdFastInventorySend(useAntG1);
                                     }
                                     else
@@ -1433,7 +1214,7 @@ namespace UHFDemo
                         {
                             if(m_FastExeCount == -1)
                             {
-                                inventory_times++;
+                                RefreshInventoryInfo();
                                 if (checkFastInvAntG1Count())
                                 {
                                     cmdSwitchAntG1();
@@ -1448,7 +1229,7 @@ namespace UHFDemo
                                 if (m_FastExeCount > 1)
                                 {
                                     m_FastExeCount--;
-                                    inventory_times++;
+                                    RefreshInventoryInfo();
                                     if (checkFastInvAntG1Count())
                                     {
                                         cmdSwitchAntG1();
@@ -1470,19 +1251,17 @@ namespace UHFDemo
                         if(m_FastExeCount == -1)
                         {
                             Console.WriteLine("m_FastExeCount < 0 ，循环");
-                            mFastSessionTimer.Enabled = true;
-                            mFastSessionTimer.Start();
+                            RefreshInventoryInfo();
+                            NextFastInv();
                         }
                         else
                         {
                             if (m_FastExeCount > 1)
                             {
                                 m_FastExeCount--;
-                                inventory_times++;
-
+                                RefreshInventoryInfo();
                                 Console.WriteLine("循环次数=" + m_FastExeCount + ", 开始下一次");
-                                mFastSessionTimer.Enabled = true;
-                                mFastSessionTimer.Start();
+                                NextFastInv();
                             }
                             else
                             {
@@ -1499,6 +1278,33 @@ namespace UHFDemo
                     }
                 }
             }
+        }
+
+        private void NextFastInv()
+        {
+            BeginInvoke(new ThreadStart(delegate() {
+                m_curSetting.btAntGroup = 0;
+                if (mDynamicPoll.Checked)
+                {
+                    m_nRepeat2 = false;
+                    m_nRepeat12 = false;
+                    m_nRepeat1 = false;
+                    if (antType16.Checked)
+                    {
+                        //Console.WriteLine("定时器时间到，轮询模式------16天线设置天线组" + m_curSetting.btAntGroup);
+                        reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+                    }
+                    else
+                    {
+                        //Console.WriteLine("定时器时间到，轮询模式------设置功率" + Convert.ToByte(m_new_fast_inventory_power1.Text));
+                        reader.SetTempOutpower(m_curSetting.btReadId, Convert.ToByte(m_new_fast_inventory_power1.Text));
+                    }
+                }
+                else
+                {
+                    cmdFastInventorySend(useAntG1);
+                }
+            }));
         }
 
         private delegate void RefreshISO18000Unsafe(byte btCmd);
@@ -3035,18 +2841,13 @@ namespace UHFDemo
                         }
                         else
                         {
-                            //Console.WriteLine("轮询模式------设置天线组1成功, 开始快速盘存");
-                            reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_group2);
+                            Console.WriteLine("轮询模式------设置天线组1成功, 开始快速盘存 useAntG1={0}", useAntG1);
+                            cmdFastInventorySend(useAntG1);
                         }
                     }
                     else if(doingFastInv)
                     {
                         cmdFastInventorySend(useAntG1);
-                    }
-                    else if (doingFastInvV2)
-                    {
-                        Console.WriteLine("doingFastInvV2 设置天线组{0}成功, 开始快速盘存", useAntG1?"1":"2");
-                        cmdFastInventoryV2Send(useAntG1);
                     }
                     else
                     {
@@ -3068,11 +2869,178 @@ namespace UHFDemo
             string strLog = strCmd + "失败，失败原因： " + strErrorCode;
             WriteLog(lrtxtLog, strLog, 1);
         }
-
-        private void cmdFastInventorySend(bool useAntG1)
+        
+        private void cmdFastInventorySend(bool antG1)
         {
-            Console.WriteLine("cmdFastInventorySend [G{0}] 开始快速盘存", useAntG1?"1":"2");
-            reader.FastSwitchInventory(m_curSetting.btReadId, useAntG1? m_btAryData:m_btAryData_group2);
+            BeginInvoke(new ThreadStart(delegate() {
+                Console.WriteLine("cmdFastInventorySend [G{0}] 开始快速盘存  ##{1}##", useAntG1 ? "1" : "2", m_FastExeCount);
+                int writeIndex = 0;
+                byte[] rawData = new byte[256];
+                rawData[writeIndex++] = 0xA0; // hdr
+
+                rawData[writeIndex++] = 0x03; // len minLen = 3
+                rawData[writeIndex++] = m_curSetting.btReadId; // addr
+
+                rawData[writeIndex++] = 0x8A; // cmd
+                if (antType4.Checked)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+                        rawData[writeIndex++] = (byte)(Convert.ToInt32(fast_inv_ants[i].Text) - 1);
+                        rawData[writeIndex++] = Convert.ToByte(fast_inv_stays[i].Text);
+                    }
+
+                    rawData[writeIndex++] = Convert.ToByte(this.txtInterval.Text); // Interval, 0 ms
+
+                    rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
+
+                    int msgLen = writeIndex + 1;
+                    rawData[1] = (byte)(msgLen - 2); // except hdr+len
+
+                    byte[] checkData = new byte[msgLen - 1];
+                    Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+                    rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+                    Array.Resize(ref rawData, msgLen);
+                }
+                else if (antType16.Checked || antType8.Checked)
+                {
+                    // data
+                    if (antG1)
+                    {
+                        for (int i = 0; i < 8; i++)
+                        {
+                            rawData[writeIndex++] = (byte)(Convert.ToInt32(fast_inv_ants[i].Text) - 1);
+                            rawData[writeIndex++] = Convert.ToByte(fast_inv_stays[i].Text);
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 8; i < 16; i++)
+                        {
+                            rawData[writeIndex++] = (byte)(Convert.ToInt32(fast_inv_ants[i].Text) - 8);
+                            rawData[writeIndex++] = Convert.ToByte(fast_inv_stays[i].Text);
+                        }
+                    }
+                    //Console.WriteLine("antType8/16 end [G{0}]", useAntG1 ? "1" : "2");
+                    rawData[writeIndex++] = Convert.ToByte(this.txtInterval.Text); // Interval, 0 ms
+
+                    if(m_new_fast_inventory.Checked)
+                    {
+                        if(cb_fast_inv_v2.Checked)
+                        {
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text); // Reserve
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
+
+
+                            rawData[writeIndex++] = getParamSelectFlag();//SL
+                            rawData[writeIndex++] = getParamSession(); // session
+                            rawData[writeIndex++] = (byte)(invTargetB == false ? 0x00 : 0x01); // Target
+                            rawData[writeIndex++] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00; // Phase
+                            if (antG1) //Temp Power > 20
+                            {
+                                for (int i = 0; i < 8; i++)
+                                {
+                                    rawData[writeIndex++] = Convert.ToByte(fast_inv_temp_pows[i].Text);
+                                }
+                            }
+                            else
+                            {
+                                for (int i = 8; i < 16; i++)
+                                {
+                                    rawData[writeIndex++] = Convert.ToByte(fast_inv_temp_pows[i].Text);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text); // Reserve
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
+                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
+
+                            rawData[writeIndex++] = getParamSession(); // session
+
+                            if (ReverseTarget)
+                            {
+                                if (invTargetB && stayBTimes > 1)
+                                {
+                                    stayBTimes--;
+                                    rawData[writeIndex++] = 0x01; // Target B
+                                }
+                                else
+                                {
+                                    stayBTimes = Convert.ToInt32(tb_fast_inv_staytargetB_times.Text);
+                                    rawData[writeIndex++] = (byte)(invTargetB == false ? 0x00 : 0x01); // Target
+
+                                    invTargetB = !invTargetB;
+                                }
+                            }
+                            else
+                            {
+                                rawData[writeIndex++] = getParamTarget(); // Target
+                            }
+
+                            rawData[writeIndex++] = Convert.ToByte(m_new_fast_inventory_optimized.Text, 16); // Optimize
+
+                            rawData[writeIndex++] = Convert.ToByte(m_new_fast_inventory_continue.Text, 16);//Ongoing
+
+                            rawData[writeIndex++] = Convert.ToByte(m_new_fast_inventory_target_count.Text);//Target Quantity
+
+                            rawData[writeIndex++] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00; // Phase
+                        }
+                    }
+
+
+                    rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
+
+                    int msgLen = writeIndex + 1;
+                    rawData[1] = (byte)(msgLen - 2); // except hdr+len
+                    //Console.WriteLine("快速盘存[8/16 Channels]  writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+
+                    byte[] checkData = new byte[msgLen - 1];
+                    Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+                    rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+                    Array.Resize(ref rawData, msgLen);
+                }
+
+                //Console.WriteLine("快速盘存: {0}", CCommondMethod.ToHex(rawData, "", " "));
+                int nResult = reader.SendMessage(rawData);
+            }));
+        }
+
+        private byte getParamSelectFlag()
+        {
+            for (int i = 0; i < selectFlagArr.Length; i++)
+            {
+                if (selectFlagArr[i].Checked)
+                    return (byte)i;
+            }
+            return 0x00;//default SL00
+        }
+
+        private byte getParamTarget()
+        {
+            for (int i = 0; i < targetArr.Length; i++)
+            {
+                if (targetArr[i].Checked)
+                    return (byte)i;
+            }
+            return 0x00;//default target A
+        }
+
+        private byte getParamSession()
+        {
+            for(int i = 0; i < sessionArr.Length; i++)
+            {
+                if (sessionArr[i].Checked)
+                    return (byte)i;
+            }
+            return 0x01;//default S1
         }
 
         private void ProcessGetReaderAntGroup(Reader.MessageTran msgTran)
@@ -3233,26 +3201,6 @@ namespace UHFDemo
 
             string strLog = strCmd + "失败，失败原因： " + strErrorCode;
             WriteLog(lrtxtLog, strLog, 1);
-        }
-
-        private void rdbInventoryTag_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rdbOperateTag_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rdbInventoryRealTag_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void rbdFastSwitchInventory_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnInventory_Click(object sender, EventArgs e)
@@ -3466,146 +3414,25 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 7)
             {
-                if(doingFastInvV2)
-                {
-                    strCmd = "快速天线盘存 V2";
-                    WriteLog(lrtxtLog, strCmd, 0);
-                    this.BeginInvoke(new ThreadStart(delegate ()
-                    {
-                        lock (tagdb)
-                        {
-                            tagdb.UpdateCmd8AExecuteSuccess(msgTran.AryData);
-
-                            fast_inv_v2_cmd_totalread_label.Text = tagdb.CmdTotalRead + "个";
-                            if (tagdb.TotalTagCount == 0)
-                            {
-                                fast_inv_v2_cmd_totalread_label.ForeColor = Color.Red;
-                            }
-                            else
-                                fast_inv_v2_cmd_totalread_label.ForeColor = Color.Black;
-                            fast_inv_v2_cmd_time_label.Text = tagdb.CommandDuration + "ms";
-
-                            fast_inv_v2_cmd_exec_rate.Text = tagdb.CmdReadRate + " 个/s";
-                            fast_inv_v2_total_cmd_time_label.Text = tagdb.TotalCommandTime + "ms";
-                        }
-                    }));
-
-                    if (isFastInvV2)
-                    {
-                        saveFastInvV2ResultToLog(useAntG1, inventory_times);
-                        if (antType16.Checked)
-                        {
-                            if (useAntG1)
-                            {
-                                if (checkAntG2Count())
-                                {
-                                    cmdSwitchAntG2();
-                                }
-                                else
-                                {
-                                    if (FastExecTimes != -1)
-                                    {
-                                        Console.WriteLine("#FastInvV2Success use 16channels, G2 no antenna select, stop a read round! --> FastExecTimes={0}", FastExecTimes);
-                                        if (FastExecTimes > 1)
-                                        {
-                                            Console.WriteLine("#FastInvV2Success use 16channels G2 no antenna select, and Continue");
-                                            FastExecTimes--;
-                                            inventory_times++;
-                                            cmdFastInventoryV2Send(useAntG1);
-                                        }
-                                        else
-                                        {
-                                            stopInvV2();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        inventory_times++;
-                                        cmdFastInventoryV2Send(useAntG1);
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                if (FastExecTimes != -1)
-                                {
-                                    Console.WriteLine("#FastInvV2Success use 16channels, stop a read round! --> FastExecTimes={0}", FastExecTimes);
-                                    if (FastExecTimes > 1)
-                                    {
-                                        Console.WriteLine("#FastInvV2Success use 16channels and Continue");
-                                        FastExecTimes--;
-                                        inventory_times++;
-                                        if (checkAntG1Count())
-                                        {
-                                            cmdSwitchAntG1();
-                                        }
-                                        else
-                                        {
-                                            cmdFastInventoryV2Send(useAntG1);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        stopInvV2();
-                                    }
-                                }
-                                else
-                                {
-                                    inventory_times++;
-                                    if (checkAntG1Count())
-                                    {
-                                        cmdSwitchAntG1();
-                                    }
-                                    else
-                                    {
-                                        cmdFastInventoryV2Send(useAntG1);
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (FastExecTimes != -1)
-                            {
-                                Console.WriteLine("FastInvV2Success  not use 16channels, stop a read round! --> FastExecTimes={0}", FastExecTimes);
-                                if (FastExecTimes > 1)
-                                {
-                                    FastExecTimes--;
-                                    inventory_times++;
-                                    cmdFastInventoryV2Send(useAntG1);
-                                }
-                                else
-                                {
-                                    stopInvV2();
-                                }
-                            }
-                            else
-                            {
-                                inventory_times++;
-                                cmdFastInventoryV2Send(useAntG1);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("开始停止 FastInvV2");
-                        stopInvV2();
-                    }
-                }
-                else if(doingFastInv)
+                if(doingFastInv)
                 {
                     //Console.WriteLine("快速天线盘存结束");
                     WriteLog(lrtxtLog, strCmd, 0);
-                    tagdb_fast_inv.UpdateCmd8AExecuteSuccess(msgTran.AryData);
                     BeginInvoke(new ThreadStart(delegate () {
-                        ledFast_cmd_readrate.Text = tagdb_fast_inv.CmdReadRate.ToString();
-                        ledFast_cmd_totalread.Text = tagdb_fast_inv.CmdTotalRead.ToString();
-                        ledFast_cmd_command_duration.Text = tagdb_fast_inv.CommandDuration.ToString();
-                        ledFast_total_execute_time.Text = FormatLongToTimeStr(tagdb_fast_inv.TotalCommandTime);
+                        tagdb_fast_inv.UpdateCmd8AExecuteSuccess(msgTran.AryData);
+                        ledFast_cmd_readrate.Text = tagdb_fast_inv.CmdReadRate.ToString(); // 单次盘存速率
+                        ledFast_cmd_total_tagreads.Text = tagdb_fast_inv.CmdTotalRead.ToString(); // 单次读取次数
+                        ledFast_cmd_command_duration.Text = tagdb_fast_inv.CommandDuration.ToString(); // 单次执行时间
+                        ledFast_total_execute_time.Text = FormatLongToTimeStr(tagdb_fast_inv.TotalCommandTime); //总执行时间
                     }));
-                    saveFastInvResultToLog(useAntG1, inventory_times);
 
-                    if(isFastInv)
+                    saveInventoryToLog(useAntG1, inventory_times, tagdb_fast_inv.UniqueTagCountForTest);
+                    lock (tagdb_fast_inv)
+                    {
+                        tagdb_fast_inv.UniqueTagCountForTest = 0;
+                    }
+
+                    if (isFastInv)
                     {
                         RunLoopFastSwitch();
                     }
@@ -3621,13 +3448,7 @@ namespace UHFDemo
             }
             else
             {
-                if(doingFastInvV2)
-                {
-                    bool readPhase = fast_inv_v2_phase_cb.Checked;
-                    if (msgTran.AryData.Length > 2)// pc
-                        parseTag(readPhase, msgTran.AryData);
-                }
-                else if (doingFastInv)
+                if (doingFastInv)
                 {
                     parseFastInvTag(m_phase_value.Checked, msgTran.AryData);
                     m_curInventoryBuffer.dtEndInventory = DateTime.Now;
@@ -3686,21 +3507,26 @@ namespace UHFDemo
 
                 m_curInventoryBuffer.dtEndInventory = DateTime.Now;
 
-                RefreshInventoryReal(0x89);
                 RunLoopInventroy();
             }
             else if (msgTran.AryData.Length == 7)
             {
-                saveRealInvResultToLog(useAntG1, inventory_times);
                 m_curInventoryBuffer.dtEndInventory = DateTime.Now;
                 WriteLog(lrtxtLog, strCmd, 0);
-                //RefreshInventoryReal(0x89);
-                tagdb_real_inv.UpdateCmd89ExecuteSuccess(msgTran.AryData);
                 BeginInvoke(new ThreadStart(delegate() {
-                    ledReal_readrate.Text = tagdb_real_inv.CmdReadRate.ToString();
-                    ledReal_cmd_duration.Text = tagdb_real_inv.CommandDuration.ToString();
-                    ledReal_total_readtime.Text = FormatLongToTimeStr(tagdb_real_inv.TotalCommandTime);
+                    tagdb_real_inv.UpdateCmd89ExecuteSuccess(msgTran.AryData);
+                    ledReal_readrate.Text = tagdb_real_inv.CmdReadRate.ToString(); // 单次盘存速率
+                    ledReal_cmd_duration.Text = tagdb_real_inv.CommandDuration.ToString();// 单次盘存时间
+                    ledReal_total_readtime.Text = FormatLongToTimeStr(tagdb_real_inv.TotalCommandTime); // 总盘存时间
+                    ledReal_cmd_total_tagreads.Text = tagdb_real_inv.CmdTotalRead.ToString(); // 单次读取次数
                 }));
+
+                saveInventoryToLog(useAntG1, inventory_times, tagdb_real_inv.UniqueTagCountForTest);
+                lock(tagdb_real_inv)
+                {
+                    tagdb_real_inv.UniqueTagCountForTest = 0;
+                }
+
                 RunLoopInventroy();
             }
             else // 解析标签
@@ -3714,9 +3540,9 @@ namespace UHFDemo
             //Console.WriteLine("parseTagRealInv {0}", readPhase);
             this.BeginInvoke(new ThreadStart(delegate ()
             {
+                Tag tag = new Tag(data, readPhase);
                 lock (tagdb_real_inv)
                 {
-                    Tag tag = new Tag(data, readPhase);
                     tagdb_real_inv.Add(tag);
                     SetMaxMinRSSI(Convert.ToInt32(tag.Rssi));
                 }
@@ -3728,9 +3554,8 @@ namespace UHFDemo
                 {
                     tbRealMaxRssi.Text = m_curInventoryBuffer.nMaxRSSI + "dBm";
                     tbRealMinRssi.Text = m_curInventoryBuffer.nMinRSSI + "dBm";
-                    ledReal_total_tagcount.Text = tagdb_real_inv.TotalTagCount.ToString();
-                    ledReal_totalread.Text = tagdb_real_inv.CmdTotalRead.ToString();
-                    lbRealTagCount.Text = "标签EPC号列表（不重复）： " + tagdb_real_inv.UniqueTagCount + "个";
+                    ledReal_total_tagcount.Text = tagdb_real_inv.TotalTagCount.ToString(); // 总读取次数（包含重复）
+                    lbRealUniqueTagCount.Text = "标签EPC号列表（不重复）: " + tagdb_real_inv.UniqueTagCount + "个"; // 总标签数
                 }
             }));
         }
@@ -5128,13 +4953,6 @@ namespace UHFDemo
             }
         }
 
-
-        private void btnClearInventoryRealResult_Click(object sender, EventArgs e)
-        {
-            m_curInventoryBuffer.ClearInventoryRealResult();
-            tagdb_real_inv.Clear();
-        }
-
         private void ShowListView(ListView ltvListView, DataRow[] drSelect)
         {
             //ltvListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -5316,7 +5134,6 @@ namespace UHFDemo
                     m_curInventoryBuffer.ClearInventoryRealResult();
                     tbRealMaxRssi.Text = "0";
                     tbRealMinRssi.Text = "0";
-                    m_nTotal = 0;
 
                     this.m_InventoryStarTime = DateTime.Now;
                     if (cmbx_realinv_workant.SelectedIndex > -1)
@@ -5335,10 +5152,6 @@ namespace UHFDemo
                     //reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
 
                     startRealtimeInv();
-
-                    timerInventory.Enabled = true;
-
-
                 }
                 catch (System.Exception ex)
                 {
@@ -5356,7 +5169,6 @@ namespace UHFDemo
                     btRealTimeInventory.BackColor = Color.WhiteSmoke;
                     btRealTimeInventory.ForeColor = Color.DarkBlue;
                     btRealTimeInventory.Text = "开始盘存";
-                    timerInventory.Enabled = false;
 
                     Inventorying = false;
                 }
@@ -5385,14 +5197,14 @@ namespace UHFDemo
 
             tagdb_real_inv.Clear();
 
-            ledReal_totalread.Text = "0";
+            ledReal_cmd_total_tagreads.Text = "0";
             ledReal_readrate.Text = "0";
             ledReal_total_tagcount.Text = "0";
             ledReal_cmd_duration.Text = "0";
             ledReal_total_readtime.Text = "0";
             tbRealMaxRssi.Text = "0";
             tbRealMinRssi.Text = "0";
-            lbRealTagCount.Text = "标签列表：";
+            lbRealUniqueTagCount.Text = "标签列表：";
         }
 
         private void btBufferInventory_Click(object sender, EventArgs e)
@@ -5487,7 +5299,6 @@ namespace UHFDemo
                 m_curInventoryBuffer.ClearInventoryRealResult();
                 lvBufferList.Items.Clear();
                 lvBufferList.Items.Clear();
-                m_nTotal = 0;
 
                 //this.totalTime.Enabled = true;
 
@@ -5602,268 +5413,15 @@ namespace UHFDemo
                         isFastInv = true;
                         doingFastInv = true;
                         Inventorying = true;
-                        inventory_times++;
+                        RefreshInventoryInfo();
                     }
 
-                    this.m_FastSessionCount = 0;
-
-                    mFastSessionTimer.Interval = Convert.ToInt32(mFastIntervalTime.Text) + 1;
-
-                    //this.mSendFastSwitchTimer.Interval = Convert.ToInt32(m_fast_session_power_time.Text);
+                    invTargetB = false;
 
                     m_FastExeCount = Convert.ToInt32(mFastExeCount.Text);
 
                     m_curInventoryBuffer.ClearInventoryRealResult();
 
-                    if (antType8.Checked || antType16.Checked)
-                    {
-                        if (m_new_fast_inventory.Checked)
-                        {
-                            // 
-                            // [antennas AB...GH][interval][reserved][session][target][optimize][ongoing][target quantity][phase][repeat]
-                            // [        16      ][    1   ][    5   ][    1  ][    1 ][    1   ][    1  ][    1          ][  1  ][   1  ]
-                            m_btAryData = new byte[29];
-                            int antIndex = 0;
-                            for (int i = 0; i < 16;)
-                            {
-                                if (fast_inv_ants[antIndex].Enabled)
-                                {
-                                    m_btAryData[i++] = (byte)antIndex;
-                                    m_btAryData[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                }
-                                else
-                                {
-                                    Console.WriteLine("#antIndex={0}, Stay={1}", antIndex, fast_inv_stays[antIndex].Text);
-                                    m_btAryData[i++] = 0xFF;
-                                    m_btAryData[i++] = 0x00;
-                                }
-                                antIndex++;
-                            }
-
-                            m_btAryData[16] = Convert.ToByte(this.txtInterval.Text);
-                            m_btAryData[17] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text);
-                            m_btAryData[18] = Convert.ToByte(tb_fast_inv_reserved_2.Text);
-                            m_btAryData[19] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
-                            m_btAryData[20] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
-                            m_btAryData[21] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
-
-                            m_btAryData[22] = Convert.ToByte(m_new_fast_inventory_session.SelectedIndex);
-                            m_btAryData[23] = Convert.ToByte(m_new_fast_inventory_flag.SelectedIndex);
-                            m_btAryData[24] = Convert.ToByte(m_new_fast_inventory_optimized.Text, 16);
-                            m_btAryData[25] = Convert.ToByte(m_new_fast_inventory_continue.Text, 16);
-                            m_btAryData[26] = Convert.ToByte(m_new_fast_inventory_target_count.Text);
-                            m_btAryData[27] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00;
-                            if (txtRepeat.Text.Length == 0)
-                            {
-                                m_btAryData[28] = 0x00;
-                            }
-                            else
-                            {
-                                m_btAryData[28] = Convert.ToByte(txtRepeat.Text);
-                            }
-
-                            if (antType16.Checked)
-                            {
-                                m_btAryData_group2 = new byte[29];
-                                for (int i = 0; i < 16;)
-                                {
-                                    if (fast_inv_ants[antIndex].Enabled)
-                                    {
-                                        m_btAryData_group2[i++] = (byte)(antIndex - 8);
-                                        m_btAryData_group2[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                    }
-                                    else
-                                    {
-                                        m_btAryData_group2[i++] = 0xFF;
-                                        m_btAryData_group2[i++] = 0x00;
-                                    }
-                                    antIndex++;
-                                }
-                                m_btAryData_group2[16] = Convert.ToByte(this.txtInterval.Text);
-                                m_btAryData_group2[17] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text);
-                                m_btAryData_group2[18] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
-                                m_btAryData_group2[19] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
-                                m_btAryData_group2[20] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
-                                m_btAryData_group2[21] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
-
-                                m_btAryData_group2[22] = Convert.ToByte(m_new_fast_inventory_session.SelectedIndex);
-                                m_btAryData_group2[23] = Convert.ToByte(m_new_fast_inventory_flag.SelectedIndex);
-                                m_btAryData_group2[24] = Convert.ToByte(m_new_fast_inventory_optimized.Text, 16);
-                                m_btAryData_group2[25] = Convert.ToByte(m_new_fast_inventory_continue.Text, 16);
-                                m_btAryData_group2[26] = Convert.ToByte(m_new_fast_inventory_target_count.Text);
-                                m_btAryData_group2[27] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00;
-
-                                if (txtRepeat.Text.Length == 0)
-                                {
-                                    m_btAryData_group2[28] = 0x00;
-                                }
-                                else
-                                {
-                                    m_btAryData_group2[28] = Convert.ToByte(txtRepeat.Text);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            // 
-                            // [antennas AB...GH][interval][repeat]
-                            // [        16      ][    1   ][   1  ]
-                            m_btAryData = new byte[18];
-                            int antIndex = 0;
-                            for (int i = 0; i < 16;)
-                            {
-                                if (fast_inv_ants[antIndex].Enabled)
-                                {
-                                    m_btAryData[i++] = (byte)antIndex;
-                                    m_btAryData[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                }
-                                else
-                                {
-                                    m_btAryData[i++] = 0xFF;
-                                    m_btAryData[i++] = 0x00;
-                                }
-                                antIndex++;
-                            }
-                            m_btAryData[16] = Convert.ToByte(this.txtInterval.Text);
-                            if (txtRepeat.Text.Length == 0)
-                            {
-                                m_btAryData[17] = 0x00;
-                            }
-                            else
-                            {
-                                m_btAryData[17] = Convert.ToByte(txtRepeat.Text);
-                            }
-                            if (antType16.Checked)
-                            {
-                                m_btAryData_group2 = new byte[18];
-                                for (int i = 0; i < 16;)
-                                {
-                                    if (fast_inv_ants[antIndex].Enabled)
-                                    {
-                                        m_btAryData_group2[i++] = (byte)(antIndex - 8);
-                                        m_btAryData_group2[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                    }
-                                    else
-                                    {
-                                        m_btAryData_group2[i++] = 0xFF;
-                                        m_btAryData_group2[i++] = 0x00;
-                                    }
-                                    antIndex++;
-                                }
-                                m_btAryData_group2[16] = Convert.ToByte(this.txtInterval.Text);
-                                if (txtRepeat.Text.Length == 0)
-                                {
-                                    m_btAryData_group2[17] = 0x00;
-                                }
-                                else
-                                {
-                                    m_btAryData_group2[17] = Convert.ToByte(txtRepeat.Text);
-                                }
-                            }
-                        }
-                    }
-
-                    if (antType4.Checked)
-                    {
-                        if (m_new_fast_inventory.Checked)
-                        {
-                            // 
-                            // [antennas AB...GH][interval][reserved][session][target][optimize][ongoing][target quantity][phase][repeat]
-                            // [        16      ][    1   ][    5   ][    1  ][    1 ][    1   ][    1  ][    1          ][  1  ][   1  ]
-                            m_btAryData_4 = new byte[29];
-                            int antIndex = 0;
-                            for (int i = 0; i < 16;)
-                            {
-                                if (fast_inv_ants[antIndex].Enabled)
-                                {
-                                    m_btAryData_4[i++] = (byte)antIndex;
-                                    m_btAryData_4[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                }
-                                else
-                                {
-                                    m_btAryData_4[i++] = 0xFF;
-                                    m_btAryData_4[i++] = 0x00;
-                                }
-                                antIndex++;
-                            }
-                            if (txtInterval.Text.Length == 0)
-                            {
-                                m_btAryData_4[16] = 0x00;
-                            }
-                            else
-                            {
-                                m_btAryData_4[16] = Convert.ToByte(txtInterval.Text);
-                            }
-
-                            m_btAryData_4[17] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text);
-                            m_btAryData_4[18] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
-                            m_btAryData_4[19] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
-                            m_btAryData_4[20] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
-                            m_btAryData_4[21] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
-
-                            m_btAryData_4[22] = Convert.ToByte(m_new_fast_inventory_session.SelectedIndex);
-                            m_btAryData_4[23] = Convert.ToByte(m_new_fast_inventory_flag.SelectedIndex);
-                            m_btAryData_4[24] = Convert.ToByte(m_new_fast_inventory_optimized.Text, 16);
-                            m_btAryData_4[25] = Convert.ToByte(m_new_fast_inventory_continue.Text, 16);
-                            m_btAryData_4[26] = Convert.ToByte(m_new_fast_inventory_target_count.Text);
-                            m_btAryData_4[27] = m_phase_value.Checked ? (byte)0x01 : (byte)0x00;
-
-                            if (txtRepeat.Text.Length == 0)
-                            {
-                                m_btAryData_4[28] = 0x00;
-                            }
-                            else
-                            {
-                                m_btAryData_4[28] = Convert.ToByte(txtRepeat.Text);
-                            }
-                        }
-                        else
-                        {
-                            // 
-                            // [antennas ABCD][interval][repeat]
-                            // [      8      ][    1   ][   1  ]
-                            m_btAryData_4 = new byte[10];
-
-                            int antIndex = 0;
-                            for (int i = 0; i < 8;)
-                            {
-                                if (fast_inv_ants[antIndex].Enabled)
-                                {
-                                    m_btAryData_4[i++] = (byte)antIndex;
-                                    m_btAryData_4[i++] = Convert.ToByte(fast_inv_stays[antIndex].Text);
-                                }
-                                else
-                                {
-                                    m_btAryData_4[i++] = 0xFF;
-                                    m_btAryData_4[i++] = 0x00;
-                                }
-                                antIndex++;
-                            }
-                            if (txtInterval.Text.Length == 0)
-                            {
-                                m_btAryData_4[8] = 0x00;
-                            }
-                            else
-                            {
-                                m_btAryData_4[8] = Convert.ToByte(txtInterval.Text);
-                            }
-
-                            if (txtRepeat.Text.Length == 0)
-                            {
-                                m_btAryData_4[9] = 0x00;
-                            }
-                            else
-                            {
-                                m_btAryData_4[9] = Convert.ToByte(txtRepeat.Text);
-                            }
-                        }
-                    }
-
-                    m_nTotal = 0;
-
-                    m_nSwitchTotal = 0;
-                    m_nSwitchTime = 0;
-                    m_startConsumTime = DateTime.Now;
                     m_curSetting.btAntGroup = 0;
 
                     if (mDynamicPoll.Checked)
@@ -5876,19 +5434,7 @@ namespace UHFDemo
                     }
                     else
                     {
-                        if (antType4.Checked)
-                        {
-                            useAntG1 = true;
-                            //Console.WriteLine("第一次开始四天线快速盘存");
-                            reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_4);
-                        }
-                        else if (antType8.Checked)
-                        {
-                            useAntG1 = true;
-                            //Console.WriteLine("第一次开始八天线快速盘存");
-                            reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData);
-                        }
-                        else if (antType16.Checked)
+                        if (antType16.Checked)
                         {
                             if(checkFastInvAntG1Count())
                             {
@@ -5910,6 +5456,11 @@ namespace UHFDemo
                                 stopFastInv();
                                 MessageBox.Show("No Antenna select!");
                             }
+                        }
+                        else
+                        {
+                            useAntG1 = true;
+                            cmdFastInventorySend(useAntG1);
                         }
                     }
                 }
@@ -6000,24 +5551,24 @@ namespace UHFDemo
         {
             tagdb_fast_inv.Clear();
             m_curInventoryBuffer.ClearInventoryRealResult();
-            ledFast_cmd_totalread.Text = "0";
+            ledFast_cmd_total_tagreads.Text = "0";
             ledFast_cmd_readrate.Text = "0";
             ledFast_cmd_command_duration.Text = "0";
             ledFast_totalread_count.Text = "0";
             ledFast_total_execute_time.Text = "0";
             txtFastMinRssi.Text = "";
             txtFastMaxRssi.Text = "";
-            txtFastTagList.Text = "标签列表：";
+            txtFastUniqueTagCount.Text = "标签列表：";
 
-            m_new_fast_inventory.Checked = false;
+            //m_new_fast_inventory.Checked = false;
 
-            mDynamicPoll.Checked = false;
+            //mDynamicPoll.Checked = false;
 
-            txtInterval.Text = "0";
-            txtRepeat.Text = "1";
+            //txtInterval.Text = "0";
+            //txtRepeat.Text = "1";
 
-            mFastExeCount.Text = "-1";
-            mFastIntervalTime.Text = "0";
+            //mFastExeCount.Text = "-1";
+            //mFastIntervalTime.Text = "0";
 
         }
 
@@ -6262,49 +5813,6 @@ namespace UHFDemo
             int totalTime = (int)(sp.Ticks / 10000);
 
             ledReal_total_readtime.Text = FormatLongToTimeStr(totalTime);
-            //RefreshInventoryReal(0x00);
-        }
-
-
-
-        private void tabEpcTest_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lrtxtLog_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbRealWorkant1_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cmbAntSelect3_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
         }
 
         private void ProcessTagMask(Reader.MessageTran msgTran)
@@ -7030,7 +6538,6 @@ namespace UHFDemo
 
         private void antType_CheckedChanged(object sender, EventArgs e)
         {
-            int channels = 1;
             RadioButton btn = (RadioButton)sender;
             if (!btn.Checked)
                 return;
@@ -7039,31 +6546,37 @@ namespace UHFDemo
                 case "antType1":
                     channels = 1;
                     antType1_CheckedChanged(sender, e);
-                    fast_inv_v2_channel_1.Checked = true;
                     cmbx_realinv_workant.Items.Clear();
                     cmbx_realinv_workant.Items.Add("天线1");
                     cmbx_realinv_workant.SelectedIndex = 0;
+                    m_new_fast_inventory.Checked = false;
+                    m_new_fast_inventory.Enabled = false;
+                    cb_fast_inv_v2.Checked = false;
+                    cb_fast_inv_v2.Enabled = false;
                     break;
                 case "antType4":
                     channels = 4;
                     antType4_CheckedChanged(sender, e);
-                    fast_inv_v2_channel_4.Checked = true;
                     cmbx_realinv_workant.Items.Clear();
                     cmbx_realinv_workant.Items.AddRange(new String[] { "天线1", "天线2", "天线3", "天线4" });
                     cmbx_realinv_workant.SelectedIndex = 0;
+                    m_new_fast_inventory.Checked = false;
+                    m_new_fast_inventory.Enabled = false;
+                    cb_fast_inv_v2.Checked = false;
+                    cb_fast_inv_v2.Enabled = false;
                     break;
                 case "antType8":
                     channels = 8;
                     antType8_CheckedChanged(sender, e);
-                    fast_inv_v2_channel_8.Checked = true;
                     cmbx_realinv_workant.Items.Clear();
                     cmbx_realinv_workant.Items.AddRange(new String[] { "天线1", "天线2", "天线3", "天线4", "天线5", "天线6", "天线7", "天线8" });
                     cmbx_realinv_workant.SelectedIndex = 0;
+                    m_new_fast_inventory.Enabled = true;
+                    cb_fast_inv_v2.Enabled = true;
                     break;
                 case "antType16":
                     channels = 16;
                     antType16_CheckedChanged(sender, e);
-                    fast_inv_v2_channel_16.Checked = true;
 
                     cmbx_realinv_workant.Items.Clear();
                     cmbx_realinv_workant.Items.AddRange(new String[] { 
@@ -7071,6 +6584,8 @@ namespace UHFDemo
                         "天线9", "天线10", "天线11", "天线12", "天线13", "天线14", "天线15", "天线16"
                     });
                     cmbx_realinv_workant.SelectedIndex = 0;
+                    m_new_fast_inventory.Enabled = true;
+                    cb_fast_inv_v2.Enabled = true;
                     break;
             }
 
@@ -7080,8 +6595,24 @@ namespace UHFDemo
                 {
                     fast_inv_ants[i].Visible = true;
                     fast_inv_ants[i].Enabled = true;
-                    if(i == 0) // 默认选1
+                    fast_inv_temp_pows[i].Visible = true;
+                    if (i == 0) // 默认选1
+                    {
                         fast_inv_ants[i].Checked = true;
+                    }
+                    else
+                    {
+                        fast_inv_ants[i].Checked = false;
+                        fast_inv_temp_pows[i].Text = "0";
+                    }
+                    if(cb_fast_inv_v2.Checked)
+                    {
+                        fast_inv_temp_pows[i].Enabled = true;
+                    }
+                    else
+                    {
+                        fast_inv_temp_pows[i].Enabled = false;
+                    }
 
                     fast_inv_stays[i].Visible = true;
                     fast_inv_stays[i].Enabled = true;
@@ -7095,6 +6626,8 @@ namespace UHFDemo
                     fast_inv_stays[i].Visible = false;
                     fast_inv_stays[i].Enabled = false;
 
+                    fast_inv_temp_pows[i].Visible = false;
+                    fast_inv_temp_pows[i].Text = "0";
                 }
             }
         }
@@ -7103,8 +6636,8 @@ namespace UHFDemo
         {
             if (antType1.Checked)
             {
-                label_fast_inv_ant_title_c2.Visible = false;
                 label_fast_inv_stay_title_c2.Visible = false;
+                label_fast_inv_temp_pow_title_c2.Visible = false;
 
                 //disable fast ant switch inventory.
                 btFastInventory.Enabled = false;
@@ -7143,10 +6676,6 @@ namespace UHFDemo
                 checkBox3.Checked = false;
                 checkBox4.Checked = false;
 
-
-                //init selelct ant
-
-
                 cbBufferWorkant1.Enabled = false;
                 cbBufferWorkant2.Enabled = false;
                 cbBufferWorkant3.Enabled = false;
@@ -7163,8 +6692,8 @@ namespace UHFDemo
         {
             if (antType4.Checked)
             {
-                label_fast_inv_ant_title_c2.Visible = false;
                 label_fast_inv_stay_title_c2.Visible = false;
+                label_fast_inv_temp_pow_title_c2.Visible = false;
 
                 //Enable fast ant switch inventory.
                 btFastInventory.Enabled = true;
@@ -7215,17 +6744,6 @@ namespace UHFDemo
                 checkBox2.Checked = false;
                 checkBox3.Checked = false;
                 checkBox4.Checked = false;
-
-                /*
-                cmbAntSelect2.SelectedIndex = 8;
-                cmbAntSelect3.SelectedIndex = 8;
-                cmbAntSelect4.SelectedIndex = 8;
-
-                comboBox1.SelectedIndex = 8;
-                comboBox2.SelectedIndex = 8;
-                comboBox3.SelectedIndex = 8;
-                comboBox4.SelectedIndex = 8;
-                 */
             }
         }
 
@@ -7233,8 +6751,8 @@ namespace UHFDemo
         {
             if (antType8.Checked)
             {
-                label_fast_inv_ant_title_c2.Visible = false;
                 label_fast_inv_stay_title_c2.Visible = false;
+                label_fast_inv_temp_pow_title_c2.Visible = false;
 
                 //Enable fast ant switch inventory.
                 btFastInventory.Enabled = true;
@@ -7286,8 +6804,8 @@ namespace UHFDemo
         {
             if (antType16.Checked)
             {
-                label_fast_inv_ant_title_c2.Visible = true;
                 label_fast_inv_stay_title_c2.Visible = true;
+                label_fast_inv_temp_pow_title_c2.Visible = true;
 
                 //Enable fast ant switch inventory.
                 btFastInventory.Enabled = true;
@@ -7341,11 +6859,6 @@ namespace UHFDemo
                 checkBox3.Enabled = true;
                 checkBox4.Enabled = true;
             }
-        }
-
-        private void label125_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void m_session_q_cb_CheckedChanged(object sender, EventArgs e)
@@ -7421,101 +6934,14 @@ namespace UHFDemo
             }
         }
 
-        private void SendFastSwitchTimer_Tick(object sender, EventArgs e)
-        {
-            this.mSendFastSwitchTimer.Enabled = false;
-            this.mSendFastSwitchTimer.Stop();
-            if (antType4.Checked)
-            {
-                reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_4);
-            }
-            else if (antType8.Checked)
-            {
-                reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData);
-            }
-        }
-
-        private void mFastSessionTimer_Tick(object sender, EventArgs e)
-        {
-            mFastSessionTimer.Enabled = false;
-            mFastSessionTimer.Stop();
-            m_startConsumTime = DateTime.Now;
-
-            //lvFastList.Items.Clear();
-            this.m_FastSessionCount = 0;
-
-            m_curSetting.btAntGroup = 0;
-            if (mDynamicPoll.Checked)
-            {
-                m_nRepeat2 = false;
-                m_nRepeat12 = false;
-                m_nRepeat1 = false;
-                if (antType16.Checked)
-                {
-                    //Console.WriteLine("定时器时间到，轮询模式------16天线设置天线组" + m_curSetting.btAntGroup);
-                    reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
-                }
-                else
-                {
-                    //Console.WriteLine("定时器时间到，轮询模式------设置功率" + Convert.ToByte(m_new_fast_inventory_power1.Text));
-                    reader.SetTempOutpower(m_curSetting.btReadId, Convert.ToByte(m_new_fast_inventory_power1.Text));
-                }
-            }
-            else
-            {
-                if (antType4.Checked)
-                {
-                    //Console.WriteLine("定时器时间到，四天线快速盘存");
-                    reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData_4);
-                }
-                else if (antType8.Checked)
-                {
-                    //Console.WriteLine("定时器时间到，八天线天线快速盘存");
-                    reader.FastSwitchInventory(m_curSetting.btReadId, m_btAryData);
-                }
-                else if (antType16.Checked)
-                {
-                    //Console.WriteLine("定时器时间到，十六天线天线开始设置天线组" + m_curSetting.btAntGroup);
-                    reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
-                }
-            }
-
-        }
-
-        private void lvRealList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mFastSession_CheckedChanged(object sender, EventArgs e)
-        {
-            /*
-            if (mFastSession.Checked)
-            {
-                mFastSessionSelect.Enabled = true;
-            }
-            else
-            {
-                mFastSessionSelect.Enabled = false;
-            }*/
-        }
-
-        private void label61_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void mPower4_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void m_new_fast_inventory_CheckedChanged(object sender, EventArgs e)
         {
             if (m_new_fast_inventory.Checked)
             {
-                this.m_new_fast_inventory_flag.Enabled = true;
-                this.m_new_fast_inventory_session.Enabled = true;
+                cb_fast_inv_reverse_target.Enabled = true;
+                tb_fast_inv_staytargetB_times.Enabled = true;
+                grb_tagets.Enabled = true;
+                grb_sessions.Enabled = true;
                 this.m_phase_value.Enabled = true;
 
                 tb_fast_inv_reserved_1.Enabled = true;
@@ -7538,8 +6964,13 @@ namespace UHFDemo
             }
             else
             {
-                this.m_new_fast_inventory_flag.Enabled = false;
-                this.m_new_fast_inventory_session.Enabled = false;
+                cb_fast_inv_reverse_target.Checked = false;
+                cb_fast_inv_reverse_target.Enabled = false;
+
+                tb_fast_inv_staytargetB_times.Enabled = false;
+
+                grb_tagets.Enabled = false;
+                grb_sessions.Enabled = false;
                 this.m_phase_value.Enabled = false;
                 this.m_phase_value.Checked = false;
 
@@ -7568,18 +6999,6 @@ namespace UHFDemo
                 m_new_fast_inventory_target_count.Enabled = false;
                 m_new_fast_inventory_target_count.Text = "0";
                 mTargetQuantity.Enabled = false;
-            }
-        }
-
-        private void m_phase_value_CheckedChanged(object sender, EventArgs e)
-        {
-            if (m_phase_value.Checked)
-            {
-                m_nPhaseOpened = true;
-            }
-            else
-            {
-                m_nPhaseOpened = false;
             }
         }
 
@@ -9712,200 +9131,10 @@ namespace UHFDemo
         #endregion Johar
 
         #region FastInventory_8A_v2
-        string curChannel = "0";
-        CheckBox[] antChkbs = null;
-        TextBox[] antStays = null;
-        TextBox[] antPowers = null;
-        static TagDB tagdb = null;
-        bool useAntG1 = true;
-        int FastExecTimes = 0;
 
-        /// <summary>
-        /// Define a variable for the inventory test log
-        /// </summary>
-        TextWriter transportLogFile = null;
-        uint inventory_times = 0;
-
-        private void fast_inventory_v2_clear_btn_Click(object sender, EventArgs e)
+        private void RefreshInventoryInfo()
         {
-            this.BeginInvoke(new ThreadStart(delegate ()
-            {
-                tagdb.Clear();
-                fast_inv_v2_totalread_label.Text = tagdb.TotalTagCount + "次";
-                fast_inv_v2_totaltagcount_label.Text = tagdb.UniqueTagCount + "个";
-                fast_inv_v2_cmd_totalread_label.Text = "0 个";
-                fast_inv_v2_cmd_time_label.Text = "0 ms";
-                fast_inv_v2_cmd_exec_rate.Text = "0 个/s";
-                fast_inv_v2_total_cmd_time_label.Text = tagdb.TotalCommandTime + "ms";
-            }));
-        }
-
-
-        private void cb_fast_inv_v2_check_all_ant_CheckedChanged(object sender, EventArgs e)
-        {
-            bool check = cb_fast_inv_v2_check_all_ant.Checked;
-            foreach (CheckBox cb in antChkbs)
-            {
-                if (cb.Enabled)
-                    cb.Checked = check;
-            }
-        }
-
-        private bool checkFastInvV2Ant()
-        {
-            int antCount = 0;
-            for (int i = 0; i < 16; i++)
-            {
-                if (antChkbs[i].Enabled)
-                    antCount++;
-            }
-            if (antCount > 0)
-                return true;
-            return false;
-        }
-
-        private void fast_inventory_v2_start_btn_Click(object sender, EventArgs e)
-        {
-            if (fast_inventory_v2_start_btn.Text.Equals("开始"))
-            {
-                if (Inventorying)
-                {
-                    MessageBox.Show("正在盘点...");
-                    return;
-                }
-
-                if (!checkFastInvV2Ant())
-                {
-                    MessageBox.Show("请至少选择一个天线");
-                    fast_inventory_v2_start_btn.Text = "开始";
-                    return;
-                }
-
-                foreach (CheckBox cb in antChkbs)
-                {
-                    cb.ForeColor = Color.Black;
-                }
-
-                FastExecTimes = Convert.ToInt32(tb_fast_inv2_exec_times.Text.ToString());
-
-                isFastInvV2 = true;
-                doingFastInvV2 = true;
-                Inventorying = true;
-                fast_inventory_v2_start_btn.Text = "停止";
-
-                startInvV2();
-            }
-            else if (fast_inventory_v2_start_btn.Text.Equals("停止"))
-            {
-                isFastInvV2 = false;
-                fast_inventory_v2_start_btn.Text = "开始";
-            }
-        }
-
-        private void startInvV2()
-        {
-            isFastInvV2 = true;
             inventory_times++;
-            if (antType16.Checked)
-            {
-                if (checkAntG1Count())
-                {
-                    Console.WriteLine("InvV2 Start use G1");
-                    useAntG1 = true;
-                    cmdFastInventoryV2Send(useAntG1);
-                }
-                else if (checkAntG2Count())
-                {
-                    Console.WriteLine("InvV2 Start use G2");
-                    cmdSwitchAntG2();
-                }
-                else
-                {
-                    useAntG1 = true;
-                    FastExecTimes = 0;
-                    isFastInvV2 = false;
-                    doingFastInvV2 = false;
-                    Inventorying = false;
-                    stopInvV2();
-                    MessageBox.Show("No Antenna select!");
-                }
-            }
-            else
-            {
-                useAntG1 = true;
-                cmdFastInventoryV2Send(useAntG1);
-            }
-        }
-
-        private void stopInvV2()
-        {
-            doingFastInvV2 = false;
-            Inventorying = false;
-            Console.WriteLine("stopInvV2 useAntG1={0}", useAntG1);
-            if (!useAntG1)
-            {
-                cmdSwitchAntG1();
-            }
-            Console.WriteLine("真正停止快速盘存 V2");
-            BeginInvoke(new ThreadStart(delegate {
-                fast_inventory_v2_start_btn.Text = "开始";
-            }));
-        }
-
-        private bool checkAntG1Count()
-        {
-            for (int i = 0; i<8; i++)
-            {
-                if(antChkbs[i].Enabled)
-                {
-                    if (antChkbs[i].Checked)
-                    {
-                        useAntG1 = true;
-                        return true;
-                    }
-                }
-            }
-            useAntG1 = false;
-            return false;
-        }
-
-        private bool checkAntG2Count()
-        {
-            for (int i = 8; i < 16; i++)
-            {
-                if (antChkbs[i].Enabled)
-                {
-                    if (antChkbs[i].Checked)
-                    {
-                        useAntG1 = false;
-                        return true;
-                    }
-                }
-            }
-            useAntG1 = true;
-            return false;
-        }
-
-        private void parseTag(bool readPhase, byte[] data)
-        {
-            //Console.WriteLine("parseTag {0}", readPhase);
-            this.BeginInvoke(new ThreadStart(delegate ()
-            {
-                lock(tagdb)
-                {
-                    Tag tag = new Tag(data, readPhase);
-                    tagdb.Add(tag);
-                }
-            }));
-
-            this.BeginInvoke(new ThreadStart(delegate ()
-            {
-                lock (tagdb)
-                {
-                    fast_inv_v2_totalread_label.Text = tagdb.TotalTagCount + "次";
-                    fast_inv_v2_totaltagcount_label.Text = tagdb.UniqueTagCount + "个";
-                }
-            }));
         }
 
         private void parseFastInvTag(bool readPhase, byte[] data)
@@ -9913,9 +9142,9 @@ namespace UHFDemo
             //Console.WriteLine("parseFastInvTag {0}", readPhase);
             this.BeginInvoke(new ThreadStart(delegate ()
             {
+                Tag tag = new Tag(data, readPhase);
                 lock (tagdb_fast_inv)
                 {
-                    Tag tag = new Tag(data, readPhase);
                     tagdb_fast_inv.Add(tag);
                     SetMaxMinRSSI(Convert.ToInt32(tag.Rssi));
                 }
@@ -9927,8 +9156,8 @@ namespace UHFDemo
                 {
                     txtFastMaxRssi.Text = m_curInventoryBuffer.nMaxRSSI + "dBm";
                     txtFastMinRssi.Text = m_curInventoryBuffer.nMinRSSI + "dBm";
-                    ledFast_totalread_count.Text = tagdb_fast_inv.TotalTagCount.ToString();
-                    txtFastTagList.Text = "标签EPC号列表（不重复）： " + tagdb_fast_inv.UniqueTagCount + "个";
+                    ledFast_totalread_count.Text = tagdb_fast_inv.TotalTagCount.ToString(); //总读取次数（包含重复）
+                    txtFastUniqueTagCount.Text = "标签EPC号列表（不重复）： " + tagdb_fast_inv.UniqueTagCount + "个"; // 总读取标签数
                 }
             }));
         }
@@ -9976,301 +9205,6 @@ namespace UHFDemo
             //Console.WriteLine("cmdSwitchAntGroup: {0}", CCommondMethod.ToHex(sendData, "", " "));
             int nResult = reader.SendMessage(sendData);
             //Console.WriteLine("cmdSwitchAntGroup: [{0}] {1}", nResult, CCommondMethod.ToHex(sendData, "", " "));
-        }
-
-        private void AntennaDetectError(byte[] data)
-        {
-            //Console.WriteLine("antId={0}, ErrCode={1}\r\n", data[0], data[1]);
-            byte antId = data[0];
-            antChkbs[antId].ForeColor = Color.Red;
-        }
-
-        private void cmdFastInventoryV2Send(bool antG1)
-        {
-            Console.WriteLine("cmdFastInventoryV2Send 天线组{0}   ##{1}##", antG1 == true ? "1" : "2", FastExecTimes);
-            // ToDo: 固件版本>=8.2.9
-            //ValidateFwVersion();
-            int writeIndex = 0;
-            byte[] rawData = new byte[256];
-            rawData[writeIndex++] = 0xA0; // hdr
-
-            rawData[writeIndex++] = 0x03; // len minLen = 3
-
-            rawData[writeIndex++] = m_curSetting.btReadId; // addr
-
-            rawData[writeIndex++] = 0x8A; // cmd
-
-            // data
-           if(antG1)
-            {
-                for(int i = 0; i < 8; i++)
-                {
-                    rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 1);
-                    rawData[writeIndex++] = Convert.ToByte(antStays[i].Text);
-                }
-            }
-           else
-            {
-                for (int i = 8; i < 16; i++)
-                {
-                    rawData[writeIndex++] = (byte)(Convert.ToInt32(antChkbs[i].Text) - 8);
-                    rawData[writeIndex++] = Convert.ToByte(antStays[i].Text);
-                }
-            }
-
-            rawData[writeIndex++] = getFastInventoryV2Interval(); // Interval, 0 ms
-            
-            rawData[writeIndex++] = 0xDE; // Reserve
-            rawData[writeIndex++] = 0xDE;
-            rawData[writeIndex++] = 0x00;
-            rawData[writeIndex++] = 0x00;
-
-            rawData[writeIndex++] = getFastInventoryV2SelectFlag(); // SL
-
-            rawData[writeIndex++] = getFastInventoryV2Session(); // session
-
-            rawData[writeIndex++] = getFastInventoryV2Target(); // Target
-
-            rawData[writeIndex++] = getFastInventoryV2Phase(); // Phase
-
-            if(antG1)
-            {
-                for (int i = 0; i < 8; i++)
-                {
-                    rawData[writeIndex++] = Convert.ToByte(antPowers[i].Text);
-                }
-            }
-            else
-            {
-                for (int i = 8; i < 16; i++)
-                {
-                    rawData[writeIndex++] = Convert.ToByte(antPowers[i].Text);
-                }
-            }
-
-            rawData[writeIndex++] = getFastInventoryV2Repeat(); // Repeat
-
-            int msgLen = writeIndex + 1;
-            rawData[1] = (byte)(msgLen - 2); // except hdr+len
-            //Console.WriteLine("sendReadJoharMessage writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
-
-            byte[] checkData = new byte[msgLen - 1];
-            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-            rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-            byte[] sendData = new byte[msgLen];
-            Array.Copy(rawData, 0, sendData, 0, msgLen);
-            //Console.WriteLine("fastInventoryV2Send: {0}", CCommondMethod.ToHex(sendData, "", " "));
-            int nResult = reader.SendMessage(sendData);
-            //Console.WriteLine("fastInventoryV2Send: [{0}] {1}", nResult, CCommondMethod.ToHex(sendData, "", " "));
-        }
-
-        private byte getFastInventoryV2Repeat()
-        {
-            string repeat = fast_inv_v2_repeat_tb.Text.Trim();
-            //Console.WriteLine("repeat={0}", repeat);
-            return Convert.ToByte(repeat);
-        }
-
-        private byte getFastInventoryV2SelectFlag()
-        {
-            if (fast_inv_v2_sl_00_rb.Checked)
-            {
-                return 0x00;
-            }
-            else if (fast_inv_v2_sl_01_rb.Checked)
-            {
-                return 0x01;
-            }
-            else if (fast_inv_v2_sl_02_rb.Checked)
-            {
-                return 0x02;
-            }
-            else if (fast_inv_v2_sl_03_rb.Checked)
-            {
-                return 0x03;
-            }
-            return 0x01; // default s1
-        }
-
-        private byte getFastInventoryV2Interval()
-        {
-            string interval = fast_inv_v2_interval_tb.Text.Trim();
-            //Console.WriteLine("interval={0}", interval);
-            return Convert.ToByte(interval);
-        }
-
-        private byte getFastInventoryV2Phase()
-        {
-            if(fast_inv_v2_phase_cb.Checked)
-            {
-                return 0x01;
-            }
-            else
-            {
-                return 0x00;
-            }
-        }
-
-        private byte getFastInventoryV2Target()
-        {
-            if (fast_inv_v2_target_A_rb.Checked)
-            {
-                return 0x00;
-            }
-            else if (fast_inv_v2_target_B_rb.Checked)
-            {
-                return 0x01;
-            }
-            return 0x00; // default A
-        }
-
-        private byte getFastInventoryV2Session()
-        {
-            if (fast_inv_v2_S0_rb.Checked)
-            {
-                return 0x00;
-            }
-            else if (fast_inv_v2_S1_rb.Checked)
-            {
-                return 0x01;
-            }
-            else if (fast_inv_v2_S2_rb.Checked)
-            {
-                return 0x02;
-            }
-            else if (fast_inv_v2__S3_rb.Checked)
-            {
-                return 0x03;
-            }
-            return 0x01; // default s1
-        }
-
-        private void fastInventoryLoadCfg()
-        {
-            fast_inv_v2_S1_rb.Checked = true;
-            fast_inv_v2_target_A_rb.Checked = true;
-            fast_inv_v2_sl_00_rb.Checked = true;
-            fast_inv_v2_interval_tb.Text = "0";
-            fast_inv_v2_repeat_tb.Text = "1";
-            fast_inv_v2_phase_cb.Checked = false;
-        }
-
-        private void fast_inv_v2_channel_1_CheckedChanged(object sender, EventArgs e)
-        {
-            label_fast_inv_v2_ant_title_c2.Visible = false;
-            label_fast_inv_v2_stay_title_c2.Visible = false;
-            label_fast_inv_v2_power_title_c2.Visible = false;
-
-            channelChange((RadioButton)sender);
-        }
-
-        private void fast_inv_v2_channel_4_CheckedChanged(object sender, EventArgs e)
-        {
-            label_fast_inv_v2_ant_title_c2.Visible = false;
-            label_fast_inv_v2_stay_title_c2.Visible = false;
-            label_fast_inv_v2_power_title_c2.Visible = false;
-            channelChange((RadioButton)sender);
-        }
-
-        private void fast_inv_v2_channel_8_CheckedChanged(object sender, EventArgs e)
-        {
-            label_fast_inv_v2_ant_title_c2.Visible = false;
-            label_fast_inv_v2_stay_title_c2.Visible = false;
-            label_fast_inv_v2_power_title_c2.Visible = false;
-            channelChange((RadioButton)sender);
-        }
-
-        private void fast_inv_v2_channel_16_CheckedChanged(object sender, EventArgs e)
-        {
-            label_fast_inv_v2_ant_title_c2.Visible = true;
-            label_fast_inv_v2_stay_title_c2.Visible = true;
-            label_fast_inv_v2_power_title_c2.Visible = true;
-            channelChange((RadioButton)sender);
-        }
-
-        private void channelChange(RadioButton rb)
-        {
-            //Console.WriteLine("{0}:{1}:{2}", rb.Name, rb.Text, rb.Checked);
-            if(rb.Name.Equals(curChannel) || !rb.Checked)
-            {
-                return;
-            }
-            curChannel = rb.Name;
-            
-            int channel = Convert.ToInt32(rb.Text);
-
-            for(int i=0; i<16; i++)
-            {
-                if(i<channel)
-                {
-                    antChkbs[i].Visible = true;
-                    antChkbs[i].Enabled = true;
-                    antChkbs[i].Checked = (i < 1 ? true : false);//默认选1
-
-                    antStays[i].Visible = true;
-                    antStays[i].Enabled = true;
-                    //antStays[i].Text = "1";
-
-                    antPowers[i].Visible = true;
-                    antPowers[i].Enabled = true;
-                    //antPowers[i].Text = "30";
-                }
-                else
-                {
-                    antChkbs[i].Visible = false;
-                    antChkbs[i].Enabled = false;
-                    antChkbs[i].Checked = false;
-
-                    antStays[i].Visible = false;
-                    antStays[i].Enabled = false;
-
-                    antPowers[i].Visible = false;
-                    antPowers[i].Enabled = false;
-                }
-            }
-        }
-
-        private void GenerateColmnsForDataGrid()
-        {
-            tags_dgv.AutoGenerateColumns = false;
-            tags_dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
-
-            mSerialNumberColumn.DataPropertyName = "SerialNumber";
-            mSerialNumberColumn.HeaderText = "#";
-
-            mReadCountColumn.DataPropertyName = "ReadCount";
-            mReadCountColumn.HeaderText = "识别次数";
-
-            mPcColumn.DataPropertyName = "PC";
-            mPcColumn.HeaderText = "PC";
-
-            mEpcColumn.DataPropertyName = "EPC";
-            mEpcColumn.HeaderText = "EPC";
-            mEpcColumn.MinimumWidth = 120;
-            mEpcColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            mRssiColumn.DataPropertyName = "Rssi";
-            mRssiColumn.HeaderText = "Rssi(dBm)";
-
-            mFreqColumn.DataPropertyName = "Freq";
-            mFreqColumn.HeaderText = "载波频率(MHz)";
-
-            mPhaseColumn.DataPropertyName = "Phase";
-            mPhaseColumn.HeaderText = "Phase";
-            mPhaseColumn.Visible = false;
-
-            mAntennaColumn.DataPropertyName = "Antenna";
-            mAntennaColumn.HeaderText = "Ant";
-
-            mDataColumn.DataPropertyName = "Data";
-            mDataColumn.HeaderText = "Data";
-            mDataColumn.MinimumWidth = 120;
-            mDataColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            mDataColumn.Visible = false;
-
-
-            //tags_dgv.DataSource = tagdb.TagList;
         }
 
         private void GenerateColmnsDataGridForRealInv()
@@ -10397,12 +9331,6 @@ namespace UHFDemo
             #endregion FastInventory_8A_v2
         }
 
-        private void fast_inv_v2_phase_cb_CheckedChanged(object sender, EventArgs e)
-        {
-            CheckBox cb = (CheckBox)sender;
-            mPhaseColumn.Visible = cb.Checked;
-        }
-
         private void saveLog()
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -10428,49 +9356,38 @@ namespace UHFDemo
             //}
         }
 
-        private void saveFastInvV2ResultToLog(bool useG1, uint times)
+        private void saveInventoryToLog(bool useG1, uint times, uint this_count)
         {
-            Console.WriteLine("saveFastInvV2ResultToLog [G{0}] {1}", useG1 ? "1":"2", times);
+            Console.WriteLine("SaveInventoryToLog [G{0}] {1}", useG1 ? "1":"2", times);
             this.BeginInvoke(new ThreadStart(delegate ()
             {
                 if (transportLogFile != null)
                 {
-                    transportLogFile.Write(String.Format("{0} 第[{1}]次, FastInvV2[G{2}] 本次读取的标签数量是: {3}个,  耗时: {4} ms",
-                    DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), times, useG1? "1":"2", tagdb.CmdTotalRead, tagdb.CommandDuration));
+                    if(doingFastInv)
+                    {
+                        transportLogFile.Write(String.Format("{0},{1}ms,{2},{3},[{4}], {5}",
+                        DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"),
+                        "第" + times + "次盘点耗时" + tagdb_fast_inv.CommandDuration,
+                        "使用天线组" + (useG1 ? "1" : "2"),
+                        (ReverseTarget ? ("使用Target" + (invTargetB ? "B," : "A,")) : ""),
+                        tagdb_fast_inv.CmdTotalRead,
+                        this_count));
 
-                    transportLogFile.WriteLine();
-                    transportLogFile.Flush();
-                }
-            }));
-        }
+                        transportLogFile.WriteLine();
+                        transportLogFile.Flush();
+                    }
+                    else
+                    {
+                        transportLogFile.Write(String.Format("{0},{1}ms,{2},[{3}],  {4}",
+                        DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"),
+                        "第" + times + "次盘点耗时" + tagdb_real_inv.CommandDuration,
+                        "使用天线组" + (useG1 ? "1" : "2"),
+                        tagdb_real_inv.CmdTotalRead,
+                        this_count));
 
-        private void saveFastInvResultToLog(bool useG1, uint times)
-        {
-            Console.WriteLine("saveFastInvResultToLog [G{0}] {1}", useG1 ? "1" : "2", times);
-            this.BeginInvoke(new ThreadStart(delegate ()
-            {
-                if (transportLogFile != null)
-                {
-                    transportLogFile.Write(String.Format("{0} 第[{1}]次, FastInv[G{2}] 本次读取的标签数量是: {3}个,  耗时: {4} ms",
-                    DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), times, useG1 ? "1" : "2", tagdb_fast_inv.CmdTotalRead, tagdb_fast_inv.CommandDuration));
-
-                    transportLogFile.WriteLine();
-                    transportLogFile.Flush();
-                }
-            }));
-        }
-
-        private void saveRealInvResultToLog(bool useG1, uint time)
-        {
-            this.BeginInvoke(new ThreadStart(delegate ()
-            {
-                if (transportLogFile != null)
-                {
-                    transportLogFile.Write(String.Format("{0} 第[{1}]次 RealInv[G{2}] 本次读取的标签数量是: {3}个,  耗时: {4} ms",
-                        DateTime.Now.ToString("MM/dd/yyyy hh:mm:ss.fff tt"), time, useG1?"1":"2", tagdb_real_inv.CmdTotalRead, tagdb_real_inv.CommandDuration));
-
-                    transportLogFile.WriteLine();
-                    transportLogFile.Flush();
+                        transportLogFile.WriteLine();
+                        transportLogFile.Flush();
+                    }
                 }
             }));
         }
@@ -10478,13 +9395,10 @@ namespace UHFDemo
         private void parseGetFrequencyRegion(byte[] data)
         {
             Console.WriteLine("parseGetFrequencyRegion: {0}", CCommondMethod.ToHex(data, "", " "));
-            if(tagdb!=null)
-                tagdb.UpdateRegionInfo(data);
             if (tagdb_real_inv != null)
                 tagdb_real_inv.UpdateRegionInfo(data);
             if (tagdb_fast_inv != null)
                 tagdb_fast_inv.UpdateRegionInfo(data);
-
         }
 
         private void cb_fast_inv_check_all_ant_CheckedChanged(object sender, EventArgs e)
@@ -10499,6 +9413,48 @@ namespace UHFDemo
         private void btn_refresh_comports_Click(object sender, EventArgs e)
         {
             RefreshComPorts();
+        }
+
+        private void cb_fast_inv_reverse_target_CheckedChanged(object sender, EventArgs e)
+        {
+            if(cb_fast_inv_reverse_target.Checked)
+            {
+                ReverseTarget = true;
+                invTargetB = false;
+                stayBTimes = Convert.ToInt32(tb_fast_inv_staytargetB_times.Text);
+            }
+            else
+            {
+                ReverseTarget = false;
+            }
+        }
+
+        private void cb_fast_inv_v2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cb_fast_inv_v2.Checked)
+            {
+                tb_fast_inv_reserved_5.Visible = false;
+                m_new_fast_inventory.Enabled = false;
+                m_new_fast_inventory.Checked = true;
+                grb_selectFlags.Enabled = true;
+                grb_selectFlags.Visible = true;
+                for (int i = 0; i < channels; i++)
+                {
+                    fast_inv_temp_pows[i].Enabled = true;
+                }
+            }
+            else
+            {
+                tb_fast_inv_reserved_5.Visible = true;
+                m_new_fast_inventory.Enabled = true;
+                m_new_fast_inventory.Checked = false;
+                grb_selectFlags.Enabled = false;
+                grb_selectFlags.Visible = false;
+                for (int i = 0; i < channels; i++)
+                {
+                    fast_inv_temp_pows[i].Enabled = false;
+                }
+            }
         }
     }
 
@@ -10541,7 +9497,7 @@ namespace UHFDemo
     public class NetCardSearch
     {
         string pc_ip = String.Empty;
-        string pc_mac = String.Empty;
+        string pc_mac = string.Empty;
         string pc_mask = String.Empty;
         public NetCardSearch()
         {
