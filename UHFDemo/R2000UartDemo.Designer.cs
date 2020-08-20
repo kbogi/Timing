@@ -404,6 +404,15 @@ namespace UHFDemo
             this.mFastExeCount = new System.Windows.Forms.TextBox();
             this.label131 = new System.Windows.Forms.Label();
             this.mFastIntervalTime = new System.Windows.Forms.TextBox();
+            this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.label_totaltime = new System.Windows.Forms.Label();
+            this.label62 = new System.Windows.Forms.Label();
+            this.label_readrate = new System.Windows.Forms.Label();
+            this.label_totalread_count = new System.Windows.Forms.Label();
+            this.label_totaltag_count = new System.Windows.Forms.Label();
+            this.label60 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.pageAcessTag = new System.Windows.Forms.TabPage();
             this.ltvOperate = new System.Windows.Forms.ListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -809,6 +818,7 @@ namespace UHFDemo
             this.grb_tagets.SuspendLayout();
             this.grb_sessions.SuspendLayout();
             this.groupBox28.SuspendLayout();
+            this.groupBox29.SuspendLayout();
             this.pageAcessTag.SuspendLayout();
             this.gbCmdOperateTag.SuspendLayout();
             this.groupBox16.SuspendLayout();
@@ -3905,6 +3915,7 @@ namespace UHFDemo
             this.flowLayoutPanel1.Controls.Add(this.groupBox20);
             this.flowLayoutPanel1.Controls.Add(this.groupBox27);
             this.flowLayoutPanel1.Controls.Add(this.groupBox28);
+            this.flowLayoutPanel1.Controls.Add(this.groupBox29);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(11, 83);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(317, 427);
@@ -4662,6 +4673,7 @@ namespace UHFDemo
             this.m_phase_value.TabIndex = 75;
             this.m_phase_value.Text = "Phase";
             this.m_phase_value.UseVisualStyleBackColor = true;
+            this.m_phase_value.CheckedChanged += new System.EventHandler(this.m_phase_value_CheckedChanged);
             // 
             // m_new_fast_inventory_continue
             // 
@@ -5000,6 +5012,95 @@ namespace UHFDemo
             this.mFastIntervalTime.TabIndex = 67;
             this.mFastIntervalTime.Text = "0";
             this.mFastIntervalTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox29
+            // 
+            this.groupBox29.Controls.Add(this.label_totaltime);
+            this.groupBox29.Controls.Add(this.label62);
+            this.groupBox29.Controls.Add(this.label_readrate);
+            this.groupBox29.Controls.Add(this.label_totalread_count);
+            this.groupBox29.Controls.Add(this.label_totaltag_count);
+            this.groupBox29.Controls.Add(this.label60);
+            this.groupBox29.Controls.Add(this.label48);
+            this.groupBox29.Controls.Add(this.label19);
+            this.groupBox29.Location = new System.Drawing.Point(3, 838);
+            this.groupBox29.Name = "groupBox29";
+            this.groupBox29.Size = new System.Drawing.Size(277, 116);
+            this.groupBox29.TabIndex = 79;
+            this.groupBox29.TabStop = false;
+            this.groupBox29.Text = "统计";
+            // 
+            // label_totaltime
+            // 
+            this.label_totaltime.AutoSize = true;
+            this.label_totaltime.Location = new System.Drawing.Point(104, 90);
+            this.label_totaltime.Name = "label_totaltime";
+            this.label_totaltime.Size = new System.Drawing.Size(29, 12);
+            this.label_totaltime.TabIndex = 7;
+            this.label_totaltime.Text = "0 秒";
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.Location = new System.Drawing.Point(32, 90);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(53, 12);
+            this.label62.TabIndex = 6;
+            this.label62.Text = "总时间：";
+            // 
+            // label_readrate
+            // 
+            this.label_readrate.AutoSize = true;
+            this.label_readrate.Location = new System.Drawing.Point(105, 65);
+            this.label_readrate.Name = "label_readrate";
+            this.label_readrate.Size = new System.Drawing.Size(47, 12);
+            this.label_readrate.TabIndex = 5;
+            this.label_readrate.Text = "0 个/秒";
+            // 
+            // label_totalread_count
+            // 
+            this.label_totalread_count.AutoSize = true;
+            this.label_totalread_count.Location = new System.Drawing.Point(105, 42);
+            this.label_totalread_count.Name = "label_totalread_count";
+            this.label_totalread_count.Size = new System.Drawing.Size(29, 12);
+            this.label_totalread_count.TabIndex = 4;
+            this.label_totalread_count.Text = "0 次";
+            // 
+            // label_totaltag_count
+            // 
+            this.label_totaltag_count.AutoSize = true;
+            this.label_totaltag_count.Location = new System.Drawing.Point(106, 17);
+            this.label_totaltag_count.Name = "label_totaltag_count";
+            this.label_totaltag_count.Size = new System.Drawing.Size(29, 12);
+            this.label_totaltag_count.TabIndex = 3;
+            this.label_totaltag_count.Text = "0 个";
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Location = new System.Drawing.Point(10, 65);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(89, 12);
+            this.label60.TabIndex = 2;
+            this.label60.Text = "平均读取速率：";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(22, 42);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(77, 12);
+            this.label48.TabIndex = 1;
+            this.label48.Text = "总读取次数：";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(34, 17);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(65, 12);
+            this.label19.TabIndex = 0;
+            this.label19.Text = "总标签数：";
             // 
             // pageAcessTag
             // 
@@ -8894,6 +8995,8 @@ namespace UHFDemo
             this.grb_sessions.PerformLayout();
             this.groupBox28.ResumeLayout(false);
             this.groupBox28.PerformLayout();
+            this.groupBox29.ResumeLayout(false);
+            this.groupBox29.PerformLayout();
             this.pageAcessTag.ResumeLayout(false);
             this.gbCmdOperateTag.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
@@ -9698,6 +9801,15 @@ namespace UHFDemo
         private RadioButton radio_btn_sl_00;
         private Label label_fast_inv_temp_pow_title_c1;
         private Label label_fast_inv_temp_pow_title_c2;
+        private GroupBox groupBox29;
+        private Label label_readrate;
+        private Label label_totalread_count;
+        private Label label_totaltag_count;
+        private Label label60;
+        private Label label48;
+        private Label label19;
+        private Label label_totaltime;
+        private Label label62;
     }
 }
 

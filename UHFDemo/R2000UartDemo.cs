@@ -17,7 +17,7 @@ using System.Net.Sockets;
 using System.Diagnostics;
 using System.Management;
 using System.Text.RegularExpressions;
-using NPOI.SS.Formula;
+using System.Windows.Threading;
 
 namespace UHFDemo
 {
@@ -90,6 +90,12 @@ namespace UHFDemo
 
         int channels = 1;
 
+        DispatcherTimer dispatcherTimer = null;
+        DispatcherTimer readratePerSecond = null;
+
+        DateTime startInventoryTime; // 记录盘存开始时间
+        public double elapsedTime = 0.0; // 盘点开始到此刻经过的时间
+
         public R2000UartDemo()
         {
             InitializeComponent();
@@ -137,6 +143,71 @@ namespace UHFDemo
             radio_btn_target_A.Checked = true;
             grb_selectFlags.Enabled = false;
             radio_btn_sl_00.Checked = true;
+
+            dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = TimeSpan.FromMilliseconds(50);
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+
+            readratePerSecond = new DispatcherTimer();
+            readratePerSecond.Interval = TimeSpan.FromMilliseconds(1000);
+            readratePerSecond.Tick += new EventHandler(readRatePerSec_Tick);
+        }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                tagdb_fast_inv.Repaint();
+                tagdb_real_inv.Repaint();
+            }
+            catch { }
+        }
+
+        void readRatePerSec_Tick(object sender, EventArgs e)
+        {
+            if (ledFast_totalread_count.Text.ToString() != "")
+            {
+                //Divide Total tag count at every 1 sec instant per difference value of
+                //current time and start async read time
+                UpdateReadRate(CalculateElapsedTime());
+            }
+        }
+
+        /// <summary>
+        /// Calculate total elapsed time between present time and start read command
+        /// initiated
+        /// </summary>
+        /// <returns>Returns total time elapsed </returns>
+        private double CalculateElapsedTime()
+        {
+            TimeSpan elapsed = (DateTime.Now - startInventoryTime);
+            // elapsed time + previous cached async read time
+            double totalseconds = elapsedTime + elapsed.TotalSeconds;
+            label_totaltime.Text = Math.Round(totalseconds, 2) + "秒";
+            return totalseconds;
+        }
+
+        /// <summary>
+        /// Display read rate per sec
+        /// </summary>
+        /// <param name="totalElapsedSeconds"> total elapsed time</param>
+        private void UpdateReadRate(double totalElapsedSeconds)
+        {
+            long temp = 0;
+            long tags = 0;
+            if (doingFastInv)
+            {
+                temp = tagdb_fast_inv.TotalTagCount;
+                tags = tagdb_fast_inv.UniqueTagCount;
+            }
+            else
+            {
+                temp = tagdb_real_inv.TotalTagCount;
+                tags = tagdb_real_inv.UniqueTagCount;
+            }
+            label_totalread_count.Text = temp + "次";
+            label_totaltag_count.Text = tags + "个";
+            label_readrate.Text = Math.Round((temp / totalElapsedSeconds), 2) + "个/秒";
         }
 
         private void bindInvAntTableEvents()
@@ -1250,7 +1321,7 @@ namespace UHFDemo
                     {
                         if(m_FastExeCount == -1)
                         {
-                            Console.WriteLine("m_FastExeCount < 0 ，循环");
+                            //Console.WriteLine("m_FastExeCount < 0 ，循环");
                             RefreshInventoryInfo();
                             NextFastInv();
                         }
@@ -2873,7 +2944,7 @@ namespace UHFDemo
         private void cmdFastInventorySend(bool antG1)
         {
             BeginInvoke(new ThreadStart(delegate() {
-                Console.WriteLine("cmdFastInventorySend [G{0}] 开始快速盘存  ##{1}##", useAntG1 ? "1" : "2", m_FastExeCount);
+                //Console.WriteLine("cmdFastInventorySend [G{0}] 开始快速盘存  ##{1}##", useAntG1 ? "1" : "2", m_FastExeCount);
                 int writeIndex = 0;
                 byte[] rawData = new byte[256];
                 rawData[writeIndex++] = 0xA0; // hdr
@@ -3465,13 +3536,17 @@ namespace UHFDemo
         {
             doingFastInv = false;
             Inventorying = false;
-            Console.WriteLine("真正停止快速盘存 V1");
+            Console.WriteLine("真正停止快速盘存");
             if (!useAntG1)
             {
                 Console.WriteLine("真正停止快速盘存 V1, 并且切换回到天线组1");
                 cmdSwitchAntG1();
             }
+            
             BeginInvoke(new ThreadStart(delegate {
+                dispatcherTimer.Stop();
+                readratePerSecond.Stop();
+                elapsedTime = CalculateElapsedTime();
                 btFastInventory.Text = "开始盘存";
             }));
         }
@@ -5127,6 +5202,9 @@ namespace UHFDemo
                         btRealTimeInventory.Text = "停止盘存";
 
                         Inventorying = true;
+                        dispatcherTimer.Start();
+                        readratePerSecond.Start();
+                        startInventoryTime = DateTime.Now;
                     }
 
                     m_curInventoryBuffer.bLoopInventoryReal = true;
@@ -5171,6 +5249,9 @@ namespace UHFDemo
                     btRealTimeInventory.Text = "开始盘存";
 
                     Inventorying = false;
+                    dispatcherTimer.Stop();
+                    readratePerSecond.Stop();
+                    elapsedTime = CalculateElapsedTime();
                 }
             }
         }
@@ -5193,9 +5274,15 @@ namespace UHFDemo
 
         private void btRealFresh_Click(object sender, EventArgs e)
         {
-            m_curInventoryBuffer.ClearInventoryRealResult();
+            startInventoryTime = DateTime.Now;
+            elapsedTime = 0.0;
 
-            tagdb_real_inv.Clear();
+            lock (tagdb_real_inv)
+            {
+                tagdb_real_inv.Clear();
+                tagdb_real_inv.Repaint();
+            }
+            m_curInventoryBuffer.ClearInventoryRealResult();
 
             ledReal_cmd_total_tagreads.Text = "0";
             ledReal_readrate.Text = "0";
@@ -5462,6 +5549,9 @@ namespace UHFDemo
                             useAntG1 = true;
                             cmdFastInventorySend(useAntG1);
                         }
+                        dispatcherTimer.Start();
+                        readratePerSecond.Start();
+                        startInventoryTime = DateTime.Now;
                     }
                 }
                 catch (System.Exception ex)
@@ -5549,7 +5639,13 @@ namespace UHFDemo
 
         private void buttonFastFresh_Click(object sender, EventArgs e)
         {
-            tagdb_fast_inv.Clear();
+            startInventoryTime = DateTime.Now;
+            elapsedTime = 0.0;
+            lock (tagdb_fast_inv)
+            {
+                tagdb_fast_inv.Clear();
+                tagdb_fast_inv.Repaint();
+            }
             m_curInventoryBuffer.ClearInventoryRealResult();
             ledFast_cmd_total_tagreads.Text = "0";
             ledFast_cmd_readrate.Text = "0";
@@ -9358,7 +9454,7 @@ namespace UHFDemo
 
         private void saveInventoryToLog(bool useG1, uint times, uint this_count)
         {
-            Console.WriteLine("SaveInventoryToLog [G{0}] {1}", useG1 ? "1":"2", times);
+            //Console.WriteLine("SaveInventoryToLog [G{0}] {1}", useG1 ? "1":"2", times);
             this.BeginInvoke(new ThreadStart(delegate ()
             {
                 if (transportLogFile != null)
@@ -9455,6 +9551,11 @@ namespace UHFDemo
                     fast_inv_temp_pows[i].Enabled = false;
                 }
             }
+        }
+
+        private void m_phase_value_CheckedChanged(object sender, EventArgs e)
+        {
+            Phase_fast_inv.Visible = m_phase_value.Checked;
         }
     }
 

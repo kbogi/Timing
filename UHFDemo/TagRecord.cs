@@ -540,6 +540,19 @@ namespace UHFDemo
                     break;
             }
         }
+
+        /// <summary>
+        /// Manually release change events
+        /// </summary>
+        public void Repaint()
+        {
+            _tagList.RaiseListChangedEvents = true;
+
+            //Causes a control bound to the BindingSource to reread all the items in the list and refresh their displayed values.
+            _tagList.ResetBindings();
+
+            _tagList.RaiseListChangedEvents = false;
+        }
         #endregion 0x79
     }
     #endregion TagDB
