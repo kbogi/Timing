@@ -35,6 +35,8 @@ namespace UHFDemo
         byte freqSpace;
         byte freqQuantity;
 
+        int bufferTagCount = 0;
+
         private int readcount = 0;
         /// <summary>
         /// Time that search started
@@ -46,38 +48,122 @@ namespace UHFDemo
         internal int _readOffset = 0;
         private bool readPhase = false;
 
-        public Tag(byte[] tagData)
+        public Tag(byte[] tagData, byte cmd)
         {
             //Console.WriteLine("Tag tagLen={0}", tagData.Length);
             rawData = new byte[tagData.Length];
             Array.Copy(tagData, 0, rawData, 0, rawData.Length);
-
-            parseFastInvV2TagData();
+            switch (cmd)
+            {
+                case 0x89:
+                case 0x8B:
+                case 0x8A:
+                    parseInvTagData();
+                    break;
+                case 0x90:
+                case 0x91:
+                    parseBufferTagData();
+                    break;
+                default:
+                    break;
+            }
         }
 
-        public Tag(byte[] tagData, bool readPhase)
+        public Tag(byte[] tagData, bool readPhase, byte cmd)
         {
-            //Console.WriteLine("Tag readPhase tagLen={0}", tagData.Length);
+            //Console.WriteLine("Tag cmd={0:X2}, readPhase={1}, tag[{2}] {3}", cmd, readPhase, tagData.Length, CCommondMethod.ToHex(tagData, "", " "));
             this.readPhase = readPhase;
             rawData = new byte[tagData.Length];
             Array.Copy(tagData, 0, rawData, 0, rawData.Length);
-
-            //Console.WriteLine("Tag readPhase rawData={0}", CCommondMethod.ToHex(rawData, "", " "));
-            parseFastInvV2TagData();
+            switch (cmd)
+            {
+                case 0x89:
+                case 0x8B:
+                case 0x8A:
+                    parseInvTagData();
+                    break;
+                case 0x90:
+                case 0x91:
+                    parseBufferTagData();
+                    break;
+                default:
+                    break;
+            }
         }
 
-        private void parseFastInvV2TagData()
+        private void parseBufferTagData()
         {
-            //Console.WriteLine("parseFastInvV2TagData tagLen={0}", rawData.Length);
+            //Console.WriteLine("parseBufferTagData={0}", CCommondMethod.ToHex(rawData, "", " "));
+            //[TagCount][DataLen][Data][Rssi][FreqAnt][ReadCount]
+            //[   2    ][  1    ][  N ][ 1  ][   1   ][   1     ]
+            //Data:  PC(2字节) + EPC (根据标签规格 + CRC (2字节)) 
             int tagLen = rawData.Length;
             writeIndex = 0;
-            freqAnt = rawData[writeIndex++];
-            //Console.WriteLine("#3 parseFastInvV2TagData freqAnt={0:x2}", freqAnt);
+            //TagCount
+            bufferTagCount = CCommondMethod.ToU16(rawData, ref writeIndex);
+            //DataLen
+            int dataLen = rawData[writeIndex++];
 
+            //PC
             pc = new byte[2];
             Array.Copy(rawData, writeIndex, pc, 0, pc.Length);
             writeIndex += pc.Length;
-            //Console.WriteLine("#3 parseFastInvV2TagData PC({1})={0}", CCommondMethod.ToHex(pc, "", " "), pc.Length);
+
+            int epcLen = 0;
+            epcLen = dataLen - 4;// pc + crc
+            epc = new byte[epcLen];
+            Array.Copy(rawData, writeIndex, epc, 0, epc.Length);
+            writeIndex += epc.Length;
+
+            crc = new byte[2];
+            Array.Copy(rawData, writeIndex, crc, 0, crc.Length);
+            writeIndex += crc.Length;
+
+            rssiRaw = rawData[writeIndex++];
+
+            freqAnt = rawData[writeIndex++];
+
+            readcount = rawData[writeIndex++];
+
+            phase = _noData;
+
+            data = _noData;
+
+            freq = (byte)((freqAnt & 0xFC) >> 2);
+            antNo = (byte)(freqAnt & 0x03);
+            //Console.WriteLine("#3 parseBufferTagData freq={0:x2}", freq);
+
+            rssiH = (byte)((rssiRaw & 0x80) >> 7);
+            rssi = (byte)(rssiRaw & 0x7F);
+            //Console.WriteLine("#3 parseBufferTagData rssi={0:x2}", rssi);
+
+            if (rssiH == 0x1) // rssiH == true, 5,6,7,8
+            {
+                antNo = (byte)(antNo + 0x05);
+            }
+            else
+            {
+                antNo = (byte)(antNo + 0x01);
+            }
+            //Console.WriteLine("#3 parseBufferTagData antNo={0:x2}", antNo);
+        }
+
+        private void parseInvTagData()
+        {
+            //Console.WriteLine("parseInvTagData={0}", CCommondMethod.ToHex(rawData, "", " "));
+            //[FreqAnt][PC][EPC][Rssi][Phase]
+            //[   1   ][2 ][ N ][ 1  ][   2 ]
+            int tagLen = rawData.Length;
+            writeIndex = 0;
+            //FreqAnt
+            freqAnt = rawData[writeIndex++];
+            //Console.WriteLine("#3 parseInvTagData freqAnt={0:x2}", freqAnt);
+
+            //PC
+            pc = new byte[2];
+            Array.Copy(rawData, writeIndex, pc, 0, pc.Length);
+            writeIndex += pc.Length;
+            //Console.WriteLine("#3 parseInvTagData PC({1})={0}", CCommondMethod.ToHex(pc, "", " "), pc.Length);
 
             int epcLen = 0;
             if (readPhase)
@@ -91,10 +177,10 @@ namespace UHFDemo
             epc = new byte[epcLen];
             Array.Copy(rawData, writeIndex, epc, 0, epc.Length);
             writeIndex += epc.Length;
-            //Console.WriteLine("#3 parseFastInvV2TagData EPC({1})={0}", CCommondMethod.ToHex(epc, "", " "), epcLen);
+            //Console.WriteLine("#3 parseInvTagData EPC({1})={0}", CCommondMethod.ToHex(epc, "", " "), epcLen);
 
             rssiRaw = rawData[writeIndex++];
-            //Console.WriteLine("#3 parseFastInvV2TagData rssiRaw={0:x2}", rssiRaw);
+            //Console.WriteLine("#3 parseInvTagData rssiRaw={0:x2}", rssiRaw);
 
             if (readPhase)
             {
@@ -106,7 +192,7 @@ namespace UHFDemo
                 phase = _noData;
             }
             writeIndex += phase.Length;
-            //Console.WriteLine("#3 parseFastInvV2TagData phase({1})={0}", CCommondMethod.ToHex(phase, "", " "), phase.Length);
+            //Console.WriteLine("#3 parseInvTagData phase({1})={0}", CCommondMethod.ToHex(phase, "", " "), phase.Length);
 
             crc = _noData;
 
@@ -114,11 +200,11 @@ namespace UHFDemo
 
             freq = (byte)((freqAnt & 0xFC) >> 2);
             antNo = (byte)(freqAnt & 0x03);
-            //Console.WriteLine("#3 parseFastInvV2TagData freq={0:x2}", freq);
+            //Console.WriteLine("#3 parseInvTagData freq={0:x2}", freq);
 
             rssiH = (byte)((rssiRaw & 0x80) >> 7);
             rssi = (byte)(rssiRaw & 0x7F);
-            //Console.WriteLine("#3 parseFastInvV2TagData rssi={0:x2}", rssi);
+            //Console.WriteLine("#3 parseInvTagData rssi={0:x2}", rssi);
 
             if (rssiH == 0x1) // rssiH == true, 5,6,7,8
             {
@@ -128,11 +214,15 @@ namespace UHFDemo
             {
                 antNo = (byte)(antNo + 0x01);
             }
-            //Console.WriteLine("#3 parseFastInvV2TagData antNo={0:x2}", antNo);
+            //Console.WriteLine("#3 parseInvTagData antNo={0:x2}", antNo);
 
             readcount = 1;
         }
 
+        public int BufferTagCount
+        {
+            get { return bufferTagCount; }
+        }
         public int ReadCount
         {
             get { return readcount; }
@@ -361,11 +451,11 @@ namespace UHFDemo
         {
             get { return _tagList; }
         }
-        public long UniqueTagCount
+        public long TotalTagCounts
         {
             get { return uniqueTagCounts; }
         }
-        public long TotalTagCount
+        public long TotalReadCounts
         {
             get { return totalReadCounts; }
         }
@@ -389,7 +479,7 @@ namespace UHFDemo
             get { return cmdReadRate; }
         }
 
-        public uint UniqueTagCountForTest 
+        public uint CmdUniqueTagCount
         {
             get { return cmdTotalUniqueRead; }
             set {
@@ -400,6 +490,9 @@ namespace UHFDemo
                 cmdTotalUniqueRead = value; 
             }
         }
+
+        public int MinRSSI { get; internal set; }
+        public int MaxRSSI { get; internal set; }
 
         public void UpdateCmd89ExecuteSuccess(byte[] data)
         {
@@ -443,10 +536,33 @@ namespace UHFDemo
             //Console.WriteLine("antId={0}, readRate={1}, totalRead={2}, totalTime={3}", antId, readRate, totalRead, cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate));
         }
 
+
+        public void UpdateCmd80ExecuteSuccess(byte[] data)
+        {
+            //msg : [hdr][len][addr][cmd][data][check]
+            //data: [AntId][TagCount][ReadRate][TotalRead]
+            //      [  1  ][   2    ][  2     ][   4     ] 
+            //Console.WriteLine("data={0}", CCommondMethod.ToHex(data, "", " "));
+            int readIndex = 0;
+            byte antId = data[readIndex++];
+            int tagCount = CCommondMethod.ToU16(data, ref readIndex);
+            int readRate = CCommondMethod.ToU16(data, ref readIndex);
+            uint totalRead = CCommondMethod.ToU32(data, ref readIndex);
+
+            //Console.WriteLine("readIndex={0}, antId={1}, tagCount={2}, readRate={3}, totalRead={4}", readIndex, antId, tagCount, readRate, totalRead);
+
+            cmdTotalRead = totalRead;
+            cmdReadRate = (ushort)readRate;
+            uniqueTagCounts = (uint)tagCount;
+            totalReadCounts += totalRead;
+        }
+
         public void Clear()
         {
             EpcIndex.Clear();
             _tagList.Clear();
+            MaxRSSI = 0;
+            MinRSSI = 0;
             uniqueTagCounts = 0;
             totalReadCounts = 0;
             totalCommandTimes = 0;
@@ -596,6 +712,20 @@ namespace UHFDemo
             get { return serialNo; }
             set { serialNo = value; }
         }
+
+        //public DateTime TimeStamp
+        //{
+        //    get
+        //    {
+        //        //return DateTime.Now.ToLocalTime();
+        //        TimeSpan difftime = (DateTime.Now.ToUniversalTime() - RawRead.Time.ToUniversalTime());
+        //        //double a1111 = difftime.TotalSeconds;
+        //        if (difftime.TotalHours > 24)
+        //            return DateTime.Now.ToLocalTime();
+        //        else
+        //            return RawRead.Time.ToLocalTime();
+        //    }
+        //}
 
         public int ReadCount
         {
