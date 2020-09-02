@@ -1,55 +1,106 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
-using System.Net.Sockets;
 using System.IO.Ports;
-using System.Threading;
-//add this
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.IO;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
 
 namespace Reader
 {
-    public delegate void ReciveDataCallback(byte[] btAryReceiveData);
-    public delegate void SendDataCallback(byte[] btArySendData);
-    public delegate void AnalyDataCallback(MessageTran msgTran);
-    public delegate void TcpExceptionCallBack(string strErr);
+    public delegate void ReciveDataCallback(object sender, TransportDataEventArgs e);
+    public delegate void SendDataCallback(object sender, byte[] data);
+    public delegate void AnalyDataCallback(object sender, MessageTran msgTran);
+    public delegate void ErrCallback(object sender, ErrorReceivedEventArgs e);
 
-
-    public class ReaderMethod
+    public class ReaderMethod 
     {
         private ITalker italker;
         private SerialPort iSerialPort;
-        private int m_nType = -1;
+        private IBle ible;
+        private ReaderType m_nType = ReaderType.Default;
 
         public ReciveDataCallback ReceiveCallback;
         public SendDataCallback SendCallback;
         public AnalyDataCallback AnalyCallback;
-        public TcpExceptionCallBack TcpErrCallback;
+        public ErrCallback ErrCallback;
 
         //记录未处理的接收数据，主要考虑接收数据分段
         byte[] m_btAryBuffer = new byte[4096 * 10];
         //记录未处理数据的有效长度
         int m_nLenth = 0;
 
-        public ReaderMethod()
+        public event EventHandler<TransportDataEventArgs> EvRecvData;
+        public event EventHandler<ErrorReceivedEventArgs> EvException;
+        protected void OnSerialTransport(bool tx, byte[] data)
         {
-            this.italker = new Talker();
-
-            italker.MessageReceived += new MessageReceivedEventHandler(ReceivedTcpData);
-
-            italker.TcpExceptionReceived += new ExceptionReceivedEventHandler(ReceivedTcpError);
-
-            iSerialPort = new SerialPort();
-
-            iSerialPort.DataReceived += new SerialDataReceivedEventHandler(ReceivedComData);
-
-            iSerialPort.ErrorReceived += new SerialErrorReceivedEventHandler(DevicePortError_DataReceived);
+            MessageReceived(this.iSerialPort, new TransportDataEventArgs(tx, data));
         }
 
+        protected void OnSerialReadException(string exStr, Exception e)
+        {
+            ExceptionReceived(this.iSerialPort, new ErrorReceivedEventArgs(exStr, e));
+        }
+
+        public ReaderMethod()
+        {
+            italker = new Talker();
+            italker.EvRecvData += MessageReceived;
+            italker.EvException += ExceptionReceived;
+
+            iSerialPort = new SerialPort();
+            iSerialPort.DataReceived += ISerialPort_DataReceived;
+            iSerialPort.ErrorReceived += ISerialPort_ErrorReceived;
+
+            ible = new Ble();
+            ible.EvRecvData += MessageReceived;
+            ible.EvException += ExceptionReceived;
+        }
+
+        private void ISerialPort_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
+        {
+            OnSerialReadException(e.EventType.ToString(), new Exception());
+        }
+
+        private void ISerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            int nCount = iSerialPort.BytesToRead;
+
+            if (nCount == 0)
+            {
+                return;
+            }
+
+            byte[] data = new byte[nCount];
+            iSerialPort.Read(data, 0, nCount);
+            OnSerialTransport(false, data);
+        }
+
+        private void MessageReceived(object sender, TransportDataEventArgs e)
+        {
+            OnTransport(sender, e);
+            RunReceiveDataCallback(e.Data);
+        }
+
+        private void ExceptionReceived(object sender, ErrorReceivedEventArgs e)
+        {
+            ErrCallback?.Invoke(this, new ErrorReceivedEventArgs(e.ErrStr, e.Err));
+        }
+
+        private void OnTransport(object sender, TransportDataEventArgs e)
+        {
+            if (e.Tx)
+            {
+                SendCallback?.Invoke(sender, e.Data);
+            }
+            else
+            {
+                ReceiveCallback?.Invoke(sender, e);
+            }
+        }
+
+        private void OnAnaly(MessageTran msgTran)
+        {
+            AnalyCallback?.Invoke(this, msgTran);
+        }
+        #region ConnectSerial
         public int OpenCom(string strPort, int nBaudrate, out string strException)
         {
             strException = string.Empty;
@@ -73,7 +124,7 @@ namespace Reader
                 return -1;
             }
 
-            m_nType = 0;
+            m_nType = ReaderType.SerialPort;
             return 0;
         }
 
@@ -84,9 +135,11 @@ namespace Reader
                 iSerialPort.Close();
             }
 
-            m_nType = -1;
+            m_nType = ReaderType.Default;
         }
+        #endregion ConnectSerial
 
+        #region ConnectTcp
         public int ConnectServer(IPAddress ipAddress, int nPort, out string strException)
         {
             strException = string.Empty;
@@ -96,71 +149,53 @@ namespace Reader
                 return -1;
             }
 
-            m_nType = 1;
+            m_nType = ReaderType.TCP;
             return 0;
         }
 
         public void SignOut()
         {
             italker.SignOut();
-            m_nType = -1;
+            m_nType = ReaderType.Default;
         }
+        #endregion ConnectTcp
 
-        private void ReceivedTcpData(byte[] btAryBuffer)
+        #region ConnectBLE
+        string serviceUUID = "0000fff0-0000-1000-8000-00805f9b34fb"; // 65520
+        string subscribeUUID = "0000fff1-0000-1000-8000-00805f9b34fb";// 65521
+        string writeUUID = "0000fff2-0000-1000-8000-00805f9b34fb";// 65522
+        public void StartBLE(GattCharacteristic RecvGatt, GattCharacteristic SendGatt)
         {
-            RunReceiveDataCallback(btAryBuffer);
-        }
-                
-        private void ReceivedTcpError(string e)
-        {
-            RunTcpExceptionCallback(e);
-        }
-
-        private void ReceivedComData(object sender, SerialDataReceivedEventArgs e)
-        {
-            try
+            if (!RecvGatt.Uuid.ToString().Equals(subscribeUUID) || !SendGatt.Uuid.ToString().Equals(writeUUID))
             {
-                int nCount = iSerialPort.BytesToRead;
-
-                if (nCount == 0)
-                {
-                    return;
-                }
-
-                byte[] btAryBuffer = new byte[nCount];
-                iSerialPort.Read(btAryBuffer, 0, nCount);
-
-                RunReceiveDataCallback(btAryBuffer);
+                return;
             }
-            catch (System.Exception ex)
-            {
-                Console.WriteLine("Exception information:" + ex.ToString());
-            }
+
+            Console.WriteLine("StartBLE ...");
+            ible.Recv = RecvGatt;
+            ible.Send = SendGatt;
+            //byte[] data = new byte[] { 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38 };
+            ible.SendMessage(System.Text.Encoding.Default.GetBytes("12345678"));
+            ible.Subscribe();
+            ible.PowerOn();
+
+            m_nType = ReaderType.BLE;
         }
 
-        //add error handle
-        private void DevicePortError_DataReceived(object sender, SerialErrorReceivedEventArgs e)
+        public void StopBLE()
         {
-            Console.WriteLine("Exception information:" + e.ToString());
+            Console.WriteLine("StopBLE ...");
+            ible.Unsubscribe();
+            ible.PowerOff();
+            ible.Recv = null;
+            ible.Send = null;
+            m_nType = ReaderType.Default;
         }
-
-        private void RunTcpExceptionCallback(string strErr)
-        {
-            if (TcpErrCallback != null)
-            {
-                TcpErrCallback(strErr);
-            }
-        }
-
+        #endregion ConnectBLE
         private void RunReceiveDataCallback(byte[] btAryReceiveData)
         {
             try
             {
-                if (ReceiveCallback != null)
-                {
-                    ReceiveCallback(btAryReceiveData);
-                }
-
                 int nCount = btAryReceiveData.Length;
                 byte[] btAryBuffer = new byte[nCount + m_nLenth];
                 Array.Copy(m_btAryBuffer, btAryBuffer, m_nLenth);
@@ -182,11 +217,8 @@ namespace Reader
                                 Array.Copy(btAryBuffer, nLoop, btAryAnaly, 0, nLen + 2);
 
                                 MessageTran msgTran = new MessageTran(btAryAnaly);
-                                if (AnalyCallback != null)
-                                {
-                                    //Console.WriteLine("---接收数据: " + byteToHexStr(btAryAnaly));
-                                    AnalyCallback(msgTran);
-                                }
+                                //Console.WriteLine("---接收数据: " + byteToHexStr(btAryAnaly));
+                                OnAnaly(msgTran);
 
                                 nLoop += 1 + nLen;
                                 nIndex = nLoop + 1;
@@ -221,7 +253,7 @@ namespace Reader
             }
             catch (System.Exception ex)
             {
-
+                ErrCallback?.Invoke(this, new ErrorReceivedEventArgs(ex.Message, ex));
             }
         }
 
@@ -229,7 +261,7 @@ namespace Reader
         {
             //Console.WriteLine("发送数据: " + byteToHexStr(btArySenderData));
             //串口连接方式
-            if (m_nType == 0)
+            if (m_nType == ReaderType.SerialPort)
             {
                 if (!iSerialPort.IsOpen)
                 {
@@ -237,16 +269,12 @@ namespace Reader
                 }
 
                 iSerialPort.Write(btArySenderData, 0, btArySenderData.Length);
-
-                if (SendCallback != null)
-                {
-                    SendCallback(btArySenderData);
-                }
-
+                //OnSerialTransport(true, btArySenderData);
+                OnTransport(this.iSerialPort, new TransportDataEventArgs(true, btArySenderData));
                 return 0;
             }
             //Tcp连接方式
-            else if (m_nType == 1)
+            else if (m_nType == ReaderType.TCP)
             {
                 if (!italker.IsConnect())
                 {
@@ -255,11 +283,15 @@ namespace Reader
 
                 if (italker.SendMessage(btArySenderData))
                 {
-                    if (SendCallback != null)
-                    {
-                        SendCallback(btArySenderData);
-                    }
-
+                    OnTransport(this.italker, new TransportDataEventArgs(true, btArySenderData));
+                    return 0;
+                }
+            }
+            else if (m_nType == ReaderType.BLE)
+            {
+                if(ible.SendMessage(btArySenderData))
+                {
+                    OnTransport(this.ible, new TransportDataEventArgs(true, btArySenderData));
                     return 0;
                 }
             }
@@ -921,6 +953,13 @@ namespace Reader
 
             return nResult;
         }
+    }
 
+    enum ReaderType
+    {
+        Default,
+        SerialPort,
+        TCP,
+        BLE
     }
 }

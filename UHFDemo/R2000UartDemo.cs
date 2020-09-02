@@ -7,9 +7,6 @@ using System.Text;
 using System.Windows.Forms;
 using System.Net;
 using System.Threading;
-using NPOI.HSSF.UserModel;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
 using System.IO;
 using System.IO.Ports;
 using Reader;
@@ -18,13 +15,20 @@ using System.Diagnostics;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
-using NPOI.SS.Formula.Functions;
-using Match = System.Text.RegularExpressions.Match;
+using Windows.Devices.Enumeration;
+using System.ComponentModel;
+using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using Windows.Devices.Bluetooth;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace UHFDemo
 {
     public partial class R2000UartDemo : Form
     {
+        R2000UartDemo rootPage;
+        public string SelectedBleDeviceId;
+        public string SelectedBleDeviceName = "No device selected";
+
         private ReaderMethod reader;
 
         private ReaderSetting m_curSetting = new ReaderSetting();
@@ -46,8 +50,6 @@ namespace UHFDemo
 
         private int m_nReceiveFlag = 0;
         private int m_FastExeCount;
-
-        private volatile bool m_nRepeat1 = false;
         private volatile bool m_nRepeat2 = false;
 
         private volatile bool m_nRepeat12 = false;
@@ -103,6 +105,7 @@ namespace UHFDemo
         public R2000UartDemo()
         {
             InitializeComponent();
+
             Text = string.Format("{0}{1}.{2}",
                 "UHF RFID Reader Demo v",
                 System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.Major,
@@ -153,7 +156,6 @@ namespace UHFDemo
 
         private void initRealInvAnts()
         {
-            Console.WriteLine("initRealInvAnts");
             antLists = new List<string>();
             antLists.Add("天线1");
             combo_realtime_inv_ants.Items.AddRange(antLists.ToArray());
@@ -249,15 +251,13 @@ namespace UHFDemo
 
             //回调函数
             reader.AnalyCallback = AnalyData;
-            reader.ReceiveCallback = ReceiveData;
             reader.SendCallback = SendData;
-            reader.TcpErrCallback = TcpExcption;
+            reader.ReceiveCallback = RecvData;
+            reader.ErrCallback = OnError;
 
             //设置界面元素有效性
-            gbRS232.Enabled = false;
-            gbTcpIp.Enabled = false;
             SetFormEnable(false);
-            rdbRS232.Checked = true;
+            radio_btn_rs232.Checked = true;
             antType4.Checked = true;
 
             //初始化连接读写器默认配置
@@ -268,10 +268,10 @@ namespace UHFDemo
             txtTcpPort.Text = "4001";
 
 
-            comboBox12.SelectedIndex = 0;
-            comboBox13.SelectedIndex = 1;
-            comboBox14.SelectedIndex = 0;
-            comboBox15.SelectedIndex = 0;
+            combo_mast_id.SelectedIndex = 0;
+            combo_menbank.SelectedIndex = 1;
+            combo_action.SelectedIndex = 0;
+            combo_session.SelectedIndex = 0;
             comboBox16.SelectedIndex = 0;
 
             cmbReturnLossFreq.SelectedIndex = 33;
@@ -307,41 +307,43 @@ namespace UHFDemo
             cmbComPort.SelectedIndex = cmbComPort.Items.Count - 1;
         }
 
-        private void TcpExcption(string strErr)
-        {
-            WriteLog(lrtxtLog, strErr, 1);
-            if (strErr.Contains("重连成功") && !btnInventory.Text.Equals("开始盘存"))
-            {
-                BeginInvoke(new ThreadStart(delegate ()
-                {
-                    FastInventory_Click(null, null);
-                    FastInventory_Click(null, null);
-                }));
-            }
-        }
-
-        private void ReceiveData(byte[] btAryReceiveData)
-        {
-
-            if (m_bDisplayLog)
-            {
-                string strLog = CCommondMethod.ByteArrayToString(btAryReceiveData, 0, btAryReceiveData.Length);
-
-                WriteLog(lrtxtDataTran, strLog, 1);
-            }
-        }
-
-        private void SendData(byte[] btArySendData)
+        private void SendData(object sender, byte[] data)
         {
             if (m_bDisplayLog)
             {
-                string strLog = CCommondMethod.ByteArrayToString(btArySendData, 0, btArySendData.Length);
-
+                string strLog = "Send: " + CCommondMethod.ToHex(data, "", " ");
+                Console.WriteLine("-->  {0}", strLog);
                 WriteLog(lrtxtDataTran, strLog, 0);
             }
         }
 
-        private void AnalyData(Reader.MessageTran msgTran)
+        private void RecvData(object sender, TransportDataEventArgs e)
+        {
+            if (m_bDisplayLog)
+            {
+                string strLog = e.Tx ? "Send: ":"Recv: " + CCommondMethod.ToHex(e.Data, "", " ");
+                Console.WriteLine("<--  {0}", strLog);
+                WriteLog(lrtxtDataTran, strLog, e.Tx ? 0 : 1);
+            }
+        }
+
+        private void OnError(object sender, ErrorReceivedEventArgs e)
+        {
+            WriteLog(lrtxtLog, e.ErrStr, 1);
+            if (radio_btn_tcp.Checked)
+            {
+                if (e.ErrStr.Contains("重连成功") && !btnInventory.Text.Equals("开始盘存"))
+                {
+                    BeginInvoke(new ThreadStart(delegate ()
+                    {
+                        FastInventory_Click(null, null);
+                        FastInventory_Click(null, null);
+                    }));
+                }
+            }
+        }
+
+        private void AnalyData(object sender, Reader.MessageTran msgTran)
         {
             m_nReceiveFlag = 0;
             if (msgTran.PacketType != 0xA0)
@@ -426,7 +428,6 @@ namespace UHFDemo
                 case 0x68:
                     ProcessGetReaderIdentifier(msgTran);
                     break;
-
                 case 0x80:
                     ProcessInventory(msgTran);
                     break;
@@ -1071,6 +1072,25 @@ namespace UHFDemo
                 rawData[writeIndex++] = m_curSetting.btReadId; // addr
 
                 rawData[writeIndex++] = 0x8A; // cmd
+                if(antType1.Checked)
+                {
+                    for (int i = 0; i < 4; i++)
+                    {
+
+                        rawData[writeIndex++] = (byte)(Convert.ToInt32(fast_inv_ants[i].Text) - 1);
+                        if (i == 0)
+                        {
+                            rawData[writeIndex++] = Convert.ToByte(fast_inv_stays[i].Text);
+                        }
+                        else
+                        {
+                            rawData[writeIndex++] = 0x00;
+                        }
+                    }
+                    rawData[writeIndex++] = Convert.ToByte(this.txtInterval.Text); // Interval, 0 ms
+
+                    rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
+                }
                 if (antType4.Checked)
                 {
                     for (int i = 0; i < 4; i++)
@@ -1082,15 +1102,6 @@ namespace UHFDemo
                     rawData[writeIndex++] = Convert.ToByte(this.txtInterval.Text); // Interval, 0 ms
 
                     rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
-
-                    int msgLen = writeIndex + 1;
-                    rawData[1] = (byte)(msgLen - 2); // except hdr+len
-
-                    byte[] checkData = new byte[msgLen - 1];
-                    Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-                    rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-                    Array.Resize(ref rawData, msgLen);
                 }
                 else if (antType16.Checked || antType8.Checked)
                 {
@@ -1185,17 +1196,17 @@ namespace UHFDemo
 
 
                     rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
-
-                    int msgLen = writeIndex + 1;
-                    rawData[1] = (byte)(msgLen - 2); // except hdr+len
-                    //Console.WriteLine("快速盘存[8/16 Channels]  writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
-
-                    byte[] checkData = new byte[msgLen - 1];
-                    Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-                    rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-                    Array.Resize(ref rawData, msgLen);
                 }
+
+                int msgLen = writeIndex + 1;
+                rawData[1] = (byte)(msgLen - 2); // except hdr+len
+                Console.WriteLine("快速盘存 writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+
+                byte[] checkData = new byte[msgLen - 1];
+                Array.Copy(rawData, 0, checkData, 0, checkData.Length);
+                rawData[writeIndex] = reader.CheckValue(checkData); // check
+
+                Array.Resize(ref rawData, msgLen);
 
                 //Console.WriteLine("快速盘存: {0}", CCommondMethod.ToHex(rawData, "", " "));
                 int nResult = reader.SendMessage(rawData);
@@ -1416,56 +1427,20 @@ namespace UHFDemo
             }
         }
 
-        private void rdbRS232_CheckedChanged(object sender, EventArgs e)
+        private void connectType_CheckedChanged(object sender, EventArgs e)
         {
-            if (rdbRS232.Checked)
+            if (radio_btn_rs232.Checked)
             {
-                gbRS232.Enabled = true;
-                btnDisconnectRs232.Enabled = false;
-
-                //设置按钮字体颜色
-                btnConnectRs232.ForeColor = Color.Indigo;
-                SetButtonBold(btnConnectRs232);
-                if (btnConnectTcp.Font.Bold)
-                {
-                    SetButtonBold(btnConnectTcp);
-                }
-
-                gbTcpIp.Enabled = false;
+                grb_rs232.Visible = true;
+                grb_tcp.Visible = false;
+                btnConnect.Enabled = true;
             }
-        }
-
-        private void rdbTcpIp_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rdbTcpIp.Checked)
+            else if (radio_btn_tcp.Checked)
             {
-                gbTcpIp.Enabled = true;
-                btnDisconnectTcp.Enabled = false;
-
-                //设置按钮字体颜色
-                btnConnectTcp.ForeColor = Color.Indigo;
-                if (btnConnectRs232.Font.Bold)
-                {
-                    SetButtonBold(btnConnectRs232);
-                }
-                SetButtonBold(btnConnectTcp);
-
-                gbRS232.Enabled = false;
+                grb_rs232.Visible = false;
+                grb_tcp.Visible = true;
+                btnConnect.Enabled = true;
             }
-        }
-
-        private void SetButtonBold(Button btnBold)
-        {
-            Font oldFont = btnBold.Font;
-            Font newFont = new Font(oldFont, oldFont.Style ^ FontStyle.Bold);
-            btnBold.Font = newFont;
-        }
-
-        private void SetRadioButtonBold(CheckBox ckBold)
-        {
-            Font oldFont = ckBold.Font;
-            Font newFont = new Font(oldFont, oldFont.Style ^ FontStyle.Bold);
-            ckBold.Font = newFont;
         }
 
         private void SetFormEnable(bool bIsEnable)
@@ -1487,7 +1462,6 @@ namespace UHFDemo
 
             btnResetReader.Enabled = bIsEnable;
 
-
             gbCmdOperateTag.Enabled = bIsEnable;
 
             btnInventoryISO18000.Enabled = bIsEnable;
@@ -1508,74 +1482,58 @@ namespace UHFDemo
             btRfSetup.Enabled = bIsEnable;
         }
 
-        private void btnConnectRs232_Click(object sender, EventArgs e)
+        private void btnConnect_Click(object sender, EventArgs e)
         {
-            //处理串口连接读写器
-            string strException = string.Empty;
-            string strComPort = cmbComPort.Text;
-            int nBaudrate = Convert.ToInt32(cmbBaudrate.Text);
-
-            int nRet = reader.OpenCom(strComPort, nBaudrate, out strException);
-            if (nRet != 0)
+            if(btnConnect.Text.Equals("连接读写器"))
             {
-                string strLog = "连接读写器失败，失败原因： " + strException;
-                WriteLog(lrtxtLog, strLog, 1);
-
-                return;
+                ConnectReader();
             }
-            else
+            else if (btnConnect.Text.Equals("断开连接"))
             {
-                string strLog = "连接读写器 " + strComPort + "@" + nBaudrate.ToString();
-                WriteLog(lrtxtLog, strLog, 0);
+                btnConnect.Text = "连接读写器";
+                DisconnectReader();
             }
-
-            //处理界面元素是否有效
-            SetFormEnable(true);
-
-
-            btnConnectRs232.Enabled = false;
-            btnDisconnectRs232.Enabled = true;
-
-            //设置按钮字体颜色
-            btnConnectRs232.ForeColor = Color.Black;
-            btnDisconnectRs232.ForeColor = Color.Indigo;
-            SetButtonBold(btnConnectRs232);
-            SetButtonBold(btnDisconnectRs232);
         }
 
-        private void btnDisconnectRs232_Click(object sender, EventArgs e)
+        private void DisconnectReader()
         {
-            //处理串口断开连接读写器
-            reader.CloseCom();
-
-            //处理界面元素是否有效
-            SetFormEnable(false);
-            btnConnectRs232.Enabled = true;
-            btnDisconnectRs232.Enabled = false;
-
-            //设置按钮字体颜色
-            btnConnectRs232.ForeColor = Color.Indigo;
-            btnDisconnectRs232.ForeColor = Color.Black;
-            SetButtonBold(btnConnectRs232);
-            SetButtonBold(btnDisconnectRs232);
-
             Inventorying = false;
             isFastInv = false;
-            doingFastInv = false;
+            isBufferInv = false;
             isRealInv = false;
+            doingFastInv = false;
             doingRealInv = false;
+            doingBufferInv = false;
+            setInvStoppedStatus();
+
+            if (radio_btn_rs232.Checked)
+            {
+                //处理串口断开连接读写器
+                reader.CloseCom();
+
+                //处理界面元素是否有效
+                SetFormEnable(false);
+            }
+            else if(radio_btn_tcp.Checked)
+            {
+                //处理断开Tcp连接读写器
+                reader.SignOut();
+
+                //处理界面元素是否有效
+                SetFormEnable(false);
+            }
         }
 
-        private void btnConnectTcp_Click(object sender, EventArgs e)
+        private void ConnectReader()
         {
-            try
+            if(radio_btn_rs232.Checked)
             {
-                //处理Tcp连接读写器
+                //处理串口连接读写器
                 string strException = string.Empty;
-                IPAddress ipAddress = IPAddress.Parse(ipIpServer.IpAddressStr);
-                int nPort = Convert.ToInt32(txtTcpPort.Text);
+                string strComPort = cmbComPort.Text;
+                int nBaudrate = Convert.ToInt32(cmbBaudrate.Text);
 
-                int nRet = reader.ConnectServer(ipAddress, nPort, out strException);
+                int nRet = reader.OpenCom(strComPort, nBaudrate, out strException);
                 if (nRet != 0)
                 {
                     string strLog = "连接读写器失败，失败原因： " + strException;
@@ -1585,43 +1543,46 @@ namespace UHFDemo
                 }
                 else
                 {
-                    string strLog = "连接读写器 " + ipIpServer.IpAddressStr + "@" + nPort.ToString();
+                    string strLog = "连接读写器 " + strComPort + "@" + nBaudrate.ToString();
                     WriteLog(lrtxtLog, strLog, 0);
+                    btnConnect.Text = "断开连接";
                 }
 
                 //处理界面元素是否有效
                 SetFormEnable(true);
-                btnConnectTcp.Enabled = false;
-                btnDisconnectTcp.Enabled = true;
-
-                //设置按钮字体颜色
-                btnConnectTcp.ForeColor = Color.Black;
-                btnDisconnectTcp.ForeColor = Color.Indigo;
-                SetButtonBold(btnConnectTcp);
-                SetButtonBold(btnDisconnectTcp);
             }
-            catch (System.Exception ex)
+            else if(radio_btn_tcp.Checked)
             {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    //处理Tcp连接读写器
+                    string strException = string.Empty;
+                    IPAddress ipAddress = IPAddress.Parse(ipIpServer.IpAddressStr);
+                    int nPort = Convert.ToInt32(txtTcpPort.Text);
+
+                    int nRet = reader.ConnectServer(ipAddress, nPort, out strException);
+                    if (nRet != 0)
+                    {
+                        string strLog = "连接读写器失败，失败原因： " + strException;
+                        WriteLog(lrtxtLog, strLog, 1);
+
+                        return;
+                    }
+                    else
+                    {
+                        string strLog = "连接读写器 " + ipIpServer.IpAddressStr + "@" + nPort.ToString();
+                        WriteLog(lrtxtLog, strLog, 0);
+                        btnConnect.Text = "断开连接";
+                    }
+
+                    //处理界面元素是否有效
+                    SetFormEnable(true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
-
-        }
-
-        private void btnDisconnectTcp_Click(object sender, EventArgs e)
-        {
-            //处理断开Tcp连接读写器
-            reader.SignOut();
-
-            //处理界面元素是否有效
-            SetFormEnable(false);
-            btnConnectTcp.Enabled = true;
-            btnDisconnectTcp.Enabled = false;
-
-            //设置按钮字体颜色
-            btnConnectTcp.ForeColor = Color.Indigo;
-            btnDisconnectTcp.ForeColor = Color.Black;
-            SetButtonBold(btnConnectTcp);
-            SetButtonBold(btnDisconnectTcp);
         }
 
         private void btnResetReader_Click(object sender, EventArgs e)
@@ -2105,6 +2066,21 @@ namespace UHFDemo
 
             string strLog = strCmd + "失败，失败原因： " + strErrorCode;
             WriteLog(lrtxtLog, strLog, 1);
+            if(Inventorying)
+            {
+                if(radio_btn_realtime_inv.Checked)
+                {
+                    stopRealInv();
+                }
+                else if (radio_btn_fast_inv.Checked)
+                {
+                    stopFastInv();
+                }
+                else if (radio_btn_cache_inv.Checked)
+                {
+                    stopBufferInv();
+                }
+            }
         }
 
         private void btnGetDrmMode_Click(object sender, EventArgs e)
@@ -3088,10 +3064,7 @@ namespace UHFDemo
             }
             
             BeginInvoke(new ThreadStart(delegate {
-                dispatcherTimer.Stop();
-                readratePerSecond.Stop();
-                elapsedTime = CalculateElapsedTime();
-                btnInventory.Text = "开始盘存";
+                setInvStoppedStatus();
             }));
         }
 
@@ -3107,10 +3080,7 @@ namespace UHFDemo
             }
 
             BeginInvoke(new ThreadStart(delegate {
-                dispatcherTimer.Stop();
-                readratePerSecond.Stop();
-                elapsedTime = CalculateElapsedTime();
-                btnInventory.Text = "开始盘存";
+                setInvStoppedStatus();
             }));
         }
 
@@ -3126,10 +3096,7 @@ namespace UHFDemo
             }
 
             BeginInvoke(new ThreadStart(delegate {
-                dispatcherTimer.Stop();
-                readratePerSecond.Stop();
-                elapsedTime = CalculateElapsedTime();
-                btnInventory.Text = "开始盘存";
+                setInvStoppedStatus();
             }));
         }
 
@@ -4705,13 +4672,28 @@ namespace UHFDemo
                 //默认循环发送命令
                 if (Inventorying)
                 {
-                    btnInventory.BackColor = Color.WhiteSmoke;
-                    btnInventory.ForeColor = Color.DarkBlue;
-                    btnInventory.Text = "开始盘存";
-
+                    SetInvStopingStatus();
                     isFastInv = false;
                 }
             }
+        }
+
+        private void SetInvStopingStatus()
+        {
+            btnInventory.BackColor = Color.LightBlue;
+            btnInventory.ForeColor = Color.Red;
+            btnInventory.Text = "正在停止...";
+        }
+
+        private void setInvStoppedStatus()
+        {
+            dispatcherTimer.Stop();
+            readratePerSecond.Stop();
+            elapsedTime = CalculateElapsedTime();
+
+            btnInventory.BackColor = Color.WhiteSmoke;
+            btnInventory.ForeColor = Color.DarkBlue;
+            btnInventory.Text = "开始盘存";
         }
 
         private bool checkFastInvAntG1Count()
@@ -5065,24 +5047,24 @@ namespace UHFDemo
         {
             try
             {
-                if (comboBox12.SelectedIndex == -1 || comboBox15.SelectedIndex == -1 || comboBox14.SelectedIndex == -1 || comboBox13.SelectedIndex == -1)
+                if (combo_mast_id.SelectedIndex == -1 || combo_session.SelectedIndex == -1 || combo_action.SelectedIndex == -1 || combo_menbank.SelectedIndex == -1)
                 {
                     MessageBox.Show("Target Action Membank must be selected");
                     return;
                 }
-                byte btMaskNo = (byte)(comboBox12.SelectedIndex + 1);
-                byte btTarget = (byte)comboBox15.SelectedIndex;
-                byte btAction = (byte)comboBox14.SelectedIndex;
-                byte btMembank = (byte)comboBox13.SelectedIndex;
+                byte btMaskNo = (byte)(combo_mast_id.SelectedIndex + 1);
+                byte btTarget = (byte)combo_session.SelectedIndex;
+                byte btAction = (byte)combo_action.SelectedIndex;
+                byte btMembank = (byte)combo_menbank.SelectedIndex;
 
-                string strMaskValue = hexTextBox9.Text.Trim();
+                string strMaskValue = hexTextBox_mask.Text.Trim();
                 string[] maskValue = CCommondMethod.StringToStringArray(strMaskValue.ToUpper(), 2);
 
 
-                byte btStartAddress = Convert.ToByte(textBox11.Text);
-                int intStartAdd = Convert.ToInt32(textBox11.Text);
-                byte btMaskLen = Convert.ToByte(textBox12.Text);
-                int intMaskLen = Convert.ToInt32(textBox12.Text);
+                byte btStartAddress = Convert.ToByte(startAddr.Text);
+                int intStartAdd = Convert.ToInt32(startAddr.Text);
+                byte btMaskLen = Convert.ToByte(bitLen.Text);
+                int intMaskLen = Convert.ToInt32(bitLen.Text);
 
                 byte[] btsMaskValue = CCommondMethod.StringArrayToByteArray(maskValue, maskValue.Length);
 
@@ -5229,58 +5211,6 @@ namespace UHFDemo
             return table;
         }
 
-        /// <summary>
-        /// 导出数据到excel2003中
-        /// </summary>
-        /// <param name="table"></param>
-        /// <param name="filename"></param>
-        /// <returns></returns>
-        public bool RenderToExcel(DataTable table, string filename)
-        {
-            MemoryStream ms = new MemoryStream();
-            using (table)
-            {
-                NPOI.HSSF.UserModel.HSSFWorkbook workbook = new HSSFWorkbook();
-
-                ISheet sheet = workbook.CreateSheet();
-
-                IRow headerRow = sheet.CreateRow(0);
-                // handling header. 
-                foreach (DataColumn column in table.Columns)
-                    headerRow.CreateCell(column.Ordinal).SetCellValue(column.Caption);//If Caption not set, returns the ColumnName value 
-
-                // handling value. 
-                int rowIndex = 1;
-
-                foreach (DataRow row in table.Rows)
-                {
-                    IRow dataRow = sheet.CreateRow(rowIndex);
-
-                    foreach (DataColumn column in table.Columns)
-                    {
-                        dataRow.CreateCell(column.Ordinal).SetCellValue(row[column].ToString());
-                    }
-                    //  proBar.progressBar1.Value = proBar.progressBar1.Value+1;
-
-                    rowIndex++;
-                }
-                workbook.Write(ms);
-                ms.Flush();
-                ms.Position = 0;
-                try
-                {
-                    SaveToFile(ms, filename);
-                    MessageBox.Show("数据导出成功！");
-                    return true;
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                    return false;
-                }
-            }
-        }
-
 
         //////////////////////////////////////////////////////////////////////////
         public void SaveToFile(MemoryStream ms, string fileName)
@@ -5293,60 +5223,6 @@ namespace UHFDemo
                 fs.Flush();
 
                 data = null;
-            }
-        }
-
-        /// <summary>
-        /// 导出数据到excel2007中
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <param name="file"></param>
-        /// <returns></returns>
-        public bool TableToExcelForXLSX(DataTable dt, string file)
-        {
-            XSSFWorkbook xssfworkbook = new XSSFWorkbook();
-            ISheet sheet = xssfworkbook.CreateSheet("Test");
-
-            //表头   
-            IRow row = sheet.CreateRow(0);
-            for (int i = 0; i < dt.Columns.Count; i++)
-            {
-                ICell cell = row.CreateCell(i);
-                cell.SetCellValue(dt.Columns[i].ColumnName);
-            }
-
-            //数据   
-            for (int i = 0; i < dt.Rows.Count; i++)
-            {
-                IRow row1 = sheet.CreateRow(i + 1);
-                for (int j = 0; j < dt.Columns.Count; j++)
-                {
-                    ICell cell = row1.CreateCell(j);
-                    cell.SetCellValue(dt.Rows[i][j].ToString());
-                }
-            }
-
-            //转为字节数组   
-            MemoryStream stream = new MemoryStream();
-            xssfworkbook.Write(stream);
-            var buf = stream.ToArray();
-
-            //保存为Excel文件  
-            try
-            {
-                using (FileStream fs = new FileStream(file, FileMode.Create, FileAccess.Write))
-                {
-                    fs.Write(buf, 0, buf.Length);
-                    fs.Flush();
-                }
-                MessageBox.Show("数据导出成功！");
-                return true;
-            }
-
-            catch (SystemException ex)
-            {
-                MessageBox.Show(ex.ToString());
-                return false;
             }
         }
 
@@ -8495,10 +8371,7 @@ namespace UHFDemo
             }
             else if (btnInventory.Text.Equals("停止盘存"))
             {
-                btnInventory.BackColor = Color.WhiteSmoke;
-                btnInventory.ForeColor = Color.DarkBlue;
-                btnInventory.Text = "开始盘存";
-
+                SetInvStopingStatus();
                 isBufferInv = false;
             }
         }
@@ -8562,14 +8435,8 @@ namespace UHFDemo
             {
                 if (Inventorying)
                 {
-                    btnInventory.BackColor = Color.WhiteSmoke;
-                    btnInventory.ForeColor = Color.DarkBlue;
-                    btnInventory.Text = "开始盘存";
-
+                    SetInvStopingStatus();
                     isRealInv = false;
-                    dispatcherTimer.Stop();
-                    readratePerSecond.Stop();
-                    elapsedTime = CalculateElapsedTime();
                 }
             }
         }
@@ -8622,6 +8489,12 @@ namespace UHFDemo
             reader.GetInventoryBufferTagCount(m_curSetting.btReadId);
         }
     }
+
+    public enum NotifyType
+    {
+        StatusMessage,
+        ErrorMessage
+    };
 
     public class NetCardSearch
     {

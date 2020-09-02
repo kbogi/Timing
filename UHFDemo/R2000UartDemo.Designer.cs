@@ -40,11 +40,39 @@ namespace UHFDemo
             this.PagReaderSetting = new System.Windows.Forms.TabPage();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnConnect = new System.Windows.Forms.Button();
             this.groupBox24 = new System.Windows.Forms.GroupBox();
             this.antType16 = new System.Windows.Forms.RadioButton();
             this.antType8 = new System.Windows.Forms.RadioButton();
             this.antType4 = new System.Windows.Forms.RadioButton();
             this.antType1 = new System.Windows.Forms.RadioButton();
+            this.gbConnectType = new System.Windows.Forms.GroupBox();
+            this.radio_btn_tcp = new System.Windows.Forms.RadioButton();
+            this.radio_btn_rs232 = new System.Windows.Forms.RadioButton();
+            this.grb_rs232 = new System.Windows.Forms.GroupBox();
+            this.btn_refresh_comports = new System.Windows.Forms.Button();
+            this.btnSetUartBaudrate = new System.Windows.Forms.Button();
+            this.cmbSetBaudrate = new System.Windows.Forms.ComboBox();
+            this.lbChangeBaudrate = new System.Windows.Forms.Label();
+            this.cmbBaudrate = new System.Windows.Forms.ComboBox();
+            this.cmbComPort = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.grb_tcp = new System.Windows.Forms.GroupBox();
+            this.txtTcpPort = new System.Windows.Forms.TextBox();
+            this.ipIpServer = new CustomControl.IpAddressTextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.gbCmdReaderAddress = new System.Windows.Forms.GroupBox();
+            this.htxtReadId = new CustomControl.HexTextBox();
+            this.btnSetReadAddress = new System.Windows.Forms.Button();
+            this.gbCmdBaudrate = new System.Windows.Forms.GroupBox();
+            this.htbGetIdentifier = new CustomControl.HexTextBox();
+            this.htbSetIdentifier = new CustomControl.HexTextBox();
+            this.btSetIdentifier = new System.Windows.Forms.Button();
+            this.btGetIdentifier = new System.Windows.Forms.Button();
             this.btReaderSetupRefresh = new System.Windows.Forms.Button();
             this.gbCmdReadGpio = new System.Windows.Forms.GroupBox();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
@@ -80,35 +108,6 @@ namespace UHFDemo
             this.btnGetFirmwareVersion = new System.Windows.Forms.Button();
             this.txtFirmwareVersion = new System.Windows.Forms.TextBox();
             this.btnResetReader = new System.Windows.Forms.Button();
-            this.gbCmdBaudrate = new System.Windows.Forms.GroupBox();
-            this.htbGetIdentifier = new CustomControl.HexTextBox();
-            this.htbSetIdentifier = new CustomControl.HexTextBox();
-            this.btSetIdentifier = new System.Windows.Forms.Button();
-            this.btGetIdentifier = new System.Windows.Forms.Button();
-            this.gbCmdReaderAddress = new System.Windows.Forms.GroupBox();
-            this.htxtReadId = new CustomControl.HexTextBox();
-            this.btnSetReadAddress = new System.Windows.Forms.Button();
-            this.gbTcpIp = new System.Windows.Forms.GroupBox();
-            this.btnDisconnectTcp = new System.Windows.Forms.Button();
-            this.txtTcpPort = new System.Windows.Forms.TextBox();
-            this.btnConnectTcp = new System.Windows.Forms.Button();
-            this.ipIpServer = new CustomControl.IpAddressTextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.gbRS232 = new System.Windows.Forms.GroupBox();
-            this.btn_refresh_comports = new System.Windows.Forms.Button();
-            this.btnSetUartBaudrate = new System.Windows.Forms.Button();
-            this.btnDisconnectRs232 = new System.Windows.Forms.Button();
-            this.cmbSetBaudrate = new System.Windows.Forms.ComboBox();
-            this.lbChangeBaudrate = new System.Windows.Forms.Label();
-            this.btnConnectRs232 = new System.Windows.Forms.Button();
-            this.cmbBaudrate = new System.Windows.Forms.ComboBox();
-            this.cmbComPort = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.gbConnectType = new System.Windows.Forms.GroupBox();
-            this.rdbTcpIp = new System.Windows.Forms.RadioButton();
-            this.rdbRS232 = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gbReturnLoss = new System.Windows.Forms.GroupBox();
             this.label110 = new System.Windows.Forms.Label();
@@ -432,21 +431,21 @@ namespace UHFDemo
             this.comboBox16 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.textBox12 = new System.Windows.Forms.TextBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.hexTextBox9 = new CustomControl.HexTextBox();
+            this.bitLen = new System.Windows.Forms.TextBox();
+            this.startAddr = new System.Windows.Forms.TextBox();
+            this.hexTextBox_mask = new CustomControl.HexTextBox();
             this.label38 = new System.Windows.Forms.Label();
-            this.comboBox12 = new System.Windows.Forms.ComboBox();
+            this.combo_mast_id = new System.Windows.Forms.ComboBox();
             this.label39 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
             this.label99 = new System.Windows.Forms.Label();
             this.label100 = new System.Windows.Forms.Label();
             this.label101 = new System.Windows.Forms.Label();
             this.label102 = new System.Windows.Forms.Label();
-            this.comboBox13 = new System.Windows.Forms.ComboBox();
-            this.comboBox14 = new System.Windows.Forms.ComboBox();
-            this.comboBox15 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.combo_menbank = new System.Windows.Forms.ComboBox();
+            this.combo_action = new System.Windows.Forms.ComboBox();
+            this.combo_session = new System.Windows.Forms.ComboBox();
+            this.btnTagSelect = new System.Windows.Forms.Button();
             this.PagISO18000 = new System.Windows.Forms.TabPage();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnInventoryISO18000 = new System.Windows.Forms.Button();
@@ -666,7 +665,14 @@ namespace UHFDemo
             this.PagReaderSetting.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.flowLayoutPanel2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.groupBox24.SuspendLayout();
+            this.gbConnectType.SuspendLayout();
+            this.grb_rs232.SuspendLayout();
+            this.grb_tcp.SuspendLayout();
+            this.gbCmdReaderAddress.SuspendLayout();
+            this.gbCmdBaudrate.SuspendLayout();
             this.gbCmdReadGpio.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -677,11 +683,6 @@ namespace UHFDemo
             this.gbCmdBeeper.SuspendLayout();
             this.gbCmdTemperature.SuspendLayout();
             this.gbCmdVersion.SuspendLayout();
-            this.gbCmdBaudrate.SuspendLayout();
-            this.gbCmdReaderAddress.SuspendLayout();
-            this.gbTcpIp.SuspendLayout();
-            this.gbRS232.SuspendLayout();
-            this.gbConnectType.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.gbReturnLoss.SuspendLayout();
             this.gbProfile.SuspendLayout();
@@ -815,18 +816,13 @@ namespace UHFDemo
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage1.Controls.Add(this.groupBox24);
+            this.tabPage1.Controls.Add(this.flowLayoutPanel2);
             this.tabPage1.Controls.Add(this.btReaderSetupRefresh);
             this.tabPage1.Controls.Add(this.gbCmdReadGpio);
             this.tabPage1.Controls.Add(this.gbCmdBeeper);
             this.tabPage1.Controls.Add(this.gbCmdTemperature);
             this.tabPage1.Controls.Add(this.gbCmdVersion);
             this.tabPage1.Controls.Add(this.btnResetReader);
-            this.tabPage1.Controls.Add(this.gbCmdBaudrate);
-            this.tabPage1.Controls.Add(this.gbCmdReaderAddress);
-            this.tabPage1.Controls.Add(this.gbTcpIp);
-            this.tabPage1.Controls.Add(this.gbRS232);
-            this.tabPage1.Controls.Add(this.gbConnectType);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -834,13 +830,49 @@ namespace UHFDemo
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "基本参数设置";
             // 
+            // flowLayoutPanel2
+            // 
+            this.flowLayoutPanel2.AutoScroll = true;
+            this.flowLayoutPanel2.Controls.Add(this.groupBox1);
+            this.flowLayoutPanel2.Controls.Add(this.grb_rs232);
+            this.flowLayoutPanel2.Controls.Add(this.grb_tcp);
+            this.flowLayoutPanel2.Controls.Add(this.gbCmdReaderAddress);
+            this.flowLayoutPanel2.Controls.Add(this.gbCmdBaudrate);
+            this.flowLayoutPanel2.Location = new System.Drawing.Point(10, 8);
+            this.flowLayoutPanel2.Name = "flowLayoutPanel2";
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(447, 451);
+            this.flowLayoutPanel2.TabIndex = 17;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnConnect);
+            this.groupBox1.Controls.Add(this.groupBox24);
+            this.groupBox1.Controls.Add(this.gbConnectType);
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(413, 125);
+            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "连接";
+            // 
+            // btnConnect
+            // 
+            this.btnConnect.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnConnect.Location = new System.Drawing.Point(268, 12);
+            this.btnConnect.Name = "btnConnect";
+            this.btnConnect.Size = new System.Drawing.Size(136, 51);
+            this.btnConnect.TabIndex = 2;
+            this.btnConnect.Text = "连接读写器";
+            this.btnConnect.UseVisualStyleBackColor = true;
+            this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
+            // 
             // groupBox24
             // 
             this.groupBox24.Controls.Add(this.antType16);
             this.groupBox24.Controls.Add(this.antType8);
             this.groupBox24.Controls.Add(this.antType4);
             this.groupBox24.Controls.Add(this.antType1);
-            this.groupBox24.Location = new System.Drawing.Point(165, 15);
+            this.groupBox24.Location = new System.Drawing.Point(12, 70);
             this.groupBox24.Name = "groupBox24";
             this.groupBox24.Size = new System.Drawing.Size(267, 44);
             this.groupBox24.TabIndex = 16;
@@ -894,6 +926,266 @@ namespace UHFDemo
             this.antType1.Text = "1天线";
             this.antType1.UseVisualStyleBackColor = true;
             this.antType1.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
+            // 
+            // gbConnectType
+            // 
+            this.gbConnectType.Controls.Add(this.radio_btn_tcp);
+            this.gbConnectType.Controls.Add(this.radio_btn_rs232);
+            this.gbConnectType.Location = new System.Drawing.Point(12, 20);
+            this.gbConnectType.Name = "gbConnectType";
+            this.gbConnectType.Size = new System.Drawing.Size(193, 44);
+            this.gbConnectType.TabIndex = 1;
+            this.gbConnectType.TabStop = false;
+            this.gbConnectType.Text = "连接方式";
+            // 
+            // radio_btn_tcp
+            // 
+            this.radio_btn_tcp.AutoSize = true;
+            this.radio_btn_tcp.Location = new System.Drawing.Point(78, 16);
+            this.radio_btn_tcp.Name = "radio_btn_tcp";
+            this.radio_btn_tcp.Size = new System.Drawing.Size(59, 16);
+            this.radio_btn_tcp.TabIndex = 1;
+            this.radio_btn_tcp.TabStop = true;
+            this.radio_btn_tcp.Text = "TCP/IP";
+            this.radio_btn_tcp.UseVisualStyleBackColor = true;
+            this.radio_btn_tcp.CheckedChanged += new System.EventHandler(this.connectType_CheckedChanged);
+            // 
+            // radio_btn_rs232
+            // 
+            this.radio_btn_rs232.AutoSize = true;
+            this.radio_btn_rs232.Location = new System.Drawing.Point(19, 17);
+            this.radio_btn_rs232.Name = "radio_btn_rs232";
+            this.radio_btn_rs232.Size = new System.Drawing.Size(53, 16);
+            this.radio_btn_rs232.TabIndex = 0;
+            this.radio_btn_rs232.TabStop = true;
+            this.radio_btn_rs232.Text = "RS232";
+            this.radio_btn_rs232.UseVisualStyleBackColor = true;
+            this.radio_btn_rs232.CheckedChanged += new System.EventHandler(this.connectType_CheckedChanged);
+            // 
+            // grb_rs232
+            // 
+            this.grb_rs232.Controls.Add(this.btn_refresh_comports);
+            this.grb_rs232.Controls.Add(this.btnSetUartBaudrate);
+            this.grb_rs232.Controls.Add(this.cmbSetBaudrate);
+            this.grb_rs232.Controls.Add(this.lbChangeBaudrate);
+            this.grb_rs232.Controls.Add(this.cmbBaudrate);
+            this.grb_rs232.Controls.Add(this.cmbComPort);
+            this.grb_rs232.Controls.Add(this.label2);
+            this.grb_rs232.Controls.Add(this.label1);
+            this.grb_rs232.Location = new System.Drawing.Point(3, 134);
+            this.grb_rs232.Name = "grb_rs232";
+            this.grb_rs232.Size = new System.Drawing.Size(413, 124);
+            this.grb_rs232.TabIndex = 2;
+            this.grb_rs232.TabStop = false;
+            this.grb_rs232.Text = "RS-232";
+            // 
+            // btn_refresh_comports
+            // 
+            this.btn_refresh_comports.Location = new System.Drawing.Point(314, 15);
+            this.btn_refresh_comports.Name = "btn_refresh_comports";
+            this.btn_refresh_comports.Size = new System.Drawing.Size(90, 23);
+            this.btn_refresh_comports.TabIndex = 4;
+            this.btn_refresh_comports.Text = "刷新";
+            this.btn_refresh_comports.UseVisualStyleBackColor = true;
+            this.btn_refresh_comports.Click += new System.EventHandler(this.btn_refresh_comports_Click);
+            // 
+            // btnSetUartBaudrate
+            // 
+            this.btnSetUartBaudrate.Location = new System.Drawing.Point(315, 93);
+            this.btnSetUartBaudrate.Name = "btnSetUartBaudrate";
+            this.btnSetUartBaudrate.Size = new System.Drawing.Size(90, 23);
+            this.btnSetUartBaudrate.TabIndex = 1;
+            this.btnSetUartBaudrate.Text = "设置";
+            this.btnSetUartBaudrate.UseVisualStyleBackColor = true;
+            this.btnSetUartBaudrate.Click += new System.EventHandler(this.btnSetUartBaudrate_Click);
+            // 
+            // cmbSetBaudrate
+            // 
+            this.cmbSetBaudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSetBaudrate.FormattingEnabled = true;
+            this.cmbSetBaudrate.Items.AddRange(new object[] {
+            "38400",
+            "115200"});
+            this.cmbSetBaudrate.Location = new System.Drawing.Point(114, 94);
+            this.cmbSetBaudrate.Name = "cmbSetBaudrate";
+            this.cmbSetBaudrate.Size = new System.Drawing.Size(121, 20);
+            this.cmbSetBaudrate.TabIndex = 0;
+            // 
+            // lbChangeBaudrate
+            // 
+            this.lbChangeBaudrate.AutoSize = true;
+            this.lbChangeBaudrate.Location = new System.Drawing.Point(33, 98);
+            this.lbChangeBaudrate.Name = "lbChangeBaudrate";
+            this.lbChangeBaudrate.Size = new System.Drawing.Size(71, 12);
+            this.lbChangeBaudrate.TabIndex = 0;
+            this.lbChangeBaudrate.Text = "设置波特率:";
+            // 
+            // cmbBaudrate
+            // 
+            this.cmbBaudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBaudrate.FormattingEnabled = true;
+            this.cmbBaudrate.Items.AddRange(new object[] {
+            "38400",
+            "115200"});
+            this.cmbBaudrate.Location = new System.Drawing.Point(113, 50);
+            this.cmbBaudrate.Name = "cmbBaudrate";
+            this.cmbBaudrate.Size = new System.Drawing.Size(121, 20);
+            this.cmbBaudrate.TabIndex = 1;
+            // 
+            // cmbComPort
+            // 
+            this.cmbComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbComPort.FormattingEnabled = true;
+            this.cmbComPort.Location = new System.Drawing.Point(113, 16);
+            this.cmbComPort.Name = "cmbComPort";
+            this.cmbComPort.Size = new System.Drawing.Size(121, 20);
+            this.cmbComPort.TabIndex = 0;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(32, 54);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(71, 12);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "串口波特率:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(56, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "串口号:";
+            // 
+            // grb_tcp
+            // 
+            this.grb_tcp.Controls.Add(this.txtTcpPort);
+            this.grb_tcp.Controls.Add(this.ipIpServer);
+            this.grb_tcp.Controls.Add(this.label4);
+            this.grb_tcp.Controls.Add(this.label3);
+            this.grb_tcp.Location = new System.Drawing.Point(3, 264);
+            this.grb_tcp.Name = "grb_tcp";
+            this.grb_tcp.Size = new System.Drawing.Size(413, 59);
+            this.grb_tcp.TabIndex = 3;
+            this.grb_tcp.TabStop = false;
+            this.grb_tcp.Text = "TCP/IP";
+            // 
+            // txtTcpPort
+            // 
+            this.txtTcpPort.Location = new System.Drawing.Point(314, 20);
+            this.txtTcpPort.Name = "txtTcpPort";
+            this.txtTcpPort.Size = new System.Drawing.Size(90, 21);
+            this.txtTcpPort.TabIndex = 1;
+            this.txtTcpPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ipIpServer
+            // 
+            this.ipIpServer.IpAddressStr = "";
+            this.ipIpServer.Location = new System.Drawing.Point(113, 21);
+            this.ipIpServer.Name = "ipIpServer";
+            this.ipIpServer.Size = new System.Drawing.Size(122, 21);
+            this.ipIpServer.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(261, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(47, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "端口号:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(44, 29);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 12);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "读写器IP:";
+            // 
+            // gbCmdReaderAddress
+            // 
+            this.gbCmdReaderAddress.Controls.Add(this.htxtReadId);
+            this.gbCmdReaderAddress.Controls.Add(this.btnSetReadAddress);
+            this.gbCmdReaderAddress.ForeColor = System.Drawing.Color.Black;
+            this.gbCmdReaderAddress.Location = new System.Drawing.Point(3, 329);
+            this.gbCmdReaderAddress.Name = "gbCmdReaderAddress";
+            this.gbCmdReaderAddress.Size = new System.Drawing.Size(413, 66);
+            this.gbCmdReaderAddress.TabIndex = 5;
+            this.gbCmdReaderAddress.TabStop = false;
+            this.gbCmdReaderAddress.Text = "读写器RS-485地址(HEX)";
+            // 
+            // htxtReadId
+            // 
+            this.htxtReadId.Location = new System.Drawing.Point(114, 25);
+            this.htxtReadId.Name = "htxtReadId";
+            this.htxtReadId.Size = new System.Drawing.Size(121, 21);
+            this.htxtReadId.TabIndex = 2;
+            this.htxtReadId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btnSetReadAddress
+            // 
+            this.btnSetReadAddress.Location = new System.Drawing.Point(314, 26);
+            this.btnSetReadAddress.Name = "btnSetReadAddress";
+            this.btnSetReadAddress.Size = new System.Drawing.Size(90, 23);
+            this.btnSetReadAddress.TabIndex = 1;
+            this.btnSetReadAddress.Text = "设置 ";
+            this.btnSetReadAddress.UseVisualStyleBackColor = true;
+            this.btnSetReadAddress.Click += new System.EventHandler(this.btnSetReadAddress_Click);
+            // 
+            // gbCmdBaudrate
+            // 
+            this.gbCmdBaudrate.Controls.Add(this.htbGetIdentifier);
+            this.gbCmdBaudrate.Controls.Add(this.htbSetIdentifier);
+            this.gbCmdBaudrate.Controls.Add(this.btSetIdentifier);
+            this.gbCmdBaudrate.Controls.Add(this.btGetIdentifier);
+            this.gbCmdBaudrate.ForeColor = System.Drawing.Color.Black;
+            this.gbCmdBaudrate.Location = new System.Drawing.Point(3, 401);
+            this.gbCmdBaudrate.Name = "gbCmdBaudrate";
+            this.gbCmdBaudrate.Size = new System.Drawing.Size(413, 96);
+            this.gbCmdBaudrate.TabIndex = 7;
+            this.gbCmdBaudrate.TabStop = false;
+            this.gbCmdBaudrate.Text = "读写器识别标识(12字节)";
+            // 
+            // htbGetIdentifier
+            // 
+            this.htbGetIdentifier.Location = new System.Drawing.Point(34, 22);
+            this.htbGetIdentifier.Name = "htbGetIdentifier";
+            this.htbGetIdentifier.ReadOnly = true;
+            this.htbGetIdentifier.Size = new System.Drawing.Size(228, 21);
+            this.htbGetIdentifier.TabIndex = 13;
+            this.htbGetIdentifier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // htbSetIdentifier
+            // 
+            this.htbSetIdentifier.Location = new System.Drawing.Point(34, 61);
+            this.htbSetIdentifier.Name = "htbSetIdentifier";
+            this.htbSetIdentifier.Size = new System.Drawing.Size(228, 21);
+            this.htbSetIdentifier.TabIndex = 12;
+            this.htbSetIdentifier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // btSetIdentifier
+            // 
+            this.btSetIdentifier.Location = new System.Drawing.Point(314, 60);
+            this.btSetIdentifier.Name = "btSetIdentifier";
+            this.btSetIdentifier.Size = new System.Drawing.Size(90, 23);
+            this.btSetIdentifier.TabIndex = 1;
+            this.btSetIdentifier.Text = "设置";
+            this.btSetIdentifier.UseVisualStyleBackColor = true;
+            this.btSetIdentifier.Click += new System.EventHandler(this.btSetIdentifier_Click);
+            // 
+            // btGetIdentifier
+            // 
+            this.btGetIdentifier.Location = new System.Drawing.Point(314, 21);
+            this.btGetIdentifier.Name = "btGetIdentifier";
+            this.btGetIdentifier.Size = new System.Drawing.Size(90, 23);
+            this.btGetIdentifier.TabIndex = 0;
+            this.btGetIdentifier.Text = "读取";
+            this.btGetIdentifier.UseVisualStyleBackColor = true;
+            this.btGetIdentifier.Click += new System.EventHandler(this.btGetIdentifier_Click);
             // 
             // btReaderSetupRefresh
             // 
@@ -1266,319 +1558,11 @@ namespace UHFDemo
             // 
             this.btnResetReader.Location = new System.Drawing.Point(10, 465);
             this.btnResetReader.Name = "btnResetReader";
-            this.btnResetReader.Size = new System.Drawing.Size(434, 41);
+            this.btnResetReader.Size = new System.Drawing.Size(410, 41);
             this.btnResetReader.TabIndex = 8;
             this.btnResetReader.Text = "重启读写器";
             this.btnResetReader.UseVisualStyleBackColor = true;
             this.btnResetReader.Click += new System.EventHandler(this.btnResetReader_Click);
-            // 
-            // gbCmdBaudrate
-            // 
-            this.gbCmdBaudrate.Controls.Add(this.htbGetIdentifier);
-            this.gbCmdBaudrate.Controls.Add(this.htbSetIdentifier);
-            this.gbCmdBaudrate.Controls.Add(this.btSetIdentifier);
-            this.gbCmdBaudrate.Controls.Add(this.btGetIdentifier);
-            this.gbCmdBaudrate.ForeColor = System.Drawing.Color.Black;
-            this.gbCmdBaudrate.Location = new System.Drawing.Point(10, 359);
-            this.gbCmdBaudrate.Name = "gbCmdBaudrate";
-            this.gbCmdBaudrate.Size = new System.Drawing.Size(434, 96);
-            this.gbCmdBaudrate.TabIndex = 7;
-            this.gbCmdBaudrate.TabStop = false;
-            this.gbCmdBaudrate.Text = "读写器识别标识(12字节)";
-            // 
-            // htbGetIdentifier
-            // 
-            this.htbGetIdentifier.Location = new System.Drawing.Point(34, 22);
-            this.htbGetIdentifier.Name = "htbGetIdentifier";
-            this.htbGetIdentifier.ReadOnly = true;
-            this.htbGetIdentifier.Size = new System.Drawing.Size(228, 21);
-            this.htbGetIdentifier.TabIndex = 13;
-            this.htbGetIdentifier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // htbSetIdentifier
-            // 
-            this.htbSetIdentifier.Location = new System.Drawing.Point(34, 61);
-            this.htbSetIdentifier.Name = "htbSetIdentifier";
-            this.htbSetIdentifier.Size = new System.Drawing.Size(228, 21);
-            this.htbSetIdentifier.TabIndex = 12;
-            this.htbSetIdentifier.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btSetIdentifier
-            // 
-            this.btSetIdentifier.Location = new System.Drawing.Point(314, 60);
-            this.btSetIdentifier.Name = "btSetIdentifier";
-            this.btSetIdentifier.Size = new System.Drawing.Size(90, 23);
-            this.btSetIdentifier.TabIndex = 1;
-            this.btSetIdentifier.Text = "设置";
-            this.btSetIdentifier.UseVisualStyleBackColor = true;
-            this.btSetIdentifier.Click += new System.EventHandler(this.btSetIdentifier_Click);
-            // 
-            // btGetIdentifier
-            // 
-            this.btGetIdentifier.Location = new System.Drawing.Point(314, 21);
-            this.btGetIdentifier.Name = "btGetIdentifier";
-            this.btGetIdentifier.Size = new System.Drawing.Size(90, 23);
-            this.btGetIdentifier.TabIndex = 0;
-            this.btGetIdentifier.Text = "读取";
-            this.btGetIdentifier.UseVisualStyleBackColor = true;
-            this.btGetIdentifier.Click += new System.EventHandler(this.btGetIdentifier_Click);
-            // 
-            // gbCmdReaderAddress
-            // 
-            this.gbCmdReaderAddress.Controls.Add(this.htxtReadId);
-            this.gbCmdReaderAddress.Controls.Add(this.btnSetReadAddress);
-            this.gbCmdReaderAddress.ForeColor = System.Drawing.Color.Black;
-            this.gbCmdReaderAddress.Location = new System.Drawing.Point(10, 287);
-            this.gbCmdReaderAddress.Name = "gbCmdReaderAddress";
-            this.gbCmdReaderAddress.Size = new System.Drawing.Size(434, 66);
-            this.gbCmdReaderAddress.TabIndex = 5;
-            this.gbCmdReaderAddress.TabStop = false;
-            this.gbCmdReaderAddress.Text = "读写器RS-485地址(HEX)";
-            // 
-            // htxtReadId
-            // 
-            this.htxtReadId.Location = new System.Drawing.Point(114, 25);
-            this.htxtReadId.Name = "htxtReadId";
-            this.htxtReadId.Size = new System.Drawing.Size(121, 21);
-            this.htxtReadId.TabIndex = 2;
-            this.htxtReadId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnSetReadAddress
-            // 
-            this.btnSetReadAddress.Location = new System.Drawing.Point(314, 26);
-            this.btnSetReadAddress.Name = "btnSetReadAddress";
-            this.btnSetReadAddress.Size = new System.Drawing.Size(90, 23);
-            this.btnSetReadAddress.TabIndex = 1;
-            this.btnSetReadAddress.Text = "设置 ";
-            this.btnSetReadAddress.UseVisualStyleBackColor = true;
-            this.btnSetReadAddress.Click += new System.EventHandler(this.btnSetReadAddress_Click);
-            // 
-            // gbTcpIp
-            // 
-            this.gbTcpIp.Controls.Add(this.btnDisconnectTcp);
-            this.gbTcpIp.Controls.Add(this.txtTcpPort);
-            this.gbTcpIp.Controls.Add(this.btnConnectTcp);
-            this.gbTcpIp.Controls.Add(this.ipIpServer);
-            this.gbTcpIp.Controls.Add(this.label4);
-            this.gbTcpIp.Controls.Add(this.label3);
-            this.gbTcpIp.Location = new System.Drawing.Point(10, 197);
-            this.gbTcpIp.Name = "gbTcpIp";
-            this.gbTcpIp.Size = new System.Drawing.Size(434, 84);
-            this.gbTcpIp.TabIndex = 3;
-            this.gbTcpIp.TabStop = false;
-            this.gbTcpIp.Text = "TCP/IP";
-            // 
-            // btnDisconnectTcp
-            // 
-            this.btnDisconnectTcp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnDisconnectTcp.Location = new System.Drawing.Point(314, 51);
-            this.btnDisconnectTcp.Name = "btnDisconnectTcp";
-            this.btnDisconnectTcp.Size = new System.Drawing.Size(90, 23);
-            this.btnDisconnectTcp.TabIndex = 3;
-            this.btnDisconnectTcp.Text = "断开读写器";
-            this.btnDisconnectTcp.UseVisualStyleBackColor = true;
-            this.btnDisconnectTcp.Click += new System.EventHandler(this.btnDisconnectTcp_Click);
-            // 
-            // txtTcpPort
-            // 
-            this.txtTcpPort.Location = new System.Drawing.Point(114, 52);
-            this.txtTcpPort.Name = "txtTcpPort";
-            this.txtTcpPort.Size = new System.Drawing.Size(120, 21);
-            this.txtTcpPort.TabIndex = 1;
-            this.txtTcpPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // btnConnectTcp
-            // 
-            this.btnConnectTcp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnConnectTcp.Location = new System.Drawing.Point(314, 19);
-            this.btnConnectTcp.Name = "btnConnectTcp";
-            this.btnConnectTcp.Size = new System.Drawing.Size(90, 23);
-            this.btnConnectTcp.TabIndex = 2;
-            this.btnConnectTcp.Text = "连接读写器";
-            this.btnConnectTcp.UseVisualStyleBackColor = true;
-            this.btnConnectTcp.Click += new System.EventHandler(this.btnConnectTcp_Click);
-            // 
-            // ipIpServer
-            // 
-            this.ipIpServer.IpAddressStr = "";
-            this.ipIpServer.Location = new System.Drawing.Point(114, 20);
-            this.ipIpServer.Name = "ipIpServer";
-            this.ipIpServer.Size = new System.Drawing.Size(120, 21);
-            this.ipIpServer.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(56, 56);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 12);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "端口号:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(44, 24);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 12);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "读写器IP:";
-            // 
-            // gbRS232
-            // 
-            this.gbRS232.Controls.Add(this.btn_refresh_comports);
-            this.gbRS232.Controls.Add(this.btnSetUartBaudrate);
-            this.gbRS232.Controls.Add(this.btnDisconnectRs232);
-            this.gbRS232.Controls.Add(this.cmbSetBaudrate);
-            this.gbRS232.Controls.Add(this.lbChangeBaudrate);
-            this.gbRS232.Controls.Add(this.btnConnectRs232);
-            this.gbRS232.Controls.Add(this.cmbBaudrate);
-            this.gbRS232.Controls.Add(this.cmbComPort);
-            this.gbRS232.Controls.Add(this.label2);
-            this.gbRS232.Controls.Add(this.label1);
-            this.gbRS232.Location = new System.Drawing.Point(10, 65);
-            this.gbRS232.Name = "gbRS232";
-            this.gbRS232.Size = new System.Drawing.Size(434, 124);
-            this.gbRS232.TabIndex = 2;
-            this.gbRS232.TabStop = false;
-            this.gbRS232.Text = "RS-232";
-            // 
-            // btn_refresh_comports
-            // 
-            this.btn_refresh_comports.Location = new System.Drawing.Point(248, 15);
-            this.btn_refresh_comports.Name = "btn_refresh_comports";
-            this.btn_refresh_comports.Size = new System.Drawing.Size(60, 23);
-            this.btn_refresh_comports.TabIndex = 4;
-            this.btn_refresh_comports.Text = "刷新";
-            this.btn_refresh_comports.UseVisualStyleBackColor = true;
-            this.btn_refresh_comports.Click += new System.EventHandler(this.btn_refresh_comports_Click);
-            // 
-            // btnSetUartBaudrate
-            // 
-            this.btnSetUartBaudrate.Location = new System.Drawing.Point(315, 93);
-            this.btnSetUartBaudrate.Name = "btnSetUartBaudrate";
-            this.btnSetUartBaudrate.Size = new System.Drawing.Size(90, 23);
-            this.btnSetUartBaudrate.TabIndex = 1;
-            this.btnSetUartBaudrate.Text = "设置";
-            this.btnSetUartBaudrate.UseVisualStyleBackColor = true;
-            this.btnSetUartBaudrate.Click += new System.EventHandler(this.btnSetUartBaudrate_Click);
-            // 
-            // btnDisconnectRs232
-            // 
-            this.btnDisconnectRs232.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnDisconnectRs232.Location = new System.Drawing.Point(314, 49);
-            this.btnDisconnectRs232.Name = "btnDisconnectRs232";
-            this.btnDisconnectRs232.Size = new System.Drawing.Size(90, 23);
-            this.btnDisconnectRs232.TabIndex = 3;
-            this.btnDisconnectRs232.Text = "断开读写器";
-            this.btnDisconnectRs232.UseVisualStyleBackColor = true;
-            this.btnDisconnectRs232.Click += new System.EventHandler(this.btnDisconnectRs232_Click);
-            // 
-            // cmbSetBaudrate
-            // 
-            this.cmbSetBaudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSetBaudrate.FormattingEnabled = true;
-            this.cmbSetBaudrate.Items.AddRange(new object[] {
-            "38400",
-            "115200"});
-            this.cmbSetBaudrate.Location = new System.Drawing.Point(114, 94);
-            this.cmbSetBaudrate.Name = "cmbSetBaudrate";
-            this.cmbSetBaudrate.Size = new System.Drawing.Size(121, 20);
-            this.cmbSetBaudrate.TabIndex = 0;
-            // 
-            // lbChangeBaudrate
-            // 
-            this.lbChangeBaudrate.AutoSize = true;
-            this.lbChangeBaudrate.Location = new System.Drawing.Point(33, 98);
-            this.lbChangeBaudrate.Name = "lbChangeBaudrate";
-            this.lbChangeBaudrate.Size = new System.Drawing.Size(71, 12);
-            this.lbChangeBaudrate.TabIndex = 0;
-            this.lbChangeBaudrate.Text = "设置波特率:";
-            // 
-            // btnConnectRs232
-            // 
-            this.btnConnectRs232.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btnConnectRs232.Location = new System.Drawing.Point(314, 15);
-            this.btnConnectRs232.Name = "btnConnectRs232";
-            this.btnConnectRs232.Size = new System.Drawing.Size(90, 23);
-            this.btnConnectRs232.TabIndex = 2;
-            this.btnConnectRs232.Text = "连接读写器";
-            this.btnConnectRs232.UseVisualStyleBackColor = true;
-            this.btnConnectRs232.Click += new System.EventHandler(this.btnConnectRs232_Click);
-            // 
-            // cmbBaudrate
-            // 
-            this.cmbBaudrate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbBaudrate.FormattingEnabled = true;
-            this.cmbBaudrate.Items.AddRange(new object[] {
-            "38400",
-            "115200"});
-            this.cmbBaudrate.Location = new System.Drawing.Point(113, 50);
-            this.cmbBaudrate.Name = "cmbBaudrate";
-            this.cmbBaudrate.Size = new System.Drawing.Size(121, 20);
-            this.cmbBaudrate.TabIndex = 1;
-            // 
-            // cmbComPort
-            // 
-            this.cmbComPort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbComPort.FormattingEnabled = true;
-            this.cmbComPort.Location = new System.Drawing.Point(113, 16);
-            this.cmbComPort.Name = "cmbComPort";
-            this.cmbComPort.Size = new System.Drawing.Size(121, 20);
-            this.cmbComPort.TabIndex = 0;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 54);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "串口波特率:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "串口号:";
-            // 
-            // gbConnectType
-            // 
-            this.gbConnectType.Controls.Add(this.rdbTcpIp);
-            this.gbConnectType.Controls.Add(this.rdbRS232);
-            this.gbConnectType.Location = new System.Drawing.Point(10, 15);
-            this.gbConnectType.Name = "gbConnectType";
-            this.gbConnectType.Size = new System.Drawing.Size(147, 44);
-            this.gbConnectType.TabIndex = 1;
-            this.gbConnectType.TabStop = false;
-            this.gbConnectType.Text = "连接方式";
-            // 
-            // rdbTcpIp
-            // 
-            this.rdbTcpIp.AutoSize = true;
-            this.rdbTcpIp.Location = new System.Drawing.Point(78, 16);
-            this.rdbTcpIp.Name = "rdbTcpIp";
-            this.rdbTcpIp.Size = new System.Drawing.Size(59, 16);
-            this.rdbTcpIp.TabIndex = 1;
-            this.rdbTcpIp.TabStop = true;
-            this.rdbTcpIp.Text = "TCP/IP";
-            this.rdbTcpIp.UseVisualStyleBackColor = true;
-            this.rdbTcpIp.CheckedChanged += new System.EventHandler(this.rdbTcpIp_CheckedChanged);
-            // 
-            // rdbRS232
-            // 
-            this.rdbRS232.AutoSize = true;
-            this.rdbRS232.Location = new System.Drawing.Point(19, 17);
-            this.rdbRS232.Name = "rdbRS232";
-            this.rdbRS232.Size = new System.Drawing.Size(53, 16);
-            this.rdbRS232.TabIndex = 0;
-            this.rdbRS232.TabStop = true;
-            this.rdbRS232.Text = "RS232";
-            this.rdbRS232.UseVisualStyleBackColor = true;
-            this.rdbRS232.CheckedChanged += new System.EventHandler(this.rdbRS232_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -5049,21 +5033,21 @@ namespace UHFDemo
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.textBox12);
-            this.groupBox9.Controls.Add(this.textBox11);
-            this.groupBox9.Controls.Add(this.hexTextBox9);
+            this.groupBox9.Controls.Add(this.bitLen);
+            this.groupBox9.Controls.Add(this.startAddr);
+            this.groupBox9.Controls.Add(this.hexTextBox_mask);
             this.groupBox9.Controls.Add(this.label38);
-            this.groupBox9.Controls.Add(this.comboBox12);
+            this.groupBox9.Controls.Add(this.combo_mast_id);
             this.groupBox9.Controls.Add(this.label39);
             this.groupBox9.Controls.Add(this.label71);
             this.groupBox9.Controls.Add(this.label99);
             this.groupBox9.Controls.Add(this.label100);
             this.groupBox9.Controls.Add(this.label101);
             this.groupBox9.Controls.Add(this.label102);
-            this.groupBox9.Controls.Add(this.comboBox13);
-            this.groupBox9.Controls.Add(this.comboBox14);
-            this.groupBox9.Controls.Add(this.comboBox15);
-            this.groupBox9.Controls.Add(this.button1);
+            this.groupBox9.Controls.Add(this.combo_menbank);
+            this.groupBox9.Controls.Add(this.combo_action);
+            this.groupBox9.Controls.Add(this.combo_session);
+            this.groupBox9.Controls.Add(this.btnTagSelect);
             this.groupBox9.ForeColor = System.Drawing.Color.Black;
             this.groupBox9.Location = new System.Drawing.Point(6, 6);
             this.groupBox9.Name = "groupBox9";
@@ -5072,29 +5056,29 @@ namespace UHFDemo
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "设置过滤";
             // 
-            // textBox12
+            // bitLen
             // 
-            this.textBox12.Location = new System.Drawing.Point(431, 55);
-            this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(123, 21);
-            this.textBox12.TabIndex = 21;
-            this.textBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.bitLen.Location = new System.Drawing.Point(431, 55);
+            this.bitLen.Name = "bitLen";
+            this.bitLen.Size = new System.Drawing.Size(123, 21);
+            this.bitLen.TabIndex = 21;
+            this.bitLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // textBox11
+            // startAddr
             // 
-            this.textBox11.Location = new System.Drawing.Point(149, 61);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(94, 21);
-            this.textBox11.TabIndex = 20;
-            this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.startAddr.Location = new System.Drawing.Point(149, 61);
+            this.startAddr.Name = "startAddr";
+            this.startAddr.Size = new System.Drawing.Size(94, 21);
+            this.startAddr.TabIndex = 20;
+            this.startAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // hexTextBox9
+            // hexTextBox_mask
             // 
-            this.hexTextBox9.Location = new System.Drawing.Point(132, 95);
-            this.hexTextBox9.Name = "hexTextBox9";
-            this.hexTextBox9.Size = new System.Drawing.Size(460, 21);
-            this.hexTextBox9.TabIndex = 18;
-            this.hexTextBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.hexTextBox_mask.Location = new System.Drawing.Point(132, 95);
+            this.hexTextBox_mask.Name = "hexTextBox_mask";
+            this.hexTextBox_mask.Size = new System.Drawing.Size(460, 21);
+            this.hexTextBox_mask.TabIndex = 18;
+            this.hexTextBox_mask.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label38
             // 
@@ -5105,21 +5089,21 @@ namespace UHFDemo
             this.label38.TabIndex = 15;
             this.label38.Text = "过滤ID:";
             // 
-            // comboBox12
+            // combo_mast_id
             // 
-            this.comboBox12.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox12.DropDownWidth = 70;
-            this.comboBox12.FormattingEnabled = true;
-            this.comboBox12.Items.AddRange(new object[] {
+            this.combo_mast_id.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_mast_id.DropDownWidth = 70;
+            this.combo_mast_id.FormattingEnabled = true;
+            this.combo_mast_id.Items.AddRange(new object[] {
             "Mask No.1",
             "Mask No.2",
             "Mask No.3",
             "Mask No.4",
             "Mask No.5"});
-            this.comboBox12.Location = new System.Drawing.Point(58, 20);
-            this.comboBox12.Name = "comboBox12";
-            this.comboBox12.Size = new System.Drawing.Size(83, 20);
-            this.comboBox12.TabIndex = 14;
+            this.combo_mast_id.Location = new System.Drawing.Point(58, 20);
+            this.combo_mast_id.Name = "combo_mast_id";
+            this.combo_mast_id.Size = new System.Drawing.Size(83, 20);
+            this.combo_mast_id.TabIndex = 14;
             // 
             // label39
             // 
@@ -5135,18 +5119,18 @@ namespace UHFDemo
             this.label71.AutoSize = true;
             this.label71.Location = new System.Drawing.Point(312, 61);
             this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(89, 12);
+            this.label71.Size = new System.Drawing.Size(107, 12);
             this.label71.TabIndex = 10;
-            this.label71.Text = "过滤长度(bit):";
+            this.label71.Text = "过滤长度(bit)[D]:";
             // 
             // label99
             // 
             this.label99.AutoSize = true;
             this.label99.Location = new System.Drawing.Point(29, 64);
             this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(89, 12);
+            this.label99.Size = new System.Drawing.Size(107, 12);
             this.label99.TabIndex = 9;
-            this.label99.Text = "起始地址(bit):";
+            this.label99.Text = "起始地址(bit)[D]:";
             // 
             // label100
             // 
@@ -5175,25 +5159,25 @@ namespace UHFDemo
             this.label102.TabIndex = 4;
             this.label102.Text = "Session ID:";
             // 
-            // comboBox13
+            // combo_menbank
             // 
-            this.comboBox13.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox13.FormattingEnabled = true;
-            this.comboBox13.Items.AddRange(new object[] {
+            this.combo_menbank.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_menbank.FormattingEnabled = true;
+            this.combo_menbank.Items.AddRange(new object[] {
             "Reserve",
             "EPC",
             "TID",
             "USER"});
-            this.comboBox13.Location = new System.Drawing.Point(510, 20);
-            this.comboBox13.Name = "comboBox13";
-            this.comboBox13.Size = new System.Drawing.Size(82, 20);
-            this.comboBox13.TabIndex = 3;
+            this.combo_menbank.Location = new System.Drawing.Point(510, 20);
+            this.combo_menbank.Name = "combo_menbank";
+            this.combo_menbank.Size = new System.Drawing.Size(82, 20);
+            this.combo_menbank.TabIndex = 3;
             // 
-            // comboBox14
+            // combo_action
             // 
-            this.comboBox14.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox14.FormattingEnabled = true;
-            this.comboBox14.Items.AddRange(new object[] {
+            this.combo_action.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_action.FormattingEnabled = true;
+            this.combo_action.Items.AddRange(new object[] {
             "00",
             "01",
             "02",
@@ -5202,36 +5186,36 @@ namespace UHFDemo
             "05",
             "06",
             "07"});
-            this.comboBox14.Location = new System.Drawing.Point(361, 20);
-            this.comboBox14.Name = "comboBox14";
-            this.comboBox14.Size = new System.Drawing.Size(72, 20);
-            this.comboBox14.TabIndex = 2;
+            this.combo_action.Location = new System.Drawing.Point(361, 20);
+            this.combo_action.Name = "combo_action";
+            this.combo_action.Size = new System.Drawing.Size(72, 20);
+            this.combo_action.TabIndex = 2;
             // 
-            // comboBox15
+            // combo_session
             // 
-            this.comboBox15.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox15.FormattingEnabled = true;
-            this.comboBox15.Items.AddRange(new object[] {
+            this.combo_session.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.combo_session.FormattingEnabled = true;
+            this.combo_session.Items.AddRange(new object[] {
             "S0",
             "S1",
             "S2",
             "S3",
             "SL"});
-            this.comboBox15.Location = new System.Drawing.Point(218, 23);
-            this.comboBox15.Name = "comboBox15";
-            this.comboBox15.Size = new System.Drawing.Size(72, 20);
-            this.comboBox15.TabIndex = 1;
+            this.combo_session.Location = new System.Drawing.Point(218, 23);
+            this.combo_session.Name = "combo_session";
+            this.combo_session.Size = new System.Drawing.Size(72, 20);
+            this.combo_session.TabIndex = 1;
             // 
-            // button1
+            // btnTagSelect
             // 
-            this.button1.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(626, 53);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(202, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "设置过滤";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnTagSelect.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTagSelect.Location = new System.Drawing.Point(626, 53);
+            this.btnTagSelect.Name = "btnTagSelect";
+            this.btnTagSelect.Size = new System.Drawing.Size(202, 23);
+            this.btnTagSelect.TabIndex = 0;
+            this.btnTagSelect.Text = "设置过滤";
+            this.btnTagSelect.UseVisualStyleBackColor = true;
+            this.btnTagSelect.Click += new System.EventHandler(this.button1_Click);
             // 
             // PagISO18000
             // 
@@ -7591,8 +7575,20 @@ namespace UHFDemo
             this.PagReaderSetting.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.flowLayoutPanel2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.groupBox24.ResumeLayout(false);
             this.groupBox24.PerformLayout();
+            this.gbConnectType.ResumeLayout(false);
+            this.gbConnectType.PerformLayout();
+            this.grb_rs232.ResumeLayout(false);
+            this.grb_rs232.PerformLayout();
+            this.grb_tcp.ResumeLayout(false);
+            this.grb_tcp.PerformLayout();
+            this.gbCmdReaderAddress.ResumeLayout(false);
+            this.gbCmdReaderAddress.PerformLayout();
+            this.gbCmdBaudrate.ResumeLayout(false);
+            this.gbCmdBaudrate.PerformLayout();
             this.gbCmdReadGpio.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
@@ -7610,16 +7606,6 @@ namespace UHFDemo
             this.gbCmdTemperature.PerformLayout();
             this.gbCmdVersion.ResumeLayout(false);
             this.gbCmdVersion.PerformLayout();
-            this.gbCmdBaudrate.ResumeLayout(false);
-            this.gbCmdBaudrate.PerformLayout();
-            this.gbCmdReaderAddress.ResumeLayout(false);
-            this.gbCmdReaderAddress.PerformLayout();
-            this.gbTcpIp.ResumeLayout(false);
-            this.gbTcpIp.PerformLayout();
-            this.gbRS232.ResumeLayout(false);
-            this.gbRS232.PerformLayout();
-            this.gbConnectType.ResumeLayout(false);
-            this.gbConnectType.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.gbReturnLoss.ResumeLayout(false);
             this.gbReturnLoss.PerformLayout();
@@ -7909,26 +7895,23 @@ namespace UHFDemo
         private System.Windows.Forms.GroupBox gbCmdReaderAddress;
         private CustomControl.HexTextBox htxtReadId;
         private System.Windows.Forms.Button btnSetReadAddress;
-        private System.Windows.Forms.GroupBox gbTcpIp;
-        private System.Windows.Forms.Button btnDisconnectTcp;
+        private System.Windows.Forms.GroupBox grb_tcp;
         private System.Windows.Forms.TextBox txtTcpPort;
-        private System.Windows.Forms.Button btnConnectTcp;
         private CustomControl.IpAddressTextBox ipIpServer;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.GroupBox gbRS232;
+        private System.Windows.Forms.GroupBox grb_rs232;
         private System.Windows.Forms.Button btnSetUartBaudrate;
-        private System.Windows.Forms.Button btnDisconnectRs232;
         private System.Windows.Forms.ComboBox cmbSetBaudrate;
         private System.Windows.Forms.Label lbChangeBaudrate;
-        private System.Windows.Forms.Button btnConnectRs232;
+        private System.Windows.Forms.Button btnConnect;
         private System.Windows.Forms.ComboBox cmbBaudrate;
         private System.Windows.Forms.ComboBox cmbComPort;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox gbConnectType;
-        private System.Windows.Forms.RadioButton rdbTcpIp;
-        private System.Windows.Forms.RadioButton rdbRS232;
+        private System.Windows.Forms.RadioButton radio_btn_tcp;
+        private System.Windows.Forms.RadioButton radio_btn_rs232;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox gbMonza;
         private System.Windows.Forms.RadioButton rdbMonzaOff;
@@ -8230,21 +8213,21 @@ namespace UHFDemo
         private ComboBox comboBox16;
         private Button button2;
         private GroupBox groupBox9;
-        private TextBox textBox12;
-        private TextBox textBox11;
-        private CustomControl.HexTextBox hexTextBox9;
+        private TextBox bitLen;
+        private TextBox startAddr;
+        private CustomControl.HexTextBox hexTextBox_mask;
         private Label label38;
-        private ComboBox comboBox12;
+        private ComboBox combo_mast_id;
         private Label label39;
         private Label label71;
         private Label label99;
         private Label label100;
         private Label label101;
         private Label label102;
-        private ComboBox comboBox13;
-        private ComboBox comboBox14;
-        private ComboBox comboBox15;
-        private Button button1;
+        private ComboBox combo_menbank;
+        private ComboBox combo_action;
+        private ComboBox combo_session;
+        private Button btnTagSelect;
         private GroupBox groupBox26;
         private Label txtTotalTagCount;
         private Label label49;
@@ -8397,6 +8380,8 @@ namespace UHFDemo
         private Button btnGetAndClearBuffer;
         private Button btnGetBuffer;
         private Label label53;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private GroupBox groupBox1;
     }
 }
 
