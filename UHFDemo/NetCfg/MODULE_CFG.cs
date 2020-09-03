@@ -147,7 +147,7 @@ namespace UHFDemo
 
         public string Other
         {
-            get { return CCommondMethod.ToHex(other, "", " "); }
+            get { return ReaderUtils.ToHex(other, "", " "); }
         }
 
         public uint Timeout

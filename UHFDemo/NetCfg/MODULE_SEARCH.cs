@@ -67,7 +67,7 @@ namespace UHFDemo
 
         public string ModMac
         {
-            get { return CCommondMethod.ToHex(mod_mac, "", ":"); }
+            get { return ReaderUtils.ToHex(mod_mac, "", ":"); }
         }
 
         public string ModVer
@@ -79,12 +79,12 @@ namespace UHFDemo
         {
             get
             {
-                return CCommondMethod.ToHex(pc_mac, "", ":");
+                return ReaderUtils.ToHex(pc_mac, "", ":");
             }
             set
             {
                 string param_pc_mac = value.Replace(":", "").ToLower();
-                pc_mac = CCommondMethod.FromHex(param_pc_mac);
+                pc_mac = ReaderUtils.FromHex(param_pc_mac);
             }
         }
     }

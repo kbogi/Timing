@@ -57,12 +57,12 @@ namespace UHFDemo
             mod_mac = new byte[6];
             Array.Copy(message, readIndex, mod_mac, 0, mod_mac.Length);
             readIndex += mod_mac.Length;
-            //Console.WriteLine(" <---NET_COMM mod_mac={0}", CCommondMethod.ToHex(mod_mac, "", ":"));
+            //Console.WriteLine(" <---NET_COMM mod_mac={0}", ReaderUtils.ToHex(mod_mac, "", ":"));
             /* 3 [6]标识，标识是与某个模块在通信，若与所有的模块通信，则值0XFFFFFF,目标模块mac地址+ */
             pc_mac = new byte[6];
             Array.Copy(message, readIndex, pc_mac, 0, pc_mac.Length);
             readIndex += pc_mac.Length;
-            //Console.WriteLine(" <---NET_COMM pc_mac={0}", CCommondMethod.ToHex(pc_mac, "", ":"));
+            //Console.WriteLine(" <---NET_COMM pc_mac={0}", ReaderUtils.ToHex(pc_mac, "", ":"));
             /* 4 [6]配置软件端的MAC*/
             len = message[readIndex++];
             //Console.WriteLine(" <---NET_COMM len={0}", len);
@@ -121,11 +121,11 @@ namespace UHFDemo
 
         public String Mod_Mac
         {
-            get { return CCommondMethod.ToHex(mod_mac, "", ":"); }
+            get { return ReaderUtils.ToHex(mod_mac, "", ":"); }
             set
             {
                 string param_mod_mac = value.Replace(":", "").ToLower();
-                mod_mac = CCommondMethod.FromHex(param_mod_mac);
+                mod_mac = ReaderUtils.FromHex(param_mod_mac);
             }
         }
 
@@ -133,12 +133,12 @@ namespace UHFDemo
         {
             get 
             {
-                return CCommondMethod.ToHex(pc_mac, "", ":"); 
+                return ReaderUtils.ToHex(pc_mac, "", ":"); 
             }
             set
             {
                 string param_pc_mac = value.Replace(":", "").ToLower();
-                pc_mac = CCommondMethod.FromHex(param_pc_mac);
+                pc_mac = ReaderUtils.FromHex(param_pc_mac);
             }
         }
 

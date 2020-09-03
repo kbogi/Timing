@@ -68,7 +68,7 @@ namespace UHFDemo
             bDesIP = new byte[4];
             Array.Copy(data, readIndex, bDesIP, 0, bDesIP.Length);
             readIndex += bDesIP.Length;
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDesIP={0}", CCommondMethod.ToHex(bDesIP, "", "."));
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDesIP={0}", ReaderUtils.ToHex(bDesIP, "", "."));
             /* (7) [2]工作于TCP Server模式时，允许外部连接的端口号 */
             wDesPort = GetPort();
             //Console.WriteLine(" <---DEVICEPORT_CONFIG wDesPort={0}", wDesPort);
@@ -106,12 +106,12 @@ namespace UHFDemo
             szDomainname = new byte[20];
             Array.Copy(data, readIndex, szDomainname, 0, szDomainname.Length);
             readIndex += szDomainname.Length;
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG szDomainname={0}", CCommondMethod.ToHex(szDomainname, "", " "));
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG szDomainname={0}", ReaderUtils.ToHex(szDomainname, "", " "));
             /* (19) [4]DNS 主机*/
             bDNSHostIP = new byte[4];
             Array.Copy(data, readIndex, bDNSHostIP, 0, bDNSHostIP.Length);
             readIndex += bDNSHostIP.Length;
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDNSHostIP={0}", CCommondMethod.ToHex(bDNSHostIP, "", "."));
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG bDNSHostIP={0}", ReaderUtils.ToHex(bDNSHostIP, "", "."));
             /* (20) [2] DNS 端口*/
             wDNSHostPort = GetPort();
             //Console.WriteLine(" <---DEVICEPORT_CONFIG wDNSHostPort={0}", wDNSHostPort);
@@ -119,7 +119,7 @@ namespace UHFDemo
             breserved = new byte[8];
             Array.Copy(data, readIndex, breserved, 0, breserved.Length);
             readIndex += breserved.Length;
-            //Console.WriteLine(" <---DEVICEPORT_CONFIG breserved={0}", CCommondMethod.ToHex(breserved, "", " "));
+            //Console.WriteLine(" <---DEVICEPORT_CONFIG breserved={0}", ReaderUtils.ToHex(breserved, "", " "));
         }
 
         private ushort GetPort()
@@ -162,7 +162,7 @@ namespace UHFDemo
 
             Array.Copy(bDesIP, 0, setdata, writeIndex, bDesIP.Length);
             writeIndex += bDesIP.Length;
-            //Console.WriteLine(" --> DEVICEPORT_CONFIG bDesIP={0}", CCommondMethod.ToHex(bDesIP, "", "."));
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bDesIP={0}", ReaderUtils.ToHex(bDesIP, "", "."));
 
             setdata[writeIndex++] = (byte)((wDesPort >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((wDesPort >> 8) & 0xff);
@@ -204,11 +204,11 @@ namespace UHFDemo
 
             Array.Copy(szDomainname, 0, setdata, writeIndex, szDomainname.Length);
             writeIndex += szDomainname.Length;
-            //Console.WriteLine(" --> DEVICEPORT_CONFIG szDomainname={0}", CCommondMethod.ToHex(szDomainname, "", " "));
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG szDomainname={0}", ReaderUtils.ToHex(szDomainname, "", " "));
 
             Array.Copy(bDNSHostIP, 0, setdata, writeIndex, bDNSHostIP.Length);
             writeIndex += bDNSHostIP.Length;
-            //Console.WriteLine(" --> DEVICEPORT_CONFIG bDNSHostIP={0}", CCommondMethod.ToHex(bDNSHostIP, "", "."));
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG bDNSHostIP={0}", ReaderUtils.ToHex(bDNSHostIP, "", "."));
 
             setdata[writeIndex++] = (byte)((wDNSHostPort >> 0) & 0xff);
             setdata[writeIndex++] = (byte)((wDNSHostPort >> 8) & 0xff);
@@ -216,7 +216,7 @@ namespace UHFDemo
 
             Array.Copy(breserved, 0, setdata, writeIndex, breserved.Length);
             writeIndex += breserved.Length;
-            //Console.WriteLine(" --> DEVICEPORT_CONFIG breserved={0}", CCommondMethod.ToHex(breserved, "", " "));
+            //Console.WriteLine(" --> DEVICEPORT_CONFIG breserved={0}", ReaderUtils.ToHex(breserved, "", " "));
 
             return setdata;
         }
@@ -307,7 +307,7 @@ namespace UHFDemo
             {
                 byte[] ip = IPAddress.Parse(value).GetAddressBytes();
                 Array.Copy(ip, 0, bDesIP, 0, ip.Length);
-                //Console.WriteLine("chris: set dest ip {0} -> {1}", CCommondMethod.ToHex(bDesIP, "", "."), CCommondMethod.ToHex(ip, "", "."));
+                //Console.WriteLine("chris: set dest ip {0} -> {1}", ReaderUtils.ToHex(bDesIP, "", "."), ReaderUtils.ToHex(ip, "", "."));
             }
         }
         public ushort DesPort {
@@ -445,7 +445,7 @@ namespace UHFDemo
             get { return wDNSHostPort; }
         }
         public string Reserved {
-            get { return CCommondMethod.ToHex(breserved, "", " "); }
+            get { return ReaderUtils.ToHex(breserved, "", " "); }
         }
 
         int getu8()

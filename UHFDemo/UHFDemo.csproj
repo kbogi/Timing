@@ -132,7 +132,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Rfid\CCommondMethod.cs" />
     <Compile Include="NetCfg\CMD.cs" />
     <Compile Include="NetCfg\DEVICEHW_CONFIG.cs" />
     <Compile Include="NetCfg\DEVICEPORT_CONFIG.cs" />

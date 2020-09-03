@@ -4,35 +4,8 @@ using System.Text;
 
 namespace UHFDemo
 {
-    class CCommondMethod
+    public class ReaderUtils
     {
-        /// <summary>
-        /// 字符串转16进制数组，字符串以空格分割
-        /// </summary>
-        /// <param name="strHexValue"></param>
-        /// <returns></returns>
-        public static byte[] StringToByteArray(string strHexValue)
-        {
-            string[] strAryHex = strHexValue.Split(' ');
-            byte[] btAryHex = new byte[strAryHex.Length];
-
-            try
-            {
-                int nIndex = 0;
-                foreach (string strTemp in strAryHex)
-                {
-                    btAryHex[nIndex] = Convert.ToByte(strTemp, 16);
-                    nIndex++;
-                }
-            }
-            catch (System.Exception ex)
-            {
-            	
-            }
-
-            return btAryHex;
-        }
-
         /// <summary>
         /// 字符数组转为16进制数组
         /// </summary>

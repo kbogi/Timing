@@ -68,27 +68,27 @@ namespace UHFDemo
             szModulename = new byte[21];
             Array.Copy(data, readIndex, szModulename, 0, szModulename.Length);
             readIndex += szModulename.Length;
-            //Console.WriteLine(" <---DEVICEHW_CONFIG szModulename={0}", CCommondMethod.ToHex(szModulename, "", " "));
+            //Console.WriteLine(" <---DEVICEHW_CONFIG szModulename={0}", ReaderUtils.ToHex(szModulename, "", " "));
             /* 7 [6]模块网络MAC地址 */
             bDevMAC = new byte[6];
             Array.Copy(data, readIndex, bDevMAC, 0, bDevMAC.Length);
             readIndex += bDevMAC.Length;
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevMAC={0}", CCommondMethod.ToHex(bDevMAC, "", ":"));
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevMAC={0}", ReaderUtils.ToHex(bDevMAC, "", ":"));
             /* 8 [4]模块IP地址*/
             bDevIP = new byte[4];
             Array.Copy(data, readIndex, bDevIP, 0, bDevIP.Length);
             readIndex += bDevIP.Length;
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIP={0}", CCommondMethod.ToHex(bDevIP, "", "."));
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIP={0}", ReaderUtils.ToHex(bDevIP, "", "."));
             /* 9 [4]模块网关IP */
             bDevGWIP = new byte[4];
             Array.Copy(data, readIndex, bDevGWIP, 0, bDevGWIP.Length);
             readIndex += bDevGWIP.Length;
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevGWIP={0}", CCommondMethod.ToHex(bDevGWIP, "", "."));
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevGWIP={0}", ReaderUtils.ToHex(bDevGWIP, "", "."));
             /* 10 [4]模块子网掩码 */
             bDevIPMask = new byte[4];
             Array.Copy(data, readIndex, bDevIPMask, 0, bDevIPMask.Length);
             readIndex += bDevIPMask.Length;
-            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIPMask={0}", CCommondMethod.ToHex(bDevIPMask, "", "."));
+            //Console.WriteLine(" <---DEVICEHW_CONFIG bDevIPMask={0}", ReaderUtils.ToHex(bDevIPMask, "", "."));
             /* 11 DHCP 使能，是否启用DHCP,1:启用，0：不启用*/
             bDhcpEnable = data[readIndex++];
             //Console.WriteLine(" <---DEVICEHW_CONFIG bDhcpEnable={0:X2}", bDhcpEnable);
@@ -99,7 +99,7 @@ namespace UHFDemo
             szUsername = new byte[8];
             Array.Copy(data, readIndex, szUsername, 0, szUsername.Length);
             readIndex += szUsername.Length;
-            //Console.WriteLine(" <---DEVICEHW_CONFIG szUsername={0}", CCommondMethod.ToHex(szUsername, "", " "));
+            //Console.WriteLine(" <---DEVICEHW_CONFIG szUsername={0}", ReaderUtils.ToHex(szUsername, "", " "));
             /* 14 密码使能 1：使能 0： 禁用*/
             bPassWordEn = data[readIndex++];
             //Console.WriteLine(" <---DEVICEHW_CONFIG bPassWordEn={0:X2}", bPassWordEn);
@@ -107,7 +107,7 @@ namespace UHFDemo
             szPassWord = new byte[8];
             Array.Copy(data, readIndex, szPassWord, 0, szPassWord.Length);
             readIndex += szPassWord.Length;
-            //Console.WriteLine(" <---DEVICEHW_CONFIG szPassWord={0}", CCommondMethod.ToHex(szPassWord, "", " "));
+            //Console.WriteLine(" <---DEVICEHW_CONFIG szPassWord={0}", ReaderUtils.ToHex(szPassWord, "", " "));
             /* 16 固件升级标志，1：升级 0：不升级*/
             bUpdateFlag = data[readIndex++];
             //Console.WriteLine(" <---DEVICEHW_CONFIG bUpdateFlag={0:X2}", bUpdateFlag);
@@ -118,7 +118,7 @@ namespace UHFDemo
             breserved = new byte[8];
             Array.Copy(data, readIndex, breserved, 0, breserved.Length);
             readIndex += breserved.Length;
-            //Console.WriteLine(" <---DEVICEHW_CONFIG breserved={0}", CCommondMethod.ToHex(breserved, "", " "));
+            //Console.WriteLine(" <---DEVICEHW_CONFIG breserved={0}", ReaderUtils.ToHex(breserved, "", " "));
         }
 
         private ushort GetPort()
@@ -257,7 +257,7 @@ namespace UHFDemo
         {
             get
             {
-                return CCommondMethod.ToHex(bDevMAC, "", ":");
+                return ReaderUtils.ToHex(bDevMAC, "", ":");
             }
         }
         // 模块IP地址
@@ -378,7 +378,7 @@ namespace UHFDemo
         {
             get
             {
-                return CCommondMethod.ToHex(breserved, "", " ");
+                return ReaderUtils.ToHex(breserved, "", " ");
             }
         }
 

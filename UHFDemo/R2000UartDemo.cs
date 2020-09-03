@@ -311,7 +311,7 @@ namespace UHFDemo
         {
             if (m_bDisplayLog)
             {
-                string strLog = "Send: " + CCommondMethod.ToHex(data, "", " ");
+                string strLog = "Send: " + ReaderUtils.ToHex(data, "", " ");
                 Console.WriteLine("-->  {0}", strLog);
                 WriteLog(lrtxtDataTran, strLog, 0);
             }
@@ -321,7 +321,7 @@ namespace UHFDemo
         {
             if (m_bDisplayLog)
             {
-                string strLog = e.Tx ? "Send: ":"Recv: " + CCommondMethod.ToHex(e.Data, "", " ");
+                string strLog = e.Tx ? "Send: ":"Recv: " + ReaderUtils.ToHex(e.Data, "", " ");
                 Console.WriteLine("<--  {0}", strLog);
                 WriteLog(lrtxtDataTran, strLog, e.Tx ? 0 : 1);
             }
@@ -519,7 +519,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -916,7 +916,7 @@ namespace UHFDemo
             {
                 maskValue[i] = m_curSetting.btsGetTagMask[i + 7];
             }
-            CCommondMethod.ByteArrayToString(maskValue, 0, maskValue.Length);
+            ReaderUtils.ByteArrayToString(maskValue, 0, maskValue.Length);
             ListViewItem item = new ListViewItem();
             item.Text = m_curSetting.btsGetTagMask[0].ToString();
             if (m_curSetting.btsGetTagMask[2] == 0)
@@ -957,9 +957,9 @@ namespace UHFDemo
             {
                 item.SubItems.Add("USER");
             }
-            item.SubItems.Add(CCommondMethod.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[5] }, 0, 1).ToString());
-            item.SubItems.Add(CCommondMethod.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[6] }, 0, 1).ToString());
-            item.SubItems.Add(CCommondMethod.ByteArrayToString(maskValue, 0, maskValue.Length).ToString());
+            item.SubItems.Add(ReaderUtils.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[5] }, 0, 1).ToString());
+            item.SubItems.Add(ReaderUtils.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[6] }, 0, 1).ToString());
+            item.SubItems.Add(ReaderUtils.ByteArrayToString(maskValue, 0, maskValue.Length).ToString());
             listView2.Items.Add(item);
         }
         private void RunLoopInventroy()
@@ -1055,7 +1055,7 @@ namespace UHFDemo
             data[writeIndex] = reader.CheckValue(checkdata);
             Array.Resize(ref data, msgLen);
 
-            //Console.WriteLine("Send: {0}", CCommondMethod.ToHex(data, "", " "));
+            //Console.WriteLine("Send: {0}", ReaderUtils.ToHex(data, "", " "));
             reader.SendMessage(data);
         }
 
@@ -1208,7 +1208,7 @@ namespace UHFDemo
 
                 Array.Resize(ref rawData, msgLen);
 
-                //Console.WriteLine("快速盘存: {0}", CCommondMethod.ToHex(rawData, "", " "));
+                //Console.WriteLine("快速盘存: {0}", ReaderUtils.ToHex(rawData, "", " "));
                 int nResult = reader.SendMessage(rawData);
             }));
         }
@@ -1635,7 +1635,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -1672,7 +1672,7 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -1724,7 +1724,7 @@ namespace UHFDemo
             }
             else
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
 
             string strLog = strCmd + "失败，失败原因： " + strErrorCode;
@@ -1757,7 +1757,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -1791,7 +1791,7 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -1970,7 +1970,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2007,7 +2007,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2056,7 +2056,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2106,7 +2106,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2156,7 +2156,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2293,7 +2293,7 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -2385,7 +2385,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2438,7 +2438,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2472,7 +2472,7 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -2541,7 +2541,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2599,7 +2599,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2628,7 +2628,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2657,7 +2657,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2687,7 +2687,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2787,7 +2787,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2850,7 +2850,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2977,7 +2977,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -2996,7 +2996,7 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
@@ -3011,7 +3011,7 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 2)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[1]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[1]);
                 Console.WriteLine("Return ant NO : " + (msgTran.AryData[0] + 1));
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode + "--" + "天线" + (msgTran.AryData[0] + 1);
                 Console.WriteLine("快速天线盘存失败 {0}", strLog);
@@ -3121,7 +3121,7 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
                 WriteLog(lrtxtLog, strLog, 1);
 
@@ -3221,7 +3221,7 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -3279,7 +3279,7 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
                 WriteLog(lrtxtLog, strLog, 1);
                 stopGetInventoryBuffer(false);
@@ -3298,7 +3298,7 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
                 WriteLog(lrtxtLog, strLog, 1);
                 stopGetInventoryBuffer(true);
@@ -3355,7 +3355,7 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -3386,7 +3386,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -3427,14 +3427,14 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
             {
                 if (msgTran.AryData[0] == 0x00)
                 {
-                    m_curOperateTagBuffer.strAccessEpcMatch = CCommondMethod.ByteArrayToString(msgTran.AryData, 2, Convert.ToInt32(msgTran.AryData[1]));
+                    m_curOperateTagBuffer.strAccessEpcMatch = ReaderUtils.ByteArrayToString(msgTran.AryData, 2, Convert.ToInt32(msgTran.AryData[1]));
 
                     RefreshOpTag(0x86);
                     WriteLog(lrtxtLog, strCmd, 0);
@@ -3453,7 +3453,7 @@ namespace UHFDemo
 
         private void btnSetAccessEpcMatch_Click(object sender, EventArgs e)
         {
-            string[] reslut = CCommondMethod.StringToStringArray(cmbSetAccessEpcMatch.Text.ToUpper(), 2);
+            string[] reslut = ReaderUtils.StringToStringArray(cmbSetAccessEpcMatch.Text.ToUpper(), 2);
 
             if (reslut == null)
             {
@@ -3461,7 +3461,7 @@ namespace UHFDemo
                 return;
             }
 
-            byte[] btAryEpc = CCommondMethod.StringArrayToByteArray(reslut, reslut.Length);
+            byte[] btAryEpc = ReaderUtils.StringArrayToByteArray(reslut, reslut.Length);
 
             m_curOperateTagBuffer.strAccessEpcMatch = cmbSetAccessEpcMatch.Text;
             txtAccessEpcMatch.Text = cmbSetAccessEpcMatch.Text;
@@ -3483,7 +3483,7 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -3546,7 +3546,7 @@ namespace UHFDemo
                     return;
                 }
 
-                string[] reslut = CCommondMethod.StringToStringArray(htxtReadAndWritePwd.Text.ToUpper(), 2);
+                string[] reslut = ReaderUtils.StringToStringArray(htxtReadAndWritePwd.Text.ToUpper(), 2);
 
                 if (reslut != null && reslut.GetLength(0) != 4)
                 {
@@ -3557,7 +3557,7 @@ namespace UHFDemo
 
                 if (reslut != null)
                 {
-                    btAryPwd = CCommondMethod.StringArrayToByteArray(reslut, 4);
+                    btAryPwd = ReaderUtils.StringArrayToByteArray(reslut, 4);
                 }
 
                 m_curOperateTagBuffer.dtTagTable.Clear();
@@ -3579,7 +3579,7 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
@@ -3591,10 +3591,10 @@ namespace UHFDemo
                 int nDataLen = Convert.ToInt32(msgTran.AryData[nLen - 3]);
                 int nEpcLen = Convert.ToInt32(msgTran.AryData[2]) - nDataLen - 4;
 
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = CCommondMethod.ByteArrayToString(msgTran.AryData, 7 + nEpcLen, nDataLen);
+                string strPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 3, 2);
+                string strEPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
+                string strCRC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
+                string strData = ReaderUtils.ByteArrayToString(msgTran.AryData, 7 + nEpcLen, nDataLen);
 
                 byte byTemp = msgTran.AryData[nLen - 2];
                 byte byAntId = (byte)((byTemp & 0x03) + 1);
@@ -3685,7 +3685,7 @@ namespace UHFDemo
                     return;
                 }
 
-                string[] reslut = CCommondMethod.StringToStringArray(htxtReadAndWritePwd.Text.ToUpper(), 2);
+                string[] reslut = ReaderUtils.StringToStringArray(htxtReadAndWritePwd.Text.ToUpper(), 2);
 
                 if (reslut == null)
                 {
@@ -3697,16 +3697,16 @@ namespace UHFDemo
                     MessageBox.Show("至少输入4个字节");
                     return;
                 }
-                byte[] btAryPwd = CCommondMethod.StringArrayToByteArray(reslut, 4);
+                byte[] btAryPwd = ReaderUtils.StringArrayToByteArray(reslut, 4);
 
-                reslut = CCommondMethod.StringToStringArray(htxtWriteData.Text.ToUpper(), 2);
+                reslut = ReaderUtils.StringToStringArray(htxtWriteData.Text.ToUpper(), 2);
 
                 if (reslut == null)
                 {
                     MessageBox.Show("输入字符无效");
                     return;
                 }
-                byte[] btAryWriteData = CCommondMethod.StringArrayToByteArray(reslut, reslut.Length);
+                byte[] btAryWriteData = ReaderUtils.StringArrayToByteArray(reslut, reslut.Length);
                 btWordCnt = Convert.ToByte(reslut.Length / 2 + reslut.Length % 2);
 
                 txtWordCnt.Text = btWordCnt.ToString();
@@ -3731,7 +3731,7 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
@@ -3743,7 +3743,7 @@ namespace UHFDemo
 
                 if (msgTran.AryData[nLen - 3] != 0x10)
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[nLen - 3]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[nLen - 3]);
                     string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                     WriteLog(lrtxtLog, strLog, 1);
@@ -3752,9 +3752,9 @@ namespace UHFDemo
                 WriteTagCount++;
 
 
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
+                string strPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 3, 2);
+                string strEPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
+                string strCRC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
                 string strData = string.Empty;
 
                 byte byTemp = msgTran.AryData[nLen - 2];
@@ -3837,7 +3837,7 @@ namespace UHFDemo
                 return;
             }
 
-            string[] reslut = CCommondMethod.StringToStringArray(htxtLockPwd.Text.ToUpper(), 2);
+            string[] reslut = ReaderUtils.StringToStringArray(htxtLockPwd.Text.ToUpper(), 2);
 
             if (reslut == null)
             {
@@ -3850,7 +3850,7 @@ namespace UHFDemo
                 return;
             }
 
-            byte[] btAryPwd = CCommondMethod.StringArrayToByteArray(reslut, 4);
+            byte[] btAryPwd = ReaderUtils.StringArrayToByteArray(reslut, 4);
 
             m_curOperateTagBuffer.dtTagTable.Clear();
             ltvOperate.Items.Clear();
@@ -3864,7 +3864,7 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
@@ -3876,16 +3876,16 @@ namespace UHFDemo
 
                 if (msgTran.AryData[nLen - 3] != 0x10)
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[nLen - 3]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[nLen - 3]);
                     string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                     WriteLog(lrtxtLog, strLog, 1);
                     return;
                 }
 
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
+                string strPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 3, 2);
+                string strEPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
+                string strCRC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
                 string strData = string.Empty;
 
                 byte byTemp = msgTran.AryData[nLen - 2];
@@ -3913,7 +3913,7 @@ namespace UHFDemo
 
         private void btnKillTag_Click(object sender, EventArgs e)
         {
-            string[] reslut = CCommondMethod.StringToStringArray(htxtKillPwd.Text.ToUpper(), 2);
+            string[] reslut = ReaderUtils.StringToStringArray(htxtKillPwd.Text.ToUpper(), 2);
 
             if (reslut == null)
             {
@@ -3926,7 +3926,7 @@ namespace UHFDemo
                 return;
             }
 
-            byte[] btAryPwd = CCommondMethod.StringArrayToByteArray(reslut, 4);
+            byte[] btAryPwd = ReaderUtils.StringArrayToByteArray(reslut, 4);
 
             m_curOperateTagBuffer.dtTagTable.Clear();
             ltvOperate.Items.Clear();
@@ -3940,7 +3940,7 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
@@ -3952,16 +3952,16 @@ namespace UHFDemo
 
                 if (msgTran.AryData[nLen - 3] != 0x10)
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[nLen - 3]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[nLen - 3]);
                     string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                     WriteLog(lrtxtLog, strLog, 1);
                     return;
                 }
 
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
+                string strPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 3, 2);
+                string strEPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
+                string strCRC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
                 string strData = string.Empty;
 
                 byte byTemp = msgTran.AryData[nLen - 2];
@@ -4040,7 +4040,7 @@ namespace UHFDemo
             {
                 if (msgTran.AryData[0] != 0xFF)
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                     string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                     WriteLog(lrtxtLog, strLog, 1);
@@ -4048,8 +4048,8 @@ namespace UHFDemo
             }
             else if (msgTran.AryData.Length == 9)
             {
-                string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                string strUID = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 8);
+                string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                string strUID = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, 8);
 
                 //增加保存标签列表，原未盘存则增加记录，否则将标签盘存数量加1
                 DataRow[] drs = m_curOperateTagISO18000Buffer.dtTagTable.Select(string.Format("UID = '{0}'", strUID));
@@ -4105,7 +4105,7 @@ namespace UHFDemo
                 return;
             }
 
-            string[] reslut = CCommondMethod.StringToStringArray(htxtReadUID.Text.ToUpper(), 2);
+            string[] reslut = ReaderUtils.StringToStringArray(htxtReadUID.Text.ToUpper(), 2);
 
             if (reslut == null)
             {
@@ -4117,7 +4117,7 @@ namespace UHFDemo
                 MessageBox.Show("至少输入8个字节");
                 return;
             }
-            byte[] btAryUID = CCommondMethod.StringArrayToByteArray(reslut, 8);
+            byte[] btAryUID = ReaderUtils.StringArrayToByteArray(reslut, 8);
 
             reader.ReadTagISO18000(m_curSetting.btReadId, btAryUID, Convert.ToByte(htxtReadStartAdd.Text, 16), Convert.ToByte(txtReadLength.Text, 16));
         }
@@ -4129,15 +4129,15 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
             }
             else
             {
-                string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                string strData = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, msgTran.AryData.Length - 1);
+                string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                string strData = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, msgTran.AryData.Length - 1);
 
                 m_curOperateTagISO18000Buffer.btAntId = Convert.ToByte(strAntID);
                 m_curOperateTagISO18000Buffer.strReadData = strData;
@@ -4184,7 +4184,7 @@ namespace UHFDemo
                 return;
             }
 
-            string[] reslut = CCommondMethod.StringToStringArray(htxtReadUID.Text.ToUpper(), 2);
+            string[] reslut = ReaderUtils.StringToStringArray(htxtReadUID.Text.ToUpper(), 2);
 
             if (reslut == null)
             {
@@ -4196,13 +4196,13 @@ namespace UHFDemo
                 MessageBox.Show("至少输入8个字节");
                 return;
             }
-            byte[] btAryUID = CCommondMethod.StringArrayToByteArray(reslut, 8);
+            byte[] btAryUID = ReaderUtils.StringArrayToByteArray(reslut, 8);
 
             byte btStartAdd = Convert.ToByte(htxtWriteStartAdd.Text, 16);
 
-            //string[] reslut = CCommondMethod.StringToStringArray(htxtWriteData18000.Text.ToUpper(), 2);
+            //string[] reslut = ReaderUtils.StringToStringArray(htxtWriteData18000.Text.ToUpper(), 2);
             string strTemp = cleanString(htxtWriteData18000.Text);
-            reslut = CCommondMethod.StringToStringArray(strTemp.ToUpper(), 2);
+            reslut = ReaderUtils.StringToStringArray(strTemp.ToUpper(), 2);
 
             if (reslut == null)
             {
@@ -4210,7 +4210,7 @@ namespace UHFDemo
                 return;
             }
 
-            byte[] btAryData = CCommondMethod.StringArrayToByteArray(reslut, reslut.Length);
+            byte[] btAryData = ReaderUtils.StringArrayToByteArray(reslut, reslut.Length);
 
             //byte btLength = Convert.ToByte(txtWriteLength.Text, 16);
             byte btLength = Convert.ToByte(reslut.Length);
@@ -4234,15 +4234,15 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
             }
             else
             {
-                //string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                //string strCnt = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 1);
+                //string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                //string strCnt = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, 1);
 
                 m_curOperateTagISO18000Buffer.btAntId = msgTran.AryData[0];
                 m_curOperateTagISO18000Buffer.btWriteLength = msgTran.AryData[1];
@@ -4274,7 +4274,7 @@ namespace UHFDemo
                 return;
             }
 
-            string[] reslut = CCommondMethod.StringToStringArray(htxtReadUID.Text.ToUpper(), 2);
+            string[] reslut = ReaderUtils.StringToStringArray(htxtReadUID.Text.ToUpper(), 2);
 
             if (reslut == null)
             {
@@ -4286,7 +4286,7 @@ namespace UHFDemo
                 MessageBox.Show("至少输入8个字节");
                 return;
             }
-            byte[] btAryUID = CCommondMethod.StringArrayToByteArray(reslut, 8);
+            byte[] btAryUID = ReaderUtils.StringArrayToByteArray(reslut, 8);
 
             byte btStartAdd = Convert.ToByte(htxtLockAdd.Text, 16);
 
@@ -4300,15 +4300,15 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
             }
             else
             {
-                //string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                //string strStatus = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 1);
+                //string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                //string strStatus = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, 1);
 
                 m_curOperateTagISO18000Buffer.btAntId = msgTran.AryData[0];
                 m_curOperateTagISO18000Buffer.btStatus = msgTran.AryData[1];
@@ -4348,7 +4348,7 @@ namespace UHFDemo
                 return;
             }
 
-            string[] reslut = CCommondMethod.StringToStringArray(htxtReadUID.Text.ToUpper(), 2);
+            string[] reslut = ReaderUtils.StringToStringArray(htxtReadUID.Text.ToUpper(), 2);
 
             if (reslut == null)
             {
@@ -4360,7 +4360,7 @@ namespace UHFDemo
                 MessageBox.Show("至少输入8个字节");
                 return;
             }
-            byte[] btAryUID = CCommondMethod.StringArrayToByteArray(reslut, 8);
+            byte[] btAryUID = ReaderUtils.StringArrayToByteArray(reslut, 8);
 
             byte btStartAdd = Convert.ToByte(htxtQueryAdd.Text, 16);
 
@@ -4374,15 +4374,15 @@ namespace UHFDemo
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
             }
             else
             {
-                //string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                //string strStatus = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 1);
+                //string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                //string strStatus = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, 1);
 
                 m_curOperateTagISO18000Buffer.btAntId = msgTran.AryData[0];
                 m_curOperateTagISO18000Buffer.btStatus = msgTran.AryData[1];
@@ -4400,8 +4400,8 @@ namespace UHFDemo
                 return;
             }
 
-            string[] reslut = CCommondMethod.StringToStringArray(htxtSendData.Text.ToUpper(), 2);
-            byte[] btArySendData = CCommondMethod.StringArrayToByteArray(reslut, reslut.Length);
+            string[] reslut = ReaderUtils.StringToStringArray(htxtSendData.Text.ToUpper(), 2);
+            byte[] btArySendData = ReaderUtils.StringArrayToByteArray(reslut, reslut.Length);
 
             byte btCheckData = reader.CheckValue(btArySendData);
             htxtCheckData.Text = string.Format(" {0:X2}", btCheckData);
@@ -4416,8 +4416,8 @@ namespace UHFDemo
 
             string strData = htxtSendData.Text + htxtCheckData.Text;
 
-            string[] reslut = CCommondMethod.StringToStringArray(strData.ToUpper(), 2);
-            byte[] btArySendData = CCommondMethod.StringArrayToByteArray(reslut, reslut.Length);
+            string[] reslut = ReaderUtils.StringToStringArray(strData.ToUpper(), 2);
+            byte[] btArySendData = ReaderUtils.StringArrayToByteArray(reslut, reslut.Length);
 
             reader.SendMessage(btArySendData);
         }
@@ -4906,7 +4906,7 @@ namespace UHFDemo
                 string strTemp = htbSetIdentifier.Text.Trim();
 
 
-                string[] result = CCommondMethod.StringToStringArray(strTemp.ToUpper(), 2);
+                string[] result = ReaderUtils.StringToStringArray(strTemp.ToUpper(), 2);
 
                 if (result == null)
                 {
@@ -4918,7 +4918,7 @@ namespace UHFDemo
                     MessageBox.Show("请输入12个字节");
                     return;
                 }
-                byte[] readerIdentifier = CCommondMethod.StringArrayToByteArray(result, 12);
+                byte[] readerIdentifier = ReaderUtils.StringArrayToByteArray(result, 12);
 
 
                 reader.SetReaderIdentifier(m_curSetting.btReadId, readerIdentifier);
@@ -5123,7 +5123,7 @@ namespace UHFDemo
                 byte btMembank = (byte)combo_menbank.SelectedIndex;
 
                 string strMaskValue = hexTextBox_mask.Text.Trim();
-                string[] maskValue = CCommondMethod.StringToStringArray(strMaskValue.ToUpper(), 2);
+                string[] maskValue = ReaderUtils.StringToStringArray(strMaskValue.ToUpper(), 2);
 
 
                 byte btStartAddress = Convert.ToByte(startAddr.Text);
@@ -5131,7 +5131,7 @@ namespace UHFDemo
                 byte btMaskLen = Convert.ToByte(bitLen.Text);
                 int intMaskLen = Convert.ToInt32(bitLen.Text);
 
-                byte[] btsMaskValue = CCommondMethod.StringArrayToByteArray(maskValue, maskValue.Length);
+                byte[] btsMaskValue = ReaderUtils.StringArrayToByteArray(maskValue, maskValue.Length);
 
                 if (intStartAdd <= 0 || intStartAdd > 255 || intMaskLen <= 0 || intMaskLen > 255)
                 {
@@ -5921,7 +5921,7 @@ namespace UHFDemo
                         try
                         {
                             byte[] buf = netClient.Receive(ref netEndpoint);
-                            string msg = CCommondMethod.ToHex(buf, "", " ");
+                            string msg = ReaderUtils.ToHex(buf, "", " ");
                             //Console.WriteLine("#2 Recv:{0}", msg);
                             parseRecvData(buf);
                         }
@@ -6359,7 +6359,7 @@ namespace UHFDemo
 
             string param_mod_mac = search.ModMac.Replace(":", "").ToLower();
 
-            byte[] b_mod_mac = CCommondMethod.FromHex(param_mod_mac);
+            byte[] b_mod_mac = ReaderUtils.FromHex(param_mod_mac);
             comm_cmd.setbytes(b_mod_mac); // 设置mod_mac
 
             byte[] message = comm_cmd.Message;
@@ -6471,7 +6471,7 @@ namespace UHFDemo
             byte[] bflag = Encoding.Default.GetBytes(flag);
             Array.Copy(bflag, 0, rawdata, writeIndex, bflag.Length);
             writeIndex += bflag.Length;
-            //Console.WriteLine("flag={0}", CCommondMethod.ToHex(bflag, "", " "));
+            //Console.WriteLine("flag={0}", ReaderUtils.ToHex(bflag, "", " "));
 
             // CMD
             byte cmd = (byte)NET_CMD.NET_MODULE_CMD_SET;
@@ -6479,16 +6479,16 @@ namespace UHFDemo
             //Console.WriteLine("cmd={0}", cmd);
 
             // mod_mac [6]
-            byte[] b_mod_mac = CCommondMethod.FromHex(mod_mac.Replace(":", ""));// 设置mod_mac
+            byte[] b_mod_mac = ReaderUtils.FromHex(mod_mac.Replace(":", ""));// 设置mod_mac
             Array.Copy(b_mod_mac, 0, rawdata, writeIndex, b_mod_mac.Length);
             writeIndex += b_mod_mac.Length;
-            //Console.WriteLine("mod_mac={0}", CCommondMethod.ToHex(b_mod_mac, "", ":"));
+            //Console.WriteLine("mod_mac={0}", ReaderUtils.ToHex(b_mod_mac, "", ":"));
 
             // pc_mac [6]
-            byte[] b_pc_mac = CCommondMethod.FromHex(pc_mac.Replace(":", "")); // 设置pc_mac
+            byte[] b_pc_mac = ReaderUtils.FromHex(pc_mac.Replace(":", "")); // 设置pc_mac
             Array.Copy(b_pc_mac, 0, rawdata, writeIndex, b_pc_mac.Length);
             writeIndex += b_pc_mac.Length;
-            //Console.WriteLine("pc_mac={0}", CCommondMethod.ToHex(b_pc_mac, "", ":"));
+            //Console.WriteLine("pc_mac={0}", ReaderUtils.ToHex(b_pc_mac, "", ":"));
 
             // len在后面才算
             int lenIndex = writeIndex;
@@ -6512,38 +6512,38 @@ namespace UHFDemo
             byte[] bdev_name = Encoding.Default.GetBytes(net_base_mod_name_tb.Text.ToString());
             Array.Copy(bdev_name, 0, rawdata, writeIndex, bdev_name.Length);
             writeIndex += bdev_name.Length;
-            //Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
+            //Console.WriteLine("dev_name={0}", ReaderUtils.ToHex(bdev_name, "", " "));
 
             int dev_last_len = 21 - bdev_name.Length;
             byte[] dev_name_last = new byte[dev_last_len];
             Array.Copy(dev_name_last, 0, rawdata, writeIndex, dev_name_last.Length);
             writeIndex += dev_name_last.Length;
-            //Console.WriteLine("dev_name_last={0}", CCommondMethod.ToHex(dev_name_last, "", " "));
+            //Console.WriteLine("dev_name_last={0}", ReaderUtils.ToHex(dev_name_last, "", " "));
 
             // dev_net_mac [6]
             string dev_net_mac = "02:03:04:05:06:07";
-            byte[] b_dev_net_mac = CCommondMethod.FromHex(dev_net_mac.Replace(":", ""));
+            byte[] b_dev_net_mac = ReaderUtils.FromHex(dev_net_mac.Replace(":", ""));
             Array.Copy(b_dev_net_mac, 0, rawdata, writeIndex, b_dev_net_mac.Length);
             writeIndex += b_dev_net_mac.Length;
-            //Console.WriteLine("dev_net_mac={0}", CCommondMethod.ToHex(b_dev_net_mac, "", ":"));
+            //Console.WriteLine("dev_net_mac={0}", ReaderUtils.ToHex(b_dev_net_mac, "", ":"));
 
             // dev_net_ip [4]
             byte[] b_dev_net_ip = IPAddress.Parse(dev_net_ip).GetAddressBytes();
             Array.Copy(b_dev_net_ip, 0, rawdata, writeIndex, b_dev_net_ip.Length);
             writeIndex += b_dev_net_ip.Length;
-            //Console.WriteLine("dev_net_ip={0}", CCommondMethod.ToHex(b_dev_net_ip, "", "."));
+            //Console.WriteLine("dev_net_ip={0}", ReaderUtils.ToHex(b_dev_net_ip, "", "."));
 
             // dev_gateway_ip [4]
             byte[] b_dev_gateway_ip = IPAddress.Parse(dev_gateway_ip).GetAddressBytes();
             Array.Copy(b_dev_gateway_ip, 0, rawdata, writeIndex, b_dev_gateway_ip.Length);
             writeIndex += b_dev_gateway_ip.Length;
-            //Console.WriteLine("dev_gateway_ip={0}", CCommondMethod.ToHex(b_dev_gateway_ip, "", "."));
+            //Console.WriteLine("dev_gateway_ip={0}", ReaderUtils.ToHex(b_dev_gateway_ip, "", "."));
 
             // dev_mask [4]
             byte[] b_dev_mask = IPAddress.Parse(dev_mask).GetAddressBytes();
             Array.Copy(b_dev_mask, 0, rawdata, writeIndex, b_dev_mask.Length);
             writeIndex += b_dev_mask.Length;
-            //Console.WriteLine("dev_mask={0}", CCommondMethod.ToHex(b_dev_mask, "", "."));
+            //Console.WriteLine("dev_mask={0}", ReaderUtils.ToHex(b_dev_mask, "", "."));
 
             // dev_dhcp_enable
             rawdata[writeIndex++] = (byte)(net_base_dhcp_enable_cb.Checked == true ? 0x01 : 0x00);
@@ -6552,13 +6552,13 @@ namespace UHFDemo
             byte[] bdev_web_port = new byte[2] { 0x50, 0x00 };
             Array.Copy(bdev_web_port, 0, rawdata, writeIndex, bdev_web_port.Length);
             writeIndex += bdev_web_port.Length;
-            //Console.WriteLine("dev_web_port={0}", CCommondMethod.ToHex(bdev_web_port, "", " "));
+            //Console.WriteLine("dev_web_port={0}", ReaderUtils.ToHex(bdev_web_port, "", " "));
 
             // dev_user_name 
             byte[] bdev_user_name = new byte[8];
             Array.Copy(bdev_user_name, 0, rawdata, writeIndex, bdev_user_name.Length);
             writeIndex += bdev_user_name.Length;
-            //Console.WriteLine("dev_user_name={0}", CCommondMethod.ToHex(bdev_user_name, "", " "));
+            //Console.WriteLine("dev_user_name={0}", ReaderUtils.ToHex(bdev_user_name, "", " "));
 
             // dev_pw_enable
             rawdata[writeIndex++] = 0x00;
@@ -6567,7 +6567,7 @@ namespace UHFDemo
             byte[] b_dev_pw = new byte[8];
             Array.Copy(b_dev_pw, 0, rawdata, writeIndex, b_dev_pw.Length);
             writeIndex += b_dev_pw.Length;
-            //Console.WriteLine("dev_pw={0}", CCommondMethod.ToHex(b_dev_pw, "", " "));
+            //Console.WriteLine("dev_pw={0}", ReaderUtils.ToHex(b_dev_pw, "", " "));
 
             // dev_update_flag
             rawdata[writeIndex++] = 0x00;
@@ -6579,7 +6579,7 @@ namespace UHFDemo
             byte[] b_dev_reserved = new byte[8];
             Array.Copy(b_dev_reserved, 0, rawdata, writeIndex, b_dev_reserved.Length);
             writeIndex += b_dev_reserved.Length;
-            //Console.WriteLine("dev_reserved={0}", CCommondMethod.ToHex(b_dev_reserved, "", " "));
+            //Console.WriteLine("dev_reserved={0}", ReaderUtils.ToHex(b_dev_reserved, "", " "));
             #endregion HW_CFG
 
             #region HeartBeat
@@ -6653,14 +6653,14 @@ namespace UHFDemo
             }
             byte[] bheartbeatContent = Encoding.Default.GetBytes(str_heartbeatContent);
             Array.Copy(bheartbeatContent, 0, heartbeatContent, 0, bheartbeatContent.Length);
-            //Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
+            //Console.WriteLine("dev_name={0}", ReaderUtils.ToHex(bdev_name, "", " "));
 
             int heartbeatContent_last_len = 20 - bheartbeatContent.Length;
             if (heartbeatContent_last_len > 0)
             {
                 byte[] heartbeatContent_last = new byte[heartbeatContent_last_len];
                 Array.Copy(heartbeatContent_last, 0, heartbeatContent, bheartbeatContent.Length, heartbeatContent_last.Length);
-                //Console.WriteLine("dev_name_last={0}", CCommondMethod.ToHex(dev_name_last, "", " "));
+                //Console.WriteLine("dev_name_last={0}", ReaderUtils.ToHex(dev_name_last, "", " "));
             }
             Array.Copy(heartbeatContent, 0, rawdata, writeIndex, heartbeatContent.Length);
             writeIndex += heartbeatContent.Length;
@@ -6718,14 +6718,14 @@ namespace UHFDemo
             };
             Array.Copy(bport_net_port, 0, rawdata, writeIndex, bport_net_port.Length);
             writeIndex += bport_net_port.Length;
-            //Console.WriteLine("port_net_port={0}", CCommondMethod.ToHex(bport_net_port, "", " "));
+            //Console.WriteLine("port_net_port={0}", ReaderUtils.ToHex(bport_net_port, "", " "));
 
             // port_dest_ip 
             string port_dest_ip = net_port_1_dest_ip_tb.Text.ToString();
             byte[] b_port_dest_ip = IPAddress.Parse(port_dest_ip).GetAddressBytes();
             Array.Copy(b_port_dest_ip, 0, rawdata, writeIndex, b_port_dest_ip.Length);
             writeIndex += b_port_dest_ip.Length;
-            //Console.WriteLine("b_port_dest_ip={0}", CCommondMethod.ToHex(b_port_dest_ip, "", " "));
+            //Console.WriteLine("b_port_dest_ip={0}", ReaderUtils.ToHex(b_port_dest_ip, "", " "));
 
             // port_dest_port 03e8 -> 1000 目标端口
             int des_net_port = Convert.ToInt32(net_port_1_dest_port_tb.Text.ToString());
@@ -6735,7 +6735,7 @@ namespace UHFDemo
             };
             Array.Copy(bport_dest_port, 0, rawdata, writeIndex, bport_dest_port.Length);
             writeIndex += bport_dest_port.Length;
-            //Console.WriteLine("bport_dest_port={0}", CCommondMethod.ToHex(bport_dest_port, "", " "));
+            //Console.WriteLine("bport_dest_port={0}", ReaderUtils.ToHex(bport_dest_port, "", " "));
 
             // port_baudrate
             uint baudrate = (uint)GetEnumValue(typeof(BAUDRATE), net_port_1_baudrate_cbo.SelectedItem.ToString());
@@ -6776,13 +6776,13 @@ namespace UHFDemo
             string domain_name = net_port_1_dns_domain_tb.Text.ToString();
             byte[] bdomain_name = Encoding.Default.GetBytes(domain_name);
             Array.Copy(bdomain_name, 0, bport_domain, 0, bdomain_name.Length);
-            //Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
+            //Console.WriteLine("dev_name={0}", ReaderUtils.ToHex(bdev_name, "", " "));
             int domain_name_last_len = 20 - bdomain_name.Length;
             if (domain_name_last_len > 0)
             {
                 byte[] domain_name_last = new byte[domain_name_last_len];
                 Array.Copy(domain_name_last, 0, bport_domain, bdomain_name.Length, domain_name_last.Length);
-                //Console.WriteLine("dev_name_last={0}", CCommondMethod.ToHex(dev_name_last, "", " "));
+                //Console.WriteLine("dev_name_last={0}", ReaderUtils.ToHex(dev_name_last, "", " "));
             }
             Array.Copy(bport_domain, 0, rawdata, writeIndex, bport_domain.Length);
             writeIndex += bport_domain.Length;
@@ -6792,7 +6792,7 @@ namespace UHFDemo
             byte[] b_port_host_ip = IPAddress.Parse(port_host_ip).GetAddressBytes();
             Array.Copy(b_port_host_ip, 0, rawdata, writeIndex, b_port_host_ip.Length);
             writeIndex += b_port_host_ip.Length;
-            //Console.WriteLine("b_port_host_ip={0}", CCommondMethod.ToHex(b_port_host_ip, "", " "));
+            //Console.WriteLine("b_port_host_ip={0}", ReaderUtils.ToHex(b_port_host_ip, "", " "));
 
             // port_dns_port
             int port_dns_port = Convert.ToInt32(net_port_1_dns_host_port_tb.Text.ToString());
@@ -6802,7 +6802,7 @@ namespace UHFDemo
             byte[] b_port_reserved = new byte[8];
             Array.Copy(b_port_reserved, 0, rawdata, writeIndex, b_port_reserved.Length);
             writeIndex += b_port_reserved.Length;
-            //Console.WriteLine("b_port_reserved={0}", CCommondMethod.ToHex(b_port_reserved, "", " "));
+            //Console.WriteLine("b_port_reserved={0}", ReaderUtils.ToHex(b_port_reserved, "", " "));
             #endregion PORT_1
             //NET_DEVICE_CONFIG dev_cfg = new NET_DEVICE_CONFIG();
 
@@ -6837,14 +6837,14 @@ namespace UHFDemo
             setindex++;
 
             string param_mod_mac = mod_search.ModMac.Replace(":", "").ToLower();
-            byte[] b_mod_mac = CCommondMethod.FromHex(param_mod_mac);
+            byte[] b_mod_mac = ReaderUtils.FromHex(param_mod_mac);
             comm_cmd.setbytes(b_mod_mac); // 设置mod_mac
             setindex += b_mod_mac.Length;
 
             //string param_pc_mac = mod_search.PcMac.Replace(":", "").ToLower();
             string param_pc_mac = net_pc_mac_label.Text.Replace(":", "").ToLower();
 
-            byte[] b_pc_mac = CCommondMethod.FromHex(param_pc_mac);
+            byte[] b_pc_mac = ReaderUtils.FromHex(param_pc_mac);
             comm_cmd.setbytes(b_pc_mac); // 设置pc_mac
             setindex += b_pc_mac.Length;
 
@@ -6884,7 +6884,7 @@ namespace UHFDemo
                 mod_mac = "00:00:00:00:00:00";
             }
             string param_mod_mac = mod_mac.Replace(":", "").ToLower();
-            byte[] b_mod_mac = CCommondMethod.FromHex(param_mod_mac);
+            byte[] b_mod_mac = ReaderUtils.FromHex(param_mod_mac);
             comm_cmd.setbytes(b_mod_mac); // 设置mod_mac
             setindex += b_mod_mac.Length;
 
@@ -6895,7 +6895,7 @@ namespace UHFDemo
             }
             string param_pc_mac = pc_mac.Replace(":", "").ToLower();
 
-            byte[] b_pc_mac = CCommondMethod.FromHex(param_pc_mac);
+            byte[] b_pc_mac = ReaderUtils.FromHex(param_pc_mac);
             comm_cmd.setbytes(b_pc_mac); // 设置pc_mac
             setindex += b_pc_mac.Length;
 
@@ -6942,23 +6942,23 @@ namespace UHFDemo
             byte[] bflag = Encoding.Default.GetBytes(flag);
             Array.Copy(bflag, 0, rawdata, writeIndex, bflag.Length);
             writeIndex += bflag.Length;
-            //Console.WriteLine("flag={0}", CCommondMethod.ToHex(bflag, "", " "));
+            //Console.WriteLine("flag={0}", ReaderUtils.ToHex(bflag, "", " "));
 
             byte cmd = (byte)NET_CMD.NET_MODULE_CMD_SET;
             rawdata[writeIndex++] = cmd; // 设置cmd
             //Console.WriteLine("cmd={0}", cmd);
 
             // mod_mac [6]
-            byte[] b_mod_mac = CCommondMethod.FromHex(mod_mac.Replace(":", ""));// 设置mod_mac
+            byte[] b_mod_mac = ReaderUtils.FromHex(mod_mac.Replace(":", ""));// 设置mod_mac
             Array.Copy(b_mod_mac, 0, rawdata, writeIndex, b_mod_mac.Length);
             writeIndex += b_mod_mac.Length;
-            //Console.WriteLine("mod_mac={0}", CCommondMethod.ToHex(b_mod_mac, "", ":"));
+            //Console.WriteLine("mod_mac={0}", ReaderUtils.ToHex(b_mod_mac, "", ":"));
 
             // pc_mac [6]
-            byte[] b_pc_mac = CCommondMethod.FromHex(pc_mac.Replace(":", "")); // 设置pc_mac
+            byte[] b_pc_mac = ReaderUtils.FromHex(pc_mac.Replace(":", "")); // 设置pc_mac
             Array.Copy(b_pc_mac, 0, rawdata, writeIndex, b_pc_mac.Length);
             writeIndex += b_pc_mac.Length;
-            //Console.WriteLine("pc_mac={0}", CCommondMethod.ToHex(b_pc_mac, "", ":"));
+            //Console.WriteLine("pc_mac={0}", ReaderUtils.ToHex(b_pc_mac, "", ":"));
 
             // len在后面才算
             int lenIndex = writeIndex;
@@ -6982,41 +6982,41 @@ namespace UHFDemo
             byte[] bdev_name = Encoding.Default.GetBytes(dev_name);
             Array.Copy(bdev_name, 0, rawdata, writeIndex, bdev_name.Length);
             writeIndex += bdev_name.Length;
-            //Console.WriteLine("dev_name={0}", CCommondMethod.ToHex(bdev_name, "", " "));
+            //Console.WriteLine("dev_name={0}", ReaderUtils.ToHex(bdev_name, "", " "));
 
             int dev_last_len = 21 - bdev_name.Length;
             byte[] dev_name_last = new byte[dev_last_len];
             Array.Copy(dev_name_last, 0, rawdata, writeIndex, dev_name_last.Length);
             writeIndex += dev_name_last.Length;
-            //Console.WriteLine("dev_name_last={0}", CCommondMethod.ToHex(dev_name_last, "", " "));
+            //Console.WriteLine("dev_name_last={0}", ReaderUtils.ToHex(dev_name_last, "", " "));
 
             // dev_net_mac [6]
             string dev_net_mac = "02:03:04:05:06:07";
-            byte[] b_dev_net_mac = CCommondMethod.FromHex(dev_net_mac.Replace(":",""));
+            byte[] b_dev_net_mac = ReaderUtils.FromHex(dev_net_mac.Replace(":",""));
             Array.Copy(b_dev_net_mac, 0, rawdata, writeIndex, b_dev_net_mac.Length);
             writeIndex += b_dev_net_mac.Length;
-            //Console.WriteLine("dev_net_mac={0}", CCommondMethod.ToHex(b_dev_net_mac, "", ":"));
+            //Console.WriteLine("dev_net_mac={0}", ReaderUtils.ToHex(b_dev_net_mac, "", ":"));
 
             // dev_net_ip [4]
             string dev_net_ip = "192.168.0.178";
             byte[] b_dev_net_ip = IPAddress.Parse(dev_net_ip).GetAddressBytes();
             Array.Copy(b_dev_net_ip, 0, rawdata, writeIndex, b_dev_net_ip.Length);
             writeIndex += b_dev_net_ip.Length;
-            //Console.WriteLine("dev_net_ip={0}", CCommondMethod.ToHex(b_dev_net_ip, "", "."));
+            //Console.WriteLine("dev_net_ip={0}", ReaderUtils.ToHex(b_dev_net_ip, "", "."));
 
             // dev_gateway_ip [4]
             string dev_gateway_ip = "192.168.0.1";
             byte[] b_dev_gateway_ip = IPAddress.Parse(dev_gateway_ip).GetAddressBytes();
             Array.Copy(b_dev_gateway_ip, 0, rawdata, writeIndex, b_dev_gateway_ip.Length);
             writeIndex += b_dev_gateway_ip.Length;
-            //Console.WriteLine("dev_gateway_ip={0}", CCommondMethod.ToHex(b_dev_gateway_ip, "", "."));
+            //Console.WriteLine("dev_gateway_ip={0}", ReaderUtils.ToHex(b_dev_gateway_ip, "", "."));
 
             // dev_mask [4]
             string dev_mask = "255.255.255.0";
             byte[] b_dev_mask = IPAddress.Parse(dev_mask).GetAddressBytes();
             Array.Copy(b_dev_mask, 0, rawdata, writeIndex, b_dev_mask.Length);
             writeIndex += b_dev_mask.Length;
-            //Console.WriteLine("dev_mask={0}", CCommondMethod.ToHex(b_dev_mask, "", "."));
+            //Console.WriteLine("dev_mask={0}", ReaderUtils.ToHex(b_dev_mask, "", "."));
 
             // dev_dhcp_enable
             rawdata[writeIndex++] = 0x00;
@@ -7025,13 +7025,13 @@ namespace UHFDemo
             byte[] bdev_web_port = new byte[2] { 0x50, 0x00 };
             Array.Copy(bdev_web_port, 0, rawdata, writeIndex, bdev_web_port.Length);
             writeIndex += bdev_web_port.Length;
-            //Console.WriteLine("dev_web_port={0}", CCommondMethod.ToHex(bdev_web_port, "", " "));
+            //Console.WriteLine("dev_web_port={0}", ReaderUtils.ToHex(bdev_web_port, "", " "));
 
             // dev_user_name
             byte[] bdev_user_name = new byte[8];
             Array.Copy(bdev_user_name, 0, rawdata, writeIndex, bdev_user_name.Length);
             writeIndex += bdev_user_name.Length;
-            //Console.WriteLine("dev_user_name={0}", CCommondMethod.ToHex(bdev_user_name, "", " "));
+            //Console.WriteLine("dev_user_name={0}", ReaderUtils.ToHex(bdev_user_name, "", " "));
 
             // dev_pw_enable
             rawdata[writeIndex++] = 0x00;
@@ -7040,7 +7040,7 @@ namespace UHFDemo
             byte[] b_dev_pw = new byte[8];
             Array.Copy(b_dev_pw, 0, rawdata, writeIndex, b_dev_pw.Length);
             writeIndex += b_dev_pw.Length;
-            //Console.WriteLine("dev_pw={0}", CCommondMethod.ToHex(b_dev_pw, "", " "));
+            //Console.WriteLine("dev_pw={0}", ReaderUtils.ToHex(b_dev_pw, "", " "));
 
             // dev_update_flag
             rawdata[writeIndex++] = 0x00;
@@ -7052,7 +7052,7 @@ namespace UHFDemo
             byte[] b_dev_reserved = new byte[8];
             Array.Copy(b_dev_reserved, 0, rawdata, writeIndex, b_dev_reserved.Length);
             writeIndex += b_dev_reserved.Length;
-            //Console.WriteLine("dev_reserved={0}", CCommondMethod.ToHex(b_dev_reserved, "", " "));
+            //Console.WriteLine("dev_reserved={0}", ReaderUtils.ToHex(b_dev_reserved, "", " "));
 
             //DEVICEPORT_CONFIG dev_port_1 = new DEVICEPORT_CONFIG();
             // port_id
@@ -7067,20 +7067,20 @@ namespace UHFDemo
             byte[] bport_net_port = new byte[2] { 0xb8, 0x0b };
             Array.Copy(bport_net_port, 0, rawdata, writeIndex, bport_net_port.Length);
             writeIndex += bport_net_port.Length;
-            //Console.WriteLine("port_net_port={0}", CCommondMethod.ToHex(bport_net_port, "", " "));
+            //Console.WriteLine("port_net_port={0}", ReaderUtils.ToHex(bport_net_port, "", " "));
 
             // port_dest_ip
             string port_dest_ip = "192.168.0.100";
             byte[] b_port_dest_ip = IPAddress.Parse(port_dest_ip).GetAddressBytes();
             Array.Copy(b_port_dest_ip, 0, rawdata, writeIndex, b_port_dest_ip.Length);
             writeIndex += b_port_dest_ip.Length;
-            //Console.WriteLine("b_port_dest_ip={0}", CCommondMethod.ToHex(b_port_dest_ip, "", " "));
+            //Console.WriteLine("b_port_dest_ip={0}", ReaderUtils.ToHex(b_port_dest_ip, "", " "));
 
             // port_dest_port
             byte[] bport_dest_port = new byte[2] { 0xd0, 0x07 };
             Array.Copy(bport_dest_port, 0, rawdata, writeIndex, bport_dest_port.Length);
             writeIndex += bport_dest_port.Length;
-            //Console.WriteLine("bport_dest_port={0}", CCommondMethod.ToHex(bport_dest_port, "", " "));
+            //Console.WriteLine("bport_dest_port={0}", ReaderUtils.ToHex(bport_dest_port, "", " "));
 
             // port_baudrate
             int baudrate = 115200;
@@ -7123,7 +7123,7 @@ namespace UHFDemo
             byte[] b_port_host_ip = IPAddress.Parse(port_host_ip).GetAddressBytes();
             Array.Copy(b_port_host_ip, 0, rawdata, writeIndex, b_port_host_ip.Length);
             writeIndex += b_port_host_ip.Length;
-            //Console.WriteLine("b_port_host_ip={0}", CCommondMethod.ToHex(b_port_host_ip, "", " "));
+            //Console.WriteLine("b_port_host_ip={0}", ReaderUtils.ToHex(b_port_host_ip, "", " "));
 
             // port_dns_port
             int port_dns_port = 0;
@@ -7133,7 +7133,7 @@ namespace UHFDemo
             byte[] b_port_reserved = new byte[8];
             Array.Copy(b_port_reserved, 0, rawdata, writeIndex, b_port_reserved.Length);
             writeIndex += b_port_reserved.Length;
-            //Console.WriteLine("b_port_reserved={0}", CCommondMethod.ToHex(b_port_reserved, "", " "));
+            //Console.WriteLine("b_port_reserved={0}", ReaderUtils.ToHex(b_port_reserved, "", " "));
 
 
             //DEVICEPORT_CONFIG dev_port_2 = new DEVICEPORT_CONFIG();
@@ -7231,7 +7231,7 @@ namespace UHFDemo
             comm_cmd.setu8((byte)NET_CMD.NET_MODULE_CMD_RESET); // 设置cmd
 
             string param_mod_mac = mod_mac.Replace(":", "").ToLower();
-            byte[] b_mod_mac = CCommondMethod.FromHex(param_mod_mac);
+            byte[] b_mod_mac = ReaderUtils.FromHex(param_mod_mac);
             comm_cmd.setbytes(b_mod_mac); // 设置mod_mac
 
             byte[] message = comm_cmd.Message;
@@ -7515,7 +7515,7 @@ namespace UHFDemo
                 {
                     StreamWriter writer = new StreamWriter(saveFileDialog1.FileName);
                     writer.AutoFlush = true;
-                    writer.WriteLine(CCommondMethod.ToHex(cfg.RawData, "", " "));
+                    writer.WriteLine(ReaderUtils.ToHex(cfg.RawData, "", " "));
                     writer.Flush();
                     writer.Close();
                     MessageBox.Show("保存成功！");
@@ -7573,7 +7573,7 @@ namespace UHFDemo
                     }
                     //Console.WriteLine("cfgStr={0}", cfgStr.Replace(" ", ""));
                     
-                    return CCommondMethod.FromHex(cfgStr.Replace(" ", "").ToString());
+                    return ReaderUtils.FromHex(cfgStr.Replace(" ", "").ToString());
                 }
             }
             catch (Exception ex)
@@ -7976,9 +7976,9 @@ namespace UHFDemo
 
             byte[] sendData = new byte[msgLen];
             Array.Copy(rawData, 0, sendData, 0, msgLen);
-            //Console.WriteLine("cmdSwitchAntGroup: {0}", CCommondMethod.ToHex(sendData, "", " "));
+            //Console.WriteLine("cmdSwitchAntGroup: {0}", ReaderUtils.ToHex(sendData, "", " "));
             int nResult = reader.SendMessage(sendData);
-            //Console.WriteLine("cmdSwitchAntGroup: [{0}] {1}", nResult, CCommondMethod.ToHex(sendData, "", " "));
+            //Console.WriteLine("cmdSwitchAntGroup: [{0}] {1}", nResult, ReaderUtils.ToHex(sendData, "", " "));
         }
 
         private void GenerateColmnsDataGridForFastInv()
@@ -8048,7 +8048,7 @@ namespace UHFDemo
 
             byte[] sendData = new byte[msgLen];
             Array.Copy(rawData, 0, sendData, 0, msgLen);
-            Console.WriteLine("cmdGetFrequencyRegion: {0}", CCommondMethod.ToHex(sendData, "", " "));
+            Console.WriteLine("cmdGetFrequencyRegion: {0}", ReaderUtils.ToHex(sendData, "", " "));
             int nResult = reader.SendMessage(sendData);
         }
 
@@ -8117,7 +8117,7 @@ namespace UHFDemo
 
         private void parseGetFrequencyRegion(byte[] data)
         {
-            Console.WriteLine("parseGetFrequencyRegion: {0}", CCommondMethod.ToHex(data, "", " "));
+            Console.WriteLine("parseGetFrequencyRegion: {0}", ReaderUtils.ToHex(data, "", " "));
             if (tagdb != null)
                 tagdb.UpdateRegionInfo(data);
         }

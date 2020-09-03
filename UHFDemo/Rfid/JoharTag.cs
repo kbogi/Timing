@@ -58,22 +58,22 @@ namespace UHFDemo
 
         public string PC
         {
-            get { return CCommondMethod.ToHex(pc, "", ""); }
+            get { return ReaderUtils.ToHex(pc, "", ""); }
         }
 
         public string EPC
         {
-            get { return CCommondMethod.ToHex(epc, "", ""); }
+            get { return ReaderUtils.ToHex(epc, "", ""); }
         }
 
         public string Data
         {
-            get { return (data.Length==0?"null":CCommondMethod.ToHex(data, "", "")); }
+            get { return (data.Length==0?"null": ReaderUtils.ToHex(data, "", "")); }
         }
 
         public string CRC
         {
-            get { return CCommondMethod.ToHex(crc, "", ""); }
+            get { return ReaderUtils.ToHex(crc, "", ""); }
         }
 
         public string Temperature
@@ -95,11 +95,11 @@ namespace UHFDemo
             int writeIndex = 0;
             Array.Copy(epc, epc.Length - 4, bytes, 0, 4);
             writeIndex += 4;
-            //Console.WriteLine(" Data: {0}", CCommondMethod.ToHex(data, "", " "));
+            //Console.WriteLine(" Data: {0}", ReaderUtils.ToHex(data, "", " "));
             Array.Copy(data, 0, bytes, writeIndex, 4);
             writeIndex += 4;
 
-            //Console.WriteLine("getTemperature: {0}", CCommondMethod.ToHex(bytes, "", " "));
+            //Console.WriteLine("getTemperature: {0}", ReaderUtils.ToHex(bytes, "", " "));
             int senData = checkData(bytes);
             if (senData < 0)
             {
@@ -183,7 +183,7 @@ namespace UHFDemo
             int readindex = 0;
             byte[] tagCount = new byte[2];
             Array.Copy(parseData, readindex, tagCount, 0, tagCount.Length);
-            //Console.WriteLine("#2 parseJoharData [{1}]tagCount={0}", CCommondMethod.ToHex(tagCount, "", " "), readindex);
+            //Console.WriteLine("#2 parseJoharData [{1}]tagCount={0}", ReaderUtils.ToHex(tagCount, "", " "), readindex);
             readindex += tagCount.Length;
             
 
@@ -194,7 +194,7 @@ namespace UHFDemo
             byte[] tagdata = new byte[dataLen];
             Array.Copy(parseData, readindex, tagdata, 0, tagdata.Length);
             readindex += tagdata.Length;
-            //Console.WriteLine("#2 parseJoharData [{1}]tagdata={0}", CCommondMethod.ToHex(tagdata, "", " "), readindex);
+            //Console.WriteLine("#2 parseJoharData [{1}]tagdata={0}", ReaderUtils.ToHex(tagdata, "", " "), readindex);
 
             byte readLen = parseData[readindex++];
             //Console.WriteLine("#2 parseJoharData [{1}]readLen={0:x2}", readLen, readindex);
@@ -220,25 +220,25 @@ namespace UHFDemo
             pc = new byte[2];
             Array.Copy(tData, readindex, pc, 0, pc.Length);
             readindex += pc.Length;
-            //Console.WriteLine("#3 parseJoharTagData PC({1})={0}", CCommondMethod.ToHex(pc, "", " "), pc.Length);
+            //Console.WriteLine("#3 parseJoharTagData PC({1})={0}", ReaderUtils.ToHex(pc, "", " "), pc.Length);
 
             int epcLen = tagLen - 4 - readLen;
             epc = new byte[epcLen]; // - (pc + crc + dataLen)
             Array.Copy(tData, readindex, epc, 0, epc.Length);
             readindex += epc.Length;
-            //Console.WriteLine("#3 parseJoharTagData EPC({1})={0}", CCommondMethod.ToHex(epc, "", " "), epcLen);
+            //Console.WriteLine("#3 parseJoharTagData EPC({1})={0}", ReaderUtils.ToHex(epc, "", " "), epcLen);
 
             crc = new byte[2];
             Array.Copy(tData, readindex, crc, 0, crc.Length);
             readindex += crc.Length;
-            //Console.WriteLine("#3 parseJoharTagData CRC({1})={0}", CCommondMethod.ToHex(crc, "", " "), crc.Length);
+            //Console.WriteLine("#3 parseJoharTagData CRC({1})={0}", ReaderUtils.ToHex(crc, "", " "), crc.Length);
 
             if (readLen > 0)
             {
                 data = new byte[readLen];
                 Array.Copy(tData, readindex, data, 0, data.Length);
                 readindex += data.Length;
-                //Console.WriteLine("#3 parseJoharTagData Data({1})={0}", CCommondMethod.ToHex(data, "", " "), data.Length);
+                //Console.WriteLine("#3 parseJoharTagData Data({1})={0}", ReaderUtils.ToHex(data, "", " "), data.Length);
             }
             else
             {
