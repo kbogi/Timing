@@ -1200,7 +1200,7 @@ namespace UHFDemo
 
                 int msgLen = writeIndex + 1;
                 rawData[1] = (byte)(msgLen - 2); // except hdr+len
-                Console.WriteLine("快速盘存 writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
+                //Console.WriteLine("快速盘存 writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
 
                 byte[] checkData = new byte[msgLen - 1];
                 Array.Copy(rawData, 0, checkData, 0, checkData.Length);
@@ -3125,6 +3125,18 @@ namespace UHFDemo
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
                 WriteLog(lrtxtLog, strLog, 1);
 
+                if (m_FastExeCount != -1)
+                {
+                    if (m_FastExeCount > 1)
+                    {
+
+                    }
+                    else
+                    {
+                        isRealInv = false;
+                    }
+                }
+
                 if (!isRealInv)
                 {
                     stopRealInv();
@@ -3144,7 +3156,19 @@ namespace UHFDemo
                     led_cmd_total_tagreads.Text = tagdb.CmdTotalRead.ToString(); // 单次读取次数
                 }));
 
-                if(!isRealInv)
+                if (m_FastExeCount != -1)
+                {
+                    if (m_FastExeCount > 1)
+                    {
+
+                    }
+                    else
+                    {
+                        isRealInv = false;
+                    }
+                }
+                
+                if (!isRealInv)
                 {
                     stopRealInv();
                 }
@@ -3153,7 +3177,7 @@ namespace UHFDemo
             }
             else // 解析标签
             {
-                parseInvTag(false, msgTran.AryData, 0x89);
+                parseInvTag(cb_use_Phase.Checked, msgTran.AryData, 0x89);
             }
         }
 
@@ -3175,7 +3199,19 @@ namespace UHFDemo
                     
                 }));
 
-                if(!isBufferInv)
+                if (m_FastExeCount != -1)
+                {
+                    if (m_FastExeCount > 1)
+                    {
+
+                    }
+                    else
+                    {
+                        isBufferInv = false;
+                    }
+                }
+
+                if (!isBufferInv)
                 {
                     stopBufferInv();
                 }
@@ -3194,6 +3230,18 @@ namespace UHFDemo
 
             string strLog = strCmd + "失败，失败原因： " + strErrorCode;
             WriteLog(lrtxtLog, strLog, 1);
+
+            if (m_FastExeCount != -1)
+            {
+                if (m_FastExeCount > 1)
+                {
+
+                }
+                else
+                {
+                    isBufferInv = false;
+                }
+            }
 
             if (!isBufferInv)
             {
@@ -8378,6 +8426,7 @@ namespace UHFDemo
                     dispatcherTimer.Start();
                     readratePerSecond.Start();
                     tagbufferCount = 0;
+                    m_FastExeCount = Convert.ToInt32(mInventoryExeCount.Text);
                     startCachedInv();
                 }
                 catch (Exception ex)
@@ -8439,7 +8488,7 @@ namespace UHFDemo
                     startInventoryTime = DateTime.Now;
                     dispatcherTimer.Start();
                     readratePerSecond.Start();
-
+                    m_FastExeCount = Convert.ToInt32(mInventoryExeCount.Text);
                     startRealtimeInv();
                 }
                 catch (Exception ex)
