@@ -3000,8 +3000,14 @@ namespace UHFDemo
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
 
                 WriteLog(lrtxtLog, strLog, 1);
-                Console.WriteLine("快速天线盘存失败");
-                FastInventory();
+                if (isFastInv)
+                {
+                    FastInventory();
+                }
+                else
+                {
+                    stopFastInv();
+                }
             }
             else if (msgTran.AryData.Length == 2)
             {
@@ -3119,7 +3125,13 @@ namespace UHFDemo
                 string strLog = strCmd + "失败，失败原因： " + strErrorCode;
                 WriteLog(lrtxtLog, strLog, 1);
 
-                RunLoopInventroy();
+                if (!isRealInv)
+                {
+                    stopRealInv();
+                }
+                if (doingRealInv)
+                    RunLoopInventroy();
+
             }
             else if (msgTran.AryData.Length == 7)
             {
@@ -3183,6 +3195,10 @@ namespace UHFDemo
             string strLog = strCmd + "失败，失败原因： " + strErrorCode;
             WriteLog(lrtxtLog, strLog, 1);
 
+            if (!isBufferInv)
+            {
+                stopBufferInv();
+            }
             if (doingBufferInv)
                 RunLoopInventroy();
         }
