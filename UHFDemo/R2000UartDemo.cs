@@ -5081,7 +5081,8 @@ namespace UHFDemo
             {
                 if (msgTran.AryData[0] == (byte)0x10)
                 {
-                    WriteLog(lrtxtLog, "命令执行成功！", 0);
+                    strCmd += ": 命令执行成功!";
+                    WriteLog(lrtxtLog, strCmd, 0);
                     return;
                 }
                 else if (msgTran.AryData[1] == (byte)0x41)
@@ -7626,8 +7627,7 @@ namespace UHFDemo
                 }
                 jorharEnableView(true);
                 johar_read_btn.Text = "开始";
-            }
-                
+            } 
         }
 
         private void jorharEnableView(bool enable)

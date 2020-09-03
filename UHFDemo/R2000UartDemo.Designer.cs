@@ -6694,15 +6694,15 @@ namespace UHFDemo
             "1000",
             "2000",
             "3000"});
-            this.johar_cmd_interval_cb.Location = new System.Drawing.Point(116, 54);
+            this.johar_cmd_interval_cb.Location = new System.Drawing.Point(134, 122);
             this.johar_cmd_interval_cb.Name = "johar_cmd_interval_cb";
-            this.johar_cmd_interval_cb.Size = new System.Drawing.Size(129, 20);
+            this.johar_cmd_interval_cb.Size = new System.Drawing.Size(102, 20);
             this.johar_cmd_interval_cb.TabIndex = 14;
             // 
             // label183
             // 
             this.label183.AutoSize = true;
-            this.label183.Location = new System.Drawing.Point(8, 54);
+            this.label183.Location = new System.Drawing.Point(17, 125);
             this.label183.Name = "label183";
             this.label183.Size = new System.Drawing.Size(101, 12);
             this.label183.TabIndex = 13;
@@ -6711,25 +6711,27 @@ namespace UHFDemo
             // johar_tagcount_label
             // 
             this.johar_tagcount_label.AutoSize = true;
-            this.johar_tagcount_label.Location = new System.Drawing.Point(701, 26);
+            this.johar_tagcount_label.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.johar_tagcount_label.Location = new System.Drawing.Point(625, 22);
             this.johar_tagcount_label.Name = "johar_tagcount_label";
-            this.johar_tagcount_label.Size = new System.Drawing.Size(11, 12);
+            this.johar_tagcount_label.Size = new System.Drawing.Size(19, 19);
             this.johar_tagcount_label.TabIndex = 11;
             this.johar_tagcount_label.Text = "0";
             // 
             // johar_totalread_label
             // 
             this.johar_totalread_label.AutoSize = true;
-            this.johar_totalread_label.Location = new System.Drawing.Point(475, 26);
+            this.johar_totalread_label.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.johar_totalread_label.Location = new System.Drawing.Point(388, 22);
             this.johar_totalread_label.Name = "johar_totalread_label";
-            this.johar_totalread_label.Size = new System.Drawing.Size(11, 12);
+            this.johar_totalread_label.Size = new System.Drawing.Size(19, 19);
             this.johar_totalread_label.TabIndex = 10;
             this.johar_totalread_label.Text = "0";
             // 
             // label182
             // 
             this.label182.AutoSize = true;
-            this.label182.Location = new System.Drawing.Point(630, 25);
+            this.label182.Location = new System.Drawing.Point(549, 25);
             this.label182.Name = "label182";
             this.label182.Size = new System.Drawing.Size(65, 12);
             this.label182.TabIndex = 9;
@@ -6738,7 +6740,7 @@ namespace UHFDemo
             // label181
             // 
             this.label181.AutoSize = true;
-            this.label181.Location = new System.Drawing.Point(373, 25);
+            this.label181.Location = new System.Drawing.Point(265, 25);
             this.label181.Name = "label181";
             this.label181.Size = new System.Drawing.Size(101, 12);
             this.label181.TabIndex = 8;
@@ -6746,9 +6748,9 @@ namespace UHFDemo
             // 
             // johar_clear_btn
             // 
-            this.johar_clear_btn.Location = new System.Drawing.Point(277, 15);
+            this.johar_clear_btn.Location = new System.Drawing.Point(10, 56);
             this.johar_clear_btn.Name = "johar_clear_btn";
-            this.johar_clear_btn.Size = new System.Drawing.Size(75, 23);
+            this.johar_clear_btn.Size = new System.Drawing.Size(108, 41);
             this.johar_clear_btn.TabIndex = 7;
             this.johar_clear_btn.Text = "清空";
             this.johar_clear_btn.UseVisualStyleBackColor = true;
@@ -6756,9 +6758,9 @@ namespace UHFDemo
             // 
             // johar_use_btn
             // 
-            this.johar_use_btn.Location = new System.Drawing.Point(98, 15);
+            this.johar_use_btn.Location = new System.Drawing.Point(134, 6);
             this.johar_use_btn.Name = "johar_use_btn";
-            this.johar_use_btn.Size = new System.Drawing.Size(75, 23);
+            this.johar_use_btn.Size = new System.Drawing.Size(108, 41);
             this.johar_use_btn.TabIndex = 6;
             this.johar_use_btn.Text = "启用";
             this.johar_use_btn.UseVisualStyleBackColor = true;
@@ -6769,7 +6771,7 @@ namespace UHFDemo
             this.johar_settings_gb.Controls.Add(this.johar_readmode_gb);
             this.johar_settings_gb.Controls.Add(this.johar_session_gb);
             this.johar_settings_gb.Controls.Add(this.johar_target_gb);
-            this.johar_settings_gb.Location = new System.Drawing.Point(8, 93);
+            this.johar_settings_gb.Location = new System.Drawing.Point(8, 148);
             this.johar_settings_gb.Name = "johar_settings_gb";
             this.johar_settings_gb.Size = new System.Drawing.Size(251, 167);
             this.johar_settings_gb.TabIndex = 5;
@@ -6914,18 +6916,18 @@ namespace UHFDemo
             // johar_cb
             // 
             this.johar_cb.AutoSize = true;
-            this.johar_cb.Location = new System.Drawing.Point(181, 19);
+            this.johar_cb.Location = new System.Drawing.Point(134, 68);
             this.johar_cb.Name = "johar_cb";
-            this.johar_cb.Size = new System.Drawing.Size(78, 16);
+            this.johar_cb.Size = new System.Drawing.Size(102, 16);
             this.johar_cb.TabIndex = 2;
-            this.johar_cb.Text = "悦和LTU32";
+            this.johar_cb.Text = "温感标签（1）";
             this.johar_cb.UseVisualStyleBackColor = true;
             // 
             // johar_read_btn
             // 
-            this.johar_read_btn.Location = new System.Drawing.Point(8, 15);
+            this.johar_read_btn.Location = new System.Drawing.Point(10, 6);
             this.johar_read_btn.Name = "johar_read_btn";
-            this.johar_read_btn.Size = new System.Drawing.Size(75, 23);
+            this.johar_read_btn.Size = new System.Drawing.Size(108, 41);
             this.johar_read_btn.TabIndex = 1;
             this.johar_read_btn.Text = "开始";
             this.johar_read_btn.UseVisualStyleBackColor = true;
