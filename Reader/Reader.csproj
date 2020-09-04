@@ -102,12 +102,12 @@
     <Compile Include="Interface\IBle.cs" />
     <Compile Include="ReaderMethod.cs" />
     <Compile Include="Interface\ITalker.cs" />
-    <Compile Include="MessageTran.cs" />
+    <Compile Include="Models\MessageTran.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Impl\Talker.cs" />
-    <Compile Include="ErrorReceivedEventArgs.cs" />
-    <Compile Include="Tag.cs" />
-    <Compile Include="TransportDataEventArgs.cs" />
+    <Compile Include="Models\ErrorReceivedEventArgs.cs" />
+    <Compile Include="Models\Tag.cs" />
+    <Compile Include="Models\TransportDataEventArgs.cs" />
     <Compile Include="ReaderUtils.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -142,7 +142,6 @@
     <Compile Include="NetCfg\NetCfgDB.cs" />
     <Compile Include="NetCfg\NET_COMM.cs" />
     <Compile Include="NetCfg\NET_DEVICE_CONFIG.cs" />
-    <Compile Include="Rfid\OperateTagBuffer.cs" />
     <Compile Include="Rfid\OperateTagISO18000Buffer.cs" />
     <Compile Include="R2000UartDemo.cs">
       <SubType>Form</SubType>
