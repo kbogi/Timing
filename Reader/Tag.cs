@@ -398,38 +398,38 @@ namespace UHFDemo
         {
             //[hdr][len][addr][cmd][TagCount][DataLen][Data][ReadLen][AntId][ReadCount][check]
             //[ 1 ][ 1 ][ 1  ][ 1 ][   2    ][   1   ][  N ][   1   ][  1  ][   1     ][  1  ]
-            Console.WriteLine("parseReadTagData {0}", ReaderUtils.ToHex(rawData, "", " "));
+            //Console.WriteLine("parseReadTagData {0}", ReaderUtils.ToHex(rawData, "", " "));
             int readindex = 0;
             //byte[] tagCount = new byte[2];
             //Array.Copy(rawData, readindex, tagCount, 0, tagCount.Length);
             //Console.WriteLine("#2 [{1}]tagCount={0}", ReaderUtils.ToHex(tagCount, "", " "), readindex);
             //readindex += tagCount.Length;
             opSuccessCount = ReaderUtils.ToU16(rawData, ref readindex);
-            Console.WriteLine("#2 [{0}]opSuccessCount={1}", readindex, opSuccessCount);
+            //Console.WriteLine("#2 [{0}]opSuccessCount={1}", readindex, opSuccessCount);
 
             byte dataLen = rawData[readindex++];
-            Console.WriteLine("#2 [{1}]dataLen={0:x2}", dataLen, readindex);
+            //Console.WriteLine("#2 [{1}]dataLen={0:x2}", dataLen, readindex);
 
             // pc[2] + epc + crc[2]
             byte[] tagdata = new byte[dataLen];
             Array.Copy(rawData, readindex, tagdata, 0, tagdata.Length);
             readindex += tagdata.Length;
-            Console.WriteLine("#2 [{1}]tagdata={0}", ReaderUtils.ToHex(tagdata, "", " "), readindex);
+            //Console.WriteLine("#2 [{1}]tagdata={0}", ReaderUtils.ToHex(tagdata, "", " "), readindex);
 
             byte readLen = rawData[readindex++];
-            Console.WriteLine("#2 [{0}] {1}={2:x2}", readindex, (cmd == 0x81 ? "readLen" : "opStatus"), readLen);
+            //Console.WriteLine("#2 [{0}] {1}={2:x2}", readindex, (cmd == 0x81 ? "readLen" : "opStatus"), readLen);
             opDataLen = cmd == 0x81 ? Convert.ToInt32(readLen) : 0;
 
             byte antId = rawData[readindex++];
-            Console.WriteLine("#2 [{1}]antId={0:x2}", antId, readindex);
+            //Console.WriteLine("#2 [{1}]antId={0:x2}", antId, readindex);
 
             freq = Convert.ToByte((antId & 0xFC) >> 2);
             antNo = Convert.ToByte((antId & 0x03));
             antNo = (byte)(antNo + 0x01);
-            Console.WriteLine("freq={0},antNo={1}", freq, antNo);
+            //Console.WriteLine("freq={0},antNo={1}", freq, antNo);
 
             byte readCount = rawData[readindex++];
-            Console.WriteLine("#2 [{1}]readCount={0:x2}", readCount, readindex);
+            //Console.WriteLine("#2 [{1}]readCount={0:x2}", readCount, readindex);
             readcount = readCount;
 
             parseTagData(tagdata, opDataLen);
@@ -440,33 +440,33 @@ namespace UHFDemo
             // 0x81
             //[PC][EPC][CRC][Data]
             //[ 2][ N ][ 2 ][ M  ] M = readLen
-            Console.WriteLine("parseTagData opDataLen={0}", opDataLen);
-            Console.WriteLine("parseTagData tDataLen={0}", tData.Length);
-            Console.WriteLine("parseTagData {0}", ReaderUtils.ToHex(tData, "", " "));
+            //Console.WriteLine("parseTagData opDataLen={0}", opDataLen);
+            //Console.WriteLine("parseTagData tDataLen={0}", tData.Length);
+            //Console.WriteLine("parseTagData {0}", ReaderUtils.ToHex(tData, "", " "));
             int tagLen = tData.Length;
             int readindex = 0;
             pc = new byte[2];
             Array.Copy(tData, readindex, pc, 0, pc.Length);
             readindex += pc.Length;
-            Console.WriteLine("#3  PC({1})={0}", ReaderUtils.ToHex(pc, "", " "), pc.Length);
+            //Console.WriteLine("#3  PC({1})={0}", ReaderUtils.ToHex(pc, "", " "), pc.Length);
 
             int epcLen = tagLen - 4 - opDataLen;
             epc = new byte[epcLen]; // - (pc + crc + dataLen)
             Array.Copy(tData, readindex, epc, 0, epc.Length);
             readindex += epc.Length;
-            Console.WriteLine("#3  EPC({1})={0}", ReaderUtils.ToHex(epc, "", " "), epcLen);
+            //Console.WriteLine("#3  EPC({1})={0}", ReaderUtils.ToHex(epc, "", " "), epcLen);
 
             crc = new byte[2];
             Array.Copy(tData, readindex, crc, 0, crc.Length);
             readindex += crc.Length;
-            Console.WriteLine("#3  CRC({1})={0}", ReaderUtils.ToHex(crc, "", " "), crc.Length);
+            //Console.WriteLine("#3  CRC({1})={0}", ReaderUtils.ToHex(crc, "", " "), crc.Length);
 
             if (opDataLen > 0)
             {
                 data = new byte[opDataLen];
                 Array.Copy(tData, readindex, data, 0, data.Length);
                 readindex += data.Length;
-                Console.WriteLine("#3  Data({1})={0}", ReaderUtils.ToHex(data, "", " "), data.Length);
+                //Console.WriteLine("#3  Data({1})={0}", ReaderUtils.ToHex(data, "", " "), data.Length);
             }
             else
             {

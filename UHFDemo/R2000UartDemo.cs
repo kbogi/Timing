@@ -301,7 +301,7 @@ namespace UHFDemo
             if (m_bDisplayLog)
             {
                 string strLog = "Send: " + ReaderUtils.ToHex(data, "", " ");
-                Console.WriteLine("-->  {0}", strLog);
+                //Console.WriteLine("-->  {0}", strLog);
                 WriteLog(lrtxtDataTran, strLog, 0);
             }
         }
@@ -311,7 +311,7 @@ namespace UHFDemo
             if (m_bDisplayLog)
             {
                 string strLog = e.Tx ? "Send: ":"Recv: " + ReaderUtils.ToHex(e.Data, "", " ");
-                Console.WriteLine("<--  {0}", strLog);
+                //Console.WriteLine("<--  {0}", strLog);
                 WriteLog(lrtxtDataTran, strLog, e.Tx ? 0 : 1);
             }
         }
@@ -1003,6 +1003,10 @@ namespace UHFDemo
 
         private void cmdFastInventorySend(bool antG1)
         {
+            // Head Len Address Cmd ABCD     Interval                                                                    Repeat Check
+            // Head Len Address Cmd ABCDEFGH Interval                                                                    Repeat Check
+            // Head Len Address Cmd ABCDEFGH Interval Reserve5    Session Target Optimize Ongoing [Target Quantity]Phase Repeat Check
+            // Head Len Address Cmd ABCDEFGH Interval Reserve4 SL Session Target Phase Pow12345678                       Repeat Check
             beforeCmdExecTime = DateTime.Now;
             BeginInvoke(new ThreadStart(delegate () {
                 //Console.WriteLine("cmdFastInventorySend [G{0}] 开始快速盘存  ##{1}##", useAntG1 ? "1" : "2", m_FastExeCount);
@@ -1014,11 +1018,16 @@ namespace UHFDemo
                 rawData[writeIndex++] = m_curSetting.btReadId; // addr
 
                 rawData[writeIndex++] = 0x8A; // cmd
+                
                 if(antType1.Checked)
                 {
-                    for (int i = 0; i < 4; i++)
+                    int antCount = 4;
+                    if (cb_customized_session_target.Checked)
                     {
-
+                        antCount = 8;
+                    }
+                    for (int i = 0; i < antCount; i++)
+                    {
                         rawData[writeIndex++] = (byte)(Convert.ToInt32(fast_inv_ants[i].Text) - 1);
                         if (i == 0)
                         {
@@ -1029,21 +1038,19 @@ namespace UHFDemo
                             rawData[writeIndex++] = 0x00;
                         }
                     }
-                    rawData[writeIndex++] = Convert.ToByte(this.txtInterval.Text); // Interval, 0 ms
-
-                    rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
                 }
                 if (antType4.Checked)
                 {
-                    for (int i = 0; i < 4; i++)
+                    int antCount = 4;
+                    if (cb_customized_session_target.Checked)
+                    {
+                        antCount = 8;
+                    }
+                    for (int i = 0; i < antCount; i++)
                     {
                         rawData[writeIndex++] = (byte)(Convert.ToInt32(fast_inv_ants[i].Text) - 1);
                         rawData[writeIndex++] = Convert.ToByte(fast_inv_stays[i].Text);
                     }
-
-                    rawData[writeIndex++] = Convert.ToByte(this.txtInterval.Text); // Interval, 0 ms
-
-                    rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
                 }
                 else if (antType16.Checked || antType8.Checked)
                 {
@@ -1064,82 +1071,83 @@ namespace UHFDemo
                             rawData[writeIndex++] = Convert.ToByte(fast_inv_stays[i].Text);
                         }
                     }
+                    
                     //Console.WriteLine("antType8/16 end [G{0}]", useAntG1 ? "1" : "2");
-                    rawData[writeIndex++] = Convert.ToByte(this.txtInterval.Text); // Interval, 0 ms
+                }
 
-                    if (cb_customized_session_target.Checked)
+                rawData[writeIndex++] = Convert.ToByte(this.txtInterval.Text); // Interval, 0 ms
+
+                if (cb_customized_session_target.Checked)
+                {
+                    if (cb_use_selectFlags_tempPows.Checked)
                     {
-                        if (cb_use_selectFlags_tempPows.Checked)
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text); // Reserve
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
+
+
+                        rawData[writeIndex++] = getParamSelectFlag();//SL
+                        rawData[writeIndex++] = getParamSession(); // session
+                        rawData[writeIndex++] = (byte)(invTargetB == false ? 0x00 : 0x01); // Target
+                        rawData[writeIndex++] = cb_use_Phase.Checked ? (byte)0x01 : (byte)0x00; // Phase
+                        if (antG1) //Temp Power > 20
                         {
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text); // Reserve
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
-
-
-                            rawData[writeIndex++] = getParamSelectFlag();//SL
-                            rawData[writeIndex++] = getParamSession(); // session
-                            rawData[writeIndex++] = (byte)(invTargetB == false ? 0x00 : 0x01); // Target
-                            rawData[writeIndex++] = cb_use_Phase.Checked ? (byte)0x01 : (byte)0x00; // Phase
-                            if (antG1) //Temp Power > 20
+                            for (int i = 0; i < 8; i++)
                             {
-                                for (int i = 0; i < 8; i++)
-                                {
-                                    rawData[writeIndex++] = Convert.ToByte(fast_inv_temp_pows[i].Text);
-                                }
-                            }
-                            else
-                            {
-                                for (int i = 8; i < 16; i++)
-                                {
-                                    rawData[writeIndex++] = Convert.ToByte(fast_inv_temp_pows[i].Text);
-                                }
+                                rawData[writeIndex++] = Convert.ToByte(fast_inv_temp_pows[i].Text);
                             }
                         }
                         else
                         {
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text); // Reserve
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
-                            rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
-
-                            rawData[writeIndex++] = getParamSession(); // session
-
-                            if (ReverseTarget)
+                            for (int i = 8; i < 16; i++)
                             {
-                                if (invTargetB && stayBTimes > 1)
-                                {
-                                    stayBTimes--;
-                                    rawData[writeIndex++] = 0x01; // Target B
-                                }
-                                else
-                                {
-                                    stayBTimes = Convert.ToInt32(tb_fast_inv_staytargetB_times.Text);
-                                    rawData[writeIndex++] = (byte)(invTargetB == false ? 0x00 : 0x01); // Target
+                                rawData[writeIndex++] = Convert.ToByte(fast_inv_temp_pows[i].Text);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_1.Text); // Reserve
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_2.Text);
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_3.Text);
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_4.Text);
+                        rawData[writeIndex++] = Convert.ToByte(this.tb_fast_inv_reserved_5.Text);
 
-                                    invTargetB = !invTargetB;
-                                }
+                        rawData[writeIndex++] = getParamSession(); // session
+
+                        // Target
+                        if (ReverseTarget)
+                        {
+                            if (invTargetB && stayBTimes > 1)
+                            {
+                                stayBTimes--;
+                                rawData[writeIndex++] = 0x01; // Target B
                             }
                             else
                             {
-                                rawData[writeIndex++] = getParamTarget(); // Target
+                                stayBTimes = Convert.ToInt32(tb_fast_inv_staytargetB_times.Text);
+                                rawData[writeIndex++] = (byte)(invTargetB == false ? 0x00 : 0x01); // Target
+
+                                invTargetB = !invTargetB;
                             }
-
-                            rawData[writeIndex++] = Convert.ToByte(txtOptimize.Text, 16); // Optimize
-
-                            rawData[writeIndex++] = Convert.ToByte(txtOngoing.Text, 16);//Ongoing
-
-                            rawData[writeIndex++] = Convert.ToByte(txtTargetQuantity.Text);//Target Quantity
-
-                            rawData[writeIndex++] = cb_use_Phase.Checked ? (byte)0x01 : (byte)0x00; // Phase
                         }
+                        else
+                        {
+                            rawData[writeIndex++] = getParamTarget(); // Target
+                        }
+
+                        rawData[writeIndex++] = Convert.ToByte(txtOptimize.Text, 16); // Optimize
+
+                        rawData[writeIndex++] = Convert.ToByte(txtOngoing.Text, 16);//Ongoing
+
+                        rawData[writeIndex++] = Convert.ToByte(txtTargetQuantity.Text);//Target Quantity
+
+                        rawData[writeIndex++] = cb_use_Phase.Checked ? (byte)0x01 : (byte)0x00; // Phase
                     }
-
-
-                    rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
                 }
 
+                rawData[writeIndex++] = Convert.ToByte(txtRepeat.Text); // Repeat
                 int msgLen = writeIndex + 1;
                 rawData[1] = (byte)(msgLen - 2); // except hdr+len
                 //Console.WriteLine("快速盘存 writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
@@ -4485,6 +4493,11 @@ namespace UHFDemo
             btnInventory.BackColor = Color.WhiteSmoke;
             btnInventory.ForeColor = Color.DarkBlue;
             btnInventory.Text = "开始盘存";
+            // Ensure finally refresh ui
+            lock (tagdb)
+            {
+                tagdb.Repaint();
+            }
         }
 
         private bool checkFastInvAntG1Count()
