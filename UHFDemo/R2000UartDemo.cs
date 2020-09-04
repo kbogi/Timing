@@ -1829,8 +1829,7 @@ namespace UHFDemo
                 if (antType16.Checked)
                 {
                     m_setOutputPower = true;
-                    m_curSetting.btAntGroup = 0x00;
-                    reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+                    cmdSwitchAntG1();
                 }
                 else if (antType8.Checked)
                 {
@@ -1897,13 +1896,15 @@ namespace UHFDemo
                     m_curSetting.btReadId = msgTran.ReadId;
                     if (antType16.Checked && m_setOutputPower)
                     {
-                        if (m_curSetting.btAntGroup == (byte)0x00)
+                        if (useAntG1)
                         {
-                            m_curSetting.btAntGroup = 0x01;
-                            reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+                            cmdSwitchAntG2();
                         }
                         else
+                        {
+                            cmdSwitchAntG1(); // Finally switch to G1
                             m_setOutputPower = false;
+                        }
                     }
                     WriteLog(lrtxtLog, strCmd, 0);
                     return;
