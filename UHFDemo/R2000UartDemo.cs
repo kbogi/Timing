@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Net;
@@ -15,24 +14,14 @@ using System.Diagnostics;
 using System.Management;
 using System.Text.RegularExpressions;
 using System.Windows.Threading;
-using Windows.Devices.Enumeration;
-using System.ComponentModel;
-using Windows.Devices.Bluetooth.GenericAttributeProfile;
-using Windows.Devices.Bluetooth;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace UHFDemo
 {
     public partial class R2000UartDemo : Form
     {
-        R2000UartDemo rootPage;
-        public string SelectedBleDeviceId;
-        public string SelectedBleDeviceName = "No device selected";
-
         private ReaderMethod reader;
 
         private ReaderSetting m_curSetting = new ReaderSetting();
-        private OperateTagBuffer m_curOperateTagBuffer = new OperateTagBuffer();
         private OperateTagISO18000Buffer m_curOperateTagISO18000Buffer = new OperateTagISO18000Buffer();
 
         //实时盘存锁定操作
@@ -48,11 +37,7 @@ namespace UHFDemo
         //记录ISO18000标签已经循环写入次数
         private int m_nLoopedTimes = 0;
 
-        private int m_nReceiveFlag = 0;
         private int m_FastExeCount;
-        private volatile bool m_nRepeat2 = false;
-
-        private volatile bool m_nRepeat12 = false;
 
         private bool m_getOutputPower = false;
         private bool m_setOutputPower = false;
@@ -73,6 +58,7 @@ namespace UHFDemo
         bool doingBufferInv = false;
         bool needGetBuffer = false;
         private int tagbufferCount = 0;
+        TagDB tagOpDb = null;
 
         private bool ReverseTarget = false;
         private int stayBTimes = 0;
@@ -152,8 +138,63 @@ namespace UHFDemo
             readratePerSecond = new DispatcherTimer();
             readratePerSecond.Interval = TimeSpan.FromMilliseconds(900);
             readratePerSecond.Tick += new EventHandler(readRatePerSec_Tick);
+
+            rdbEpc.Checked = true;
         }
 
+        private void R2000UartDemo_Load(object sender, EventArgs e)
+        {
+            //初始化访问读写器实例
+            reader = new Reader.ReaderMethod();
+
+            //回调函数
+            reader.AnalyCallback = AnalyData;
+            reader.SendCallback = SendData;
+            reader.ReceiveCallback = RecvData;
+            reader.ErrCallback = OnError;
+
+            //设置界面元素有效性
+            SetFormEnable(false);
+            radio_btn_rs232.Checked = true;
+            antType4.Checked = true;
+
+            //初始化连接读写器默认配置
+            RefreshComPorts();
+
+            cmbBaudrate.SelectedIndex = 1; // 115200
+            ipIpServer.IpAddressStr = "192.168.0.178";
+            txtTcpPort.Text = "4001";
+
+
+            combo_mast_id.SelectedIndex = 0;
+            combo_menbank.SelectedIndex = 1;
+            combo_action.SelectedIndex = 0;
+            combo_session.SelectedIndex = 0;
+            comboBox16.SelectedIndex = 0;
+
+            cmbReturnLossFreq.SelectedIndex = 33;
+            if (cbUserDefineFreq.Checked == true)
+            {
+                groupBox21.Enabled = false;
+                groupBox23.Enabled = true;
+
+            }
+            else
+            {
+                groupBox21.Enabled = true;
+                groupBox23.Enabled = false;
+            };
+
+            //保存盘点日志
+            saveLog();
+
+            GenerateColmnsDataGridForInv();
+            tagdb = new TagDB();
+            dgv_fast_inv_tags.DataSource = tagdb.TagList;
+            GenerateColmnsDataGridForTagOp();
+            tagOpDb = new TagDB();
+            dgvTagOp.DataSource = tagOpDb.TagList;
+        }
         private void initRealInvAnts()
         {
             antLists = new List<string>();
@@ -244,58 +285,6 @@ namespace UHFDemo
             }
         }
 
-        private void R2000UartDemo_Load(object sender, EventArgs e)
-        {
-            //初始化访问读写器实例
-            reader = new Reader.ReaderMethod();
-
-            //回调函数
-            reader.AnalyCallback = AnalyData;
-            reader.SendCallback = SendData;
-            reader.ReceiveCallback = RecvData;
-            reader.ErrCallback = OnError;
-
-            //设置界面元素有效性
-            SetFormEnable(false);
-            radio_btn_rs232.Checked = true;
-            antType4.Checked = true;
-
-            //初始化连接读写器默认配置
-            RefreshComPorts();
-
-            cmbBaudrate.SelectedIndex = 1; // 115200
-            ipIpServer.IpAddressStr = "192.168.0.178";
-            txtTcpPort.Text = "4001";
-
-
-            combo_mast_id.SelectedIndex = 0;
-            combo_menbank.SelectedIndex = 1;
-            combo_action.SelectedIndex = 0;
-            combo_session.SelectedIndex = 0;
-            comboBox16.SelectedIndex = 0;
-
-            cmbReturnLossFreq.SelectedIndex = 33;
-            if (cbUserDefineFreq.Checked == true)
-            {
-                groupBox21.Enabled = false;
-                groupBox23.Enabled = true;
-
-            }
-            else
-            {
-                groupBox21.Enabled = true;
-                groupBox23.Enabled = false;
-            };
-
-            //保存盘点日志
-            saveLog();
-
-            GenerateColmnsDataGridForFastInv();
-            tagdb = new TagDB();
-            dgv_fast_inv_tags.DataSource = tagdb.TagList;
-
-        }
-
         private void RefreshComPorts()
         {
             cmbComPort.Items.Clear();
@@ -345,7 +334,6 @@ namespace UHFDemo
 
         private void AnalyData(object sender, Reader.MessageTran msgTran)
         {
-            m_nReceiveFlag = 0;
             if (msgTran.PacketType != 0xA0)
             {
                 return;
@@ -560,52 +548,6 @@ namespace UHFDemo
 
                 logRichTxt.Select(logRichTxt.TextLength, 0);
                 logRichTxt.ScrollToCaret();
-            }
-        }
-
-        private delegate void RefreshOpTagUnsafe(byte btCmd);
-        private void RefreshOpTag(byte btCmd)
-        {
-            if (this.InvokeRequired)
-            {
-                RefreshOpTagUnsafe InvokeRefresh = new RefreshOpTagUnsafe(RefreshOpTag);
-                this.Invoke(InvokeRefresh, new object[] { btCmd });
-            }
-            else
-            {
-                switch (btCmd)
-                {
-                    case 0x81:
-                    case 0x82:
-                    case 0x83:
-                    case 0x84:
-                        {
-                            int nCount = ltvOperate.Items.Count;
-                            int nLength = m_curOperateTagBuffer.dtTagTable.Rows.Count;
-
-                            DataRow row = m_curOperateTagBuffer.dtTagTable.Rows[nLength - 1];
-
-                            ListViewItem item = new ListViewItem();
-                            item.Text = (nCount + 1).ToString();
-                            item.SubItems.Add(row[0].ToString());
-                            item.SubItems.Add(row[1].ToString());
-                            item.SubItems.Add(row[2].ToString());
-                            item.SubItems.Add(row[3].ToString());
-                            item.SubItems.Add(row[4].ToString());
-                            item.SubItems.Add(row[5].ToString());
-                            item.SubItems.Add(row[6].ToString());
-
-                            ltvOperate.Items.Add(item);
-                        }
-                        break;
-                    case 0x86:
-                        {
-                            txtAccessEpcMatch.Text = m_curOperateTagBuffer.strAccessEpcMatch;
-                        }
-                        break;
-                    default:
-                        break;
-                }
             }
         }
 
@@ -1468,8 +1410,6 @@ namespace UHFDemo
             btnClear.Enabled = bIsEnable;
             gbISO1800ReadWrite.Enabled = bIsEnable;
             gbISO1800LockQuery.Enabled = bIsEnable;
-
-            gbCmdManual.Enabled = bIsEnable;
 
             tab_6c_Tags_Test.Enabled = bIsEnable;
 
@@ -3407,7 +3347,6 @@ namespace UHFDemo
             }
             else
             {
-                m_curOperateTagBuffer.strAccessEpcMatch = "";
                 txtAccessEpcMatch.Text = "";
                 reader.CancelAccessEpcMatch(m_curSetting.btReadId, 0x01);
             }
@@ -3415,6 +3354,8 @@ namespace UHFDemo
 
         private void ProcessGetAccessEpcMatch(Reader.MessageTran msgTran)
         {
+            // Head	Len	Address	Cmd	Status	EpcLen	EPC	Check
+            // 0xA0             0x86
             string strCmd = "取得选定标签";
             string strErrorCode = string.Empty;
 
@@ -3434,9 +3375,9 @@ namespace UHFDemo
             {
                 if (msgTran.AryData[0] == 0x00)
                 {
-                    m_curOperateTagBuffer.strAccessEpcMatch = ReaderUtils.ByteArrayToString(msgTran.AryData, 2, Convert.ToInt32(msgTran.AryData[1]));
-
-                    RefreshOpTag(0x86);
+                    BeginInvoke(new ThreadStart(delegate() {
+                        txtAccessEpcMatch.Text = ReaderUtils.ByteArrayToString(msgTran.AryData, 2, Convert.ToInt32(msgTran.AryData[1]));
+                    }));
                     WriteLog(lrtxtLog, strCmd, 0);
                     return;
                 }
@@ -3453,17 +3394,14 @@ namespace UHFDemo
 
         private void btnSetAccessEpcMatch_Click(object sender, EventArgs e)
         {
-            string[] reslut = ReaderUtils.StringToStringArray(cmbSetAccessEpcMatch.Text.ToUpper(), 2);
-
-            if (reslut == null)
+            if (cmbSetAccessEpcMatch.Text.Trim().Equals(""))
             {
                 MessageBox.Show("请选择EPC号");
                 return;
             }
+            Console.WriteLine("Match: [{0}]", cmbSetAccessEpcMatch.Text);
+            byte[] btAryEpc = ReaderUtils.FromHex(cmbSetAccessEpcMatch.Text.Replace(" ", ""));
 
-            byte[] btAryEpc = ReaderUtils.StringArrayToByteArray(reslut, reslut.Length);
-
-            m_curOperateTagBuffer.strAccessEpcMatch = cmbSetAccessEpcMatch.Text;
             txtAccessEpcMatch.Text = cmbSetAccessEpcMatch.Text;
             ckAccessEpcMatch.Checked = true;
             reader.SetAccessEpcMatch(m_curSetting.btReadId, 0x00, Convert.ToByte(btAryEpc.Length), btAryEpc);
@@ -3500,76 +3438,44 @@ namespace UHFDemo
         {
             try
             {
-                byte btMemBank = 0x00;
-                byte btWordAdd = 0x00;
-                byte btWordCnt = 0x00;
+                byte btMemBank = getMembank();
+                byte btWordAdd = Convert.ToByte(tb_startWord.Text);
+                byte btWordCnt = Convert.ToByte(tb_wordLen.Text);
+                byte[] accessPw = ReaderUtils.FromHex(hexTb_accessPw.Text.Replace(" ", ""));
 
-                if (rdbReserved.Checked)
-                {
-                    btMemBank = 0x00;
-                }
-                else if (rdbEpc.Checked)
-                {
-                    btMemBank = 0x01;
-                }
-                else if (rdbTid.Checked)
-                {
-                    btMemBank = 0x02;
-                }
-                else if (rdbUser.Checked)
-                {
-                    btMemBank = 0x03;
-                }
-                else
-                {
-                    MessageBox.Show("请选择读标签区域");
-                    return;
-                }
-
-                if (txtWordAdd.Text.Length != 0)
-                {
-                    btWordAdd = Convert.ToByte(txtWordAdd.Text);
-                }
-                else
-                {
-                    MessageBox.Show("请选择读标签起始地址");
-                    return;
-                }
-
-                if (txtWordCnt.Text.Length != 0)
-                {
-                    btWordCnt = Convert.ToByte(txtWordCnt.Text);
-                }
-                else
-                {
-                    MessageBox.Show("请选择读标签长度");
-                    return;
-                }
-
-                string[] reslut = ReaderUtils.StringToStringArray(htxtReadAndWritePwd.Text.ToUpper(), 2);
-
-                if (reslut != null && reslut.GetLength(0) != 4)
-                {
-                    MessageBox.Show("密码必须是空或者4个字节");
-                    return;
-                }
-                byte[] btAryPwd = null;
-
-                if (reslut != null)
-                {
-                    btAryPwd = ReaderUtils.StringArrayToByteArray(reslut, 4);
-                }
-
-                m_curOperateTagBuffer.dtTagTable.Clear();
-                ltvOperate.Items.Clear();
-                reader.ReadTag(m_curSetting.btReadId, btMemBank, btWordAdd, btWordCnt, btAryPwd);
-                WriteLog(lrtxtLog, "读标签", 1);
+                tagOpDb.Clear();
+                reader.ReadTag(m_curSetting.btReadId, btMemBank, btWordAdd, btWordCnt, accessPw);
             }
             catch (System.Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
+        }
+
+        private byte getMembank()
+        {
+            if (rdbReserved.Checked)
+            {
+                return 0x00;
+            }
+            else if (rdbEpc.Checked)
+            {
+                return 0x01;
+            }
+            else if (rdbTid.Checked)
+            {
+                return 0x02;
+            }
+            else if (rdbUser.Checked)
+            {
+                return 0x03;
+            }
+            else
+            {
+                MessageBox.Show("请选择读标签区域");
+                return 0x00;
+            }
         }
 
         private void ProcessReadTag(Reader.MessageTran msgTran)
@@ -3586,40 +3492,14 @@ namespace UHFDemo
             }
             else
             {
-                // get raw data
-                int nLen = msgTran.AryData.Length;
-                int nDataLen = Convert.ToInt32(msgTran.AryData[nLen - 3]);
-                int nEpcLen = Convert.ToInt32(msgTran.AryData[2]) - nDataLen - 4;
-
-                string strPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = ReaderUtils.ByteArrayToString(msgTran.AryData, 7 + nEpcLen, nDataLen);
-
-                byte byTemp = msgTran.AryData[nLen - 2];
-                byte byAntId = (byte)((byTemp & 0x03) + 1);
-                string strAntId = byAntId.ToString();
-
-                string strReadCount = msgTran.AryData[nLen - 1].ToString();
-
                 if (johar_cb.Checked)
                 {
                     parseJoharRead(msgTran.AryTranData);
                 }
                 else
                 {
-                    DataRow row = m_curOperateTagBuffer.dtTagTable.NewRow();
-                    row[0] = strPC;
-                    row[1] = strCRC;
-                    row[2] = strEPC;
-                    row[3] = strData;
-                    row[4] = nDataLen.ToString();
-                    row[5] = strAntId;
-                    row[6] = strReadCount;
+                    AddTagToTagOpDb(msgTran);
 
-                    m_curOperateTagBuffer.dtTagTable.Rows.Add(row);
-                    m_curOperateTagBuffer.dtTagTable.AcceptChanges();
-                    RefreshOpTag(0x81);
                     WriteLog(lrtxtLog, strCmd, 0);
                 }
             }
@@ -3629,91 +3509,30 @@ namespace UHFDemo
         {
             try
             {
-                byte btMemBank = 0x00;
-                byte btWordAdd = 0x00;
-                byte btWordCnt = 0x00;
+                byte btMemBank = getMembank();
+                byte btWordAdd = Convert.ToByte(tb_startWord.Text);
+                byte btWordCnt = 0; 
                 byte btCmd = 0x00;
-                if (radioButton1.Checked)
+                if (radio_btnWrite.Checked)
                 {
                     btCmd = 0x82;
                 }
-
-                if (radioButton2.Checked)
+                if (radio_btnBlockWrite.Checked)
                 {
                     btCmd = 0x94;
                 }
 
-                if (rdbReserved.Checked)
-                {
-                    btMemBank = 0x00;
-                }
-                else if (rdbEpc.Checked)
-                {
-                    btMemBank = 0x01;
-                }
-                else if (rdbTid.Checked)
-                {
-                    btMemBank = 0x02;
-                }
-                else if (rdbUser.Checked)
-                {
-                    btMemBank = 0x03;
-                }
-                else
-                {
-                    MessageBox.Show("请选择读标签区域");
-                    return;
-                }
 
-                if (txtWordAdd.Text.Length != 0)
-                {
-                    btWordAdd = Convert.ToByte(txtWordAdd.Text);
-                }
-                else
-                {
-                    MessageBox.Show("请选择读标签起始地址");
-                    return;
-                }
+                byte[] accessPw = ReaderUtils.FromHex(hexTb_accessPw.Text.Replace(" ", ""));
+                byte[] writeData = ReaderUtils.FromHex(hexTb_WriteData.Text.Replace(" ", ""));
+                Console.WriteLine("data = {0}", hexTb_WriteData.Text.Trim());
+                Console.WriteLine("pw={0}, data={1}", ReaderUtils.ToHex(accessPw, "", " "), ReaderUtils.ToHex(writeData, "", " "));
+                btWordCnt = Convert.ToByte(writeData.Length / 2 + writeData.Length % 2);
 
-                if (txtWordCnt.Text.Length != 0)
-                {
-                    btWordCnt = Convert.ToByte(txtWordCnt.Text);
-                }
-                else
-                {
-                    MessageBox.Show("请选择读标签长度");
-                    return;
-                }
+                tb_wordLen.Text = btWordCnt.ToString();
 
-                string[] reslut = ReaderUtils.StringToStringArray(htxtReadAndWritePwd.Text.ToUpper(), 2);
-
-                if (reslut == null)
-                {
-                    MessageBox.Show("输入字符无效");
-                    return;
-                }
-                else if (reslut.GetLength(0) < 4)
-                {
-                    MessageBox.Show("至少输入4个字节");
-                    return;
-                }
-                byte[] btAryPwd = ReaderUtils.StringArrayToByteArray(reslut, 4);
-
-                reslut = ReaderUtils.StringToStringArray(htxtWriteData.Text.ToUpper(), 2);
-
-                if (reslut == null)
-                {
-                    MessageBox.Show("输入字符无效");
-                    return;
-                }
-                byte[] btAryWriteData = ReaderUtils.StringArrayToByteArray(reslut, reslut.Length);
-                btWordCnt = Convert.ToByte(reslut.Length / 2 + reslut.Length % 2);
-
-                txtWordCnt.Text = btWordCnt.ToString();
-
-                m_curOperateTagBuffer.dtTagTable.Clear();
-                ltvOperate.Items.Clear();
-                reader.WriteTag(m_curSetting.btReadId, btAryPwd, btMemBank, btWordAdd, btWordCnt, btAryWriteData, btCmd);
+                tagOpDb.Clear();
+                reader.WriteTag(m_curSetting.btReadId, accessPw, btMemBank, btWordAdd, btWordCnt, writeData, btCmd);
                 WriteLog(lrtxtLog, "写标签", 0);
             }
             catch (System.Exception ex)
@@ -3739,7 +3558,6 @@ namespace UHFDemo
             else
             {
                 int nLen = msgTran.AryData.Length;
-                int nEpcLen = Convert.ToInt32(msgTran.AryData[2]) - 4;
 
                 if (msgTran.AryData[nLen - 3] != 0x10)
                 {
@@ -3751,31 +3569,8 @@ namespace UHFDemo
                 }
                 WriteTagCount++;
 
+                AddTagToTagOpDb(msgTran);
 
-                string strPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = string.Empty;
-
-                byte byTemp = msgTran.AryData[nLen - 2];
-                byte byAntId = (byte)((byTemp & 0x03) + 1);
-                string strAntId = byAntId.ToString();
-
-                string strReadCount = msgTran.AryData[nLen - 1].ToString();
-
-                DataRow row = m_curOperateTagBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEPC;
-                row[3] = strData;
-                row[4] = string.Empty;
-                row[5] = strAntId;
-                row[6] = strReadCount;
-
-                m_curOperateTagBuffer.dtTagTable.Rows.Add(row);
-                m_curOperateTagBuffer.dtTagTable.AcceptChanges();
-
-                RefreshOpTag(0x82);
                 WriteLog(lrtxtLog, strCmd, 0);
                 if (WriteTagCount == (msgTran.AryData[0] * 256 + msgTran.AryData[1]))
                 {
@@ -3852,8 +3647,7 @@ namespace UHFDemo
 
             byte[] btAryPwd = ReaderUtils.StringArrayToByteArray(reslut, 4);
 
-            m_curOperateTagBuffer.dtTagTable.Clear();
-            ltvOperate.Items.Clear();
+            tagOpDb.Clear();
             reader.LockTag(m_curSetting.btReadId, btAryPwd, btMemBank, btLockType);
         }
 
@@ -3872,7 +3666,6 @@ namespace UHFDemo
             else
             {
                 int nLen = msgTran.AryData.Length;
-                int nEpcLen = Convert.ToInt32(msgTran.AryData[2]) - 4;
 
                 if (msgTran.AryData[nLen - 3] != 0x10)
                 {
@@ -3883,30 +3676,8 @@ namespace UHFDemo
                     return;
                 }
 
-                string strPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = string.Empty;
+                AddTagToTagOpDb(msgTran);
 
-                byte byTemp = msgTran.AryData[nLen - 2];
-                byte byAntId = (byte)((byTemp & 0x03) + 1);
-                string strAntId = byAntId.ToString();
-
-                string strReadCount = msgTran.AryData[nLen - 1].ToString();
-
-                DataRow row = m_curOperateTagBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEPC;
-                row[3] = strData;
-                row[4] = string.Empty;
-                row[5] = strAntId;
-                row[6] = strReadCount;
-
-                m_curOperateTagBuffer.dtTagTable.Rows.Add(row);
-                m_curOperateTagBuffer.dtTagTable.AcceptChanges();
-
-                RefreshOpTag(0x83);
                 WriteLog(lrtxtLog, strCmd, 0);
             }
         }
@@ -3928,8 +3699,7 @@ namespace UHFDemo
 
             byte[] btAryPwd = ReaderUtils.StringArrayToByteArray(reslut, 4);
 
-            m_curOperateTagBuffer.dtTagTable.Clear();
-            ltvOperate.Items.Clear();
+            tagOpDb.Clear();
             reader.KillTag(m_curSetting.btReadId, btAryPwd);
         }
 
@@ -3959,32 +3729,17 @@ namespace UHFDemo
                     return;
                 }
 
-                string strPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = ReaderUtils.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = string.Empty;
+                AddTagToTagOpDb(msgTran);
 
-                byte byTemp = msgTran.AryData[nLen - 2];
-                byte byAntId = (byte)((byTemp & 0x03) + 1);
-                string strAntId = byAntId.ToString();
-
-                string strReadCount = msgTran.AryData[nLen - 1].ToString();
-
-                DataRow row = m_curOperateTagBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEPC;
-                row[3] = strData;
-                row[4] = string.Empty;
-                row[5] = strAntId;
-                row[6] = strReadCount;
-
-                m_curOperateTagBuffer.dtTagTable.Rows.Add(row);
-                m_curOperateTagBuffer.dtTagTable.AcceptChanges();
-
-                RefreshOpTag(0x84);
                 WriteLog(lrtxtLog, strCmd, 0);
             }
+        }
+
+        private void AddTagToTagOpDb(MessageTran msgTran)
+        {
+            BeginInvoke(new ThreadStart(delegate() {
+                tagOpDb.Add(new Tag(msgTran.AryData, msgTran.Cmd));
+            }));
         }
 
         private void btnInventoryISO18000_Click(object sender, EventArgs e)
@@ -4551,38 +4306,9 @@ namespace UHFDemo
         private void cmbSetAccessEpcMatch_DropDown(object sender, EventArgs e)
         {
             cmbSetAccessEpcMatch.Items.Clear();
-        }
-
-        private void ShowListView(ListView ltvListView, DataRow[] drSelect)
-        {
-            //ltvListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            int nItemCount = ltvListView.Items.Count;
-            int nIndex = 1;
-
-            foreach (DataRow row in drSelect)
+            foreach (TagRecord trd in tagOpDb.TagList)
             {
-                ListViewItem item = new ListViewItem();
-                item.Text = (nItemCount + nIndex).ToString();
-                item.SubItems.Add(row[0].ToString());
-
-                string strTemp = (Convert.ToInt32(row[1].ToString()) - 129).ToString() + "dBm";
-                item.SubItems.Add(strTemp);
-                byte byTemp = Convert.ToByte(row[1]);
-                if (byTemp > 0x50)
-                {
-                    item.BackColor = Color.PowderBlue;
-                }
-                else if (byTemp < 0x30)
-                {
-                    item.BackColor = Color.LemonChiffon;
-                }
-
-                item.SubItems.Add(row[2].ToString());
-                item.SubItems.Add(row[3].ToString());
-
-                ltvListView.Items.Add(item);
-                ltvListView.Items[nIndex - 1].EnsureVisible();
-                nIndex++;
+                cmbSetAccessEpcMatch.Items.Add(trd.EPC);
             }
         }
 
@@ -7896,7 +7622,6 @@ namespace UHFDemo
 
         #endregion Johar
 
-        #region FastInventory_8A_v2
 
         private void RefreshInventoryInfo()
         {
@@ -7981,7 +7706,7 @@ namespace UHFDemo
             //Console.WriteLine("cmdSwitchAntGroup: [{0}] {1}", nResult, ReaderUtils.ToHex(sendData, "", " "));
         }
 
-        private void GenerateColmnsDataGridForFastInv()
+        private void GenerateColmnsDataGridForInv()
         {
             dgv_fast_inv_tags.AutoGenerateColumns = false;
             dgv_fast_inv_tags.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
@@ -8023,7 +7748,49 @@ namespace UHFDemo
             Data_fast_inv.Visible = false;
             //dgv_fast_inv_tags.DataSource = tagdb.TagList;
         }
-        #endregion FastInventory_8A_v2
+
+        private void GenerateColmnsDataGridForTagOp()
+        {
+            dgvTagOp.AutoGenerateColumns = false;
+            dgvTagOp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            dgvTagOp.BackgroundColor = Color.White;
+
+            tagOp_SerialNumberColumn.DataPropertyName = "SerialNumber";
+            tagOp_SerialNumberColumn.HeaderText = "#";
+
+            tagOp_PcColumn.DataPropertyName = "PC";
+            tagOp_PcColumn.HeaderText = "PC";
+
+            tagOp_CrcColumn.DataPropertyName = "CRC";
+            tagOp_CrcColumn.HeaderText = "CRC";
+
+            tagOp_EpcColumn.DataPropertyName = "EPC";
+            tagOp_EpcColumn.HeaderText = "EPC";
+            tagOp_EpcColumn.MinimumWidth = 120;
+            tagOp_EpcColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            tagOp_OpCountColumn.DataPropertyName = "ReadCount";
+            tagOp_OpCountColumn.HeaderText = "操作次数";
+
+            tagOp_OpSuccessCountColumn.DataPropertyName = "opSuccessCount";
+            tagOp_OpSuccessCountColumn.HeaderText = "成功次数";
+
+            tagOp_DataColumn.DataPropertyName = "Data";
+            tagOp_DataColumn.HeaderText = "数据";
+            tagOp_DataColumn.MinimumWidth = 120;
+            tagOp_DataColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            tagOp_DataLenColumn.DataPropertyName = "DataLen";
+            tagOp_DataLenColumn.HeaderText = "数据长度";
+
+            tagOp_AntennaColumn.DataPropertyName = "Antenna";
+            tagOp_AntennaColumn.HeaderText = "天线";
+
+            tagOp_FreqColumn.DataPropertyName = "Freq";
+            tagOp_FreqColumn.HeaderText = "载波频率(MHz)";
+
+            //dgvTagOp.DataSource = tagOpDb.TagList;
+        }
 
         private void cmdGetFrequencyRegion()
         {
@@ -8054,12 +7821,10 @@ namespace UHFDemo
 
         private void R2000UartDemo_FormClosing(object sender, FormClosingEventArgs e)
         {
-            #region FastInventory_8A_v2
             if (null != transportLogFile)
             {
                 transportLogFile.Close();
             }
-            #endregion FastInventory_8A_v2
         }
 
         private void saveLog()
@@ -8120,6 +7885,8 @@ namespace UHFDemo
             Console.WriteLine("parseGetFrequencyRegion: {0}", ReaderUtils.ToHex(data, "", " "));
             if (tagdb != null)
                 tagdb.UpdateRegionInfo(data);
+            if (tagOpDb != null)
+                tagOpDb.UpdateRegionInfo(data);
         }
 
         private void cb_fast_inv_check_all_ant_CheckedChanged(object sender, EventArgs e)
@@ -8553,6 +8320,19 @@ namespace UHFDemo
         {
             reader.GetInventoryBufferTagCount(m_curSetting.btReadId);
         }
+
+        private void MembankCheckChanged(object sender, EventArgs e)
+        {
+            if(rdbEpc.Checked)
+            {
+                tb_startWord.Text = "2";
+            }
+            else
+            {
+                tb_startWord.Text = "0";
+            }
+        }
+
     }
 
     public enum NotifyType

@@ -116,7 +116,7 @@ namespace Reader
                 }
             }
             catch (UnauthorizedAccessException ex)
-            {
+            {;
                 return false;
             }
             return false;

@@ -31,6 +31,12 @@ namespace UHFDemo
                         return String.Compare(a.PC, b.PC);
                     });
                     break;
+                case "CRC":
+                    comparer = new Comparison<TagRecord>(delegate (TagRecord a, TagRecord b)
+                    {
+                        return String.Compare(a.CRC, b.CRC);
+                    });
+                    break;
                 case "EPC":
                     comparer = new Comparison<TagRecord>(delegate (TagRecord a, TagRecord b)
                     {
@@ -65,6 +71,18 @@ namespace UHFDemo
                     comparer = new Comparison<TagRecord>(delegate (TagRecord a, TagRecord b)
                     {
                         return String.Compare(a.Data, b.Data);
+                    });
+                    break;
+                case "DataLen":
+                    comparer = new Comparison<TagRecord>(delegate (TagRecord a, TagRecord b)
+                    {
+                        return String.Compare(a.DataLen, b.DataLen);
+                    });
+                    break;
+                case "OpSuccessCount":
+                    comparer = new Comparison<TagRecord>(delegate (TagRecord a, TagRecord b)
+                    {
+                        return String.Compare(a.OpSuccessCount, b.OpSuccessCount);
                     });
                     break;
             }
@@ -329,6 +347,7 @@ namespace UHFDemo
         protected Tag RawRead = null;
         protected bool dataChecked = false;
         protected UInt32 serialNo = 0;
+        protected string oldTemp = "null";
 
         #region 0x79
         byte region;
@@ -355,7 +374,10 @@ namespace UHFDemo
             mergeData.ReadCount += ReadCount;
             RawRead = mergeData;
             RawRead.ReadCount = mergeData.ReadCount;
-
+            if (!RawRead.Temperature.Equals("null"))
+            {
+                oldTemp = RawRead.Temperature;
+            }
             OnPropertyChanged(null);
         }
 
@@ -392,6 +414,11 @@ namespace UHFDemo
         public string EPC
         {
             get { return RawRead.EPC; }
+        }
+
+        public string CRC
+        {
+            get { return RawRead.CRC; }
         }
 
         public string Rssi
@@ -446,6 +473,16 @@ namespace UHFDemo
             get { return RawRead.Data; }
         }
 
+        public string DataLen
+        {
+            get { return RawRead.DataLen.ToString(); }
+        }
+
+        public string OpSuccessCount
+        {
+            get { return RawRead.OpSuccessCount.ToString(); }
+        }
+
         public byte Region
         {
             set { region = value; }
@@ -465,6 +502,16 @@ namespace UHFDemo
         public byte FreqQuantity
         {
             set { freqQuantity = value; }
+        }
+
+        public string Temperature
+        {
+
+            get
+            {
+                bool checkTemp = RawRead.Temperature.Equals("null");
+                return (checkTemp == false ? RawRead.Temperature : oldTemp);
+            }
         }
 
         //public bool Checked

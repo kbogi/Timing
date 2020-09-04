@@ -35,10 +35,13 @@ namespace UHFDemo
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(R2000UartDemo));
             this.tabCtrMain = new System.Windows.Forms.TabControl();
             this.PagReaderSetting = new System.Windows.Forms.TabPage();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControl_baseSettings = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -362,15 +365,18 @@ namespace UHFDemo
             this.mInventoryExeCount = new System.Windows.Forms.TextBox();
             this.cb_fast_inv_reverse_target = new System.Windows.Forms.CheckBox();
             this.pageAcessTag = new System.Windows.Forms.TabPage();
-            this.ltvOperate = new System.Windows.Forms.ListView();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.dgvTagOp = new System.Windows.Forms.DataGridView();
+            this.tagOp_SerialNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_PcColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_CrcColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_EpcColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_DataColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_DataLenColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_AntennaColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_OpCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_OpSuccessCountColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagOp_FreqColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbCmdOperateTag = new System.Windows.Forms.GroupBox();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
             this.btnKillTag = new System.Windows.Forms.Button();
@@ -392,16 +398,16 @@ namespace UHFDemo
             this.rdbFree = new System.Windows.Forms.RadioButton();
             this.btnLockTag = new System.Windows.Forms.Button();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.htxtWriteData = new CustomControl.HexTextBox();
-            this.txtWordCnt = new System.Windows.Forms.TextBox();
+            this.hexTb_accessPw = new CustomControl.HexTextBox();
+            this.radio_btnBlockWrite = new System.Windows.Forms.RadioButton();
+            this.radio_btnWrite = new System.Windows.Forms.RadioButton();
+            this.hexTb_WriteData = new CustomControl.HexTextBox();
+            this.tb_wordLen = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.btnWriteTag = new System.Windows.Forms.Button();
             this.btnReadTag = new System.Windows.Forms.Button();
-            this.txtWordAdd = new System.Windows.Forms.TextBox();
+            this.tb_startWord = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.htxtReadAndWritePwd = new CustomControl.HexTextBox();
             this.label25 = new System.Windows.Forms.Label();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.rdbUser = new System.Windows.Forms.RadioButton();
@@ -447,21 +453,19 @@ namespace UHFDemo
             this.combo_session = new System.Windows.Forms.ComboBox();
             this.btnTagSelect = new System.Windows.Forms.Button();
             this.PagISO18000 = new System.Windows.Forms.TabPage();
-            this.btnClear = new System.Windows.Forms.Button();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.btnInventoryISO18000 = new System.Windows.Forms.Button();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.ltvTagISO18000 = new System.Windows.Forms.ListView();
             this.columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader28 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.gbISO1800LockQuery = new System.Windows.Forms.GroupBox();
-            this.txtStatus = new System.Windows.Forms.TextBox();
-            this.htxtQueryAdd = new CustomControl.HexTextBox();
-            this.label46 = new System.Windows.Forms.Label();
-            this.htxtLockAdd = new CustomControl.HexTextBox();
-            this.label47 = new System.Windows.Forms.Label();
-            this.btnQueryTagISO18000 = new System.Windows.Forms.Button();
-            this.btnLockTagISO18000 = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.label41 = new System.Windows.Forms.Label();
+            this.btnClear = new System.Windows.Forms.Button();
+            this.htxtReadUID = new CustomControl.HexTextBox();
             this.gbISO1800ReadWrite = new System.Windows.Forms.GroupBox();
             this.txtLoopTimes = new System.Windows.Forms.TextBox();
             this.label44 = new System.Windows.Forms.Label();
@@ -481,18 +485,25 @@ namespace UHFDemo
             this.label42 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
             this.btnReadTagISO18000 = new System.Windows.Forms.Button();
-            this.label41 = new System.Windows.Forms.Label();
-            this.htxtReadUID = new CustomControl.HexTextBox();
+            this.gbISO1800LockQuery = new System.Windows.Forms.GroupBox();
+            this.txtStatus = new System.Windows.Forms.TextBox();
+            this.htxtQueryAdd = new CustomControl.HexTextBox();
+            this.label46 = new System.Windows.Forms.Label();
+            this.htxtLockAdd = new CustomControl.HexTextBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.btnQueryTagISO18000 = new System.Windows.Forms.Button();
+            this.btnLockTagISO18000 = new System.Windows.Forms.Button();
             this.PagTranDataLog = new System.Windows.Forms.TabPage();
-            this.btnSaveData = new System.Windows.Forms.Button();
-            this.gbCmdManual = new System.Windows.Forms.GroupBox();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.lrtxtDataTran = new CustomControl.LogRichTextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.label16 = new System.Windows.Forms.Label();
             this.htxtSendData = new CustomControl.HexTextBox();
+            this.btnSaveData = new System.Windows.Forms.Button();
             this.btnClearData = new System.Windows.Forms.Button();
+            this.htxtCheckData = new CustomControl.HexTextBox();
             this.label17 = new System.Windows.Forms.Label();
             this.btnSendData = new System.Windows.Forms.Button();
-            this.htxtCheckData = new CustomControl.HexTextBox();
-            this.lrtxtDataTran = new CustomControl.LogRichTextBox();
             this.net_configure_tabPage = new System.Windows.Forms.TabPage();
             this.net_load_cfg_btn = new System.Windows.Forms.Button();
             this.net_save_cfg_btn = new System.Windows.Forms.Button();
@@ -589,14 +600,10 @@ namespace UHFDemo
             this.net_search_btn = new System.Windows.Forms.Button();
             this.net_refresh_netcard_btn = new System.Windows.Forms.Button();
             this.johar_tabPage = new System.Windows.Forms.TabPage();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.johar_read_btn = new System.Windows.Forms.Button();
+            this.johar_cb = new System.Windows.Forms.CheckBox();
             this.johar_cmd_interval_cb = new System.Windows.Forms.ComboBox();
-            this.label183 = new System.Windows.Forms.Label();
-            this.johar_tagcount_label = new System.Windows.Forms.Label();
-            this.johar_totalread_label = new System.Windows.Forms.Label();
-            this.label182 = new System.Windows.Forms.Label();
-            this.label181 = new System.Windows.Forms.Label();
-            this.johar_clear_btn = new System.Windows.Forms.Button();
-            this.johar_use_btn = new System.Windows.Forms.Button();
             this.johar_settings_gb = new System.Windows.Forms.GroupBox();
             this.johar_readmode_gb = new System.Windows.Forms.GroupBox();
             this.johar_readmode_mode3 = new System.Windows.Forms.RadioButton();
@@ -610,8 +617,15 @@ namespace UHFDemo
             this.johar_target_gb = new System.Windows.Forms.GroupBox();
             this.johar_target_A_rb = new System.Windows.Forms.RadioButton();
             this.johar_target_B_rb = new System.Windows.Forms.RadioButton();
-            this.johar_cb = new System.Windows.Forms.CheckBox();
-            this.johar_read_btn = new System.Windows.Forms.Button();
+            this.label183 = new System.Windows.Forms.Label();
+            this.johar_use_btn = new System.Windows.Forms.Button();
+            this.johar_clear_btn = new System.Windows.Forms.Button();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label181 = new System.Windows.Forms.Label();
+            this.johar_totalread_label = new System.Windows.Forms.Label();
+            this.label182 = new System.Windows.Forms.Label();
+            this.johar_tagcount_label = new System.Windows.Forms.Label();
             this.johar_tag_dgv = new System.Windows.Forms.DataGridView();
             this.label35 = new System.Windows.Forms.Label();
             this.ckDisplayLog = new System.Windows.Forms.CheckBox();
@@ -661,9 +675,11 @@ namespace UHFDemo
             this.lxLedControl16 = new LxControl.LxLedControl();
             this.lxLedControl17 = new LxControl.LxLedControl();
             this.lxLedControl18 = new LxControl.LxLedControl();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
-            this.tabControl1.SuspendLayout();
+            this.tabControl_baseSettings.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -728,6 +744,8 @@ namespace UHFDemo
             this.grb_inventory_type.SuspendLayout();
             this.groupBox27.SuspendLayout();
             this.pageAcessTag.SuspendLayout();
+            this.panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTagOp)).BeginInit();
             this.gbCmdOperateTag.SuspendLayout();
             this.groupBox16.SuspendLayout();
             this.groupBox15.SuspendLayout();
@@ -741,10 +759,15 @@ namespace UHFDemo
             this.groupBox12.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.PagISO18000.SuspendLayout();
-            this.gbISO1800LockQuery.SuspendLayout();
+            this.panel8.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.gbISO1800ReadWrite.SuspendLayout();
+            this.gbISO1800LockQuery.SuspendLayout();
             this.PagTranDataLog.SuspendLayout();
-            this.gbCmdManual.SuspendLayout();
+            this.panel9.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.net_configure_tabPage.SuspendLayout();
             this.port_setting_tabcontrol.SuspendLayout();
             this.net_port_0_tabPage.SuspendLayout();
@@ -753,10 +776,13 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.dev_dgv)).BeginInit();
             this.groupBox30.SuspendLayout();
             this.johar_tabPage.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.johar_settings_gb.SuspendLayout();
             this.johar_readmode_gb.SuspendLayout();
             this.johar_session_gb.SuspendLayout();
             this.johar_target_gb.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.johar_tag_dgv)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -772,17 +798,21 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl18)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabCtrMain
             // 
+            this.tabCtrMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabCtrMain.Controls.Add(this.PagReaderSetting);
             this.tabCtrMain.Controls.Add(this.pageEpcTest);
             this.tabCtrMain.Controls.Add(this.PagISO18000);
             this.tabCtrMain.Controls.Add(this.PagTranDataLog);
             this.tabCtrMain.Controls.Add(this.net_configure_tabPage);
             this.tabCtrMain.Controls.Add(this.johar_tabPage);
-            this.tabCtrMain.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabCtrMain.Location = new System.Drawing.Point(0, 0);
             this.tabCtrMain.Name = "tabCtrMain";
             this.tabCtrMain.SelectedIndex = 0;
@@ -794,7 +824,7 @@ namespace UHFDemo
             // PagReaderSetting
             // 
             this.PagReaderSetting.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.PagReaderSetting.Controls.Add(this.tabControl1);
+            this.PagReaderSetting.Controls.Add(this.tabControl_baseSettings);
             this.PagReaderSetting.Location = new System.Drawing.Point(4, 22);
             this.PagReaderSetting.Name = "PagReaderSetting";
             this.PagReaderSetting.Padding = new System.Windows.Forms.Padding(3);
@@ -802,16 +832,16 @@ namespace UHFDemo
             this.PagReaderSetting.TabIndex = 0;
             this.PagReaderSetting.Text = "读写器设置";
             // 
-            // tabControl1
+            // tabControl_baseSettings
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabControl1.Location = new System.Drawing.Point(3, 5);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1004, 547);
-            this.tabControl1.TabIndex = 15;
+            this.tabControl_baseSettings.Controls.Add(this.tabPage1);
+            this.tabControl_baseSettings.Controls.Add(this.tabPage2);
+            this.tabControl_baseSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl_baseSettings.Location = new System.Drawing.Point(3, 3);
+            this.tabControl_baseSettings.Name = "tabControl_baseSettings";
+            this.tabControl_baseSettings.SelectedIndex = 0;
+            this.tabControl_baseSettings.Size = new System.Drawing.Size(1004, 549);
+            this.tabControl_baseSettings.TabIndex = 15;
             // 
             // tabPage1
             // 
@@ -826,7 +856,7 @@ namespace UHFDemo
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(996, 521);
+            this.tabPage1.Size = new System.Drawing.Size(996, 523);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "基本参数设置";
             // 
@@ -1578,7 +1608,7 @@ namespace UHFDemo
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(996, 521);
+            this.tabPage2.Size = new System.Drawing.Size(996, 523);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "射频参数设置";
             // 
@@ -2670,12 +2700,12 @@ namespace UHFDemo
             this.tab_6c_Tags_Test.Controls.Add(this.pageFast4AntMode);
             this.tab_6c_Tags_Test.Controls.Add(this.pageAcessTag);
             this.tab_6c_Tags_Test.Controls.Add(this.tabPage3);
-            this.tab_6c_Tags_Test.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tab_6c_Tags_Test.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tab_6c_Tags_Test.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tab_6c_Tags_Test.Location = new System.Drawing.Point(0, 5);
+            this.tab_6c_Tags_Test.Location = new System.Drawing.Point(0, 0);
             this.tab_6c_Tags_Test.Name = "tab_6c_Tags_Test";
             this.tab_6c_Tags_Test.SelectedIndex = 0;
-            this.tab_6c_Tags_Test.Size = new System.Drawing.Size(1008, 548);
+            this.tab_6c_Tags_Test.Size = new System.Drawing.Size(1008, 553);
             this.tab_6c_Tags_Test.TabIndex = 0;
             this.tab_6c_Tags_Test.TabStop = false;
             // 
@@ -2690,13 +2720,15 @@ namespace UHFDemo
             this.pageFast4AntMode.Location = new System.Drawing.Point(4, 22);
             this.pageFast4AntMode.Name = "pageFast4AntMode";
             this.pageFast4AntMode.Padding = new System.Windows.Forms.Padding(3);
-            this.pageFast4AntMode.Size = new System.Drawing.Size(1000, 522);
+            this.pageFast4AntMode.Size = new System.Drawing.Size(1000, 527);
             this.pageFast4AntMode.TabIndex = 0;
             this.pageFast4AntMode.Text = "多天线盘存";
             this.pageFast4AntMode.Enter += new System.EventHandler(this.pageFast4AntMode_Enter);
             // 
             // flowLayoutPanel1
             // 
+            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.flowLayoutPanel1.Controls.Add(this.grb_cache_inv);
@@ -3822,6 +3854,9 @@ namespace UHFDemo
             // 
             // groupBox26
             // 
+            this.groupBox26.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox26.Controls.Add(this.label53);
             this.groupBox26.Controls.Add(this.txtTotalTagCount);
             this.groupBox26.Controls.Add(this.label49);
@@ -3884,6 +3919,9 @@ namespace UHFDemo
             // 
             // dgv_fast_inv_tags
             // 
+            this.dgv_fast_inv_tags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_fast_inv_tags.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
@@ -4013,7 +4051,8 @@ namespace UHFDemo
             // 
             // groupBox25
             // 
-            this.groupBox25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox25.Controls.Add(this.led_cmd_total_tagreads);
             this.groupBox25.Controls.Add(this.label58);
             this.groupBox25.Controls.Add(this.led_totalread_count);
@@ -4344,80 +4383,120 @@ namespace UHFDemo
             // pageAcessTag
             // 
             this.pageAcessTag.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pageAcessTag.Controls.Add(this.ltvOperate);
+            this.pageAcessTag.Controls.Add(this.panel13);
             this.pageAcessTag.Controls.Add(this.gbCmdOperateTag);
             this.pageAcessTag.Location = new System.Drawing.Point(4, 22);
             this.pageAcessTag.Name = "pageAcessTag";
-            this.pageAcessTag.Size = new System.Drawing.Size(1000, 522);
+            this.pageAcessTag.Size = new System.Drawing.Size(1000, 527);
             this.pageAcessTag.TabIndex = 3;
             this.pageAcessTag.Text = "存取标签";
             this.pageAcessTag.UseVisualStyleBackColor = true;
             // 
-            // ltvOperate
+            // panel13
             // 
-            this.ltvOperate.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader9,
-            this.columnHeader10,
-            this.columnHeader11,
-            this.columnHeader12,
-            this.columnHeader13,
-            this.columnHeader14,
-            this.columnHeader15});
-            this.ltvOperate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ltvOperate.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.ltvOperate.GridLines = true;
-            this.ltvOperate.HideSelection = false;
-            this.ltvOperate.Location = new System.Drawing.Point(0, 325);
-            this.ltvOperate.Name = "ltvOperate";
-            this.ltvOperate.Size = new System.Drawing.Size(1000, 197);
-            this.ltvOperate.TabIndex = 10;
-            this.ltvOperate.UseCompatibleStateImageBehavior = false;
-            this.ltvOperate.View = System.Windows.Forms.View.Details;
+            this.panel13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel13.Controls.Add(this.dgvTagOp);
+            this.panel13.Location = new System.Drawing.Point(4, 321);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(993, 203);
+            this.panel13.TabIndex = 10;
             // 
-            // columnHeader5
+            // dgvTagOp
             // 
-            this.columnHeader5.Text = "序号";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTagOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgvTagOp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTagOp.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.tagOp_SerialNumberColumn,
+            this.tagOp_PcColumn,
+            this.tagOp_CrcColumn,
+            this.tagOp_EpcColumn,
+            this.tagOp_DataColumn,
+            this.tagOp_DataLenColumn,
+            this.tagOp_AntennaColumn,
+            this.tagOp_OpCountColumn,
+            this.tagOp_OpSuccessCountColumn,
+            this.tagOp_FreqColumn});
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.Desktop;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvTagOp.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvTagOp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvTagOp.Location = new System.Drawing.Point(0, 0);
+            this.dgvTagOp.Name = "dgvTagOp";
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvTagOp.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvTagOp.RowTemplate.Height = 23;
+            this.dgvTagOp.Size = new System.Drawing.Size(993, 203);
+            this.dgvTagOp.TabIndex = 9;
             // 
-            // columnHeader9
+            // tagOp_SerialNumberColumn
             // 
-            this.columnHeader9.Text = "PC";
-            this.columnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tagOp_SerialNumberColumn.HeaderText = "SerialNumber";
+            this.tagOp_SerialNumberColumn.Name = "tagOp_SerialNumberColumn";
             // 
-            // columnHeader10
+            // tagOp_PcColumn
             // 
-            this.columnHeader10.Text = "CRC";
-            this.columnHeader10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tagOp_PcColumn.HeaderText = "PC";
+            this.tagOp_PcColumn.Name = "tagOp_PcColumn";
             // 
-            // columnHeader11
+            // tagOp_CrcColumn
             // 
-            this.columnHeader11.Text = "EPC";
-            this.columnHeader11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader11.Width = 260;
+            this.tagOp_CrcColumn.HeaderText = "CRC";
+            this.tagOp_CrcColumn.Name = "tagOp_CrcColumn";
             // 
-            // columnHeader12
+            // tagOp_EpcColumn
             // 
-            this.columnHeader12.Text = "数据";
-            this.columnHeader12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader12.Width = 341;
+            this.tagOp_EpcColumn.HeaderText = "EPC";
+            this.tagOp_EpcColumn.Name = "tagOp_EpcColumn";
             // 
-            // columnHeader13
+            // tagOp_DataColumn
             // 
-            this.columnHeader13.Text = "数据长度";
-            this.columnHeader13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader13.Width = 73;
+            this.tagOp_DataColumn.HeaderText = "Data";
+            this.tagOp_DataColumn.Name = "tagOp_DataColumn";
             // 
-            // columnHeader14
+            // tagOp_DataLenColumn
             // 
-            this.columnHeader14.Text = "天线";
-            this.columnHeader14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader14.Width = 49;
+            this.tagOp_DataLenColumn.HeaderText = "DataLen";
+            this.tagOp_DataLenColumn.Name = "tagOp_DataLenColumn";
             // 
-            // columnHeader15
+            // tagOp_AntennaColumn
             // 
-            this.columnHeader15.Text = "操作次数";
-            this.columnHeader15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader15.Width = 79;
+            this.tagOp_AntennaColumn.HeaderText = "Antenna";
+            this.tagOp_AntennaColumn.Name = "tagOp_AntennaColumn";
+            // 
+            // tagOp_OpCountColumn
+            // 
+            this.tagOp_OpCountColumn.HeaderText = "OpCount";
+            this.tagOp_OpCountColumn.Name = "tagOp_OpCountColumn";
+            // 
+            // tagOp_OpSuccessCountColumn
+            // 
+            this.tagOp_OpSuccessCountColumn.HeaderText = "OpSuccessCount";
+            this.tagOp_OpSuccessCountColumn.Name = "tagOp_OpSuccessCountColumn";
+            // 
+            // tagOp_FreqColumn
+            // 
+            this.tagOp_FreqColumn.HeaderText = "Frequency";
+            this.tagOp_FreqColumn.Name = "tagOp_FreqColumn";
             // 
             // gbCmdOperateTag
             // 
@@ -4640,16 +4719,16 @@ namespace UHFDemo
             // 
             // groupBox14
             // 
-            this.groupBox14.Controls.Add(this.radioButton2);
-            this.groupBox14.Controls.Add(this.radioButton1);
-            this.groupBox14.Controls.Add(this.htxtWriteData);
-            this.groupBox14.Controls.Add(this.txtWordCnt);
+            this.groupBox14.Controls.Add(this.hexTb_accessPw);
+            this.groupBox14.Controls.Add(this.radio_btnBlockWrite);
+            this.groupBox14.Controls.Add(this.radio_btnWrite);
+            this.groupBox14.Controls.Add(this.hexTb_WriteData);
+            this.groupBox14.Controls.Add(this.tb_wordLen);
             this.groupBox14.Controls.Add(this.label27);
             this.groupBox14.Controls.Add(this.btnWriteTag);
             this.groupBox14.Controls.Add(this.btnReadTag);
-            this.groupBox14.Controls.Add(this.txtWordAdd);
+            this.groupBox14.Controls.Add(this.tb_startWord);
             this.groupBox14.Controls.Add(this.label26);
-            this.groupBox14.Controls.Add(this.htxtReadAndWritePwd);
             this.groupBox14.Controls.Add(this.label25);
             this.groupBox14.Controls.Add(this.groupBox17);
             this.groupBox14.Controls.Add(this.label24);
@@ -4661,41 +4740,50 @@ namespace UHFDemo
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "读写标签";
             // 
-            // radioButton2
+            // hexTb_accessPw
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Checked = true;
-            this.radioButton2.Location = new System.Drawing.Point(729, 62);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(83, 16);
-            this.radioButton2.TabIndex = 12;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "BlockWrite";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.hexTb_accessPw.Location = new System.Drawing.Point(394, 22);
+            this.hexTb_accessPw.Name = "hexTb_accessPw";
+            this.hexTb_accessPw.Size = new System.Drawing.Size(140, 21);
+            this.hexTb_accessPw.TabIndex = 13;
+            this.hexTb_accessPw.Text = "00 00 00 00";
             // 
-            // radioButton1
+            // radio_btnBlockWrite
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(829, 62);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(53, 16);
-            this.radioButton1.TabIndex = 11;
-            this.radioButton1.Text = "Write";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.radio_btnBlockWrite.AutoSize = true;
+            this.radio_btnBlockWrite.Checked = true;
+            this.radio_btnBlockWrite.Location = new System.Drawing.Point(729, 62);
+            this.radio_btnBlockWrite.Name = "radio_btnBlockWrite";
+            this.radio_btnBlockWrite.Size = new System.Drawing.Size(83, 16);
+            this.radio_btnBlockWrite.TabIndex = 12;
+            this.radio_btnBlockWrite.TabStop = true;
+            this.radio_btnBlockWrite.Text = "BlockWrite";
+            this.radio_btnBlockWrite.UseVisualStyleBackColor = true;
             // 
-            // htxtWriteData
+            // radio_btnWrite
             // 
-            this.htxtWriteData.Location = new System.Drawing.Point(106, 58);
-            this.htxtWriteData.Name = "htxtWriteData";
-            this.htxtWriteData.Size = new System.Drawing.Size(617, 21);
-            this.htxtWriteData.TabIndex = 10;
+            this.radio_btnWrite.AutoSize = true;
+            this.radio_btnWrite.Location = new System.Drawing.Point(829, 62);
+            this.radio_btnWrite.Name = "radio_btnWrite";
+            this.radio_btnWrite.Size = new System.Drawing.Size(53, 16);
+            this.radio_btnWrite.TabIndex = 11;
+            this.radio_btnWrite.Text = "Write";
+            this.radio_btnWrite.UseVisualStyleBackColor = true;
             // 
-            // txtWordCnt
+            // hexTb_WriteData
             // 
-            this.txtWordCnt.Location = new System.Drawing.Point(808, 23);
-            this.txtWordCnt.Name = "txtWordCnt";
-            this.txtWordCnt.Size = new System.Drawing.Size(48, 21);
-            this.txtWordCnt.TabIndex = 9;
+            this.hexTb_WriteData.Location = new System.Drawing.Point(106, 58);
+            this.hexTb_WriteData.Name = "hexTb_WriteData";
+            this.hexTb_WriteData.Size = new System.Drawing.Size(617, 21);
+            this.hexTb_WriteData.TabIndex = 10;
+            // 
+            // tb_wordLen
+            // 
+            this.tb_wordLen.Location = new System.Drawing.Point(808, 23);
+            this.tb_wordLen.Name = "tb_wordLen";
+            this.tb_wordLen.Size = new System.Drawing.Size(48, 21);
+            this.tb_wordLen.TabIndex = 9;
+            this.tb_wordLen.Text = "0";
             // 
             // label27
             // 
@@ -4726,12 +4814,12 @@ namespace UHFDemo
             this.btnReadTag.UseVisualStyleBackColor = true;
             this.btnReadTag.Click += new System.EventHandler(this.btnReadTag_Click);
             // 
-            // txtWordAdd
+            // tb_startWord
             // 
-            this.txtWordAdd.Location = new System.Drawing.Point(641, 23);
-            this.txtWordAdd.Name = "txtWordAdd";
-            this.txtWordAdd.Size = new System.Drawing.Size(48, 21);
-            this.txtWordAdd.TabIndex = 5;
+            this.tb_startWord.Location = new System.Drawing.Point(641, 23);
+            this.tb_startWord.Name = "tb_startWord";
+            this.tb_startWord.Size = new System.Drawing.Size(48, 21);
+            this.tb_startWord.TabIndex = 5;
             // 
             // label26
             // 
@@ -4741,13 +4829,6 @@ namespace UHFDemo
             this.label26.Size = new System.Drawing.Size(95, 12);
             this.label26.TabIndex = 4;
             this.label26.Text = "起始地址(WORD):";
-            // 
-            // htxtReadAndWritePwd
-            // 
-            this.htxtReadAndWritePwd.Location = new System.Drawing.Point(402, 23);
-            this.htxtReadAndWritePwd.Name = "htxtReadAndWritePwd";
-            this.htxtReadAndWritePwd.Size = new System.Drawing.Size(120, 21);
-            this.htxtReadAndWritePwd.TabIndex = 3;
             // 
             // label25
             // 
@@ -4780,6 +4861,7 @@ namespace UHFDemo
             this.rdbUser.TabStop = true;
             this.rdbUser.Text = "USER区";
             this.rdbUser.UseVisualStyleBackColor = true;
+            this.rdbUser.CheckedChanged += new System.EventHandler(this.MembankCheckChanged);
             // 
             // rdbTid
             // 
@@ -4791,6 +4873,7 @@ namespace UHFDemo
             this.rdbTid.TabStop = true;
             this.rdbTid.Text = "TID区";
             this.rdbTid.UseVisualStyleBackColor = true;
+            this.rdbTid.CheckedChanged += new System.EventHandler(this.MembankCheckChanged);
             // 
             // rdbEpc
             // 
@@ -4802,6 +4885,7 @@ namespace UHFDemo
             this.rdbEpc.TabStop = true;
             this.rdbEpc.Text = "EPC区";
             this.rdbEpc.UseVisualStyleBackColor = true;
+            this.rdbEpc.CheckedChanged += new System.EventHandler(this.MembankCheckChanged);
             // 
             // rdbReserved
             // 
@@ -4813,6 +4897,7 @@ namespace UHFDemo
             this.rdbReserved.TabStop = true;
             this.rdbReserved.Text = "密码区";
             this.rdbReserved.UseVisualStyleBackColor = true;
+            this.rdbReserved.CheckedChanged += new System.EventHandler(this.MembankCheckChanged);
             // 
             // label24
             // 
@@ -4889,14 +4974,14 @@ namespace UHFDemo
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.tabPage3.Controls.Add(this.listView2);
+            this.tabPage3.Controls.Add(this.panel14);
             this.tabPage3.Controls.Add(this.groupBox22);
             this.tabPage3.Controls.Add(this.groupBox12);
             this.tabPage3.Controls.Add(this.groupBox9);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1000, 522);
+            this.tabPage3.Size = new System.Drawing.Size(1000, 527);
             this.tabPage3.TabIndex = 4;
             this.tabPage3.Text = "设置标签过滤";
             // 
@@ -4910,13 +4995,13 @@ namespace UHFDemo
             this.columnHeader6,
             this.columnHeader7,
             this.columnHeader8});
-            this.listView2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.listView2.GridLines = true;
             this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(3, 285);
+            this.listView2.Location = new System.Drawing.Point(0, 0);
             this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(994, 234);
+            this.listView2.Size = new System.Drawing.Size(988, 263);
             this.listView2.TabIndex = 30;
             this.listView2.UseCompatibleStateImageBehavior = false;
             this.listView2.View = System.Windows.Forms.View.Details;
@@ -5221,40 +5306,56 @@ namespace UHFDemo
             // 
             this.PagISO18000.AccessibleRole = System.Windows.Forms.AccessibleRole.None;
             this.PagISO18000.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.PagISO18000.Controls.Add(this.btnClear);
-            this.PagISO18000.Controls.Add(this.btnInventoryISO18000);
-            this.PagISO18000.Controls.Add(this.ltvTagISO18000);
-            this.PagISO18000.Controls.Add(this.gbISO1800LockQuery);
-            this.PagISO18000.Controls.Add(this.gbISO1800ReadWrite);
-            this.PagISO18000.Controls.Add(this.label41);
-            this.PagISO18000.Controls.Add(this.htxtReadUID);
+            this.PagISO18000.Controls.Add(this.panel8);
+            this.PagISO18000.Controls.Add(this.panel2);
             this.PagISO18000.Location = new System.Drawing.Point(4, 22);
             this.PagISO18000.Name = "PagISO18000";
             this.PagISO18000.Size = new System.Drawing.Size(1010, 555);
             this.PagISO18000.TabIndex = 4;
             this.PagISO18000.Text = "ISO 18000-6B标签测试";
             // 
-            // btnClear
+            // panel8
             // 
-            this.btnClear.Location = new System.Drawing.Point(887, 22);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(100, 28);
-            this.btnClear.TabIndex = 10;
-            this.btnClear.Text = "刷新界面";
-            this.btnClear.UseVisualStyleBackColor = true;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.panel8.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel8.Controls.Add(this.panel4);
+            this.panel8.Controls.Add(this.panel5);
+            this.panel8.Location = new System.Drawing.Point(5, 6);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(457, 546);
+            this.panel8.TabIndex = 17;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.btnInventoryISO18000);
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(445, 50);
+            this.panel4.TabIndex = 10;
             // 
             // btnInventoryISO18000
             // 
             this.btnInventoryISO18000.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.btnInventoryISO18000.ForeColor = System.Drawing.Color.Indigo;
-            this.btnInventoryISO18000.Location = new System.Drawing.Point(8, 10);
+            this.btnInventoryISO18000.Location = new System.Drawing.Point(3, 4);
             this.btnInventoryISO18000.Name = "btnInventoryISO18000";
             this.btnInventoryISO18000.Size = new System.Drawing.Size(120, 35);
             this.btnInventoryISO18000.TabIndex = 3;
             this.btnInventoryISO18000.Text = "开始盘存";
             this.btnInventoryISO18000.UseVisualStyleBackColor = true;
             this.btnInventoryISO18000.Click += new System.EventHandler(this.btnInventoryISO18000_Click);
+            // 
+            // panel5
+            // 
+            this.panel5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel5.Controls.Add(this.ltvTagISO18000);
+            this.panel5.Location = new System.Drawing.Point(3, 59);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(451, 484);
+            this.panel5.TabIndex = 16;
             // 
             // ltvTagISO18000
             // 
@@ -5263,13 +5364,14 @@ namespace UHFDemo
             this.columnHeader25,
             this.columnHeader26,
             this.columnHeader28});
+            this.ltvTagISO18000.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ltvTagISO18000.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ltvTagISO18000.FullRowSelect = true;
             this.ltvTagISO18000.GridLines = true;
             this.ltvTagISO18000.HideSelection = false;
-            this.ltvTagISO18000.Location = new System.Drawing.Point(3, 51);
+            this.ltvTagISO18000.Location = new System.Drawing.Point(0, 0);
             this.ltvTagISO18000.Name = "ltvTagISO18000";
-            this.ltvTagISO18000.Size = new System.Drawing.Size(458, 502);
+            this.ltvTagISO18000.Size = new System.Drawing.Size(451, 484);
             this.ltvTagISO18000.TabIndex = 9;
             this.ltvTagISO18000.UseCompatibleStateImageBehavior = false;
             this.ltvTagISO18000.View = System.Windows.Forms.View.Details;
@@ -5298,85 +5400,48 @@ namespace UHFDemo
             this.columnHeader28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader28.Width = 75;
             // 
-            // gbISO1800LockQuery
+            // panel2
             // 
-            this.gbISO1800LockQuery.Controls.Add(this.txtStatus);
-            this.gbISO1800LockQuery.Controls.Add(this.htxtQueryAdd);
-            this.gbISO1800LockQuery.Controls.Add(this.label46);
-            this.gbISO1800LockQuery.Controls.Add(this.htxtLockAdd);
-            this.gbISO1800LockQuery.Controls.Add(this.label47);
-            this.gbISO1800LockQuery.Controls.Add(this.btnQueryTagISO18000);
-            this.gbISO1800LockQuery.Controls.Add(this.btnLockTagISO18000);
-            this.gbISO1800LockQuery.Location = new System.Drawing.Point(487, 467);
-            this.gbISO1800LockQuery.Name = "gbISO1800LockQuery";
-            this.gbISO1800LockQuery.Size = new System.Drawing.Size(515, 86);
-            this.gbISO1800LockQuery.TabIndex = 7;
-            this.gbISO1800LockQuery.TabStop = false;
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.label41);
+            this.panel2.Controls.Add(this.btnClear);
+            this.panel2.Controls.Add(this.htxtReadUID);
+            this.panel2.Controls.Add(this.gbISO1800ReadWrite);
+            this.panel2.Controls.Add(this.gbISO1800LockQuery);
+            this.panel2.Location = new System.Drawing.Point(468, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(534, 549);
+            this.panel2.TabIndex = 11;
             // 
-            // txtStatus
+            // label41
             // 
-            this.txtStatus.Location = new System.Drawing.Point(263, 58);
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.ReadOnly = true;
-            this.txtStatus.Size = new System.Drawing.Size(128, 21);
-            this.txtStatus.TabIndex = 9;
-            this.txtStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(16, 15);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(89, 12);
+            this.label41.TabIndex = 4;
+            this.label41.Text = "当前选择的UID:";
             // 
-            // htxtQueryAdd
+            // btnClear
             // 
-            this.htxtQueryAdd.Location = new System.Drawing.Point(210, 58);
-            this.htxtQueryAdd.MaxLength = 2;
-            this.htxtQueryAdd.Name = "htxtQueryAdd";
-            this.htxtQueryAdd.Size = new System.Drawing.Size(39, 21);
-            this.htxtQueryAdd.TabIndex = 8;
-            this.htxtQueryAdd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.btnClear.Location = new System.Drawing.Point(404, 7);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(100, 28);
+            this.btnClear.TabIndex = 10;
+            this.btnClear.Text = "刷新界面";
+            this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // label46
+            // htxtReadUID
             // 
-            this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(25, 62);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(173, 12);
-            this.label46.TabIndex = 5;
-            this.label46.Text = "查询永久写保护状态(HEX地址):";
-            // 
-            // htxtLockAdd
-            // 
-            this.htxtLockAdd.Location = new System.Drawing.Point(210, 25);
-            this.htxtLockAdd.MaxLength = 2;
-            this.htxtLockAdd.Name = "htxtLockAdd";
-            this.htxtLockAdd.Size = new System.Drawing.Size(39, 21);
-            this.htxtLockAdd.TabIndex = 8;
-            this.htxtLockAdd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(73, 29);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(125, 12);
-            this.label47.TabIndex = 5;
-            this.label47.Text = "永久写保护(HEX地址):";
-            // 
-            // btnQueryTagISO18000
-            // 
-            this.btnQueryTagISO18000.Location = new System.Drawing.Point(400, 54);
-            this.btnQueryTagISO18000.Name = "btnQueryTagISO18000";
-            this.btnQueryTagISO18000.Size = new System.Drawing.Size(100, 28);
-            this.btnQueryTagISO18000.TabIndex = 3;
-            this.btnQueryTagISO18000.Text = "查询状态";
-            this.btnQueryTagISO18000.UseVisualStyleBackColor = true;
-            this.btnQueryTagISO18000.Click += new System.EventHandler(this.btnQueryTagISO18000_Click);
-            // 
-            // btnLockTagISO18000
-            // 
-            this.btnLockTagISO18000.Location = new System.Drawing.Point(400, 21);
-            this.btnLockTagISO18000.Name = "btnLockTagISO18000";
-            this.btnLockTagISO18000.Size = new System.Drawing.Size(100, 28);
-            this.btnLockTagISO18000.TabIndex = 3;
-            this.btnLockTagISO18000.Text = "永久写保护";
-            this.btnLockTagISO18000.UseVisualStyleBackColor = true;
-            this.btnLockTagISO18000.Click += new System.EventHandler(this.btnLockTagISO18000_Click);
+            this.htxtReadUID.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.htxtReadUID.Location = new System.Drawing.Point(117, 11);
+            this.htxtReadUID.Name = "htxtReadUID";
+            this.htxtReadUID.ReadOnly = true;
+            this.htxtReadUID.Size = new System.Drawing.Size(195, 21);
+            this.htxtReadUID.TabIndex = 6;
+            this.htxtReadUID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // gbISO1800ReadWrite
             // 
@@ -5398,9 +5463,9 @@ namespace UHFDemo
             this.gbISO1800ReadWrite.Controls.Add(this.label42);
             this.gbISO1800ReadWrite.Controls.Add(this.label43);
             this.gbISO1800ReadWrite.Controls.Add(this.btnReadTagISO18000);
-            this.gbISO1800ReadWrite.Location = new System.Drawing.Point(487, 56);
+            this.gbISO1800ReadWrite.Location = new System.Drawing.Point(4, 36);
             this.gbISO1800ReadWrite.Name = "gbISO1800ReadWrite";
-            this.gbISO1800ReadWrite.Size = new System.Drawing.Size(515, 411);
+            this.gbISO1800ReadWrite.Size = new System.Drawing.Size(509, 411);
             this.gbISO1800ReadWrite.TabIndex = 4;
             this.gbISO1800ReadWrite.TabStop = false;
             this.gbISO1800ReadWrite.Text = "任意长度读写数据";
@@ -5443,7 +5508,7 @@ namespace UHFDemo
             // 
             // htxtWriteData18000
             // 
-            this.htxtWriteData18000.Location = new System.Drawing.Point(117, 247);
+            this.htxtWriteData18000.Location = new System.Drawing.Point(117, 250);
             this.htxtWriteData18000.Multiline = true;
             this.htxtWriteData18000.Name = "htxtWriteData18000";
             this.htxtWriteData18000.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
@@ -5462,7 +5527,7 @@ namespace UHFDemo
             // 
             // htxtReadData18000
             // 
-            this.htxtReadData18000.Location = new System.Drawing.Point(117, 49);
+            this.htxtReadData18000.Location = new System.Drawing.Point(117, 52);
             this.htxtReadData18000.Multiline = true;
             this.htxtReadData18000.Name = "htxtReadData18000";
             this.htxtReadData18000.ReadOnly = true;
@@ -5481,7 +5546,7 @@ namespace UHFDemo
             // 
             // btnWriteTagISO18000
             // 
-            this.btnWriteTagISO18000.Location = new System.Drawing.Point(400, 215);
+            this.btnWriteTagISO18000.Location = new System.Drawing.Point(404, 215);
             this.btnWriteTagISO18000.Name = "btnWriteTagISO18000";
             this.btnWriteTagISO18000.Size = new System.Drawing.Size(100, 28);
             this.btnWriteTagISO18000.TabIndex = 3;
@@ -5563,7 +5628,7 @@ namespace UHFDemo
             // 
             // btnReadTagISO18000
             // 
-            this.btnReadTagISO18000.Location = new System.Drawing.Point(400, 15);
+            this.btnReadTagISO18000.Location = new System.Drawing.Point(404, 15);
             this.btnReadTagISO18000.Name = "btnReadTagISO18000";
             this.btnReadTagISO18000.Size = new System.Drawing.Size(100, 28);
             this.btnReadTagISO18000.TabIndex = 3;
@@ -5571,31 +5636,91 @@ namespace UHFDemo
             this.btnReadTagISO18000.UseVisualStyleBackColor = true;
             this.btnReadTagISO18000.Click += new System.EventHandler(this.btnReadTagISO18000_Click);
             // 
-            // label41
+            // gbISO1800LockQuery
             // 
-            this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(503, 30);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(89, 12);
-            this.label41.TabIndex = 4;
-            this.label41.Text = "当前选择的UID:";
+            this.gbISO1800LockQuery.Controls.Add(this.txtStatus);
+            this.gbISO1800LockQuery.Controls.Add(this.htxtQueryAdd);
+            this.gbISO1800LockQuery.Controls.Add(this.label46);
+            this.gbISO1800LockQuery.Controls.Add(this.htxtLockAdd);
+            this.gbISO1800LockQuery.Controls.Add(this.label47);
+            this.gbISO1800LockQuery.Controls.Add(this.btnQueryTagISO18000);
+            this.gbISO1800LockQuery.Controls.Add(this.btnLockTagISO18000);
+            this.gbISO1800LockQuery.Location = new System.Drawing.Point(4, 447);
+            this.gbISO1800LockQuery.Name = "gbISO1800LockQuery";
+            this.gbISO1800LockQuery.Size = new System.Drawing.Size(509, 86);
+            this.gbISO1800LockQuery.TabIndex = 7;
+            this.gbISO1800LockQuery.TabStop = false;
             // 
-            // htxtReadUID
+            // txtStatus
             // 
-            this.htxtReadUID.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.htxtReadUID.Location = new System.Drawing.Point(604, 27);
-            this.htxtReadUID.Name = "htxtReadUID";
-            this.htxtReadUID.ReadOnly = true;
-            this.htxtReadUID.Size = new System.Drawing.Size(195, 21);
-            this.htxtReadUID.TabIndex = 6;
-            this.htxtReadUID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtStatus.Location = new System.Drawing.Point(263, 58);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.ReadOnly = true;
+            this.txtStatus.Size = new System.Drawing.Size(128, 21);
+            this.txtStatus.TabIndex = 9;
+            this.txtStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // htxtQueryAdd
+            // 
+            this.htxtQueryAdd.Location = new System.Drawing.Point(210, 58);
+            this.htxtQueryAdd.MaxLength = 2;
+            this.htxtQueryAdd.Name = "htxtQueryAdd";
+            this.htxtQueryAdd.Size = new System.Drawing.Size(39, 21);
+            this.htxtQueryAdd.TabIndex = 8;
+            this.htxtQueryAdd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(25, 62);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(173, 12);
+            this.label46.TabIndex = 5;
+            this.label46.Text = "查询永久写保护状态(HEX地址):";
+            // 
+            // htxtLockAdd
+            // 
+            this.htxtLockAdd.Location = new System.Drawing.Point(210, 25);
+            this.htxtLockAdd.MaxLength = 2;
+            this.htxtLockAdd.Name = "htxtLockAdd";
+            this.htxtLockAdd.Size = new System.Drawing.Size(39, 21);
+            this.htxtLockAdd.TabIndex = 8;
+            this.htxtLockAdd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(73, 29);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(125, 12);
+            this.label47.TabIndex = 5;
+            this.label47.Text = "永久写保护(HEX地址):";
+            // 
+            // btnQueryTagISO18000
+            // 
+            this.btnQueryTagISO18000.Location = new System.Drawing.Point(404, 54);
+            this.btnQueryTagISO18000.Name = "btnQueryTagISO18000";
+            this.btnQueryTagISO18000.Size = new System.Drawing.Size(100, 28);
+            this.btnQueryTagISO18000.TabIndex = 3;
+            this.btnQueryTagISO18000.Text = "查询状态";
+            this.btnQueryTagISO18000.UseVisualStyleBackColor = true;
+            this.btnQueryTagISO18000.Click += new System.EventHandler(this.btnQueryTagISO18000_Click);
+            // 
+            // btnLockTagISO18000
+            // 
+            this.btnLockTagISO18000.Location = new System.Drawing.Point(404, 21);
+            this.btnLockTagISO18000.Name = "btnLockTagISO18000";
+            this.btnLockTagISO18000.Size = new System.Drawing.Size(100, 28);
+            this.btnLockTagISO18000.TabIndex = 3;
+            this.btnLockTagISO18000.Text = "永久写保护";
+            this.btnLockTagISO18000.UseVisualStyleBackColor = true;
+            this.btnLockTagISO18000.Click += new System.EventHandler(this.btnLockTagISO18000_Click);
             // 
             // PagTranDataLog
             // 
             this.PagTranDataLog.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.PagTranDataLog.Controls.Add(this.btnSaveData);
-            this.PagTranDataLog.Controls.Add(this.gbCmdManual);
-            this.PagTranDataLog.Controls.Add(this.lrtxtDataTran);
+            this.PagTranDataLog.Controls.Add(this.panel9);
+            this.PagTranDataLog.Controls.Add(this.panel3);
             this.PagTranDataLog.Location = new System.Drawing.Point(4, 22);
             this.PagTranDataLog.Name = "PagTranDataLog";
             this.PagTranDataLog.Size = new System.Drawing.Size(1010, 555);
@@ -5603,35 +5728,47 @@ namespace UHFDemo
             this.PagTranDataLog.Text = "串口监控数据";
             this.PagTranDataLog.UseVisualStyleBackColor = true;
             // 
-            // btnSaveData
+            // panel9
             // 
-            this.btnSaveData.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.btnSaveData.Location = new System.Drawing.Point(11, 473);
-            this.btnSaveData.Name = "btnSaveData";
-            this.btnSaveData.Size = new System.Drawing.Size(140, 23);
-            this.btnSaveData.TabIndex = 10;
-            this.btnSaveData.Text = "保存数据到txt文件";
-            this.btnSaveData.UseVisualStyleBackColor = true;
-            this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
+            this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel9.Controls.Add(this.lrtxtDataTran);
+            this.panel9.Location = new System.Drawing.Point(5, 3);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(1002, 480);
+            this.panel9.TabIndex = 12;
             // 
-            // gbCmdManual
+            // lrtxtDataTran
             // 
-            this.gbCmdManual.Controls.Add(this.label16);
-            this.gbCmdManual.Controls.Add(this.htxtSendData);
-            this.gbCmdManual.Controls.Add(this.btnClearData);
-            this.gbCmdManual.Controls.Add(this.label17);
-            this.gbCmdManual.Controls.Add(this.btnSendData);
-            this.gbCmdManual.Controls.Add(this.htxtCheckData);
-            this.gbCmdManual.Location = new System.Drawing.Point(3, 501);
-            this.gbCmdManual.Name = "gbCmdManual";
-            this.gbCmdManual.Size = new System.Drawing.Size(1002, 51);
-            this.gbCmdManual.TabIndex = 8;
-            this.gbCmdManual.TabStop = false;
+            this.lrtxtDataTran.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lrtxtDataTran.Location = new System.Drawing.Point(0, 0);
+            this.lrtxtDataTran.Name = "lrtxtDataTran";
+            this.lrtxtDataTran.Size = new System.Drawing.Size(1002, 480);
+            this.lrtxtDataTran.TabIndex = 0;
+            this.lrtxtDataTran.Text = "";
+            this.lrtxtDataTran.DoubleClick += new System.EventHandler(this.lrtxtDataTran_DoubleClick);
+            // 
+            // panel3
+            // 
+            this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel3.Controls.Add(this.label16);
+            this.panel3.Controls.Add(this.htxtSendData);
+            this.panel3.Controls.Add(this.btnSaveData);
+            this.panel3.Controls.Add(this.btnClearData);
+            this.panel3.Controls.Add(this.htxtCheckData);
+            this.panel3.Controls.Add(this.label17);
+            this.panel3.Controls.Add(this.btnSendData);
+            this.panel3.Location = new System.Drawing.Point(5, 489);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1002, 63);
+            this.panel3.TabIndex = 11;
             // 
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 19);
+            this.label16.Location = new System.Drawing.Point(5, 39);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(83, 12);
             this.label16.TabIndex = 1;
@@ -5639,15 +5776,26 @@ namespace UHFDemo
             // 
             // htxtSendData
             // 
-            this.htxtSendData.Location = new System.Drawing.Point(95, 16);
+            this.htxtSendData.Location = new System.Drawing.Point(98, 35);
             this.htxtSendData.Name = "htxtSendData";
             this.htxtSendData.Size = new System.Drawing.Size(515, 21);
             this.htxtSendData.TabIndex = 2;
             this.htxtSendData.Leave += new System.EventHandler(this.htxtSendData_Leave);
             // 
+            // btnSaveData
+            // 
+            this.btnSaveData.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.btnSaveData.Location = new System.Drawing.Point(5, 6);
+            this.btnSaveData.Name = "btnSaveData";
+            this.btnSaveData.Size = new System.Drawing.Size(140, 23);
+            this.btnSaveData.TabIndex = 10;
+            this.btnSaveData.Text = "保存数据到txt文件";
+            this.btnSaveData.UseVisualStyleBackColor = true;
+            this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
+            // 
             // btnClearData
             // 
-            this.btnClearData.Location = new System.Drawing.Point(906, 14);
+            this.btnClearData.Location = new System.Drawing.Point(901, 34);
             this.btnClearData.Name = "btnClearData";
             this.btnClearData.Size = new System.Drawing.Size(90, 23);
             this.btnClearData.TabIndex = 6;
@@ -5655,10 +5803,18 @@ namespace UHFDemo
             this.btnClearData.UseVisualStyleBackColor = true;
             this.btnClearData.Click += new System.EventHandler(this.btnClearData_Click);
             // 
+            // htxtCheckData
+            // 
+            this.htxtCheckData.Location = new System.Drawing.Point(680, 35);
+            this.htxtCheckData.Name = "htxtCheckData";
+            this.htxtCheckData.ReadOnly = true;
+            this.htxtCheckData.Size = new System.Drawing.Size(47, 21);
+            this.htxtCheckData.TabIndex = 4;
+            // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(632, 19);
+            this.label17.Location = new System.Drawing.Point(623, 39);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(47, 12);
             this.label17.TabIndex = 3;
@@ -5666,31 +5822,13 @@ namespace UHFDemo
             // 
             // btnSendData
             // 
-            this.btnSendData.Location = new System.Drawing.Point(810, 14);
+            this.btnSendData.Location = new System.Drawing.Point(805, 34);
             this.btnSendData.Name = "btnSendData";
             this.btnSendData.Size = new System.Drawing.Size(90, 23);
             this.btnSendData.TabIndex = 5;
             this.btnSendData.Text = "发送数据";
             this.btnSendData.UseVisualStyleBackColor = true;
             this.btnSendData.Click += new System.EventHandler(this.btnSendData_Click);
-            // 
-            // htxtCheckData
-            // 
-            this.htxtCheckData.Location = new System.Drawing.Point(685, 16);
-            this.htxtCheckData.Name = "htxtCheckData";
-            this.htxtCheckData.ReadOnly = true;
-            this.htxtCheckData.Size = new System.Drawing.Size(47, 21);
-            this.htxtCheckData.TabIndex = 4;
-            // 
-            // lrtxtDataTran
-            // 
-            this.lrtxtDataTran.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lrtxtDataTran.Location = new System.Drawing.Point(0, 0);
-            this.lrtxtDataTran.Name = "lrtxtDataTran";
-            this.lrtxtDataTran.Size = new System.Drawing.Size(1010, 471);
-            this.lrtxtDataTran.TabIndex = 0;
-            this.lrtxtDataTran.Text = "";
-            this.lrtxtDataTran.DoubleClick += new System.EventHandler(this.lrtxtDataTran_DoubleClick);
             // 
             // net_configure_tabPage
             // 
@@ -6661,18 +6799,8 @@ namespace UHFDemo
             // 
             // johar_tabPage
             // 
-            this.johar_tabPage.Controls.Add(this.johar_cmd_interval_cb);
-            this.johar_tabPage.Controls.Add(this.label183);
-            this.johar_tabPage.Controls.Add(this.johar_tagcount_label);
-            this.johar_tabPage.Controls.Add(this.johar_totalread_label);
-            this.johar_tabPage.Controls.Add(this.label182);
-            this.johar_tabPage.Controls.Add(this.label181);
-            this.johar_tabPage.Controls.Add(this.johar_clear_btn);
-            this.johar_tabPage.Controls.Add(this.johar_use_btn);
-            this.johar_tabPage.Controls.Add(this.johar_settings_gb);
-            this.johar_tabPage.Controls.Add(this.johar_cb);
-            this.johar_tabPage.Controls.Add(this.johar_read_btn);
-            this.johar_tabPage.Controls.Add(this.johar_tag_dgv);
+            this.johar_tabPage.Controls.Add(this.panel11);
+            this.johar_tabPage.Controls.Add(this.panel10);
             this.johar_tabPage.Location = new System.Drawing.Point(4, 22);
             this.johar_tabPage.Name = "johar_tabPage";
             this.johar_tabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -6680,6 +6808,40 @@ namespace UHFDemo
             this.johar_tabPage.TabIndex = 8;
             this.johar_tabPage.Text = "温感标签";
             this.johar_tabPage.UseVisualStyleBackColor = true;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.johar_read_btn);
+            this.panel11.Controls.Add(this.johar_cb);
+            this.panel11.Controls.Add(this.johar_cmd_interval_cb);
+            this.panel11.Controls.Add(this.johar_settings_gb);
+            this.panel11.Controls.Add(this.label183);
+            this.panel11.Controls.Add(this.johar_use_btn);
+            this.panel11.Controls.Add(this.johar_clear_btn);
+            this.panel11.Location = new System.Drawing.Point(3, 10);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(256, 536);
+            this.panel11.TabIndex = 16;
+            // 
+            // johar_read_btn
+            // 
+            this.johar_read_btn.Location = new System.Drawing.Point(3, 3);
+            this.johar_read_btn.Name = "johar_read_btn";
+            this.johar_read_btn.Size = new System.Drawing.Size(108, 41);
+            this.johar_read_btn.TabIndex = 1;
+            this.johar_read_btn.Text = "开始";
+            this.johar_read_btn.UseVisualStyleBackColor = true;
+            this.johar_read_btn.Click += new System.EventHandler(this.johar_read_btn_Click);
+            // 
+            // johar_cb
+            // 
+            this.johar_cb.AutoSize = true;
+            this.johar_cb.Location = new System.Drawing.Point(127, 65);
+            this.johar_cb.Name = "johar_cb";
+            this.johar_cb.Size = new System.Drawing.Size(102, 16);
+            this.johar_cb.TabIndex = 2;
+            this.johar_cb.Text = "温感标签（1）";
+            this.johar_cb.UseVisualStyleBackColor = true;
             // 
             // johar_cmd_interval_cb
             // 
@@ -6694,86 +6856,19 @@ namespace UHFDemo
             "1000",
             "2000",
             "3000"});
-            this.johar_cmd_interval_cb.Location = new System.Drawing.Point(134, 122);
+            this.johar_cmd_interval_cb.Location = new System.Drawing.Point(127, 119);
             this.johar_cmd_interval_cb.Name = "johar_cmd_interval_cb";
             this.johar_cmd_interval_cb.Size = new System.Drawing.Size(102, 20);
             this.johar_cmd_interval_cb.TabIndex = 14;
-            // 
-            // label183
-            // 
-            this.label183.AutoSize = true;
-            this.label183.Location = new System.Drawing.Point(17, 125);
-            this.label183.Name = "label183";
-            this.label183.Size = new System.Drawing.Size(101, 12);
-            this.label183.TabIndex = 13;
-            this.label183.Text = "指令间隔（ms）：";
-            // 
-            // johar_tagcount_label
-            // 
-            this.johar_tagcount_label.AutoSize = true;
-            this.johar_tagcount_label.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.johar_tagcount_label.Location = new System.Drawing.Point(625, 22);
-            this.johar_tagcount_label.Name = "johar_tagcount_label";
-            this.johar_tagcount_label.Size = new System.Drawing.Size(19, 19);
-            this.johar_tagcount_label.TabIndex = 11;
-            this.johar_tagcount_label.Text = "0";
-            // 
-            // johar_totalread_label
-            // 
-            this.johar_totalread_label.AutoSize = true;
-            this.johar_totalread_label.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.johar_totalread_label.Location = new System.Drawing.Point(388, 22);
-            this.johar_totalread_label.Name = "johar_totalread_label";
-            this.johar_totalread_label.Size = new System.Drawing.Size(19, 19);
-            this.johar_totalread_label.TabIndex = 10;
-            this.johar_totalread_label.Text = "0";
-            // 
-            // label182
-            // 
-            this.label182.AutoSize = true;
-            this.label182.Location = new System.Drawing.Point(549, 25);
-            this.label182.Name = "label182";
-            this.label182.Size = new System.Drawing.Size(65, 12);
-            this.label182.TabIndex = 9;
-            this.label182.Text = "tagCount: ";
-            // 
-            // label181
-            // 
-            this.label181.AutoSize = true;
-            this.label181.Location = new System.Drawing.Point(265, 25);
-            this.label181.Name = "label181";
-            this.label181.Size = new System.Drawing.Size(101, 12);
-            this.label181.TabIndex = 8;
-            this.label181.Text = "totalreadCount: ";
-            // 
-            // johar_clear_btn
-            // 
-            this.johar_clear_btn.Location = new System.Drawing.Point(10, 56);
-            this.johar_clear_btn.Name = "johar_clear_btn";
-            this.johar_clear_btn.Size = new System.Drawing.Size(108, 41);
-            this.johar_clear_btn.TabIndex = 7;
-            this.johar_clear_btn.Text = "清空";
-            this.johar_clear_btn.UseVisualStyleBackColor = true;
-            this.johar_clear_btn.Click += new System.EventHandler(this.johar_clear_btn_Click);
-            // 
-            // johar_use_btn
-            // 
-            this.johar_use_btn.Location = new System.Drawing.Point(134, 6);
-            this.johar_use_btn.Name = "johar_use_btn";
-            this.johar_use_btn.Size = new System.Drawing.Size(108, 41);
-            this.johar_use_btn.TabIndex = 6;
-            this.johar_use_btn.Text = "启用";
-            this.johar_use_btn.UseVisualStyleBackColor = true;
-            this.johar_use_btn.Click += new System.EventHandler(this.johar_use_btn_Click);
             // 
             // johar_settings_gb
             // 
             this.johar_settings_gb.Controls.Add(this.johar_readmode_gb);
             this.johar_settings_gb.Controls.Add(this.johar_session_gb);
             this.johar_settings_gb.Controls.Add(this.johar_target_gb);
-            this.johar_settings_gb.Location = new System.Drawing.Point(8, 148);
+            this.johar_settings_gb.Location = new System.Drawing.Point(1, 145);
             this.johar_settings_gb.Name = "johar_settings_gb";
-            this.johar_settings_gb.Size = new System.Drawing.Size(251, 167);
+            this.johar_settings_gb.Size = new System.Drawing.Size(242, 167);
             this.johar_settings_gb.TabIndex = 5;
             this.johar_settings_gb.TabStop = false;
             this.johar_settings_gb.Text = "配置";
@@ -6913,39 +7008,112 @@ namespace UHFDemo
             this.johar_target_B_rb.Text = "B";
             this.johar_target_B_rb.UseVisualStyleBackColor = true;
             // 
-            // johar_cb
+            // label183
             // 
-            this.johar_cb.AutoSize = true;
-            this.johar_cb.Location = new System.Drawing.Point(134, 68);
-            this.johar_cb.Name = "johar_cb";
-            this.johar_cb.Size = new System.Drawing.Size(102, 16);
-            this.johar_cb.TabIndex = 2;
-            this.johar_cb.Text = "温感标签（1）";
-            this.johar_cb.UseVisualStyleBackColor = true;
+            this.label183.AutoSize = true;
+            this.label183.Location = new System.Drawing.Point(10, 122);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(101, 12);
+            this.label183.TabIndex = 13;
+            this.label183.Text = "指令间隔（ms）：";
             // 
-            // johar_read_btn
+            // johar_use_btn
             // 
-            this.johar_read_btn.Location = new System.Drawing.Point(10, 6);
-            this.johar_read_btn.Name = "johar_read_btn";
-            this.johar_read_btn.Size = new System.Drawing.Size(108, 41);
-            this.johar_read_btn.TabIndex = 1;
-            this.johar_read_btn.Text = "开始";
-            this.johar_read_btn.UseVisualStyleBackColor = true;
-            this.johar_read_btn.Click += new System.EventHandler(this.johar_read_btn_Click);
+            this.johar_use_btn.Location = new System.Drawing.Point(127, 3);
+            this.johar_use_btn.Name = "johar_use_btn";
+            this.johar_use_btn.Size = new System.Drawing.Size(108, 41);
+            this.johar_use_btn.TabIndex = 6;
+            this.johar_use_btn.Text = "启用";
+            this.johar_use_btn.UseVisualStyleBackColor = true;
+            this.johar_use_btn.Click += new System.EventHandler(this.johar_use_btn_Click);
+            // 
+            // johar_clear_btn
+            // 
+            this.johar_clear_btn.Location = new System.Drawing.Point(3, 53);
+            this.johar_clear_btn.Name = "johar_clear_btn";
+            this.johar_clear_btn.Size = new System.Drawing.Size(108, 41);
+            this.johar_clear_btn.TabIndex = 7;
+            this.johar_clear_btn.Text = "清空";
+            this.johar_clear_btn.UseVisualStyleBackColor = true;
+            this.johar_clear_btn.Click += new System.EventHandler(this.johar_clear_btn_Click);
+            // 
+            // panel10
+            // 
+            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel10.Controls.Add(this.panel12);
+            this.panel10.Controls.Add(this.johar_tag_dgv);
+            this.panel10.Location = new System.Drawing.Point(265, 10);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(739, 539);
+            this.panel10.TabIndex = 15;
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.label181);
+            this.panel12.Controls.Add(this.johar_totalread_label);
+            this.panel12.Controls.Add(this.label182);
+            this.panel12.Controls.Add(this.johar_tagcount_label);
+            this.panel12.Location = new System.Drawing.Point(5, 4);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(731, 36);
+            this.panel12.TabIndex = 15;
+            // 
+            // label181
+            // 
+            this.label181.AutoSize = true;
+            this.label181.Location = new System.Drawing.Point(4, 11);
+            this.label181.Name = "label181";
+            this.label181.Size = new System.Drawing.Size(101, 12);
+            this.label181.TabIndex = 8;
+            this.label181.Text = "totalreadCount: ";
+            // 
+            // johar_totalread_label
+            // 
+            this.johar_totalread_label.AutoSize = true;
+            this.johar_totalread_label.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.johar_totalread_label.Location = new System.Drawing.Point(127, 8);
+            this.johar_totalread_label.Name = "johar_totalread_label";
+            this.johar_totalread_label.Size = new System.Drawing.Size(19, 19);
+            this.johar_totalread_label.TabIndex = 10;
+            this.johar_totalread_label.Text = "0";
+            // 
+            // label182
+            // 
+            this.label182.AutoSize = true;
+            this.label182.Location = new System.Drawing.Point(288, 11);
+            this.label182.Name = "label182";
+            this.label182.Size = new System.Drawing.Size(65, 12);
+            this.label182.TabIndex = 9;
+            this.label182.Text = "tagCount: ";
+            // 
+            // johar_tagcount_label
+            // 
+            this.johar_tagcount_label.AutoSize = true;
+            this.johar_tagcount_label.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.johar_tagcount_label.Location = new System.Drawing.Point(364, 8);
+            this.johar_tagcount_label.Name = "johar_tagcount_label";
+            this.johar_tagcount_label.Size = new System.Drawing.Size(19, 19);
+            this.johar_tagcount_label.TabIndex = 11;
+            this.johar_tagcount_label.Text = "0";
             // 
             // johar_tag_dgv
             // 
+            this.johar_tag_dgv.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.johar_tag_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.johar_tag_dgv.Location = new System.Drawing.Point(265, 50);
+            this.johar_tag_dgv.Location = new System.Drawing.Point(5, 46);
             this.johar_tag_dgv.Name = "johar_tag_dgv";
             this.johar_tag_dgv.RowTemplate.Height = 23;
-            this.johar_tag_dgv.Size = new System.Drawing.Size(737, 485);
+            this.johar_tag_dgv.Size = new System.Drawing.Size(731, 490);
             this.johar_tag_dgv.TabIndex = 0;
             // 
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(2, 588);
+            this.label35.Location = new System.Drawing.Point(3, 5);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(59, 12);
             this.label35.TabIndex = 13;
@@ -6955,7 +7123,7 @@ namespace UHFDemo
             // 
             this.ckDisplayLog.AutoSize = true;
             this.ckDisplayLog.ForeColor = System.Drawing.Color.Indigo;
-            this.ckDisplayLog.Location = new System.Drawing.Point(879, 586);
+            this.ckDisplayLog.Location = new System.Drawing.Point(906, 3);
             this.ckDisplayLog.Name = "ckDisplayLog";
             this.ckDisplayLog.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.ckDisplayLog.Size = new System.Drawing.Size(96, 16);
@@ -7431,7 +7599,7 @@ namespace UHFDemo
             this.ckClearOperationRec.AutoSize = true;
             this.ckClearOperationRec.Checked = true;
             this.ckClearOperationRec.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckClearOperationRec.Location = new System.Drawing.Point(71, 587);
+            this.ckClearOperationRec.Location = new System.Drawing.Point(72, 4);
             this.ckClearOperationRec.Name = "ckClearOperationRec";
             this.ckClearOperationRec.Size = new System.Drawing.Size(72, 16);
             this.ckClearOperationRec.TabIndex = 17;
@@ -7441,9 +7609,9 @@ namespace UHFDemo
             // lrtxtLog
             // 
             this.lrtxtLog.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lrtxtLog.Location = new System.Drawing.Point(0, 608);
+            this.lrtxtLog.Location = new System.Drawing.Point(0, 20);
             this.lrtxtLog.Name = "lrtxtLog";
-            this.lrtxtLog.Size = new System.Drawing.Size(1018, 132);
+            this.lrtxtLog.Size = new System.Drawing.Size(1010, 131);
             this.lrtxtLog.TabIndex = 1;
             this.lrtxtLog.Text = "";
             this.lrtxtLog.DoubleClick += new System.EventHandler(this.lrtxtLog_DoubleClick);
@@ -7554,20 +7722,40 @@ namespace UHFDemo
             this.lxLedControl18.Text = "0";
             this.lxLedControl18.TextAlignment = LxControl.LxLedControl.Alignment.Right;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.ckClearOperationRec);
+            this.panel1.Controls.Add(this.lrtxtLog);
+            this.panel1.Controls.Add(this.ckDisplayLog);
+            this.panel1.Controls.Add(this.label35);
+            this.panel1.Location = new System.Drawing.Point(4, 583);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1010, 151);
+            this.panel1.TabIndex = 18;
+            // 
+            // panel14
+            // 
+            this.panel14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel14.Controls.Add(this.listView2);
+            this.panel14.Location = new System.Drawing.Point(6, 258);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(988, 263);
+            this.panel14.TabIndex = 31;
+            // 
             // R2000UartDemo
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(1018, 740);
-            this.Controls.Add(this.ckClearOperationRec);
-            this.Controls.Add(this.ckDisplayLog);
-            this.Controls.Add(this.label35);
-            this.Controls.Add(this.lrtxtLog);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabCtrMain);
             this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "R2000UartDemo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UHF RFID Reader Demo v16.0";
@@ -7575,7 +7763,7 @@ namespace UHFDemo
             this.Load += new System.EventHandler(this.R2000UartDemo_Load);
             this.tabCtrMain.ResumeLayout(false);
             this.PagReaderSetting.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
+            this.tabControl_baseSettings.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
@@ -7684,6 +7872,8 @@ namespace UHFDemo
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
             this.pageAcessTag.ResumeLayout(false);
+            this.panel13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTagOp)).EndInit();
             this.gbCmdOperateTag.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
@@ -7706,14 +7896,19 @@ namespace UHFDemo
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.PagISO18000.ResumeLayout(false);
-            this.PagISO18000.PerformLayout();
-            this.gbISO1800LockQuery.ResumeLayout(false);
-            this.gbISO1800LockQuery.PerformLayout();
+            this.panel8.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.gbISO1800ReadWrite.ResumeLayout(false);
             this.gbISO1800ReadWrite.PerformLayout();
+            this.gbISO1800LockQuery.ResumeLayout(false);
+            this.gbISO1800LockQuery.PerformLayout();
             this.PagTranDataLog.ResumeLayout(false);
-            this.gbCmdManual.ResumeLayout(false);
-            this.gbCmdManual.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.net_configure_tabPage.ResumeLayout(false);
             this.net_configure_tabPage.PerformLayout();
             this.port_setting_tabcontrol.ResumeLayout(false);
@@ -7727,7 +7922,8 @@ namespace UHFDemo
             this.groupBox30.ResumeLayout(false);
             this.groupBox30.PerformLayout();
             this.johar_tabPage.ResumeLayout(false);
-            this.johar_tabPage.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel11.PerformLayout();
             this.johar_settings_gb.ResumeLayout(false);
             this.johar_readmode_gb.ResumeLayout(false);
             this.johar_readmode_gb.PerformLayout();
@@ -7735,6 +7931,9 @@ namespace UHFDemo
             this.johar_session_gb.PerformLayout();
             this.johar_target_gb.ResumeLayout(false);
             this.johar_target_gb.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.johar_tag_dgv)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
@@ -7752,8 +7951,10 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl18)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel14.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -7768,7 +7969,6 @@ namespace UHFDemo
         private System.Windows.Forms.Label label17;
         private CustomControl.HexTextBox htxtSendData;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.GroupBox gbCmdManual;
         private CustomControl.LogRichTextBox lrtxtDataTran;
         private CustomControl.HexTextBox htxtCheckData;
         private System.Windows.Forms.Button btnClearData;
@@ -7855,7 +8055,7 @@ namespace UHFDemo
         private System.Windows.Forms.Label label90;
         private System.Windows.Forms.Label label91;
         private LxControl.LxLedControl lxLedControl18;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControl_baseSettings;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.GroupBox gbCmdReadGpio;
         private System.Windows.Forms.Button btnWriteGpio4Value;
@@ -8146,15 +8346,6 @@ namespace UHFDemo
         private TabControl tab_6c_Tags_Test;
         private TabPage pageFast4AntMode;
         private TabPage pageAcessTag;
-        private ListView ltvOperate;
-        private ColumnHeader columnHeader5;
-        private ColumnHeader columnHeader9;
-        private ColumnHeader columnHeader10;
-        private ColumnHeader columnHeader11;
-        private ColumnHeader columnHeader12;
-        private ColumnHeader columnHeader13;
-        private ColumnHeader columnHeader14;
-        private ColumnHeader columnHeader15;
         private GroupBox gbCmdOperateTag;
         private GroupBox groupBox16;
         private Button btnKillTag;
@@ -8176,16 +8367,15 @@ namespace UHFDemo
         private RadioButton rdbFree;
         private Button btnLockTag;
         private GroupBox groupBox14;
-        private RadioButton radioButton2;
-        private RadioButton radioButton1;
-        private CustomControl.HexTextBox htxtWriteData;
-        private TextBox txtWordCnt;
+        private RadioButton radio_btnBlockWrite;
+        private RadioButton radio_btnWrite;
+        private CustomControl.HexTextBox hexTb_WriteData;
+        private TextBox tb_wordLen;
         private Label label27;
         private Button btnWriteTag;
         private Button btnReadTag;
-        private TextBox txtWordAdd;
+        private TextBox tb_startWord;
         private Label label26;
-        private CustomControl.HexTextBox htxtReadAndWritePwd;
         private Label label25;
         private GroupBox groupBox17;
         private RadioButton rdbUser;
@@ -8384,6 +8574,30 @@ namespace UHFDemo
         private Label label53;
         private FlowLayoutPanel flowLayoutPanel2;
         private GroupBox groupBox1;
+        private CustomControl.HexTextBox hexTb_accessPw;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel5;
+        private Panel panel4;
+        private Panel panel8;
+        private Panel panel3;
+        private Panel panel9;
+        private Panel panel11;
+        private Panel panel10;
+        private Panel panel12;
+        private Panel panel13;
+        private DataGridView dgvTagOp;
+        private DataGridViewTextBoxColumn tagOp_SerialNumberColumn;
+        private DataGridViewTextBoxColumn tagOp_PcColumn;
+        private DataGridViewTextBoxColumn tagOp_CrcColumn;
+        private DataGridViewTextBoxColumn tagOp_EpcColumn;
+        private DataGridViewTextBoxColumn tagOp_DataColumn;
+        private DataGridViewTextBoxColumn tagOp_DataLenColumn;
+        private DataGridViewTextBoxColumn tagOp_AntennaColumn;
+        private DataGridViewTextBoxColumn tagOp_OpCountColumn;
+        private DataGridViewTextBoxColumn tagOp_OpSuccessCountColumn;
+        private DataGridViewTextBoxColumn tagOp_FreqColumn;
+        private Panel panel14;
     }
 }
 
