@@ -194,6 +194,10 @@ namespace UHFDemo
             GenerateColmnsDataGridForTagOp();
             tagOpDb = new TagDB();
             dgvTagOp.DataSource = tagOpDb.TagList;
+
+            ToolTip toolTip = new ToolTip();
+            toolTip.SetToolTip(cb_tagFocus, "开启此功能后请使用S1模式盘存，此功能适用于Impinj大部分标签");
+
         }
         private void initRealInvAnts()
         {
@@ -2975,7 +2979,8 @@ namespace UHFDemo
                     BeginInvoke(new ThreadStart(delegate () {
                         tagdb.UpdateCmd8AExecuteSuccess(msgTran.AryData);
                         led_cmd_readrate.Text = tagdb.CmdReadRate.ToString(); // 单次盘存速率
-                        led_cmd_total_tagreads.Text = tagdb.CmdTotalRead.ToString(); // 单次读取次数
+                        led_total_tagreads.Text = tagdb.TotalTagCounts.ToString(); // 总读取次数
+                        txtCmdTagCount.Text = tagdb.CmdTotalRead.ToString(); // 单次读取次数
                         led_cmd_execute_duration.Text = tagdb.CommandDuration.ToString(); // 单次执行时间
                         ledFast_total_execute_time.Text = FormatLongToTimeStr(tagdb.TotalCommandTime); //总执行时间
                     }));
@@ -3102,7 +3107,8 @@ namespace UHFDemo
                     led_cmd_readrate.Text = tagdb.CmdReadRate.ToString(); // 单次盘存速率
                     led_cmd_execute_duration.Text = tagdb.CommandDuration.ToString();// 单次盘存时间
                     ledFast_total_execute_time.Text = FormatLongToTimeStr(tagdb.TotalCommandTime); // 总盘存时间
-                    led_cmd_total_tagreads.Text = tagdb.CmdTotalRead.ToString(); // 单次读取次数
+                    led_total_tagreads.Text = tagdb.TotalTagCounts.ToString(); // 总读取次数
+                    txtCmdTagCount.Text = tagdb.CmdTotalRead.ToString(); // 单次读取次数
                 }));
 
                 if (m_FastExeCount != -1)
@@ -3140,10 +3146,10 @@ namespace UHFDemo
                 WriteLog(lrtxtLog, strCmd, 0);
                 BeginInvoke(new ThreadStart(delegate () {
                     tagdb.UpdateCmd80ExecuteSuccess(msgTran.AryData);
-                    led_cmd_total_tagreads.Text = tagdb.CmdTotalRead.ToString();
+                    led_total_tagreads.Text = tagdb.TotalTagCounts.ToString(); // 总读取次数
+                    txtCmdTagCount.Text = tagdb.CmdTotalRead.ToString(); // 单次读取次数
                     led_cmd_execute_duration.Text = CalculateExecTime().ToString();
                     led_cmd_readrate.Text = tagdb.CmdReadRate.ToString();
-                    txtTotalTagCount.Text =tagdb.TotalTagCounts.ToString();
                     led_totalread_count.Text = tagdb.TotalReadCounts.ToString();
                     
                 }));
@@ -4571,14 +4577,14 @@ namespace UHFDemo
                     tagdb.Clear();
                     tagdb.Repaint();
 
-                    led_cmd_total_tagreads.Text = tagdb.TotalTagCounts.ToString();
+                    led_total_tagreads.Text = tagdb.TotalTagCounts.ToString(); // 总读取次数
+                    txtCmdTagCount.Text = tagdb.CmdTotalRead.ToString(); // 单次读取次数
                     led_cmd_readrate.Text = tagdb.CmdReadRate.ToString();
                     led_cmd_execute_duration.Text = tagdb.CommandDuration.ToString();
                     led_totalread_count.Text = tagdb.TotalReadCounts.ToString();
                     ledFast_total_execute_time.Text = tagdb.TotalCommandTime.ToString();
                     txtFastMinRssi.Text = tagdb.MinRSSI.ToString();
                     txtFastMaxRssi.Text = tagdb.MaxRSSI.ToString();
-                    txtTotalTagCount.Text = tagdb.TotalTagCounts.ToString();
 
                     label_readrate.Text = tagdb.CmdReadRate.ToString();
                     label_totalread_count.Text = tagdb.TotalReadCounts.ToString();
@@ -7656,7 +7662,7 @@ namespace UHFDemo
                     txtFastMaxRssi.Text = tagdb.MaxRSSI + "dBm";
                     txtFastMinRssi.Text = tagdb.MinRSSI + "dBm";
                     led_totalread_count.Text = tagdb.TotalReadCounts.ToString(); //总读取次数（包含重复）
-                    txtTotalTagCount.Text = tagdb.TotalTagCounts.ToString(); // 总读取标签数
+                    led_total_tagreads.Text = tagdb.TotalTagCounts.ToString(); // 总读取次数
 
                     if (needGetBuffer)
                     {
@@ -7997,6 +8003,7 @@ namespace UHFDemo
                 grb_Interval.Visible = true;//Interval
                 grb_Reserve.Visible = false;
 
+                cb_customized_session_target.Enabled = true;
                 cb_customized_session_target.Checked = false; 
                 cb_use_selectFlags_tempPows.Checked = false;
                 cb_use_selectFlags_tempPows.Text = "无人零售配置";
@@ -8075,7 +8082,8 @@ namespace UHFDemo
                 grb_Interval.Visible = false;//Interval
                 grb_Reserve.Visible = false;
 
-                cb_customized_session_target.Checked = false;
+                cb_customized_session_target.Checked = true; // for disable use 89 Cmd
+                cb_customized_session_target.Enabled = false;
                 cb_use_selectFlags_tempPows.Checked = false;
                 cb_use_selectFlags_tempPows.Text = "SL";
                 grb_selectFlags.Visible = false;
@@ -8100,6 +8108,7 @@ namespace UHFDemo
             }
             else if (radio_btn_cache_inv.Checked)
             {
+                cb_customized_session_target.Enabled = true;
                 grb_multi_ant.Visible = false;
                 grb_cache_inv.Visible = true;
 
@@ -8347,6 +8356,10 @@ namespace UHFDemo
             }
         }
 
+        private void cb_tagFocus_CheckedChanged(object sender, EventArgs e)
+        {
+            reader.SetMonzaStatus(m_curSetting.btReadId, cb_tagFocus.Checked ? (byte)0x8C : (byte)0x00);
+        }
     }
 
     public enum NotifyType

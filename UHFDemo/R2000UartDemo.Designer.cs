@@ -323,7 +323,7 @@ namespace UHFDemo
             this.label19 = new System.Windows.Forms.Label();
             this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.label53 = new System.Windows.Forms.Label();
-            this.txtTotalTagCount = new System.Windows.Forms.Label();
+            this.txtCmdTagCount = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.dgv_fast_inv_tags = new System.Windows.Forms.DataGridView();
@@ -341,7 +341,7 @@ namespace UHFDemo
             this.button7 = new System.Windows.Forms.Button();
             this.txtFastMaxRssi = new System.Windows.Forms.TextBox();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
-            this.led_cmd_total_tagreads = new LxControl.LxLedControl();
+            this.led_total_tagreads = new LxControl.LxLedControl();
             this.label58 = new System.Windows.Forms.Label();
             this.led_totalread_count = new LxControl.LxLedControl();
             this.led_cmd_readrate = new LxControl.LxLedControl();
@@ -422,6 +422,7 @@ namespace UHFDemo
             this.txtAccessEpcMatch = new System.Windows.Forms.TextBox();
             this.ckAccessEpcMatch = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.panel14 = new System.Windows.Forms.Panel();
             this.listView2 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -676,7 +677,7 @@ namespace UHFDemo
             this.lxLedControl17 = new LxControl.LxLedControl();
             this.lxLedControl18 = new LxControl.LxLedControl();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel14 = new System.Windows.Forms.Panel();
+            this.cb_tagFocus = new System.Windows.Forms.CheckBox();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl_baseSettings.SuspendLayout();
@@ -735,7 +736,7 @@ namespace UHFDemo
             this.groupBox26.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_fast_inv_tags)).BeginInit();
             this.groupBox25.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.led_cmd_total_tagreads)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led_total_tagreads)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.led_totalread_count)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.led_cmd_readrate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.led_cmd_execute_duration)).BeginInit();
@@ -755,6 +756,7 @@ namespace UHFDemo
             this.groupBox17.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.panel14.SuspendLayout();
             this.groupBox22.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -799,7 +801,6 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl18)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabCtrMain
@@ -3858,7 +3859,7 @@ namespace UHFDemo
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox26.Controls.Add(this.label53);
-            this.groupBox26.Controls.Add(this.txtTotalTagCount);
+            this.groupBox26.Controls.Add(this.txtCmdTagCount);
             this.groupBox26.Controls.Add(this.label49);
             this.groupBox26.Controls.Add(this.label22);
             this.groupBox26.Controls.Add(this.dgv_fast_inv_tags);
@@ -3880,20 +3881,20 @@ namespace UHFDemo
             this.label53.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label53.Location = new System.Drawing.Point(6, 20);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(65, 12);
+            this.label53.Size = new System.Drawing.Size(89, 12);
             this.label53.TabIndex = 67;
-            this.label53.Text = "标签个数: ";
+            this.label53.Text = "本次标签个数: ";
             // 
-            // txtTotalTagCount
+            // txtCmdTagCount
             // 
-            this.txtTotalTagCount.AutoSize = true;
-            this.txtTotalTagCount.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtTotalTagCount.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txtTotalTagCount.Location = new System.Drawing.Point(71, 20);
-            this.txtTotalTagCount.Name = "txtTotalTagCount";
-            this.txtTotalTagCount.Size = new System.Drawing.Size(14, 14);
-            this.txtTotalTagCount.TabIndex = 23;
-            this.txtTotalTagCount.Text = "0";
+            this.txtCmdTagCount.AutoSize = true;
+            this.txtCmdTagCount.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtCmdTagCount.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.txtCmdTagCount.Location = new System.Drawing.Point(101, 16);
+            this.txtCmdTagCount.Name = "txtCmdTagCount";
+            this.txtCmdTagCount.Size = new System.Drawing.Size(21, 21);
+            this.txtCmdTagCount.TabIndex = 23;
+            this.txtCmdTagCount.Text = "0";
             // 
             // label49
             // 
@@ -4053,7 +4054,7 @@ namespace UHFDemo
             // 
             this.groupBox25.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox25.Controls.Add(this.led_cmd_total_tagreads);
+            this.groupBox25.Controls.Add(this.led_total_tagreads);
             this.groupBox25.Controls.Add(this.label58);
             this.groupBox25.Controls.Add(this.led_totalread_count);
             this.groupBox25.Controls.Add(this.led_cmd_readrate);
@@ -4070,27 +4071,27 @@ namespace UHFDemo
             this.groupBox25.TabStop = false;
             this.groupBox25.Text = "数据";
             // 
-            // led_cmd_total_tagreads
+            // led_total_tagreads
             // 
-            this.led_cmd_total_tagreads.BackColor = System.Drawing.Color.Transparent;
-            this.led_cmd_total_tagreads.BackColor_1 = System.Drawing.Color.Transparent;
-            this.led_cmd_total_tagreads.BackColor_2 = System.Drawing.Color.DarkRed;
-            this.led_cmd_total_tagreads.BevelRate = 0.1F;
-            this.led_cmd_total_tagreads.BorderColor = System.Drawing.Color.Lavender;
-            this.led_cmd_total_tagreads.BorderWidth = 3;
-            this.led_cmd_total_tagreads.FadedColor = System.Drawing.SystemColors.ControlLight;
-            this.led_cmd_total_tagreads.FocusedBorderColor = System.Drawing.Color.LightCoral;
-            this.led_cmd_total_tagreads.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.led_cmd_total_tagreads.HighlightOpaque = ((byte)(20));
-            this.led_cmd_total_tagreads.Location = new System.Drawing.Point(6, 35);
-            this.led_cmd_total_tagreads.Name = "led_cmd_total_tagreads";
-            this.led_cmd_total_tagreads.RoundCorner = true;
-            this.led_cmd_total_tagreads.SegmentIntervalRatio = 50;
-            this.led_cmd_total_tagreads.ShowHighlight = true;
-            this.led_cmd_total_tagreads.Size = new System.Drawing.Size(238, 89);
-            this.led_cmd_total_tagreads.TabIndex = 21;
-            this.led_cmd_total_tagreads.Text = "0";
-            this.led_cmd_total_tagreads.TextAlignment = LxControl.LxLedControl.Alignment.Right;
+            this.led_total_tagreads.BackColor = System.Drawing.Color.Transparent;
+            this.led_total_tagreads.BackColor_1 = System.Drawing.Color.Transparent;
+            this.led_total_tagreads.BackColor_2 = System.Drawing.Color.DarkRed;
+            this.led_total_tagreads.BevelRate = 0.1F;
+            this.led_total_tagreads.BorderColor = System.Drawing.Color.Lavender;
+            this.led_total_tagreads.BorderWidth = 3;
+            this.led_total_tagreads.FadedColor = System.Drawing.SystemColors.ControlLight;
+            this.led_total_tagreads.FocusedBorderColor = System.Drawing.Color.LightCoral;
+            this.led_total_tagreads.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.led_total_tagreads.HighlightOpaque = ((byte)(20));
+            this.led_total_tagreads.Location = new System.Drawing.Point(6, 35);
+            this.led_total_tagreads.Name = "led_total_tagreads";
+            this.led_total_tagreads.RoundCorner = true;
+            this.led_total_tagreads.SegmentIntervalRatio = 50;
+            this.led_total_tagreads.ShowHighlight = true;
+            this.led_total_tagreads.Size = new System.Drawing.Size(238, 89);
+            this.led_total_tagreads.TabIndex = 21;
+            this.led_total_tagreads.Text = "0";
+            this.led_total_tagreads.TextAlignment = LxControl.LxLedControl.Alignment.Right;
             // 
             // label58
             // 
@@ -4309,6 +4310,7 @@ namespace UHFDemo
             // 
             // groupBox27
             // 
+            this.groupBox27.Controls.Add(this.cb_tagFocus);
             this.groupBox27.Controls.Add(this.tb_fast_inv_staytargetB_times);
             this.groupBox27.Controls.Add(this.label132);
             this.groupBox27.Controls.Add(this.mFastIntervalTime);
@@ -4984,6 +4986,17 @@ namespace UHFDemo
             this.tabPage3.Size = new System.Drawing.Size(1000, 527);
             this.tabPage3.TabIndex = 4;
             this.tabPage3.Text = "设置标签过滤";
+            // 
+            // panel14
+            // 
+            this.panel14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel14.Controls.Add(this.listView2);
+            this.panel14.Location = new System.Drawing.Point(6, 258);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(988, 263);
+            this.panel14.TabIndex = 31;
             // 
             // listView2
             // 
@@ -7735,16 +7748,16 @@ namespace UHFDemo
             this.panel1.Size = new System.Drawing.Size(1010, 151);
             this.panel1.TabIndex = 18;
             // 
-            // panel14
+            // cb_tagFocus
             // 
-            this.panel14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel14.Controls.Add(this.listView2);
-            this.panel14.Location = new System.Drawing.Point(6, 258);
-            this.panel14.Name = "panel14";
-            this.panel14.Size = new System.Drawing.Size(988, 263);
-            this.panel14.TabIndex = 31;
+            this.cb_tagFocus.AutoSize = true;
+            this.cb_tagFocus.Location = new System.Drawing.Point(137, 37);
+            this.cb_tagFocus.Name = "cb_tagFocus";
+            this.cb_tagFocus.Size = new System.Drawing.Size(78, 16);
+            this.cb_tagFocus.TabIndex = 84;
+            this.cb_tagFocus.Text = "Tag Focus";
+            this.cb_tagFocus.UseVisualStyleBackColor = true;
+            this.cb_tagFocus.CheckedChanged += new System.EventHandler(this.cb_tagFocus_CheckedChanged);
             // 
             // R2000UartDemo
             // 
@@ -7861,7 +7874,7 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.dgv_fast_inv_tags)).EndInit();
             this.groupBox25.ResumeLayout(false);
             this.groupBox25.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.led_cmd_total_tagreads)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led_total_tagreads)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.led_totalread_count)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.led_cmd_readrate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.led_cmd_execute_duration)).EndInit();
@@ -7890,6 +7903,7 @@ namespace UHFDemo
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
             this.tabPage3.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
             this.groupBox22.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
@@ -7953,7 +7967,6 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl18)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel14.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -8421,7 +8434,7 @@ namespace UHFDemo
         private ComboBox combo_session;
         private Button btnTagSelect;
         private GroupBox groupBox26;
-        private Label txtTotalTagCount;
+        private Label txtCmdTagCount;
         private Label label49;
         private Label label22;
         private DataGridView dgv_fast_inv_tags;
@@ -8439,7 +8452,7 @@ namespace UHFDemo
         private Button button7;
         private TextBox txtFastMaxRssi;
         private GroupBox groupBox25;
-        private LxControl.LxLedControl led_cmd_total_tagreads;
+        private LxControl.LxLedControl led_total_tagreads;
         private Label label58;
         private LxControl.LxLedControl led_totalread_count;
         private LxControl.LxLedControl led_cmd_readrate;
@@ -8598,6 +8611,7 @@ namespace UHFDemo
         private DataGridViewTextBoxColumn tagOp_OpSuccessCountColumn;
         private DataGridViewTextBoxColumn tagOp_FreqColumn;
         private Panel panel14;
+        private CheckBox cb_tagFocus;
     }
 }
 
