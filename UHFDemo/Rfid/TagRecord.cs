@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reader;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -101,13 +102,13 @@ namespace UHFDemo
         private Dictionary<string, TagRecord> EpcIndex = new Dictionary<string, TagRecord>();
         private List<string> EpcIndexForTest = new List<string>();
 
-        static long uniqueTagCounts = 0; // 总标签数量
-        static long totalReadCounts = 0; // 总读取次数
-        static uint totalCommandTimes = 0; // 总执行时间
-        uint cmdTotalRead = 0; // 单次盘存读取标签数量（包含重复标签）
-        uint cmdCommandDuration = 0; // 单次执行指令时间
-        ushort cmdReadRate = 0; // 单次执行指令的盘点速率
-        uint cmdTotalUniqueRead = 0; // 单次盘存读取标签数量（不包含重复标签）
+        static long uniqueTagCounts = 0; // Total Tag quantity
+        static long totalReadCounts = 0; // Total read times
+        static uint totalCommandTimes = 0; // Total execution time
+        uint cmdTotalRead = 0; // Number of labels read in a single inventory (including duplicate labels)
+        uint cmdCommandDuration = 0; // Single execution instruction time
+        ushort cmdReadRate = 0; // The counting rate of a single execution instruction
+        uint cmdTotalUniqueRead = 0; //Number of labels read in a single inventory (excluding duplicate labels)
 
         #region 0x79
         byte region;
@@ -450,7 +451,6 @@ namespace UHFDemo
                         break;
                     default:
                         strFreq = "0.00";
-                        MessageBox.Show("未定义频段");
                         break;
                 }
 

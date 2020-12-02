@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace UHFDemo
+namespace Reader
 {
     #region Tag
     public class Tag
@@ -208,14 +208,14 @@ namespace UHFDemo
             {
                 temp = temp * 1.2 - 25;
             }
-                /*Math.Round(temp, 2)*/;//保留两位小数
+                /*Math.Round(temp, 2)*/;
             String strTemp = Math.Round(temp, 2).ToString();
             return strTemp;
         }
         /**
          * Get senData
          *
-         * @param bytes 源数据
+         * @param bytes RawData
          * @return value >=0 : success
          * value = -1 : Failed to verify data length
          * value = -2 : Sensor data HEADER verification failed
@@ -225,12 +225,12 @@ namespace UHFDemo
          */
         private int checkData(byte[] bytes)
         {
-            //校验数据长度
+            //Check data length
             if (bytes.Length != 8)
             {
                 return -1;
             }
-            //传感数据 HEADER 需要为 0xF，否则数据无效
+            //The sensor data HEADER needs to be 0xF, otherwise the data is invalid
             if (((bytes[0] >> 4) & 0x0F) != 0x0F)
             {
                 return -2;
@@ -239,18 +239,18 @@ namespace UHFDemo
             {
                 return -2;
             }
-            //检测是不是LTU32版本的芯片,USR区0x09[15:12] == 0010b
+            //Detection is LTU32 version of the chip,USR area 0x09[15:12] == 0010b
             if (((bytes[6] >> 4) & 0x0F) != 0x02)
             {
                 return -5;
             }
             int senData = ((((bytes[0] & 0x0F) << 8) | (bytes[1] & 0xFF)) << 12) | ((bytes[2] & 0x0F) << 8) | (bytes[3] & 0xFF);
-            //传感数据 SEN_DATA[23:19] 需要为 00100b，否则数据无效
+            //Sensor data SEN_DATA[23:19] needs to be 00100b, otherwise the data is invalid
             if (((senData >> 19) & 0x1F) != 0x04)
             {
                 return -3;
             }
-            //传感数据需通过以下校验，否则数据无效
+            //The sensor data shall be verified as follows, otherwise the data will be invalid
             if (((senData >> 2) & 1) != (~(((senData >> 14) & 1) ^ ((senData >> 11) & 1) ^ ((senData >> 8) & 1) ^ ((senData >> 5) & 1)) & 1))
             {
                 return -4;
@@ -271,7 +271,7 @@ namespace UHFDemo
             //Console.WriteLine("parseBufferTagData={0}", ReaderUtils.ToHex(rawData, "", " "));
             //[TagCount][DataLen][Data][Rssi][FreqAnt][ReadCount]
             //[   2    ][  1    ][  N ][ 1  ][   1   ][   1     ]
-            //Data:  PC(2字节) + EPC (根据标签规格 + CRC (2字节)) 
+            //Data:  PC(2Bytes) + EPC (According to tags specifications + CRC (2Bytes)) 
             int tagLen = rawData.Length;
             writeIndex = 0;
             //TagCount

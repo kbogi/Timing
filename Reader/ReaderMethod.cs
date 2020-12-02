@@ -22,9 +22,9 @@ namespace Reader
         public AnalyDataCallback AnalyCallback;
         public ErrCallback ErrCallback;
 
-        //记录未处理的接收数据，主要考虑接收数据分段
+        //Record unprocessed received data, mainly considering receiving data segmentation
         byte[] m_btAryBuffer = new byte[4096 * 10];
-        //记录未处理数据的有效长度
+        //Record the effective length of the unprocessed data
         int m_nLenth = 0;
 
         public event EventHandler<TransportDataEventArgs> EvRecvData;
@@ -201,9 +201,9 @@ namespace Reader
                 Array.Copy(m_btAryBuffer, btAryBuffer, m_nLenth);
                 Array.Copy(btAryReceiveData, 0, btAryBuffer, m_nLenth, btAryReceiveData.Length);
 
-                //分析接收数据，以0xA0为数据起点，以协议中数据长度为数据终止点
-                int nIndex = 0;//当数据中存在A0时，记录数据的终止点
-                int nMarkIndex = 0;//当数据中不存在A0时，nMarkIndex等于数据组最大索引
+                //Analyze the received data with 0xA0 as the data starting point and the length of the data in the protocol as the data termination point
+                int nIndex = 0;//When A0 is present in the data, the termination point of the data is recorded
+                int nMarkIndex = 0;//When A0 is not present in the data, nMarkIndex is equal to the maximum index of the data group
                 for (int nLoop = 0; nLoop < btAryBuffer.Length; nLoop++)
                 {
                     if (btAryBuffer.Length > nLoop + 1)
@@ -217,7 +217,7 @@ namespace Reader
                                 Array.Copy(btAryBuffer, nLoop, btAryAnaly, 0, nLen + 2);
 
                                 MessageTran msgTran = new MessageTran(btAryAnaly);
-                                //Console.WriteLine("---接收数据: " + byteToHexStr(btAryAnaly));
+                                //Console.WriteLine("---Recv: " + byteToHexStr(btAryAnaly));
                                 OnAnaly(msgTran);
 
                                 nLoop += 1 + nLen;
@@ -259,8 +259,7 @@ namespace Reader
 
         public int SendMessage(byte[] btArySenderData)
         {
-            //Console.WriteLine("发送数据: " + byteToHexStr(btArySenderData));
-            //串口连接方式
+            //Console.WriteLine("Send: " + byteToHexStr(btArySenderData));
             if (m_nType == ReaderType.SerialPort)
             {
                 if (!iSerialPort.IsOpen)
@@ -273,7 +272,6 @@ namespace Reader
                 OnTransport(this.iSerialPort, new TransportDataEventArgs(true, btArySenderData));
                 return 0;
             }
-            //Tcp连接方式
             else if (m_nType == ReaderType.TCP)
             {
                 if (!italker.IsConnect())

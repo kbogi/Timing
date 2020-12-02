@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
-namespace UHFDemo
+namespace Reader
 {
     public class ReaderUtils
     {
-        /// <summary>
-        /// 字符数组转为16进制数组
-        /// </summary>
-        /// <param name="strAryHex"></param>
-        /// <param name="nLen"></param>
-        /// <returns></returns>
+
         public static byte[] StringArrayToByteArray(string[] strAryHex, int nLen)
         {
             if (strAryHex.Length < nLen)
@@ -38,13 +35,6 @@ namespace UHFDemo
             return btAryHex;
         }
 
-        /// <summary>
-        /// 16进制字符数组转成字符串
-        /// </summary>
-        /// <param name="btAryHex"></param>
-        /// <param name="nIndex"></param>
-        /// <param name="nLen"></param>
-        /// <returns></returns>
         public static string ByteArrayToString(byte[] btAryHex, int nIndex, int nLen)
         {
             if (nIndex + nLen > btAryHex.Length)
@@ -65,7 +55,7 @@ namespace UHFDemo
         }
 
         /// <summary>
-        /// 将字符串按照指定长度截取并转存为字符数组，空格忽略
+        /// Intercepts and converts a string to a specified length as an array of characters. Spaces are ignored
         /// </summary>
         /// <param name="strValue"></param>
         /// <param name="nLength"></param>
@@ -90,7 +80,7 @@ namespace UHFDemo
                     {
                         nTemp++;
 
-                        //校验截取的字符是否在A~F、0~9区间，不在则直接退出
+                        // Check whether the intercepted characters are between A~F and 0~9, or exit directly if not
                         System.Text.RegularExpressions.Regex reg = new System.Text.RegularExpressions.Regex(@"^(([A-F])*(\d)*)$");
                         if (!reg.IsMatch(strValue.Substring(nloop, 1)))
                         {
@@ -99,7 +89,7 @@ namespace UHFDemo
 
                         strTemp += strValue.Substring(nloop, 1);
 
-                        //判断是否到达截取长度
+                        // Determine whether the interception length has been reached
                         if ((nTemp == nLength) || (nloop == strValue.Length - 1 && !string.IsNullOrEmpty(strTemp)))
                         {
                             strListResult.Add(strTemp);
@@ -257,7 +247,6 @@ namespace UHFDemo
 
 
         #region FromHex
-
         /// <summary>
         /// Convert human-readable hex string to byte array;
         /// e.g., 123456 or 0x123456 -> {0x12, 0x34, 0x56};
@@ -281,11 +270,9 @@ namespace UHFDemo
 
             return bytes;
         }
-
         #endregion
 
         #region ToHex
-
         /// <summary>
         /// Convert byte array to human-readable hex string; e.g., {0x12, 0x34, 0x56} -> 123456
         /// </summary>
@@ -330,7 +317,6 @@ namespace UHFDemo
 
             return sb.ToString();
         }
-
         #endregion
 
         /// <summary>
@@ -440,5 +426,28 @@ namespace UHFDemo
 
         #endregion
 
+        public static byte[] GetIpAddrBytes(string ip)
+        {
+            return IPAddress.Parse(ip).GetAddressBytes();
+            //List<byte> list = new List<byte>();
+            //foreach(string str in ip.Split('.'))
+            //{
+            //    list.Add(byte.Parse(Convert.ToInt32(str).ToString("x"), System.Globalization.NumberStyles.HexNumber));
+            //}
+            //return list.ToArray() ;
+        }
+
+        public static bool CheckIpAddr(string ip)
+        {
+            IPAddress address;
+            return IPAddress.TryParse(ip, out address);
+        }
+
+        public static bool CheckMacAddr(string macAddr)
+        {
+            string pattern = "(([0-9A-F]){2}(:[0-9A-F]){2}){5}";
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            return regex.IsMatch(macAddr);
+        }
     }
 }

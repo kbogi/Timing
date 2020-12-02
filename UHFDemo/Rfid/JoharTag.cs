@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reader;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -88,7 +89,7 @@ namespace UHFDemo
         {
             if(epc.Length <= 11 || data.Length < 4)
             {
-                Console.WriteLine("getTemp epc({0})={2}, data({1})={3}", epc.Length, data.Length, EPC, Data);
+                //Console.WriteLine("getTemp epc({0})={2}, data({1})={3}", epc.Length, data.Length, EPC, Data);
                 return "null";
             }
             byte[] bytes = new byte[8];
@@ -103,7 +104,7 @@ namespace UHFDemo
             int senData = checkData(bytes);
             if (senData < 0)
             {
-                Console.WriteLine("Invalid sensor data!");
+                //Console.WriteLine("Invalid sensor data!");
                 return "null";
             }
             int D2 = (senData >> 3) & 0xFFFF;
@@ -115,7 +116,7 @@ namespace UHFDemo
             {
                 temp = temp * 1.2 - 25;
             }
-                /*Math.Round(temp, 2)*/;//保留两位小数
+                /*Math.Round(temp, 2)*/;
             String strTemp = Math.Round(temp, 2).ToString();
             return strTemp;
         }
@@ -123,7 +124,7 @@ namespace UHFDemo
         /**
          * Get senData
          *
-         * @param bytes 源数据
+         * @param bytes RawData
          * @return value >=0 : success
          * value = -1 : Failed to verify data length
          * value = -2 : Sensor data HEADER verification failed
@@ -133,12 +134,12 @@ namespace UHFDemo
          */
         private int checkData(byte[] bytes)
         {
-            //校验数据长度
+            //Check data length
             if (bytes.Length != 8)
             {
                 return -1;
             }
-            //传感数据 HEADER 需要为 0xF，否则数据无效
+            //The sensor data HEADER needs to be 0xF, otherwise the data is invalid
             if (((bytes[0] >> 4) & 0x0F) != 0x0F)
             {
                 return -2;
@@ -147,18 +148,18 @@ namespace UHFDemo
             {
                 return -2;
             }
-            //检测是不是LTU32版本的芯片,USR区0x09[15:12] == 0010b
+            //Detection is not LTU32 version of the chip,USR bank 0x09[15:12] == 0010b
             if (((bytes[6] >> 4) & 0x0F) != 0x02)
             {
                 return -5;
             }
             int senData = ((((bytes[0] & 0x0F) << 8) | (bytes[1] & 0xFF)) << 12) | ((bytes[2] & 0x0F) << 8) | (bytes[3] & 0xFF);
-            //传感数据 SEN_DATA[23:19] 需要为 00100b，否则数据无效
+            //sensor data SEN_DATA[23:19] It needs to be 00100b, otherwise the data is invalid
             if (((senData >> 19) & 0x1F) != 0x04)
             {
                 return -3;
             }
-            //传感数据需通过以下校验，否则数据无效
+            //The sensor data shall be verified as follows, otherwise the data will be invalid
             if (((senData >> 2) & 1) != (~(((senData >> 14) & 1) ^ ((senData >> 11) & 1) ^ ((senData >> 8) & 1) ^ ((senData >> 5) & 1)) & 1))
             {
                 return -4;
@@ -248,83 +249,6 @@ namespace UHFDemo
         }
     }
 
-    public class SortableBindingList<T> : BindingList<T>
-    {
-        protected override bool SupportsSortingCore
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        protected override bool IsSortedCore
-        {
-            get
-            {
-                return _isSorted;
-            }
-        }
-        private bool _isSorted = false;
-
-        protected override PropertyDescriptor SortPropertyCore
-        {
-            get
-            {
-                return _sortProperty;
-            }
-        }
-        private PropertyDescriptor _sortProperty;
-
-        protected override ListSortDirection SortDirectionCore
-        {
-            get
-            {
-                return _sortDirection;
-            }
-        }
-        private ListSortDirection _sortDirection;
-
-        protected override void ApplySortCore(PropertyDescriptor prop, ListSortDirection direction)
-        {
-            if (null != prop.PropertyType.GetInterface("IComparable"))
-            {
-                List<T> itemsList = (List<T>)this.Items;
-                Comparison<T> comparer = GetComparer(prop);
-                itemsList.Sort(comparer);
-                if (direction == ListSortDirection.Descending)
-                {
-                    itemsList.Reverse();
-                }
-                _isSorted = true;
-                _sortProperty = prop;
-                _sortDirection = direction;
-                this.OnListChanged(new ListChangedEventArgs(ListChangedType.Reset, -1));
-            }
-        }
-
-        protected virtual Comparison<T> GetComparer(PropertyDescriptor prop)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void RemoveSortCore() { }
-
-        protected override void OnListChanged(ListChangedEventArgs e)
-        {
-            if (null != SortPropertyCore)
-            {
-                if (!_insideListChangedHandler)
-                {
-                    _insideListChangedHandler = true;
-                    ApplySortCore(SortPropertyCore, SortDirectionCore);
-                    _insideListChangedHandler = false;
-                }
-            }
-            base.OnListChanged(e);
-        }
-        private bool _insideListChangedHandler = false;
-    }
     public class TagReadRecordBindingList : SortableBindingList<JorharTagRecord>
     {
         protected override Comparison<JorharTagRecord> GetComparer(PropertyDescriptor prop)
@@ -414,7 +338,6 @@ namespace UHFDemo
 
                 if (!EpcIndex.ContainsKey(key))
                 {
-                    Console.WriteLine("Add key={0}", key);
                     JorharTagRecord value = new JorharTagRecord(addData);
                     value.SerialNumber = (uint)EpcIndex.Count + 1;
                     _tagList.Add(value);

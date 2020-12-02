@@ -35,7 +35,7 @@ namespace Reader
         private bool reconnecting = false;
         private Thread reconnectThread = null;
 
-        private const int connectTimeout = 1000; // 连接超时时间
+        private const int connectTimeout = 1000; // connect timeout
 
         public bool Connect(IPAddress ipAddress, int nPort, out string strException)
         {
@@ -59,7 +59,7 @@ namespace Reader
             bool success = ar.AsyncWaitHandle.WaitOne(connectTimeout);
             if (!success)
             {
-                strException = String.Format("[{0}@{1}] 连接超时，未连接到指定服务器", ipAddress.ToString(), nPort);
+                strException = String.Format("[{0}@{1}] Connect timeout，Failed to connect to the specified server", ipAddress.ToString(), nPort);
                 ret = false;
             }
             else
@@ -67,15 +67,15 @@ namespace Reader
                 try
                 {
                     tcpClient.EndConnect(ar);
-                    //开始KeppAlive检测
+                    // Start KeppAlive detection
                     if (tcpClient != null)
                     {
-                        tcpClient.IOControl(IOControlCode.KeepAliveValues, KeepAlive(1, 300, 300), null);//设置Keep-Alive参数
+                        tcpClient.IOControl(IOControlCode.KeepAliveValues, KeepAlive(1, 300, 300), null);//Set the keep-alive parameter
                     }
 
                     if (!IsConnect())
                     {
-                        //建立线程收取服务器发送数据
+                        // Set up a thread to receive data from the server
                         ThreadStart stThead = new ThreadStart(ReceivedData);
                         waitThread = new Thread(stThead);
                         waitThread.IsBackground = true;
@@ -87,7 +87,7 @@ namespace Reader
                 }
                 catch (Exception e)
                 {
-                    strException = String.Format("[{0}@{1}] 连接异常：{2}", ipAddress.ToString(), nPort, e.Message);
+                    strException = String.Format("[{0}@{1}] Connect Error：{2}", ipAddress.ToString(), nPort, e.Message);
                     Thread.Sleep(connectTimeout);
                     ret = false;
                 }
@@ -98,9 +98,9 @@ namespace Reader
         private byte[] KeepAlive(int onOff, int keepAliveTime, int keepAliveInterval)
         {
             byte[] buffer = new byte[12];
-            BitConverter.GetBytes(onOff).CopyTo(buffer, 0); // 是否启用Keep-Alive
-            BitConverter.GetBytes(keepAliveTime).CopyTo(buffer, 4); // 多长时间后开始第一次探测（单位：毫秒）
-            BitConverter.GetBytes(keepAliveInterval).CopyTo(buffer, 8); //探测时间间隔（单位：毫秒）
+            BitConverter.GetBytes(onOff).CopyTo(buffer, 0); // Whether to enable Keep-alive
+            BitConverter.GetBytes(keepAliveTime).CopyTo(buffer, 4); // How long will it take for the first probe to start (in milliseconds)
+            BitConverter.GetBytes(keepAliveInterval).CopyTo(buffer, 8);// Detection time interval (in milliseconds)
             return buffer;
         }
 
@@ -120,7 +120,6 @@ namespace Reader
                         int nLenRead = tcpClient.Receive(btAryBuffer);
                         if (nLenRead == 0)
                         {
-                            Console.WriteLine("数据接收正常断开！！");
                             continue;
                         }
                         if (EvRecvData != null)
@@ -138,7 +137,7 @@ namespace Reader
                         if (ex is SocketException)
                         {
                             SocketError err = ((SocketException)ex).SocketErrorCode;
-                            exStr = String.Format("[{0}@{1}] 数据接收异常：{2}", ipAddress.ToString(), nPort, ex.Message);
+                            exStr = String.Format("[{0}@{1}] Data Receive Error：{2}", ipAddress.ToString(), nPort, ex.Message);
                             if (err.Equals(SocketError.ConnectionReset))
                             {
                                 OnReadException(exStr, ex);
@@ -171,12 +170,12 @@ namespace Reader
             {
                 if (Connect(this.ipAddress, this.nPort, out string strException))
                 {
-                    exStr = String.Format("[{0}@{1}] 第[{2}]次重连成功!", ipAddress.ToString(), nPort, tryReconnectTimes);
+                    exStr = String.Format("[{0}@{1}] [{2}] times Reconnect Success!", ipAddress.ToString(), nPort, tryReconnectTimes);
                     isReconnect = false;
                 }
                 else
                 {
-                    exStr = String.Format("[{0}@{1}] 第[{2}]次重连失败! {3}", ipAddress.ToString(), nPort, tryReconnectTimes++, strException);
+                    exStr = String.Format("[{0}@{1}] [{2}]times Reconnect Failed! {3}", ipAddress.ToString(), nPort, tryReconnectTimes++, strException);
                 }
                 OnReadException(exStr, new Exception());
             }
@@ -196,7 +195,7 @@ namespace Reader
             }
             catch (Exception e)
             {
-                string exStr = String.Format("[{0}@{1}] 数据发送失败", ipAddress.ToString(), nPort, e.Message);
+                string exStr = String.Format("[{0}@{1}] Send Data Failed", ipAddress.ToString(), nPort, e.Message);
                 OnReadException(exStr, e);
                 return false;
             }
@@ -205,7 +204,7 @@ namespace Reader
         public void SignOut()
         {
             //Console.WriteLine("SignOut");
-            string exStr = String.Format("[{0}@{1}] 登出!", ipAddress.ToString(), nPort);
+            string exStr = String.Format("[{0}@{1}] Logout!", ipAddress.ToString(), nPort);
             OnReadException(exStr, new Exception());
             Console.WriteLine("SignOut isRecv={0}, isReconnect={1}", isRecv, isReconnect);
             isReconnect = false;

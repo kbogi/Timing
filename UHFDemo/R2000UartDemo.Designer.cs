@@ -32,12 +32,6 @@ namespace UHFDemo
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(R2000UartDemo));
             this.tabCtrMain = new System.Windows.Forms.TabControl();
             this.PagReaderSetting = new System.Windows.Forms.TabPage();
@@ -358,6 +352,7 @@ namespace UHFDemo
             this.radio_btn_realtime_inv = new System.Windows.Forms.RadioButton();
             this.btnInventory = new System.Windows.Forms.Button();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.cb_tagFocus = new System.Windows.Forms.CheckBox();
             this.tb_fast_inv_staytargetB_times = new System.Windows.Forms.TextBox();
             this.label132 = new System.Windows.Forms.Label();
             this.mFastIntervalTime = new System.Windows.Forms.TextBox();
@@ -506,101 +501,100 @@ namespace UHFDemo
             this.label17 = new System.Windows.Forms.Label();
             this.btnSendData = new System.Windows.Forms.Button();
             this.net_configure_tabPage = new System.Windows.Forms.TabPage();
-            this.net_load_cfg_btn = new System.Windows.Forms.Button();
-            this.net_save_cfg_btn = new System.Windows.Forms.Button();
-            this.label171 = new System.Windows.Forms.Label();
-            this.net_search_cnt_label = new System.Windows.Forms.Label();
-            this.label170 = new System.Windows.Forms.Label();
-            this.net_search_size = new System.Windows.Forms.ComboBox();
-            this.net_base_info_lb = new System.Windows.Forms.ListBox();
-            this.net_base_info_label = new System.Windows.Forms.Label();
-            this.net_udpserver_status_label = new System.Windows.Forms.Label();
-            this.net_reset_default = new System.Windows.Forms.Button();
-            this.port_setting_tabcontrol = new System.Windows.Forms.TabControl();
-            this.net_port_0_tabPage = new System.Windows.Forms.TabPage();
-            this.label203 = new System.Windows.Forms.Label();
-            this.net_port_1_dns_host_port_tb = new System.Windows.Forms.TextBox();
-            this.label202 = new System.Windows.Forms.Label();
-            this.net_port_1_dns_host_ip_tb = new System.Windows.Forms.TextBox();
-            this.label128 = new System.Windows.Forms.Label();
-            this.net_port_1_reconnectcnt_tb = new System.Windows.Forms.TextBox();
-            this.net_port_1_dns_flag = new System.Windows.Forms.CheckBox();
-            this.label192 = new System.Windows.Forms.Label();
-            this.label190 = new System.Windows.Forms.Label();
-            this.label191 = new System.Windows.Forms.Label();
-            this.net_port_1_resetctrl_cb = new System.Windows.Forms.CheckBox();
-            this.label189 = new System.Windows.Forms.Label();
-            this.net_port_1_rx_pkg_timeout_tb = new System.Windows.Forms.TextBox();
-            this.label188 = new System.Windows.Forms.Label();
-            this.net_port_1_rx_pkg_size_tb = new System.Windows.Forms.TextBox();
-            this.net_port_1_dns_label = new System.Windows.Forms.Label();
-            this.net_port_1_dns_domain_tb = new System.Windows.Forms.TextBox();
-            this.label180 = new System.Windows.Forms.Label();
-            this.net_port_1_phyChangeHandle_cb = new System.Windows.Forms.CheckBox();
-            this.net_port_1_enable_cb = new System.Windows.Forms.CheckBox();
-            this.net_port_1_rand_port_flag_cb = new System.Windows.Forms.CheckBox();
-            this.label169 = new System.Windows.Forms.Label();
-            this.net_port_1_parity_bit_cbo = new System.Windows.Forms.ComboBox();
-            this.label168 = new System.Windows.Forms.Label();
-            this.net_port_1_stopbits_cbo = new System.Windows.Forms.ComboBox();
-            this.label167 = new System.Windows.Forms.Label();
-            this.net_port_1_databits_cbo = new System.Windows.Forms.ComboBox();
-            this.label166 = new System.Windows.Forms.Label();
-            this.net_port_1_baudrate_cbo = new System.Windows.Forms.ComboBox();
-            this.net_port_1_dest_port_tb = new System.Windows.Forms.TextBox();
-            this.label155 = new System.Windows.Forms.Label();
-            this.label129 = new System.Windows.Forms.Label();
-            this.net_port_1_dest_ip_tb = new System.Windows.Forms.TextBox();
-            this.net_port_1_local_net_port_tb = new System.Windows.Forms.TextBox();
-            this.label126 = new System.Windows.Forms.Label();
-            this.label125 = new System.Windows.Forms.Label();
-            this.net_port_1_net_mode_cbo = new System.Windows.Forms.ComboBox();
-            this.net_port_1_tabPage = new System.Windows.Forms.TabPage();
-            this.net_use_heartbeat_cb = new System.Windows.Forms.CheckBox();
-            this.net_heartbeat_interval_tb = new System.Windows.Forms.TextBox();
-            this.label174 = new System.Windows.Forms.Label();
-            this.label175 = new System.Windows.Forms.Label();
-            this.net_heartbeat_content_tb = new System.Windows.Forms.TextBox();
-            this.net_port_config_tool_linkLabel = new System.Windows.Forms.LinkLabel();
-            this.label165 = new System.Windows.Forms.Label();
-            this.label164 = new System.Windows.Forms.Label();
-            this.old_net_port_link = new System.Windows.Forms.LinkLabel();
-            this.label163 = new System.Windows.Forms.Label();
-            this.net_clear_btn = new System.Windows.Forms.Button();
-            this.net_base_settings_gb = new System.Windows.Forms.GroupBox();
-            this.net_base_mod_mac_tb = new System.Windows.Forms.TextBox();
-            this.label157 = new System.Windows.Forms.Label();
-            this.label193 = new System.Windows.Forms.Label();
-            this.net_base_comcfgEn_cb = new System.Windows.Forms.CheckBox();
-            this.net_base_dhcp_enable_cb = new System.Windows.Forms.CheckBox();
-            this.net_base_mod_gateway_tb = new System.Windows.Forms.TextBox();
-            this.net_base_mod_mask_tb = new System.Windows.Forms.TextBox();
-            this.net_base_mod_ip_tb = new System.Windows.Forms.TextBox();
-            this.net_base_mod_name_tb = new System.Windows.Forms.TextBox();
-            this.label161 = new System.Windows.Forms.Label();
-            this.label160 = new System.Windows.Forms.Label();
-            this.label158 = new System.Windows.Forms.Label();
-            this.label156 = new System.Windows.Forms.Label();
-            this.dev_dgv = new System.Windows.Forms.DataGridView();
-            this.mod_check_Column = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.ModName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModIp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModMac = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ModVer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PcMac = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label159 = new System.Windows.Forms.Label();
-            this.net_card_combox = new System.Windows.Forms.ComboBox();
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.groupBox20 = new System.Windows.Forms.GroupBox();
+            this.btnClearNetCard = new System.Windows.Forms.Button();
+            this.btnSearchNetCard = new System.Windows.Forms.Button();
+            this.dgvNetcard = new System.Windows.Forms.DataGridView();
+            this.ncColumnSerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ncColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ncColumnIp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ncColumnMask = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ncColumnMac = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.lblNetPortCount = new System.Windows.Forms.Label();
+            this.btnClearNetPort = new System.Windows.Forms.Button();
+            this.btnSearchNetport = new System.Windows.Forms.Button();
+            this.groupBox31 = new System.Windows.Forms.GroupBox();
+            this.lblCurNetcard = new System.Windows.Forms.Label();
+            this.lblCurPcMac = new System.Windows.Forms.Label();
+            this.dgvNetPort = new System.Windows.Forms.DataGridView();
+            this.npSerialNumberColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.npDeviceNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.npDeviceIpColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.npDeviceMacColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.npChipVerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.npPcMacColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox32 = new System.Windows.Forms.GroupBox();
+            this.linklblOldNetPortCfgTool = new System.Windows.Forms.LinkLabel();
+            this.linklblNetPortCfgTool = new System.Windows.Forms.LinkLabel();
+            this.label59 = new System.Windows.Forms.Label();
+            this.label65 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnDefaultNetPort = new System.Windows.Forms.Button();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
-            this.label162 = new System.Windows.Forms.Label();
-            this.net_pc_mask_label = new System.Windows.Forms.Label();
-            this.net_pc_mac_label = new System.Windows.Forms.Label();
-            this.net_pc_ip_label = new System.Windows.Forms.Label();
-            this.net_reset_btn = new System.Windows.Forms.Button();
-            this.net_setCfg_btn = new System.Windows.Forms.Button();
-            this.net_getCfg_btn = new System.Windows.Forms.Button();
-            this.net_search_btn = new System.Windows.Forms.Button();
-            this.net_refresh_netcard_btn = new System.Windows.Forms.Button();
-            this.johar_tabPage = new System.Windows.Forms.TabPage();
+            this.btnStoreCfgToFile = new System.Windows.Forms.Button();
+            this.btnLoadCfgFromFile = new System.Windows.Forms.Button();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.chkbxPort1_DomainEn = new System.Windows.Forms.CheckBox();
+            this.grbDesIpPort = new System.Windows.Forms.GroupBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.txtbxPort1_DesIp = new System.Windows.Forms.TextBox();
+            this.txtbxPort1_DesPort = new System.Windows.Forms.TextBox();
+            this.grbDnsDomain = new System.Windows.Forms.GroupBox();
+            this.txtbxPort1_DnsDomain = new System.Windows.Forms.TextBox();
+            this.groupBox35 = new System.Windows.Forms.GroupBox();
+            this.label85 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.label96 = new System.Windows.Forms.Label();
+            this.label97 = new System.Windows.Forms.Label();
+            this.label98 = new System.Windows.Forms.Label();
+            this.label116 = new System.Windows.Forms.Label();
+            this.chkbxPort1_ResetCtrl = new System.Windows.Forms.CheckBox();
+            this.cmbbxPort1_BaudRate = new System.Windows.Forms.ComboBox();
+            this.label123 = new System.Windows.Forms.Label();
+            this.cmbbxPort1_DataSize = new System.Windows.Forms.ComboBox();
+            this.cmbbxPort1_StopBits = new System.Windows.Forms.ComboBox();
+            this.cmbbxPort1_Parity = new System.Windows.Forms.ComboBox();
+            this.label118 = new System.Windows.Forms.Label();
+            this.txtbxPort1_RxTimeout = new System.Windows.Forms.TextBox();
+            this.label119 = new System.Windows.Forms.Label();
+            this.txtbxPort1_RxPkgLen = new System.Windows.Forms.TextBox();
+            this.txtbxPort1_NetPort = new System.Windows.Forms.TextBox();
+            this.chkbxPort1_PhyDisconnect = new System.Windows.Forms.CheckBox();
+            this.grbHeartbeat = new System.Windows.Forms.GroupBox();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label73 = new System.Windows.Forms.Label();
+            this.txtbxHeartbeatInterval = new System.Windows.Forms.TextBox();
+            this.txtbxHeartbeatContent = new System.Windows.Forms.TextBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.txtbxPort1_ReConnectCnt = new System.Windows.Forms.TextBox();
+            this.chkbxPort1_RandEn = new System.Windows.Forms.CheckBox();
+            this.cmbbxPort1_NetMode = new System.Windows.Forms.ComboBox();
+            this.label120 = new System.Windows.Forms.Label();
+            this.label117 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
+            this.groupBox37 = new System.Windows.Forms.GroupBox();
+            this.chkbxPort0PortEn = new System.Windows.Forms.CheckBox();
+            this.chkbxPort1_PortEn = new System.Windows.Forms.CheckBox();
+            this.groupBox36 = new System.Windows.Forms.GroupBox();
+            this.chkbxHwCfgComCfgEn = new System.Windows.Forms.CheckBox();
+            this.chkbxHwCfgDhcpEn = new System.Windows.Forms.CheckBox();
+            this.label66 = new System.Windows.Forms.Label();
+            this.txtbxHwCfgMac = new System.Windows.Forms.TextBox();
+            this.txtbxHwCfgGateway = new System.Windows.Forms.TextBox();
+            this.txtbxHwCfgMask = new System.Windows.Forms.TextBox();
+            this.label95 = new System.Windows.Forms.Label();
+            this.txtbxHwCfgDeviceName = new System.Windows.Forms.TextBox();
+            this.txtbxHwCfgIp = new System.Windows.Forms.TextBox();
+            this.label68 = new System.Windows.Forms.Label();
+            this.label67 = new System.Windows.Forms.Label();
+            this.label63 = new System.Windows.Forms.Label();
+            this.btnResetNetport = new System.Windows.Forms.Button();
+            this.btnSetNetport = new System.Windows.Forms.Button();
+            this.btnGetNetport = new System.Windows.Forms.Button();
+            this.sensorTags_tabPage = new System.Windows.Forms.TabPage();
             this.panel11 = new System.Windows.Forms.Panel();
             this.johar_read_btn = new System.Windows.Forms.Button();
             this.johar_cb = new System.Windows.Forms.CheckBox();
@@ -670,14 +664,13 @@ namespace UHFDemo
             this.label90 = new System.Windows.Forms.Label();
             this.label91 = new System.Windows.Forms.Label();
             this.ckClearOperationRec = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.lrtxtLog = new CustomControl.LogRichTextBox();
             this.lxLedControl14 = new LxControl.LxLedControl();
             this.lxLedControl15 = new LxControl.LxLedControl();
             this.lxLedControl16 = new LxControl.LxLedControl();
             this.lxLedControl17 = new LxControl.LxLedControl();
             this.lxLedControl18 = new LxControl.LxLedControl();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.cb_tagFocus = new System.Windows.Forms.CheckBox();
             this.tabCtrMain.SuspendLayout();
             this.PagReaderSetting.SuspendLayout();
             this.tabControl_baseSettings.SuspendLayout();
@@ -771,13 +764,23 @@ namespace UHFDemo
             this.panel9.SuspendLayout();
             this.panel3.SuspendLayout();
             this.net_configure_tabPage.SuspendLayout();
-            this.port_setting_tabcontrol.SuspendLayout();
-            this.net_port_0_tabPage.SuspendLayout();
-            this.net_port_1_tabPage.SuspendLayout();
-            this.net_base_settings_gb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dev_dgv)).BeginInit();
+            this.flowLayoutPanel3.SuspendLayout();
+            this.groupBox20.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNetcard)).BeginInit();
+            this.groupBox28.SuspendLayout();
+            this.groupBox31.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNetPort)).BeginInit();
+            this.groupBox32.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.groupBox30.SuspendLayout();
-            this.johar_tabPage.SuspendLayout();
+            this.flowLayoutPanel4.SuspendLayout();
+            this.grbDesIpPort.SuspendLayout();
+            this.grbDnsDomain.SuspendLayout();
+            this.groupBox35.SuspendLayout();
+            this.grbHeartbeat.SuspendLayout();
+            this.groupBox37.SuspendLayout();
+            this.groupBox36.SuspendLayout();
+            this.sensorTags_tabPage.SuspendLayout();
             this.panel11.SuspendLayout();
             this.johar_settings_gb.SuspendLayout();
             this.johar_readmode_gb.SuspendLayout();
@@ -795,12 +798,12 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl13)).BeginInit();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl14)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl15)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl17)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl18)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabCtrMain
@@ -813,7 +816,7 @@ namespace UHFDemo
             this.tabCtrMain.Controls.Add(this.PagISO18000);
             this.tabCtrMain.Controls.Add(this.PagTranDataLog);
             this.tabCtrMain.Controls.Add(this.net_configure_tabPage);
-            this.tabCtrMain.Controls.Add(this.johar_tabPage);
+            this.tabCtrMain.Controls.Add(this.sensorTags_tabPage);
             this.tabCtrMain.Location = new System.Drawing.Point(0, 0);
             this.tabCtrMain.Name = "tabCtrMain";
             this.tabCtrMain.SelectedIndex = 0;
@@ -831,7 +834,7 @@ namespace UHFDemo
             this.PagReaderSetting.Padding = new System.Windows.Forms.Padding(3);
             this.PagReaderSetting.Size = new System.Drawing.Size(1010, 555);
             this.PagReaderSetting.TabIndex = 0;
-            this.PagReaderSetting.Text = "读写器设置";
+            this.PagReaderSetting.Text = "Reader Setup";
             // 
             // tabControl_baseSettings
             // 
@@ -859,7 +862,7 @@ namespace UHFDemo
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(996, 523);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "基本参数设置";
+            this.tabPage1.Text = "Basic Setup";
             // 
             // flowLayoutPanel2
             // 
@@ -884,16 +887,16 @@ namespace UHFDemo
             this.groupBox1.Size = new System.Drawing.Size(413, 125);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "连接";
+            this.groupBox1.Text = "Connection";
             // 
             // btnConnect
             // 
-            this.btnConnect.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnConnect.Font = new System.Drawing.Font("宋体", 9F);
             this.btnConnect.Location = new System.Drawing.Point(268, 12);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(136, 51);
             this.btnConnect.TabIndex = 2;
-            this.btnConnect.Text = "连接读写器";
+            this.btnConnect.Text = "Connect";
             this.btnConnect.UseVisualStyleBackColor = true;
             this.btnConnect.Click += new System.EventHandler(this.btnConnect_Click);
             // 
@@ -908,17 +911,17 @@ namespace UHFDemo
             this.groupBox24.Size = new System.Drawing.Size(267, 44);
             this.groupBox24.TabIndex = 16;
             this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "读写器类型";
+            this.groupBox24.Text = "Channels Count";
             // 
             // antType16
             // 
             this.antType16.AutoSize = true;
             this.antType16.Location = new System.Drawing.Point(202, 17);
             this.antType16.Name = "antType16";
-            this.antType16.Size = new System.Drawing.Size(59, 16);
+            this.antType16.Size = new System.Drawing.Size(53, 16);
             this.antType16.TabIndex = 3;
             this.antType16.TabStop = true;
-            this.antType16.Text = "16天线";
+            this.antType16.Text = "16ANT";
             this.antType16.UseVisualStyleBackColor = true;
             this.antType16.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
             // 
@@ -927,10 +930,10 @@ namespace UHFDemo
             this.antType8.AutoSize = true;
             this.antType8.Location = new System.Drawing.Point(140, 17);
             this.antType8.Name = "antType8";
-            this.antType8.Size = new System.Drawing.Size(53, 16);
+            this.antType8.Size = new System.Drawing.Size(47, 16);
             this.antType8.TabIndex = 2;
             this.antType8.TabStop = true;
-            this.antType8.Text = "8天线";
+            this.antType8.Text = "8ANT";
             this.antType8.UseVisualStyleBackColor = true;
             this.antType8.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
             // 
@@ -939,10 +942,10 @@ namespace UHFDemo
             this.antType4.AutoSize = true;
             this.antType4.Location = new System.Drawing.Point(79, 17);
             this.antType4.Name = "antType4";
-            this.antType4.Size = new System.Drawing.Size(53, 16);
+            this.antType4.Size = new System.Drawing.Size(47, 16);
             this.antType4.TabIndex = 1;
             this.antType4.TabStop = true;
-            this.antType4.Text = "4天线";
+            this.antType4.Text = "4ANT";
             this.antType4.UseVisualStyleBackColor = true;
             this.antType4.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
             // 
@@ -951,10 +954,10 @@ namespace UHFDemo
             this.antType1.AutoSize = true;
             this.antType1.Location = new System.Drawing.Point(19, 17);
             this.antType1.Name = "antType1";
-            this.antType1.Size = new System.Drawing.Size(53, 16);
+            this.antType1.Size = new System.Drawing.Size(47, 16);
             this.antType1.TabIndex = 0;
             this.antType1.TabStop = true;
-            this.antType1.Text = "1天线";
+            this.antType1.Text = "1ANT";
             this.antType1.UseVisualStyleBackColor = true;
             this.antType1.CheckedChanged += new System.EventHandler(this.antType_CheckedChanged);
             // 
@@ -967,7 +970,7 @@ namespace UHFDemo
             this.gbConnectType.Size = new System.Drawing.Size(193, 44);
             this.gbConnectType.TabIndex = 1;
             this.gbConnectType.TabStop = false;
-            this.gbConnectType.Text = "连接方式";
+            this.gbConnectType.Text = "Connect Type";
             // 
             // radio_btn_tcp
             // 
@@ -1016,17 +1019,17 @@ namespace UHFDemo
             this.btn_refresh_comports.Name = "btn_refresh_comports";
             this.btn_refresh_comports.Size = new System.Drawing.Size(90, 23);
             this.btn_refresh_comports.TabIndex = 4;
-            this.btn_refresh_comports.Text = "刷新";
+            this.btn_refresh_comports.Text = "Refresh";
             this.btn_refresh_comports.UseVisualStyleBackColor = true;
             this.btn_refresh_comports.Click += new System.EventHandler(this.btn_refresh_comports_Click);
             // 
             // btnSetUartBaudrate
             // 
-            this.btnSetUartBaudrate.Location = new System.Drawing.Point(315, 93);
+            this.btnSetUartBaudrate.Location = new System.Drawing.Point(314, 93);
             this.btnSetUartBaudrate.Name = "btnSetUartBaudrate";
             this.btnSetUartBaudrate.Size = new System.Drawing.Size(90, 23);
             this.btnSetUartBaudrate.TabIndex = 1;
-            this.btnSetUartBaudrate.Text = "设置";
+            this.btnSetUartBaudrate.Text = "Set";
             this.btnSetUartBaudrate.UseVisualStyleBackColor = true;
             this.btnSetUartBaudrate.Click += new System.EventHandler(this.btnSetUartBaudrate_Click);
             // 
@@ -1037,7 +1040,7 @@ namespace UHFDemo
             this.cmbSetBaudrate.Items.AddRange(new object[] {
             "38400",
             "115200"});
-            this.cmbSetBaudrate.Location = new System.Drawing.Point(114, 94);
+            this.cmbSetBaudrate.Location = new System.Drawing.Point(113, 94);
             this.cmbSetBaudrate.Name = "cmbSetBaudrate";
             this.cmbSetBaudrate.Size = new System.Drawing.Size(121, 20);
             this.cmbSetBaudrate.TabIndex = 0;
@@ -1045,11 +1048,11 @@ namespace UHFDemo
             // lbChangeBaudrate
             // 
             this.lbChangeBaudrate.AutoSize = true;
-            this.lbChangeBaudrate.Location = new System.Drawing.Point(33, 98);
+            this.lbChangeBaudrate.Location = new System.Drawing.Point(13, 98);
             this.lbChangeBaudrate.Name = "lbChangeBaudrate";
-            this.lbChangeBaudrate.Size = new System.Drawing.Size(71, 12);
+            this.lbChangeBaudrate.Size = new System.Drawing.Size(83, 12);
             this.lbChangeBaudrate.TabIndex = 0;
-            this.lbChangeBaudrate.Text = "设置波特率:";
+            this.lbChangeBaudrate.Text = "Set Baudrate:";
             // 
             // cmbBaudrate
             // 
@@ -1058,7 +1061,7 @@ namespace UHFDemo
             this.cmbBaudrate.Items.AddRange(new object[] {
             "38400",
             "115200"});
-            this.cmbBaudrate.Location = new System.Drawing.Point(113, 50);
+            this.cmbBaudrate.Location = new System.Drawing.Point(113, 55);
             this.cmbBaudrate.Name = "cmbBaudrate";
             this.cmbBaudrate.Size = new System.Drawing.Size(121, 20);
             this.cmbBaudrate.TabIndex = 1;
@@ -1075,20 +1078,20 @@ namespace UHFDemo
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 54);
+            this.label2.Location = new System.Drawing.Point(13, 59);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 12);
+            this.label2.Size = new System.Drawing.Size(59, 12);
             this.label2.TabIndex = 1;
-            this.label2.Text = "串口波特率:";
+            this.label2.Text = "Baudrate:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 20);
+            this.label1.Location = new System.Drawing.Point(13, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.Size = new System.Drawing.Size(71, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "串口号:";
+            this.label1.Text = "SerialPort:";
             // 
             // grb_tcp
             // 
@@ -1105,7 +1108,7 @@ namespace UHFDemo
             // 
             // txtTcpPort
             // 
-            this.txtTcpPort.Location = new System.Drawing.Point(314, 20);
+            this.txtTcpPort.Location = new System.Drawing.Point(314, 25);
             this.txtTcpPort.Name = "txtTcpPort";
             this.txtTcpPort.Size = new System.Drawing.Size(90, 21);
             this.txtTcpPort.TabIndex = 1;
@@ -1114,7 +1117,7 @@ namespace UHFDemo
             // ipIpServer
             // 
             this.ipIpServer.IpAddressStr = "";
-            this.ipIpServer.Location = new System.Drawing.Point(113, 21);
+            this.ipIpServer.Location = new System.Drawing.Point(113, 25);
             this.ipIpServer.Name = "ipIpServer";
             this.ipIpServer.Size = new System.Drawing.Size(122, 21);
             this.ipIpServer.TabIndex = 0;
@@ -1122,20 +1125,20 @@ namespace UHFDemo
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(261, 25);
+            this.label4.Location = new System.Drawing.Point(261, 29);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(47, 12);
+            this.label4.Size = new System.Drawing.Size(35, 12);
             this.label4.TabIndex = 1;
-            this.label4.Text = "端口号:";
+            this.label4.Text = "Port:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(44, 29);
+            this.label3.Location = new System.Drawing.Point(13, 29);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 12);
+            this.label3.Size = new System.Drawing.Size(95, 12);
             this.label3.TabIndex = 0;
-            this.label3.Text = "读写器IP:";
+            this.label3.Text = "Reader IP Addr:";
             // 
             // gbCmdReaderAddress
             // 
@@ -1147,23 +1150,23 @@ namespace UHFDemo
             this.gbCmdReaderAddress.Size = new System.Drawing.Size(413, 66);
             this.gbCmdReaderAddress.TabIndex = 5;
             this.gbCmdReaderAddress.TabStop = false;
-            this.gbCmdReaderAddress.Text = "读写器RS-485地址(HEX)";
+            this.gbCmdReaderAddress.Text = "RS485 Address(HEX)";
             // 
             // htxtReadId
             // 
-            this.htxtReadId.Location = new System.Drawing.Point(114, 25);
+            this.htxtReadId.Location = new System.Drawing.Point(113, 25);
             this.htxtReadId.Name = "htxtReadId";
-            this.htxtReadId.Size = new System.Drawing.Size(121, 21);
+            this.htxtReadId.Size = new System.Drawing.Size(122, 21);
             this.htxtReadId.TabIndex = 2;
             this.htxtReadId.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // btnSetReadAddress
             // 
-            this.btnSetReadAddress.Location = new System.Drawing.Point(314, 26);
+            this.btnSetReadAddress.Location = new System.Drawing.Point(314, 24);
             this.btnSetReadAddress.Name = "btnSetReadAddress";
             this.btnSetReadAddress.Size = new System.Drawing.Size(90, 23);
             this.btnSetReadAddress.TabIndex = 1;
-            this.btnSetReadAddress.Text = "设置 ";
+            this.btnSetReadAddress.Text = "Set";
             this.btnSetReadAddress.UseVisualStyleBackColor = true;
             this.btnSetReadAddress.Click += new System.EventHandler(this.btnSetReadAddress_Click);
             // 
@@ -1179,11 +1182,11 @@ namespace UHFDemo
             this.gbCmdBaudrate.Size = new System.Drawing.Size(413, 96);
             this.gbCmdBaudrate.TabIndex = 7;
             this.gbCmdBaudrate.TabStop = false;
-            this.gbCmdBaudrate.Text = "读写器识别标识(12字节)";
+            this.gbCmdBaudrate.Text = "Reader Identifier(12 Bytes)";
             // 
             // htbGetIdentifier
             // 
-            this.htbGetIdentifier.Location = new System.Drawing.Point(34, 22);
+            this.htbGetIdentifier.Location = new System.Drawing.Point(13, 22);
             this.htbGetIdentifier.Name = "htbGetIdentifier";
             this.htbGetIdentifier.ReadOnly = true;
             this.htbGetIdentifier.Size = new System.Drawing.Size(228, 21);
@@ -1192,7 +1195,7 @@ namespace UHFDemo
             // 
             // htbSetIdentifier
             // 
-            this.htbSetIdentifier.Location = new System.Drawing.Point(34, 61);
+            this.htbSetIdentifier.Location = new System.Drawing.Point(13, 61);
             this.htbSetIdentifier.Name = "htbSetIdentifier";
             this.htbSetIdentifier.Size = new System.Drawing.Size(228, 21);
             this.htbSetIdentifier.TabIndex = 12;
@@ -1204,7 +1207,7 @@ namespace UHFDemo
             this.btSetIdentifier.Name = "btSetIdentifier";
             this.btSetIdentifier.Size = new System.Drawing.Size(90, 23);
             this.btSetIdentifier.TabIndex = 1;
-            this.btSetIdentifier.Text = "设置";
+            this.btSetIdentifier.Text = "Set";
             this.btSetIdentifier.UseVisualStyleBackColor = true;
             this.btSetIdentifier.Click += new System.EventHandler(this.btSetIdentifier_Click);
             // 
@@ -1214,17 +1217,17 @@ namespace UHFDemo
             this.btGetIdentifier.Name = "btGetIdentifier";
             this.btGetIdentifier.Size = new System.Drawing.Size(90, 23);
             this.btGetIdentifier.TabIndex = 0;
-            this.btGetIdentifier.Text = "读取";
+            this.btGetIdentifier.Text = "Get";
             this.btGetIdentifier.UseVisualStyleBackColor = true;
             this.btGetIdentifier.Click += new System.EventHandler(this.btGetIdentifier_Click);
             // 
             // btReaderSetupRefresh
             // 
-            this.btReaderSetupRefresh.Location = new System.Drawing.Point(857, 474);
+            this.btReaderSetupRefresh.Location = new System.Drawing.Point(858, 494);
             this.btReaderSetupRefresh.Name = "btReaderSetupRefresh";
             this.btReaderSetupRefresh.Size = new System.Drawing.Size(89, 23);
             this.btReaderSetupRefresh.TabIndex = 15;
-            this.btReaderSetupRefresh.Text = "刷新界面";
+            this.btReaderSetupRefresh.Text = "Refresh";
             this.btReaderSetupRefresh.UseVisualStyleBackColor = true;
             this.btReaderSetupRefresh.Click += new System.EventHandler(this.btReaderSetupRefresh_Click);
             // 
@@ -1238,7 +1241,7 @@ namespace UHFDemo
             this.gbCmdReadGpio.Size = new System.Drawing.Size(519, 233);
             this.gbCmdReadGpio.TabIndex = 12;
             this.gbCmdReadGpio.TabStop = false;
-            this.gbCmdReadGpio.Text = "读写GPIO";
+            this.gbCmdReadGpio.Text = "Read/Write GPIO";
             // 
             // groupBox11
             // 
@@ -1253,14 +1256,14 @@ namespace UHFDemo
             this.groupBox11.Size = new System.Drawing.Size(485, 98);
             this.groupBox11.TabIndex = 13;
             this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "写GPIO";
+            this.groupBox11.Text = "Write GPIO";
             // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label33);
             this.groupBox6.Controls.Add(this.rdbGpio3High);
             this.groupBox6.Controls.Add(this.rdbGpio3Low);
-            this.groupBox6.Location = new System.Drawing.Point(56, 17);
+            this.groupBox6.Location = new System.Drawing.Point(53, 17);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(245, 29);
             this.groupBox6.TabIndex = 4;
@@ -1280,10 +1283,10 @@ namespace UHFDemo
             this.rdbGpio3High.AutoSize = true;
             this.rdbGpio3High.Location = new System.Drawing.Point(78, 10);
             this.rdbGpio3High.Name = "rdbGpio3High";
-            this.rdbGpio3High.Size = new System.Drawing.Size(35, 16);
+            this.rdbGpio3High.Size = new System.Drawing.Size(47, 16);
             this.rdbGpio3High.TabIndex = 6;
             this.rdbGpio3High.TabStop = true;
-            this.rdbGpio3High.Text = "高";
+            this.rdbGpio3High.Text = "High";
             this.rdbGpio3High.UseVisualStyleBackColor = true;
             // 
             // rdbGpio3Low
@@ -1291,10 +1294,10 @@ namespace UHFDemo
             this.rdbGpio3Low.AutoSize = true;
             this.rdbGpio3Low.Location = new System.Drawing.Point(161, 10);
             this.rdbGpio3Low.Name = "rdbGpio3Low";
-            this.rdbGpio3Low.Size = new System.Drawing.Size(35, 16);
+            this.rdbGpio3Low.Size = new System.Drawing.Size(41, 16);
             this.rdbGpio3Low.TabIndex = 0;
             this.rdbGpio3Low.TabStop = true;
-            this.rdbGpio3Low.Text = "低";
+            this.rdbGpio3Low.Text = "Low";
             this.rdbGpio3Low.UseVisualStyleBackColor = true;
             // 
             // groupBox7
@@ -1302,7 +1305,7 @@ namespace UHFDemo
             this.groupBox7.Controls.Add(this.label32);
             this.groupBox7.Controls.Add(this.rdbGpio4High);
             this.groupBox7.Controls.Add(this.rdbGpio4Low);
-            this.groupBox7.Location = new System.Drawing.Point(56, 54);
+            this.groupBox7.Location = new System.Drawing.Point(53, 54);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(245, 30);
             this.groupBox7.TabIndex = 4;
@@ -1322,10 +1325,10 @@ namespace UHFDemo
             this.rdbGpio4High.AutoSize = true;
             this.rdbGpio4High.Location = new System.Drawing.Point(77, 10);
             this.rdbGpio4High.Name = "rdbGpio4High";
-            this.rdbGpio4High.Size = new System.Drawing.Size(35, 16);
+            this.rdbGpio4High.Size = new System.Drawing.Size(47, 16);
             this.rdbGpio4High.TabIndex = 1;
             this.rdbGpio4High.TabStop = true;
-            this.rdbGpio4High.Text = "高";
+            this.rdbGpio4High.Text = "High";
             this.rdbGpio4High.UseVisualStyleBackColor = true;
             // 
             // rdbGpio4Low
@@ -1333,29 +1336,29 @@ namespace UHFDemo
             this.rdbGpio4Low.AutoSize = true;
             this.rdbGpio4Low.Location = new System.Drawing.Point(161, 10);
             this.rdbGpio4Low.Name = "rdbGpio4Low";
-            this.rdbGpio4Low.Size = new System.Drawing.Size(35, 16);
+            this.rdbGpio4Low.Size = new System.Drawing.Size(41, 16);
             this.rdbGpio4Low.TabIndex = 2;
             this.rdbGpio4Low.TabStop = true;
-            this.rdbGpio4Low.Text = "低";
+            this.rdbGpio4Low.Text = "Low";
             this.rdbGpio4Low.UseVisualStyleBackColor = true;
             // 
             // btnWriteGpio4Value
             // 
-            this.btnWriteGpio4Value.Location = new System.Drawing.Point(378, 61);
+            this.btnWriteGpio4Value.Location = new System.Drawing.Point(377, 61);
             this.btnWriteGpio4Value.Name = "btnWriteGpio4Value";
             this.btnWriteGpio4Value.Size = new System.Drawing.Size(90, 23);
             this.btnWriteGpio4Value.TabIndex = 5;
-            this.btnWriteGpio4Value.Text = "写GPIO4";
+            this.btnWriteGpio4Value.Text = "Write GPIO4";
             this.btnWriteGpio4Value.UseVisualStyleBackColor = true;
             this.btnWriteGpio4Value.Click += new System.EventHandler(this.btnWriteGpio4Value_Click);
             // 
             // btnWriteGpio3Value
             // 
-            this.btnWriteGpio3Value.Location = new System.Drawing.Point(378, 24);
+            this.btnWriteGpio3Value.Location = new System.Drawing.Point(377, 24);
             this.btnWriteGpio3Value.Name = "btnWriteGpio3Value";
             this.btnWriteGpio3Value.Size = new System.Drawing.Size(90, 23);
             this.btnWriteGpio3Value.TabIndex = 10;
-            this.btnWriteGpio3Value.Text = "写GPIO3";
+            this.btnWriteGpio3Value.Text = "Write GPIO3";
             this.btnWriteGpio3Value.UseVisualStyleBackColor = true;
             this.btnWriteGpio3Value.Click += new System.EventHandler(this.btnWriteGpio3Value_Click);
             // 
@@ -1370,7 +1373,7 @@ namespace UHFDemo
             this.groupBox10.Size = new System.Drawing.Size(485, 98);
             this.groupBox10.TabIndex = 12;
             this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "读GPIO";
+            this.groupBox10.Text = "Read GPIO";
             // 
             // groupBox4
             // 
@@ -1397,10 +1400,10 @@ namespace UHFDemo
             this.rdbGpio1High.AutoSize = true;
             this.rdbGpio1High.Location = new System.Drawing.Point(78, 12);
             this.rdbGpio1High.Name = "rdbGpio1High";
-            this.rdbGpio1High.Size = new System.Drawing.Size(35, 16);
+            this.rdbGpio1High.Size = new System.Drawing.Size(47, 16);
             this.rdbGpio1High.TabIndex = 1;
             this.rdbGpio1High.TabStop = true;
-            this.rdbGpio1High.Text = "高";
+            this.rdbGpio1High.Text = "High";
             this.rdbGpio1High.UseVisualStyleBackColor = true;
             // 
             // rdbGpio1Low
@@ -1408,10 +1411,10 @@ namespace UHFDemo
             this.rdbGpio1Low.AutoSize = true;
             this.rdbGpio1Low.Location = new System.Drawing.Point(163, 12);
             this.rdbGpio1Low.Name = "rdbGpio1Low";
-            this.rdbGpio1Low.Size = new System.Drawing.Size(35, 16);
+            this.rdbGpio1Low.Size = new System.Drawing.Size(41, 16);
             this.rdbGpio1Low.TabIndex = 2;
             this.rdbGpio1Low.TabStop = true;
-            this.rdbGpio1Low.Text = "低";
+            this.rdbGpio1Low.Text = "Low";
             this.rdbGpio1Low.UseVisualStyleBackColor = true;
             // 
             // groupBox5
@@ -1439,10 +1442,10 @@ namespace UHFDemo
             this.rdbGpio2High.AutoSize = true;
             this.rdbGpio2High.Location = new System.Drawing.Point(77, 12);
             this.rdbGpio2High.Name = "rdbGpio2High";
-            this.rdbGpio2High.Size = new System.Drawing.Size(35, 16);
+            this.rdbGpio2High.Size = new System.Drawing.Size(47, 16);
             this.rdbGpio2High.TabIndex = 4;
             this.rdbGpio2High.TabStop = true;
-            this.rdbGpio2High.Text = "高";
+            this.rdbGpio2High.Text = "High";
             this.rdbGpio2High.UseVisualStyleBackColor = true;
             // 
             // rdbGpio2Low
@@ -1450,10 +1453,10 @@ namespace UHFDemo
             this.rdbGpio2Low.AutoSize = true;
             this.rdbGpio2Low.Location = new System.Drawing.Point(163, 12);
             this.rdbGpio2Low.Name = "rdbGpio2Low";
-            this.rdbGpio2Low.Size = new System.Drawing.Size(35, 16);
+            this.rdbGpio2Low.Size = new System.Drawing.Size(41, 16);
             this.rdbGpio2Low.TabIndex = 5;
             this.rdbGpio2Low.TabStop = true;
-            this.rdbGpio2Low.Text = "低";
+            this.rdbGpio2Low.Text = "Low";
             this.rdbGpio2Low.UseVisualStyleBackColor = true;
             // 
             // btnReadGpioValue
@@ -1462,7 +1465,7 @@ namespace UHFDemo
             this.btnReadGpioValue.Name = "btnReadGpioValue";
             this.btnReadGpioValue.Size = new System.Drawing.Size(90, 23);
             this.btnReadGpioValue.TabIndex = 0;
-            this.btnReadGpioValue.Text = "读GPIO";
+            this.btnReadGpioValue.Text = "Read";
             this.btnReadGpioValue.UseVisualStyleBackColor = true;
             this.btnReadGpioValue.Click += new System.EventHandler(this.btnReadGpioValue_Click);
             // 
@@ -1475,10 +1478,10 @@ namespace UHFDemo
             this.gbCmdBeeper.ForeColor = System.Drawing.Color.Black;
             this.gbCmdBeeper.Location = new System.Drawing.Point(463, 359);
             this.gbCmdBeeper.Name = "gbCmdBeeper";
-            this.gbCmdBeeper.Size = new System.Drawing.Size(519, 109);
+            this.gbCmdBeeper.Size = new System.Drawing.Size(519, 129);
             this.gbCmdBeeper.TabIndex = 11;
             this.gbCmdBeeper.TabStop = false;
-            this.gbCmdBeeper.Text = "蜂鸣器状态";
+            this.gbCmdBeeper.Text = "Buzzer Behavior";
             // 
             // btnSetBeeperMode
             // 
@@ -1486,7 +1489,7 @@ namespace UHFDemo
             this.btnSetBeeperMode.Name = "btnSetBeeperMode";
             this.btnSetBeeperMode.Size = new System.Drawing.Size(90, 23);
             this.btnSetBeeperMode.TabIndex = 3;
-            this.btnSetBeeperMode.Text = "设置 ";
+            this.btnSetBeeperMode.Text = "Set";
             this.btnSetBeeperMode.UseVisualStyleBackColor = true;
             this.btnSetBeeperMode.Click += new System.EventHandler(this.btnSetBeeperMode_Click);
             // 
@@ -1495,10 +1498,12 @@ namespace UHFDemo
             this.rdbBeeperModeTag.AutoSize = true;
             this.rdbBeeperModeTag.Location = new System.Drawing.Point(16, 69);
             this.rdbBeeperModeTag.Name = "rdbBeeperModeTag";
-            this.rdbBeeperModeTag.Size = new System.Drawing.Size(431, 16);
+            this.rdbBeeperModeTag.Size = new System.Drawing.Size(371, 40);
             this.rdbBeeperModeTag.TabIndex = 2;
             this.rdbBeeperModeTag.TabStop = true;
-            this.rdbBeeperModeTag.Text = "每读到一张标签鸣响(适用于少量标签，响应次数严格按照标签被识别次数。)";
+            this.rdbBeeperModeTag.Text = "Beep after a tag is identified.(This setting applies only \r\nto a small number of " +
+    "tags because the number of sounds \r\nis the same as the number of tags that are i" +
+    "dentified.)";
             this.rdbBeeperModeTag.UseVisualStyleBackColor = true;
             // 
             // rdbBeeperModeInventory
@@ -1506,10 +1511,10 @@ namespace UHFDemo
             this.rdbBeeperModeInventory.AutoSize = true;
             this.rdbBeeperModeInventory.Location = new System.Drawing.Point(16, 42);
             this.rdbBeeperModeInventory.Name = "rdbBeeperModeInventory";
-            this.rdbBeeperModeInventory.Size = new System.Drawing.Size(83, 16);
+            this.rdbBeeperModeInventory.Size = new System.Drawing.Size(197, 16);
             this.rdbBeeperModeInventory.TabIndex = 1;
             this.rdbBeeperModeInventory.TabStop = true;
-            this.rdbBeeperModeInventory.Text = "盘存后鸣响";
+            this.rdbBeeperModeInventory.Text = "Beep after an inventory round";
             this.rdbBeeperModeInventory.UseVisualStyleBackColor = true;
             // 
             // rdbBeeperModeSlient
@@ -1517,10 +1522,10 @@ namespace UHFDemo
             this.rdbBeeperModeSlient.AutoSize = true;
             this.rdbBeeperModeSlient.Location = new System.Drawing.Point(17, 20);
             this.rdbBeeperModeSlient.Name = "rdbBeeperModeSlient";
-            this.rdbBeeperModeSlient.Size = new System.Drawing.Size(47, 16);
+            this.rdbBeeperModeSlient.Size = new System.Drawing.Size(53, 16);
             this.rdbBeeperModeSlient.TabIndex = 0;
             this.rdbBeeperModeSlient.TabStop = true;
-            this.rdbBeeperModeSlient.Text = "安静";
+            this.rdbBeeperModeSlient.Text = "Quiet";
             this.rdbBeeperModeSlient.UseVisualStyleBackColor = true;
             // 
             // gbCmdTemperature
@@ -1533,21 +1538,21 @@ namespace UHFDemo
             this.gbCmdTemperature.Size = new System.Drawing.Size(519, 49);
             this.gbCmdTemperature.TabIndex = 10;
             this.gbCmdTemperature.TabStop = false;
-            this.gbCmdTemperature.Text = "工作温度监控";
+            this.gbCmdTemperature.Text = "Internal Temperature";
             // 
             // btnGetReaderTemperature
             // 
-            this.btnGetReaderTemperature.Location = new System.Drawing.Point(393, 17);
+            this.btnGetReaderTemperature.Location = new System.Drawing.Point(394, 17);
             this.btnGetReaderTemperature.Name = "btnGetReaderTemperature";
             this.btnGetReaderTemperature.Size = new System.Drawing.Size(90, 23);
             this.btnGetReaderTemperature.TabIndex = 0;
-            this.btnGetReaderTemperature.Text = "读取";
+            this.btnGetReaderTemperature.Text = "Get";
             this.btnGetReaderTemperature.UseVisualStyleBackColor = true;
             this.btnGetReaderTemperature.Click += new System.EventHandler(this.btnGetReaderTemperature_Click);
             // 
             // txtReaderTemperature
             // 
-            this.txtReaderTemperature.Location = new System.Drawing.Point(106, 17);
+            this.txtReaderTemperature.Location = new System.Drawing.Point(53, 17);
             this.txtReaderTemperature.Name = "txtReaderTemperature";
             this.txtReaderTemperature.ReadOnly = true;
             this.txtReaderTemperature.Size = new System.Drawing.Size(120, 21);
@@ -1564,7 +1569,7 @@ namespace UHFDemo
             this.gbCmdVersion.Size = new System.Drawing.Size(519, 44);
             this.gbCmdVersion.TabIndex = 9;
             this.gbCmdVersion.TabStop = false;
-            this.gbCmdVersion.Text = "固件版本";
+            this.gbCmdVersion.Text = "Firmware Version";
             // 
             // btnGetFirmwareVersion
             // 
@@ -1572,13 +1577,13 @@ namespace UHFDemo
             this.btnGetFirmwareVersion.Name = "btnGetFirmwareVersion";
             this.btnGetFirmwareVersion.Size = new System.Drawing.Size(90, 23);
             this.btnGetFirmwareVersion.TabIndex = 0;
-            this.btnGetFirmwareVersion.Text = "读取 ";
+            this.btnGetFirmwareVersion.Text = "Get";
             this.btnGetFirmwareVersion.UseVisualStyleBackColor = true;
             this.btnGetFirmwareVersion.Click += new System.EventHandler(this.btnGetFirmwareVersion_Click);
             // 
             // txtFirmwareVersion
             // 
-            this.txtFirmwareVersion.Location = new System.Drawing.Point(105, 16);
+            this.txtFirmwareVersion.Location = new System.Drawing.Point(53, 16);
             this.txtFirmwareVersion.Name = "txtFirmwareVersion";
             this.txtFirmwareVersion.ReadOnly = true;
             this.txtFirmwareVersion.Size = new System.Drawing.Size(121, 21);
@@ -1591,7 +1596,7 @@ namespace UHFDemo
             this.btnResetReader.Name = "btnResetReader";
             this.btnResetReader.Size = new System.Drawing.Size(410, 41);
             this.btnResetReader.TabIndex = 8;
-            this.btnResetReader.Text = "重启读写器";
+            this.btnResetReader.Text = "Reset Reader";
             this.btnResetReader.UseVisualStyleBackColor = true;
             this.btnResetReader.Click += new System.EventHandler(this.btnResetReader_Click);
             // 
@@ -1611,7 +1616,7 @@ namespace UHFDemo
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(996, 523);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "射频参数设置";
+            this.tabPage2.Text = "RF Setup";
             // 
             // gbReturnLoss
             // 
@@ -1628,7 +1633,7 @@ namespace UHFDemo
             this.gbReturnLoss.Size = new System.Drawing.Size(472, 46);
             this.gbReturnLoss.TabIndex = 19;
             this.gbReturnLoss.TabStop = false;
-            this.gbReturnLoss.Text = "测量天线端口回波损耗(Return Loss)";
+            this.gbReturnLoss.Text = "Manual Switch Antenna";
             // 
             // label110
             // 
@@ -1742,7 +1747,7 @@ namespace UHFDemo
             this.btReturnLoss.Name = "btReturnLoss";
             this.btReturnLoss.Size = new System.Drawing.Size(90, 23);
             this.btReturnLoss.TabIndex = 10;
-            this.btReturnLoss.Text = "测量";
+            this.btReturnLoss.Text = "Measure";
             this.btReturnLoss.UseVisualStyleBackColor = true;
             this.btReturnLoss.Click += new System.EventHandler(this.btReturnLoss_Click);
             // 
@@ -1760,7 +1765,7 @@ namespace UHFDemo
             this.gbProfile.Size = new System.Drawing.Size(967, 73);
             this.gbProfile.TabIndex = 18;
             this.gbProfile.TabStop = false;
-            this.gbProfile.Text = "射频通讯链路 ";
+            this.gbProfile.Text = "RF Link Setup";
             // 
             // btGetProfile
             // 
@@ -1768,7 +1773,7 @@ namespace UHFDemo
             this.btGetProfile.Name = "btGetProfile";
             this.btGetProfile.Size = new System.Drawing.Size(90, 23);
             this.btGetProfile.TabIndex = 9;
-            this.btGetProfile.Text = "读取 ";
+            this.btGetProfile.Text = "Get";
             this.btGetProfile.UseVisualStyleBackColor = true;
             this.btGetProfile.Click += new System.EventHandler(this.btGetProfile_Click);
             // 
@@ -1778,54 +1783,54 @@ namespace UHFDemo
             this.btSetProfile.Name = "btSetProfile";
             this.btSetProfile.Size = new System.Drawing.Size(90, 23);
             this.btSetProfile.TabIndex = 8;
-            this.btSetProfile.Text = "设置 ";
+            this.btSetProfile.Text = "Set";
             this.btSetProfile.UseVisualStyleBackColor = true;
             this.btSetProfile.Click += new System.EventHandler(this.btSetProfile_Click);
             // 
             // rdbProfile3
             // 
             this.rdbProfile3.AutoSize = true;
-            this.rdbProfile3.Location = new System.Drawing.Point(347, 45);
+            this.rdbProfile3.Location = new System.Drawing.Point(269, 45);
             this.rdbProfile3.Name = "rdbProfile3";
-            this.rdbProfile3.Size = new System.Drawing.Size(299, 16);
+            this.rdbProfile3.Size = new System.Drawing.Size(317, 16);
             this.rdbProfile3.TabIndex = 3;
             this.rdbProfile3.TabStop = true;
-            this.rdbProfile3.Text = "配置3                 Tari 6.25uS; FM0 400KHz;";
+            this.rdbProfile3.Text = "Profile3                 Tari 6.25uS; FM0 400KHz;";
             this.rdbProfile3.UseVisualStyleBackColor = true;
             // 
             // rdbProfile2
             // 
             this.rdbProfile2.AutoSize = true;
-            this.rdbProfile2.Location = new System.Drawing.Point(65, 45);
+            this.rdbProfile2.Location = new System.Drawing.Point(6, 45);
             this.rdbProfile2.Name = "rdbProfile2";
-            this.rdbProfile2.Size = new System.Drawing.Size(227, 16);
+            this.rdbProfile2.Size = new System.Drawing.Size(245, 16);
             this.rdbProfile2.TabIndex = 2;
             this.rdbProfile2.TabStop = true;
-            this.rdbProfile2.Text = "配置2  Tari 25uS; Miller 4 300KHz;";
+            this.rdbProfile2.Text = "Profile2  Tari 25uS; Miller 4 300KHz;";
             this.rdbProfile2.UseVisualStyleBackColor = true;
             // 
             // rdbProfile1
             // 
             this.rdbProfile1.AutoSize = true;
-            this.rdbProfile1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.rdbProfile1.Font = new System.Drawing.Font("宋体", 9F);
             this.rdbProfile1.ForeColor = System.Drawing.Color.Black;
-            this.rdbProfile1.Location = new System.Drawing.Point(347, 20);
+            this.rdbProfile1.Location = new System.Drawing.Point(269, 20);
             this.rdbProfile1.Name = "rdbProfile1";
-            this.rdbProfile1.Size = new System.Drawing.Size(311, 16);
+            this.rdbProfile1.Size = new System.Drawing.Size(395, 16);
             this.rdbProfile1.TabIndex = 1;
             this.rdbProfile1.TabStop = true;
-            this.rdbProfile1.Text = "配置1(推荐且为默认)   Tari 25uS; Miller 4 250KHz";
+            this.rdbProfile1.Text = "Profile1(Recommended and Default)   Tari 25uS; Miller 4 250KHz";
             this.rdbProfile1.UseVisualStyleBackColor = true;
             // 
             // rdbProfile0
             // 
             this.rdbProfile0.AutoSize = true;
-            this.rdbProfile0.Location = new System.Drawing.Point(65, 20);
+            this.rdbProfile0.Location = new System.Drawing.Point(6, 20);
             this.rdbProfile0.Name = "rdbProfile0";
-            this.rdbProfile0.Size = new System.Drawing.Size(185, 16);
+            this.rdbProfile0.Size = new System.Drawing.Size(203, 16);
             this.rdbProfile0.TabIndex = 0;
             this.rdbProfile0.TabStop = true;
-            this.rdbProfile0.Text = "配置0  Tari 25uS; FM0 40KHz";
+            this.rdbProfile0.Text = "Profile0  Tari 25uS; FM0 40KHz";
             this.rdbProfile0.UseVisualStyleBackColor = true;
             // 
             // btRfSetup
@@ -1834,7 +1839,7 @@ namespace UHFDemo
             this.btRfSetup.Name = "btRfSetup";
             this.btRfSetup.Size = new System.Drawing.Size(90, 23);
             this.btRfSetup.TabIndex = 17;
-            this.btRfSetup.Text = "刷新界面";
+            this.btRfSetup.Text = "Refresh";
             this.btRfSetup.UseVisualStyleBackColor = true;
             this.btRfSetup.Click += new System.EventHandler(this.btRfSetup_Click);
             // 
@@ -1852,7 +1857,7 @@ namespace UHFDemo
             this.gbMonza.Size = new System.Drawing.Size(967, 62);
             this.gbMonza.TabIndex = 15;
             this.gbMonza.TabStop = false;
-            this.gbMonza.Text = "Impinj Monza 标签快速读取TID功能";
+            this.gbMonza.Text = "Impinj Monza FastTID";
             // 
             // label14
             // 
@@ -1860,9 +1865,9 @@ namespace UHFDemo
             this.label14.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.label14.Location = new System.Drawing.Point(48, 40);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(227, 12);
+            this.label14.Size = new System.Drawing.Size(389, 12);
             this.label14.TabIndex = 10;
-            this.label14.Text = "2.若标签不支持快速读TID请关闭此功能。";
+            this.label14.Text = "2.If this function is not supported by tags, please turn it off.";
             // 
             // label11
             // 
@@ -1870,50 +1875,50 @@ namespace UHFDemo
             this.label11.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.label11.Location = new System.Drawing.Point(12, 18);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(371, 12);
+            this.label11.Size = new System.Drawing.Size(479, 12);
             this.label11.TabIndex = 8;
-            this.label11.Text = "说明: 1.只有Impinj Monza系列标签的部分型号支持快速读TID功能。";
+            this.label11.Text = "Note: 1.Only a certain number of  Impinj Monza tag types support this function.";
             // 
             // rdbMonzaOff
             // 
             this.rdbMonzaOff.AutoSize = true;
-            this.rdbMonzaOff.Location = new System.Drawing.Point(524, 27);
+            this.rdbMonzaOff.Location = new System.Drawing.Point(689, 27);
             this.rdbMonzaOff.Name = "rdbMonzaOff";
-            this.rdbMonzaOff.Size = new System.Drawing.Size(47, 16);
+            this.rdbMonzaOff.Size = new System.Drawing.Size(41, 16);
             this.rdbMonzaOff.TabIndex = 3;
             this.rdbMonzaOff.TabStop = true;
-            this.rdbMonzaOff.Text = "关闭";
+            this.rdbMonzaOff.Text = "Off";
             this.rdbMonzaOff.UseVisualStyleBackColor = true;
             // 
             // btSetMonzaStatus
             // 
-            this.btSetMonzaStatus.Location = new System.Drawing.Point(859, 24);
+            this.btSetMonzaStatus.Location = new System.Drawing.Point(858, 24);
             this.btSetMonzaStatus.Name = "btSetMonzaStatus";
             this.btSetMonzaStatus.Size = new System.Drawing.Size(90, 23);
             this.btSetMonzaStatus.TabIndex = 2;
-            this.btSetMonzaStatus.Text = "设置";
+            this.btSetMonzaStatus.Text = "Set";
             this.btSetMonzaStatus.UseVisualStyleBackColor = true;
             this.btSetMonzaStatus.Click += new System.EventHandler(this.btSetMonzaStatus_Click);
             // 
             // btGetMonzaStatus
             // 
-            this.btGetMonzaStatus.Location = new System.Drawing.Point(734, 24);
+            this.btGetMonzaStatus.Location = new System.Drawing.Point(752, 24);
             this.btGetMonzaStatus.Name = "btGetMonzaStatus";
             this.btGetMonzaStatus.Size = new System.Drawing.Size(90, 23);
             this.btGetMonzaStatus.TabIndex = 1;
-            this.btGetMonzaStatus.Text = "读取";
+            this.btGetMonzaStatus.Text = "Get";
             this.btGetMonzaStatus.UseVisualStyleBackColor = true;
             this.btGetMonzaStatus.Click += new System.EventHandler(this.btGetMonzaStatus_Click);
             // 
             // rdbMonzaOn
             // 
             this.rdbMonzaOn.AutoSize = true;
-            this.rdbMonzaOn.Location = new System.Drawing.Point(413, 27);
+            this.rdbMonzaOn.Location = new System.Drawing.Point(636, 27);
             this.rdbMonzaOn.Name = "rdbMonzaOn";
-            this.rdbMonzaOn.Size = new System.Drawing.Size(47, 16);
+            this.rdbMonzaOn.Size = new System.Drawing.Size(35, 16);
             this.rdbMonzaOn.TabIndex = 0;
             this.rdbMonzaOn.TabStop = true;
-            this.rdbMonzaOn.Text = "打开";
+            this.rdbMonzaOn.Text = "On";
             this.rdbMonzaOn.UseVisualStyleBackColor = true;
             // 
             // gbCmdAntDetector
@@ -1932,7 +1937,7 @@ namespace UHFDemo
             this.gbCmdAntDetector.Size = new System.Drawing.Size(967, 72);
             this.gbCmdAntDetector.TabIndex = 13;
             this.gbCmdAntDetector.TabStop = false;
-            this.gbCmdAntDetector.Text = "天线检测灵敏度";
+            this.gbCmdAntDetector.Text = "Antenna Connection Detector(Return Loss)";
             // 
             // label7
             // 
@@ -1940,9 +1945,9 @@ namespace UHFDemo
             this.label7.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.label7.Location = new System.Drawing.Point(48, 36);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(389, 12);
+            this.label7.Size = new System.Drawing.Size(407, 12);
             this.label7.TabIndex = 9;
-            this.label7.Text = "2.为保护设备，检测到回波损耗大于此阈值将报错并停止读写标签操作。";
+            this.label7.Text = "2.Reader stops tag operation if return loss is above the threshold.";
             // 
             // label6
             // 
@@ -1950,9 +1955,9 @@ namespace UHFDemo
             this.label6.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.label6.Location = new System.Drawing.Point(48, 56);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(347, 12);
+            this.label6.Size = new System.Drawing.Size(323, 12);
             this.label6.TabIndex = 8;
-            this.label6.Text = "3.此阈值越大对天线端口阻抗匹配要求越高，设为0关闭此功能。";
+            this.label6.Text = "3.User can turn it off by setting the threshold to 0.";
             // 
             // label5
             // 
@@ -1960,23 +1965,24 @@ namespace UHFDemo
             this.label5.ForeColor = System.Drawing.Color.CornflowerBlue;
             this.label5.Location = new System.Drawing.Point(12, 16);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(383, 12);
+            this.label5.Size = new System.Drawing.Size(509, 12);
             this.label5.TabIndex = 7;
-            this.label5.Text = "说明: 1.读写标签时系统自动测量天线端口的回波损耗(Return Loss)。";
+            this.label5.Text = "Note: 1.Reader detects antenna connections by measuring the return loss of RF por" +
+    "ts.";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(480, 36);
+            this.label10.Location = new System.Drawing.Point(473, 36);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(83, 12);
+            this.label10.Size = new System.Drawing.Size(143, 12);
             this.label10.TabIndex = 6;
-            this.label10.Text = "回波损耗阈值:";
+            this.label10.Text = "RetrurnLoss Threshold::";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(646, 36);
+            this.label8.Location = new System.Drawing.Point(719, 36);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(17, 12);
             this.label8.TabIndex = 5;
@@ -1984,7 +1990,7 @@ namespace UHFDemo
             // 
             // tbAntDectector
             // 
-            this.tbAntDectector.Location = new System.Drawing.Point(569, 32);
+            this.tbAntDectector.Location = new System.Drawing.Point(632, 32);
             this.tbAntDectector.Name = "tbAntDectector";
             this.tbAntDectector.Size = new System.Drawing.Size(71, 21);
             this.tbAntDectector.TabIndex = 4;
@@ -1992,21 +1998,21 @@ namespace UHFDemo
             // 
             // btnGetAntDetector
             // 
-            this.btnGetAntDetector.Location = new System.Drawing.Point(734, 31);
+            this.btnGetAntDetector.Location = new System.Drawing.Point(752, 31);
             this.btnGetAntDetector.Name = "btnGetAntDetector";
             this.btnGetAntDetector.Size = new System.Drawing.Size(90, 23);
             this.btnGetAntDetector.TabIndex = 3;
-            this.btnGetAntDetector.Text = "读取 ";
+            this.btnGetAntDetector.Text = "Get";
             this.btnGetAntDetector.UseVisualStyleBackColor = true;
             this.btnGetAntDetector.Click += new System.EventHandler(this.btnGetAntDetector_Click);
             // 
             // btnSetAntDetector
             // 
-            this.btnSetAntDetector.Location = new System.Drawing.Point(859, 31);
+            this.btnSetAntDetector.Location = new System.Drawing.Point(858, 31);
             this.btnSetAntDetector.Name = "btnSetAntDetector";
             this.btnSetAntDetector.Size = new System.Drawing.Size(90, 23);
             this.btnSetAntDetector.TabIndex = 2;
-            this.btnSetAntDetector.Text = "设置 ";
+            this.btnSetAntDetector.Text = "Set";
             this.btnSetAntDetector.UseVisualStyleBackColor = true;
             this.btnSetAntDetector.Click += new System.EventHandler(this.btnSetAntDetector_Click);
             // 
@@ -2022,48 +2028,48 @@ namespace UHFDemo
             this.gbCmdAntenna.Size = new System.Drawing.Size(472, 46);
             this.gbCmdAntenna.TabIndex = 14;
             this.gbCmdAntenna.TabStop = false;
-            this.gbCmdAntenna.Text = "切换当前工作天线";
+            this.gbCmdAntenna.Text = "Manual Switch Antenna";
             // 
             // label107
             // 
             this.label107.AutoSize = true;
-            this.label107.Location = new System.Drawing.Point(47, 22);
+            this.label107.Location = new System.Drawing.Point(12, 21);
             this.label107.Name = "label107";
-            this.label107.Size = new System.Drawing.Size(59, 12);
+            this.label107.Size = new System.Drawing.Size(77, 12);
             this.label107.TabIndex = 7;
-            this.label107.Text = "天线端口:";
+            this.label107.Text = "Current Ant:";
             // 
             // cmbWorkAnt
             // 
             this.cmbWorkAnt.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWorkAnt.FormattingEnabled = true;
             this.cmbWorkAnt.Items.AddRange(new object[] {
-            "天线 1",
-            "天线 2",
-            "天线 3",
-            "天线 4"});
-            this.cmbWorkAnt.Location = new System.Drawing.Point(112, 18);
+            "ANT1",
+            "ANT2",
+            "ANT3",
+            "ANT4"});
+            this.cmbWorkAnt.Location = new System.Drawing.Point(115, 17);
             this.cmbWorkAnt.Name = "cmbWorkAnt";
             this.cmbWorkAnt.Size = new System.Drawing.Size(84, 20);
             this.cmbWorkAnt.TabIndex = 6;
             // 
             // btnGetWorkAntenna
             // 
-            this.btnGetWorkAntenna.Location = new System.Drawing.Point(234, 16);
+            this.btnGetWorkAntenna.Location = new System.Drawing.Point(225, 16);
             this.btnGetWorkAntenna.Name = "btnGetWorkAntenna";
             this.btnGetWorkAntenna.Size = new System.Drawing.Size(90, 23);
             this.btnGetWorkAntenna.TabIndex = 5;
-            this.btnGetWorkAntenna.Text = "读取 ";
+            this.btnGetWorkAntenna.Text = "Get";
             this.btnGetWorkAntenna.UseVisualStyleBackColor = true;
             this.btnGetWorkAntenna.Click += new System.EventHandler(this.btnGetWorkAntenna_Click);
             // 
             // btnSetWorkAntenna
             // 
-            this.btnSetWorkAntenna.Location = new System.Drawing.Point(343, 16);
+            this.btnSetWorkAntenna.Location = new System.Drawing.Point(341, 16);
             this.btnSetWorkAntenna.Name = "btnSetWorkAntenna";
             this.btnSetWorkAntenna.Size = new System.Drawing.Size(90, 23);
             this.btnSetWorkAntenna.TabIndex = 4;
-            this.btnSetWorkAntenna.Text = "设置 ";
+            this.btnSetWorkAntenna.Text = "Set";
             this.btnSetWorkAntenna.UseVisualStyleBackColor = true;
             this.btnSetWorkAntenna.Click += new System.EventHandler(this.btnSetWorkAntenna_Click);
             // 
@@ -2080,16 +2086,16 @@ namespace UHFDemo
             this.gbCmdRegion.Size = new System.Drawing.Size(967, 144);
             this.gbCmdRegion.TabIndex = 9;
             this.gbCmdRegion.TabStop = false;
-            this.gbCmdRegion.Text = "射频频谱 ";
+            this.gbCmdRegion.Text = "RF Spectrum Setup";
             // 
             // cbUserDefineFreq
             // 
             this.cbUserDefineFreq.AutoSize = true;
-            this.cbUserDefineFreq.Location = new System.Drawing.Point(9, 100);
+            this.cbUserDefineFreq.Location = new System.Drawing.Point(6, 97);
             this.cbUserDefineFreq.Name = "cbUserDefineFreq";
-            this.cbUserDefineFreq.Size = new System.Drawing.Size(60, 16);
+            this.cbUserDefineFreq.Size = new System.Drawing.Size(90, 16);
             this.cbUserDefineFreq.TabIndex = 11;
-            this.cbUserDefineFreq.Text = "自定义";
+            this.cbUserDefineFreq.Text = "User Define";
             this.cbUserDefineFreq.UseVisualStyleBackColor = true;
             this.cbUserDefineFreq.CheckedChanged += new System.EventHandler(this.cbUserDefineFreq_CheckedChanged);
             // 
@@ -2105,17 +2111,17 @@ namespace UHFDemo
             this.groupBox23.Controls.Add(this.TextFreqInterval);
             this.groupBox23.Controls.Add(this.textStartFreq);
             this.groupBox23.ForeColor = System.Drawing.Color.Black;
-            this.groupBox23.Location = new System.Drawing.Point(75, 77);
+            this.groupBox23.Location = new System.Drawing.Point(99, 77);
             this.groupBox23.Name = "groupBox23";
             this.groupBox23.Size = new System.Drawing.Size(609, 55);
             this.groupBox23.TabIndex = 10;
             this.groupBox23.TabStop = false;
-            this.groupBox23.Text = "用户自定义频点";
+            this.groupBox23.Text = "User Defined Frequencies";
             // 
             // label106
             // 
             this.label106.AutoSize = true;
-            this.label106.Location = new System.Drawing.Point(571, 24);
+            this.label106.Location = new System.Drawing.Point(555, 24);
             this.label106.Name = "label106";
             this.label106.Size = new System.Drawing.Size(17, 12);
             this.label106.TabIndex = 8;
@@ -2124,7 +2130,7 @@ namespace UHFDemo
             // label105
             // 
             this.label105.AutoSize = true;
-            this.label105.Location = new System.Drawing.Point(400, 24);
+            this.label105.Location = new System.Drawing.Point(378, 24);
             this.label105.Name = "label105";
             this.label105.Size = new System.Drawing.Size(23, 12);
             this.label105.TabIndex = 7;
@@ -2133,7 +2139,7 @@ namespace UHFDemo
             // label104
             // 
             this.label104.AutoSize = true;
-            this.label104.Location = new System.Drawing.Point(213, 24);
+            this.label104.Location = new System.Drawing.Point(189, 24);
             this.label104.Name = "label104";
             this.label104.Size = new System.Drawing.Size(23, 12);
             this.label104.TabIndex = 6;
@@ -2142,33 +2148,33 @@ namespace UHFDemo
             // label103
             // 
             this.label103.AutoSize = true;
-            this.label103.Location = new System.Drawing.Point(429, 24);
+            this.label103.Location = new System.Drawing.Point(409, 24);
             this.label103.Name = "label103";
             this.label103.Size = new System.Drawing.Size(59, 12);
             this.label103.TabIndex = 5;
-            this.label103.Text = "频点数量:";
+            this.label103.Text = "Quantity:";
             // 
             // label86
             // 
             this.label86.AutoSize = true;
-            this.label86.Location = new System.Drawing.Point(260, 24);
+            this.label86.Location = new System.Drawing.Point(220, 24);
             this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(59, 12);
+            this.label86.Size = new System.Drawing.Size(71, 12);
             this.label86.TabIndex = 4;
-            this.label86.Text = "频道间隔:";
+            this.label86.Text = "Freq Space:";
             // 
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(76, 24);
+            this.label75.Location = new System.Drawing.Point(6, 24);
             this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(59, 12);
+            this.label75.Size = new System.Drawing.Size(101, 12);
             this.label75.TabIndex = 3;
-            this.label75.Text = "起始频率:";
+            this.label75.Text = "Start Frequency:";
             // 
             // textFreqQuantity
             // 
-            this.textFreqQuantity.Location = new System.Drawing.Point(494, 20);
+            this.textFreqQuantity.Location = new System.Drawing.Point(476, 20);
             this.textFreqQuantity.Name = "textFreqQuantity";
             this.textFreqQuantity.Size = new System.Drawing.Size(71, 21);
             this.textFreqQuantity.TabIndex = 2;
@@ -2176,7 +2182,7 @@ namespace UHFDemo
             // 
             // TextFreqInterval
             // 
-            this.TextFreqInterval.Location = new System.Drawing.Point(325, 20);
+            this.TextFreqInterval.Location = new System.Drawing.Point(299, 20);
             this.TextFreqInterval.Name = "TextFreqInterval";
             this.TextFreqInterval.Size = new System.Drawing.Size(71, 21);
             this.TextFreqInterval.TabIndex = 1;
@@ -2184,7 +2190,7 @@ namespace UHFDemo
             // 
             // textStartFreq
             // 
-            this.textStartFreq.Location = new System.Drawing.Point(141, 20);
+            this.textStartFreq.Location = new System.Drawing.Point(115, 20);
             this.textStartFreq.Name = "textStartFreq";
             this.textStartFreq.Size = new System.Drawing.Size(66, 21);
             this.textStartFreq.TabIndex = 0;
@@ -2202,17 +2208,17 @@ namespace UHFDemo
             this.groupBox21.Controls.Add(this.rdbRegionEtsi);
             this.groupBox21.Controls.Add(this.rdbRegionFcc);
             this.groupBox21.ForeColor = System.Drawing.Color.Black;
-            this.groupBox21.Location = new System.Drawing.Point(75, 16);
+            this.groupBox21.Location = new System.Drawing.Point(99, 16);
             this.groupBox21.Name = "groupBox21";
             this.groupBox21.Size = new System.Drawing.Size(609, 55);
             this.groupBox21.TabIndex = 9;
             this.groupBox21.TabStop = false;
-            this.groupBox21.Text = "系统默认频点";
+            this.groupBox21.Text = "System Default Frequencies";
             // 
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(570, 23);
+            this.label37.Location = new System.Drawing.Point(562, 29);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(23, 12);
             this.label37.TabIndex = 17;
@@ -2221,7 +2227,7 @@ namespace UHFDemo
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(403, 24);
+            this.label36.Location = new System.Drawing.Point(388, 29);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(23, 12);
             this.label36.TabIndex = 16;
@@ -2231,7 +2237,7 @@ namespace UHFDemo
             // 
             this.cmbFrequencyEnd.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFrequencyEnd.FormattingEnabled = true;
-            this.cmbFrequencyEnd.Location = new System.Drawing.Point(494, 19);
+            this.cmbFrequencyEnd.Location = new System.Drawing.Point(470, 25);
             this.cmbFrequencyEnd.Name = "cmbFrequencyEnd";
             this.cmbFrequencyEnd.Size = new System.Drawing.Size(71, 20);
             this.cmbFrequencyEnd.TabIndex = 14;
@@ -2239,7 +2245,7 @@ namespace UHFDemo
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(454, 24);
+            this.label13.Location = new System.Drawing.Point(432, 29);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(17, 12);
             this.label13.TabIndex = 15;
@@ -2249,7 +2255,7 @@ namespace UHFDemo
             // 
             this.cmbFrequencyStart.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFrequencyStart.FormattingEnabled = true;
-            this.cmbFrequencyStart.Location = new System.Drawing.Point(325, 19);
+            this.cmbFrequencyStart.Location = new System.Drawing.Point(296, 25);
             this.cmbFrequencyStart.Name = "cmbFrequencyStart";
             this.cmbFrequencyStart.Size = new System.Drawing.Size(71, 20);
             this.cmbFrequencyStart.TabIndex = 12;
@@ -2257,16 +2263,16 @@ namespace UHFDemo
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(260, 23);
+            this.label12.Location = new System.Drawing.Point(204, 29);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(59, 12);
+            this.label12.Size = new System.Drawing.Size(71, 12);
             this.label12.TabIndex = 13;
-            this.label12.Text = "频谱范围:";
+            this.label12.Text = "Freq Range:";
             // 
             // rdbRegionChn
             // 
             this.rdbRegionChn.AutoSize = true;
-            this.rdbRegionChn.Location = new System.Drawing.Point(195, 22);
+            this.rdbRegionChn.Location = new System.Drawing.Point(128, 24);
             this.rdbRegionChn.Name = "rdbRegionChn";
             this.rdbRegionChn.Size = new System.Drawing.Size(41, 16);
             this.rdbRegionChn.TabIndex = 11;
@@ -2278,7 +2284,7 @@ namespace UHFDemo
             // rdbRegionEtsi
             // 
             this.rdbRegionEtsi.AutoSize = true;
-            this.rdbRegionEtsi.Location = new System.Drawing.Point(116, 22);
+            this.rdbRegionEtsi.Location = new System.Drawing.Point(64, 24);
             this.rdbRegionEtsi.Name = "rdbRegionEtsi";
             this.rdbRegionEtsi.Size = new System.Drawing.Size(47, 16);
             this.rdbRegionEtsi.TabIndex = 10;
@@ -2290,7 +2296,7 @@ namespace UHFDemo
             // rdbRegionFcc
             // 
             this.rdbRegionFcc.AutoSize = true;
-            this.rdbRegionFcc.Location = new System.Drawing.Point(43, 22);
+            this.rdbRegionFcc.Location = new System.Drawing.Point(6, 24);
             this.rdbRegionFcc.Name = "rdbRegionFcc";
             this.rdbRegionFcc.Size = new System.Drawing.Size(41, 16);
             this.rdbRegionFcc.TabIndex = 9;
@@ -2301,21 +2307,21 @@ namespace UHFDemo
             // 
             // btnGetFrequencyRegion
             // 
-            this.btnGetFrequencyRegion.Location = new System.Drawing.Point(734, 66);
+            this.btnGetFrequencyRegion.Location = new System.Drawing.Point(752, 66);
             this.btnGetFrequencyRegion.Name = "btnGetFrequencyRegion";
             this.btnGetFrequencyRegion.Size = new System.Drawing.Size(90, 23);
             this.btnGetFrequencyRegion.TabIndex = 6;
-            this.btnGetFrequencyRegion.Text = "读取 ";
+            this.btnGetFrequencyRegion.Text = "Get";
             this.btnGetFrequencyRegion.UseVisualStyleBackColor = true;
             this.btnGetFrequencyRegion.Click += new System.EventHandler(this.btnGetFrequencyRegion_Click);
             // 
             // btnSetFrequencyRegion
             // 
-            this.btnSetFrequencyRegion.Location = new System.Drawing.Point(859, 66);
+            this.btnSetFrequencyRegion.Location = new System.Drawing.Point(858, 66);
             this.btnSetFrequencyRegion.Name = "btnSetFrequencyRegion";
             this.btnSetFrequencyRegion.Size = new System.Drawing.Size(90, 23);
             this.btnSetFrequencyRegion.TabIndex = 5;
-            this.btnSetFrequencyRegion.Text = "设置 ";
+            this.btnSetFrequencyRegion.Text = "Set";
             this.btnSetFrequencyRegion.UseVisualStyleBackColor = true;
             this.btnSetFrequencyRegion.Click += new System.EventHandler(this.btnSetFrequencyRegion_Click);
             // 
@@ -2363,7 +2369,7 @@ namespace UHFDemo
             this.gbCmdOutputPower.Size = new System.Drawing.Size(477, 107);
             this.gbCmdOutputPower.TabIndex = 8;
             this.gbCmdOutputPower.TabStop = false;
-            this.gbCmdOutputPower.Text = "射频输出功率";
+            this.gbCmdOutputPower.Text = "RF Output Power";
             // 
             // label151
             // 
@@ -2403,7 +2409,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_16
             // 
-            this.tb_outputpower_16.Location = new System.Drawing.Point(388, 35);
+            this.tb_outputpower_16.Location = new System.Drawing.Point(384, 35);
             this.tb_outputpower_16.Name = "tb_outputpower_16";
             this.tb_outputpower_16.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_16.TabIndex = 32;
@@ -2411,7 +2417,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_15
             // 
-            this.tb_outputpower_15.Location = new System.Drawing.Point(363, 35);
+            this.tb_outputpower_15.Location = new System.Drawing.Point(360, 35);
             this.tb_outputpower_15.Name = "tb_outputpower_15";
             this.tb_outputpower_15.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_15.TabIndex = 31;
@@ -2419,7 +2425,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_14
             // 
-            this.tb_outputpower_14.Location = new System.Drawing.Point(341, 35);
+            this.tb_outputpower_14.Location = new System.Drawing.Point(336, 35);
             this.tb_outputpower_14.Name = "tb_outputpower_14";
             this.tb_outputpower_14.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_14.TabIndex = 30;
@@ -2427,7 +2433,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_13
             // 
-            this.tb_outputpower_13.Location = new System.Drawing.Point(316, 35);
+            this.tb_outputpower_13.Location = new System.Drawing.Point(312, 35);
             this.tb_outputpower_13.Name = "tb_outputpower_13";
             this.tb_outputpower_13.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_13.TabIndex = 29;
@@ -2471,7 +2477,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_12
             // 
-            this.tb_outputpower_12.Location = new System.Drawing.Point(289, 35);
+            this.tb_outputpower_12.Location = new System.Drawing.Point(288, 35);
             this.tb_outputpower_12.Name = "tb_outputpower_12";
             this.tb_outputpower_12.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_12.TabIndex = 24;
@@ -2487,7 +2493,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_10
             // 
-            this.tb_outputpower_10.Location = new System.Drawing.Point(242, 35);
+            this.tb_outputpower_10.Location = new System.Drawing.Point(240, 35);
             this.tb_outputpower_10.Name = "tb_outputpower_10";
             this.tb_outputpower_10.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_10.TabIndex = 22;
@@ -2495,7 +2501,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_9
             // 
-            this.tb_outputpower_9.Location = new System.Drawing.Point(217, 35);
+            this.tb_outputpower_9.Location = new System.Drawing.Point(216, 35);
             this.tb_outputpower_9.Name = "tb_outputpower_9";
             this.tb_outputpower_9.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_9.TabIndex = 21;
@@ -2539,7 +2545,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_8
             // 
-            this.tb_outputpower_8.Location = new System.Drawing.Point(193, 35);
+            this.tb_outputpower_8.Location = new System.Drawing.Point(192, 35);
             this.tb_outputpower_8.Name = "tb_outputpower_8";
             this.tb_outputpower_8.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_8.TabIndex = 16;
@@ -2557,7 +2563,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_6
             // 
-            this.tb_outputpower_6.Location = new System.Drawing.Point(146, 35);
+            this.tb_outputpower_6.Location = new System.Drawing.Point(144, 35);
             this.tb_outputpower_6.Name = "tb_outputpower_6";
             this.tb_outputpower_6.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_6.TabIndex = 14;
@@ -2566,7 +2572,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_5
             // 
-            this.tb_outputpower_5.Location = new System.Drawing.Point(121, 35);
+            this.tb_outputpower_5.Location = new System.Drawing.Point(120, 35);
             this.tb_outputpower_5.Name = "tb_outputpower_5";
             this.tb_outputpower_5.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_5.TabIndex = 13;
@@ -2620,7 +2626,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_3
             // 
-            this.tb_outputpower_3.Location = new System.Drawing.Point(71, 35);
+            this.tb_outputpower_3.Location = new System.Drawing.Point(72, 35);
             this.tb_outputpower_3.Name = "tb_outputpower_3";
             this.tb_outputpower_3.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_3.TabIndex = 6;
@@ -2629,7 +2635,7 @@ namespace UHFDemo
             // 
             // tb_outputpower_2
             // 
-            this.tb_outputpower_2.Location = new System.Drawing.Point(49, 35);
+            this.tb_outputpower_2.Location = new System.Drawing.Point(48, 35);
             this.tb_outputpower_2.Name = "tb_outputpower_2";
             this.tb_outputpower_2.Size = new System.Drawing.Size(17, 21);
             this.tb_outputpower_2.TabIndex = 5;
@@ -2652,7 +2658,7 @@ namespace UHFDemo
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(41, 12);
             this.label15.TabIndex = 3;
-            this.label15.Text = "天线号";
+            this.label15.Text = "Ant ID";
             // 
             // btnGetOutputPower
             // 
@@ -2660,7 +2666,7 @@ namespace UHFDemo
             this.btnGetOutputPower.Name = "btnGetOutputPower";
             this.btnGetOutputPower.Size = new System.Drawing.Size(90, 23);
             this.btnGetOutputPower.TabIndex = 2;
-            this.btnGetOutputPower.Text = "读取 ";
+            this.btnGetOutputPower.Text = "Get";
             this.btnGetOutputPower.UseVisualStyleBackColor = true;
             this.btnGetOutputPower.Click += new System.EventHandler(this.btnGetOutputPower_Click);
             // 
@@ -2670,14 +2676,14 @@ namespace UHFDemo
             this.btnSetOutputPower.Name = "btnSetOutputPower";
             this.btnSetOutputPower.Size = new System.Drawing.Size(90, 23);
             this.btnSetOutputPower.TabIndex = 1;
-            this.btnSetOutputPower.Text = "设置 ";
+            this.btnSetOutputPower.Text = "Set";
             this.btnSetOutputPower.UseVisualStyleBackColor = true;
             this.btnSetOutputPower.Click += new System.EventHandler(this.btnSetOutputPower_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(416, 38);
+            this.label9.Location = new System.Drawing.Point(408, 39);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(23, 12);
             this.label9.TabIndex = 0;
@@ -2688,13 +2694,13 @@ namespace UHFDemo
             this.pageEpcTest.BackColor = System.Drawing.Color.WhiteSmoke;
             this.pageEpcTest.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pageEpcTest.Controls.Add(this.tab_6c_Tags_Test);
-            this.pageEpcTest.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.pageEpcTest.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.pageEpcTest.ForeColor = System.Drawing.SystemColors.Desktop;
             this.pageEpcTest.Location = new System.Drawing.Point(4, 22);
             this.pageEpcTest.Name = "pageEpcTest";
             this.pageEpcTest.Size = new System.Drawing.Size(1010, 555);
             this.pageEpcTest.TabIndex = 5;
-            this.pageEpcTest.Text = "18000-6C标签测试";
+            this.pageEpcTest.Text = "18000-6C Tag Test";
             // 
             // tab_6c_Tags_Test
             // 
@@ -2702,7 +2708,7 @@ namespace UHFDemo
             this.tab_6c_Tags_Test.Controls.Add(this.pageAcessTag);
             this.tab_6c_Tags_Test.Controls.Add(this.tabPage3);
             this.tab_6c_Tags_Test.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tab_6c_Tags_Test.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tab_6c_Tags_Test.Font = new System.Drawing.Font("宋体", 9F);
             this.tab_6c_Tags_Test.Location = new System.Drawing.Point(0, 0);
             this.tab_6c_Tags_Test.Name = "tab_6c_Tags_Test";
             this.tab_6c_Tags_Test.SelectedIndex = 0;
@@ -2723,7 +2729,7 @@ namespace UHFDemo
             this.pageFast4AntMode.Padding = new System.Windows.Forms.Padding(3);
             this.pageFast4AntMode.Size = new System.Drawing.Size(1000, 527);
             this.pageFast4AntMode.TabIndex = 0;
-            this.pageFast4AntMode.Text = "多天线盘存";
+            this.pageFast4AntMode.Text = "Inventory";
             this.pageFast4AntMode.Enter += new System.EventHandler(this.pageFast4AntMode_Enter);
             // 
             // flowLayoutPanel1
@@ -2751,9 +2757,9 @@ namespace UHFDemo
             this.flowLayoutPanel1.Controls.Add(this.grb_temp_pow_ants_g2);
             this.flowLayoutPanel1.Controls.Add(this.grb_real_inv_ants);
             this.flowLayoutPanel1.Controls.Add(this.groupBox29);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(11, 144);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(11, 181);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(332, 372);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(332, 335);
             this.flowLayoutPanel1.TabIndex = 84;
             // 
             // grb_cache_inv
@@ -2767,7 +2773,7 @@ namespace UHFDemo
             this.grb_cache_inv.Size = new System.Drawing.Size(304, 100);
             this.grb_cache_inv.TabIndex = 89;
             this.grb_cache_inv.TabStop = false;
-            this.grb_cache_inv.Text = "缓存模式";
+            this.grb_cache_inv.Text = "Buffer Mode";
             // 
             // btnGetBufferTagCount
             // 
@@ -2775,7 +2781,7 @@ namespace UHFDemo
             this.btnGetBufferTagCount.Name = "btnGetBufferTagCount";
             this.btnGetBufferTagCount.Size = new System.Drawing.Size(135, 23);
             this.btnGetBufferTagCount.TabIndex = 3;
-            this.btnGetBufferTagCount.Text = "查询缓存中标签数量";
+            this.btnGetBufferTagCount.Text = "Query Tag Quantity";
             this.btnGetBufferTagCount.UseVisualStyleBackColor = true;
             this.btnGetBufferTagCount.Click += new System.EventHandler(this.btnGetBufferTagCount_Click);
             // 
@@ -2785,7 +2791,7 @@ namespace UHFDemo
             this.btnClearBuffer.Name = "btnClearBuffer";
             this.btnClearBuffer.Size = new System.Drawing.Size(135, 23);
             this.btnClearBuffer.TabIndex = 2;
-            this.btnClearBuffer.Text = "清空缓存";
+            this.btnClearBuffer.Text = "Clear Buffer";
             this.btnClearBuffer.UseVisualStyleBackColor = true;
             this.btnClearBuffer.Click += new System.EventHandler(this.btnClearBuffer_Click);
             // 
@@ -2795,7 +2801,7 @@ namespace UHFDemo
             this.btnGetAndClearBuffer.Name = "btnGetAndClearBuffer";
             this.btnGetAndClearBuffer.Size = new System.Drawing.Size(135, 23);
             this.btnGetAndClearBuffer.TabIndex = 1;
-            this.btnGetAndClearBuffer.Text = "获取并清空缓存";
+            this.btnGetAndClearBuffer.Text = "Get And Clear Buffer";
             this.btnGetAndClearBuffer.UseVisualStyleBackColor = true;
             this.btnGetAndClearBuffer.Click += new System.EventHandler(this.btnGetAndClearBuffer_Click);
             // 
@@ -2805,7 +2811,7 @@ namespace UHFDemo
             this.btnGetBuffer.Name = "btnGetBuffer";
             this.btnGetBuffer.Size = new System.Drawing.Size(135, 23);
             this.btnGetBuffer.TabIndex = 0;
-            this.btnGetBuffer.Text = "获取缓存";
+            this.btnGetBuffer.Text = "Get Buffer";
             this.btnGetBuffer.UseVisualStyleBackColor = true;
             this.btnGetBuffer.Click += new System.EventHandler(this.btnGetBuffer_Click);
             // 
@@ -2821,7 +2827,7 @@ namespace UHFDemo
             this.grb_inventory_cfg.Size = new System.Drawing.Size(304, 77);
             this.grb_inventory_cfg.TabIndex = 84;
             this.grb_inventory_cfg.TabStop = false;
-            this.grb_inventory_cfg.Text = "选择配置";
+            this.grb_inventory_cfg.Text = "Select Cfg";
             // 
             // cb_use_selectFlags_tempPows
             // 
@@ -2839,16 +2845,16 @@ namespace UHFDemo
             this.cb_use_optimize.AutoSize = true;
             this.cb_use_optimize.Location = new System.Drawing.Point(136, 51);
             this.cb_use_optimize.Name = "cb_use_optimize";
-            this.cb_use_optimize.Size = new System.Drawing.Size(48, 16);
+            this.cb_use_optimize.Size = new System.Drawing.Size(96, 16);
             this.cb_use_optimize.TabIndex = 75;
-            this.cb_use_optimize.Text = "优化";
+            this.cb_use_optimize.Text = "use Optimize";
             this.cb_use_optimize.UseVisualStyleBackColor = true;
             this.cb_use_optimize.CheckedChanged += new System.EventHandler(this.cb_use_optimize_CheckedChanged);
             // 
             // cb_use_Phase
             // 
             this.cb_use_Phase.AutoSize = true;
-            this.cb_use_Phase.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cb_use_Phase.Font = new System.Drawing.Font("宋体", 9F);
             this.cb_use_Phase.Location = new System.Drawing.Point(136, 21);
             this.cb_use_Phase.Name = "cb_use_Phase";
             this.cb_use_Phase.Size = new System.Drawing.Size(54, 16);
@@ -2871,12 +2877,12 @@ namespace UHFDemo
             // cb_customized_session_target
             // 
             this.cb_customized_session_target.AutoSize = true;
-            this.cb_customized_session_target.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.cb_customized_session_target.Font = new System.Drawing.Font("宋体", 9F);
             this.cb_customized_session_target.Location = new System.Drawing.Point(6, 21);
             this.cb_customized_session_target.Name = "cb_customized_session_target";
-            this.cb_customized_session_target.Size = new System.Drawing.Size(102, 16);
+            this.cb_customized_session_target.Size = new System.Drawing.Size(126, 16);
             this.cb_customized_session_target.TabIndex = 72;
-            this.cb_customized_session_target.Text = "自定义Session";
+            this.cb_customized_session_target.Text = "Customize Session";
             this.cb_customized_session_target.UseVisualStyleBackColor = true;
             this.cb_customized_session_target.CheckedChanged += new System.EventHandler(this.cb_customized_session_target_CheckedChanged);
             // 
@@ -2888,7 +2894,7 @@ namespace UHFDemo
             this.grb_Interval.Size = new System.Drawing.Size(103, 46);
             this.grb_Interval.TabIndex = 60;
             this.grb_Interval.TabStop = false;
-            this.grb_Interval.Text = "天线间延时(mS)";
+            this.grb_Interval.Text = "Interval(mS)";
             // 
             // txtInterval
             // 
@@ -3113,7 +3119,7 @@ namespace UHFDemo
             this.grb_Optimize.Size = new System.Drawing.Size(48, 46);
             this.grb_Optimize.TabIndex = 55;
             this.grb_Optimize.TabStop = false;
-            this.grb_Optimize.Text = "优化";
+            this.grb_Optimize.Text = "Optimize";
             // 
             // txtOptimize
             // 
@@ -3129,10 +3135,10 @@ namespace UHFDemo
             this.grb_Ongoing.Controls.Add(this.txtOngoing);
             this.grb_Ongoing.Location = new System.Drawing.Point(174, 336);
             this.grb_Ongoing.Name = "grb_Ongoing";
-            this.grb_Ongoing.Size = new System.Drawing.Size(49, 46);
+            this.grb_Ongoing.Size = new System.Drawing.Size(62, 46);
             this.grb_Ongoing.TabIndex = 55;
             this.grb_Ongoing.TabStop = false;
-            this.grb_Ongoing.Text = "连续";
+            this.grb_Ongoing.Text = "Ongoing";
             // 
             // txtOngoing
             // 
@@ -3188,7 +3194,7 @@ namespace UHFDemo
             this.grb_Repeat.Size = new System.Drawing.Size(68, 46);
             this.grb_Repeat.TabIndex = 59;
             this.grb_Repeat.TabStop = false;
-            this.grb_Repeat.Text = "循环次数";
+            this.grb_Repeat.Text = "Repeat";
             // 
             // txtRepeat
             // 
@@ -3207,16 +3213,16 @@ namespace UHFDemo
             this.grb_multi_ant.Size = new System.Drawing.Size(304, 45);
             this.grb_multi_ant.TabIndex = 85;
             this.grb_multi_ant.TabStop = false;
-            this.grb_multi_ant.Text = "天线配置";
+            this.grb_multi_ant.Text = "Antenna Cfg";
             // 
             // cb_fast_inv_check_all_ant
             // 
             this.cb_fast_inv_check_all_ant.AutoSize = true;
             this.cb_fast_inv_check_all_ant.Location = new System.Drawing.Point(15, 21);
             this.cb_fast_inv_check_all_ant.Name = "cb_fast_inv_check_all_ant";
-            this.cb_fast_inv_check_all_ant.Size = new System.Drawing.Size(48, 16);
+            this.cb_fast_inv_check_all_ant.Size = new System.Drawing.Size(42, 16);
             this.cb_fast_inv_check_all_ant.TabIndex = 77;
-            this.cb_fast_inv_check_all_ant.Text = "全选";
+            this.cb_fast_inv_check_all_ant.Text = "All";
             this.cb_fast_inv_check_all_ant.UseVisualStyleBackColor = true;
             this.cb_fast_inv_check_all_ant.CheckedChanged += new System.EventHandler(this.cb_fast_inv_check_all_ant_CheckedChanged);
             // 
@@ -3243,7 +3249,7 @@ namespace UHFDemo
             this.grb_ants_g1.Size = new System.Drawing.Size(304, 73);
             this.grb_ants_g1.TabIndex = 84;
             this.grb_ants_g1.TabStop = false;
-            this.grb_ants_g1.Text = "天线/轮询次数（1-8）";
+            this.grb_ants_g1.Text = "Ant/Stay（1-8）";
             // 
             // chckbx_fast_inv_ant_5
             // 
@@ -3412,7 +3418,7 @@ namespace UHFDemo
             this.grb_temp_pow_ants_g1.Size = new System.Drawing.Size(300, 57);
             this.grb_temp_pow_ants_g1.TabIndex = 86;
             this.grb_temp_pow_ants_g1.TabStop = false;
-            this.grb_temp_pow_ants_g1.Text = "临时功率（1-8）";
+            this.grb_temp_pow_ants_g1.Text = "Temporary Power（1-8）";
             // 
             // tv_temp_pow_6
             // 
@@ -3501,7 +3507,7 @@ namespace UHFDemo
             this.grb_ants_g2.Size = new System.Drawing.Size(300, 74);
             this.grb_ants_g2.TabIndex = 82;
             this.grb_ants_g2.TabStop = false;
-            this.grb_ants_g2.Text = "天线/轮询次数（9-16）";
+            this.grb_ants_g2.Text = "Ant/Stay（9-16）";
             // 
             // chckbx_fast_inv_ant_9
             // 
@@ -3670,7 +3676,7 @@ namespace UHFDemo
             this.grb_temp_pow_ants_g2.Size = new System.Drawing.Size(300, 51);
             this.grb_temp_pow_ants_g2.TabIndex = 88;
             this.grb_temp_pow_ants_g2.TabStop = false;
-            this.grb_temp_pow_ants_g2.Text = "临时功率（9-16）";
+            this.grb_temp_pow_ants_g2.Text = "Temporary Power（9-16）";
             // 
             // tv_temp_pow_16
             // 
@@ -3745,16 +3751,16 @@ namespace UHFDemo
             this.grb_real_inv_ants.Size = new System.Drawing.Size(302, 64);
             this.grb_real_inv_ants.TabIndex = 81;
             this.grb_real_inv_ants.TabStop = false;
-            this.grb_real_inv_ants.Text = "天线";
+            this.grb_real_inv_ants.Text = "Antenna";
             // 
             // label61
             // 
             this.label61.AutoSize = true;
             this.label61.Location = new System.Drawing.Point(6, 24);
             this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(53, 12);
+            this.label61.Size = new System.Drawing.Size(47, 12);
             this.label61.TabIndex = 83;
-            this.label61.Text = "天线号: ";
+            this.label61.Text = "AntID: ";
             // 
             // combo_realtime_inv_ants
             // 
@@ -3779,79 +3785,79 @@ namespace UHFDemo
             this.groupBox29.Size = new System.Drawing.Size(300, 116);
             this.groupBox29.TabIndex = 79;
             this.groupBox29.TabStop = false;
-            this.groupBox29.Text = "统计";
+            this.groupBox29.Text = "Statistics";
             // 
             // label_totaltime
             // 
             this.label_totaltime.AutoSize = true;
-            this.label_totaltime.Location = new System.Drawing.Point(104, 90);
+            this.label_totaltime.Location = new System.Drawing.Point(120, 90);
             this.label_totaltime.Name = "label_totaltime";
-            this.label_totaltime.Size = new System.Drawing.Size(29, 12);
+            this.label_totaltime.Size = new System.Drawing.Size(35, 12);
             this.label_totaltime.TabIndex = 7;
-            this.label_totaltime.Text = "0 秒";
+            this.label_totaltime.Text = "0 sec";
             // 
             // label62
             // 
             this.label62.AutoSize = true;
-            this.label62.Location = new System.Drawing.Point(32, 90);
+            this.label62.Location = new System.Drawing.Point(10, 90);
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(53, 12);
+            this.label62.Size = new System.Drawing.Size(77, 12);
             this.label62.TabIndex = 6;
-            this.label62.Text = "总时间：";
+            this.label62.Text = "Total Time：";
             // 
             // label_readrate
             // 
             this.label_readrate.AutoSize = true;
-            this.label_readrate.Location = new System.Drawing.Point(105, 65);
+            this.label_readrate.Location = new System.Drawing.Point(121, 65);
             this.label_readrate.Name = "label_readrate";
-            this.label_readrate.Size = new System.Drawing.Size(47, 12);
+            this.label_readrate.Size = new System.Drawing.Size(41, 12);
             this.label_readrate.TabIndex = 5;
-            this.label_readrate.Text = "0 个/秒";
+            this.label_readrate.Text = "0 /sec";
             // 
             // label_totalread_count
             // 
             this.label_totalread_count.AutoSize = true;
-            this.label_totalread_count.Location = new System.Drawing.Point(105, 42);
+            this.label_totalread_count.Location = new System.Drawing.Point(121, 42);
             this.label_totalread_count.Name = "label_totalread_count";
-            this.label_totalread_count.Size = new System.Drawing.Size(29, 12);
+            this.label_totalread_count.Size = new System.Drawing.Size(11, 12);
             this.label_totalread_count.TabIndex = 4;
-            this.label_totalread_count.Text = "0 次";
+            this.label_totalread_count.Text = "0";
             // 
             // label_totaltag_count
             // 
             this.label_totaltag_count.AutoSize = true;
-            this.label_totaltag_count.Location = new System.Drawing.Point(106, 17);
+            this.label_totaltag_count.Location = new System.Drawing.Point(122, 17);
             this.label_totaltag_count.Name = "label_totaltag_count";
-            this.label_totaltag_count.Size = new System.Drawing.Size(29, 12);
+            this.label_totaltag_count.Size = new System.Drawing.Size(11, 12);
             this.label_totaltag_count.TabIndex = 3;
-            this.label_totaltag_count.Text = "0 个";
+            this.label_totaltag_count.Text = "0";
             // 
             // label60
             // 
             this.label60.AutoSize = true;
             this.label60.Location = new System.Drawing.Point(10, 65);
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(89, 12);
+            this.label60.Size = new System.Drawing.Size(95, 12);
             this.label60.TabIndex = 2;
-            this.label60.Text = "平均读取速率：";
+            this.label60.Text = "Average Speed：";
             // 
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Location = new System.Drawing.Point(22, 42);
+            this.label48.Location = new System.Drawing.Point(10, 42);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(77, 12);
+            this.label48.Size = new System.Drawing.Size(107, 12);
             this.label48.TabIndex = 1;
-            this.label48.Text = "总读取次数：";
+            this.label48.Text = "Total ReadCount：";
             // 
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(34, 17);
+            this.label19.Location = new System.Drawing.Point(10, 17);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(65, 12);
+            this.label19.Size = new System.Drawing.Size(101, 12);
             this.label19.TabIndex = 0;
-            this.label19.Text = "总标签数：";
+            this.label19.Text = "Total TagCount：";
             // 
             // groupBox26
             // 
@@ -3872,25 +3878,25 @@ namespace UHFDemo
             this.groupBox26.Size = new System.Drawing.Size(645, 372);
             this.groupBox26.TabIndex = 86;
             this.groupBox26.TabStop = false;
-            this.groupBox26.Text = "盘点结果";
+            this.groupBox26.Text = "Result";
             // 
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label53.Font = new System.Drawing.Font("宋体", 9F);
             this.label53.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label53.Location = new System.Drawing.Point(6, 20);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(89, 12);
+            this.label53.Size = new System.Drawing.Size(107, 12);
             this.label53.TabIndex = 67;
-            this.label53.Text = "本次标签个数: ";
+            this.label53.Text = "This Round Count:";
             // 
             // txtCmdTagCount
             // 
             this.txtCmdTagCount.AutoSize = true;
-            this.txtCmdTagCount.Font = new System.Drawing.Font("宋体", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtCmdTagCount.Font = new System.Drawing.Font("宋体", 15.75F);
             this.txtCmdTagCount.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.txtCmdTagCount.Location = new System.Drawing.Point(101, 16);
+            this.txtCmdTagCount.Location = new System.Drawing.Point(116, 16);
             this.txtCmdTagCount.Name = "txtCmdTagCount";
             this.txtCmdTagCount.Size = new System.Drawing.Size(21, 21);
             this.txtCmdTagCount.TabIndex = 23;
@@ -3899,9 +3905,9 @@ namespace UHFDemo
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label49.Font = new System.Drawing.Font("宋体", 9F);
             this.label49.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label49.Location = new System.Drawing.Point(189, 19);
+            this.label49.Location = new System.Drawing.Point(216, 19);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(59, 12);
             this.label49.TabIndex = 27;
@@ -3910,9 +3916,9 @@ namespace UHFDemo
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label22.Font = new System.Drawing.Font("宋体", 9F);
             this.label22.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label22.Location = new System.Drawing.Point(322, 19);
+            this.label22.Location = new System.Drawing.Point(349, 19);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(59, 12);
             this.label22.TabIndex = 26;
@@ -3924,14 +3930,6 @@ namespace UHFDemo
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_fast_inv_tags.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_fast_inv_tags.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv_fast_inv_tags.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_fast_inv_tags.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SerialNumber_fast_inv,
@@ -3943,24 +3941,8 @@ namespace UHFDemo
             this.Rssi_fast_inv,
             this.Phase_fast_inv,
             this.Data_fast_inv});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_fast_inv_tags.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv_fast_inv_tags.Location = new System.Drawing.Point(6, 42);
             this.dgv_fast_inv_tags.Name = "dgv_fast_inv_tags";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_fast_inv_tags.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgv_fast_inv_tags.RowTemplate.Height = 23;
             this.dgv_fast_inv_tags.Size = new System.Drawing.Size(648, 324);
             this.dgv_fast_inv_tags.TabIndex = 66;
@@ -4012,40 +3994,40 @@ namespace UHFDemo
             // 
             // buttonFastFresh
             // 
-            this.buttonFastFresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.buttonFastFresh.Font = new System.Drawing.Font("宋体", 9F);
             this.buttonFastFresh.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.buttonFastFresh.Location = new System.Drawing.Point(455, 15);
+            this.buttonFastFresh.Location = new System.Drawing.Point(482, 15);
             this.buttonFastFresh.Name = "buttonFastFresh";
-            this.buttonFastFresh.Size = new System.Drawing.Size(89, 23);
+            this.buttonFastFresh.Size = new System.Drawing.Size(62, 23);
             this.buttonFastFresh.TabIndex = 28;
-            this.buttonFastFresh.Text = "刷新界面";
+            this.buttonFastFresh.Text = "Refresh";
             this.buttonFastFresh.UseVisualStyleBackColor = true;
             this.buttonFastFresh.Click += new System.EventHandler(this.buttonFastFresh_Click);
             // 
             // txtFastMinRssi
             // 
-            this.txtFastMinRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtFastMinRssi.Location = new System.Drawing.Point(254, 15);
+            this.txtFastMinRssi.Font = new System.Drawing.Font("宋体", 9F);
+            this.txtFastMinRssi.Location = new System.Drawing.Point(281, 15);
             this.txtFastMinRssi.Name = "txtFastMinRssi";
             this.txtFastMinRssi.Size = new System.Drawing.Size(62, 21);
             this.txtFastMinRssi.TabIndex = 41;
             // 
             // button7
             // 
-            this.button7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button7.Font = new System.Drawing.Font("宋体", 9F);
             this.button7.ForeColor = System.Drawing.SystemColors.Desktop;
             this.button7.Location = new System.Drawing.Point(550, 15);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(89, 23);
             this.button7.TabIndex = 62;
-            this.button7.Text = "保存标签";
+            this.button7.Text = "Save Tags";
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click_1);
             // 
             // txtFastMaxRssi
             // 
-            this.txtFastMaxRssi.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtFastMaxRssi.Location = new System.Drawing.Point(387, 16);
+            this.txtFastMaxRssi.Font = new System.Drawing.Font("宋体", 9F);
+            this.txtFastMaxRssi.Location = new System.Drawing.Point(414, 16);
             this.txtFastMaxRssi.Name = "txtFastMaxRssi";
             this.txtFastMaxRssi.Size = new System.Drawing.Size(62, 21);
             this.txtFastMaxRssi.TabIndex = 40;
@@ -4069,7 +4051,7 @@ namespace UHFDemo
             this.groupBox25.Size = new System.Drawing.Size(645, 131);
             this.groupBox25.TabIndex = 66;
             this.groupBox25.TabStop = false;
-            this.groupBox25.Text = "数据";
+            this.groupBox25.Text = "Data";
             // 
             // led_total_tagreads
             // 
@@ -4096,13 +4078,13 @@ namespace UHFDemo
             // label58
             // 
             this.label58.AutoSize = true;
-            this.label58.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label58.Font = new System.Drawing.Font("宋体", 9F);
             this.label58.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label58.Location = new System.Drawing.Point(6, 18);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(143, 12);
+            this.label58.Size = new System.Drawing.Size(131, 12);
             this.label58.TabIndex = 26;
-            this.label58.Text = "已盘存的标签总数量(个):";
+            this.label58.Text = "Inventoried Quantity:";
             // 
             // led_totalread_count
             // 
@@ -4151,24 +4133,24 @@ namespace UHFDemo
             // label55
             // 
             this.label55.AutoSize = true;
-            this.label55.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label55.Font = new System.Drawing.Font("宋体", 9F);
             this.label55.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label55.Location = new System.Drawing.Point(255, 8);
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(125, 12);
+            this.label55.Size = new System.Drawing.Size(95, 12);
             this.label55.TabIndex = 29;
-            this.label55.Text = "命令识别速度(个/秒):";
+            this.label55.Text = "Speed(Tag/Sec):";
             // 
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label56.Font = new System.Drawing.Font("宋体", 9F);
             this.label56.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label56.Location = new System.Drawing.Point(255, 72);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(119, 12);
+            this.label56.Size = new System.Drawing.Size(131, 12);
             this.label56.TabIndex = 28;
-            this.label56.Text = "命令执行时间(毫秒):";
+            this.label56.Text = "Command Duration(mS):";
             // 
             // led_cmd_execute_duration
             // 
@@ -4195,24 +4177,24 @@ namespace UHFDemo
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label57.Font = new System.Drawing.Font("宋体", 9F);
             this.label57.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label57.Location = new System.Drawing.Point(386, 8);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(107, 12);
+            this.label57.Size = new System.Drawing.Size(149, 12);
             this.label57.TabIndex = 27;
-            this.label57.Text = "累计返回数据(条):";
+            this.label57.Text = "Total Tag Communication:";
             // 
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label54.Font = new System.Drawing.Font("宋体", 9F);
             this.label54.ForeColor = System.Drawing.SystemColors.Desktop;
             this.label54.Location = new System.Drawing.Point(386, 72);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(131, 12);
+            this.label54.Size = new System.Drawing.Size(179, 12);
             this.label54.TabIndex = 30;
-            this.label54.Text = "累计运行的时间(毫秒):";
+            this.label54.Text = "Total Inventory Duration(mS):";
             // 
             // ledFast_total_execute_time
             // 
@@ -4243,7 +4225,7 @@ namespace UHFDemo
             this.groupBox2.Controls.Add(this.groupBox27);
             this.groupBox2.Location = new System.Drawing.Point(11, 7);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(332, 135);
+            this.groupBox2.Size = new System.Drawing.Size(332, 168);
             this.groupBox2.TabIndex = 85;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "操作";
@@ -4255,32 +4237,32 @@ namespace UHFDemo
             this.grb_inventory_type.Controls.Add(this.radio_btn_realtime_inv);
             this.grb_inventory_type.Location = new System.Drawing.Point(139, 13);
             this.grb_inventory_type.Name = "grb_inventory_type";
-            this.grb_inventory_type.Size = new System.Drawing.Size(187, 45);
+            this.grb_inventory_type.Size = new System.Drawing.Size(187, 85);
             this.grb_inventory_type.TabIndex = 53;
             this.grb_inventory_type.TabStop = false;
-            this.grb_inventory_type.Text = "盘存方式";
+            this.grb_inventory_type.Text = "Inventory Mode";
             // 
             // radio_btn_cache_inv
             // 
             this.radio_btn_cache_inv.AutoSize = true;
-            this.radio_btn_cache_inv.Location = new System.Drawing.Point(137, 19);
+            this.radio_btn_cache_inv.Location = new System.Drawing.Point(7, 63);
             this.radio_btn_cache_inv.Name = "radio_btn_cache_inv";
-            this.radio_btn_cache_inv.Size = new System.Drawing.Size(47, 16);
+            this.radio_btn_cache_inv.Size = new System.Drawing.Size(89, 16);
             this.radio_btn_cache_inv.TabIndex = 2;
             this.radio_btn_cache_inv.TabStop = true;
-            this.radio_btn_cache_inv.Text = "缓存";
+            this.radio_btn_cache_inv.Text = "Buffer Mode";
             this.radio_btn_cache_inv.UseVisualStyleBackColor = true;
             this.radio_btn_cache_inv.CheckedChanged += new System.EventHandler(this.InventoryTypeChanged);
             // 
             // radio_btn_fast_inv
             // 
             this.radio_btn_fast_inv.AutoSize = true;
-            this.radio_btn_fast_inv.Location = new System.Drawing.Point(72, 19);
+            this.radio_btn_fast_inv.Location = new System.Drawing.Point(7, 41);
             this.radio_btn_fast_inv.Name = "radio_btn_fast_inv";
-            this.radio_btn_fast_inv.Size = new System.Drawing.Size(59, 16);
+            this.radio_btn_fast_inv.Size = new System.Drawing.Size(107, 16);
             this.radio_btn_fast_inv.TabIndex = 1;
             this.radio_btn_fast_inv.TabStop = true;
-            this.radio_btn_fast_inv.Text = "多天线";
+            this.radio_btn_fast_inv.Text = "Multi Channels";
             this.radio_btn_fast_inv.UseVisualStyleBackColor = true;
             this.radio_btn_fast_inv.CheckedChanged += new System.EventHandler(this.InventoryTypeChanged);
             // 
@@ -4289,22 +4271,22 @@ namespace UHFDemo
             this.radio_btn_realtime_inv.AutoSize = true;
             this.radio_btn_realtime_inv.Location = new System.Drawing.Point(7, 19);
             this.radio_btn_realtime_inv.Name = "radio_btn_realtime_inv";
-            this.radio_btn_realtime_inv.Size = new System.Drawing.Size(59, 16);
+            this.radio_btn_realtime_inv.Size = new System.Drawing.Size(107, 16);
             this.radio_btn_realtime_inv.TabIndex = 0;
             this.radio_btn_realtime_inv.TabStop = true;
-            this.radio_btn_realtime_inv.Text = "单天线";
+            this.radio_btn_realtime_inv.Text = "Single Channel";
             this.radio_btn_realtime_inv.UseVisualStyleBackColor = true;
             this.radio_btn_realtime_inv.CheckedChanged += new System.EventHandler(this.InventoryTypeChanged);
             // 
             // btnInventory
             // 
-            this.btnInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnInventory.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Bold);
             this.btnInventory.ForeColor = System.Drawing.Color.DarkBlue;
             this.btnInventory.Location = new System.Drawing.Point(10, 20);
             this.btnInventory.Name = "btnInventory";
             this.btnInventory.Size = new System.Drawing.Size(123, 38);
             this.btnInventory.TabIndex = 52;
-            this.btnInventory.Text = "开始盘存";
+            this.btnInventory.Text = "Inventory";
             this.btnInventory.UseVisualStyleBackColor = true;
             this.btnInventory.Click += new System.EventHandler(this.btnInventory_Click_1);
             // 
@@ -4317,15 +4299,26 @@ namespace UHFDemo
             this.groupBox27.Controls.Add(this.label131);
             this.groupBox27.Controls.Add(this.mInventoryExeCount);
             this.groupBox27.Controls.Add(this.cb_fast_inv_reverse_target);
-            this.groupBox27.Location = new System.Drawing.Point(4, 64);
+            this.groupBox27.Location = new System.Drawing.Point(6, 98);
             this.groupBox27.Name = "groupBox27";
             this.groupBox27.Size = new System.Drawing.Size(322, 61);
             this.groupBox27.TabIndex = 75;
             this.groupBox27.TabStop = false;
             // 
+            // cb_tagFocus
+            // 
+            this.cb_tagFocus.AutoSize = true;
+            this.cb_tagFocus.Location = new System.Drawing.Point(178, 37);
+            this.cb_tagFocus.Name = "cb_tagFocus";
+            this.cb_tagFocus.Size = new System.Drawing.Size(78, 16);
+            this.cb_tagFocus.TabIndex = 84;
+            this.cb_tagFocus.Text = "Tag Focus";
+            this.cb_tagFocus.UseVisualStyleBackColor = true;
+            this.cb_tagFocus.CheckedChanged += new System.EventHandler(this.cb_tagFocus_CheckedChanged);
+            // 
             // tb_fast_inv_staytargetB_times
             // 
-            this.tb_fast_inv_staytargetB_times.Location = new System.Drawing.Point(73, 35);
+            this.tb_fast_inv_staytargetB_times.Location = new System.Drawing.Point(107, 35);
             this.tb_fast_inv_staytargetB_times.Name = "tb_fast_inv_staytargetB_times";
             this.tb_fast_inv_staytargetB_times.Size = new System.Drawing.Size(58, 21);
             this.tb_fast_inv_staytargetB_times.TabIndex = 83;
@@ -4334,17 +4327,17 @@ namespace UHFDemo
             // label132
             // 
             this.label132.AutoSize = true;
-            this.label132.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label132.Font = new System.Drawing.Font("宋体", 9F);
             this.label132.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label132.Location = new System.Drawing.Point(10, 14);
             this.label132.Name = "label132";
-            this.label132.Size = new System.Drawing.Size(53, 12);
+            this.label132.Size = new System.Drawing.Size(65, 12);
             this.label132.TabIndex = 66;
-            this.label132.Text = "运行次数";
+            this.label132.Text = "Exec Times";
             // 
             // mFastIntervalTime
             // 
-            this.mFastIntervalTime.Location = new System.Drawing.Point(196, 10);
+            this.mFastIntervalTime.Location = new System.Drawing.Point(258, 13);
             this.mFastIntervalTime.Name = "mFastIntervalTime";
             this.mFastIntervalTime.Size = new System.Drawing.Size(58, 21);
             this.mFastIntervalTime.TabIndex = 67;
@@ -4354,17 +4347,17 @@ namespace UHFDemo
             // label131
             // 
             this.label131.AutoSize = true;
-            this.label131.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label131.Font = new System.Drawing.Font("宋体", 9F);
             this.label131.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label131.Location = new System.Drawing.Point(137, 14);
+            this.label131.Location = new System.Drawing.Point(178, 17);
             this.label131.Name = "label131";
             this.label131.Size = new System.Drawing.Size(53, 12);
             this.label131.TabIndex = 65;
-            this.label131.Text = "时间间隔";
+            this.label131.Text = "Interval";
             // 
             // mInventoryExeCount
             // 
-            this.mInventoryExeCount.Location = new System.Drawing.Point(73, 10);
+            this.mInventoryExeCount.Location = new System.Drawing.Point(107, 10);
             this.mInventoryExeCount.Name = "mInventoryExeCount";
             this.mInventoryExeCount.Size = new System.Drawing.Size(58, 21);
             this.mInventoryExeCount.TabIndex = 68;
@@ -4376,9 +4369,9 @@ namespace UHFDemo
             this.cb_fast_inv_reverse_target.AutoSize = true;
             this.cb_fast_inv_reverse_target.Location = new System.Drawing.Point(10, 37);
             this.cb_fast_inv_reverse_target.Name = "cb_fast_inv_reverse_target";
-            this.cb_fast_inv_reverse_target.Size = new System.Drawing.Size(60, 16);
+            this.cb_fast_inv_reverse_target.Size = new System.Drawing.Size(84, 16);
             this.cb_fast_inv_reverse_target.TabIndex = 82;
-            this.cb_fast_inv_reverse_target.Text = "反转AB";
+            this.cb_fast_inv_reverse_target.Text = "Reserve AB";
             this.cb_fast_inv_reverse_target.UseVisualStyleBackColor = true;
             this.cb_fast_inv_reverse_target.CheckedChanged += new System.EventHandler(this.cb_fast_inv_reverse_target_CheckedChanged);
             // 
@@ -4391,7 +4384,7 @@ namespace UHFDemo
             this.pageAcessTag.Name = "pageAcessTag";
             this.pageAcessTag.Size = new System.Drawing.Size(1000, 527);
             this.pageAcessTag.TabIndex = 3;
-            this.pageAcessTag.Text = "存取标签";
+            this.pageAcessTag.Text = "Tag Operation";
             this.pageAcessTag.UseVisualStyleBackColor = true;
             // 
             // panel13
@@ -4407,14 +4400,6 @@ namespace UHFDemo
             // 
             // dgvTagOp
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTagOp.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvTagOp.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvTagOp.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.tagOp_SerialNumberColumn,
@@ -4427,25 +4412,9 @@ namespace UHFDemo
             this.tagOp_OpCountColumn,
             this.tagOp_OpSuccessCountColumn,
             this.tagOp_FreqColumn});
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.Desktop;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvTagOp.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvTagOp.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTagOp.Location = new System.Drawing.Point(0, 0);
             this.dgvTagOp.Name = "dgvTagOp";
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvTagOp.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvTagOp.RowTemplate.Height = 23;
             this.dgvTagOp.Size = new System.Drawing.Size(993, 203);
             this.dgvTagOp.TabIndex = 9;
@@ -4507,7 +4476,7 @@ namespace UHFDemo
             this.gbCmdOperateTag.Controls.Add(this.groupBox14);
             this.gbCmdOperateTag.Controls.Add(this.groupBox13);
             this.gbCmdOperateTag.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbCmdOperateTag.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.gbCmdOperateTag.Font = new System.Drawing.Font("宋体", 9F);
             this.gbCmdOperateTag.Location = new System.Drawing.Point(0, 0);
             this.gbCmdOperateTag.Name = "gbCmdOperateTag";
             this.gbCmdOperateTag.Size = new System.Drawing.Size(1000, 325);
@@ -4985,7 +4954,7 @@ namespace UHFDemo
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(1000, 527);
             this.tabPage3.TabIndex = 4;
-            this.tabPage3.Text = "设置标签过滤";
+            this.tabPage3.Text = "Set Tag Mask";
             // 
             // panel14
             // 
@@ -5009,7 +4978,7 @@ namespace UHFDemo
             this.columnHeader7,
             this.columnHeader8});
             this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView2.Font = new System.Drawing.Font("宋体", 9F);
             this.listView2.GridLines = true;
             this.listView2.HideSelection = false;
             this.listView2.Location = new System.Drawing.Point(0, 0);
@@ -5306,7 +5275,7 @@ namespace UHFDemo
             // 
             // btnTagSelect
             // 
-            this.btnTagSelect.Font = new System.Drawing.Font("Corbel", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTagSelect.Font = new System.Drawing.Font("Corbel", 9F);
             this.btnTagSelect.Location = new System.Drawing.Point(626, 53);
             this.btnTagSelect.Name = "btnTagSelect";
             this.btnTagSelect.Size = new System.Drawing.Size(202, 23);
@@ -5325,7 +5294,7 @@ namespace UHFDemo
             this.PagISO18000.Name = "PagISO18000";
             this.PagISO18000.Size = new System.Drawing.Size(1010, 555);
             this.PagISO18000.TabIndex = 4;
-            this.PagISO18000.Text = "ISO 18000-6B标签测试";
+            this.PagISO18000.Text = "ISO 18000-6B Tag Test";
             // 
             // panel8
             // 
@@ -5349,13 +5318,13 @@ namespace UHFDemo
             // 
             // btnInventoryISO18000
             // 
-            this.btnInventoryISO18000.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btnInventoryISO18000.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold);
             this.btnInventoryISO18000.ForeColor = System.Drawing.Color.Indigo;
             this.btnInventoryISO18000.Location = new System.Drawing.Point(3, 4);
             this.btnInventoryISO18000.Name = "btnInventoryISO18000";
             this.btnInventoryISO18000.Size = new System.Drawing.Size(120, 35);
             this.btnInventoryISO18000.TabIndex = 3;
-            this.btnInventoryISO18000.Text = "开始盘存";
+            this.btnInventoryISO18000.Text = "Inventory";
             this.btnInventoryISO18000.UseVisualStyleBackColor = true;
             this.btnInventoryISO18000.Click += new System.EventHandler(this.btnInventoryISO18000_Click);
             // 
@@ -5378,7 +5347,7 @@ namespace UHFDemo
             this.columnHeader26,
             this.columnHeader28});
             this.ltvTagISO18000.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ltvTagISO18000.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ltvTagISO18000.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.ltvTagISO18000.FullRowSelect = true;
             this.ltvTagISO18000.GridLines = true;
             this.ltvTagISO18000.HideSelection = false;
@@ -5393,7 +5362,7 @@ namespace UHFDemo
             // 
             // columnHeader27
             // 
-            this.columnHeader27.Text = "序号";
+            this.columnHeader27.Text = "ID";
             // 
             // columnHeader25
             // 
@@ -5403,13 +5372,13 @@ namespace UHFDemo
             // 
             // columnHeader26
             // 
-            this.columnHeader26.Text = "天线号";
+            this.columnHeader26.Text = "Ant ID";
             this.columnHeader26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader26.Width = 77;
             // 
             // columnHeader28
             // 
-            this.columnHeader28.Text = "次数";
+            this.columnHeader28.Text = "Identification Count";
             this.columnHeader28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader28.Width = 75;
             // 
@@ -5430,11 +5399,11 @@ namespace UHFDemo
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(16, 15);
+            this.label41.Location = new System.Drawing.Point(16, 14);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(89, 12);
+            this.label41.Size = new System.Drawing.Size(83, 12);
             this.label41.TabIndex = 4;
-            this.label41.Text = "当前选择的UID:";
+            this.label41.Text = "Selected UID:";
             // 
             // btnClear
             // 
@@ -5442,13 +5411,13 @@ namespace UHFDemo
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(100, 28);
             this.btnClear.TabIndex = 10;
-            this.btnClear.Text = "刷新界面";
+            this.btnClear.Text = "Refresh";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // htxtReadUID
             // 
-            this.htxtReadUID.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.htxtReadUID.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.htxtReadUID.Location = new System.Drawing.Point(117, 11);
             this.htxtReadUID.Name = "htxtReadUID";
             this.htxtReadUID.ReadOnly = true;
@@ -5481,7 +5450,7 @@ namespace UHFDemo
             this.gbISO1800ReadWrite.Size = new System.Drawing.Size(509, 411);
             this.gbISO1800ReadWrite.TabIndex = 4;
             this.gbISO1800ReadWrite.TabStop = false;
-            this.gbISO1800ReadWrite.Text = "任意长度读写数据";
+            this.gbISO1800ReadWrite.Text = "Read/Write Tag With Unlimited Lenght";
             // 
             // txtLoopTimes
             // 
@@ -5497,9 +5466,9 @@ namespace UHFDemo
             this.label44.AutoSize = true;
             this.label44.Location = new System.Drawing.Point(179, 223);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(83, 12);
+            this.label44.Size = new System.Drawing.Size(53, 12);
             this.label44.TabIndex = 14;
-            this.label44.Text = "成功写入(次):";
+            this.label44.Text = "Success:";
             // 
             // txtLoop
             // 
@@ -5513,11 +5482,11 @@ namespace UHFDemo
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(22, 223);
+            this.label40.Location = new System.Drawing.Point(16, 223);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(83, 12);
+            this.label40.Size = new System.Drawing.Size(95, 12);
             this.label40.TabIndex = 12;
-            this.label40.Text = "循环写入(次):";
+            this.label40.Text = "Command Repeat:";
             // 
             // htxtWriteData18000
             // 
@@ -5553,9 +5522,9 @@ namespace UHFDemo
             this.label45.AutoSize = true;
             this.label45.Location = new System.Drawing.Point(16, 250);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(89, 12);
+            this.label45.Size = new System.Drawing.Size(65, 12);
             this.label45.TabIndex = 6;
-            this.label45.Text = "写入数据(HEX):";
+            this.label45.Text = "Data(HEX):";
             // 
             // btnWriteTagISO18000
             // 
@@ -5563,7 +5532,7 @@ namespace UHFDemo
             this.btnWriteTagISO18000.Name = "btnWriteTagISO18000";
             this.btnWriteTagISO18000.Size = new System.Drawing.Size(100, 28);
             this.btnWriteTagISO18000.TabIndex = 3;
-            this.btnWriteTagISO18000.Text = "写数据";
+            this.btnWriteTagISO18000.Text = "Write";
             this.btnWriteTagISO18000.UseVisualStyleBackColor = true;
             this.btnWriteTagISO18000.Click += new System.EventHandler(this.btnWriteTagISO18000_Click);
             // 
@@ -5572,18 +5541,18 @@ namespace UHFDemo
             this.label51.AutoSize = true;
             this.label51.Location = new System.Drawing.Point(173, 196);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(89, 12);
+            this.label51.Size = new System.Drawing.Size(77, 12);
             this.label51.TabIndex = 10;
-            this.label51.Text = "写入长度(HEX):";
+            this.label51.Text = "Length(HEX):";
             // 
             // label52
             // 
             this.label52.AutoSize = true;
             this.label52.Location = new System.Drawing.Point(16, 52);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(89, 12);
+            this.label52.Size = new System.Drawing.Size(65, 12);
             this.label52.TabIndex = 10;
-            this.label52.Text = "读取数据(HEX):";
+            this.label52.Text = "Data(HEX):";
             // 
             // txtReadLength
             // 
@@ -5608,9 +5577,9 @@ namespace UHFDemo
             this.label50.AutoSize = true;
             this.label50.Location = new System.Drawing.Point(173, 23);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(89, 12);
+            this.label50.Size = new System.Drawing.Size(77, 12);
             this.label50.TabIndex = 8;
-            this.label50.Text = "读取长度(HEX):";
+            this.label50.Text = "Length(HEX):";
             // 
             // htxtReadStartAdd
             // 
@@ -5626,18 +5595,18 @@ namespace UHFDemo
             this.label42.AutoSize = true;
             this.label42.Location = new System.Drawing.Point(16, 23);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(89, 12);
+            this.label42.Size = new System.Drawing.Size(95, 12);
             this.label42.TabIndex = 5;
-            this.label42.Text = "起始地址(HEX):";
+            this.label42.Text = "Start Add(HEX):";
             // 
             // label43
             // 
             this.label43.AutoSize = true;
             this.label43.Location = new System.Drawing.Point(16, 196);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(89, 12);
+            this.label43.Size = new System.Drawing.Size(95, 12);
             this.label43.TabIndex = 5;
-            this.label43.Text = "起始地址(HEX):";
+            this.label43.Text = "Start Add(HEX):";
             // 
             // btnReadTagISO18000
             // 
@@ -5645,7 +5614,7 @@ namespace UHFDemo
             this.btnReadTagISO18000.Name = "btnReadTagISO18000";
             this.btnReadTagISO18000.Size = new System.Drawing.Size(100, 28);
             this.btnReadTagISO18000.TabIndex = 3;
-            this.btnReadTagISO18000.Text = "读数据";
+            this.btnReadTagISO18000.Text = "Read";
             this.btnReadTagISO18000.UseVisualStyleBackColor = true;
             this.btnReadTagISO18000.Click += new System.EventHandler(this.btnReadTagISO18000_Click);
             // 
@@ -5685,11 +5654,11 @@ namespace UHFDemo
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Location = new System.Drawing.Point(25, 62);
+            this.label46.Location = new System.Drawing.Point(13, 62);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(173, 12);
+            this.label46.Size = new System.Drawing.Size(191, 12);
             this.label46.TabIndex = 5;
-            this.label46.Text = "查询永久写保护状态(HEX地址):";
+            this.label46.Text = "Query Lock Status Address(HEX):";
             // 
             // htxtLockAdd
             // 
@@ -5703,11 +5672,11 @@ namespace UHFDemo
             // label47
             // 
             this.label47.AutoSize = true;
-            this.label47.Location = new System.Drawing.Point(73, 29);
+            this.label47.Location = new System.Drawing.Point(13, 29);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(125, 12);
+            this.label47.Size = new System.Drawing.Size(173, 12);
             this.label47.TabIndex = 5;
-            this.label47.Text = "永久写保护(HEX地址):";
+            this.label47.Text = "Permanent Lock Address(HEX):";
             // 
             // btnQueryTagISO18000
             // 
@@ -5715,7 +5684,7 @@ namespace UHFDemo
             this.btnQueryTagISO18000.Name = "btnQueryTagISO18000";
             this.btnQueryTagISO18000.Size = new System.Drawing.Size(100, 28);
             this.btnQueryTagISO18000.TabIndex = 3;
-            this.btnQueryTagISO18000.Text = "查询状态";
+            this.btnQueryTagISO18000.Text = "Query";
             this.btnQueryTagISO18000.UseVisualStyleBackColor = true;
             this.btnQueryTagISO18000.Click += new System.EventHandler(this.btnQueryTagISO18000_Click);
             // 
@@ -5725,7 +5694,7 @@ namespace UHFDemo
             this.btnLockTagISO18000.Name = "btnLockTagISO18000";
             this.btnLockTagISO18000.Size = new System.Drawing.Size(100, 28);
             this.btnLockTagISO18000.TabIndex = 3;
-            this.btnLockTagISO18000.Text = "永久写保护";
+            this.btnLockTagISO18000.Text = "Lock";
             this.btnLockTagISO18000.UseVisualStyleBackColor = true;
             this.btnLockTagISO18000.Click += new System.EventHandler(this.btnLockTagISO18000_Click);
             // 
@@ -5738,7 +5707,7 @@ namespace UHFDemo
             this.PagTranDataLog.Name = "PagTranDataLog";
             this.PagTranDataLog.Size = new System.Drawing.Size(1010, 555);
             this.PagTranDataLog.TabIndex = 2;
-            this.PagTranDataLog.Text = "串口监控数据";
+            this.PagTranDataLog.Text = "Serial Port Monitor";
             this.PagTranDataLog.UseVisualStyleBackColor = true;
             // 
             // panel9
@@ -5783,9 +5752,9 @@ namespace UHFDemo
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(5, 39);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(83, 12);
+            this.label16.Size = new System.Drawing.Size(89, 12);
             this.label16.TabIndex = 1;
-            this.label16.Text = "手工输入数据:";
+            this.label16.Text = "Input Command:";
             // 
             // htxtSendData
             // 
@@ -5800,9 +5769,9 @@ namespace UHFDemo
             this.btnSaveData.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.btnSaveData.Location = new System.Drawing.Point(5, 6);
             this.btnSaveData.Name = "btnSaveData";
-            this.btnSaveData.Size = new System.Drawing.Size(140, 23);
+            this.btnSaveData.Size = new System.Drawing.Size(173, 23);
             this.btnSaveData.TabIndex = 10;
-            this.btnSaveData.Text = "保存数据到txt文件";
+            this.btnSaveData.Text = "Save Log To File(.txt)";
             this.btnSaveData.UseVisualStyleBackColor = true;
             this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
             // 
@@ -5812,13 +5781,13 @@ namespace UHFDemo
             this.btnClearData.Name = "btnClearData";
             this.btnClearData.Size = new System.Drawing.Size(90, 23);
             this.btnClearData.TabIndex = 6;
-            this.btnClearData.Text = "清空数据";
+            this.btnClearData.Text = "Clear";
             this.btnClearData.UseVisualStyleBackColor = true;
             this.btnClearData.Click += new System.EventHandler(this.btnClearData_Click);
             // 
             // htxtCheckData
             // 
-            this.htxtCheckData.Location = new System.Drawing.Point(680, 35);
+            this.htxtCheckData.Location = new System.Drawing.Point(694, 35);
             this.htxtCheckData.Name = "htxtCheckData";
             this.htxtCheckData.ReadOnly = true;
             this.htxtCheckData.Size = new System.Drawing.Size(47, 21);
@@ -5829,9 +5798,9 @@ namespace UHFDemo
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(623, 39);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(47, 12);
+            this.label17.Size = new System.Drawing.Size(65, 12);
             this.label17.TabIndex = 3;
-            this.label17.Text = "校验位:";
+            this.label17.Text = "Check Sum:";
             // 
             // btnSendData
             // 
@@ -5839,988 +5808,912 @@ namespace UHFDemo
             this.btnSendData.Name = "btnSendData";
             this.btnSendData.Size = new System.Drawing.Size(90, 23);
             this.btnSendData.TabIndex = 5;
-            this.btnSendData.Text = "发送数据";
+            this.btnSendData.Text = "Send";
             this.btnSendData.UseVisualStyleBackColor = true;
             this.btnSendData.Click += new System.EventHandler(this.btnSendData_Click);
             // 
             // net_configure_tabPage
             // 
-            this.net_configure_tabPage.Controls.Add(this.net_load_cfg_btn);
-            this.net_configure_tabPage.Controls.Add(this.net_save_cfg_btn);
-            this.net_configure_tabPage.Controls.Add(this.label171);
-            this.net_configure_tabPage.Controls.Add(this.net_search_cnt_label);
-            this.net_configure_tabPage.Controls.Add(this.label170);
-            this.net_configure_tabPage.Controls.Add(this.net_search_size);
-            this.net_configure_tabPage.Controls.Add(this.net_base_info_lb);
-            this.net_configure_tabPage.Controls.Add(this.net_base_info_label);
-            this.net_configure_tabPage.Controls.Add(this.net_udpserver_status_label);
-            this.net_configure_tabPage.Controls.Add(this.net_reset_default);
-            this.net_configure_tabPage.Controls.Add(this.port_setting_tabcontrol);
-            this.net_configure_tabPage.Controls.Add(this.net_port_config_tool_linkLabel);
-            this.net_configure_tabPage.Controls.Add(this.label165);
-            this.net_configure_tabPage.Controls.Add(this.label164);
-            this.net_configure_tabPage.Controls.Add(this.old_net_port_link);
-            this.net_configure_tabPage.Controls.Add(this.label163);
-            this.net_configure_tabPage.Controls.Add(this.net_clear_btn);
-            this.net_configure_tabPage.Controls.Add(this.net_base_settings_gb);
-            this.net_configure_tabPage.Controls.Add(this.dev_dgv);
-            this.net_configure_tabPage.Controls.Add(this.label159);
-            this.net_configure_tabPage.Controls.Add(this.net_card_combox);
-            this.net_configure_tabPage.Controls.Add(this.groupBox30);
-            this.net_configure_tabPage.Controls.Add(this.net_reset_btn);
-            this.net_configure_tabPage.Controls.Add(this.net_setCfg_btn);
-            this.net_configure_tabPage.Controls.Add(this.net_getCfg_btn);
-            this.net_configure_tabPage.Controls.Add(this.net_search_btn);
-            this.net_configure_tabPage.Controls.Add(this.net_refresh_netcard_btn);
+            this.net_configure_tabPage.Controls.Add(this.flowLayoutPanel3);
+            this.net_configure_tabPage.Controls.Add(this.groupBox3);
             this.net_configure_tabPage.Location = new System.Drawing.Point(4, 22);
             this.net_configure_tabPage.Name = "net_configure_tabPage";
             this.net_configure_tabPage.Padding = new System.Windows.Forms.Padding(3);
             this.net_configure_tabPage.Size = new System.Drawing.Size(1010, 555);
             this.net_configure_tabPage.TabIndex = 6;
-            this.net_configure_tabPage.Text = "网口配置";
+            this.net_configure_tabPage.Text = "NetPort Setup";
             this.net_configure_tabPage.UseVisualStyleBackColor = true;
             // 
-            // net_load_cfg_btn
-            // 
-            this.net_load_cfg_btn.Location = new System.Drawing.Point(695, 331);
-            this.net_load_cfg_btn.Name = "net_load_cfg_btn";
-            this.net_load_cfg_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_load_cfg_btn.TabIndex = 83;
-            this.net_load_cfg_btn.Text = "加载配置";
-            this.net_load_cfg_btn.UseVisualStyleBackColor = true;
-            this.net_load_cfg_btn.Click += new System.EventHandler(this.net_load_cfg_btn_Click);
-            // 
-            // net_save_cfg_btn
-            // 
-            this.net_save_cfg_btn.Location = new System.Drawing.Point(610, 331);
-            this.net_save_cfg_btn.Name = "net_save_cfg_btn";
-            this.net_save_cfg_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_save_cfg_btn.TabIndex = 82;
-            this.net_save_cfg_btn.Text = "保存到文件";
-            this.net_save_cfg_btn.UseVisualStyleBackColor = true;
-            this.net_save_cfg_btn.Click += new System.EventHandler(this.net_save_cfg_btn_Click);
-            // 
-            // label171
-            // 
-            this.label171.AutoSize = true;
-            this.label171.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.label171.ForeColor = System.Drawing.Color.Black;
-            this.label171.Location = new System.Drawing.Point(102, 46);
-            this.label171.Name = "label171";
-            this.label171.Size = new System.Drawing.Size(68, 17);
-            this.label171.TabIndex = 81;
-            this.label171.Text = "搜索次数：";
-            // 
-            // net_search_cnt_label
-            // 
-            this.net_search_cnt_label.AutoSize = true;
-            this.net_search_cnt_label.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.net_search_cnt_label.ForeColor = System.Drawing.Color.Black;
-            this.net_search_cnt_label.Location = new System.Drawing.Point(368, 43);
-            this.net_search_cnt_label.Name = "net_search_cnt_label";
-            this.net_search_cnt_label.Size = new System.Drawing.Size(15, 17);
-            this.net_search_cnt_label.TabIndex = 80;
-            this.net_search_cnt_label.Text = "0";
-            // 
-            // label170
-            // 
-            this.label170.AutoSize = true;
-            this.label170.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.label170.ForeColor = System.Drawing.Color.Black;
-            this.label170.Location = new System.Drawing.Point(298, 43);
-            this.label170.Name = "label170";
-            this.label170.Size = new System.Drawing.Size(68, 17);
-            this.label170.TabIndex = 79;
-            this.label170.Text = "总设备数：";
-            // 
-            // net_search_size
-            // 
-            this.net_search_size.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.net_search_size.FormattingEnabled = true;
-            this.net_search_size.Items.AddRange(new object[] {
-            "-1",
-            "1",
-            "2",
-            "5",
-            "10",
-            "20"});
-            this.net_search_size.Location = new System.Drawing.Point(172, 43);
-            this.net_search_size.Name = "net_search_size";
-            this.net_search_size.Size = new System.Drawing.Size(113, 20);
-            this.net_search_size.TabIndex = 78;
-            // 
-            // net_base_info_lb
-            // 
-            this.net_base_info_lb.FormattingEnabled = true;
-            this.net_base_info_lb.ItemHeight = 12;
-            this.net_base_info_lb.Location = new System.Drawing.Point(94, 447);
-            this.net_base_info_lb.Name = "net_base_info_lb";
-            this.net_base_info_lb.Size = new System.Drawing.Size(685, 100);
-            this.net_base_info_lb.TabIndex = 77;
-            // 
-            // net_base_info_label
-            // 
-            this.net_base_info_label.AutoSize = true;
-            this.net_base_info_label.Location = new System.Drawing.Point(23, 447);
-            this.net_base_info_label.Name = "net_base_info_label";
-            this.net_base_info_label.Size = new System.Drawing.Size(65, 12);
-            this.net_base_info_label.TabIndex = 12;
-            this.net_base_info_label.Text = "基础信息：";
-            // 
-            // net_udpserver_status_label
-            // 
-            this.net_udpserver_status_label.AutoSize = true;
-            this.net_udpserver_status_label.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.net_udpserver_status_label.ForeColor = System.Drawing.Color.Black;
-            this.net_udpserver_status_label.Location = new System.Drawing.Point(537, 21);
-            this.net_udpserver_status_label.Name = "net_udpserver_status_label";
-            this.net_udpserver_status_label.Size = new System.Drawing.Size(109, 17);
-            this.net_udpserver_status_label.TabIndex = 37;
-            this.net_udpserver_status_label.Text = "Net Server Status";
-            // 
-            // net_reset_default
-            // 
-            this.net_reset_default.Location = new System.Drawing.Point(695, 302);
-            this.net_reset_default.Name = "net_reset_default";
-            this.net_reset_default.Size = new System.Drawing.Size(75, 23);
-            this.net_reset_default.TabIndex = 36;
-            this.net_reset_default.Text = "恢复默认";
-            this.net_reset_default.UseVisualStyleBackColor = true;
-            this.net_reset_default.Click += new System.EventHandler(this.net_reset_default_Click);
-            // 
-            // port_setting_tabcontrol
-            // 
-            this.port_setting_tabcontrol.Controls.Add(this.net_port_0_tabPage);
-            this.port_setting_tabcontrol.Controls.Add(this.net_port_1_tabPage);
-            this.port_setting_tabcontrol.Location = new System.Drawing.Point(781, 44);
-            this.port_setting_tabcontrol.Name = "port_setting_tabcontrol";
-            this.port_setting_tabcontrol.SelectedIndex = 0;
-            this.port_setting_tabcontrol.Size = new System.Drawing.Size(226, 505);
-            this.port_setting_tabcontrol.TabIndex = 35;
-            // 
-            // net_port_0_tabPage
-            // 
-            this.net_port_0_tabPage.Controls.Add(this.label203);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_dns_host_port_tb);
-            this.net_port_0_tabPage.Controls.Add(this.label202);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_dns_host_ip_tb);
-            this.net_port_0_tabPage.Controls.Add(this.label128);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_reconnectcnt_tb);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_dns_flag);
-            this.net_port_0_tabPage.Controls.Add(this.label192);
-            this.net_port_0_tabPage.Controls.Add(this.label190);
-            this.net_port_0_tabPage.Controls.Add(this.label191);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_resetctrl_cb);
-            this.net_port_0_tabPage.Controls.Add(this.label189);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_rx_pkg_timeout_tb);
-            this.net_port_0_tabPage.Controls.Add(this.label188);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_rx_pkg_size_tb);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_dns_label);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_dns_domain_tb);
-            this.net_port_0_tabPage.Controls.Add(this.label180);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_phyChangeHandle_cb);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_enable_cb);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_rand_port_flag_cb);
-            this.net_port_0_tabPage.Controls.Add(this.label169);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_parity_bit_cbo);
-            this.net_port_0_tabPage.Controls.Add(this.label168);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_stopbits_cbo);
-            this.net_port_0_tabPage.Controls.Add(this.label167);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_databits_cbo);
-            this.net_port_0_tabPage.Controls.Add(this.label166);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_baudrate_cbo);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_dest_port_tb);
-            this.net_port_0_tabPage.Controls.Add(this.label155);
-            this.net_port_0_tabPage.Controls.Add(this.label129);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_dest_ip_tb);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_local_net_port_tb);
-            this.net_port_0_tabPage.Controls.Add(this.label126);
-            this.net_port_0_tabPage.Controls.Add(this.label125);
-            this.net_port_0_tabPage.Controls.Add(this.net_port_1_net_mode_cbo);
-            this.net_port_0_tabPage.Location = new System.Drawing.Point(4, 22);
-            this.net_port_0_tabPage.Name = "net_port_0_tabPage";
-            this.net_port_0_tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.net_port_0_tabPage.Size = new System.Drawing.Size(218, 479);
-            this.net_port_0_tabPage.TabIndex = 0;
-            this.net_port_0_tabPage.Text = "端口1";
-            this.net_port_0_tabPage.UseVisualStyleBackColor = true;
-            // 
-            // label203
-            // 
-            this.label203.AutoSize = true;
-            this.label203.Location = new System.Drawing.Point(8, 451);
-            this.label203.Name = "label203";
-            this.label203.Size = new System.Drawing.Size(59, 12);
-            this.label203.TabIndex = 93;
-            this.label203.Text = "DNS端口：";
-            // 
-            // net_port_1_dns_host_port_tb
-            // 
-            this.net_port_1_dns_host_port_tb.Location = new System.Drawing.Point(79, 448);
-            this.net_port_1_dns_host_port_tb.Name = "net_port_1_dns_host_port_tb";
-            this.net_port_1_dns_host_port_tb.Size = new System.Drawing.Size(132, 21);
-            this.net_port_1_dns_host_port_tb.TabIndex = 92;
-            // 
-            // label202
-            // 
-            this.label202.AutoSize = true;
-            this.label202.Location = new System.Drawing.Point(8, 427);
-            this.label202.Name = "label202";
-            this.label202.Size = new System.Drawing.Size(59, 12);
-            this.label202.TabIndex = 91;
-            this.label202.Text = "DNS主机：";
-            // 
-            // net_port_1_dns_host_ip_tb
-            // 
-            this.net_port_1_dns_host_ip_tb.Location = new System.Drawing.Point(79, 424);
-            this.net_port_1_dns_host_ip_tb.Name = "net_port_1_dns_host_ip_tb";
-            this.net_port_1_dns_host_ip_tb.Size = new System.Drawing.Size(132, 21);
-            this.net_port_1_dns_host_ip_tb.TabIndex = 90;
-            // 
-            // label128
-            // 
-            this.label128.AutoSize = true;
-            this.label128.Location = new System.Drawing.Point(8, 403);
-            this.label128.Name = "label128";
-            this.label128.Size = new System.Drawing.Size(89, 12);
-            this.label128.TabIndex = 89;
-            this.label128.Text = "最大重连次数：";
-            // 
-            // net_port_1_reconnectcnt_tb
-            // 
-            this.net_port_1_reconnectcnt_tb.Location = new System.Drawing.Point(97, 400);
-            this.net_port_1_reconnectcnt_tb.Name = "net_port_1_reconnectcnt_tb";
-            this.net_port_1_reconnectcnt_tb.Size = new System.Drawing.Size(62, 21);
-            this.net_port_1_reconnectcnt_tb.TabIndex = 88;
-            // 
-            // net_port_1_dns_flag
-            // 
-            this.net_port_1_dns_flag.AutoSize = true;
-            this.net_port_1_dns_flag.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.net_port_1_dns_flag.Location = new System.Drawing.Point(6, 70);
-            this.net_port_1_dns_flag.Name = "net_port_1_dns_flag";
-            this.net_port_1_dns_flag.Size = new System.Drawing.Size(96, 16);
-            this.net_port_1_dns_flag.TabIndex = 87;
-            this.net_port_1_dns_flag.Text = "启用域名功能";
-            this.net_port_1_dns_flag.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.net_port_1_dns_flag.UseVisualStyleBackColor = true;
-            this.net_port_1_dns_flag.CheckStateChanged += new System.EventHandler(this.net_port_1_dns_flag_CheckStateChanged);
-            // 
-            // label192
-            // 
-            this.label192.AutoSize = true;
-            this.label192.Location = new System.Drawing.Point(156, 346);
-            this.label192.Name = "label192";
-            this.label192.Size = new System.Drawing.Size(41, 12);
-            this.label192.TabIndex = 86;
-            this.label192.Text = "(10ms)";
-            // 
-            // label190
-            // 
-            this.label190.AutoSize = true;
-            this.label190.Location = new System.Drawing.Point(156, 317);
-            this.label190.Name = "label190";
-            this.label190.Size = new System.Drawing.Size(53, 12);
-            this.label190.TabIndex = 85;
-            this.label190.Text = "(<=1024)";
-            // 
-            // label191
-            // 
-            this.label191.AutoSize = true;
-            this.label191.Location = new System.Drawing.Point(7, 376);
-            this.label191.Name = "label191";
-            this.label191.Size = new System.Drawing.Size(77, 12);
-            this.label191.TabIndex = 84;
-            this.label191.Text = "网络连接时：";
-            // 
-            // net_port_1_resetctrl_cb
-            // 
-            this.net_port_1_resetctrl_cb.AutoSize = true;
-            this.net_port_1_resetctrl_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.net_port_1_resetctrl_cb.Location = new System.Drawing.Point(88, 376);
-            this.net_port_1_resetctrl_cb.Name = "net_port_1_resetctrl_cb";
-            this.net_port_1_resetctrl_cb.Size = new System.Drawing.Size(96, 16);
-            this.net_port_1_resetctrl_cb.TabIndex = 83;
-            this.net_port_1_resetctrl_cb.Text = "清空串口数据";
-            this.net_port_1_resetctrl_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.net_port_1_resetctrl_cb.UseVisualStyleBackColor = true;
-            // 
-            // label189
-            // 
-            this.label189.AutoSize = true;
-            this.label189.Location = new System.Drawing.Point(8, 346);
-            this.label189.Name = "label189";
-            this.label189.Size = new System.Drawing.Size(77, 12);
-            this.label189.TabIndex = 80;
-            this.label189.Text = "RX打包超时：";
-            // 
-            // net_port_1_rx_pkg_timeout_tb
-            // 
-            this.net_port_1_rx_pkg_timeout_tb.Location = new System.Drawing.Point(88, 343);
-            this.net_port_1_rx_pkg_timeout_tb.Name = "net_port_1_rx_pkg_timeout_tb";
-            this.net_port_1_rx_pkg_timeout_tb.Size = new System.Drawing.Size(62, 21);
-            this.net_port_1_rx_pkg_timeout_tb.TabIndex = 79;
-            // 
-            // label188
-            // 
-            this.label188.AutoSize = true;
-            this.label188.Location = new System.Drawing.Point(7, 314);
-            this.label188.Name = "label188";
-            this.label188.Size = new System.Drawing.Size(77, 12);
-            this.label188.TabIndex = 78;
-            this.label188.Text = "RX打包长度：";
-            // 
-            // net_port_1_rx_pkg_size_tb
-            // 
-            this.net_port_1_rx_pkg_size_tb.Location = new System.Drawing.Point(87, 314);
-            this.net_port_1_rx_pkg_size_tb.Name = "net_port_1_rx_pkg_size_tb";
-            this.net_port_1_rx_pkg_size_tb.Size = new System.Drawing.Size(63, 21);
-            this.net_port_1_rx_pkg_size_tb.TabIndex = 77;
-            // 
-            // net_port_1_dns_label
-            // 
-            this.net_port_1_dns_label.AutoSize = true;
-            this.net_port_1_dns_label.Location = new System.Drawing.Point(6, 95);
-            this.net_port_1_dns_label.Name = "net_port_1_dns_label";
-            this.net_port_1_dns_label.Size = new System.Drawing.Size(59, 12);
-            this.net_port_1_dns_label.TabIndex = 76;
-            this.net_port_1_dns_label.Text = "DNS域名：";
-            // 
-            // net_port_1_dns_domain_tb
-            // 
-            this.net_port_1_dns_domain_tb.Location = new System.Drawing.Point(77, 92);
-            this.net_port_1_dns_domain_tb.Name = "net_port_1_dns_domain_tb";
-            this.net_port_1_dns_domain_tb.Size = new System.Drawing.Size(132, 21);
-            this.net_port_1_dns_domain_tb.TabIndex = 75;
-            // 
-            // label180
-            // 
-            this.label180.AutoSize = true;
-            this.label180.Location = new System.Drawing.Point(18, 287);
-            this.label180.Name = "label180";
-            this.label180.Size = new System.Drawing.Size(65, 12);
-            this.label180.TabIndex = 74;
-            this.label180.Text = "网络断开：";
-            // 
-            // net_port_1_phyChangeHandle_cb
-            // 
-            this.net_port_1_phyChangeHandle_cb.AutoSize = true;
-            this.net_port_1_phyChangeHandle_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.net_port_1_phyChangeHandle_cb.Location = new System.Drawing.Point(87, 286);
-            this.net_port_1_phyChangeHandle_cb.Name = "net_port_1_phyChangeHandle_cb";
-            this.net_port_1_phyChangeHandle_cb.Size = new System.Drawing.Size(72, 16);
-            this.net_port_1_phyChangeHandle_cb.TabIndex = 12;
-            this.net_port_1_phyChangeHandle_cb.Text = "关闭连接";
-            this.net_port_1_phyChangeHandle_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.net_port_1_phyChangeHandle_cb.UseVisualStyleBackColor = true;
-            // 
-            // net_port_1_enable_cb
-            // 
-            this.net_port_1_enable_cb.AutoSize = true;
-            this.net_port_1_enable_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.net_port_1_enable_cb.Location = new System.Drawing.Point(4, 4);
-            this.net_port_1_enable_cb.Name = "net_port_1_enable_cb";
-            this.net_port_1_enable_cb.Size = new System.Drawing.Size(78, 16);
-            this.net_port_1_enable_cb.TabIndex = 72;
-            this.net_port_1_enable_cb.Text = "启用端口1";
-            this.net_port_1_enable_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.net_port_1_enable_cb.UseVisualStyleBackColor = true;
-            // 
-            // net_port_1_rand_port_flag_cb
-            // 
-            this.net_port_1_rand_port_flag_cb.AutoSize = true;
-            this.net_port_1_rand_port_flag_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.net_port_1_rand_port_flag_cb.Location = new System.Drawing.Point(77, 47);
-            this.net_port_1_rand_port_flag_cb.Name = "net_port_1_rand_port_flag_cb";
-            this.net_port_1_rand_port_flag_cb.Size = new System.Drawing.Size(48, 16);
-            this.net_port_1_rand_port_flag_cb.TabIndex = 70;
-            this.net_port_1_rand_port_flag_cb.Text = "随机";
-            this.net_port_1_rand_port_flag_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.net_port_1_rand_port_flag_cb.UseVisualStyleBackColor = true;
-            // 
-            // label169
-            // 
-            this.label169.AutoSize = true;
-            this.label169.Location = new System.Drawing.Point(6, 261);
-            this.label169.Name = "label169";
-            this.label169.Size = new System.Drawing.Size(77, 12);
-            this.label169.TabIndex = 68;
-            this.label169.Text = "串口校验位：";
-            // 
-            // net_port_1_parity_bit_cbo
-            // 
-            this.net_port_1_parity_bit_cbo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.net_port_1_parity_bit_cbo.FormattingEnabled = true;
-            this.net_port_1_parity_bit_cbo.Location = new System.Drawing.Point(88, 258);
-            this.net_port_1_parity_bit_cbo.Name = "net_port_1_parity_bit_cbo";
-            this.net_port_1_parity_bit_cbo.Size = new System.Drawing.Size(121, 20);
-            this.net_port_1_parity_bit_cbo.TabIndex = 69;
-            // 
-            // label168
-            // 
-            this.label168.AutoSize = true;
-            this.label168.Location = new System.Drawing.Point(6, 236);
-            this.label168.Name = "label168";
-            this.label168.Size = new System.Drawing.Size(77, 12);
-            this.label168.TabIndex = 66;
-            this.label168.Text = "串口停止位：";
-            // 
-            // net_port_1_stopbits_cbo
-            // 
-            this.net_port_1_stopbits_cbo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.net_port_1_stopbits_cbo.FormattingEnabled = true;
-            this.net_port_1_stopbits_cbo.Location = new System.Drawing.Point(88, 233);
-            this.net_port_1_stopbits_cbo.Name = "net_port_1_stopbits_cbo";
-            this.net_port_1_stopbits_cbo.Size = new System.Drawing.Size(121, 20);
-            this.net_port_1_stopbits_cbo.TabIndex = 67;
-            // 
-            // label167
-            // 
-            this.label167.AutoSize = true;
-            this.label167.Location = new System.Drawing.Point(6, 207);
-            this.label167.Name = "label167";
-            this.label167.Size = new System.Drawing.Size(77, 12);
-            this.label167.TabIndex = 64;
-            this.label167.Text = "串口数据位：";
-            // 
-            // net_port_1_databits_cbo
-            // 
-            this.net_port_1_databits_cbo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.net_port_1_databits_cbo.FormattingEnabled = true;
-            this.net_port_1_databits_cbo.Location = new System.Drawing.Point(88, 204);
-            this.net_port_1_databits_cbo.Name = "net_port_1_databits_cbo";
-            this.net_port_1_databits_cbo.Size = new System.Drawing.Size(121, 20);
-            this.net_port_1_databits_cbo.TabIndex = 65;
-            // 
-            // label166
-            // 
-            this.label166.AutoSize = true;
-            this.label166.Location = new System.Drawing.Point(6, 180);
-            this.label166.Name = "label166";
-            this.label166.Size = new System.Drawing.Size(77, 12);
-            this.label166.TabIndex = 62;
-            this.label166.Text = "串口波特率：";
-            // 
-            // net_port_1_baudrate_cbo
-            // 
-            this.net_port_1_baudrate_cbo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.net_port_1_baudrate_cbo.FormattingEnabled = true;
-            this.net_port_1_baudrate_cbo.Location = new System.Drawing.Point(88, 177);
-            this.net_port_1_baudrate_cbo.Name = "net_port_1_baudrate_cbo";
-            this.net_port_1_baudrate_cbo.Size = new System.Drawing.Size(121, 20);
-            this.net_port_1_baudrate_cbo.TabIndex = 63;
-            // 
-            // net_port_1_dest_port_tb
-            // 
-            this.net_port_1_dest_port_tb.Location = new System.Drawing.Point(77, 148);
-            this.net_port_1_dest_port_tb.Name = "net_port_1_dest_port_tb";
-            this.net_port_1_dest_port_tb.Size = new System.Drawing.Size(132, 21);
-            this.net_port_1_dest_port_tb.TabIndex = 61;
-            // 
-            // label155
-            // 
-            this.label155.AutoSize = true;
-            this.label155.Location = new System.Drawing.Point(6, 151);
-            this.label155.Name = "label155";
-            this.label155.Size = new System.Drawing.Size(65, 12);
-            this.label155.TabIndex = 60;
-            this.label155.Text = "目标端口：";
-            // 
-            // label129
-            // 
-            this.label129.AutoSize = true;
-            this.label129.Location = new System.Drawing.Point(6, 120);
-            this.label129.Name = "label129";
-            this.label129.Size = new System.Drawing.Size(53, 12);
-            this.label129.TabIndex = 59;
-            this.label129.Text = "目的IP：";
-            // 
-            // net_port_1_dest_ip_tb
-            // 
-            this.net_port_1_dest_ip_tb.Location = new System.Drawing.Point(77, 117);
-            this.net_port_1_dest_ip_tb.Name = "net_port_1_dest_ip_tb";
-            this.net_port_1_dest_ip_tb.Size = new System.Drawing.Size(132, 21);
-            this.net_port_1_dest_ip_tb.TabIndex = 58;
-            // 
-            // net_port_1_local_net_port_tb
-            // 
-            this.net_port_1_local_net_port_tb.Location = new System.Drawing.Point(143, 45);
-            this.net_port_1_local_net_port_tb.Name = "net_port_1_local_net_port_tb";
-            this.net_port_1_local_net_port_tb.Size = new System.Drawing.Size(66, 21);
-            this.net_port_1_local_net_port_tb.TabIndex = 52;
-            this.net_port_1_local_net_port_tb.Text = "0";
-            // 
-            // label126
-            // 
-            this.label126.AutoSize = true;
-            this.label126.Location = new System.Drawing.Point(6, 48);
-            this.label126.Name = "label126";
-            this.label126.Size = new System.Drawing.Size(65, 12);
-            this.label126.TabIndex = 55;
-            this.label126.Text = "本地端口：";
-            // 
-            // label125
-            // 
-            this.label125.AutoSize = true;
-            this.label125.Location = new System.Drawing.Point(6, 25);
-            this.label125.Name = "label125";
-            this.label125.Size = new System.Drawing.Size(65, 12);
-            this.label125.TabIndex = 53;
-            this.label125.Text = "网络模式：";
-            // 
-            // net_port_1_net_mode_cbo
-            // 
-            this.net_port_1_net_mode_cbo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.net_port_1_net_mode_cbo.FormattingEnabled = true;
-            this.net_port_1_net_mode_cbo.Location = new System.Drawing.Point(77, 22);
-            this.net_port_1_net_mode_cbo.Name = "net_port_1_net_mode_cbo";
-            this.net_port_1_net_mode_cbo.Size = new System.Drawing.Size(132, 20);
-            this.net_port_1_net_mode_cbo.TabIndex = 54;
-            this.net_port_1_net_mode_cbo.SelectedIndexChanged += new System.EventHandler(this.net_port_net_mode_cb_SelectedIndexChanged);
-            // 
-            // net_port_1_tabPage
-            // 
-            this.net_port_1_tabPage.Controls.Add(this.net_use_heartbeat_cb);
-            this.net_port_1_tabPage.Controls.Add(this.net_heartbeat_interval_tb);
-            this.net_port_1_tabPage.Controls.Add(this.label174);
-            this.net_port_1_tabPage.Controls.Add(this.label175);
-            this.net_port_1_tabPage.Controls.Add(this.net_heartbeat_content_tb);
-            this.net_port_1_tabPage.Location = new System.Drawing.Point(4, 22);
-            this.net_port_1_tabPage.Name = "net_port_1_tabPage";
-            this.net_port_1_tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.net_port_1_tabPage.Size = new System.Drawing.Size(218, 479);
-            this.net_port_1_tabPage.TabIndex = 1;
-            this.net_port_1_tabPage.Text = "心跳包";
-            this.net_port_1_tabPage.UseVisualStyleBackColor = true;
-            // 
-            // net_use_heartbeat_cb
-            // 
-            this.net_use_heartbeat_cb.AutoSize = true;
-            this.net_use_heartbeat_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.net_use_heartbeat_cb.Location = new System.Drawing.Point(4, 6);
-            this.net_use_heartbeat_cb.Name = "net_use_heartbeat_cb";
-            this.net_use_heartbeat_cb.Size = new System.Drawing.Size(72, 16);
-            this.net_use_heartbeat_cb.TabIndex = 73;
-            this.net_use_heartbeat_cb.Text = "启用心跳";
-            this.net_use_heartbeat_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.net_use_heartbeat_cb.UseVisualStyleBackColor = true;
-            // 
-            // net_heartbeat_interval_tb
-            // 
-            this.net_heartbeat_interval_tb.Location = new System.Drawing.Point(10, 99);
-            this.net_heartbeat_interval_tb.Name = "net_heartbeat_interval_tb";
-            this.net_heartbeat_interval_tb.Size = new System.Drawing.Size(196, 21);
-            this.net_heartbeat_interval_tb.TabIndex = 61;
-            // 
-            // label174
-            // 
-            this.label174.AutoSize = true;
-            this.label174.Location = new System.Drawing.Point(3, 81);
-            this.label174.Name = "label174";
-            this.label174.Size = new System.Drawing.Size(89, 12);
-            this.label174.TabIndex = 60;
-            this.label174.Text = "间隔（50ms）：";
-            // 
-            // label175
-            // 
-            this.label175.AutoSize = true;
-            this.label175.Location = new System.Drawing.Point(3, 31);
-            this.label175.Name = "label175";
-            this.label175.Size = new System.Drawing.Size(155, 12);
-            this.label175.TabIndex = 59;
-            this.label175.Text = "心跳包内容（<20 Bytes）：";
-            // 
-            // net_heartbeat_content_tb
-            // 
-            this.net_heartbeat_content_tb.Location = new System.Drawing.Point(10, 50);
-            this.net_heartbeat_content_tb.Name = "net_heartbeat_content_tb";
-            this.net_heartbeat_content_tb.Size = new System.Drawing.Size(196, 21);
-            this.net_heartbeat_content_tb.TabIndex = 58;
-            // 
-            // net_port_config_tool_linkLabel
-            // 
-            this.net_port_config_tool_linkLabel.AutoSize = true;
-            this.net_port_config_tool_linkLabel.Location = new System.Drawing.Point(341, 391);
-            this.net_port_config_tool_linkLabel.Name = "net_port_config_tool_linkLabel";
-            this.net_port_config_tool_linkLabel.Size = new System.Drawing.Size(125, 12);
-            this.net_port_config_tool_linkLabel.TabIndex = 33;
-            this.net_port_config_tool_linkLabel.TabStop = true;
-            this.net_port_config_tool_linkLabel.Text = "专用网络配置工具链接";
-            this.net_port_config_tool_linkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.net_port_config_tool_linkLabel_LinkClicked);
-            // 
-            // label165
-            // 
-            this.label165.AutoSize = true;
-            this.label165.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label165.Location = new System.Drawing.Point(96, 391);
-            this.label165.Name = "label165";
-            this.label165.Size = new System.Drawing.Size(239, 12);
-            this.label165.TabIndex = 32;
-            this.label165.Text = "（1）如需配置Client，请使用专用网络工具";
-            // 
-            // label164
-            // 
-            this.label164.AutoSize = true;
-            this.label164.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label164.Location = new System.Drawing.Point(96, 418);
-            this.label164.Name = "label164";
-            this.label164.Size = new System.Drawing.Size(407, 12);
-            this.label164.TabIndex = 31;
-            this.label164.Text = "（2）旧版Neport网口此界面暂时无法搜索，模块配置请使用专用配置工具。";
-            // 
-            // old_net_port_link
-            // 
-            this.old_net_port_link.AutoSize = true;
-            this.old_net_port_link.Location = new System.Drawing.Point(516, 418);
-            this.old_net_port_link.Name = "old_net_port_link";
-            this.old_net_port_link.Size = new System.Drawing.Size(95, 12);
-            this.old_net_port_link.TabIndex = 30;
-            this.old_net_port_link.TabStop = true;
-            this.old_net_port_link.Text = "旧版NetPort链接";
-            this.old_net_port_link.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.old_net_port_link_LinkClicked);
-            // 
-            // label163
-            // 
-            this.label163.AutoSize = true;
-            this.label163.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.label163.Location = new System.Drawing.Point(23, 391);
-            this.label163.Name = "label163";
-            this.label163.Size = new System.Drawing.Size(47, 12);
-            this.label163.TabIndex = 29;
-            this.label163.Text = "说明： ";
-            // 
-            // net_clear_btn
-            // 
-            this.net_clear_btn.Location = new System.Drawing.Point(442, 41);
-            this.net_clear_btn.Name = "net_clear_btn";
-            this.net_clear_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_clear_btn.TabIndex = 28;
-            this.net_clear_btn.Text = "清空";
-            this.net_clear_btn.UseVisualStyleBackColor = true;
-            this.net_clear_btn.Click += new System.EventHandler(this.net_clear_btn_Click);
-            // 
-            // net_base_settings_gb
-            // 
-            this.net_base_settings_gb.Controls.Add(this.net_base_mod_mac_tb);
-            this.net_base_settings_gb.Controls.Add(this.label157);
-            this.net_base_settings_gb.Controls.Add(this.label193);
-            this.net_base_settings_gb.Controls.Add(this.net_base_comcfgEn_cb);
-            this.net_base_settings_gb.Controls.Add(this.net_base_dhcp_enable_cb);
-            this.net_base_settings_gb.Controls.Add(this.net_base_mod_gateway_tb);
-            this.net_base_settings_gb.Controls.Add(this.net_base_mod_mask_tb);
-            this.net_base_settings_gb.Controls.Add(this.net_base_mod_ip_tb);
-            this.net_base_settings_gb.Controls.Add(this.net_base_mod_name_tb);
-            this.net_base_settings_gb.Controls.Add(this.label161);
-            this.net_base_settings_gb.Controls.Add(this.label160);
-            this.net_base_settings_gb.Controls.Add(this.label158);
-            this.net_base_settings_gb.Controls.Add(this.label156);
-            this.net_base_settings_gb.Location = new System.Drawing.Point(529, 50);
-            this.net_base_settings_gb.Name = "net_base_settings_gb";
-            this.net_base_settings_gb.Size = new System.Drawing.Size(241, 240);
-            this.net_base_settings_gb.TabIndex = 27;
-            this.net_base_settings_gb.TabStop = false;
-            this.net_base_settings_gb.Text = "基础设置";
-            // 
-            // net_base_mod_mac_tb
-            // 
-            this.net_base_mod_mac_tb.Enabled = false;
-            this.net_base_mod_mac_tb.Location = new System.Drawing.Point(78, 27);
-            this.net_base_mod_mac_tb.Name = "net_base_mod_mac_tb";
-            this.net_base_mod_mac_tb.Size = new System.Drawing.Size(152, 21);
-            this.net_base_mod_mac_tb.TabIndex = 11;
-            // 
-            // label157
-            // 
-            this.label157.AutoSize = true;
-            this.label157.Location = new System.Drawing.Point(13, 27);
-            this.label157.Name = "label157";
-            this.label157.Size = new System.Drawing.Size(59, 12);
-            this.label157.TabIndex = 10;
-            this.label157.Text = "设备Mac：";
-            // 
-            // label193
-            // 
-            this.label193.AutoSize = true;
-            this.label193.Location = new System.Drawing.Point(9, 204);
-            this.label193.Name = "label193";
-            this.label193.Size = new System.Drawing.Size(89, 12);
-            this.label193.TabIndex = 76;
-            this.label193.Text = "串口协商配置：";
-            // 
-            // net_base_comcfgEn_cb
-            // 
-            this.net_base_comcfgEn_cb.AutoSize = true;
-            this.net_base_comcfgEn_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.net_base_comcfgEn_cb.Location = new System.Drawing.Point(108, 203);
-            this.net_base_comcfgEn_cb.Name = "net_base_comcfgEn_cb";
-            this.net_base_comcfgEn_cb.Size = new System.Drawing.Size(48, 16);
-            this.net_base_comcfgEn_cb.TabIndex = 75;
-            this.net_base_comcfgEn_cb.Text = "开启";
-            this.net_base_comcfgEn_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.net_base_comcfgEn_cb.UseVisualStyleBackColor = true;
-            // 
-            // net_base_dhcp_enable_cb
-            // 
-            this.net_base_dhcp_enable_cb.AutoSize = true;
-            this.net_base_dhcp_enable_cb.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.net_base_dhcp_enable_cb.Location = new System.Drawing.Point(14, 91);
-            this.net_base_dhcp_enable_cb.Name = "net_base_dhcp_enable_cb";
-            this.net_base_dhcp_enable_cb.Size = new System.Drawing.Size(84, 16);
-            this.net_base_dhcp_enable_cb.TabIndex = 9;
-            this.net_base_dhcp_enable_cb.Text = "DHCP开启：";
-            this.net_base_dhcp_enable_cb.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.net_base_dhcp_enable_cb.UseVisualStyleBackColor = true;
-            // 
-            // net_base_mod_gateway_tb
-            // 
-            this.net_base_mod_gateway_tb.Location = new System.Drawing.Point(78, 172);
-            this.net_base_mod_gateway_tb.Name = "net_base_mod_gateway_tb";
-            this.net_base_mod_gateway_tb.Size = new System.Drawing.Size(152, 21);
-            this.net_base_mod_gateway_tb.TabIndex = 8;
-            // 
-            // net_base_mod_mask_tb
-            // 
-            this.net_base_mod_mask_tb.Location = new System.Drawing.Point(78, 143);
-            this.net_base_mod_mask_tb.Name = "net_base_mod_mask_tb";
-            this.net_base_mod_mask_tb.Size = new System.Drawing.Size(152, 21);
-            this.net_base_mod_mask_tb.TabIndex = 7;
-            // 
-            // net_base_mod_ip_tb
-            // 
-            this.net_base_mod_ip_tb.Location = new System.Drawing.Point(78, 113);
-            this.net_base_mod_ip_tb.Name = "net_base_mod_ip_tb";
-            this.net_base_mod_ip_tb.Size = new System.Drawing.Size(152, 21);
-            this.net_base_mod_ip_tb.TabIndex = 6;
-            // 
-            // net_base_mod_name_tb
-            // 
-            this.net_base_mod_name_tb.Location = new System.Drawing.Point(78, 56);
-            this.net_base_mod_name_tb.Name = "net_base_mod_name_tb";
-            this.net_base_mod_name_tb.Size = new System.Drawing.Size(152, 21);
-            this.net_base_mod_name_tb.TabIndex = 5;
-            // 
-            // label161
-            // 
-            this.label161.AutoSize = true;
-            this.label161.Location = new System.Drawing.Point(31, 175);
-            this.label161.Name = "label161";
-            this.label161.Size = new System.Drawing.Size(41, 12);
-            this.label161.TabIndex = 4;
-            this.label161.Text = "网关：";
-            // 
-            // label160
-            // 
-            this.label160.AutoSize = true;
-            this.label160.Location = new System.Drawing.Point(6, 146);
-            this.label160.Name = "label160";
-            this.label160.Size = new System.Drawing.Size(65, 12);
-            this.label160.TabIndex = 3;
-            this.label160.Text = "子网掩码：";
-            // 
-            // label158
-            // 
-            this.label158.AutoSize = true;
-            this.label158.Location = new System.Drawing.Point(19, 116);
-            this.label158.Name = "label158";
-            this.label158.Size = new System.Drawing.Size(53, 12);
-            this.label158.TabIndex = 2;
-            this.label158.Text = "设备Ip：";
-            // 
-            // label156
-            // 
-            this.label156.AutoSize = true;
-            this.label156.Location = new System.Drawing.Point(19, 59);
-            this.label156.Name = "label156";
-            this.label156.Size = new System.Drawing.Size(53, 12);
-            this.label156.TabIndex = 0;
-            this.label156.Text = "设备名：";
-            // 
-            // dev_dgv
-            // 
-            this.dev_dgv.AllowUserToAddRows = false;
-            this.dev_dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dev_dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.mod_check_Column,
-            this.ModName,
-            this.ModIp,
-            this.ModMac,
-            this.ModVer,
-            this.PcMac});
-            this.dev_dgv.Location = new System.Drawing.Point(25, 116);
-            this.dev_dgv.Name = "dev_dgv";
-            this.dev_dgv.RowTemplate.Height = 23;
-            this.dev_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dev_dgv.Size = new System.Drawing.Size(498, 249);
-            this.dev_dgv.TabIndex = 26;
-            this.dev_dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dev_dgv_CellContentClick);
-            // 
-            // mod_check_Column
-            // 
-            this.mod_check_Column.HeaderText = "#";
-            this.mod_check_Column.Name = "mod_check_Column";
-            this.mod_check_Column.Width = 30;
-            // 
-            // ModName
-            // 
-            this.ModName.HeaderText = "设备名";
-            this.ModName.Name = "ModName";
-            this.ModName.ReadOnly = true;
-            this.ModName.Width = 70;
-            // 
-            // ModIp
-            // 
-            this.ModIp.HeaderText = "设备Ip";
-            this.ModIp.Name = "ModIp";
-            this.ModIp.ReadOnly = true;
-            // 
-            // ModMac
-            // 
-            this.ModMac.HeaderText = "设备Mac";
-            this.ModMac.Name = "ModMac";
-            this.ModMac.Width = 120;
-            // 
-            // ModVer
-            // 
-            this.ModVer.HeaderText = "芯片版本";
-            this.ModVer.Name = "ModVer";
-            this.ModVer.ReadOnly = true;
-            this.ModVer.Width = 80;
-            // 
-            // PcMac
-            // 
-            this.PcMac.HeaderText = "主机Mac";
-            this.PcMac.Name = "PcMac";
-            this.PcMac.Width = 120;
-            // 
-            // label159
-            // 
-            this.label159.AutoSize = true;
-            this.label159.Location = new System.Drawing.Point(106, 20);
-            this.label159.Name = "label159";
-            this.label159.Size = new System.Drawing.Size(41, 12);
-            this.label159.TabIndex = 25;
-            this.label159.Text = "网卡：";
-            // 
-            // net_card_combox
-            // 
-            this.net_card_combox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.net_card_combox.FormattingEnabled = true;
-            this.net_card_combox.Location = new System.Drawing.Point(172, 17);
-            this.net_card_combox.Name = "net_card_combox";
-            this.net_card_combox.Size = new System.Drawing.Size(345, 20);
-            this.net_card_combox.TabIndex = 24;
-            this.net_card_combox.SelectedIndexChanged += new System.EventHandler(this.net_card_combox_SelectedIndexChanged);
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.groupBox20);
+            this.flowLayoutPanel3.Controls.Add(this.groupBox28);
+            this.flowLayoutPanel3.Controls.Add(this.groupBox32);
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(13, 18);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(517, 531);
+            this.flowLayoutPanel3.TabIndex = 2;
+            // 
+            // groupBox20
+            // 
+            this.groupBox20.Controls.Add(this.btnClearNetCard);
+            this.groupBox20.Controls.Add(this.btnSearchNetCard);
+            this.groupBox20.Controls.Add(this.dgvNetcard);
+            this.groupBox20.Location = new System.Drawing.Point(3, 3);
+            this.groupBox20.Name = "groupBox20";
+            this.groupBox20.Size = new System.Drawing.Size(504, 178);
+            this.groupBox20.TabIndex = 2;
+            this.groupBox20.TabStop = false;
+            this.groupBox20.Text = "Network Interface Card";
+            // 
+            // btnClearNetCard
+            // 
+            this.btnClearNetCard.Location = new System.Drawing.Point(135, 20);
+            this.btnClearNetCard.Name = "btnClearNetCard";
+            this.btnClearNetCard.Size = new System.Drawing.Size(123, 23);
+            this.btnClearNetCard.TabIndex = 2;
+            this.btnClearNetCard.Text = "Clear NetCard";
+            this.btnClearNetCard.UseVisualStyleBackColor = true;
+            this.btnClearNetCard.Click += new System.EventHandler(this.btnClearNetCard_Click);
+            // 
+            // btnSearchNetCard
+            // 
+            this.btnSearchNetCard.Location = new System.Drawing.Point(6, 20);
+            this.btnSearchNetCard.Name = "btnSearchNetCard";
+            this.btnSearchNetCard.Size = new System.Drawing.Size(123, 23);
+            this.btnSearchNetCard.TabIndex = 1;
+            this.btnSearchNetCard.Text = "Search NetCard";
+            this.btnSearchNetCard.UseVisualStyleBackColor = true;
+            this.btnSearchNetCard.Click += new System.EventHandler(this.btnSearchNetCard_Click);
+            // 
+            // dgvNetcard
+            // 
+            this.dgvNetcard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNetcard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ncColumnSerialNumber,
+            this.ncColumnDescription,
+            this.ncColumnIp,
+            this.ncColumnMask,
+            this.ncColumnMac});
+            this.dgvNetcard.Location = new System.Drawing.Point(6, 64);
+            this.dgvNetcard.Name = "dgvNetcard";
+            this.dgvNetcard.RowTemplate.Height = 23;
+            this.dgvNetcard.Size = new System.Drawing.Size(491, 108);
+            this.dgvNetcard.TabIndex = 0;
+            this.dgvNetcard.DoubleClick += new System.EventHandler(this.dgvNetcard_DoubleClick);
+            // 
+            // ncColumnSerialNumber
+            // 
+            this.ncColumnSerialNumber.HeaderText = "#";
+            this.ncColumnSerialNumber.Name = "ncColumnSerialNumber";
+            // 
+            // ncColumnDescription
+            // 
+            this.ncColumnDescription.HeaderText = "Description";
+            this.ncColumnDescription.Name = "ncColumnDescription";
+            // 
+            // ncColumnIp
+            // 
+            this.ncColumnIp.HeaderText = "IP";
+            this.ncColumnIp.Name = "ncColumnIp";
+            // 
+            // ncColumnMask
+            // 
+            this.ncColumnMask.HeaderText = "Mask";
+            this.ncColumnMask.Name = "ncColumnMask";
+            // 
+            // ncColumnMac
+            // 
+            this.ncColumnMac.HeaderText = "Mac";
+            this.ncColumnMac.Name = "ncColumnMac";
+            // 
+            // groupBox28
+            // 
+            this.groupBox28.Controls.Add(this.lblNetPortCount);
+            this.groupBox28.Controls.Add(this.btnClearNetPort);
+            this.groupBox28.Controls.Add(this.btnSearchNetport);
+            this.groupBox28.Controls.Add(this.groupBox31);
+            this.groupBox28.Controls.Add(this.dgvNetPort);
+            this.groupBox28.Location = new System.Drawing.Point(3, 187);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(504, 214);
+            this.groupBox28.TabIndex = 3;
+            this.groupBox28.TabStop = false;
+            this.groupBox28.Text = "NetPort";
+            // 
+            // lblNetPortCount
+            // 
+            this.lblNetPortCount.AutoSize = true;
+            this.lblNetPortCount.Location = new System.Drawing.Point(311, 76);
+            this.lblNetPortCount.Name = "lblNetPortCount";
+            this.lblNetPortCount.Size = new System.Drawing.Size(41, 12);
+            this.lblNetPortCount.TabIndex = 4;
+            this.lblNetPortCount.Text = "Device";
+            // 
+            // btnClearNetPort
+            // 
+            this.btnClearNetPort.Location = new System.Drawing.Point(145, 71);
+            this.btnClearNetPort.Name = "btnClearNetPort";
+            this.btnClearNetPort.Size = new System.Drawing.Size(123, 23);
+            this.btnClearNetPort.TabIndex = 6;
+            this.btnClearNetPort.Text = "Clear NetPort";
+            this.btnClearNetPort.UseVisualStyleBackColor = true;
+            this.btnClearNetPort.Click += new System.EventHandler(this.btnClearNetPort_Click);
+            // 
+            // btnSearchNetport
+            // 
+            this.btnSearchNetport.Location = new System.Drawing.Point(6, 71);
+            this.btnSearchNetport.Name = "btnSearchNetport";
+            this.btnSearchNetport.Size = new System.Drawing.Size(123, 23);
+            this.btnSearchNetport.TabIndex = 5;
+            this.btnSearchNetport.Text = "Search NetPort";
+            this.btnSearchNetport.UseVisualStyleBackColor = true;
+            this.btnSearchNetport.Click += new System.EventHandler(this.btnSearchNetport_Click);
+            // 
+            // groupBox31
+            // 
+            this.groupBox31.Controls.Add(this.lblCurNetcard);
+            this.groupBox31.Controls.Add(this.lblCurPcMac);
+            this.groupBox31.Location = new System.Drawing.Point(6, 20);
+            this.groupBox31.Name = "groupBox31";
+            this.groupBox31.Size = new System.Drawing.Size(491, 45);
+            this.groupBox31.TabIndex = 4;
+            this.groupBox31.TabStop = false;
+            this.groupBox31.Text = "Current NetCard";
+            // 
+            // lblCurNetcard
+            // 
+            this.lblCurNetcard.AutoSize = true;
+            this.lblCurNetcard.Location = new System.Drawing.Point(6, 22);
+            this.lblCurNetcard.Name = "lblCurNetcard";
+            this.lblCurNetcard.Size = new System.Drawing.Size(293, 12);
+            this.lblCurNetcard.TabIndex = 2;
+            this.lblCurNetcard.Text = "ip:255.255.255.255, mask: 255.255.255.255, mac: ";
+            // 
+            // lblCurPcMac
+            // 
+            this.lblCurPcMac.AutoSize = true;
+            this.lblCurPcMac.Location = new System.Drawing.Point(305, 22);
+            this.lblCurPcMac.Name = "lblCurPcMac";
+            this.lblCurPcMac.Size = new System.Drawing.Size(107, 12);
+            this.lblCurPcMac.TabIndex = 3;
+            this.lblCurPcMac.Text = "ff:ff:ff:ff:ff:ff";
+            // 
+            // dgvNetPort
+            // 
+            this.dgvNetPort.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvNetPort.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.npSerialNumberColumn,
+            this.npDeviceNameColumn,
+            this.npDeviceIpColumn,
+            this.npDeviceMacColumn,
+            this.npChipVerColumn,
+            this.npPcMacColumn});
+            this.dgvNetPort.Location = new System.Drawing.Point(7, 105);
+            this.dgvNetPort.Name = "dgvNetPort";
+            this.dgvNetPort.RowTemplate.Height = 23;
+            this.dgvNetPort.Size = new System.Drawing.Size(490, 103);
+            this.dgvNetPort.TabIndex = 0;
+            this.dgvNetPort.DoubleClick += new System.EventHandler(this.dgvNetPort_DoubleClick);
+            // 
+            // npSerialNumberColumn
+            // 
+            this.npSerialNumberColumn.HeaderText = "#";
+            this.npSerialNumberColumn.Name = "npSerialNumberColumn";
+            // 
+            // npDeviceNameColumn
+            // 
+            this.npDeviceNameColumn.HeaderText = "DeviceName";
+            this.npDeviceNameColumn.Name = "npDeviceNameColumn";
+            // 
+            // npDeviceIpColumn
+            // 
+            this.npDeviceIpColumn.HeaderText = "DeviceIp";
+            this.npDeviceIpColumn.Name = "npDeviceIpColumn";
+            // 
+            // npDeviceMacColumn
+            // 
+            this.npDeviceMacColumn.HeaderText = "DeviceMac";
+            this.npDeviceMacColumn.Name = "npDeviceMacColumn";
+            // 
+            // npChipVerColumn
+            // 
+            this.npChipVerColumn.HeaderText = "ChipVer";
+            this.npChipVerColumn.Name = "npChipVerColumn";
+            // 
+            // npPcMacColumn
+            // 
+            this.npPcMacColumn.HeaderText = "PcMac";
+            this.npPcMacColumn.Name = "npPcMacColumn";
+            // 
+            // groupBox32
+            // 
+            this.groupBox32.Controls.Add(this.linklblOldNetPortCfgTool);
+            this.groupBox32.Controls.Add(this.linklblNetPortCfgTool);
+            this.groupBox32.Controls.Add(this.label59);
+            this.groupBox32.Controls.Add(this.label65);
+            this.groupBox32.Location = new System.Drawing.Point(3, 407);
+            this.groupBox32.Name = "groupBox32";
+            this.groupBox32.Size = new System.Drawing.Size(504, 115);
+            this.groupBox32.TabIndex = 5;
+            this.groupBox32.TabStop = false;
+            this.groupBox32.Text = "Note";
+            // 
+            // linklblOldNetPortCfgTool
+            // 
+            this.linklblOldNetPortCfgTool.AutoSize = true;
+            this.linklblOldNetPortCfgTool.Location = new System.Drawing.Point(6, 97);
+            this.linklblOldNetPortCfgTool.Name = "linklblOldNetPortCfgTool";
+            this.linklblOldNetPortCfgTool.Size = new System.Drawing.Size(83, 12);
+            this.linklblOldNetPortCfgTool.TabIndex = 5;
+            this.linklblOldNetPortCfgTool.TabStop = true;
+            this.linklblOldNetPortCfgTool.Text = "old tool link";
+            this.linklblOldNetPortCfgTool.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblOldNetPortCfgTool_LinkClicked);
+            // 
+            // linklblNetPortCfgTool
+            // 
+            this.linklblNetPortCfgTool.AutoSize = true;
+            this.linklblNetPortCfgTool.Location = new System.Drawing.Point(6, 46);
+            this.linklblNetPortCfgTool.Name = "linklblNetPortCfgTool";
+            this.linklblNetPortCfgTool.Size = new System.Drawing.Size(59, 12);
+            this.linklblNetPortCfgTool.TabIndex = 4;
+            this.linklblNetPortCfgTool.TabStop = true;
+            this.linklblNetPortCfgTool.Text = "tool link";
+            this.linklblNetPortCfgTool.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linklblNetPortCfgTool_LinkClicked);
+            // 
+            // label59
+            // 
+            this.label59.AutoSize = true;
+            this.label59.Location = new System.Drawing.Point(6, 18);
+            this.label59.Name = "label59";
+            this.label59.Size = new System.Drawing.Size(449, 24);
+            this.label59.TabIndex = 2;
+            this.label59.Text = "(1) To configure the Client, please use the dedicated network tool Link to\r\n dedi" +
+    "cated network configuration tool";
+            // 
+            // label65
+            // 
+            this.label65.AutoSize = true;
+            this.label65.Location = new System.Drawing.Point(6, 67);
+            this.label65.Name = "label65";
+            this.label65.Size = new System.Drawing.Size(491, 24);
+            this.label65.TabIndex = 3;
+            this.label65.Text = "(2) The interface of the old Neport network port cannot be searched temporarily. " +
+    "\r\nPlease use the dedicated configuration tool for module configuration.";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnDefaultNetPort);
+            this.groupBox3.Controls.Add(this.groupBox30);
+            this.groupBox3.Controls.Add(this.groupBox37);
+            this.groupBox3.Controls.Add(this.groupBox36);
+            this.groupBox3.Controls.Add(this.btnResetNetport);
+            this.groupBox3.Controls.Add(this.btnSetNetport);
+            this.groupBox3.Controls.Add(this.btnGetNetport);
+            this.groupBox3.Location = new System.Drawing.Point(536, 18);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(460, 531);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "NetPort";
+            // 
+            // btnDefaultNetPort
+            // 
+            this.btnDefaultNetPort.Location = new System.Drawing.Point(199, 17);
+            this.btnDefaultNetPort.Name = "btnDefaultNetPort";
+            this.btnDefaultNetPort.Size = new System.Drawing.Size(90, 23);
+            this.btnDefaultNetPort.TabIndex = 64;
+            this.btnDefaultNetPort.Text = "LoadDefault";
+            this.btnDefaultNetPort.UseVisualStyleBackColor = true;
+            this.btnDefaultNetPort.Click += new System.EventHandler(this.btnDefaultNetPort_Click);
             // 
             // groupBox30
             // 
-            this.groupBox30.Controls.Add(this.label162);
-            this.groupBox30.Controls.Add(this.net_pc_mask_label);
-            this.groupBox30.Controls.Add(this.net_pc_mac_label);
-            this.groupBox30.Controls.Add(this.net_pc_ip_label);
-            this.groupBox30.Location = new System.Drawing.Point(25, 73);
+            this.groupBox30.Controls.Add(this.btnStoreCfgToFile);
+            this.groupBox30.Controls.Add(this.btnLoadCfgFromFile);
+            this.groupBox30.Controls.Add(this.flowLayoutPanel4);
+            this.groupBox30.Controls.Add(this.groupBox35);
+            this.groupBox30.Controls.Add(this.txtbxPort1_NetPort);
+            this.groupBox30.Controls.Add(this.chkbxPort1_PhyDisconnect);
+            this.groupBox30.Controls.Add(this.grbHeartbeat);
+            this.groupBox30.Controls.Add(this.txtbxPort1_ReConnectCnt);
+            this.groupBox30.Controls.Add(this.chkbxPort1_RandEn);
+            this.groupBox30.Controls.Add(this.cmbbxPort1_NetMode);
+            this.groupBox30.Controls.Add(this.label120);
+            this.groupBox30.Controls.Add(this.label117);
+            this.groupBox30.Controls.Add(this.label72);
+            this.groupBox30.Controls.Add(this.label70);
+            this.groupBox30.Location = new System.Drawing.Point(6, 207);
             this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(498, 37);
-            this.groupBox30.TabIndex = 23;
+            this.groupBox30.Size = new System.Drawing.Size(460, 315);
+            this.groupBox30.TabIndex = 0;
             this.groupBox30.TabStop = false;
-            this.groupBox30.Text = "主机信息";
+            this.groupBox30.Text = "Port";
             // 
-            // label162
+            // btnStoreCfgToFile
             // 
-            this.label162.AutoSize = true;
-            this.label162.Location = new System.Drawing.Point(124, 17);
-            this.label162.Name = "label162";
-            this.label162.Size = new System.Drawing.Size(35, 12);
-            this.label162.TabIndex = 9;
-            this.label162.Text = "Mac: ";
+            this.btnStoreCfgToFile.Location = new System.Drawing.Point(131, 288);
+            this.btnStoreCfgToFile.Name = "btnStoreCfgToFile";
+            this.btnStoreCfgToFile.Size = new System.Drawing.Size(117, 23);
+            this.btnStoreCfgToFile.TabIndex = 66;
+            this.btnStoreCfgToFile.Text = "StoreCfgToFile";
+            this.btnStoreCfgToFile.UseVisualStyleBackColor = true;
+            this.btnStoreCfgToFile.Click += new System.EventHandler(this.btnStoreCfgToFile_Click);
             // 
-            // net_pc_mask_label
+            // btnLoadCfgFromFile
             // 
-            this.net_pc_mask_label.AutoSize = true;
-            this.net_pc_mask_label.Location = new System.Drawing.Point(274, 17);
-            this.net_pc_mask_label.Name = "net_pc_mask_label";
-            this.net_pc_mask_label.Size = new System.Drawing.Size(41, 12);
-            this.net_pc_mask_label.TabIndex = 8;
-            this.net_pc_mask_label.Text = "Mask: ";
+            this.btnLoadCfgFromFile.Location = new System.Drawing.Point(8, 288);
+            this.btnLoadCfgFromFile.Name = "btnLoadCfgFromFile";
+            this.btnLoadCfgFromFile.Size = new System.Drawing.Size(117, 23);
+            this.btnLoadCfgFromFile.TabIndex = 65;
+            this.btnLoadCfgFromFile.Text = "LoadCfgFromFile";
+            this.btnLoadCfgFromFile.UseVisualStyleBackColor = true;
+            this.btnLoadCfgFromFile.Click += new System.EventHandler(this.btnLoadCfgFromFile_Click);
             // 
-            // net_pc_mac_label
+            // flowLayoutPanel4
             // 
-            this.net_pc_mac_label.AutoSize = true;
-            this.net_pc_mac_label.Location = new System.Drawing.Point(161, 17);
-            this.net_pc_mac_label.Name = "net_pc_mac_label";
-            this.net_pc_mac_label.Size = new System.Drawing.Size(35, 12);
-            this.net_pc_mac_label.TabIndex = 7;
-            this.net_pc_mac_label.Text = "     ";
+            this.flowLayoutPanel4.Controls.Add(this.chkbxPort1_DomainEn);
+            this.flowLayoutPanel4.Controls.Add(this.grbDesIpPort);
+            this.flowLayoutPanel4.Controls.Add(this.grbDnsDomain);
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(8, 74);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(210, 67);
+            this.flowLayoutPanel4.TabIndex = 22;
             // 
-            // net_pc_ip_label
+            // chkbxPort1_DomainEn
             // 
-            this.net_pc_ip_label.AutoSize = true;
-            this.net_pc_ip_label.Location = new System.Drawing.Point(6, 17);
-            this.net_pc_ip_label.Name = "net_pc_ip_label";
-            this.net_pc_ip_label.Size = new System.Drawing.Size(29, 12);
-            this.net_pc_ip_label.TabIndex = 6;
-            this.net_pc_ip_label.Text = "Ip: ";
+            this.chkbxPort1_DomainEn.AutoSize = true;
+            this.chkbxPort1_DomainEn.Location = new System.Drawing.Point(3, 3);
+            this.chkbxPort1_DomainEn.Name = "chkbxPort1_DomainEn";
+            this.chkbxPort1_DomainEn.Size = new System.Drawing.Size(72, 16);
+            this.chkbxPort1_DomainEn.TabIndex = 63;
+            this.chkbxPort1_DomainEn.Text = "DomainEn";
+            this.chkbxPort1_DomainEn.UseVisualStyleBackColor = true;
+            this.chkbxPort1_DomainEn.CheckedChanged += new System.EventHandler(this.chkbxPort1_DomainEn_CheckedChanged);
             // 
-            // net_reset_btn
+            // grbDesIpPort
             // 
-            this.net_reset_btn.Location = new System.Drawing.Point(529, 331);
-            this.net_reset_btn.Name = "net_reset_btn";
-            this.net_reset_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_reset_btn.TabIndex = 22;
-            this.net_reset_btn.Text = "恢复出厂";
-            this.net_reset_btn.UseVisualStyleBackColor = true;
-            this.net_reset_btn.Click += new System.EventHandler(this.net_reset_btn_Click);
+            this.grbDesIpPort.Controls.Add(this.label69);
+            this.grbDesIpPort.Controls.Add(this.txtbxPort1_DesIp);
+            this.grbDesIpPort.Controls.Add(this.txtbxPort1_DesPort);
+            this.grbDesIpPort.Location = new System.Drawing.Point(3, 25);
+            this.grbDesIpPort.Name = "grbDesIpPort";
+            this.grbDesIpPort.Size = new System.Drawing.Size(201, 41);
+            this.grbDesIpPort.TabIndex = 22;
+            this.grbDesIpPort.TabStop = false;
+            this.grbDesIpPort.Text = "Des IP/Port";
             // 
-            // net_setCfg_btn
+            // label69
             // 
-            this.net_setCfg_btn.Location = new System.Drawing.Point(610, 302);
-            this.net_setCfg_btn.Name = "net_setCfg_btn";
-            this.net_setCfg_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_setCfg_btn.TabIndex = 21;
-            this.net_setCfg_btn.Text = "保存配置";
-            this.net_setCfg_btn.UseVisualStyleBackColor = true;
-            this.net_setCfg_btn.Click += new System.EventHandler(this.net_setCfg_btn_Click);
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(119, 21);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(11, 12);
+            this.label69.TabIndex = 64;
+            this.label69.Text = ":";
             // 
-            // net_getCfg_btn
+            // txtbxPort1_DesIp
             // 
-            this.net_getCfg_btn.Location = new System.Drawing.Point(529, 302);
-            this.net_getCfg_btn.Name = "net_getCfg_btn";
-            this.net_getCfg_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_getCfg_btn.TabIndex = 20;
-            this.net_getCfg_btn.Text = "获取配置";
-            this.net_getCfg_btn.UseVisualStyleBackColor = true;
-            this.net_getCfg_btn.Click += new System.EventHandler(this.net_getCfg_btn_Click);
+            this.txtbxPort1_DesIp.Location = new System.Drawing.Point(6, 16);
+            this.txtbxPort1_DesIp.Name = "txtbxPort1_DesIp";
+            this.txtbxPort1_DesIp.Size = new System.Drawing.Size(107, 21);
+            this.txtbxPort1_DesIp.TabIndex = 39;
             // 
-            // net_search_btn
+            // txtbxPort1_DesPort
             // 
-            this.net_search_btn.Location = new System.Drawing.Point(25, 44);
-            this.net_search_btn.Name = "net_search_btn";
-            this.net_search_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_search_btn.TabIndex = 19;
-            this.net_search_btn.Text = "搜索设备";
-            this.net_search_btn.UseVisualStyleBackColor = true;
-            this.net_search_btn.Click += new System.EventHandler(this.net_search_btn_Click);
+            this.txtbxPort1_DesPort.Location = new System.Drawing.Point(134, 16);
+            this.txtbxPort1_DesPort.Name = "txtbxPort1_DesPort";
+            this.txtbxPort1_DesPort.Size = new System.Drawing.Size(32, 21);
+            this.txtbxPort1_DesPort.TabIndex = 40;
             // 
-            // net_refresh_netcard_btn
+            // grbDnsDomain
             // 
-            this.net_refresh_netcard_btn.Location = new System.Drawing.Point(25, 15);
-            this.net_refresh_netcard_btn.Name = "net_refresh_netcard_btn";
-            this.net_refresh_netcard_btn.Size = new System.Drawing.Size(75, 23);
-            this.net_refresh_netcard_btn.TabIndex = 18;
-            this.net_refresh_netcard_btn.Text = "刷新网卡";
-            this.net_refresh_netcard_btn.UseVisualStyleBackColor = true;
-            this.net_refresh_netcard_btn.Click += new System.EventHandler(this.net_refresh_netcard_btn_Click);
+            this.grbDnsDomain.Controls.Add(this.txtbxPort1_DnsDomain);
+            this.grbDnsDomain.Location = new System.Drawing.Point(3, 72);
+            this.grbDnsDomain.Name = "grbDnsDomain";
+            this.grbDnsDomain.Size = new System.Drawing.Size(201, 41);
+            this.grbDnsDomain.TabIndex = 22;
+            this.grbDnsDomain.TabStop = false;
+            this.grbDnsDomain.Text = "DNS domain (20)";
             // 
-            // johar_tabPage
+            // txtbxPort1_DnsDomain
             // 
-            this.johar_tabPage.Controls.Add(this.panel11);
-            this.johar_tabPage.Controls.Add(this.panel10);
-            this.johar_tabPage.Location = new System.Drawing.Point(4, 22);
-            this.johar_tabPage.Name = "johar_tabPage";
-            this.johar_tabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.johar_tabPage.Size = new System.Drawing.Size(1010, 555);
-            this.johar_tabPage.TabIndex = 8;
-            this.johar_tabPage.Text = "温感标签";
-            this.johar_tabPage.UseVisualStyleBackColor = true;
+            this.txtbxPort1_DnsDomain.Location = new System.Drawing.Point(6, 14);
+            this.txtbxPort1_DnsDomain.Name = "txtbxPort1_DnsDomain";
+            this.txtbxPort1_DnsDomain.Size = new System.Drawing.Size(189, 21);
+            this.txtbxPort1_DnsDomain.TabIndex = 34;
+            // 
+            // groupBox35
+            // 
+            this.groupBox35.Controls.Add(this.label85);
+            this.groupBox35.Controls.Add(this.label74);
+            this.groupBox35.Controls.Add(this.label96);
+            this.groupBox35.Controls.Add(this.label97);
+            this.groupBox35.Controls.Add(this.label98);
+            this.groupBox35.Controls.Add(this.label116);
+            this.groupBox35.Controls.Add(this.chkbxPort1_ResetCtrl);
+            this.groupBox35.Controls.Add(this.cmbbxPort1_BaudRate);
+            this.groupBox35.Controls.Add(this.label123);
+            this.groupBox35.Controls.Add(this.cmbbxPort1_DataSize);
+            this.groupBox35.Controls.Add(this.cmbbxPort1_StopBits);
+            this.groupBox35.Controls.Add(this.cmbbxPort1_Parity);
+            this.groupBox35.Controls.Add(this.label118);
+            this.groupBox35.Controls.Add(this.txtbxPort1_RxTimeout);
+            this.groupBox35.Controls.Add(this.label119);
+            this.groupBox35.Controls.Add(this.txtbxPort1_RxPkgLen);
+            this.groupBox35.Location = new System.Drawing.Point(227, 15);
+            this.groupBox35.Name = "groupBox35";
+            this.groupBox35.Size = new System.Drawing.Size(221, 192);
+            this.groupBox35.TabIndex = 57;
+            this.groupBox35.TabStop = false;
+            this.groupBox35.Text = "Serial";
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(150, 146);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(41, 12);
+            this.label85.TabIndex = 64;
+            this.label85.Text = "(10ms)";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(150, 125);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(53, 12);
+            this.label74.TabIndex = 63;
+            this.label74.Text = "(<=1024)";
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Location = new System.Drawing.Point(3, 15);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(53, 12);
+            this.label96.TabIndex = 27;
+            this.label96.Text = "baudrate";
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(3, 41);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(53, 12);
+            this.label97.TabIndex = 28;
+            this.label97.Text = "datasize";
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Location = new System.Drawing.Point(3, 67);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(53, 12);
+            this.label98.TabIndex = 29;
+            this.label98.Text = "stopbits";
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Location = new System.Drawing.Point(3, 93);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(41, 12);
+            this.label116.TabIndex = 30;
+            this.label116.Text = "parity";
+            // 
+            // chkbxPort1_ResetCtrl
+            // 
+            this.chkbxPort1_ResetCtrl.AutoSize = true;
+            this.chkbxPort1_ResetCtrl.Location = new System.Drawing.Point(77, 170);
+            this.chkbxPort1_ResetCtrl.Name = "chkbxPort1_ResetCtrl";
+            this.chkbxPort1_ResetCtrl.Size = new System.Drawing.Size(102, 16);
+            this.chkbxPort1_ResetCtrl.TabIndex = 53;
+            this.chkbxPort1_ResetCtrl.Text = "ClearBufferEn";
+            this.chkbxPort1_ResetCtrl.UseVisualStyleBackColor = true;
+            // 
+            // cmbbxPort1_BaudRate
+            // 
+            this.cmbbxPort1_BaudRate.FormattingEnabled = true;
+            this.cmbbxPort1_BaudRate.Location = new System.Drawing.Point(77, 12);
+            this.cmbbxPort1_BaudRate.Name = "cmbbxPort1_BaudRate";
+            this.cmbbxPort1_BaudRate.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_BaudRate.TabIndex = 42;
+            // 
+            // label123
+            // 
+            this.label123.AutoSize = true;
+            this.label123.Location = new System.Drawing.Point(3, 171);
+            this.label123.Name = "label123";
+            this.label123.Size = new System.Drawing.Size(59, 12);
+            this.label123.TabIndex = 52;
+            this.label123.Text = "resetCtrl";
+            // 
+            // cmbbxPort1_DataSize
+            // 
+            this.cmbbxPort1_DataSize.FormattingEnabled = true;
+            this.cmbbxPort1_DataSize.Location = new System.Drawing.Point(77, 38);
+            this.cmbbxPort1_DataSize.Name = "cmbbxPort1_DataSize";
+            this.cmbbxPort1_DataSize.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_DataSize.TabIndex = 43;
+            // 
+            // cmbbxPort1_StopBits
+            // 
+            this.cmbbxPort1_StopBits.FormattingEnabled = true;
+            this.cmbbxPort1_StopBits.Location = new System.Drawing.Point(77, 64);
+            this.cmbbxPort1_StopBits.Name = "cmbbxPort1_StopBits";
+            this.cmbbxPort1_StopBits.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_StopBits.TabIndex = 44;
+            // 
+            // cmbbxPort1_Parity
+            // 
+            this.cmbbxPort1_Parity.FormattingEnabled = true;
+            this.cmbbxPort1_Parity.Location = new System.Drawing.Point(77, 90);
+            this.cmbbxPort1_Parity.Name = "cmbbxPort1_Parity";
+            this.cmbbxPort1_Parity.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_Parity.TabIndex = 45;
+            // 
+            // label118
+            // 
+            this.label118.AutoSize = true;
+            this.label118.Location = new System.Drawing.Point(3, 119);
+            this.label118.Name = "label118";
+            this.label118.Size = new System.Drawing.Size(35, 12);
+            this.label118.TabIndex = 32;
+            this.label118.Text = "rxLen";
+            // 
+            // txtbxPort1_RxTimeout
+            // 
+            this.txtbxPort1_RxTimeout.Location = new System.Drawing.Point(77, 143);
+            this.txtbxPort1_RxTimeout.Name = "txtbxPort1_RxTimeout";
+            this.txtbxPort1_RxTimeout.Size = new System.Drawing.Size(63, 21);
+            this.txtbxPort1_RxTimeout.TabIndex = 47;
+            // 
+            // label119
+            // 
+            this.label119.AutoSize = true;
+            this.label119.Location = new System.Drawing.Point(3, 145);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(59, 12);
+            this.label119.TabIndex = 33;
+            this.label119.Text = "rxTimeout";
+            // 
+            // txtbxPort1_RxPkgLen
+            // 
+            this.txtbxPort1_RxPkgLen.Location = new System.Drawing.Point(77, 116);
+            this.txtbxPort1_RxPkgLen.Name = "txtbxPort1_RxPkgLen";
+            this.txtbxPort1_RxPkgLen.Size = new System.Drawing.Size(63, 21);
+            this.txtbxPort1_RxPkgLen.TabIndex = 34;
+            // 
+            // txtbxPort1_NetPort
+            // 
+            this.txtbxPort1_NetPort.Location = new System.Drawing.Point(153, 43);
+            this.txtbxPort1_NetPort.Name = "txtbxPort1_NetPort";
+            this.txtbxPort1_NetPort.Size = new System.Drawing.Size(56, 21);
+            this.txtbxPort1_NetPort.TabIndex = 49;
+            // 
+            // chkbxPort1_PhyDisconnect
+            // 
+            this.chkbxPort1_PhyDisconnect.AutoSize = true;
+            this.chkbxPort1_PhyDisconnect.Location = new System.Drawing.Point(116, 155);
+            this.chkbxPort1_PhyDisconnect.Name = "chkbxPort1_PhyDisconnect";
+            this.chkbxPort1_PhyDisconnect.Size = new System.Drawing.Size(102, 16);
+            this.chkbxPort1_PhyDisconnect.TabIndex = 46;
+            this.chkbxPort1_PhyDisconnect.Text = "CloseSocketEn";
+            this.chkbxPort1_PhyDisconnect.UseVisualStyleBackColor = true;
+            // 
+            // grbHeartbeat
+            // 
+            this.grbHeartbeat.Controls.Add(this.label64);
+            this.grbHeartbeat.Controls.Add(this.label73);
+            this.grbHeartbeat.Controls.Add(this.txtbxHeartbeatInterval);
+            this.grbHeartbeat.Controls.Add(this.txtbxHeartbeatContent);
+            this.grbHeartbeat.Controls.Add(this.label84);
+            this.grbHeartbeat.Location = new System.Drawing.Point(8, 212);
+            this.grbHeartbeat.Name = "grbHeartbeat";
+            this.grbHeartbeat.Size = new System.Drawing.Size(442, 73);
+            this.grbHeartbeat.TabIndex = 62;
+            this.grbHeartbeat.TabStop = false;
+            this.grbHeartbeat.Text = "Heart Beat";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(256, 49);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(41, 12);
+            this.label64.TabIndex = 62;
+            this.label64.Text = "(50ms)";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(7, 17);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(131, 12);
+            this.label73.TabIndex = 59;
+            this.label73.Text = "heartbeatContent (20)";
+            // 
+            // txtbxHeartbeatInterval
+            // 
+            this.txtbxHeartbeatInterval.Location = new System.Drawing.Point(149, 40);
+            this.txtbxHeartbeatInterval.Name = "txtbxHeartbeatInterval";
+            this.txtbxHeartbeatInterval.Size = new System.Drawing.Size(99, 21);
+            this.txtbxHeartbeatInterval.TabIndex = 61;
+            // 
+            // txtbxHeartbeatContent
+            // 
+            this.txtbxHeartbeatContent.Location = new System.Drawing.Point(147, 14);
+            this.txtbxHeartbeatContent.Name = "txtbxHeartbeatContent";
+            this.txtbxHeartbeatContent.Size = new System.Drawing.Size(254, 21);
+            this.txtbxHeartbeatContent.TabIndex = 58;
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(7, 49);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(107, 12);
+            this.label84.TabIndex = 60;
+            this.label84.Text = "heartbeatInterval";
+            // 
+            // txtbxPort1_ReConnectCnt
+            // 
+            this.txtbxPort1_ReConnectCnt.Location = new System.Drawing.Point(116, 177);
+            this.txtbxPort1_ReConnectCnt.Name = "txtbxPort1_ReConnectCnt";
+            this.txtbxPort1_ReConnectCnt.Size = new System.Drawing.Size(102, 21);
+            this.txtbxPort1_ReConnectCnt.TabIndex = 38;
+            // 
+            // chkbxPort1_RandEn
+            // 
+            this.chkbxPort1_RandEn.AutoSize = true;
+            this.chkbxPort1_RandEn.Location = new System.Drawing.Point(88, 45);
+            this.chkbxPort1_RandEn.Name = "chkbxPort1_RandEn";
+            this.chkbxPort1_RandEn.Size = new System.Drawing.Size(60, 16);
+            this.chkbxPort1_RandEn.TabIndex = 37;
+            this.chkbxPort1_RandEn.Text = "randEn";
+            this.chkbxPort1_RandEn.UseVisualStyleBackColor = true;
+            this.chkbxPort1_RandEn.CheckedChanged += new System.EventHandler(this.chkbxPort1_RandEn_CheckedChanged);
+            // 
+            // cmbbxPort1_NetMode
+            // 
+            this.cmbbxPort1_NetMode.FormattingEnabled = true;
+            this.cmbbxPort1_NetMode.Location = new System.Drawing.Point(88, 16);
+            this.cmbbxPort1_NetMode.Name = "cmbbxPort1_NetMode";
+            this.cmbbxPort1_NetMode.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_NetMode.TabIndex = 36;
+            this.cmbbxPort1_NetMode.SelectedIndexChanged += new System.EventHandler(this.cmbbxPort1_NetMode_SelectedIndexChanged);
+            // 
+            // label120
+            // 
+            this.label120.AutoSize = true;
+            this.label120.Location = new System.Drawing.Point(8, 183);
+            this.label120.Name = "label120";
+            this.label120.Size = new System.Drawing.Size(77, 12);
+            this.label120.TabIndex = 34;
+            this.label120.Text = "reconnectCnt";
+            // 
+            // label117
+            // 
+            this.label117.AutoSize = true;
+            this.label117.Location = new System.Drawing.Point(8, 156);
+            this.label117.Name = "label117";
+            this.label117.Size = new System.Drawing.Size(47, 12);
+            this.label117.TabIndex = 31;
+            this.label117.Text = "PhyLost";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(8, 47);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(59, 12);
+            this.label72.TabIndex = 23;
+            this.label72.Text = "LocalPort";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(8, 20);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(47, 12);
+            this.label70.TabIndex = 22;
+            this.label70.Text = "NetMode";
+            // 
+            // groupBox37
+            // 
+            this.groupBox37.Controls.Add(this.chkbxPort0PortEn);
+            this.groupBox37.Controls.Add(this.chkbxPort1_PortEn);
+            this.groupBox37.Location = new System.Drawing.Point(16, 153);
+            this.groupBox37.Name = "groupBox37";
+            this.groupBox37.Size = new System.Drawing.Size(436, 44);
+            this.groupBox37.TabIndex = 63;
+            this.groupBox37.TabStop = false;
+            this.groupBox37.Text = "Port";
+            // 
+            // chkbxPort0PortEn
+            // 
+            this.chkbxPort0PortEn.AutoSize = true;
+            this.chkbxPort0PortEn.Location = new System.Drawing.Point(9, 20);
+            this.chkbxPort0PortEn.Name = "chkbxPort0PortEn";
+            this.chkbxPort0PortEn.Size = new System.Drawing.Size(90, 16);
+            this.chkbxPort0PortEn.TabIndex = 20;
+            this.chkbxPort0PortEn.Text = "HeartbeatEn";
+            this.chkbxPort0PortEn.UseVisualStyleBackColor = true;
+            this.chkbxPort0PortEn.CheckedChanged += new System.EventHandler(this.chkbxPort0PortEn_CheckedChanged);
+            // 
+            // chkbxPort1_PortEn
+            // 
+            this.chkbxPort1_PortEn.AutoSize = true;
+            this.chkbxPort1_PortEn.Location = new System.Drawing.Point(114, 20);
+            this.chkbxPort1_PortEn.Name = "chkbxPort1_PortEn";
+            this.chkbxPort1_PortEn.Size = new System.Drawing.Size(72, 16);
+            this.chkbxPort1_PortEn.TabIndex = 21;
+            this.chkbxPort1_PortEn.Text = "port1_En";
+            this.chkbxPort1_PortEn.UseVisualStyleBackColor = true;
+            // 
+            // groupBox36
+            // 
+            this.groupBox36.Controls.Add(this.chkbxHwCfgComCfgEn);
+            this.groupBox36.Controls.Add(this.chkbxHwCfgDhcpEn);
+            this.groupBox36.Controls.Add(this.label66);
+            this.groupBox36.Controls.Add(this.txtbxHwCfgMac);
+            this.groupBox36.Controls.Add(this.txtbxHwCfgGateway);
+            this.groupBox36.Controls.Add(this.txtbxHwCfgMask);
+            this.groupBox36.Controls.Add(this.label95);
+            this.groupBox36.Controls.Add(this.txtbxHwCfgDeviceName);
+            this.groupBox36.Controls.Add(this.txtbxHwCfgIp);
+            this.groupBox36.Controls.Add(this.label68);
+            this.groupBox36.Controls.Add(this.label67);
+            this.groupBox36.Controls.Add(this.label63);
+            this.groupBox36.Location = new System.Drawing.Point(14, 46);
+            this.groupBox36.Name = "groupBox36";
+            this.groupBox36.Size = new System.Drawing.Size(440, 101);
+            this.groupBox36.TabIndex = 34;
+            this.groupBox36.TabStop = false;
+            this.groupBox36.Text = "HWConfig";
+            // 
+            // chkbxHwCfgComCfgEn
+            // 
+            this.chkbxHwCfgComCfgEn.AutoSize = true;
+            this.chkbxHwCfgComCfgEn.Location = new System.Drawing.Point(362, 74);
+            this.chkbxHwCfgComCfgEn.Name = "chkbxHwCfgComCfgEn";
+            this.chkbxHwCfgComCfgEn.Size = new System.Drawing.Size(72, 16);
+            this.chkbxHwCfgComCfgEn.TabIndex = 11;
+            this.chkbxHwCfgComCfgEn.Text = "comCfgEn";
+            this.chkbxHwCfgComCfgEn.UseVisualStyleBackColor = true;
+            // 
+            // chkbxHwCfgDhcpEn
+            // 
+            this.chkbxHwCfgDhcpEn.AutoSize = true;
+            this.chkbxHwCfgDhcpEn.Location = new System.Drawing.Point(362, 48);
+            this.chkbxHwCfgDhcpEn.Name = "chkbxHwCfgDhcpEn";
+            this.chkbxHwCfgDhcpEn.Size = new System.Drawing.Size(60, 16);
+            this.chkbxHwCfgDhcpEn.TabIndex = 10;
+            this.chkbxHwCfgDhcpEn.Text = "dhcpEn";
+            this.chkbxHwCfgDhcpEn.UseVisualStyleBackColor = true;
+            // 
+            // label66
+            // 
+            this.label66.AutoSize = true;
+            this.label66.Location = new System.Drawing.Point(9, 76);
+            this.label66.Name = "label66";
+            this.label66.Size = new System.Drawing.Size(29, 12);
+            this.label66.TabIndex = 3;
+            this.label66.Text = "IP :";
+            // 
+            // txtbxHwCfgMac
+            // 
+            this.txtbxHwCfgMac.Location = new System.Drawing.Point(50, 46);
+            this.txtbxHwCfgMac.Name = "txtbxHwCfgMac";
+            this.txtbxHwCfgMac.Size = new System.Drawing.Size(123, 21);
+            this.txtbxHwCfgMac.TabIndex = 33;
+            // 
+            // txtbxHwCfgGateway
+            // 
+            this.txtbxHwCfgGateway.Location = new System.Drawing.Point(244, 72);
+            this.txtbxHwCfgGateway.Name = "txtbxHwCfgGateway";
+            this.txtbxHwCfgGateway.Size = new System.Drawing.Size(103, 21);
+            this.txtbxHwCfgGateway.TabIndex = 9;
+            // 
+            // txtbxHwCfgMask
+            // 
+            this.txtbxHwCfgMask.Location = new System.Drawing.Point(244, 46);
+            this.txtbxHwCfgMask.Name = "txtbxHwCfgMask";
+            this.txtbxHwCfgMask.Size = new System.Drawing.Size(103, 21);
+            this.txtbxHwCfgMask.TabIndex = 8;
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Location = new System.Drawing.Point(9, 50);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(35, 12);
+            this.label95.TabIndex = 32;
+            this.label95.Text = "Mac :";
+            // 
+            // txtbxHwCfgDeviceName
+            // 
+            this.txtbxHwCfgDeviceName.Location = new System.Drawing.Point(86, 19);
+            this.txtbxHwCfgDeviceName.Name = "txtbxHwCfgDeviceName";
+            this.txtbxHwCfgDeviceName.Size = new System.Drawing.Size(273, 21);
+            this.txtbxHwCfgDeviceName.TabIndex = 1;
+            // 
+            // txtbxHwCfgIp
+            // 
+            this.txtbxHwCfgIp.Location = new System.Drawing.Point(50, 72);
+            this.txtbxHwCfgIp.Name = "txtbxHwCfgIp";
+            this.txtbxHwCfgIp.Size = new System.Drawing.Size(103, 21);
+            this.txtbxHwCfgIp.TabIndex = 7;
+            // 
+            // label68
+            // 
+            this.label68.AutoSize = true;
+            this.label68.Location = new System.Drawing.Point(179, 76);
+            this.label68.Name = "label68";
+            this.label68.Size = new System.Drawing.Size(59, 12);
+            this.label68.TabIndex = 5;
+            this.label68.Text = "Gateway :";
+            // 
+            // label67
+            // 
+            this.label67.AutoSize = true;
+            this.label67.Location = new System.Drawing.Point(179, 50);
+            this.label67.Name = "label67";
+            this.label67.Size = new System.Drawing.Size(41, 12);
+            this.label67.TabIndex = 4;
+            this.label67.Text = "Mask :";
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.Location = new System.Drawing.Point(9, 21);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(71, 12);
+            this.label63.TabIndex = 0;
+            this.label63.Text = "devName(21)";
+            // 
+            // btnResetNetport
+            // 
+            this.btnResetNetport.Location = new System.Drawing.Point(136, 17);
+            this.btnResetNetport.Name = "btnResetNetport";
+            this.btnResetNetport.Size = new System.Drawing.Size(57, 23);
+            this.btnResetNetport.TabIndex = 5;
+            this.btnResetNetport.Text = "Reset";
+            this.btnResetNetport.UseVisualStyleBackColor = true;
+            this.btnResetNetport.Click += new System.EventHandler(this.btnResetNetport_Click);
+            // 
+            // btnSetNetport
+            // 
+            this.btnSetNetport.Location = new System.Drawing.Point(73, 17);
+            this.btnSetNetport.Name = "btnSetNetport";
+            this.btnSetNetport.Size = new System.Drawing.Size(57, 23);
+            this.btnSetNetport.TabIndex = 4;
+            this.btnSetNetport.Text = "Set";
+            this.btnSetNetport.UseVisualStyleBackColor = true;
+            this.btnSetNetport.Click += new System.EventHandler(this.btnSetNetport_Click);
+            // 
+            // btnGetNetport
+            // 
+            this.btnGetNetport.Location = new System.Drawing.Point(10, 17);
+            this.btnGetNetport.Name = "btnGetNetport";
+            this.btnGetNetport.Size = new System.Drawing.Size(57, 23);
+            this.btnGetNetport.TabIndex = 3;
+            this.btnGetNetport.Text = "Get";
+            this.btnGetNetport.UseVisualStyleBackColor = true;
+            this.btnGetNetport.Click += new System.EventHandler(this.btnGetNetport_Click);
+            // 
+            // sensorTags_tabPage
+            // 
+            this.sensorTags_tabPage.Controls.Add(this.panel11);
+            this.sensorTags_tabPage.Controls.Add(this.panel10);
+            this.sensorTags_tabPage.Location = new System.Drawing.Point(4, 22);
+            this.sensorTags_tabPage.Name = "sensorTags_tabPage";
+            this.sensorTags_tabPage.Padding = new System.Windows.Forms.Padding(3);
+            this.sensorTags_tabPage.Size = new System.Drawing.Size(1010, 555);
+            this.sensorTags_tabPage.TabIndex = 8;
+            this.sensorTags_tabPage.Text = "Sensor Tags";
+            this.sensorTags_tabPage.UseVisualStyleBackColor = true;
             // 
             // panel11
             // 
@@ -6842,7 +6735,7 @@ namespace UHFDemo
             this.johar_read_btn.Name = "johar_read_btn";
             this.johar_read_btn.Size = new System.Drawing.Size(108, 41);
             this.johar_read_btn.TabIndex = 1;
-            this.johar_read_btn.Text = "开始";
+            this.johar_read_btn.Text = "Start";
             this.johar_read_btn.UseVisualStyleBackColor = true;
             this.johar_read_btn.Click += new System.EventHandler(this.johar_read_btn_Click);
             // 
@@ -6851,9 +6744,9 @@ namespace UHFDemo
             this.johar_cb.AutoSize = true;
             this.johar_cb.Location = new System.Drawing.Point(127, 65);
             this.johar_cb.Name = "johar_cb";
-            this.johar_cb.Size = new System.Drawing.Size(102, 16);
+            this.johar_cb.Size = new System.Drawing.Size(114, 16);
             this.johar_cb.TabIndex = 2;
-            this.johar_cb.Text = "温感标签（1）";
+            this.johar_cb.Text = "Sensor Tag（1）";
             this.johar_cb.UseVisualStyleBackColor = true;
             // 
             // johar_cmd_interval_cb
@@ -6884,7 +6777,7 @@ namespace UHFDemo
             this.johar_settings_gb.Size = new System.Drawing.Size(242, 167);
             this.johar_settings_gb.TabIndex = 5;
             this.johar_settings_gb.TabStop = false;
-            this.johar_settings_gb.Text = "配置";
+            this.johar_settings_gb.Text = "Cfg";
             // 
             // johar_readmode_gb
             // 
@@ -7028,7 +6921,7 @@ namespace UHFDemo
             this.label183.Name = "label183";
             this.label183.Size = new System.Drawing.Size(101, 12);
             this.label183.TabIndex = 13;
-            this.label183.Text = "指令间隔（ms）：";
+            this.label183.Text = "Interval（ms）：";
             // 
             // johar_use_btn
             // 
@@ -7036,7 +6929,7 @@ namespace UHFDemo
             this.johar_use_btn.Name = "johar_use_btn";
             this.johar_use_btn.Size = new System.Drawing.Size(108, 41);
             this.johar_use_btn.TabIndex = 6;
-            this.johar_use_btn.Text = "启用";
+            this.johar_use_btn.Text = "Enable";
             this.johar_use_btn.UseVisualStyleBackColor = true;
             this.johar_use_btn.Click += new System.EventHandler(this.johar_use_btn_Click);
             // 
@@ -7046,7 +6939,7 @@ namespace UHFDemo
             this.johar_clear_btn.Name = "johar_clear_btn";
             this.johar_clear_btn.Size = new System.Drawing.Size(108, 41);
             this.johar_clear_btn.TabIndex = 7;
-            this.johar_clear_btn.Text = "清空";
+            this.johar_clear_btn.Text = "Clear";
             this.johar_clear_btn.UseVisualStyleBackColor = true;
             this.johar_clear_btn.Click += new System.EventHandler(this.johar_clear_btn_Click);
             // 
@@ -7085,7 +6978,7 @@ namespace UHFDemo
             // johar_totalread_label
             // 
             this.johar_totalread_label.AutoSize = true;
-            this.johar_totalread_label.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.johar_totalread_label.Font = new System.Drawing.Font("宋体", 14.25F);
             this.johar_totalread_label.Location = new System.Drawing.Point(127, 8);
             this.johar_totalread_label.Name = "johar_totalread_label";
             this.johar_totalread_label.Size = new System.Drawing.Size(19, 19);
@@ -7104,7 +6997,7 @@ namespace UHFDemo
             // johar_tagcount_label
             // 
             this.johar_tagcount_label.AutoSize = true;
-            this.johar_tagcount_label.Font = new System.Drawing.Font("宋体", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.johar_tagcount_label.Font = new System.Drawing.Font("宋体", 14.25F);
             this.johar_tagcount_label.Location = new System.Drawing.Point(364, 8);
             this.johar_tagcount_label.Name = "johar_tagcount_label";
             this.johar_tagcount_label.Size = new System.Drawing.Size(19, 19);
@@ -7128,20 +7021,20 @@ namespace UHFDemo
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(3, 5);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(59, 12);
+            this.label35.Size = new System.Drawing.Size(113, 12);
             this.label35.TabIndex = 13;
-            this.label35.Text = "操作记录:";
+            this.label35.Text = "Operation History:";
             // 
             // ckDisplayLog
             // 
             this.ckDisplayLog.AutoSize = true;
             this.ckDisplayLog.ForeColor = System.Drawing.Color.Indigo;
-            this.ckDisplayLog.Location = new System.Drawing.Point(906, 3);
+            this.ckDisplayLog.Location = new System.Drawing.Point(808, 3);
             this.ckDisplayLog.Name = "ckDisplayLog";
             this.ckDisplayLog.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.ckDisplayLog.Size = new System.Drawing.Size(96, 16);
+            this.ckDisplayLog.Size = new System.Drawing.Size(192, 16);
             this.ckDisplayLog.TabIndex = 16;
-            this.ckDisplayLog.Text = "打开串口监控";
+            this.ckDisplayLog.Text = "Activate Serial Port Monitor";
             this.ckDisplayLog.UseVisualStyleBackColor = true;
             this.ckDisplayLog.CheckedChanged += new System.EventHandler(this.ckDisplayLog_CheckedChanged);
             // 
@@ -7198,7 +7091,7 @@ namespace UHFDemo
             this.checkBox5.AutoSize = true;
             this.checkBox5.Checked = true;
             this.checkBox5.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.checkBox5.Location = new System.Drawing.Point(64, 17);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(57, 16);
@@ -7209,7 +7102,7 @@ namespace UHFDemo
             // checkBox6
             // 
             this.checkBox6.AutoSize = true;
-            this.checkBox6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.checkBox6.Location = new System.Drawing.Point(436, 17);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(57, 16);
@@ -7220,7 +7113,7 @@ namespace UHFDemo
             // checkBox7
             // 
             this.checkBox7.AutoSize = true;
-            this.checkBox7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.checkBox7.Location = new System.Drawing.Point(312, 17);
             this.checkBox7.Name = "checkBox7";
             this.checkBox7.Size = new System.Drawing.Size(57, 16);
@@ -7231,7 +7124,7 @@ namespace UHFDemo
             // checkBox8
             // 
             this.checkBox8.AutoSize = true;
-            this.checkBox8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.checkBox8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold);
             this.checkBox8.Location = new System.Drawing.Point(188, 17);
             this.checkBox8.Name = "checkBox8";
             this.checkBox8.Size = new System.Drawing.Size(57, 16);
@@ -7458,7 +7351,7 @@ namespace UHFDemo
             // label83
             // 
             this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label83.Font = new System.Drawing.Font("宋体", 9F);
             this.label83.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label83.Location = new System.Drawing.Point(104, 17);
             this.label83.Name = "label83";
@@ -7599,7 +7492,7 @@ namespace UHFDemo
             // label91
             // 
             this.label91.AutoSize = true;
-            this.label91.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label91.Font = new System.Drawing.Font("宋体", 9F);
             this.label91.ForeColor = System.Drawing.SystemColors.ControlText;
             this.label91.Location = new System.Drawing.Point(104, 17);
             this.label91.Name = "label91";
@@ -7612,12 +7505,25 @@ namespace UHFDemo
             this.ckClearOperationRec.AutoSize = true;
             this.ckClearOperationRec.Checked = true;
             this.ckClearOperationRec.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckClearOperationRec.Location = new System.Drawing.Point(72, 4);
+            this.ckClearOperationRec.Location = new System.Drawing.Point(119, 3);
             this.ckClearOperationRec.Name = "ckClearOperationRec";
-            this.ckClearOperationRec.Size = new System.Drawing.Size(72, 16);
+            this.ckClearOperationRec.Size = new System.Drawing.Size(84, 16);
             this.ckClearOperationRec.TabIndex = 17;
-            this.ckClearOperationRec.Text = "自动清空";
+            this.ckClearOperationRec.Text = "Auto Clear";
             this.ckClearOperationRec.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.ckClearOperationRec);
+            this.panel1.Controls.Add(this.lrtxtLog);
+            this.panel1.Controls.Add(this.ckDisplayLog);
+            this.panel1.Controls.Add(this.label35);
+            this.panel1.Location = new System.Drawing.Point(4, 583);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1010, 151);
+            this.panel1.TabIndex = 18;
             // 
             // lrtxtLog
             // 
@@ -7734,30 +7640,6 @@ namespace UHFDemo
             this.lxLedControl18.TabIndex = 21;
             this.lxLedControl18.Text = "0";
             this.lxLedControl18.TextAlignment = LxControl.LxLedControl.Alignment.Right;
-            // 
-            // panel1
-            // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.ckClearOperationRec);
-            this.panel1.Controls.Add(this.lrtxtLog);
-            this.panel1.Controls.Add(this.ckDisplayLog);
-            this.panel1.Controls.Add(this.label35);
-            this.panel1.Location = new System.Drawing.Point(4, 583);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1010, 151);
-            this.panel1.TabIndex = 18;
-            // 
-            // cb_tagFocus
-            // 
-            this.cb_tagFocus.AutoSize = true;
-            this.cb_tagFocus.Location = new System.Drawing.Point(137, 37);
-            this.cb_tagFocus.Name = "cb_tagFocus";
-            this.cb_tagFocus.Size = new System.Drawing.Size(78, 16);
-            this.cb_tagFocus.TabIndex = 84;
-            this.cb_tagFocus.Text = "Tag Focus";
-            this.cb_tagFocus.UseVisualStyleBackColor = true;
-            this.cb_tagFocus.CheckedChanged += new System.EventHandler(this.cb_tagFocus_CheckedChanged);
             // 
             // R2000UartDemo
             // 
@@ -7924,18 +7806,34 @@ namespace UHFDemo
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.net_configure_tabPage.ResumeLayout(false);
-            this.net_configure_tabPage.PerformLayout();
-            this.port_setting_tabcontrol.ResumeLayout(false);
-            this.net_port_0_tabPage.ResumeLayout(false);
-            this.net_port_0_tabPage.PerformLayout();
-            this.net_port_1_tabPage.ResumeLayout(false);
-            this.net_port_1_tabPage.PerformLayout();
-            this.net_base_settings_gb.ResumeLayout(false);
-            this.net_base_settings_gb.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dev_dgv)).EndInit();
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.groupBox20.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNetcard)).EndInit();
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox28.PerformLayout();
+            this.groupBox31.ResumeLayout(false);
+            this.groupBox31.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNetPort)).EndInit();
+            this.groupBox32.ResumeLayout(false);
+            this.groupBox32.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.groupBox30.ResumeLayout(false);
             this.groupBox30.PerformLayout();
-            this.johar_tabPage.ResumeLayout(false);
+            this.flowLayoutPanel4.ResumeLayout(false);
+            this.flowLayoutPanel4.PerformLayout();
+            this.grbDesIpPort.ResumeLayout(false);
+            this.grbDesIpPort.PerformLayout();
+            this.grbDnsDomain.ResumeLayout(false);
+            this.grbDnsDomain.PerformLayout();
+            this.groupBox35.ResumeLayout(false);
+            this.groupBox35.PerformLayout();
+            this.grbHeartbeat.ResumeLayout(false);
+            this.grbHeartbeat.PerformLayout();
+            this.groupBox37.ResumeLayout(false);
+            this.groupBox37.PerformLayout();
+            this.groupBox36.ResumeLayout(false);
+            this.groupBox36.PerformLayout();
+            this.sensorTags_tabPage.ResumeLayout(false);
             this.panel11.ResumeLayout(false);
             this.panel11.PerformLayout();
             this.johar_settings_gb.ResumeLayout(false);
@@ -7960,13 +7858,13 @@ namespace UHFDemo
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl13)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl14)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl15)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl17)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lxLedControl18)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -8236,73 +8134,7 @@ namespace UHFDemo
         private TextBox tb_outputpower_10;
         private TextBox tb_outputpower_9;
         private TabPage net_configure_tabPage;
-        private LinkLabel net_port_config_tool_linkLabel;
-        private Label label165;
-        private Label label164;
-        private LinkLabel old_net_port_link;
-        private Label label163;
-        private Button net_clear_btn;
-        private GroupBox net_base_settings_gb;
-        private TextBox net_base_mod_mac_tb;
-        private Label label157;
-        private CheckBox net_base_dhcp_enable_cb;
-        private TextBox net_base_mod_gateway_tb;
-        private TextBox net_base_mod_mask_tb;
-        private TextBox net_base_mod_ip_tb;
-        private TextBox net_base_mod_name_tb;
-        private Label label161;
-        private Label label160;
-        private Label label158;
-        private Label label156;
-        private DataGridView dev_dgv;
-        private DataGridViewCheckBoxColumn mod_check_Column;
-        private DataGridViewTextBoxColumn ModName;
-        private DataGridViewTextBoxColumn ModIp;
-        private DataGridViewTextBoxColumn ModMac;
-        private DataGridViewTextBoxColumn ModVer;
-        private DataGridViewTextBoxColumn PcMac;
-        private Label label159;
-        private ComboBox net_card_combox;
-        private GroupBox groupBox30;
-        private Label label162;
-        private Label net_pc_mask_label;
-        private Label net_pc_mac_label;
-        private Label net_pc_ip_label;
-        private Button net_reset_btn;
-        private Button net_setCfg_btn;
-        private Button net_getCfg_btn;
-        private Button net_search_btn;
-        private Button net_refresh_netcard_btn;
-        private TabControl port_setting_tabcontrol;
-        private TabPage net_port_0_tabPage;
-        private CheckBox net_port_1_rand_port_flag_cb;
-        private Label label169;
-        private ComboBox net_port_1_parity_bit_cbo;
-        private Label label168;
-        private ComboBox net_port_1_stopbits_cbo;
-        private Label label167;
-        private ComboBox net_port_1_databits_cbo;
-        private Label label166;
-        private ComboBox net_port_1_baudrate_cbo;
-        private TextBox net_port_1_dest_port_tb;
-        private Label label155;
-        private Label label129;
-        private TextBox net_port_1_dest_ip_tb;
-        private TextBox net_port_1_local_net_port_tb;
-        private Label label126;
-        private Label label125;
-        private ComboBox net_port_1_net_mode_cbo;
-        private TabPage net_port_1_tabPage;
-        private TextBox net_heartbeat_interval_tb;
-        private Label label174;
-        private Label label175;
-        private TextBox net_heartbeat_content_tb;
-        private CheckBox net_port_1_enable_cb;
-        private Button net_reset_default;
-        private CheckBox net_port_1_phyChangeHandle_cb;
-        private Label net_udpserver_status_label;
-        private Label label180;
-        private TabPage johar_tabPage;
+        private TabPage sensorTags_tabPage;
         private GroupBox johar_settings_gb;
         private GroupBox johar_readmode_gb;
         private RadioButton johar_readmode_mode3;
@@ -8327,34 +8159,6 @@ namespace UHFDemo
         private Label label181;
         private Label label183;
         private ComboBox johar_cmd_interval_cb;
-        private Label label192;
-        private Label label190;
-        private Label label191;
-        private CheckBox net_port_1_resetctrl_cb;
-        private Label label189;
-        private TextBox net_port_1_rx_pkg_timeout_tb;
-        private Label label188;
-        private TextBox net_port_1_rx_pkg_size_tb;
-        private Label net_port_1_dns_label;
-        private TextBox net_port_1_dns_domain_tb;
-        private Label label193;
-        private CheckBox net_base_comcfgEn_cb;
-        private Label net_base_info_label;
-        private ListBox net_base_info_lb;
-        private CheckBox net_port_1_dns_flag;
-        private Label label128;
-        private TextBox net_port_1_reconnectcnt_tb;
-        private Label label203;
-        private TextBox net_port_1_dns_host_port_tb;
-        private Label label202;
-        private TextBox net_port_1_dns_host_ip_tb;
-        private CheckBox net_use_heartbeat_cb;
-        private Label label171;
-        private Label net_search_cnt_label;
-        private Label label170;
-        private ComboBox net_search_size;
-        private Button net_load_cfg_btn;
-        private Button net_save_cfg_btn;
         private Button btn_refresh_comports;
         private TabControl tab_6c_Tags_Test;
         private TabPage pageFast4AntMode;
@@ -8612,6 +8416,99 @@ namespace UHFDemo
         private DataGridViewTextBoxColumn tagOp_FreqColumn;
         private Panel panel14;
         private CheckBox cb_tagFocus;
+        private GroupBox groupBox30;
+        private FlowLayoutPanel flowLayoutPanel3;
+        private GroupBox groupBox20;
+        private Button btnClearNetCard;
+        private Button btnSearchNetCard;
+        private DataGridView dgvNetcard;
+        private DataGridViewTextBoxColumn ncColumnSerialNumber;
+        private DataGridViewTextBoxColumn ncColumnDescription;
+        private DataGridViewTextBoxColumn ncColumnIp;
+        private DataGridViewTextBoxColumn ncColumnMask;
+        private DataGridViewTextBoxColumn ncColumnMac;
+        private GroupBox groupBox28;
+        private Button btnClearNetPort;
+        private Button btnSearchNetport;
+        private GroupBox groupBox31;
+        private Label lblCurNetcard;
+        private Label lblCurPcMac;
+        private DataGridView dgvNetPort;
+        private DataGridViewTextBoxColumn npSerialNumberColumn;
+        private DataGridViewTextBoxColumn npDeviceNameColumn;
+        private DataGridViewTextBoxColumn npDeviceIpColumn;
+        private DataGridViewTextBoxColumn npDeviceMacColumn;
+        private DataGridViewTextBoxColumn npChipVerColumn;
+        private DataGridViewTextBoxColumn npPcMacColumn;
+        private GroupBox groupBox32;
+        private Label label59;
+        private Label label65;
+        private GroupBox groupBox3;
+        private LinkLabel linklblOldNetPortCfgTool;
+        private LinkLabel linklblNetPortCfgTool;
+        private Label label68;
+        private Label label67;
+        private Label label66;
+        private TextBox txtbxHwCfgDeviceName;
+        private Label label63;
+        private CheckBox chkbxHwCfgComCfgEn;
+        private CheckBox chkbxHwCfgDhcpEn;
+        private TextBox txtbxHwCfgGateway;
+        private TextBox txtbxHwCfgMask;
+        private TextBox txtbxHwCfgIp;
+        private TextBox txtbxHwCfgMac;
+        private Label label95;
+        private Button btnResetNetport;
+        private Button btnSetNetport;
+        private Button btnGetNetport;
+        private CheckBox chkbxPort1_ResetCtrl;
+        private Label label123;
+        private TextBox txtbxPort1_NetPort;
+        private TextBox txtbxPort1_RxTimeout;
+        private TextBox txtbxPort1_RxPkgLen;
+        private CheckBox chkbxPort1_PhyDisconnect;
+        private ComboBox cmbbxPort1_Parity;
+        private ComboBox cmbbxPort1_StopBits;
+        private ComboBox cmbbxPort1_DataSize;
+        private ComboBox cmbbxPort1_BaudRate;
+        private TextBox txtbxPort1_DnsDomain;
+        private TextBox txtbxPort1_DesPort;
+        private TextBox txtbxPort1_DesIp;
+        private TextBox txtbxPort1_ReConnectCnt;
+        private CheckBox chkbxPort1_RandEn;
+        private ComboBox cmbbxPort1_NetMode;
+        private Label label120;
+        private Label label119;
+        private Label label118;
+        private Label label117;
+        private Label label116;
+        private Label label98;
+        private Label label97;
+        private Label label96;
+        private Label label72;
+        private Label label70;
+        private CheckBox chkbxPort1_PortEn;
+        private CheckBox chkbxPort0PortEn;
+        private GroupBox groupBox35;
+        private TextBox txtbxHeartbeatInterval;
+        private Label label84;
+        private Label label73;
+        private TextBox txtbxHeartbeatContent;
+        private GroupBox groupBox37;
+        private GroupBox groupBox36;
+        private GroupBox grbHeartbeat;
+        private Button btnDefaultNetPort;
+        private Label lblNetPortCount;
+        private GroupBox grbDesIpPort;
+        private Label label69;
+        private GroupBox grbDnsDomain;
+        private Label label85;
+        private Label label74;
+        private Label label64;
+        private CheckBox chkbxPort1_DomainEn;
+        private FlowLayoutPanel flowLayoutPanel4;
+        private Button btnLoadCfgFromFile;
+        private Button btnStoreCfgToFile;
     }
 }
 

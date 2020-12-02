@@ -132,16 +132,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NetCfg\CMD.cs" />
-    <Compile Include="NetCfg\DEVICEHW_CONFIG.cs" />
-    <Compile Include="NetCfg\DEVICEPORT_CONFIG.cs" />
-    <Compile Include="Rfid\DisplayHelpers.cs" />
+    <Compile Include="NetPort\NetCardDB.cs" />
+    <Compile Include="NetPort\NetPortDB.cs" />
+    <Compile Include="NetPort\SortableBindingList.cs" />
     <Compile Include="Rfid\JoharTag.cs" />
-    <Compile Include="NetCfg\MODULE_CFG.cs" />
-    <Compile Include="NetCfg\MODULE_SEARCH.cs" />
-    <Compile Include="NetCfg\NetCfgDB.cs" />
-    <Compile Include="NetCfg\NET_COMM.cs" />
-    <Compile Include="NetCfg\NET_DEVICE_CONFIG.cs" />
     <Compile Include="Rfid\OperateTagISO18000Buffer.cs" />
     <Compile Include="R2000UartDemo.cs">
       <SubType>Form</SubType>
@@ -166,6 +160,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="WinFormString.resx" />
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

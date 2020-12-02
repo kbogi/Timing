@@ -145,7 +145,7 @@ namespace Reader
             }
             catch (Exception e)
             {
-                string exStr = String.Format("数据发送失败: {0}", e.Message);
+                string exStr = String.Format("send data failed: {0}", e.Message);
                 OnReadException(exStr, e);
                 return false;
             }
