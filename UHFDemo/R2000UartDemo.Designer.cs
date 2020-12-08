@@ -411,21 +411,23 @@ namespace UHFDemo
             this.rdbReserved = new System.Windows.Forms.RadioButton();
             this.label24 = new System.Windows.Forms.Label();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.btnCancelAccessEpcMatch = new System.Windows.Forms.Button();
+            this.btnGetAccessEpcMatch = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
             this.btnSetAccessEpcMatch = new System.Windows.Forms.Button();
             this.cmbSetAccessEpcMatch = new System.Windows.Forms.ComboBox();
             this.txtAccessEpcMatch = new System.Windows.Forms.TextBox();
-            this.ckAccessEpcMatch = new System.Windows.Forms.CheckBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel14 = new System.Windows.Forms.Panel();
-            this.listView2 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dgvTagMask = new System.Windows.Forms.DataGridView();
+            this.tagMask_MaskNoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagMask_SessionIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagMask_ActionColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagMask_MembankColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagMask_StartAddrColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagMask_MaskLenColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagMask_MaskValueColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tagMask_TruncateColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
@@ -501,20 +503,61 @@ namespace UHFDemo
             this.label17 = new System.Windows.Forms.Label();
             this.btnSendData = new System.Windows.Forms.Button();
             this.net_configure_tabPage = new System.Windows.Forms.TabPage();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.txtbxPort1_Dnsport = new System.Windows.Forms.TextBox();
+            this.txtbxPort1_DnsIp = new System.Windows.Forms.TextBox();
+            this.label92 = new System.Windows.Forms.Label();
+            this.label64 = new System.Windows.Forms.Label();
+            this.label85 = new System.Windows.Forms.Label();
+            this.label96 = new System.Windows.Forms.Label();
+            this.chkbxPort1_PhyDisconnect = new System.Windows.Forms.CheckBox();
+            this.label97 = new System.Windows.Forms.Label();
+            this.txtbxPort1_ReConnectCnt = new System.Windows.Forms.TextBox();
+            this.label70 = new System.Windows.Forms.Label();
+            this.label74 = new System.Windows.Forms.Label();
+            this.cmbbxPort1_Parity = new System.Windows.Forms.ComboBox();
+            this.label120 = new System.Windows.Forms.Label();
+            this.chkbxPort1_PortEn = new System.Windows.Forms.CheckBox();
+            this.label117 = new System.Windows.Forms.Label();
+            this.chkbxPort1_ResetCtrl = new System.Windows.Forms.CheckBox();
+            this.cmbbxPort1_StopBits = new System.Windows.Forms.ComboBox();
+            this.label118 = new System.Windows.Forms.Label();
+            this.cmbbxPort1_NetMode = new System.Windows.Forms.ComboBox();
+            this.txtbxPort1_RxPkgLen = new System.Windows.Forms.TextBox();
+            this.cmbbxPort1_DataSize = new System.Windows.Forms.ComboBox();
+            this.label123 = new System.Windows.Forms.Label();
+            this.label72 = new System.Windows.Forms.Label();
+            this.label119 = new System.Windows.Forms.Label();
+            this.label98 = new System.Windows.Forms.Label();
+            this.txtbxPort1_RxTimeout = new System.Windows.Forms.TextBox();
+            this.cmbbxPort1_BaudRate = new System.Windows.Forms.ComboBox();
+            this.chkbxPort1_RandEn = new System.Windows.Forms.CheckBox();
+            this.label116 = new System.Windows.Forms.Label();
+            this.txtbxPort1_NetPort = new System.Windows.Forms.TextBox();
+            this.grbDesIpPort = new System.Windows.Forms.GroupBox();
+            this.label69 = new System.Windows.Forms.Label();
+            this.txtbxPort1_DesIp = new System.Windows.Forms.TextBox();
+            this.txtbxPort1_DesPort = new System.Windows.Forms.TextBox();
+            this.chkbxPort1_DomainEn = new System.Windows.Forms.CheckBox();
+            this.grbDnsDomain = new System.Windows.Forms.GroupBox();
+            this.txtbxPort1_DnsDomain = new System.Windows.Forms.TextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.chkbxPort0PortEn = new System.Windows.Forms.CheckBox();
+            this.grbHeartbeat = new System.Windows.Forms.GroupBox();
+            this.label73 = new System.Windows.Forms.Label();
+            this.txtbxHeartbeatInterval = new System.Windows.Forms.TextBox();
+            this.txtbxHeartbeatContent = new System.Windows.Forms.TextBox();
+            this.label84 = new System.Windows.Forms.Label();
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
-            this.btnClearNetCard = new System.Windows.Forms.Button();
-            this.btnSearchNetCard = new System.Windows.Forms.Button();
-            this.dgvNetcard = new System.Windows.Forms.DataGridView();
-            this.ncColumnSerialNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ncColumnDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ncColumnIp = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ncColumnMask = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ncColumnMac = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.label93 = new System.Windows.Forms.Label();
+            this.cmbbxNetCard = new System.Windows.Forms.ComboBox();
             this.lblNetPortCount = new System.Windows.Forms.Label();
             this.btnClearNetPort = new System.Windows.Forms.Button();
+            this.btnSearchNetCard = new System.Windows.Forms.Button();
             this.btnSearchNetport = new System.Windows.Forms.Button();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
             this.lblCurNetcard = new System.Windows.Forms.Label();
             this.lblCurPcMac = new System.Windows.Forms.Label();
@@ -525,64 +568,25 @@ namespace UHFDemo
             this.npDeviceMacColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.npChipVerColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.npPcMacColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.grbNetPortOperation = new System.Windows.Forms.GroupBox();
+            this.btnGetNetport = new System.Windows.Forms.Button();
+            this.btnLoadCfgFromFile = new System.Windows.Forms.Button();
+            this.btnResetNetport = new System.Windows.Forms.Button();
+            this.btnSetNetport = new System.Windows.Forms.Button();
+            this.btnDefaultNetPort = new System.Windows.Forms.Button();
+            this.btnStoreCfgToFile = new System.Windows.Forms.Button();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.linklblOldNetPortCfgTool = new System.Windows.Forms.LinkLabel();
             this.linklblNetPortCfgTool = new System.Windows.Forms.LinkLabel();
             this.label59 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnDefaultNetPort = new System.Windows.Forms.Button();
-            this.groupBox30 = new System.Windows.Forms.GroupBox();
-            this.btnStoreCfgToFile = new System.Windows.Forms.Button();
-            this.btnLoadCfgFromFile = new System.Windows.Forms.Button();
-            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
-            this.chkbxPort1_DomainEn = new System.Windows.Forms.CheckBox();
-            this.grbDesIpPort = new System.Windows.Forms.GroupBox();
-            this.label69 = new System.Windows.Forms.Label();
-            this.txtbxPort1_DesIp = new System.Windows.Forms.TextBox();
-            this.txtbxPort1_DesPort = new System.Windows.Forms.TextBox();
-            this.grbDnsDomain = new System.Windows.Forms.GroupBox();
-            this.txtbxPort1_DnsDomain = new System.Windows.Forms.TextBox();
-            this.groupBox35 = new System.Windows.Forms.GroupBox();
-            this.label85 = new System.Windows.Forms.Label();
-            this.label74 = new System.Windows.Forms.Label();
-            this.label96 = new System.Windows.Forms.Label();
-            this.label97 = new System.Windows.Forms.Label();
-            this.label98 = new System.Windows.Forms.Label();
-            this.label116 = new System.Windows.Forms.Label();
-            this.chkbxPort1_ResetCtrl = new System.Windows.Forms.CheckBox();
-            this.cmbbxPort1_BaudRate = new System.Windows.Forms.ComboBox();
-            this.label123 = new System.Windows.Forms.Label();
-            this.cmbbxPort1_DataSize = new System.Windows.Forms.ComboBox();
-            this.cmbbxPort1_StopBits = new System.Windows.Forms.ComboBox();
-            this.cmbbxPort1_Parity = new System.Windows.Forms.ComboBox();
-            this.label118 = new System.Windows.Forms.Label();
-            this.txtbxPort1_RxTimeout = new System.Windows.Forms.TextBox();
-            this.label119 = new System.Windows.Forms.Label();
-            this.txtbxPort1_RxPkgLen = new System.Windows.Forms.TextBox();
-            this.txtbxPort1_NetPort = new System.Windows.Forms.TextBox();
-            this.chkbxPort1_PhyDisconnect = new System.Windows.Forms.CheckBox();
-            this.grbHeartbeat = new System.Windows.Forms.GroupBox();
-            this.label64 = new System.Windows.Forms.Label();
-            this.label73 = new System.Windows.Forms.Label();
-            this.txtbxHeartbeatInterval = new System.Windows.Forms.TextBox();
-            this.txtbxHeartbeatContent = new System.Windows.Forms.TextBox();
-            this.label84 = new System.Windows.Forms.Label();
-            this.txtbxPort1_ReConnectCnt = new System.Windows.Forms.TextBox();
-            this.chkbxPort1_RandEn = new System.Windows.Forms.CheckBox();
-            this.cmbbxPort1_NetMode = new System.Windows.Forms.ComboBox();
-            this.label120 = new System.Windows.Forms.Label();
-            this.label117 = new System.Windows.Forms.Label();
-            this.label72 = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
-            this.groupBox37 = new System.Windows.Forms.GroupBox();
-            this.chkbxPort0PortEn = new System.Windows.Forms.CheckBox();
-            this.chkbxPort1_PortEn = new System.Windows.Forms.CheckBox();
             this.groupBox36 = new System.Windows.Forms.GroupBox();
+            this.label121 = new System.Windows.Forms.Label();
+            this.label94 = new System.Windows.Forms.Label();
             this.chkbxHwCfgComCfgEn = new System.Windows.Forms.CheckBox();
-            this.chkbxHwCfgDhcpEn = new System.Windows.Forms.CheckBox();
             this.label66 = new System.Windows.Forms.Label();
             this.txtbxHwCfgMac = new System.Windows.Forms.TextBox();
+            this.chkbxHwCfgDhcpEn = new System.Windows.Forms.CheckBox();
             this.txtbxHwCfgGateway = new System.Windows.Forms.TextBox();
             this.txtbxHwCfgMask = new System.Windows.Forms.TextBox();
             this.label95 = new System.Windows.Forms.Label();
@@ -591,9 +595,6 @@ namespace UHFDemo
             this.label68 = new System.Windows.Forms.Label();
             this.label67 = new System.Windows.Forms.Label();
             this.label63 = new System.Windows.Forms.Label();
-            this.btnResetNetport = new System.Windows.Forms.Button();
-            this.btnSetNetport = new System.Windows.Forms.Button();
-            this.btnGetNetport = new System.Windows.Forms.Button();
             this.sensorTags_tabPage = new System.Windows.Forms.TabPage();
             this.panel11 = new System.Windows.Forms.Panel();
             this.johar_read_btn = new System.Windows.Forms.Button();
@@ -750,6 +751,7 @@ namespace UHFDemo
             this.groupBox13.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTagMask)).BeginInit();
             this.groupBox22.SuspendLayout();
             this.groupBox12.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -764,21 +766,19 @@ namespace UHFDemo
             this.panel9.SuspendLayout();
             this.panel3.SuspendLayout();
             this.net_configure_tabPage.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.grbDesIpPort.SuspendLayout();
+            this.grbDnsDomain.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.grbHeartbeat.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.groupBox20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNetcard)).BeginInit();
             this.groupBox28.SuspendLayout();
             this.groupBox31.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNetPort)).BeginInit();
+            this.grbNetPortOperation.SuspendLayout();
             this.groupBox32.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox30.SuspendLayout();
-            this.flowLayoutPanel4.SuspendLayout();
-            this.grbDesIpPort.SuspendLayout();
-            this.grbDnsDomain.SuspendLayout();
-            this.groupBox35.SuspendLayout();
-            this.grbHeartbeat.SuspendLayout();
-            this.groupBox37.SuspendLayout();
             this.groupBox36.SuspendLayout();
             this.sensorTags_tabPage.SuspendLayout();
             this.panel11.SuspendLayout();
@@ -4228,7 +4228,6 @@ namespace UHFDemo
             this.groupBox2.Size = new System.Drawing.Size(332, 168);
             this.groupBox2.TabIndex = 85;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "操作";
             // 
             // grb_inventory_type
             // 
@@ -4482,7 +4481,7 @@ namespace UHFDemo
             this.gbCmdOperateTag.Size = new System.Drawing.Size(1000, 325);
             this.gbCmdOperateTag.TabIndex = 8;
             this.gbCmdOperateTag.TabStop = false;
-            this.gbCmdOperateTag.Text = "标签操作";
+            this.gbCmdOperateTag.Text = "Tag Operation";
             // 
             // groupBox16
             // 
@@ -4495,21 +4494,21 @@ namespace UHFDemo
             this.groupBox16.Size = new System.Drawing.Size(994, 45);
             this.groupBox16.TabIndex = 4;
             this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "销毁标签";
+            this.groupBox16.Text = "Kill Tag";
             // 
             // btnKillTag
             // 
-            this.btnKillTag.Location = new System.Drawing.Point(888, 19);
+            this.btnKillTag.Location = new System.Drawing.Point(887, 16);
             this.btnKillTag.Name = "btnKillTag";
             this.btnKillTag.Size = new System.Drawing.Size(90, 23);
             this.btnKillTag.TabIndex = 14;
-            this.btnKillTag.Text = "销毁标签";
+            this.btnKillTag.Text = "Kill";
             this.btnKillTag.UseVisualStyleBackColor = true;
             this.btnKillTag.Click += new System.EventHandler(this.btnKillTag_Click);
             // 
             // htxtKillPwd
             // 
-            this.htxtKillPwd.Location = new System.Drawing.Point(402, 21);
+            this.htxtKillPwd.Location = new System.Drawing.Point(421, 17);
             this.htxtKillPwd.Name = "htxtKillPwd";
             this.htxtKillPwd.Size = new System.Drawing.Size(120, 21);
             this.htxtKillPwd.TabIndex = 13;
@@ -4517,11 +4516,11 @@ namespace UHFDemo
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(307, 25);
+            this.label29.Location = new System.Drawing.Point(309, 21);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(89, 12);
             this.label29.TabIndex = 13;
-            this.label29.Text = "销毁密码(HEX):";
+            this.label29.Text = "Kill Pwd(HEX):";
             // 
             // groupBox15
             // 
@@ -4536,11 +4535,11 @@ namespace UHFDemo
             this.groupBox15.Size = new System.Drawing.Size(994, 108);
             this.groupBox15.TabIndex = 3;
             this.groupBox15.TabStop = false;
-            this.groupBox15.Text = "锁定标签";
+            this.groupBox15.Text = "Lock Tag";
             // 
             // htxtLockPwd
             // 
-            this.htxtLockPwd.Location = new System.Drawing.Point(736, 45);
+            this.htxtLockPwd.Location = new System.Drawing.Point(737, 52);
             this.htxtLockPwd.Name = "htxtLockPwd";
             this.htxtLockPwd.Size = new System.Drawing.Size(120, 21);
             this.htxtLockPwd.TabIndex = 12;
@@ -4548,11 +4547,11 @@ namespace UHFDemo
             // label28
             // 
             this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(641, 49);
+            this.label28.Location = new System.Drawing.Point(606, 56);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(89, 12);
+            this.label28.Size = new System.Drawing.Size(101, 12);
             this.label28.TabIndex = 12;
-            this.label28.Text = "访问密码(HEX):";
+            this.label28.Text = "Access Pwd(HEX):";
             // 
             // groupBox19
             // 
@@ -4570,45 +4569,45 @@ namespace UHFDemo
             // rdbUserMemory
             // 
             this.rdbUserMemory.AutoSize = true;
-            this.rdbUserMemory.Location = new System.Drawing.Point(483, 15);
+            this.rdbUserMemory.Location = new System.Drawing.Point(481, 15);
             this.rdbUserMemory.Name = "rdbUserMemory";
-            this.rdbUserMemory.Size = new System.Drawing.Size(59, 16);
+            this.rdbUserMemory.Size = new System.Drawing.Size(47, 16);
             this.rdbUserMemory.TabIndex = 4;
             this.rdbUserMemory.TabStop = true;
-            this.rdbUserMemory.Text = "USER区";
+            this.rdbUserMemory.Text = "USER";
             this.rdbUserMemory.UseVisualStyleBackColor = true;
             // 
             // rdbTidMemory
             // 
             this.rdbTidMemory.AutoSize = true;
-            this.rdbTidMemory.Location = new System.Drawing.Point(378, 15);
+            this.rdbTidMemory.Location = new System.Drawing.Point(381, 15);
             this.rdbTidMemory.Name = "rdbTidMemory";
-            this.rdbTidMemory.Size = new System.Drawing.Size(53, 16);
+            this.rdbTidMemory.Size = new System.Drawing.Size(41, 16);
             this.rdbTidMemory.TabIndex = 3;
             this.rdbTidMemory.TabStop = true;
-            this.rdbTidMemory.Text = "TID区";
+            this.rdbTidMemory.Text = "TID";
             this.rdbTidMemory.UseVisualStyleBackColor = true;
             // 
             // rdbEpcMermory
             // 
             this.rdbEpcMermory.AutoSize = true;
-            this.rdbEpcMermory.Location = new System.Drawing.Point(275, 15);
+            this.rdbEpcMermory.Location = new System.Drawing.Point(281, 15);
             this.rdbEpcMermory.Name = "rdbEpcMermory";
-            this.rdbEpcMermory.Size = new System.Drawing.Size(53, 16);
+            this.rdbEpcMermory.Size = new System.Drawing.Size(41, 16);
             this.rdbEpcMermory.TabIndex = 2;
             this.rdbEpcMermory.TabStop = true;
-            this.rdbEpcMermory.Text = "EPC区";
+            this.rdbEpcMermory.Text = "EPC";
             this.rdbEpcMermory.UseVisualStyleBackColor = true;
             // 
             // rdbKillPwd
             // 
             this.rdbKillPwd.AutoSize = true;
-            this.rdbKillPwd.Location = new System.Drawing.Point(142, 15);
+            this.rdbKillPwd.Location = new System.Drawing.Point(151, 15);
             this.rdbKillPwd.Name = "rdbKillPwd";
-            this.rdbKillPwd.Size = new System.Drawing.Size(83, 16);
+            this.rdbKillPwd.Size = new System.Drawing.Size(71, 16);
             this.rdbKillPwd.TabIndex = 1;
             this.rdbKillPwd.TabStop = true;
-            this.rdbKillPwd.Text = "销毁密码区";
+            this.rdbKillPwd.Text = "Kill Pwd";
             this.rdbKillPwd.UseVisualStyleBackColor = true;
             // 
             // rdbAccessPwd
@@ -4619,7 +4618,7 @@ namespace UHFDemo
             this.rdbAccessPwd.Size = new System.Drawing.Size(83, 16);
             this.rdbAccessPwd.TabIndex = 0;
             this.rdbAccessPwd.TabStop = true;
-            this.rdbAccessPwd.Text = "访问密码区";
+            this.rdbAccessPwd.Text = "Access Pwd";
             this.rdbAccessPwd.UseVisualStyleBackColor = true;
             // 
             // groupBox18
@@ -4637,34 +4636,34 @@ namespace UHFDemo
             // rdbLockEver
             // 
             this.rdbLockEver.AutoSize = true;
-            this.rdbLockEver.Location = new System.Drawing.Point(483, 14);
+            this.rdbLockEver.Location = new System.Drawing.Point(456, 14);
             this.rdbLockEver.Name = "rdbLockEver";
-            this.rdbLockEver.Size = new System.Drawing.Size(71, 16);
+            this.rdbLockEver.Size = new System.Drawing.Size(107, 16);
             this.rdbLockEver.TabIndex = 3;
             this.rdbLockEver.TabStop = true;
-            this.rdbLockEver.Text = "永久锁定";
+            this.rdbLockEver.Text = "Permanent Lock";
             this.rdbLockEver.UseVisualStyleBackColor = true;
             // 
             // rdbFreeEver
             // 
             this.rdbFreeEver.AutoSize = true;
-            this.rdbFreeEver.Location = new System.Drawing.Point(309, 14);
+            this.rdbFreeEver.Location = new System.Drawing.Point(263, 14);
             this.rdbFreeEver.Name = "rdbFreeEver";
-            this.rdbFreeEver.Size = new System.Drawing.Size(71, 16);
+            this.rdbFreeEver.Size = new System.Drawing.Size(119, 16);
             this.rdbFreeEver.TabIndex = 2;
             this.rdbFreeEver.TabStop = true;
-            this.rdbFreeEver.Text = "永久开放";
+            this.rdbFreeEver.Text = "Permanent Unlock";
             this.rdbFreeEver.UseVisualStyleBackColor = true;
             // 
             // rdbLock
             // 
             this.rdbLock.AutoSize = true;
-            this.rdbLock.Location = new System.Drawing.Point(159, 14);
+            this.rdbLock.Location = new System.Drawing.Point(142, 14);
             this.rdbLock.Name = "rdbLock";
             this.rdbLock.Size = new System.Drawing.Size(47, 16);
             this.rdbLock.TabIndex = 1;
             this.rdbLock.TabStop = true;
-            this.rdbLock.Text = "锁定";
+            this.rdbLock.Text = "Lock";
             this.rdbLock.UseVisualStyleBackColor = true;
             // 
             // rdbFree
@@ -4672,19 +4671,19 @@ namespace UHFDemo
             this.rdbFree.AutoSize = true;
             this.rdbFree.Location = new System.Drawing.Point(9, 14);
             this.rdbFree.Name = "rdbFree";
-            this.rdbFree.Size = new System.Drawing.Size(47, 16);
+            this.rdbFree.Size = new System.Drawing.Size(59, 16);
             this.rdbFree.TabIndex = 0;
             this.rdbFree.TabStop = true;
-            this.rdbFree.Text = "开放";
+            this.rdbFree.Text = "Unlock";
             this.rdbFree.UseVisualStyleBackColor = true;
             // 
             // btnLockTag
             // 
-            this.btnLockTag.Location = new System.Drawing.Point(888, 44);
+            this.btnLockTag.Location = new System.Drawing.Point(887, 51);
             this.btnLockTag.Name = "btnLockTag";
             this.btnLockTag.Size = new System.Drawing.Size(90, 23);
             this.btnLockTag.TabIndex = 0;
-            this.btnLockTag.Text = "锁定标签";
+            this.btnLockTag.Text = "Lock";
             this.btnLockTag.UseVisualStyleBackColor = true;
             this.btnLockTag.Click += new System.EventHandler(this.btnLockTag_Click);
             // 
@@ -4709,13 +4708,13 @@ namespace UHFDemo
             this.groupBox14.Size = new System.Drawing.Size(994, 95);
             this.groupBox14.TabIndex = 2;
             this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "读写标签";
+            this.groupBox14.Text = "Read/Write Tag";
             // 
             // hexTb_accessPw
             // 
-            this.hexTb_accessPw.Location = new System.Drawing.Point(394, 22);
+            this.hexTb_accessPw.Location = new System.Drawing.Point(421, 23);
             this.hexTb_accessPw.Name = "hexTb_accessPw";
-            this.hexTb_accessPw.Size = new System.Drawing.Size(140, 21);
+            this.hexTb_accessPw.Size = new System.Drawing.Size(105, 21);
             this.hexTb_accessPw.TabIndex = 13;
             this.hexTb_accessPw.Text = "00 00 00 00";
             // 
@@ -4723,7 +4722,7 @@ namespace UHFDemo
             // 
             this.radio_btnBlockWrite.AutoSize = true;
             this.radio_btnBlockWrite.Checked = true;
-            this.radio_btnBlockWrite.Location = new System.Drawing.Point(729, 62);
+            this.radio_btnBlockWrite.Location = new System.Drawing.Point(722, 60);
             this.radio_btnBlockWrite.Name = "radio_btnBlockWrite";
             this.radio_btnBlockWrite.Size = new System.Drawing.Size(83, 16);
             this.radio_btnBlockWrite.TabIndex = 12;
@@ -4734,7 +4733,7 @@ namespace UHFDemo
             // radio_btnWrite
             // 
             this.radio_btnWrite.AutoSize = true;
-            this.radio_btnWrite.Location = new System.Drawing.Point(829, 62);
+            this.radio_btnWrite.Location = new System.Drawing.Point(822, 62);
             this.radio_btnWrite.Name = "radio_btnWrite";
             this.radio_btnWrite.Size = new System.Drawing.Size(53, 16);
             this.radio_btnWrite.TabIndex = 11;
@@ -4743,14 +4742,14 @@ namespace UHFDemo
             // 
             // hexTb_WriteData
             // 
-            this.hexTb_WriteData.Location = new System.Drawing.Point(106, 58);
+            this.hexTb_WriteData.Location = new System.Drawing.Point(135, 58);
             this.hexTb_WriteData.Name = "hexTb_WriteData";
-            this.hexTb_WriteData.Size = new System.Drawing.Size(617, 21);
+            this.hexTb_WriteData.Size = new System.Drawing.Size(572, 21);
             this.hexTb_WriteData.TabIndex = 10;
             // 
             // tb_wordLen
             // 
-            this.tb_wordLen.Location = new System.Drawing.Point(808, 23);
+            this.tb_wordLen.Location = new System.Drawing.Point(822, 23);
             this.tb_wordLen.Name = "tb_wordLen";
             this.tb_wordLen.Size = new System.Drawing.Size(48, 21);
             this.tb_wordLen.TabIndex = 9;
@@ -4759,11 +4758,11 @@ namespace UHFDemo
             // label27
             // 
             this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(707, 27);
+            this.label27.Location = new System.Drawing.Point(720, 27);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(95, 12);
+            this.label27.Size = new System.Drawing.Size(89, 12);
             this.label27.TabIndex = 8;
-            this.label27.Text = "数据长度(WORD):";
+            this.label27.Text = "DataLen(WORD):";
             // 
             // btnWriteTag
             // 
@@ -4771,7 +4770,7 @@ namespace UHFDemo
             this.btnWriteTag.Name = "btnWriteTag";
             this.btnWriteTag.Size = new System.Drawing.Size(90, 23);
             this.btnWriteTag.TabIndex = 7;
-            this.btnWriteTag.Text = "写标签";
+            this.btnWriteTag.Text = "Write";
             this.btnWriteTag.UseVisualStyleBackColor = true;
             this.btnWriteTag.Click += new System.EventHandler(this.btnWriteTag_Click);
             // 
@@ -4781,13 +4780,13 @@ namespace UHFDemo
             this.btnReadTag.Name = "btnReadTag";
             this.btnReadTag.Size = new System.Drawing.Size(90, 23);
             this.btnReadTag.TabIndex = 6;
-            this.btnReadTag.Text = "读标签";
+            this.btnReadTag.Text = "Read";
             this.btnReadTag.UseVisualStyleBackColor = true;
             this.btnReadTag.Click += new System.EventHandler(this.btnReadTag_Click);
             // 
             // tb_startWord
             // 
-            this.tb_startWord.Location = new System.Drawing.Point(641, 23);
+            this.tb_startWord.Location = new System.Drawing.Point(659, 23);
             this.tb_startWord.Name = "tb_startWord";
             this.tb_startWord.Size = new System.Drawing.Size(48, 21);
             this.tb_startWord.TabIndex = 5;
@@ -4795,20 +4794,20 @@ namespace UHFDemo
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(540, 27);
+            this.label26.Location = new System.Drawing.Point(539, 27);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(95, 12);
+            this.label26.Size = new System.Drawing.Size(107, 12);
             this.label26.TabIndex = 4;
-            this.label26.Text = "起始地址(WORD):";
+            this.label26.Text = "Start Addr(WORD):";
             // 
             // label25
             // 
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(295, 27);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(101, 12);
+            this.label25.Size = new System.Drawing.Size(113, 12);
             this.label25.TabIndex = 2;
-            this.label25.Text = "访问密码（HEX）:";
+            this.label25.Text = "Access Pwd（HEX）:";
             // 
             // groupBox17
             // 
@@ -4825,36 +4824,36 @@ namespace UHFDemo
             // rdbUser
             // 
             this.rdbUser.AutoSize = true;
-            this.rdbUser.Location = new System.Drawing.Point(189, 13);
+            this.rdbUser.Location = new System.Drawing.Point(216, 13);
             this.rdbUser.Name = "rdbUser";
-            this.rdbUser.Size = new System.Drawing.Size(59, 16);
+            this.rdbUser.Size = new System.Drawing.Size(47, 16);
             this.rdbUser.TabIndex = 3;
             this.rdbUser.TabStop = true;
-            this.rdbUser.Text = "USER区";
+            this.rdbUser.Text = "USER";
             this.rdbUser.UseVisualStyleBackColor = true;
             this.rdbUser.CheckedChanged += new System.EventHandler(this.MembankCheckChanged);
             // 
             // rdbTid
             // 
             this.rdbTid.AutoSize = true;
-            this.rdbTid.Location = new System.Drawing.Point(130, 13);
+            this.rdbTid.Location = new System.Drawing.Point(156, 13);
             this.rdbTid.Name = "rdbTid";
-            this.rdbTid.Size = new System.Drawing.Size(53, 16);
+            this.rdbTid.Size = new System.Drawing.Size(41, 16);
             this.rdbTid.TabIndex = 2;
             this.rdbTid.TabStop = true;
-            this.rdbTid.Text = "TID区";
+            this.rdbTid.Text = "TID";
             this.rdbTid.UseVisualStyleBackColor = true;
             this.rdbTid.CheckedChanged += new System.EventHandler(this.MembankCheckChanged);
             // 
             // rdbEpc
             // 
             this.rdbEpc.AutoSize = true;
-            this.rdbEpc.Location = new System.Drawing.Point(71, 13);
+            this.rdbEpc.Location = new System.Drawing.Point(96, 13);
             this.rdbEpc.Name = "rdbEpc";
-            this.rdbEpc.Size = new System.Drawing.Size(53, 16);
+            this.rdbEpc.Size = new System.Drawing.Size(41, 16);
             this.rdbEpc.TabIndex = 1;
             this.rdbEpc.TabStop = true;
-            this.rdbEpc.Text = "EPC区";
+            this.rdbEpc.Text = "EPC";
             this.rdbEpc.UseVisualStyleBackColor = true;
             this.rdbEpc.CheckedChanged += new System.EventHandler(this.MembankCheckChanged);
             // 
@@ -4863,10 +4862,10 @@ namespace UHFDemo
             this.rdbReserved.AutoSize = true;
             this.rdbReserved.Location = new System.Drawing.Point(6, 13);
             this.rdbReserved.Name = "rdbReserved";
-            this.rdbReserved.Size = new System.Drawing.Size(59, 16);
+            this.rdbReserved.Size = new System.Drawing.Size(71, 16);
             this.rdbReserved.TabIndex = 0;
             this.rdbReserved.TabStop = true;
-            this.rdbReserved.Text = "密码区";
+            this.rdbReserved.Text = "Password";
             this.rdbReserved.UseVisualStyleBackColor = true;
             this.rdbReserved.CheckedChanged += new System.EventHandler(this.MembankCheckChanged);
             // 
@@ -4875,41 +4874,62 @@ namespace UHFDemo
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(19, 64);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(89, 12);
+            this.label24.Size = new System.Drawing.Size(95, 12);
             this.label24.TabIndex = 0;
-            this.label24.Text = "写入数据(HEX):";
+            this.label24.Text = "WriteData(HEX):";
             // 
             // groupBox13
             // 
+            this.groupBox13.Controls.Add(this.btnCancelAccessEpcMatch);
+            this.groupBox13.Controls.Add(this.btnGetAccessEpcMatch);
             this.groupBox13.Controls.Add(this.label23);
             this.groupBox13.Controls.Add(this.btnSetAccessEpcMatch);
             this.groupBox13.Controls.Add(this.cmbSetAccessEpcMatch);
             this.groupBox13.Controls.Add(this.txtAccessEpcMatch);
-            this.groupBox13.Controls.Add(this.ckAccessEpcMatch);
             this.groupBox13.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox13.Location = new System.Drawing.Point(3, 17);
             this.groupBox13.Name = "groupBox13";
             this.groupBox13.Size = new System.Drawing.Size(994, 50);
             this.groupBox13.TabIndex = 1;
             this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "选定操作标签";
+            this.groupBox13.Text = "Tag Selection";
+            // 
+            // btnCancelAccessEpcMatch
+            // 
+            this.btnCancelAccessEpcMatch.Location = new System.Drawing.Point(421, 17);
+            this.btnCancelAccessEpcMatch.Name = "btnCancelAccessEpcMatch";
+            this.btnCancelAccessEpcMatch.Size = new System.Drawing.Size(56, 23);
+            this.btnCancelAccessEpcMatch.TabIndex = 6;
+            this.btnCancelAccessEpcMatch.Text = "Cancel";
+            this.btnCancelAccessEpcMatch.UseVisualStyleBackColor = true;
+            this.btnCancelAccessEpcMatch.Click += new System.EventHandler(this.btnCancelAccessEpcMatch_Click);
+            // 
+            // btnGetAccessEpcMatch
+            // 
+            this.btnGetAccessEpcMatch.Location = new System.Drawing.Point(6, 17);
+            this.btnGetAccessEpcMatch.Name = "btnGetAccessEpcMatch";
+            this.btnGetAccessEpcMatch.Size = new System.Drawing.Size(49, 23);
+            this.btnGetAccessEpcMatch.TabIndex = 5;
+            this.btnGetAccessEpcMatch.Text = "Get";
+            this.btnGetAccessEpcMatch.UseVisualStyleBackColor = true;
+            this.btnGetAccessEpcMatch.Click += new System.EventHandler(this.btnGetAccessEpcMatch_Click);
             // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(468, 22);
+            this.label23.Location = new System.Drawing.Point(492, 22);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(59, 12);
             this.label23.TabIndex = 4;
-            this.label23.Text = "标签列表:";
+            this.label23.Text = "Tag List:";
             // 
             // btnSetAccessEpcMatch
             // 
-            this.btnSetAccessEpcMatch.Location = new System.Drawing.Point(888, 17);
+            this.btnSetAccessEpcMatch.Location = new System.Drawing.Point(920, 17);
             this.btnSetAccessEpcMatch.Name = "btnSetAccessEpcMatch";
-            this.btnSetAccessEpcMatch.Size = new System.Drawing.Size(90, 23);
+            this.btnSetAccessEpcMatch.Size = new System.Drawing.Size(63, 23);
             this.btnSetAccessEpcMatch.TabIndex = 3;
-            this.btnSetAccessEpcMatch.Text = "选定标签";
+            this.btnSetAccessEpcMatch.Text = "Set";
             this.btnSetAccessEpcMatch.UseVisualStyleBackColor = true;
             this.btnSetAccessEpcMatch.Click += new System.EventHandler(this.btnSetAccessEpcMatch_Click);
             // 
@@ -4917,30 +4937,19 @@ namespace UHFDemo
             // 
             this.cmbSetAccessEpcMatch.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSetAccessEpcMatch.FormattingEnabled = true;
-            this.cmbSetAccessEpcMatch.Location = new System.Drawing.Point(533, 18);
+            this.cmbSetAccessEpcMatch.Location = new System.Drawing.Point(566, 18);
             this.cmbSetAccessEpcMatch.Name = "cmbSetAccessEpcMatch";
-            this.cmbSetAccessEpcMatch.Size = new System.Drawing.Size(323, 20);
+            this.cmbSetAccessEpcMatch.Size = new System.Drawing.Size(339, 20);
             this.cmbSetAccessEpcMatch.TabIndex = 2;
             this.cmbSetAccessEpcMatch.DropDown += new System.EventHandler(this.cmbSetAccessEpcMatch_DropDown);
             // 
             // txtAccessEpcMatch
             // 
-            this.txtAccessEpcMatch.Location = new System.Drawing.Point(106, 18);
+            this.txtAccessEpcMatch.Location = new System.Drawing.Point(70, 18);
             this.txtAccessEpcMatch.Name = "txtAccessEpcMatch";
             this.txtAccessEpcMatch.ReadOnly = true;
-            this.txtAccessEpcMatch.Size = new System.Drawing.Size(320, 21);
+            this.txtAccessEpcMatch.Size = new System.Drawing.Size(336, 21);
             this.txtAccessEpcMatch.TabIndex = 1;
-            // 
-            // ckAccessEpcMatch
-            // 
-            this.ckAccessEpcMatch.AutoSize = true;
-            this.ckAccessEpcMatch.Location = new System.Drawing.Point(16, 20);
-            this.ckAccessEpcMatch.Name = "ckAccessEpcMatch";
-            this.ckAccessEpcMatch.Size = new System.Drawing.Size(90, 16);
-            this.ckAccessEpcMatch.TabIndex = 0;
-            this.ckAccessEpcMatch.Text = "已选定标签:";
-            this.ckAccessEpcMatch.UseVisualStyleBackColor = true;
-            this.ckAccessEpcMatch.CheckedChanged += new System.EventHandler(this.cbAccessEpcMatch_CheckedChanged);
             // 
             // tabPage3
             // 
@@ -4961,73 +4970,69 @@ namespace UHFDemo
             this.panel14.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel14.Controls.Add(this.listView2);
+            this.panel14.Controls.Add(this.dgvTagMask);
             this.panel14.Location = new System.Drawing.Point(6, 258);
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(988, 263);
             this.panel14.TabIndex = 31;
             // 
-            // listView2
+            // dgvTagMask
             // 
-            this.listView2.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader6,
-            this.columnHeader7,
-            this.columnHeader8});
-            this.listView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listView2.Font = new System.Drawing.Font("宋体", 9F);
-            this.listView2.GridLines = true;
-            this.listView2.HideSelection = false;
-            this.listView2.Location = new System.Drawing.Point(0, 0);
-            this.listView2.Name = "listView2";
-            this.listView2.Size = new System.Drawing.Size(988, 263);
-            this.listView2.TabIndex = 30;
-            this.listView2.UseCompatibleStateImageBehavior = false;
-            this.listView2.View = System.Windows.Forms.View.Details;
+            this.dgvTagMask.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvTagMask.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.tagMask_MaskNoColumn,
+            this.tagMask_SessionIdColumn,
+            this.tagMask_ActionColumn,
+            this.tagMask_MembankColumn,
+            this.tagMask_StartAddrColumn,
+            this.tagMask_MaskLenColumn,
+            this.tagMask_MaskValueColumn,
+            this.tagMask_TruncateColumn});
+            this.dgvTagMask.Location = new System.Drawing.Point(0, 3);
+            this.dgvTagMask.Name = "dgvTagMask";
+            this.dgvTagMask.RowTemplate.Height = 23;
+            this.dgvTagMask.Size = new System.Drawing.Size(985, 257);
+            this.dgvTagMask.TabIndex = 31;
             // 
-            // columnHeader1
+            // tagMask_MaskNoColumn
             // 
-            this.columnHeader1.Text = "过滤ID";
-            this.columnHeader1.Width = 56;
+            this.tagMask_MaskNoColumn.HeaderText = "MaskNo";
+            this.tagMask_MaskNoColumn.Name = "tagMask_MaskNoColumn";
             // 
-            // columnHeader2
+            // tagMask_SessionIdColumn
             // 
-            this.columnHeader2.Text = "Session ID";
-            this.columnHeader2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader2.Width = 118;
+            this.tagMask_SessionIdColumn.HeaderText = "SessionID";
+            this.tagMask_SessionIdColumn.Name = "tagMask_SessionIdColumn";
             // 
-            // columnHeader3
+            // tagMask_ActionColumn
             // 
-            this.columnHeader3.Text = "过滤行为";
-            this.columnHeader3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader3.Width = 96;
+            this.tagMask_ActionColumn.HeaderText = "Action";
+            this.tagMask_ActionColumn.Name = "tagMask_ActionColumn";
             // 
-            // columnHeader4
+            // tagMask_MembankColumn
             // 
-            this.columnHeader4.Text = "过滤区域";
-            this.columnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader4.Width = 71;
+            this.tagMask_MembankColumn.HeaderText = "MemBank";
+            this.tagMask_MembankColumn.Name = "tagMask_MembankColumn";
             // 
-            // columnHeader6
+            // tagMask_StartAddrColumn
             // 
-            this.columnHeader6.Text = "起始地址(Hex bit)";
-            this.columnHeader6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader6.Width = 134;
+            this.tagMask_StartAddrColumn.HeaderText = "StartAddr";
+            this.tagMask_StartAddrColumn.Name = "tagMask_StartAddrColumn";
             // 
-            // columnHeader7
+            // tagMask_MaskLenColumn
             // 
-            this.columnHeader7.Text = "过滤长度(Hex bit)";
-            this.columnHeader7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader7.Width = 138;
+            this.tagMask_MaskLenColumn.HeaderText = "MaskLen";
+            this.tagMask_MaskLenColumn.Name = "tagMask_MaskLenColumn";
             // 
-            // columnHeader8
+            // tagMask_MaskValueColumn
             // 
-            this.columnHeader8.Text = "过滤值";
-            this.columnHeader8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.columnHeader8.Width = 376;
+            this.tagMask_MaskValueColumn.HeaderText = "MaskValue";
+            this.tagMask_MaskValueColumn.Name = "tagMask_MaskValueColumn";
+            // 
+            // tagMask_TruncateColumn
+            // 
+            this.tagMask_TruncateColumn.HeaderText = "Truncate";
+            this.tagMask_TruncateColumn.Name = "tagMask_TruncateColumn";
             // 
             // groupBox22
             // 
@@ -5038,7 +5043,7 @@ namespace UHFDemo
             this.groupBox22.Size = new System.Drawing.Size(988, 49);
             this.groupBox22.TabIndex = 29;
             this.groupBox22.TabStop = false;
-            this.groupBox22.Text = "查询过滤设置";
+            this.groupBox22.Text = "Get Mask";
             // 
             // button3
             // 
@@ -5046,7 +5051,7 @@ namespace UHFDemo
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(202, 23);
             this.button3.TabIndex = 0;
-            this.button3.Text = "查询过滤";
+            this.button3.Text = "Get Mask";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
@@ -5061,16 +5066,16 @@ namespace UHFDemo
             this.groupBox12.Size = new System.Drawing.Size(988, 49);
             this.groupBox12.TabIndex = 28;
             this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "清除过滤设置";
+            this.groupBox12.Text = "Clear Mask";
             // 
             // label111
             // 
             this.label111.AutoSize = true;
-            this.label111.Location = new System.Drawing.Point(106, 25);
+            this.label111.Location = new System.Drawing.Point(5, 25);
             this.label111.Name = "label111";
-            this.label111.Size = new System.Drawing.Size(47, 12);
+            this.label111.Size = new System.Drawing.Size(53, 12);
             this.label111.TabIndex = 16;
-            this.label111.Text = "过滤ID:";
+            this.label111.Text = "Mask ID:";
             // 
             // comboBox16
             // 
@@ -5083,9 +5088,9 @@ namespace UHFDemo
             "Mask No.3",
             "Mask No.4",
             "Mask No.5"});
-            this.comboBox16.Location = new System.Drawing.Point(198, 17);
+            this.comboBox16.Location = new System.Drawing.Point(65, 20);
             this.comboBox16.Name = "comboBox16";
-            this.comboBox16.Size = new System.Drawing.Size(91, 20);
+            this.comboBox16.Size = new System.Drawing.Size(83, 20);
             this.comboBox16.TabIndex = 15;
             // 
             // button2
@@ -5094,7 +5099,7 @@ namespace UHFDemo
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(202, 23);
             this.button2.TabIndex = 0;
-            this.button2.Text = "清除过滤";
+            this.button2.Text = "Clear Mask";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -5121,19 +5126,19 @@ namespace UHFDemo
             this.groupBox9.Size = new System.Drawing.Size(988, 125);
             this.groupBox9.TabIndex = 27;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "设置过滤";
+            this.groupBox9.Text = "Set Mask";
             // 
             // bitLen
             // 
-            this.bitLen.Location = new System.Drawing.Point(431, 55);
+            this.bitLen.Location = new System.Drawing.Point(445, 60);
             this.bitLen.Name = "bitLen";
-            this.bitLen.Size = new System.Drawing.Size(123, 21);
+            this.bitLen.Size = new System.Drawing.Size(142, 21);
             this.bitLen.TabIndex = 21;
             this.bitLen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // startAddr
             // 
-            this.startAddr.Location = new System.Drawing.Point(149, 61);
+            this.startAddr.Location = new System.Drawing.Point(155, 60);
             this.startAddr.Name = "startAddr";
             this.startAddr.Size = new System.Drawing.Size(94, 21);
             this.startAddr.TabIndex = 20;
@@ -5141,9 +5146,9 @@ namespace UHFDemo
             // 
             // hexTextBox_mask
             // 
-            this.hexTextBox_mask.Location = new System.Drawing.Point(132, 95);
+            this.hexTextBox_mask.Location = new System.Drawing.Point(155, 94);
             this.hexTextBox_mask.Name = "hexTextBox_mask";
-            this.hexTextBox_mask.Size = new System.Drawing.Size(460, 21);
+            this.hexTextBox_mask.Size = new System.Drawing.Size(432, 21);
             this.hexTextBox_mask.TabIndex = 18;
             this.hexTextBox_mask.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5152,9 +5157,9 @@ namespace UHFDemo
             this.label38.AutoSize = true;
             this.label38.Location = new System.Drawing.Point(5, 23);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(47, 12);
+            this.label38.Size = new System.Drawing.Size(53, 12);
             this.label38.TabIndex = 15;
-            this.label38.Text = "过滤ID:";
+            this.label38.Text = "Mask ID:";
             // 
             // combo_mast_id
             // 
@@ -5167,7 +5172,7 @@ namespace UHFDemo
             "Mask No.3",
             "Mask No.4",
             "Mask No.5"});
-            this.combo_mast_id.Location = new System.Drawing.Point(58, 20);
+            this.combo_mast_id.Location = new System.Drawing.Point(65, 19);
             this.combo_mast_id.Name = "combo_mast_id";
             this.combo_mast_id.Size = new System.Drawing.Size(83, 20);
             this.combo_mast_id.TabIndex = 14;
@@ -5175,52 +5180,52 @@ namespace UHFDemo
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(29, 98);
+            this.label39.Location = new System.Drawing.Point(5, 98);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(47, 12);
+            this.label39.Size = new System.Drawing.Size(71, 12);
             this.label39.TabIndex = 11;
-            this.label39.Text = "过滤值:";
+            this.label39.Text = "Mask Value:";
             // 
             // label71
             // 
             this.label71.AutoSize = true;
-            this.label71.Location = new System.Drawing.Point(312, 61);
+            this.label71.Location = new System.Drawing.Point(312, 64);
             this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(107, 12);
+            this.label71.Size = new System.Drawing.Size(125, 12);
             this.label71.TabIndex = 10;
-            this.label71.Text = "过滤长度(bit)[D]:";
+            this.label71.Text = "Mask Length (D bit):";
             // 
             // label99
             // 
             this.label99.AutoSize = true;
-            this.label99.Location = new System.Drawing.Point(29, 64);
+            this.label99.Location = new System.Drawing.Point(5, 64);
             this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(107, 12);
+            this.label99.Size = new System.Drawing.Size(131, 12);
             this.label99.TabIndex = 9;
-            this.label99.Text = "起始地址(bit)[D]:";
+            this.label99.Text = "Start Address(D bit):";
             // 
             // label100
             // 
             this.label100.AutoSize = true;
-            this.label100.Location = new System.Drawing.Point(439, 23);
+            this.label100.Location = new System.Drawing.Point(445, 23);
             this.label100.Name = "label100";
-            this.label100.Size = new System.Drawing.Size(65, 12);
+            this.label100.Size = new System.Drawing.Size(53, 12);
             this.label100.TabIndex = 6;
-            this.label100.Text = "过滤区域：";
+            this.label100.Text = "Membank:";
             // 
             // label101
             // 
             this.label101.AutoSize = true;
-            this.label101.Location = new System.Drawing.Point(296, 24);
+            this.label101.Location = new System.Drawing.Point(312, 23);
             this.label101.Name = "label101";
-            this.label101.Size = new System.Drawing.Size(59, 12);
+            this.label101.Size = new System.Drawing.Size(47, 12);
             this.label101.TabIndex = 5;
-            this.label101.Text = "过滤行为:";
+            this.label101.Text = "Action:";
             // 
             // label102
             // 
             this.label102.AutoSize = true;
-            this.label102.Location = new System.Drawing.Point(147, 26);
+            this.label102.Location = new System.Drawing.Point(155, 23);
             this.label102.Name = "label102";
             this.label102.Size = new System.Drawing.Size(71, 12);
             this.label102.TabIndex = 4;
@@ -5235,7 +5240,7 @@ namespace UHFDemo
             "EPC",
             "TID",
             "USER"});
-            this.combo_menbank.Location = new System.Drawing.Point(510, 20);
+            this.combo_menbank.Location = new System.Drawing.Point(505, 19);
             this.combo_menbank.Name = "combo_menbank";
             this.combo_menbank.Size = new System.Drawing.Size(82, 20);
             this.combo_menbank.TabIndex = 3;
@@ -5253,7 +5258,7 @@ namespace UHFDemo
             "05",
             "06",
             "07"});
-            this.combo_action.Location = new System.Drawing.Point(361, 20);
+            this.combo_action.Location = new System.Drawing.Point(366, 19);
             this.combo_action.Name = "combo_action";
             this.combo_action.Size = new System.Drawing.Size(72, 20);
             this.combo_action.TabIndex = 2;
@@ -5268,7 +5273,7 @@ namespace UHFDemo
             "S2",
             "S3",
             "SL"});
-            this.combo_session.Location = new System.Drawing.Point(218, 23);
+            this.combo_session.Location = new System.Drawing.Point(233, 19);
             this.combo_session.Name = "combo_session";
             this.combo_session.Size = new System.Drawing.Size(72, 20);
             this.combo_session.TabIndex = 1;
@@ -5276,11 +5281,11 @@ namespace UHFDemo
             // btnTagSelect
             // 
             this.btnTagSelect.Font = new System.Drawing.Font("Corbel", 9F);
-            this.btnTagSelect.Location = new System.Drawing.Point(626, 53);
+            this.btnTagSelect.Location = new System.Drawing.Point(626, 59);
             this.btnTagSelect.Name = "btnTagSelect";
             this.btnTagSelect.Size = new System.Drawing.Size(202, 23);
             this.btnTagSelect.TabIndex = 0;
-            this.btnTagSelect.Text = "设置过滤";
+            this.btnTagSelect.Text = "Set Mask";
             this.btnTagSelect.UseVisualStyleBackColor = true;
             this.btnTagSelect.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -5814,8 +5819,11 @@ namespace UHFDemo
             // 
             // net_configure_tabPage
             // 
+            this.net_configure_tabPage.Controls.Add(this.tabControl1);
             this.net_configure_tabPage.Controls.Add(this.flowLayoutPanel3);
-            this.net_configure_tabPage.Controls.Add(this.groupBox3);
+            this.net_configure_tabPage.Controls.Add(this.grbNetPortOperation);
+            this.net_configure_tabPage.Controls.Add(this.groupBox32);
+            this.net_configure_tabPage.Controls.Add(this.groupBox36);
             this.net_configure_tabPage.Location = new System.Drawing.Point(4, 22);
             this.net_configure_tabPage.Name = "net_configure_tabPage";
             this.net_configure_tabPage.Padding = new System.Windows.Forms.Padding(3);
@@ -5824,107 +5832,495 @@ namespace UHFDemo
             this.net_configure_tabPage.Text = "NetPort Setup";
             this.net_configure_tabPage.UseVisualStyleBackColor = true;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Location = new System.Drawing.Point(751, 13);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(256, 535);
+            this.tabControl1.TabIndex = 68;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.txtbxPort1_Dnsport);
+            this.tabPage4.Controls.Add(this.txtbxPort1_DnsIp);
+            this.tabPage4.Controls.Add(this.label92);
+            this.tabPage4.Controls.Add(this.label64);
+            this.tabPage4.Controls.Add(this.label85);
+            this.tabPage4.Controls.Add(this.label96);
+            this.tabPage4.Controls.Add(this.chkbxPort1_PhyDisconnect);
+            this.tabPage4.Controls.Add(this.label97);
+            this.tabPage4.Controls.Add(this.txtbxPort1_ReConnectCnt);
+            this.tabPage4.Controls.Add(this.label70);
+            this.tabPage4.Controls.Add(this.label74);
+            this.tabPage4.Controls.Add(this.cmbbxPort1_Parity);
+            this.tabPage4.Controls.Add(this.label120);
+            this.tabPage4.Controls.Add(this.chkbxPort1_PortEn);
+            this.tabPage4.Controls.Add(this.label117);
+            this.tabPage4.Controls.Add(this.chkbxPort1_ResetCtrl);
+            this.tabPage4.Controls.Add(this.cmbbxPort1_StopBits);
+            this.tabPage4.Controls.Add(this.label118);
+            this.tabPage4.Controls.Add(this.cmbbxPort1_NetMode);
+            this.tabPage4.Controls.Add(this.txtbxPort1_RxPkgLen);
+            this.tabPage4.Controls.Add(this.cmbbxPort1_DataSize);
+            this.tabPage4.Controls.Add(this.label123);
+            this.tabPage4.Controls.Add(this.label72);
+            this.tabPage4.Controls.Add(this.label119);
+            this.tabPage4.Controls.Add(this.label98);
+            this.tabPage4.Controls.Add(this.txtbxPort1_RxTimeout);
+            this.tabPage4.Controls.Add(this.cmbbxPort1_BaudRate);
+            this.tabPage4.Controls.Add(this.chkbxPort1_RandEn);
+            this.tabPage4.Controls.Add(this.label116);
+            this.tabPage4.Controls.Add(this.txtbxPort1_NetPort);
+            this.tabPage4.Controls.Add(this.grbDesIpPort);
+            this.tabPage4.Controls.Add(this.chkbxPort1_DomainEn);
+            this.tabPage4.Controls.Add(this.grbDnsDomain);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(248, 509);
+            this.tabPage4.TabIndex = 0;
+            this.tabPage4.Text = "Port_1";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // txtbxPort1_Dnsport
+            // 
+            this.txtbxPort1_Dnsport.Location = new System.Drawing.Point(94, 476);
+            this.txtbxPort1_Dnsport.Name = "txtbxPort1_Dnsport";
+            this.txtbxPort1_Dnsport.Size = new System.Drawing.Size(132, 21);
+            this.txtbxPort1_Dnsport.TabIndex = 68;
+            // 
+            // txtbxPort1_DnsIp
+            // 
+            this.txtbxPort1_DnsIp.Location = new System.Drawing.Point(94, 451);
+            this.txtbxPort1_DnsIp.Name = "txtbxPort1_DnsIp";
+            this.txtbxPort1_DnsIp.Size = new System.Drawing.Size(132, 21);
+            this.txtbxPort1_DnsIp.TabIndex = 67;
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(6, 480);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(59, 12);
+            this.label92.TabIndex = 66;
+            this.label92.Text = "DNS port:";
+            // 
+            // label64
+            // 
+            this.label64.AutoSize = true;
+            this.label64.Location = new System.Drawing.Point(6, 455);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(59, 12);
+            this.label64.TabIndex = 65;
+            this.label64.Text = "DNS host:";
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(177, 380);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(41, 12);
+            this.label85.TabIndex = 64;
+            this.label85.Text = "(10ms)";
+            // 
+            // label96
+            // 
+            this.label96.AutoSize = true;
+            this.label96.Location = new System.Drawing.Point(6, 230);
+            this.label96.Name = "label96";
+            this.label96.Size = new System.Drawing.Size(59, 12);
+            this.label96.TabIndex = 27;
+            this.label96.Text = "BaudRate:";
+            // 
+            // chkbxPort1_PhyDisconnect
+            // 
+            this.chkbxPort1_PhyDisconnect.AutoSize = true;
+            this.chkbxPort1_PhyDisconnect.Location = new System.Drawing.Point(94, 328);
+            this.chkbxPort1_PhyDisconnect.Name = "chkbxPort1_PhyDisconnect";
+            this.chkbxPort1_PhyDisconnect.Size = new System.Drawing.Size(102, 16);
+            this.chkbxPort1_PhyDisconnect.TabIndex = 46;
+            this.chkbxPort1_PhyDisconnect.Text = "CloseSocketEn";
+            this.chkbxPort1_PhyDisconnect.UseVisualStyleBackColor = true;
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(6, 255);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(59, 12);
+            this.label97.TabIndex = 28;
+            this.label97.Text = "Datasize:";
+            // 
+            // txtbxPort1_ReConnectCnt
+            // 
+            this.txtbxPort1_ReConnectCnt.Location = new System.Drawing.Point(94, 426);
+            this.txtbxPort1_ReConnectCnt.Name = "txtbxPort1_ReConnectCnt";
+            this.txtbxPort1_ReConnectCnt.Size = new System.Drawing.Size(132, 21);
+            this.txtbxPort1_ReConnectCnt.TabIndex = 38;
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Location = new System.Drawing.Point(6, 43);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(53, 12);
+            this.label70.TabIndex = 22;
+            this.label70.Text = "NetMode:";
+            // 
+            // label74
+            // 
+            this.label74.AutoSize = true;
+            this.label74.Location = new System.Drawing.Point(177, 355);
+            this.label74.Name = "label74";
+            this.label74.Size = new System.Drawing.Size(53, 12);
+            this.label74.TabIndex = 63;
+            this.label74.Text = "(<=1024)";
+            // 
+            // cmbbxPort1_Parity
+            // 
+            this.cmbbxPort1_Parity.FormattingEnabled = true;
+            this.cmbbxPort1_Parity.Location = new System.Drawing.Point(94, 301);
+            this.cmbbxPort1_Parity.Name = "cmbbxPort1_Parity";
+            this.cmbbxPort1_Parity.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_Parity.TabIndex = 45;
+            // 
+            // label120
+            // 
+            this.label120.AutoSize = true;
+            this.label120.Location = new System.Drawing.Point(6, 430);
+            this.label120.Name = "label120";
+            this.label120.Size = new System.Drawing.Size(83, 12);
+            this.label120.TabIndex = 34;
+            this.label120.Text = "ReconnectCnt:";
+            // 
+            // chkbxPort1_PortEn
+            // 
+            this.chkbxPort1_PortEn.AutoSize = true;
+            this.chkbxPort1_PortEn.Location = new System.Drawing.Point(6, 14);
+            this.chkbxPort1_PortEn.Name = "chkbxPort1_PortEn";
+            this.chkbxPort1_PortEn.Size = new System.Drawing.Size(72, 16);
+            this.chkbxPort1_PortEn.TabIndex = 21;
+            this.chkbxPort1_PortEn.Text = "port1_En";
+            this.chkbxPort1_PortEn.UseVisualStyleBackColor = true;
+            // 
+            // label117
+            // 
+            this.label117.AutoSize = true;
+            this.label117.Location = new System.Drawing.Point(6, 330);
+            this.label117.Name = "label117";
+            this.label117.Size = new System.Drawing.Size(53, 12);
+            this.label117.TabIndex = 31;
+            this.label117.Text = "PhyLost:";
+            // 
+            // chkbxPort1_ResetCtrl
+            // 
+            this.chkbxPort1_ResetCtrl.AutoSize = true;
+            this.chkbxPort1_ResetCtrl.Location = new System.Drawing.Point(94, 403);
+            this.chkbxPort1_ResetCtrl.Name = "chkbxPort1_ResetCtrl";
+            this.chkbxPort1_ResetCtrl.Size = new System.Drawing.Size(102, 16);
+            this.chkbxPort1_ResetCtrl.TabIndex = 53;
+            this.chkbxPort1_ResetCtrl.Text = "ClearBufferEn";
+            this.chkbxPort1_ResetCtrl.UseVisualStyleBackColor = true;
+            // 
+            // cmbbxPort1_StopBits
+            // 
+            this.cmbbxPort1_StopBits.FormattingEnabled = true;
+            this.cmbbxPort1_StopBits.Location = new System.Drawing.Point(94, 276);
+            this.cmbbxPort1_StopBits.Name = "cmbbxPort1_StopBits";
+            this.cmbbxPort1_StopBits.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_StopBits.TabIndex = 44;
+            // 
+            // label118
+            // 
+            this.label118.AutoSize = true;
+            this.label118.Location = new System.Drawing.Point(6, 355);
+            this.label118.Name = "label118";
+            this.label118.Size = new System.Drawing.Size(41, 12);
+            this.label118.TabIndex = 32;
+            this.label118.Text = "RxLen:";
+            // 
+            // cmbbxPort1_NetMode
+            // 
+            this.cmbbxPort1_NetMode.FormattingEnabled = true;
+            this.cmbbxPort1_NetMode.Location = new System.Drawing.Point(65, 39);
+            this.cmbbxPort1_NetMode.Name = "cmbbxPort1_NetMode";
+            this.cmbbxPort1_NetMode.Size = new System.Drawing.Size(167, 20);
+            this.cmbbxPort1_NetMode.TabIndex = 36;
+            this.cmbbxPort1_NetMode.SelectedIndexChanged += new System.EventHandler(this.cmbbxPort1_NetMode_SelectedIndexChanged);
+            // 
+            // txtbxPort1_RxPkgLen
+            // 
+            this.txtbxPort1_RxPkgLen.Location = new System.Drawing.Point(94, 351);
+            this.txtbxPort1_RxPkgLen.Name = "txtbxPort1_RxPkgLen";
+            this.txtbxPort1_RxPkgLen.Size = new System.Drawing.Size(77, 21);
+            this.txtbxPort1_RxPkgLen.TabIndex = 34;
+            // 
+            // cmbbxPort1_DataSize
+            // 
+            this.cmbbxPort1_DataSize.FormattingEnabled = true;
+            this.cmbbxPort1_DataSize.Location = new System.Drawing.Point(94, 251);
+            this.cmbbxPort1_DataSize.Name = "cmbbxPort1_DataSize";
+            this.cmbbxPort1_DataSize.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_DataSize.TabIndex = 43;
+            // 
+            // label123
+            // 
+            this.label123.AutoSize = true;
+            this.label123.Location = new System.Drawing.Point(6, 405);
+            this.label123.Name = "label123";
+            this.label123.Size = new System.Drawing.Size(65, 12);
+            this.label123.TabIndex = 52;
+            this.label123.Text = "ResetCtrl:";
+            // 
+            // label72
+            // 
+            this.label72.AutoSize = true;
+            this.label72.Location = new System.Drawing.Point(6, 68);
+            this.label72.Name = "label72";
+            this.label72.Size = new System.Drawing.Size(65, 12);
+            this.label72.TabIndex = 23;
+            this.label72.Text = "LocalPort:";
+            // 
+            // label119
+            // 
+            this.label119.AutoSize = true;
+            this.label119.Location = new System.Drawing.Point(6, 380);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(65, 12);
+            this.label119.TabIndex = 33;
+            this.label119.Text = "RxTimeout:";
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Location = new System.Drawing.Point(6, 280);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(59, 12);
+            this.label98.TabIndex = 29;
+            this.label98.Text = "Stopbits:";
+            // 
+            // txtbxPort1_RxTimeout
+            // 
+            this.txtbxPort1_RxTimeout.Location = new System.Drawing.Point(94, 376);
+            this.txtbxPort1_RxTimeout.Name = "txtbxPort1_RxTimeout";
+            this.txtbxPort1_RxTimeout.Size = new System.Drawing.Size(77, 21);
+            this.txtbxPort1_RxTimeout.TabIndex = 47;
+            // 
+            // cmbbxPort1_BaudRate
+            // 
+            this.cmbbxPort1_BaudRate.FormattingEnabled = true;
+            this.cmbbxPort1_BaudRate.Location = new System.Drawing.Point(94, 226);
+            this.cmbbxPort1_BaudRate.Name = "cmbbxPort1_BaudRate";
+            this.cmbbxPort1_BaudRate.Size = new System.Drawing.Size(121, 20);
+            this.cmbbxPort1_BaudRate.TabIndex = 42;
+            // 
+            // chkbxPort1_RandEn
+            // 
+            this.chkbxPort1_RandEn.AutoSize = true;
+            this.chkbxPort1_RandEn.Location = new System.Drawing.Point(90, 68);
+            this.chkbxPort1_RandEn.Name = "chkbxPort1_RandEn";
+            this.chkbxPort1_RandEn.Size = new System.Drawing.Size(60, 16);
+            this.chkbxPort1_RandEn.TabIndex = 37;
+            this.chkbxPort1_RandEn.Text = "randEn";
+            this.chkbxPort1_RandEn.UseVisualStyleBackColor = true;
+            this.chkbxPort1_RandEn.CheckedChanged += new System.EventHandler(this.chkbxPort1_RandEn_CheckedChanged);
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Location = new System.Drawing.Point(6, 305);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(47, 12);
+            this.label116.TabIndex = 30;
+            this.label116.Text = "Parity:";
+            // 
+            // txtbxPort1_NetPort
+            // 
+            this.txtbxPort1_NetPort.Location = new System.Drawing.Point(162, 65);
+            this.txtbxPort1_NetPort.Name = "txtbxPort1_NetPort";
+            this.txtbxPort1_NetPort.Size = new System.Drawing.Size(70, 21);
+            this.txtbxPort1_NetPort.TabIndex = 49;
+            // 
+            // grbDesIpPort
+            // 
+            this.grbDesIpPort.Controls.Add(this.label69);
+            this.grbDesIpPort.Controls.Add(this.txtbxPort1_DesIp);
+            this.grbDesIpPort.Controls.Add(this.txtbxPort1_DesPort);
+            this.grbDesIpPort.Location = new System.Drawing.Point(6, 176);
+            this.grbDesIpPort.Name = "grbDesIpPort";
+            this.grbDesIpPort.Size = new System.Drawing.Size(226, 41);
+            this.grbDesIpPort.TabIndex = 22;
+            this.grbDesIpPort.TabStop = false;
+            this.grbDesIpPort.Text = "Des IP/Port";
+            // 
+            // label69
+            // 
+            this.label69.AutoSize = true;
+            this.label69.Location = new System.Drawing.Point(140, 21);
+            this.label69.Name = "label69";
+            this.label69.Size = new System.Drawing.Size(11, 12);
+            this.label69.TabIndex = 64;
+            this.label69.Text = ":";
+            // 
+            // txtbxPort1_DesIp
+            // 
+            this.txtbxPort1_DesIp.Location = new System.Drawing.Point(6, 16);
+            this.txtbxPort1_DesIp.Name = "txtbxPort1_DesIp";
+            this.txtbxPort1_DesIp.Size = new System.Drawing.Size(121, 21);
+            this.txtbxPort1_DesIp.TabIndex = 39;
+            // 
+            // txtbxPort1_DesPort
+            // 
+            this.txtbxPort1_DesPort.Location = new System.Drawing.Point(164, 16);
+            this.txtbxPort1_DesPort.Name = "txtbxPort1_DesPort";
+            this.txtbxPort1_DesPort.Size = new System.Drawing.Size(56, 21);
+            this.txtbxPort1_DesPort.TabIndex = 40;
+            // 
+            // chkbxPort1_DomainEn
+            // 
+            this.chkbxPort1_DomainEn.AutoSize = true;
+            this.chkbxPort1_DomainEn.Location = new System.Drawing.Point(6, 93);
+            this.chkbxPort1_DomainEn.Name = "chkbxPort1_DomainEn";
+            this.chkbxPort1_DomainEn.Size = new System.Drawing.Size(72, 16);
+            this.chkbxPort1_DomainEn.TabIndex = 63;
+            this.chkbxPort1_DomainEn.Text = "DomainEn";
+            this.chkbxPort1_DomainEn.UseVisualStyleBackColor = true;
+            this.chkbxPort1_DomainEn.CheckedChanged += new System.EventHandler(this.chkbxPort1_DomainEn_CheckedChanged);
+            // 
+            // grbDnsDomain
+            // 
+            this.grbDnsDomain.Controls.Add(this.txtbxPort1_DnsDomain);
+            this.grbDnsDomain.Location = new System.Drawing.Point(6, 122);
+            this.grbDnsDomain.Name = "grbDnsDomain";
+            this.grbDnsDomain.Size = new System.Drawing.Size(226, 41);
+            this.grbDnsDomain.TabIndex = 22;
+            this.grbDnsDomain.TabStop = false;
+            this.grbDnsDomain.Text = "DNS domain (20)";
+            // 
+            // txtbxPort1_DnsDomain
+            // 
+            this.txtbxPort1_DnsDomain.Location = new System.Drawing.Point(6, 14);
+            this.txtbxPort1_DnsDomain.Name = "txtbxPort1_DnsDomain";
+            this.txtbxPort1_DnsDomain.Size = new System.Drawing.Size(214, 21);
+            this.txtbxPort1_DnsDomain.TabIndex = 34;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.chkbxPort0PortEn);
+            this.tabPage5.Controls.Add(this.grbHeartbeat);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(248, 509);
+            this.tabPage5.TabIndex = 1;
+            this.tabPage5.Text = "Heartbeat Detect";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // chkbxPort0PortEn
+            // 
+            this.chkbxPort0PortEn.AutoSize = true;
+            this.chkbxPort0PortEn.Location = new System.Drawing.Point(15, 13);
+            this.chkbxPort0PortEn.Name = "chkbxPort0PortEn";
+            this.chkbxPort0PortEn.Size = new System.Drawing.Size(90, 16);
+            this.chkbxPort0PortEn.TabIndex = 20;
+            this.chkbxPort0PortEn.Text = "HeartbeatEn";
+            this.chkbxPort0PortEn.UseVisualStyleBackColor = true;
+            this.chkbxPort0PortEn.CheckedChanged += new System.EventHandler(this.chkbxPort0PortEn_CheckedChanged);
+            // 
+            // grbHeartbeat
+            // 
+            this.grbHeartbeat.Controls.Add(this.label73);
+            this.grbHeartbeat.Controls.Add(this.txtbxHeartbeatInterval);
+            this.grbHeartbeat.Controls.Add(this.txtbxHeartbeatContent);
+            this.grbHeartbeat.Controls.Add(this.label84);
+            this.grbHeartbeat.Location = new System.Drawing.Point(11, 35);
+            this.grbHeartbeat.Name = "grbHeartbeat";
+            this.grbHeartbeat.Size = new System.Drawing.Size(231, 126);
+            this.grbHeartbeat.TabIndex = 62;
+            this.grbHeartbeat.TabStop = false;
+            this.grbHeartbeat.Text = "Heart Beat";
+            // 
+            // label73
+            // 
+            this.label73.AutoSize = true;
+            this.label73.Location = new System.Drawing.Point(7, 17);
+            this.label73.Name = "label73";
+            this.label73.Size = new System.Drawing.Size(77, 12);
+            this.label73.TabIndex = 59;
+            this.label73.Text = "Content (20)";
+            // 
+            // txtbxHeartbeatInterval
+            // 
+            this.txtbxHeartbeatInterval.Location = new System.Drawing.Point(4, 89);
+            this.txtbxHeartbeatInterval.Name = "txtbxHeartbeatInterval";
+            this.txtbxHeartbeatInterval.Size = new System.Drawing.Size(219, 21);
+            this.txtbxHeartbeatInterval.TabIndex = 61;
+            // 
+            // txtbxHeartbeatContent
+            // 
+            this.txtbxHeartbeatContent.Location = new System.Drawing.Point(4, 37);
+            this.txtbxHeartbeatContent.Name = "txtbxHeartbeatContent";
+            this.txtbxHeartbeatContent.Size = new System.Drawing.Size(221, 21);
+            this.txtbxHeartbeatContent.TabIndex = 58;
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(2, 70);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(89, 12);
+            this.label84.TabIndex = 60;
+            this.label84.Text = "Interval(50ms)";
+            // 
             // flowLayoutPanel3
             // 
             this.flowLayoutPanel3.Controls.Add(this.groupBox20);
             this.flowLayoutPanel3.Controls.Add(this.groupBox28);
-            this.flowLayoutPanel3.Controls.Add(this.groupBox32);
             this.flowLayoutPanel3.Location = new System.Drawing.Point(13, 18);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(517, 531);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(517, 409);
             this.flowLayoutPanel3.TabIndex = 2;
             // 
             // groupBox20
             // 
-            this.groupBox20.Controls.Add(this.btnClearNetCard);
+            this.groupBox20.Controls.Add(this.label93);
+            this.groupBox20.Controls.Add(this.cmbbxNetCard);
+            this.groupBox20.Controls.Add(this.lblNetPortCount);
+            this.groupBox20.Controls.Add(this.btnClearNetPort);
             this.groupBox20.Controls.Add(this.btnSearchNetCard);
-            this.groupBox20.Controls.Add(this.dgvNetcard);
+            this.groupBox20.Controls.Add(this.btnSearchNetport);
             this.groupBox20.Location = new System.Drawing.Point(3, 3);
             this.groupBox20.Name = "groupBox20";
-            this.groupBox20.Size = new System.Drawing.Size(504, 178);
+            this.groupBox20.Size = new System.Drawing.Size(504, 85);
             this.groupBox20.TabIndex = 2;
             this.groupBox20.TabStop = false;
             this.groupBox20.Text = "Network Interface Card";
             // 
-            // btnClearNetCard
+            // label93
             // 
-            this.btnClearNetCard.Location = new System.Drawing.Point(135, 20);
-            this.btnClearNetCard.Name = "btnClearNetCard";
-            this.btnClearNetCard.Size = new System.Drawing.Size(123, 23);
-            this.btnClearNetCard.TabIndex = 2;
-            this.btnClearNetCard.Text = "Clear NetCard";
-            this.btnClearNetCard.UseVisualStyleBackColor = true;
-            this.btnClearNetCard.Click += new System.EventHandler(this.btnClearNetCard_Click);
+            this.label93.AutoSize = true;
+            this.label93.Location = new System.Drawing.Point(137, 25);
+            this.label93.Name = "label93";
+            this.label93.Size = new System.Drawing.Size(53, 12);
+            this.label93.TabIndex = 69;
+            this.label93.Text = "NetCard:";
             // 
-            // btnSearchNetCard
+            // cmbbxNetCard
             // 
-            this.btnSearchNetCard.Location = new System.Drawing.Point(6, 20);
-            this.btnSearchNetCard.Name = "btnSearchNetCard";
-            this.btnSearchNetCard.Size = new System.Drawing.Size(123, 23);
-            this.btnSearchNetCard.TabIndex = 1;
-            this.btnSearchNetCard.Text = "Search NetCard";
-            this.btnSearchNetCard.UseVisualStyleBackColor = true;
-            this.btnSearchNetCard.Click += new System.EventHandler(this.btnSearchNetCard_Click);
-            // 
-            // dgvNetcard
-            // 
-            this.dgvNetcard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvNetcard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ncColumnSerialNumber,
-            this.ncColumnDescription,
-            this.ncColumnIp,
-            this.ncColumnMask,
-            this.ncColumnMac});
-            this.dgvNetcard.Location = new System.Drawing.Point(6, 64);
-            this.dgvNetcard.Name = "dgvNetcard";
-            this.dgvNetcard.RowTemplate.Height = 23;
-            this.dgvNetcard.Size = new System.Drawing.Size(491, 108);
-            this.dgvNetcard.TabIndex = 0;
-            this.dgvNetcard.DoubleClick += new System.EventHandler(this.dgvNetcard_DoubleClick);
-            // 
-            // ncColumnSerialNumber
-            // 
-            this.ncColumnSerialNumber.HeaderText = "#";
-            this.ncColumnSerialNumber.Name = "ncColumnSerialNumber";
-            // 
-            // ncColumnDescription
-            // 
-            this.ncColumnDescription.HeaderText = "Description";
-            this.ncColumnDescription.Name = "ncColumnDescription";
-            // 
-            // ncColumnIp
-            // 
-            this.ncColumnIp.HeaderText = "IP";
-            this.ncColumnIp.Name = "ncColumnIp";
-            // 
-            // ncColumnMask
-            // 
-            this.ncColumnMask.HeaderText = "Mask";
-            this.ncColumnMask.Name = "ncColumnMask";
-            // 
-            // ncColumnMac
-            // 
-            this.ncColumnMac.HeaderText = "Mac";
-            this.ncColumnMac.Name = "ncColumnMac";
-            // 
-            // groupBox28
-            // 
-            this.groupBox28.Controls.Add(this.lblNetPortCount);
-            this.groupBox28.Controls.Add(this.btnClearNetPort);
-            this.groupBox28.Controls.Add(this.btnSearchNetport);
-            this.groupBox28.Controls.Add(this.groupBox31);
-            this.groupBox28.Controls.Add(this.dgvNetPort);
-            this.groupBox28.Location = new System.Drawing.Point(3, 187);
-            this.groupBox28.Name = "groupBox28";
-            this.groupBox28.Size = new System.Drawing.Size(504, 214);
-            this.groupBox28.TabIndex = 3;
-            this.groupBox28.TabStop = false;
-            this.groupBox28.Text = "NetPort";
+            this.cmbbxNetCard.FormattingEnabled = true;
+            this.cmbbxNetCard.Location = new System.Drawing.Point(198, 21);
+            this.cmbbxNetCard.Name = "cmbbxNetCard";
+            this.cmbbxNetCard.Size = new System.Drawing.Size(289, 20);
+            this.cmbbxNetCard.TabIndex = 68;
+            this.cmbbxNetCard.SelectedIndexChanged += new System.EventHandler(this.cmbbxNetCard_SelectedIndexChanged);
             // 
             // lblNetPortCount
             // 
             this.lblNetPortCount.AutoSize = true;
-            this.lblNetPortCount.Location = new System.Drawing.Point(311, 76);
+            this.lblNetPortCount.Location = new System.Drawing.Point(196, 61);
             this.lblNetPortCount.Name = "lblNetPortCount";
             this.lblNetPortCount.Size = new System.Drawing.Size(41, 12);
             this.lblNetPortCount.TabIndex = 4;
@@ -5932,7 +6328,7 @@ namespace UHFDemo
             // 
             // btnClearNetPort
             // 
-            this.btnClearNetPort.Location = new System.Drawing.Point(145, 71);
+            this.btnClearNetPort.Location = new System.Drawing.Point(364, 56);
             this.btnClearNetPort.Name = "btnClearNetPort";
             this.btnClearNetPort.Size = new System.Drawing.Size(123, 23);
             this.btnClearNetPort.TabIndex = 6;
@@ -5940,15 +6336,36 @@ namespace UHFDemo
             this.btnClearNetPort.UseVisualStyleBackColor = true;
             this.btnClearNetPort.Click += new System.EventHandler(this.btnClearNetPort_Click);
             // 
+            // btnSearchNetCard
+            // 
+            this.btnSearchNetCard.Location = new System.Drawing.Point(6, 20);
+            this.btnSearchNetCard.Name = "btnSearchNetCard";
+            this.btnSearchNetCard.Size = new System.Drawing.Size(123, 23);
+            this.btnSearchNetCard.TabIndex = 1;
+            this.btnSearchNetCard.Text = "Refresh NetCard";
+            this.btnSearchNetCard.UseVisualStyleBackColor = true;
+            this.btnSearchNetCard.Click += new System.EventHandler(this.btnSearchNetCard_Click);
+            // 
             // btnSearchNetport
             // 
-            this.btnSearchNetport.Location = new System.Drawing.Point(6, 71);
+            this.btnSearchNetport.Location = new System.Drawing.Point(7, 56);
             this.btnSearchNetport.Name = "btnSearchNetport";
             this.btnSearchNetport.Size = new System.Drawing.Size(123, 23);
             this.btnSearchNetport.TabIndex = 5;
             this.btnSearchNetport.Text = "Search NetPort";
             this.btnSearchNetport.UseVisualStyleBackColor = true;
             this.btnSearchNetport.Click += new System.EventHandler(this.btnSearchNetport_Click);
+            // 
+            // groupBox28
+            // 
+            this.groupBox28.Controls.Add(this.groupBox31);
+            this.groupBox28.Controls.Add(this.dgvNetPort);
+            this.groupBox28.Location = new System.Drawing.Point(3, 94);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(504, 262);
+            this.groupBox28.TabIndex = 3;
+            this.groupBox28.TabStop = false;
+            this.groupBox28.Text = "NetPort";
             // 
             // groupBox31
             // 
@@ -5989,10 +6406,10 @@ namespace UHFDemo
             this.npDeviceMacColumn,
             this.npChipVerColumn,
             this.npPcMacColumn});
-            this.dgvNetPort.Location = new System.Drawing.Point(7, 105);
+            this.dgvNetPort.Location = new System.Drawing.Point(7, 71);
             this.dgvNetPort.Name = "dgvNetPort";
             this.dgvNetPort.RowTemplate.Height = 23;
-            this.dgvNetPort.Size = new System.Drawing.Size(490, 103);
+            this.dgvNetPort.Size = new System.Drawing.Size(490, 230);
             this.dgvNetPort.TabIndex = 0;
             this.dgvNetPort.DoubleClick += new System.EventHandler(this.dgvNetPort_DoubleClick);
             // 
@@ -6026,15 +6443,89 @@ namespace UHFDemo
             this.npPcMacColumn.HeaderText = "PcMac";
             this.npPcMacColumn.Name = "npPcMacColumn";
             // 
+            // grbNetPortOperation
+            // 
+            this.grbNetPortOperation.Controls.Add(this.btnGetNetport);
+            this.grbNetPortOperation.Controls.Add(this.btnLoadCfgFromFile);
+            this.grbNetPortOperation.Controls.Add(this.btnResetNetport);
+            this.grbNetPortOperation.Controls.Add(this.btnSetNetport);
+            this.grbNetPortOperation.Controls.Add(this.btnDefaultNetPort);
+            this.grbNetPortOperation.Controls.Add(this.btnStoreCfgToFile);
+            this.grbNetPortOperation.Location = new System.Drawing.Point(537, 311);
+            this.grbNetPortOperation.Name = "grbNetPortOperation";
+            this.grbNetPortOperation.Size = new System.Drawing.Size(208, 100);
+            this.grbNetPortOperation.TabIndex = 69;
+            this.grbNetPortOperation.TabStop = false;
+            // 
+            // btnGetNetport
+            // 
+            this.btnGetNetport.Location = new System.Drawing.Point(2, 21);
+            this.btnGetNetport.Name = "btnGetNetport";
+            this.btnGetNetport.Size = new System.Drawing.Size(57, 23);
+            this.btnGetNetport.TabIndex = 3;
+            this.btnGetNetport.Text = "Get";
+            this.btnGetNetport.UseVisualStyleBackColor = true;
+            this.btnGetNetport.Click += new System.EventHandler(this.btnGetNetport_Click);
+            // 
+            // btnLoadCfgFromFile
+            // 
+            this.btnLoadCfgFromFile.Location = new System.Drawing.Point(74, 59);
+            this.btnLoadCfgFromFile.Name = "btnLoadCfgFromFile";
+            this.btnLoadCfgFromFile.Size = new System.Drawing.Size(57, 23);
+            this.btnLoadCfgFromFile.TabIndex = 65;
+            this.btnLoadCfgFromFile.Text = "Load";
+            this.btnLoadCfgFromFile.UseVisualStyleBackColor = true;
+            this.btnLoadCfgFromFile.Click += new System.EventHandler(this.btnLoadCfgFromFile_Click);
+            // 
+            // btnResetNetport
+            // 
+            this.btnResetNetport.Location = new System.Drawing.Point(2, 59);
+            this.btnResetNetport.Name = "btnResetNetport";
+            this.btnResetNetport.Size = new System.Drawing.Size(57, 23);
+            this.btnResetNetport.TabIndex = 5;
+            this.btnResetNetport.Text = "Reset";
+            this.btnResetNetport.UseVisualStyleBackColor = true;
+            this.btnResetNetport.Click += new System.EventHandler(this.btnResetNetport_Click);
+            // 
+            // btnSetNetport
+            // 
+            this.btnSetNetport.Location = new System.Drawing.Point(74, 21);
+            this.btnSetNetport.Name = "btnSetNetport";
+            this.btnSetNetport.Size = new System.Drawing.Size(57, 23);
+            this.btnSetNetport.TabIndex = 4;
+            this.btnSetNetport.Text = "Save";
+            this.btnSetNetport.UseVisualStyleBackColor = true;
+            this.btnSetNetport.Click += new System.EventHandler(this.btnSetNetport_Click);
+            // 
+            // btnDefaultNetPort
+            // 
+            this.btnDefaultNetPort.Location = new System.Drawing.Point(146, 21);
+            this.btnDefaultNetPort.Name = "btnDefaultNetPort";
+            this.btnDefaultNetPort.Size = new System.Drawing.Size(57, 23);
+            this.btnDefaultNetPort.TabIndex = 64;
+            this.btnDefaultNetPort.Text = "Default";
+            this.btnDefaultNetPort.UseVisualStyleBackColor = true;
+            this.btnDefaultNetPort.Click += new System.EventHandler(this.btnDefaultNetPort_Click);
+            // 
+            // btnStoreCfgToFile
+            // 
+            this.btnStoreCfgToFile.Location = new System.Drawing.Point(146, 60);
+            this.btnStoreCfgToFile.Name = "btnStoreCfgToFile";
+            this.btnStoreCfgToFile.Size = new System.Drawing.Size(57, 23);
+            this.btnStoreCfgToFile.TabIndex = 66;
+            this.btnStoreCfgToFile.Text = "Store";
+            this.btnStoreCfgToFile.UseVisualStyleBackColor = true;
+            this.btnStoreCfgToFile.Click += new System.EventHandler(this.btnStoreCfgToFile_Click);
+            // 
             // groupBox32
             // 
             this.groupBox32.Controls.Add(this.linklblOldNetPortCfgTool);
             this.groupBox32.Controls.Add(this.linklblNetPortCfgTool);
             this.groupBox32.Controls.Add(this.label59);
             this.groupBox32.Controls.Add(this.label65);
-            this.groupBox32.Location = new System.Drawing.Point(3, 407);
+            this.groupBox32.Location = new System.Drawing.Point(22, 433);
             this.groupBox32.Name = "groupBox32";
-            this.groupBox32.Size = new System.Drawing.Size(504, 115);
+            this.groupBox32.Size = new System.Drawing.Size(720, 115);
             this.groupBox32.TabIndex = 5;
             this.groupBox32.TabStop = false;
             this.groupBox32.Text = "Note";
@@ -6042,7 +6533,7 @@ namespace UHFDemo
             // linklblOldNetPortCfgTool
             // 
             this.linklblOldNetPortCfgTool.AutoSize = true;
-            this.linklblOldNetPortCfgTool.Location = new System.Drawing.Point(6, 97);
+            this.linklblOldNetPortCfgTool.Location = new System.Drawing.Point(531, 82);
             this.linklblOldNetPortCfgTool.Name = "linklblOldNetPortCfgTool";
             this.linklblOldNetPortCfgTool.Size = new System.Drawing.Size(83, 12);
             this.linklblOldNetPortCfgTool.TabIndex = 5;
@@ -6053,7 +6544,7 @@ namespace UHFDemo
             // linklblNetPortCfgTool
             // 
             this.linklblNetPortCfgTool.AutoSize = true;
-            this.linklblNetPortCfgTool.Location = new System.Drawing.Point(6, 46);
+            this.linklblNetPortCfgTool.Location = new System.Drawing.Point(534, 35);
             this.linklblNetPortCfgTool.Name = "linklblNetPortCfgTool";
             this.linklblNetPortCfgTool.Size = new System.Drawing.Size(59, 12);
             this.linklblNetPortCfgTool.TabIndex = 4;
@@ -6081,483 +6572,14 @@ namespace UHFDemo
             this.label65.Text = "(2) The interface of the old Neport network port cannot be searched temporarily. " +
     "\r\nPlease use the dedicated configuration tool for module configuration.";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.btnDefaultNetPort);
-            this.groupBox3.Controls.Add(this.groupBox30);
-            this.groupBox3.Controls.Add(this.groupBox37);
-            this.groupBox3.Controls.Add(this.groupBox36);
-            this.groupBox3.Controls.Add(this.btnResetNetport);
-            this.groupBox3.Controls.Add(this.btnSetNetport);
-            this.groupBox3.Controls.Add(this.btnGetNetport);
-            this.groupBox3.Location = new System.Drawing.Point(536, 18);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(460, 531);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "NetPort";
-            // 
-            // btnDefaultNetPort
-            // 
-            this.btnDefaultNetPort.Location = new System.Drawing.Point(199, 17);
-            this.btnDefaultNetPort.Name = "btnDefaultNetPort";
-            this.btnDefaultNetPort.Size = new System.Drawing.Size(90, 23);
-            this.btnDefaultNetPort.TabIndex = 64;
-            this.btnDefaultNetPort.Text = "LoadDefault";
-            this.btnDefaultNetPort.UseVisualStyleBackColor = true;
-            this.btnDefaultNetPort.Click += new System.EventHandler(this.btnDefaultNetPort_Click);
-            // 
-            // groupBox30
-            // 
-            this.groupBox30.Controls.Add(this.btnStoreCfgToFile);
-            this.groupBox30.Controls.Add(this.btnLoadCfgFromFile);
-            this.groupBox30.Controls.Add(this.flowLayoutPanel4);
-            this.groupBox30.Controls.Add(this.groupBox35);
-            this.groupBox30.Controls.Add(this.txtbxPort1_NetPort);
-            this.groupBox30.Controls.Add(this.chkbxPort1_PhyDisconnect);
-            this.groupBox30.Controls.Add(this.grbHeartbeat);
-            this.groupBox30.Controls.Add(this.txtbxPort1_ReConnectCnt);
-            this.groupBox30.Controls.Add(this.chkbxPort1_RandEn);
-            this.groupBox30.Controls.Add(this.cmbbxPort1_NetMode);
-            this.groupBox30.Controls.Add(this.label120);
-            this.groupBox30.Controls.Add(this.label117);
-            this.groupBox30.Controls.Add(this.label72);
-            this.groupBox30.Controls.Add(this.label70);
-            this.groupBox30.Location = new System.Drawing.Point(6, 207);
-            this.groupBox30.Name = "groupBox30";
-            this.groupBox30.Size = new System.Drawing.Size(460, 315);
-            this.groupBox30.TabIndex = 0;
-            this.groupBox30.TabStop = false;
-            this.groupBox30.Text = "Port";
-            // 
-            // btnStoreCfgToFile
-            // 
-            this.btnStoreCfgToFile.Location = new System.Drawing.Point(131, 288);
-            this.btnStoreCfgToFile.Name = "btnStoreCfgToFile";
-            this.btnStoreCfgToFile.Size = new System.Drawing.Size(117, 23);
-            this.btnStoreCfgToFile.TabIndex = 66;
-            this.btnStoreCfgToFile.Text = "StoreCfgToFile";
-            this.btnStoreCfgToFile.UseVisualStyleBackColor = true;
-            this.btnStoreCfgToFile.Click += new System.EventHandler(this.btnStoreCfgToFile_Click);
-            // 
-            // btnLoadCfgFromFile
-            // 
-            this.btnLoadCfgFromFile.Location = new System.Drawing.Point(8, 288);
-            this.btnLoadCfgFromFile.Name = "btnLoadCfgFromFile";
-            this.btnLoadCfgFromFile.Size = new System.Drawing.Size(117, 23);
-            this.btnLoadCfgFromFile.TabIndex = 65;
-            this.btnLoadCfgFromFile.Text = "LoadCfgFromFile";
-            this.btnLoadCfgFromFile.UseVisualStyleBackColor = true;
-            this.btnLoadCfgFromFile.Click += new System.EventHandler(this.btnLoadCfgFromFile_Click);
-            // 
-            // flowLayoutPanel4
-            // 
-            this.flowLayoutPanel4.Controls.Add(this.chkbxPort1_DomainEn);
-            this.flowLayoutPanel4.Controls.Add(this.grbDesIpPort);
-            this.flowLayoutPanel4.Controls.Add(this.grbDnsDomain);
-            this.flowLayoutPanel4.Location = new System.Drawing.Point(8, 74);
-            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(210, 67);
-            this.flowLayoutPanel4.TabIndex = 22;
-            // 
-            // chkbxPort1_DomainEn
-            // 
-            this.chkbxPort1_DomainEn.AutoSize = true;
-            this.chkbxPort1_DomainEn.Location = new System.Drawing.Point(3, 3);
-            this.chkbxPort1_DomainEn.Name = "chkbxPort1_DomainEn";
-            this.chkbxPort1_DomainEn.Size = new System.Drawing.Size(72, 16);
-            this.chkbxPort1_DomainEn.TabIndex = 63;
-            this.chkbxPort1_DomainEn.Text = "DomainEn";
-            this.chkbxPort1_DomainEn.UseVisualStyleBackColor = true;
-            this.chkbxPort1_DomainEn.CheckedChanged += new System.EventHandler(this.chkbxPort1_DomainEn_CheckedChanged);
-            // 
-            // grbDesIpPort
-            // 
-            this.grbDesIpPort.Controls.Add(this.label69);
-            this.grbDesIpPort.Controls.Add(this.txtbxPort1_DesIp);
-            this.grbDesIpPort.Controls.Add(this.txtbxPort1_DesPort);
-            this.grbDesIpPort.Location = new System.Drawing.Point(3, 25);
-            this.grbDesIpPort.Name = "grbDesIpPort";
-            this.grbDesIpPort.Size = new System.Drawing.Size(201, 41);
-            this.grbDesIpPort.TabIndex = 22;
-            this.grbDesIpPort.TabStop = false;
-            this.grbDesIpPort.Text = "Des IP/Port";
-            // 
-            // label69
-            // 
-            this.label69.AutoSize = true;
-            this.label69.Location = new System.Drawing.Point(119, 21);
-            this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(11, 12);
-            this.label69.TabIndex = 64;
-            this.label69.Text = ":";
-            // 
-            // txtbxPort1_DesIp
-            // 
-            this.txtbxPort1_DesIp.Location = new System.Drawing.Point(6, 16);
-            this.txtbxPort1_DesIp.Name = "txtbxPort1_DesIp";
-            this.txtbxPort1_DesIp.Size = new System.Drawing.Size(107, 21);
-            this.txtbxPort1_DesIp.TabIndex = 39;
-            // 
-            // txtbxPort1_DesPort
-            // 
-            this.txtbxPort1_DesPort.Location = new System.Drawing.Point(134, 16);
-            this.txtbxPort1_DesPort.Name = "txtbxPort1_DesPort";
-            this.txtbxPort1_DesPort.Size = new System.Drawing.Size(32, 21);
-            this.txtbxPort1_DesPort.TabIndex = 40;
-            // 
-            // grbDnsDomain
-            // 
-            this.grbDnsDomain.Controls.Add(this.txtbxPort1_DnsDomain);
-            this.grbDnsDomain.Location = new System.Drawing.Point(3, 72);
-            this.grbDnsDomain.Name = "grbDnsDomain";
-            this.grbDnsDomain.Size = new System.Drawing.Size(201, 41);
-            this.grbDnsDomain.TabIndex = 22;
-            this.grbDnsDomain.TabStop = false;
-            this.grbDnsDomain.Text = "DNS domain (20)";
-            // 
-            // txtbxPort1_DnsDomain
-            // 
-            this.txtbxPort1_DnsDomain.Location = new System.Drawing.Point(6, 14);
-            this.txtbxPort1_DnsDomain.Name = "txtbxPort1_DnsDomain";
-            this.txtbxPort1_DnsDomain.Size = new System.Drawing.Size(189, 21);
-            this.txtbxPort1_DnsDomain.TabIndex = 34;
-            // 
-            // groupBox35
-            // 
-            this.groupBox35.Controls.Add(this.label85);
-            this.groupBox35.Controls.Add(this.label74);
-            this.groupBox35.Controls.Add(this.label96);
-            this.groupBox35.Controls.Add(this.label97);
-            this.groupBox35.Controls.Add(this.label98);
-            this.groupBox35.Controls.Add(this.label116);
-            this.groupBox35.Controls.Add(this.chkbxPort1_ResetCtrl);
-            this.groupBox35.Controls.Add(this.cmbbxPort1_BaudRate);
-            this.groupBox35.Controls.Add(this.label123);
-            this.groupBox35.Controls.Add(this.cmbbxPort1_DataSize);
-            this.groupBox35.Controls.Add(this.cmbbxPort1_StopBits);
-            this.groupBox35.Controls.Add(this.cmbbxPort1_Parity);
-            this.groupBox35.Controls.Add(this.label118);
-            this.groupBox35.Controls.Add(this.txtbxPort1_RxTimeout);
-            this.groupBox35.Controls.Add(this.label119);
-            this.groupBox35.Controls.Add(this.txtbxPort1_RxPkgLen);
-            this.groupBox35.Location = new System.Drawing.Point(227, 15);
-            this.groupBox35.Name = "groupBox35";
-            this.groupBox35.Size = new System.Drawing.Size(221, 192);
-            this.groupBox35.TabIndex = 57;
-            this.groupBox35.TabStop = false;
-            this.groupBox35.Text = "Serial";
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(150, 146);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(41, 12);
-            this.label85.TabIndex = 64;
-            this.label85.Text = "(10ms)";
-            // 
-            // label74
-            // 
-            this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(150, 125);
-            this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(53, 12);
-            this.label74.TabIndex = 63;
-            this.label74.Text = "(<=1024)";
-            // 
-            // label96
-            // 
-            this.label96.AutoSize = true;
-            this.label96.Location = new System.Drawing.Point(3, 15);
-            this.label96.Name = "label96";
-            this.label96.Size = new System.Drawing.Size(53, 12);
-            this.label96.TabIndex = 27;
-            this.label96.Text = "baudrate";
-            // 
-            // label97
-            // 
-            this.label97.AutoSize = true;
-            this.label97.Location = new System.Drawing.Point(3, 41);
-            this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(53, 12);
-            this.label97.TabIndex = 28;
-            this.label97.Text = "datasize";
-            // 
-            // label98
-            // 
-            this.label98.AutoSize = true;
-            this.label98.Location = new System.Drawing.Point(3, 67);
-            this.label98.Name = "label98";
-            this.label98.Size = new System.Drawing.Size(53, 12);
-            this.label98.TabIndex = 29;
-            this.label98.Text = "stopbits";
-            // 
-            // label116
-            // 
-            this.label116.AutoSize = true;
-            this.label116.Location = new System.Drawing.Point(3, 93);
-            this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(41, 12);
-            this.label116.TabIndex = 30;
-            this.label116.Text = "parity";
-            // 
-            // chkbxPort1_ResetCtrl
-            // 
-            this.chkbxPort1_ResetCtrl.AutoSize = true;
-            this.chkbxPort1_ResetCtrl.Location = new System.Drawing.Point(77, 170);
-            this.chkbxPort1_ResetCtrl.Name = "chkbxPort1_ResetCtrl";
-            this.chkbxPort1_ResetCtrl.Size = new System.Drawing.Size(102, 16);
-            this.chkbxPort1_ResetCtrl.TabIndex = 53;
-            this.chkbxPort1_ResetCtrl.Text = "ClearBufferEn";
-            this.chkbxPort1_ResetCtrl.UseVisualStyleBackColor = true;
-            // 
-            // cmbbxPort1_BaudRate
-            // 
-            this.cmbbxPort1_BaudRate.FormattingEnabled = true;
-            this.cmbbxPort1_BaudRate.Location = new System.Drawing.Point(77, 12);
-            this.cmbbxPort1_BaudRate.Name = "cmbbxPort1_BaudRate";
-            this.cmbbxPort1_BaudRate.Size = new System.Drawing.Size(121, 20);
-            this.cmbbxPort1_BaudRate.TabIndex = 42;
-            // 
-            // label123
-            // 
-            this.label123.AutoSize = true;
-            this.label123.Location = new System.Drawing.Point(3, 171);
-            this.label123.Name = "label123";
-            this.label123.Size = new System.Drawing.Size(59, 12);
-            this.label123.TabIndex = 52;
-            this.label123.Text = "resetCtrl";
-            // 
-            // cmbbxPort1_DataSize
-            // 
-            this.cmbbxPort1_DataSize.FormattingEnabled = true;
-            this.cmbbxPort1_DataSize.Location = new System.Drawing.Point(77, 38);
-            this.cmbbxPort1_DataSize.Name = "cmbbxPort1_DataSize";
-            this.cmbbxPort1_DataSize.Size = new System.Drawing.Size(121, 20);
-            this.cmbbxPort1_DataSize.TabIndex = 43;
-            // 
-            // cmbbxPort1_StopBits
-            // 
-            this.cmbbxPort1_StopBits.FormattingEnabled = true;
-            this.cmbbxPort1_StopBits.Location = new System.Drawing.Point(77, 64);
-            this.cmbbxPort1_StopBits.Name = "cmbbxPort1_StopBits";
-            this.cmbbxPort1_StopBits.Size = new System.Drawing.Size(121, 20);
-            this.cmbbxPort1_StopBits.TabIndex = 44;
-            // 
-            // cmbbxPort1_Parity
-            // 
-            this.cmbbxPort1_Parity.FormattingEnabled = true;
-            this.cmbbxPort1_Parity.Location = new System.Drawing.Point(77, 90);
-            this.cmbbxPort1_Parity.Name = "cmbbxPort1_Parity";
-            this.cmbbxPort1_Parity.Size = new System.Drawing.Size(121, 20);
-            this.cmbbxPort1_Parity.TabIndex = 45;
-            // 
-            // label118
-            // 
-            this.label118.AutoSize = true;
-            this.label118.Location = new System.Drawing.Point(3, 119);
-            this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(35, 12);
-            this.label118.TabIndex = 32;
-            this.label118.Text = "rxLen";
-            // 
-            // txtbxPort1_RxTimeout
-            // 
-            this.txtbxPort1_RxTimeout.Location = new System.Drawing.Point(77, 143);
-            this.txtbxPort1_RxTimeout.Name = "txtbxPort1_RxTimeout";
-            this.txtbxPort1_RxTimeout.Size = new System.Drawing.Size(63, 21);
-            this.txtbxPort1_RxTimeout.TabIndex = 47;
-            // 
-            // label119
-            // 
-            this.label119.AutoSize = true;
-            this.label119.Location = new System.Drawing.Point(3, 145);
-            this.label119.Name = "label119";
-            this.label119.Size = new System.Drawing.Size(59, 12);
-            this.label119.TabIndex = 33;
-            this.label119.Text = "rxTimeout";
-            // 
-            // txtbxPort1_RxPkgLen
-            // 
-            this.txtbxPort1_RxPkgLen.Location = new System.Drawing.Point(77, 116);
-            this.txtbxPort1_RxPkgLen.Name = "txtbxPort1_RxPkgLen";
-            this.txtbxPort1_RxPkgLen.Size = new System.Drawing.Size(63, 21);
-            this.txtbxPort1_RxPkgLen.TabIndex = 34;
-            // 
-            // txtbxPort1_NetPort
-            // 
-            this.txtbxPort1_NetPort.Location = new System.Drawing.Point(153, 43);
-            this.txtbxPort1_NetPort.Name = "txtbxPort1_NetPort";
-            this.txtbxPort1_NetPort.Size = new System.Drawing.Size(56, 21);
-            this.txtbxPort1_NetPort.TabIndex = 49;
-            // 
-            // chkbxPort1_PhyDisconnect
-            // 
-            this.chkbxPort1_PhyDisconnect.AutoSize = true;
-            this.chkbxPort1_PhyDisconnect.Location = new System.Drawing.Point(116, 155);
-            this.chkbxPort1_PhyDisconnect.Name = "chkbxPort1_PhyDisconnect";
-            this.chkbxPort1_PhyDisconnect.Size = new System.Drawing.Size(102, 16);
-            this.chkbxPort1_PhyDisconnect.TabIndex = 46;
-            this.chkbxPort1_PhyDisconnect.Text = "CloseSocketEn";
-            this.chkbxPort1_PhyDisconnect.UseVisualStyleBackColor = true;
-            // 
-            // grbHeartbeat
-            // 
-            this.grbHeartbeat.Controls.Add(this.label64);
-            this.grbHeartbeat.Controls.Add(this.label73);
-            this.grbHeartbeat.Controls.Add(this.txtbxHeartbeatInterval);
-            this.grbHeartbeat.Controls.Add(this.txtbxHeartbeatContent);
-            this.grbHeartbeat.Controls.Add(this.label84);
-            this.grbHeartbeat.Location = new System.Drawing.Point(8, 212);
-            this.grbHeartbeat.Name = "grbHeartbeat";
-            this.grbHeartbeat.Size = new System.Drawing.Size(442, 73);
-            this.grbHeartbeat.TabIndex = 62;
-            this.grbHeartbeat.TabStop = false;
-            this.grbHeartbeat.Text = "Heart Beat";
-            // 
-            // label64
-            // 
-            this.label64.AutoSize = true;
-            this.label64.Location = new System.Drawing.Point(256, 49);
-            this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(41, 12);
-            this.label64.TabIndex = 62;
-            this.label64.Text = "(50ms)";
-            // 
-            // label73
-            // 
-            this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(7, 17);
-            this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(131, 12);
-            this.label73.TabIndex = 59;
-            this.label73.Text = "heartbeatContent (20)";
-            // 
-            // txtbxHeartbeatInterval
-            // 
-            this.txtbxHeartbeatInterval.Location = new System.Drawing.Point(149, 40);
-            this.txtbxHeartbeatInterval.Name = "txtbxHeartbeatInterval";
-            this.txtbxHeartbeatInterval.Size = new System.Drawing.Size(99, 21);
-            this.txtbxHeartbeatInterval.TabIndex = 61;
-            // 
-            // txtbxHeartbeatContent
-            // 
-            this.txtbxHeartbeatContent.Location = new System.Drawing.Point(147, 14);
-            this.txtbxHeartbeatContent.Name = "txtbxHeartbeatContent";
-            this.txtbxHeartbeatContent.Size = new System.Drawing.Size(254, 21);
-            this.txtbxHeartbeatContent.TabIndex = 58;
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(7, 49);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(107, 12);
-            this.label84.TabIndex = 60;
-            this.label84.Text = "heartbeatInterval";
-            // 
-            // txtbxPort1_ReConnectCnt
-            // 
-            this.txtbxPort1_ReConnectCnt.Location = new System.Drawing.Point(116, 177);
-            this.txtbxPort1_ReConnectCnt.Name = "txtbxPort1_ReConnectCnt";
-            this.txtbxPort1_ReConnectCnt.Size = new System.Drawing.Size(102, 21);
-            this.txtbxPort1_ReConnectCnt.TabIndex = 38;
-            // 
-            // chkbxPort1_RandEn
-            // 
-            this.chkbxPort1_RandEn.AutoSize = true;
-            this.chkbxPort1_RandEn.Location = new System.Drawing.Point(88, 45);
-            this.chkbxPort1_RandEn.Name = "chkbxPort1_RandEn";
-            this.chkbxPort1_RandEn.Size = new System.Drawing.Size(60, 16);
-            this.chkbxPort1_RandEn.TabIndex = 37;
-            this.chkbxPort1_RandEn.Text = "randEn";
-            this.chkbxPort1_RandEn.UseVisualStyleBackColor = true;
-            this.chkbxPort1_RandEn.CheckedChanged += new System.EventHandler(this.chkbxPort1_RandEn_CheckedChanged);
-            // 
-            // cmbbxPort1_NetMode
-            // 
-            this.cmbbxPort1_NetMode.FormattingEnabled = true;
-            this.cmbbxPort1_NetMode.Location = new System.Drawing.Point(88, 16);
-            this.cmbbxPort1_NetMode.Name = "cmbbxPort1_NetMode";
-            this.cmbbxPort1_NetMode.Size = new System.Drawing.Size(121, 20);
-            this.cmbbxPort1_NetMode.TabIndex = 36;
-            this.cmbbxPort1_NetMode.SelectedIndexChanged += new System.EventHandler(this.cmbbxPort1_NetMode_SelectedIndexChanged);
-            // 
-            // label120
-            // 
-            this.label120.AutoSize = true;
-            this.label120.Location = new System.Drawing.Point(8, 183);
-            this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(77, 12);
-            this.label120.TabIndex = 34;
-            this.label120.Text = "reconnectCnt";
-            // 
-            // label117
-            // 
-            this.label117.AutoSize = true;
-            this.label117.Location = new System.Drawing.Point(8, 156);
-            this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(47, 12);
-            this.label117.TabIndex = 31;
-            this.label117.Text = "PhyLost";
-            // 
-            // label72
-            // 
-            this.label72.AutoSize = true;
-            this.label72.Location = new System.Drawing.Point(8, 47);
-            this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(59, 12);
-            this.label72.TabIndex = 23;
-            this.label72.Text = "LocalPort";
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Location = new System.Drawing.Point(8, 20);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(47, 12);
-            this.label70.TabIndex = 22;
-            this.label70.Text = "NetMode";
-            // 
-            // groupBox37
-            // 
-            this.groupBox37.Controls.Add(this.chkbxPort0PortEn);
-            this.groupBox37.Controls.Add(this.chkbxPort1_PortEn);
-            this.groupBox37.Location = new System.Drawing.Point(16, 153);
-            this.groupBox37.Name = "groupBox37";
-            this.groupBox37.Size = new System.Drawing.Size(436, 44);
-            this.groupBox37.TabIndex = 63;
-            this.groupBox37.TabStop = false;
-            this.groupBox37.Text = "Port";
-            // 
-            // chkbxPort0PortEn
-            // 
-            this.chkbxPort0PortEn.AutoSize = true;
-            this.chkbxPort0PortEn.Location = new System.Drawing.Point(9, 20);
-            this.chkbxPort0PortEn.Name = "chkbxPort0PortEn";
-            this.chkbxPort0PortEn.Size = new System.Drawing.Size(90, 16);
-            this.chkbxPort0PortEn.TabIndex = 20;
-            this.chkbxPort0PortEn.Text = "HeartbeatEn";
-            this.chkbxPort0PortEn.UseVisualStyleBackColor = true;
-            this.chkbxPort0PortEn.CheckedChanged += new System.EventHandler(this.chkbxPort0PortEn_CheckedChanged);
-            // 
-            // chkbxPort1_PortEn
-            // 
-            this.chkbxPort1_PortEn.AutoSize = true;
-            this.chkbxPort1_PortEn.Location = new System.Drawing.Point(114, 20);
-            this.chkbxPort1_PortEn.Name = "chkbxPort1_PortEn";
-            this.chkbxPort1_PortEn.Size = new System.Drawing.Size(72, 16);
-            this.chkbxPort1_PortEn.TabIndex = 21;
-            this.chkbxPort1_PortEn.Text = "port1_En";
-            this.chkbxPort1_PortEn.UseVisualStyleBackColor = true;
-            // 
             // groupBox36
             // 
+            this.groupBox36.Controls.Add(this.label121);
+            this.groupBox36.Controls.Add(this.label94);
             this.groupBox36.Controls.Add(this.chkbxHwCfgComCfgEn);
-            this.groupBox36.Controls.Add(this.chkbxHwCfgDhcpEn);
             this.groupBox36.Controls.Add(this.label66);
             this.groupBox36.Controls.Add(this.txtbxHwCfgMac);
+            this.groupBox36.Controls.Add(this.chkbxHwCfgDhcpEn);
             this.groupBox36.Controls.Add(this.txtbxHwCfgGateway);
             this.groupBox36.Controls.Add(this.txtbxHwCfgMask);
             this.groupBox36.Controls.Add(this.label95);
@@ -6566,37 +6588,45 @@ namespace UHFDemo
             this.groupBox36.Controls.Add(this.label68);
             this.groupBox36.Controls.Add(this.label67);
             this.groupBox36.Controls.Add(this.label63);
-            this.groupBox36.Location = new System.Drawing.Point(14, 46);
+            this.groupBox36.Location = new System.Drawing.Point(537, 77);
             this.groupBox36.Name = "groupBox36";
-            this.groupBox36.Size = new System.Drawing.Size(440, 101);
+            this.groupBox36.Size = new System.Drawing.Size(208, 218);
             this.groupBox36.TabIndex = 34;
             this.groupBox36.TabStop = false;
-            this.groupBox36.Text = "HWConfig";
+            this.groupBox36.Text = "Basic Setting";
+            // 
+            // label121
+            // 
+            this.label121.AutoSize = true;
+            this.label121.Location = new System.Drawing.Point(5, 188);
+            this.label121.Name = "label121";
+            this.label121.Size = new System.Drawing.Size(107, 12);
+            this.label121.TabIndex = 35;
+            this.label121.Text = "com negotiation: ";
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Location = new System.Drawing.Point(5, 75);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(35, 12);
+            this.label94.TabIndex = 34;
+            this.label94.Text = "DHCP:";
             // 
             // chkbxHwCfgComCfgEn
             // 
             this.chkbxHwCfgComCfgEn.AutoSize = true;
-            this.chkbxHwCfgComCfgEn.Location = new System.Drawing.Point(362, 74);
+            this.chkbxHwCfgComCfgEn.Location = new System.Drawing.Point(119, 184);
             this.chkbxHwCfgComCfgEn.Name = "chkbxHwCfgComCfgEn";
             this.chkbxHwCfgComCfgEn.Size = new System.Drawing.Size(72, 16);
             this.chkbxHwCfgComCfgEn.TabIndex = 11;
             this.chkbxHwCfgComCfgEn.Text = "comCfgEn";
             this.chkbxHwCfgComCfgEn.UseVisualStyleBackColor = true;
             // 
-            // chkbxHwCfgDhcpEn
-            // 
-            this.chkbxHwCfgDhcpEn.AutoSize = true;
-            this.chkbxHwCfgDhcpEn.Location = new System.Drawing.Point(362, 48);
-            this.chkbxHwCfgDhcpEn.Name = "chkbxHwCfgDhcpEn";
-            this.chkbxHwCfgDhcpEn.Size = new System.Drawing.Size(60, 16);
-            this.chkbxHwCfgDhcpEn.TabIndex = 10;
-            this.chkbxHwCfgDhcpEn.Text = "dhcpEn";
-            this.chkbxHwCfgDhcpEn.UseVisualStyleBackColor = true;
-            // 
             // label66
             // 
             this.label66.AutoSize = true;
-            this.label66.Location = new System.Drawing.Point(9, 76);
+            this.label66.Location = new System.Drawing.Point(5, 107);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(29, 12);
             this.label66.TabIndex = 3;
@@ -6604,52 +6634,63 @@ namespace UHFDemo
             // 
             // txtbxHwCfgMac
             // 
-            this.txtbxHwCfgMac.Location = new System.Drawing.Point(50, 46);
+            this.txtbxHwCfgMac.Enabled = false;
+            this.txtbxHwCfgMac.Location = new System.Drawing.Point(85, 15);
             this.txtbxHwCfgMac.Name = "txtbxHwCfgMac";
-            this.txtbxHwCfgMac.Size = new System.Drawing.Size(123, 21);
+            this.txtbxHwCfgMac.Size = new System.Drawing.Size(117, 21);
             this.txtbxHwCfgMac.TabIndex = 33;
+            // 
+            // chkbxHwCfgDhcpEn
+            // 
+            this.chkbxHwCfgDhcpEn.AutoSize = true;
+            this.chkbxHwCfgDhcpEn.Location = new System.Drawing.Point(85, 73);
+            this.chkbxHwCfgDhcpEn.Name = "chkbxHwCfgDhcpEn";
+            this.chkbxHwCfgDhcpEn.Size = new System.Drawing.Size(60, 16);
+            this.chkbxHwCfgDhcpEn.TabIndex = 10;
+            this.chkbxHwCfgDhcpEn.Text = "dhcpEn";
+            this.chkbxHwCfgDhcpEn.UseVisualStyleBackColor = true;
             // 
             // txtbxHwCfgGateway
             // 
-            this.txtbxHwCfgGateway.Location = new System.Drawing.Point(244, 72);
+            this.txtbxHwCfgGateway.Location = new System.Drawing.Point(85, 155);
             this.txtbxHwCfgGateway.Name = "txtbxHwCfgGateway";
-            this.txtbxHwCfgGateway.Size = new System.Drawing.Size(103, 21);
+            this.txtbxHwCfgGateway.Size = new System.Drawing.Size(117, 21);
             this.txtbxHwCfgGateway.TabIndex = 9;
             // 
             // txtbxHwCfgMask
             // 
-            this.txtbxHwCfgMask.Location = new System.Drawing.Point(244, 46);
+            this.txtbxHwCfgMask.Location = new System.Drawing.Point(85, 126);
             this.txtbxHwCfgMask.Name = "txtbxHwCfgMask";
-            this.txtbxHwCfgMask.Size = new System.Drawing.Size(103, 21);
+            this.txtbxHwCfgMask.Size = new System.Drawing.Size(117, 21);
             this.txtbxHwCfgMask.TabIndex = 8;
             // 
             // label95
             // 
             this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(9, 50);
+            this.label95.Location = new System.Drawing.Point(5, 19);
             this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(35, 12);
+            this.label95.Size = new System.Drawing.Size(71, 12);
             this.label95.TabIndex = 32;
-            this.label95.Text = "Mac :";
+            this.label95.Text = "Device Mac:";
             // 
             // txtbxHwCfgDeviceName
             // 
-            this.txtbxHwCfgDeviceName.Location = new System.Drawing.Point(86, 19);
+            this.txtbxHwCfgDeviceName.Location = new System.Drawing.Point(85, 44);
             this.txtbxHwCfgDeviceName.Name = "txtbxHwCfgDeviceName";
-            this.txtbxHwCfgDeviceName.Size = new System.Drawing.Size(273, 21);
+            this.txtbxHwCfgDeviceName.Size = new System.Drawing.Size(117, 21);
             this.txtbxHwCfgDeviceName.TabIndex = 1;
             // 
             // txtbxHwCfgIp
             // 
-            this.txtbxHwCfgIp.Location = new System.Drawing.Point(50, 72);
+            this.txtbxHwCfgIp.Location = new System.Drawing.Point(85, 97);
             this.txtbxHwCfgIp.Name = "txtbxHwCfgIp";
-            this.txtbxHwCfgIp.Size = new System.Drawing.Size(103, 21);
+            this.txtbxHwCfgIp.Size = new System.Drawing.Size(117, 21);
             this.txtbxHwCfgIp.TabIndex = 7;
             // 
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(179, 76);
+            this.label68.Location = new System.Drawing.Point(5, 163);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(59, 12);
             this.label68.TabIndex = 5;
@@ -6658,7 +6699,7 @@ namespace UHFDemo
             // label67
             // 
             this.label67.AutoSize = true;
-            this.label67.Location = new System.Drawing.Point(179, 50);
+            this.label67.Location = new System.Drawing.Point(5, 135);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(41, 12);
             this.label67.TabIndex = 4;
@@ -6667,41 +6708,11 @@ namespace UHFDemo
             // label63
             // 
             this.label63.AutoSize = true;
-            this.label63.Location = new System.Drawing.Point(9, 21);
+            this.label63.Location = new System.Drawing.Point(5, 49);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(71, 12);
+            this.label63.Size = new System.Drawing.Size(77, 12);
             this.label63.TabIndex = 0;
-            this.label63.Text = "devName(21)";
-            // 
-            // btnResetNetport
-            // 
-            this.btnResetNetport.Location = new System.Drawing.Point(136, 17);
-            this.btnResetNetport.Name = "btnResetNetport";
-            this.btnResetNetport.Size = new System.Drawing.Size(57, 23);
-            this.btnResetNetport.TabIndex = 5;
-            this.btnResetNetport.Text = "Reset";
-            this.btnResetNetport.UseVisualStyleBackColor = true;
-            this.btnResetNetport.Click += new System.EventHandler(this.btnResetNetport_Click);
-            // 
-            // btnSetNetport
-            // 
-            this.btnSetNetport.Location = new System.Drawing.Point(73, 17);
-            this.btnSetNetport.Name = "btnSetNetport";
-            this.btnSetNetport.Size = new System.Drawing.Size(57, 23);
-            this.btnSetNetport.TabIndex = 4;
-            this.btnSetNetport.Text = "Set";
-            this.btnSetNetport.UseVisualStyleBackColor = true;
-            this.btnSetNetport.Click += new System.EventHandler(this.btnSetNetport_Click);
-            // 
-            // btnGetNetport
-            // 
-            this.btnGetNetport.Location = new System.Drawing.Point(10, 17);
-            this.btnGetNetport.Name = "btnGetNetport";
-            this.btnGetNetport.Size = new System.Drawing.Size(57, 23);
-            this.btnGetNetport.TabIndex = 3;
-            this.btnGetNetport.Text = "Get";
-            this.btnGetNetport.UseVisualStyleBackColor = true;
-            this.btnGetNetport.Click += new System.EventHandler(this.btnGetNetport_Click);
+            this.label63.Text = "DevName(21):";
             // 
             // sensorTags_tabPage
             // 
@@ -7786,6 +7797,7 @@ namespace UHFDemo
             this.groupBox13.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.panel14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvTagMask)).EndInit();
             this.groupBox22.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
@@ -7806,31 +7818,27 @@ namespace UHFDemo
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.net_configure_tabPage.ResumeLayout(false);
-            this.flowLayoutPanel3.ResumeLayout(false);
-            this.groupBox20.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNetcard)).EndInit();
-            this.groupBox28.ResumeLayout(false);
-            this.groupBox28.PerformLayout();
-            this.groupBox31.ResumeLayout(false);
-            this.groupBox31.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvNetPort)).EndInit();
-            this.groupBox32.ResumeLayout(false);
-            this.groupBox32.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox30.ResumeLayout(false);
-            this.groupBox30.PerformLayout();
-            this.flowLayoutPanel4.ResumeLayout(false);
-            this.flowLayoutPanel4.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.grbDesIpPort.ResumeLayout(false);
             this.grbDesIpPort.PerformLayout();
             this.grbDnsDomain.ResumeLayout(false);
             this.grbDnsDomain.PerformLayout();
-            this.groupBox35.ResumeLayout(false);
-            this.groupBox35.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.grbHeartbeat.ResumeLayout(false);
             this.grbHeartbeat.PerformLayout();
-            this.groupBox37.ResumeLayout(false);
-            this.groupBox37.PerformLayout();
+            this.flowLayoutPanel3.ResumeLayout(false);
+            this.groupBox20.ResumeLayout(false);
+            this.groupBox20.PerformLayout();
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox31.ResumeLayout(false);
+            this.groupBox31.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvNetPort)).EndInit();
+            this.grbNetPortOperation.ResumeLayout(false);
+            this.groupBox32.ResumeLayout(false);
+            this.groupBox32.PerformLayout();
             this.groupBox36.ResumeLayout(false);
             this.groupBox36.PerformLayout();
             this.sensorTags_tabPage.ResumeLayout(false);
@@ -8205,16 +8213,7 @@ namespace UHFDemo
         private Button btnSetAccessEpcMatch;
         private ComboBox cmbSetAccessEpcMatch;
         private TextBox txtAccessEpcMatch;
-        private CheckBox ckAccessEpcMatch;
         private TabPage tabPage3;
-        private ListView listView2;
-        private ColumnHeader columnHeader1;
-        private ColumnHeader columnHeader2;
-        private ColumnHeader columnHeader3;
-        private ColumnHeader columnHeader4;
-        private ColumnHeader columnHeader6;
-        private ColumnHeader columnHeader7;
-        private ColumnHeader columnHeader8;
         private GroupBox groupBox22;
         private Button button3;
         private GroupBox groupBox12;
@@ -8416,17 +8415,9 @@ namespace UHFDemo
         private DataGridViewTextBoxColumn tagOp_FreqColumn;
         private Panel panel14;
         private CheckBox cb_tagFocus;
-        private GroupBox groupBox30;
         private FlowLayoutPanel flowLayoutPanel3;
         private GroupBox groupBox20;
-        private Button btnClearNetCard;
         private Button btnSearchNetCard;
-        private DataGridView dgvNetcard;
-        private DataGridViewTextBoxColumn ncColumnSerialNumber;
-        private DataGridViewTextBoxColumn ncColumnDescription;
-        private DataGridViewTextBoxColumn ncColumnIp;
-        private DataGridViewTextBoxColumn ncColumnMask;
-        private DataGridViewTextBoxColumn ncColumnMac;
         private GroupBox groupBox28;
         private Button btnClearNetPort;
         private Button btnSearchNetport;
@@ -8443,7 +8434,6 @@ namespace UHFDemo
         private GroupBox groupBox32;
         private Label label59;
         private Label label65;
-        private GroupBox groupBox3;
         private LinkLabel linklblOldNetPortCfgTool;
         private LinkLabel linklblNetPortCfgTool;
         private Label label68;
@@ -8489,12 +8479,10 @@ namespace UHFDemo
         private Label label70;
         private CheckBox chkbxPort1_PortEn;
         private CheckBox chkbxPort0PortEn;
-        private GroupBox groupBox35;
         private TextBox txtbxHeartbeatInterval;
         private Label label84;
         private Label label73;
         private TextBox txtbxHeartbeatContent;
-        private GroupBox groupBox37;
         private GroupBox groupBox36;
         private GroupBox grbHeartbeat;
         private Button btnDefaultNetPort;
@@ -8504,11 +8492,32 @@ namespace UHFDemo
         private GroupBox grbDnsDomain;
         private Label label85;
         private Label label74;
-        private Label label64;
-        private CheckBox chkbxPort1_DomainEn;
-        private FlowLayoutPanel flowLayoutPanel4;
         private Button btnLoadCfgFromFile;
         private Button btnStoreCfgToFile;
+        private Button btnCancelAccessEpcMatch;
+        private Button btnGetAccessEpcMatch;
+        private CheckBox chkbxPort1_DomainEn;
+        private ComboBox cmbbxNetCard;
+        private TabControl tabControl1;
+        private TabPage tabPage4;
+        private TextBox txtbxPort1_Dnsport;
+        private TextBox txtbxPort1_DnsIp;
+        private Label label92;
+        private Label label64;
+        private TabPage tabPage5;
+        private Label label93;
+        private Label label121;
+        private Label label94;
+        private GroupBox grbNetPortOperation;
+        private DataGridView dgvTagMask;
+        private DataGridViewTextBoxColumn tagMask_MaskNoColumn;
+        private DataGridViewTextBoxColumn tagMask_SessionIdColumn;
+        private DataGridViewTextBoxColumn tagMask_ActionColumn;
+        private DataGridViewTextBoxColumn tagMask_MembankColumn;
+        private DataGridViewTextBoxColumn tagMask_StartAddrColumn;
+        private DataGridViewTextBoxColumn tagMask_MaskLenColumn;
+        private DataGridViewTextBoxColumn tagMask_MaskValueColumn;
+        private DataGridViewTextBoxColumn tagMask_TruncateColumn;
     }
 }
 

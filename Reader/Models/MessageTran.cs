@@ -80,7 +80,7 @@ namespace Reader
             this.btAryTranData[3] = this.btCmd;
             this.btAryData.CopyTo(this.btAryTranData, 4);
 
-            this.btCheck = CheckSum(this.btAryTranData, 0, nLen + 4);
+            this.btCheck = ReaderUtils.CheckSum(this.btAryTranData, 0, nLen + 4);
             this.btAryTranData[nLen + 4] = this.btCheck;
         }
 
@@ -97,7 +97,7 @@ namespace Reader
             this.btAryTranData[2] = this.btReadId;
             this.btAryTranData[3] = this.btCmd;
 
-            this.btCheck = CheckSum(this.btAryTranData, 0, 4);
+            this.btCheck = ReaderUtils.CheckSum(this.btAryTranData, 0, 4);
             this.btAryTranData[4] = this.btCheck;
         }
 
@@ -109,7 +109,7 @@ namespace Reader
             btAryTranData.CopyTo(this.btAryTranData, 0);
 
 
-            byte btCK = CheckSum(this.btAryTranData, 0, this.btAryTranData.Length - 1);
+            byte btCK = ReaderUtils.CheckSum(this.btAryTranData, 0, this.btAryTranData.Length - 1);
             if (btCK != btAryTranData[nLen - 1])
             {
                 return;
@@ -129,18 +129,6 @@ namespace Reader
                     this.btAryData[nloop] = btAryTranData[4 + nloop];
                 }
             }
-        }
-
-        public byte CheckSum(byte[] btAryBuffer, int nStartPos, int nLen)
-        {
-            byte btSum = 0x00;
-
-            for (int nloop = nStartPos; nloop < nStartPos + nLen; nloop++ )
-            {
-                btSum += btAryBuffer[nloop];
-            }
-
-            return Convert.ToByte(((~btSum) + 1) & 0xFF);
         }
     }
 }

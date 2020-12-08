@@ -54,7 +54,7 @@ namespace Reader
 
             int msgLen = writeIndex + 1;
             data[1] = (byte)(msgLen - 2);// except hdr + len
-            data[writeIndex] = CheckSum(data, 0, msgLen);
+            data[writeIndex] = ReaderUtils.CheckSum(data, 0, msgLen);
 
             Array.Resize(ref data, msgLen);
 
@@ -75,7 +75,7 @@ namespace Reader
 
             int msgLen = writeIndex + 1;
             data[1] = (byte)(msgLen - 2);// except hdr + len
-            data[writeIndex] = CheckSum(data, 0, msgLen);
+            data[writeIndex] = ReaderUtils.CheckSum(data, 0, msgLen);
 
             Array.Resize(ref data, msgLen);
             SendMessageAsync(data);
@@ -149,18 +149,6 @@ namespace Reader
                 OnReadException(exStr, e);
                 return false;
             }
-        }
-
-        public byte CheckSum(byte[] btAryBuffer, int nStartPos, int nLen)
-        {
-            byte btSum = 0x00;
-
-            for (int nloop = nStartPos; nloop < nStartPos + nLen; nloop++)
-            {
-                btSum += btAryBuffer[nloop];
-            }
-
-            return Convert.ToByte(((~btSum) + 1) & 0xFF);
         }
 
         private string ToHex(byte[] bytes, string prefix, string separator)

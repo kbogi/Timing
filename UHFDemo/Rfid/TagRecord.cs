@@ -1,6 +1,5 @@
 ﻿using Reader;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -118,6 +117,8 @@ namespace UHFDemo
         byte freqQuantity;
         #endregion 0x79
 
+        private byte antGroup = 0x00;
+
         public BindingList<TagRecord> TagList
         {
             get { return _tagList; }
@@ -164,6 +165,21 @@ namespace UHFDemo
 
         public int MinRSSI { get; internal set; }
         public int MaxRSSI { get; internal set; }
+        public byte AntGroup 
+        { 
+            get { return antGroup; } 
+            set 
+            {
+                if (value == 0x00)
+                {
+                    antGroup = 0x00;
+                }
+                else
+                {
+                    antGroup = 0x01;
+                }
+            } 
+        }
 
         public void UpdateCmd89ExecuteSuccess(byte[] data)
         {
@@ -206,7 +222,6 @@ namespace UHFDemo
             totalCommandTimes += cmdCommandDuration;
             //Console.WriteLine("antId={0}, readRate={1}, totalRead={2}, totalTime={3}", antId, readRate, totalRead, cmdReadRate == 0 ? cmdCommandDuration : ((cmdTotalRead * 1000) / cmdReadRate));
         }
-
 
         public void UpdateCmd80ExecuteSuccess(byte[] data)
         {
@@ -323,7 +338,6 @@ namespace UHFDemo
                     endFreq = (byte)(startFreq + (freqSpace * 10) * freqQuantity);
                     break;
                 default:
-                    MessageBox.Show("未定义频段");
                     break;
             }
         }
@@ -506,7 +520,6 @@ namespace UHFDemo
 
         public string Temperature
         {
-
             get
             {
                 bool checkTemp = RawRead.Temperature.Equals("null");
@@ -542,7 +555,6 @@ namespace UHFDemo
                 td = null;
             }
         }
-
         #endregion
     }
 }

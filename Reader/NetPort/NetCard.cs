@@ -33,7 +33,8 @@ namespace Reader
 
         public override string ToString()
         {
-            return string.Format("desc={0},ip={1},mask={2},mac={3}", desc, pcIpaddr, pcMask, pcMac);
+            return string.Format("{0}", desc);
+            //return string.Format("desc={0},ip={1},mask={2},mac={3}", desc, pcIpaddr, pcMask, pcMac);
         }
 
         public void Update(NetCard mergeData)

@@ -8,7 +8,6 @@ namespace UHFDemo
     public class JoharTag
     {
         byte[] _noData = new byte[0];
-        private double UNSPECTTEMP = -100.0;
         private byte[] aryTranData;
         private byte[] pc; // 2
         private byte[] epc;
@@ -454,7 +453,6 @@ namespace UHFDemo
                 td = null;
             }
         }
-
         #endregion
     }
 }

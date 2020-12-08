@@ -5,39 +5,38 @@ namespace Reader
 {
     public enum NET_CMD
     {
-        //通信命令码
-        NET_MODULE_CMD_SET       = 0x01,     //配置网络中的模块
-        NET_MODULE_CMD_GET       = 0x02,     //获取某个模块的配置
-        NET_MODULE_CMD_RESET     = 0x03,     //复位模块
-        NET_MODULE_CMD_SEARCH    = 0x04,     //搜索网络中的模块
-        NET_MODULE_CMD_SET_BASE  = 0x05,     //配置模块的端口基本设置
-        NET_MODULE_CMD_SET_PORT1 = 0x06,     //配置模块的端口1
-        NET_MODULE_CMD_SET_PORT2 = 0x07,     //配置模块的端口2
+        //Communication command code
+        NET_MODULE_CMD_SET = 0x01,     //Configure the modules in the network
+        NET_MODULE_CMD_GET       = 0x02,     //Gets the configuration of a module
+        NET_MODULE_CMD_RESET     = 0x03,     //Reset the module
+        NET_MODULE_CMD_SEARCH    = 0x04,     //Search for modules in the network
+        NET_MODULE_CMD_SET_BASE  = 0x05,     //Configure the basic port Settings for the module
+        NET_MODULE_CMD_SET_PORT1 = 0x06,     //Configure port 1 for the module
+        NET_MODULE_CMD_SET_PORT2 = 0x07,     //Configure port 2 for the module
 
         NET_MODULE_RESERVE = 0xFF,
         //应答命令码                 
-        NET_MODULE_ACK_SET       = 0x81,     //回应配置命令码
-        NET_MODULE_ACK_GET       = 0x82,     //回应获取命令码
-        NET_MODULE_ACK_RESEST    = 0x83,     //回应复位命令码
-        NET_MODULE_ACK_SEARCH    = 0x84,     //回应所搜命令码
-        NET_MODULE_ACK_SET_BASE  = 0x85,     //配置模块的端口基本设置
-        NET_MODULE_ACK_SET_PORT1 = 0x86,     //配置模块的端口1
-        NET_MODULE_ACK_SET_PORT2 = 0x87,	 //配置模块的端口2
+        NET_MODULE_ACK_SET       = 0x81,     //Response configuration command code
+        NET_MODULE_ACK_GET       = 0x82,     //Response gets the command code
+        NET_MODULE_ACK_RESEST    = 0x83,     //Response reset command code
+        NET_MODULE_ACK_SEARCH    = 0x84,     //Responds to the search command code
+        NET_MODULE_ACK_SET_BASE  = 0x85,     //Configure the basic port Settings for the module
+        NET_MODULE_ACK_SET_PORT1 = 0x86,     //Configure port 1 for the module
+        NET_MODULE_ACK_SET_PORT2 = 0x87,	 //Configure port 2 for the module
     }
 
     public enum NETPORT_TYPE
     {
-        //模块标识
-        TCP_SERVER = 0x00,       //模块作为TCP SERVER
-        TCP_CLIENT = 0x01,       //模块作为TCP CLIENT
-        UDP_SERVER = 0x02,       //模块作为UDP SERVER
-        UDP_CLIENT = 0x03,		//模块作为UDP CLIENT
+        TCP_SERVER = 0x00,       //Modules are used as TCP servers
+        TCP_CLIENT = 0x01,       //Modules are used as TCP CLIENT
+        UDP_SERVER = 0x02,       //Modules are used as UDP SERVER
+        UDP_CLIENT = 0x03,		 //Modules are used as UDP CLIENT
     }
 
     public enum NETPORT_Baudrate
     {
-        //串口波特率: 300---921600bps
-        B300    = 300,
+        //Baudrate: 300---921600bps
+        B300 = 300,
         B600    = 600,
         B1200   = 1200,
         B2400   = 2400,
@@ -55,7 +54,7 @@ namespace Reader
 
     public enum NETPORT_DataSize
     {
-        //串口数据位: 5---8位
+        //DataSize: 5---8
         Bits5 = 5,
         Bits6 = 6,
         Bits7 = 7,
@@ -64,7 +63,6 @@ namespace Reader
 
     public enum NETPORT_StopBits
     {
-        //串口停止位: 1表示1个停止位; 2表示2个停止位
         None = 0,
         One = 1,
         Two = 2,
@@ -73,8 +71,8 @@ namespace Reader
 
     public enum NETPORT_Parity
     {
-        //串口校验位: 0表示奇校验; 1表示偶校验; 2表示标志位(MARK,置1); 3表示空白位(SPACE,清0);
-        Odd   = 0,
+        //Parity
+        Odd = 0,
         Even  = 1,
         Mark  = 2,
         Space = 3, 

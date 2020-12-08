@@ -14,6 +14,8 @@ using System.Diagnostics;
 using System.Management;
 using System.Windows.Threading;
 using System.Resources;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace UHFDemo
 {
@@ -88,6 +90,8 @@ namespace UHFDemo
 
         List<string> antLists = null;
 
+        private int WriteTagCount = 0;
+
         #region FindResource
         ResourceManager LocRM;
         private void initFindResource()
@@ -95,7 +99,7 @@ namespace UHFDemo
             LocRM = new ResourceManager("UHFDemo.WinFormString", typeof(R2000UartDemo).Assembly);
         }
 
-        private string FindResource(string key)
+        public string FindResource(string key)
         {
             try
             {
@@ -110,6 +114,7 @@ namespace UHFDemo
 
         public R2000UartDemo()
         {
+            Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             InitializeComponent();
 
             initFindResource();
@@ -207,7 +212,7 @@ namespace UHFDemo
             };
 
             //save inventory log
-            saveLog();
+            //saveLog();
 
             GenerateColmnsDataGridForInv();
             tagdb = new TagDB();
@@ -227,12 +232,19 @@ namespace UHFDemo
             toolTip.SetToolTip(chkbxHwCfgComCfgEn, FindResource("tipHwCfgComCfgEn"));
             toolTip.SetToolTip(chkbxPort0PortEn, FindResource("tipHeartbeatEn"));
 
-            initDgvNc();
+            if (ncdb == null)
+                ncdb = new NetCardDB();
+
+            cmbbxNetCard.DataSource = null;
+            cmbbxNetCard.DataSource = ncdb.NetCardList;
             initDgvNetPort();
             initDgvNetPortUI();
-            #endregion NetPort
+            #endregion //NetPort
+
+            initDgvTagMask();
 
         }
+
         private void initRealInvAnts()
         {
             antLists = new List<string>();
@@ -556,16 +568,9 @@ namespace UHFDemo
             WriteLog(lrtxtLog, strLog, 1);
         }
 
-        private delegate void WriteLogUnSafe(CustomControl.LogRichTextBox logRichTxt, string strLog, int nType);
         public void WriteLog(CustomControl.LogRichTextBox logRichTxt, string strLog, int nType)
         {
-            if (this.InvokeRequired)
-            {
-                WriteLogUnSafe InvokeWriteLog = new WriteLogUnSafe(WriteLog);
-                this.Invoke(InvokeWriteLog, new object[] { logRichTxt, strLog, nType });
-            }
-            else
-            {
+            BeginInvoke(new ThreadStart(delegate() {
                 if (nType == 0)
                 {
                     logRichTxt.AppendTextEx(strLog, Color.Indigo);
@@ -585,66 +590,65 @@ namespace UHFDemo
 
                 logRichTxt.Select(logRichTxt.TextLength, 0);
                 logRichTxt.ScrollToCaret();
-            }
+            }));
         }
 
-        private delegate void RefreshReadSettingUnsafe(byte btCmd);
-        private void RefreshReadSetting(byte btCmd)
+        private void RefreshReadSetting(CMD btCmd)
         {
-            if (this.InvokeRequired)
-            {
-                RefreshReadSettingUnsafe InvokeRefresh = new RefreshReadSettingUnsafe(RefreshReadSetting);
-                this.Invoke(InvokeRefresh, new object[] { btCmd });
-            }
-            else
-            {
+            BeginInvoke(new ThreadStart(delegate() {
                 htxtReadId.Text = string.Format("{0:X2}", m_curSetting.btReadId);
                 switch (btCmd)
                 {
-                    case 0x6A:
-                        if (m_curSetting.btLinkProfile == 0xd0)
+                    case CMD.cmd_get_rf_link_profile:
                         {
-                            rdbProfile0.Checked = true;
+                            if (m_curSetting.btLinkProfile == 0xd0)
+                            {
+                                rdbProfile0.Checked = true;
+                            }
+                            else if (m_curSetting.btLinkProfile == 0xd1)
+                            {
+                                rdbProfile1.Checked = true;
+                            }
+                            else if (m_curSetting.btLinkProfile == 0xd2)
+                            {
+                                rdbProfile2.Checked = true;
+                            }
+                            else if (m_curSetting.btLinkProfile == 0xd3)
+                            {
+                                rdbProfile3.Checked = true;
+                            }
+                            else
+                            {
+                            }
                         }
-                        else if (m_curSetting.btLinkProfile == 0xd1)
-                        {
-                            rdbProfile1.Checked = true;
-                        }
-                        else if (m_curSetting.btLinkProfile == 0xd2)
-                        {
-                            rdbProfile2.Checked = true;
-                        }
-                        else if (m_curSetting.btLinkProfile == 0xd3)
-                        {
-                            rdbProfile3.Checked = true;
-                        }
-                        else
-                        {
-                        }
-
                         break;
-                    case 0x68:
-                        htbGetIdentifier.Text = m_curSetting.btReaderIdentifier;
-
+                    case CMD.cmd_get_reader_identifier:
+                        {
+                            htbGetIdentifier.Text = m_curSetting.btReaderIdentifier;
+                        }
                         break;
-                    case 0x72:
+                    case CMD.cmd_get_firmware_version:
                         {
                             txtFirmwareVersion.Text = m_curSetting.btMajor.ToString() + "." + m_curSetting.btMinor.ToString();
                         }
                         break;
-                    case 0x75:
+                    case CMD.cmd_get_work_antenna:
                         {
-                            if (antType16.Checked && m_curSetting.btAntGroup == (byte)0x01)
+                            if (antType16.Checked && tagdb.AntGroup == 0x01)
                             {
                                 cmbWorkAnt.SelectedIndex = m_curSetting.btWorkAntenna + 0x08;
                             }
                             else
-                            { 
+                            {
+                                if(!antType16.Checked && (m_curSetting.btWorkAntenna > 4 && !antType8.Checked))
+                                {
+                                    antType8.Checked = true;
+                                }
                                 cmbWorkAnt.SelectedIndex = m_curSetting.btWorkAntenna;
                             }
                         }
                         break;
-                    case 0x77:
+                    case CMD.cmd_get_output_power:
                         {
                             if (antType4.Checked)
                             {
@@ -689,7 +693,7 @@ namespace UHFDemo
 
                         }
                         break;
-                    case 0x97:
+                    case CMD.cmd_get_output_power_eight:
                         {
                             if (antType8.Checked)
                             {
@@ -754,7 +758,7 @@ namespace UHFDemo
                             }
                         }
                         break;
-                    case 0x79:
+                    case CMD.cmd_get_frequency_region:
                         {
                             switch (m_curSetting.btRegion)
                             {
@@ -809,7 +813,7 @@ namespace UHFDemo
                             }
                         }
                         break;
-                    case 0x7B:
+                    case CMD.cmd_get_reader_temperature:
                         {
                             string strTemperature = string.Empty;
                             if (m_curSetting.btPlusMinus == 0x0)
@@ -823,7 +827,7 @@ namespace UHFDemo
                             txtReaderTemperature.Text = strTemperature;
                         }
                         break;
-                    case 0x7D:
+                    case CMD.cmd_get_drm_mode:
                         {
                             /*
                             if (m_curSetting.btDrmMode == 0x00)
@@ -837,14 +841,12 @@ namespace UHFDemo
                              * */
                         }
                         break;
-                    case 0x7E:
+                    case CMD.cmd_get_rf_port_return_loss:
                         {
                             textReturnLoss.Text = m_curSetting.btAntImpedance.ToString() + " dB";
                         }
                         break;
-
-
-                    case 0x8E:
+                    case CMD.cmd_get_impinj_fast_tid:
                         {
                             if (m_curSetting.btMonzaStatus == 0x8D)
                             {
@@ -856,7 +858,7 @@ namespace UHFDemo
                             }
                         }
                         break;
-                    case 0x60:
+                    case CMD.cmd_read_gpio_value:
                         {
                             if (m_curSetting.btGpio1Value == 0x00)
                             {
@@ -877,74 +879,17 @@ namespace UHFDemo
                             }
                         }
                         break;
-                    case 0x63:
+                    case CMD.cmd_get_ant_connection_detector:
                         {
                             tbAntDectector.Text = m_curSetting.btAntDetector.ToString();
                         }
                         break;
-                    case 0x98:
-                        getMaskInitStatus();
-                        break;
                     default:
                         break;
                 }
-            }
+            }));
         }
 
-        private void getMaskInitStatus()
-        {
-
-            byte[] maskValue = new byte[m_curSetting.btsGetTagMask.Length - 8];
-            for (int i = 0; i < maskValue.Length; i++)
-            {
-                maskValue[i] = m_curSetting.btsGetTagMask[i + 7];
-            }
-            ReaderUtils.ByteArrayToString(maskValue, 0, maskValue.Length);
-            ListViewItem item = new ListViewItem();
-            item.Text = m_curSetting.btsGetTagMask[0].ToString();
-            if (m_curSetting.btsGetTagMask[2] == 0)
-            {
-                item.SubItems.Add("S0");
-            }
-            else if (m_curSetting.btsGetTagMask[2] == 1)
-            {
-                item.SubItems.Add("S1");
-            }
-            else if (m_curSetting.btsGetTagMask[2] == 2)
-            {
-                item.SubItems.Add("S2");
-            }
-            else if (m_curSetting.btsGetTagMask[2] == 3)
-            {
-                item.SubItems.Add("S3");
-            }
-            else
-            {
-                item.SubItems.Add("SL");
-            }
-
-            item.SubItems.Add("0x0" + m_curSetting.btsGetTagMask[3].ToString());
-            if (m_curSetting.btsGetTagMask[4] == 0)
-            {
-                item.SubItems.Add("Reserve");
-            }
-            else if (m_curSetting.btsGetTagMask[4] == 1)
-            {
-                item.SubItems.Add("EPC");
-            }
-            else if (m_curSetting.btsGetTagMask[4] == 2)
-            {
-                item.SubItems.Add("TID");
-            }
-            else
-            {
-                item.SubItems.Add("USER");
-            }
-            item.SubItems.Add(ReaderUtils.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[5] }, 0, 1).ToString());
-            item.SubItems.Add(ReaderUtils.ByteArrayToString(new byte[] { m_curSetting.btsGetTagMask[6] }, 0, 1).ToString());
-            item.SubItems.Add(ReaderUtils.ByteArrayToString(maskValue, 0, maskValue.Length).ToString());
-            listView2.Items.Add(item);
-        }
         private void RunLoopInventroy()
         {
             BeginInvoke(new ThreadStart(delegate() {
@@ -1033,12 +978,8 @@ namespace UHFDemo
             int msgLen = writeIndex + 1;
             data[1] = (byte)(msgLen - 2); // len
 
-            byte[] checkdata = new byte[msgLen-1];
-            Array.Copy(data, 0, checkdata, 0, checkdata.Length);
-            data[writeIndex] = reader.CheckValue(checkdata);
+            data[writeIndex] = ReaderUtils.CheckSum(data, 0, msgLen - 1); // check
             Array.Resize(ref data, msgLen);
-
-            //Console.WriteLine("Send: {0}", ReaderUtils.ToHex(data, "", " "));
             reader.SendMessage(data);
         }
 
@@ -1053,12 +994,11 @@ namespace UHFDemo
                 int writeIndex = 0;
                 byte[] rawData = new byte[256];
                 rawData[writeIndex++] = 0xA0; // hdr
-
                 rawData[writeIndex++] = 0x03; // len minLen = 3
                 rawData[writeIndex++] = m_curSetting.btReadId; // addr
-
                 rawData[writeIndex++] = 0x8A; // cmd
                 
+                //antenna/stay
                 if(antType1.Checked)
                 {
                     int antCount = 4;
@@ -1107,7 +1047,7 @@ namespace UHFDemo
                     {
                         for (int i = 8; i < 16; i++)
                         {
-                            rawData[writeIndex++] = (byte)(Convert.ToInt32(fast_inv_ants[i].Text) - 8);
+                            rawData[writeIndex++] = (byte)(Convert.ToInt32(fast_inv_ants[i].Text) - 9);
                             rawData[writeIndex++] = Convert.ToByte(fast_inv_stays[i].Text);
                         }
                     }
@@ -1192,13 +1132,8 @@ namespace UHFDemo
                 rawData[1] = (byte)(msgLen - 2); // except hdr+len
                 //Console.WriteLine("FastInv writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
 
-                byte[] checkData = new byte[msgLen - 1];
-                Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-                rawData[writeIndex] = reader.CheckValue(checkData); // check
-
+                rawData[writeIndex] = ReaderUtils.CheckSum(rawData, 0, msgLen - 1); // check
                 Array.Resize(ref rawData, msgLen);
-
-                //Console.WriteLine("FastInv: {0}", ReaderUtils.ToHex(rawData, "", " "));
                 int nResult = reader.SendMessage(rawData);
             }));
         }
@@ -1299,16 +1234,9 @@ namespace UHFDemo
             }));
         }
 
-        private delegate void RefreshISO18000Unsafe(byte btCmd);
         private void RefreshISO18000(byte btCmd)
         {
-            if (this.InvokeRequired)
-            {
-                RefreshISO18000Unsafe InvokeRefreshISO18000 = new RefreshISO18000Unsafe(RefreshISO18000);
-                this.Invoke(InvokeRefreshISO18000, new object[] { btCmd });
-            }
-            else
-            {
+            BeginInvoke(new ThreadStart(delegate() {
                 switch (btCmd)
                 {
                     case 0xb0:
@@ -1386,19 +1314,12 @@ namespace UHFDemo
                     default:
                         break;
                 }
-            }
+            }));
         }
 
-        private delegate void RunLoopISO18000Unsafe(int nLength);
         private void RunLoopISO18000(int nLength)
         {
-            if (this.InvokeRequired)
-            {
-                RunLoopISO18000Unsafe InvokeRunLoopISO18000 = new RunLoopISO18000Unsafe(RunLoopISO18000);
-                this.Invoke(InvokeRunLoopISO18000, new object[] { nLength });
-            }
-            else
-            {
+            BeginInvoke(new ThreadStart(delegate() {
                 if (nLength == m_nBytes)
                 {
                     m_nLoopedTimes++;
@@ -1409,7 +1330,7 @@ namespace UHFDemo
                 {
                     WriteTagISO18000();
                 }
-            }
+            }));
         }
 
         private void connectType_CheckedChanged(object sender, EventArgs e)
@@ -1553,7 +1474,7 @@ namespace UHFDemo
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(string.Format("ConnectReader {0}", ex.Message));
                 }
             }
         }
@@ -1587,7 +1508,7 @@ namespace UHFDemo
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("SetReadAddress {0}", ex.Message));
             }
 
         }
@@ -1625,7 +1546,7 @@ namespace UHFDemo
             reader.GetFirmwareVersion(m_curSetting.btReadId);
         }
 
-        private void ProcessGetFirmwareVersion(Reader.MessageTran msgTran)
+        private void ProcessGetFirmwareVersion(MessageTran msgTran)
         {
             string strCmd = string.Format("{0}", FindResource("tipGetFirmwareVersion"));
             string strErrorCode = string.Empty;
@@ -1636,7 +1557,7 @@ namespace UHFDemo
                 m_curSetting.btMinor = msgTran.AryData[1];
                 m_curSetting.btReadId = msgTran.ReadId;
 
-                RefreshReadSetting(msgTran.Cmd);
+                RefreshReadSetting((CMD)msgTran.Cmd);
                 WriteLog(lrtxtLog, strCmd, 0);
 
                 cmdGetInternalVersion();
@@ -1662,23 +1583,19 @@ namespace UHFDemo
             // minLen = addr + cmd + check = 3
             // [hdr][len][addr][cmd][data][check]
             // 0xA0 len addr 0xAA 
-            int index = 0;
+            int writeIndex = 0;
             byte[] rawData = new byte[256];
-            rawData[index++] = 0xA0;
-            rawData[index++] = 3;
-            rawData[index++] = m_curSetting.btReadId;
-            rawData[index++] = 0xAA;
+            rawData[writeIndex++] = 0xA0;
+            rawData[writeIndex++] = 3;
+            rawData[writeIndex++] = m_curSetting.btReadId;
+            rawData[writeIndex++] = 0xAA;
 
-            int msgLen = index + 1;
+            int msgLen = writeIndex + 1;
             rawData[1] = (byte)(msgLen - 2); // update len, except hdr+len
 
-            byte[] checkData = new byte[msgLen - 1];
-            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-            rawData[index++] = reader.CheckValue(checkData);
-
-            byte[] sendData = new byte[msgLen];
-            Array.Copy(rawData, 0, sendData, 0, msgLen);
-            int nResult = reader.SendMessage(sendData);
+            rawData[writeIndex] = ReaderUtils.CheckSum(rawData, 0, msgLen - 1); // check
+            Array.Resize(ref rawData, msgLen);
+            int nResult = reader.SendMessage(rawData);
         }
 
         private void ProcessGetInternalVersion(MessageTran msgTran)
@@ -1758,7 +1675,7 @@ namespace UHFDemo
                 m_curSetting.btPlusMinus = msgTran.AryData[0];
                 m_curSetting.btTemperature = msgTran.AryData[1];
 
-                RefreshReadSetting(msgTran.Cmd);
+                RefreshReadSetting((CMD)msgTran.Cmd);
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
             }
@@ -1780,9 +1697,8 @@ namespace UHFDemo
             if (antType16.Checked)
             {
                 m_getOutputPower = true;
-                m_curSetting.btAntGroup = 0x00;
-                reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
-                reader.GetOutputPower(m_curSetting.btReadId);
+                tagdb.AntGroup = 0x00;
+                reader.SetReaderAntGroup(m_curSetting.btReadId, tagdb.AntGroup);
             }
             else if (antType8.Checked)
             {
@@ -1804,7 +1720,7 @@ namespace UHFDemo
                 m_curSetting.btReadId = msgTran.ReadId;
                 m_curSetting.btOutputPower = msgTran.AryData[0];
 
-                RefreshReadSetting(0x77);
+                RefreshReadSetting(CMD.cmd_get_output_power);
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
             }
@@ -1813,11 +1729,11 @@ namespace UHFDemo
                 m_curSetting.btReadId = msgTran.ReadId;
                 if (antType16.Checked && m_getOutputPower)
                 {
-                    if (m_curSetting.btAntGroup == (byte)0x00)
+                    if (tagdb.AntGroup == 0x00)
                     {
                         m_curSetting.btOutputPowers = msgTran.AryData;
-                        m_curSetting.btAntGroup = 0x01;
-                        reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+                        tagdb.AntGroup = 0x01;
+                        reader.SetReaderAntGroup(m_curSetting.btReadId, tagdb.AntGroup);
                     }
                     else
                     {
@@ -1833,7 +1749,7 @@ namespace UHFDemo
                     m_curSetting.btOutputPowers = msgTran.AryData;
                 }
 
-                RefreshReadSetting(0x97);
+                RefreshReadSetting(CMD.cmd_get_output_power_eight);
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
             }
@@ -1842,7 +1758,7 @@ namespace UHFDemo
                 m_curSetting.btReadId = msgTran.ReadId;
                 m_curSetting.btOutputPowers = msgTran.AryData;
 
-                RefreshReadSetting(0x77);
+                RefreshReadSetting(CMD.cmd_get_output_power);
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
             }
@@ -1910,9 +1826,9 @@ namespace UHFDemo
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("SetOutputPower {0}", ex.Message));
             }
 
         }
@@ -1975,8 +1891,8 @@ namespace UHFDemo
                     m_curSetting.btReadId = msgTran.ReadId;
                     m_curSetting.btWorkAntenna = msgTran.AryData[0];
 
-                    RefreshReadSetting(0x75);
-                    WriteLog(lrtxtLog, strCmd, 0);
+                    RefreshReadSetting(CMD.cmd_get_work_antenna);
+                    WriteLog(lrtxtLog, string.Format("{0} {1:x2}", strCmd, msgTran.AryData[0]), 0);
                     return;
                 }
                 else
@@ -2000,17 +1916,17 @@ namespace UHFDemo
                 m_setWorkAnt = true;
                 byte btWorkAntenna = (byte)cmbWorkAnt.SelectedIndex;
                 if (btWorkAntenna >= 0x08)
-                    m_curSetting.btAntGroup = 0x01;
+                    tagdb.AntGroup = 0x01;
                 else
-                    m_curSetting.btAntGroup = 0x00;
-                reader.SetReaderAntGroup(m_curSetting.btReadId, m_curSetting.btAntGroup);
+                    tagdb.AntGroup = 0x00;
+                reader.SetReaderAntGroup(m_curSetting.btReadId, tagdb.AntGroup);
             }
         }
 
         private void ProcessSetWorkAntenna(Reader.MessageTran msgTran)
         {
             int intCurrentAnt = 0;
-            if (antType16.Checked && m_curSetting.btAntGroup == (byte)0x01)
+            if (antType16.Checked && tagdb.AntGroup == 0x01)
                 intCurrentAnt = m_curSetting.btWorkAntenna + 9;
             else
                 intCurrentAnt = m_curSetting.btWorkAntenna + 1;
@@ -2074,7 +1990,7 @@ namespace UHFDemo
                     m_curSetting.btReadId = msgTran.ReadId;
                     m_curSetting.btDrmMode = msgTran.AryData[0];
 
-                    RefreshReadSetting(0x7D);
+                    RefreshReadSetting(CMD.cmd_get_drm_mode);
                     WriteLog(lrtxtLog, strCmd, 0);
                     return;
                 }
@@ -2248,7 +2164,7 @@ namespace UHFDemo
                 m_curSetting.btFrequencyStart = msgTran.AryData[1];
                 m_curSetting.btFrequencyEnd = msgTran.AryData[2];
 
-                RefreshReadSetting(0x79);
+                RefreshReadSetting(CMD.cmd_get_frequency_region);
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
             }
@@ -2259,7 +2175,7 @@ namespace UHFDemo
                 m_curSetting.btUserDefineFrequencyInterval = msgTran.AryData[1];
                 m_curSetting.btUserDefineChannelQuantity = msgTran.AryData[2];
                 m_curSetting.nUserDefineStartFrequency = msgTran.AryData[3] * 256 * 256 + msgTran.AryData[4] * 256 + msgTran.AryData[5];
-                RefreshReadSetting(0x79);
+                RefreshReadSetting(CMD.cmd_get_frequency_region);
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
 
@@ -2337,9 +2253,9 @@ namespace UHFDemo
                     m_curSetting.btFrequencyEnd = btEndFreq;
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("SetFrequencyRegion {0}", ex.Message));
             }
         }
 
@@ -2440,7 +2356,7 @@ namespace UHFDemo
                 m_curSetting.btGpio1Value = msgTran.AryData[0];
                 m_curSetting.btGpio2Value = msgTran.AryData[1];
 
-                RefreshReadSetting(0x60);
+                RefreshReadSetting(CMD.cmd_read_gpio_value);
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
             }
@@ -2542,7 +2458,7 @@ namespace UHFDemo
                 m_curSetting.btReadId = msgTran.ReadId;
                 m_curSetting.btAntDetector = msgTran.AryData[0];
 
-                RefreshReadSetting(0x63);
+                RefreshReadSetting(CMD.cmd_get_ant_connection_detector);
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
             }
@@ -2567,7 +2483,7 @@ namespace UHFDemo
                     m_curSetting.btReadId = msgTran.ReadId;
                     m_curSetting.btMonzaStatus = msgTran.AryData[0];
 
-                    RefreshReadSetting(0x8E);
+                    RefreshReadSetting(CMD.cmd_get_impinj_fast_tid);
                     WriteLog(lrtxtLog, strCmd, 0);
                     return;
                 }
@@ -2655,7 +2571,7 @@ namespace UHFDemo
                     m_curSetting.btReadId = msgTran.ReadId;
                     m_curSetting.btLinkProfile = msgTran.AryData[0];
 
-                    RefreshReadSetting(0x6A);
+                    RefreshReadSetting(CMD.cmd_get_rf_link_profile);
                     WriteLog(lrtxtLog, strCmd, 0);
                     return;
                 }
@@ -2675,7 +2591,7 @@ namespace UHFDemo
 
         private void ProcessSetReaderAntGroup(Reader.MessageTran msgTran)
         {
-            string strCmd = string.Format("{0} {1}", FindResource("tipSetReaderAntGroup"), m_curSetting.btAntGroup);
+            string strCmd = string.Format("{0} {1}", FindResource("tipSetReaderAntGroup"), tagdb.AntGroup);
             string strErrorCode;
 
             if (msgTran.AryData.Length == 1)
@@ -2698,13 +2614,12 @@ namespace UHFDemo
                     }
                     if (m_getOutputPower)
                     {
-                        //当前切换天线组是为了获取功率
                         reader.GetOutputPower(m_curSetting.btReadId);
                         return;
                     }
                     if (m_setOutputPower)
                     {
-                        if (m_curSetting.btAntGroup == (byte)0x00)
+                        if (tagdb.AntGroup == 0x00)
                         {
                             if (tb_outputpower_1.Text.Length != 0 || tb_outputpower_2.Text.Length != 0 || tb_outputpower_3.Text.Length != 0 || tb_outputpower_4.Text.Length != 0
                                || tb_outputpower_5.Text.Length != 0 || tb_outputpower_6.Text.Length != 0 || tb_outputpower_7.Text.Length != 0 || tb_outputpower_8.Text.Length != 0)
@@ -2810,7 +2725,14 @@ namespace UHFDemo
                 if (msgTran.AryData[0] == 0x00 || msgTran.AryData[0] == 0x01)
                 {
                     m_curSetting.btReadId = msgTran.ReadId;
-                    m_curSetting.btAntGroup = msgTran.AryData[0];
+                    tagdb.AntGroup = msgTran.AryData[0];
+                    if(tagdb.AntGroup==0x01)
+                    {
+                        BeginInvoke(new ThreadStart(delegate() {
+                            if(!antType16.Checked) 
+                                antType16.Checked = true;
+                        }));
+                    }
                     if (m_getWorkAnt)
                     {
                         m_getWorkAnt = false;
@@ -2850,7 +2772,7 @@ namespace UHFDemo
 
                 }
                 m_curSetting.btReaderIdentifier = readerIdentifier;
-                RefreshReadSetting(0x68);
+                RefreshReadSetting(CMD.cmd_get_reader_identifier);
 
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
@@ -2875,7 +2797,7 @@ namespace UHFDemo
                 m_curSetting.btReadId = msgTran.ReadId;
 
                 m_curSetting.btAntImpedance = msgTran.AryData[0];
-                RefreshReadSetting(0x7E);
+                RefreshReadSetting(CMD.cmd_get_rf_port_return_loss);
 
                 WriteLog(lrtxtLog, strCmd, 0);
                 return;
@@ -2888,8 +2810,6 @@ namespace UHFDemo
             string strLog = string.Format("{0}{1}: {2}", strCmd, FindResource("FailedCause"), strErrorCode);
             WriteLog(lrtxtLog, strLog, 1);
         }
-
-
 
         private void ProcessSetReaderIdentifier(Reader.MessageTran msgTran)
         {
@@ -2914,7 +2834,6 @@ namespace UHFDemo
             WriteLog(lrtxtLog, strLog, 1);
         }
 
-
         private void btnSetAntDetector_Click(object sender, EventArgs e)
         {
             try
@@ -2925,11 +2844,10 @@ namespace UHFDemo
                     m_curSetting.btAntDetector = Convert.ToByte(tbAntDectector.Text);
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("SetAntDetector {0}", ex.Message));
             }
-
         }
 
         private void ProcessSetAntDetector(Reader.MessageTran msgTran)
@@ -3090,7 +3008,7 @@ namespace UHFDemo
                 {
                     if (m_FastExeCount > 1)
                     {
-
+                        m_FastExeCount--;
                     }
                     else
                     {
@@ -3111,18 +3029,18 @@ namespace UHFDemo
                 WriteLog(lrtxtLog, strCmd, 0);
                 BeginInvoke(new ThreadStart(delegate() {
                     tagdb.UpdateCmd89ExecuteSuccess(msgTran.AryData);
-                    led_cmd_readrate.Text = tagdb.CmdReadRate.ToString(); // 单次盘存速率
-                    led_cmd_execute_duration.Text = tagdb.CommandDuration.ToString();// 单次盘存时间
-                    ledFast_total_execute_time.Text = FormatLongToTimeStr(tagdb.TotalCommandTime); // 总盘存时间
-                    led_total_tagreads.Text = tagdb.TotalTagCounts.ToString(); // 总读取次数
-                    txtCmdTagCount.Text = tagdb.CmdTotalRead.ToString(); // 单次读取次数
+                    led_cmd_readrate.Text = tagdb.CmdReadRate.ToString();
+                    led_cmd_execute_duration.Text = tagdb.CommandDuration.ToString();
+                    ledFast_total_execute_time.Text = FormatLongToTimeStr(tagdb.TotalCommandTime);
+                    led_total_tagreads.Text = tagdb.TotalTagCounts.ToString();
+                    txtCmdTagCount.Text = tagdb.CmdTotalRead.ToString();
                 }));
 
                 if (m_FastExeCount != -1)
                 {
                     if (m_FastExeCount > 1)
                     {
-
+                        m_FastExeCount--;
                     }
                     else
                     {
@@ -3165,7 +3083,7 @@ namespace UHFDemo
                 {
                     if (m_FastExeCount > 1)
                     {
-
+                        m_FastExeCount--;
                     }
                     else
                     {
@@ -3197,7 +3115,7 @@ namespace UHFDemo
             {
                 if (m_FastExeCount > 1)
                 {
-
+                    m_FastExeCount--;
                 }
                 else
                 {
@@ -3360,19 +3278,6 @@ namespace UHFDemo
             WriteLog(lrtxtLog, strLog, 1);
         }
 
-        private void cbAccessEpcMatch_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ckAccessEpcMatch.Checked)
-            {
-                reader.GetAccessEpcMatch(m_curSetting.btReadId);
-            }
-            else
-            {
-                txtAccessEpcMatch.Text = "";
-                reader.CancelAccessEpcMatch(m_curSetting.btReadId, 0x01);
-            }
-        }
-
         private void ProcessGetAccessEpcMatch(Reader.MessageTran msgTran)
         {
             // Head	Len	Address	Cmd	Status	EpcLen	EPC	Check
@@ -3384,7 +3289,7 @@ namespace UHFDemo
             {
                 if (msgTran.AryData[0] == 0x01)
                 {
-                    WriteLog(lrtxtLog, FindResource("HaveNotYetSelectedTag"), 0);
+                    WriteLog(lrtxtLog, string.Format("{0} {1}", strCmd, FindResource("tipHaveNoMatch")), 0);
                     return;
                 }
                 else
@@ -3399,7 +3304,10 @@ namespace UHFDemo
                     BeginInvoke(new ThreadStart(delegate() {
                         txtAccessEpcMatch.Text = ReaderUtils.ByteArrayToString(msgTran.AryData, 2, Convert.ToInt32(msgTran.AryData[1]));
                     }));
-                    WriteLog(lrtxtLog, strCmd, 0);
+                    WriteLog(lrtxtLog, string.Format("{0} ({1}){2}",
+                        strCmd,
+                        Convert.ToInt32(msgTran.AryData[2]),
+                        ReaderUtils.ByteArrayToString(msgTran.AryData, 2, Convert.ToInt32(msgTran.AryData[1]))), 0);
                     return;
                 }
                 else
@@ -3417,13 +3325,12 @@ namespace UHFDemo
         {
             if (cmbSetAccessEpcMatch.Text.Trim().Equals(""))
             {
-                MessageBox.Show(FindResource("HaveNotYetSelectedTag"));
+                MessageBox.Show(FindResource("tipHaveNotYetSelectedTag"));
                 return;
             }
             byte[] btAryEpc = ReaderUtils.FromHex(cmbSetAccessEpcMatch.Text.Replace(" ", ""));
 
             txtAccessEpcMatch.Text = cmbSetAccessEpcMatch.Text;
-            ckAccessEpcMatch.Checked = true;
             reader.SetAccessEpcMatch(m_curSetting.btReadId, 0x00, Convert.ToByte(btAryEpc.Length), btAryEpc);
         }
 
@@ -3461,16 +3368,20 @@ namespace UHFDemo
                 byte btMemBank = getMembank();
                 byte btWordAdd = Convert.ToByte(tb_startWord.Text);
                 byte btWordCnt = Convert.ToByte(tb_wordLen.Text);
+                if(btWordCnt <= 0)
+                {
+                    MessageBox.Show("Read word must large than 1");
+                    return;
+                }
                 byte[] accessPw = ReaderUtils.FromHex(hexTb_accessPw.Text.Replace(" ", ""));
 
                 tagOpDb.Clear();
                 reader.ReadTag(m_curSetting.btReadId, btMemBank, btWordAdd, btWordCnt, accessPw);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("ReadTag {0}", ex.Message));
             }
-
         }
 
         private byte getMembank()
@@ -3532,15 +3443,6 @@ namespace UHFDemo
                 byte btMemBank = getMembank();
                 byte btWordAdd = Convert.ToByte(tb_startWord.Text);
                 byte btWordCnt = 0; 
-                byte btCmd = 0x00;
-                if (radio_btnWrite.Checked)
-                {
-                    btCmd = 0x82;
-                }
-                if (radio_btnBlockWrite.Checked)
-                {
-                    btCmd = 0x94;
-                }
 
                 byte[] accessPw = ReaderUtils.FromHex(hexTb_accessPw.Text.Replace(" ", ""));
                 byte[] writeData = ReaderUtils.FromHex(hexTb_WriteData.Text.Replace(" ", ""));
@@ -3549,20 +3451,26 @@ namespace UHFDemo
                 tb_wordLen.Text = btWordCnt.ToString();
 
                 tagOpDb.Clear();
-                reader.WriteTag(m_curSetting.btReadId, accessPw, btMemBank, btWordAdd, btWordCnt, writeData, btCmd);
-                WriteLog(lrtxtLog, FindResource("tipWriteTag"), 0);
+                if (radio_btnWrite.Checked)
+                {
+                    WriteLog(lrtxtLog, FindResource("tipWriteTag"), 0);
+                    reader.WriteTag(m_curSetting.btReadId, accessPw, btMemBank, btWordAdd, btWordCnt, writeData);
+                }
+                if (radio_btnBlockWrite.Checked)
+                {
+                    WriteLog(lrtxtLog, FindResource("tipBlockWrite"), 0);
+                    reader.BlockWrite(m_curSetting.btReadId, accessPw, btMemBank, btWordAdd, btWordCnt, writeData);
+                }
             }
             catch (System.Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("BlockWrite {0}", ex.Message));
             }
-
         }
 
-        private int WriteTagCount = 0;
         private void ProcessWriteTag(Reader.MessageTran msgTran)
         {
-            string strCmd = string.Format("{0}", FindResource("tipWriteTag"));
+            string strCmd = string.Format("{0}", (msgTran.Cmd == 0x82 ? FindResource("tipWriteTag") : FindResource("tipBlockWrite")));
             string strErrorCode = string.Empty;
 
             if (msgTran.AryData.Length == 1)
@@ -3588,7 +3496,7 @@ namespace UHFDemo
 
                 AddTagToTagOpDb(msgTran);
 
-                WriteLog(lrtxtLog, strCmd, 0);
+                WriteLog(lrtxtLog, string.Format("{0} success", strCmd), 0);
                 if (WriteTagCount == (msgTran.AryData[0] * 256 + msgTran.AryData[1]))
                 {
                     WriteTagCount = 0;
@@ -3755,7 +3663,7 @@ namespace UHFDemo
         private void AddTagToTagOpDb(MessageTran msgTran)
         {
             BeginInvoke(new ThreadStart(delegate() {
-                tagOpDb.Add(new Tag(msgTran.AryData, msgTran.Cmd));
+                tagOpDb.Add(new Tag(msgTran.AryData, msgTran.Cmd, tagdb.AntGroup));
             }));
         }
 
@@ -3931,9 +3839,9 @@ namespace UHFDemo
 
                 WriteTagISO18000();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("WriteTagISO18000 {0}", ex.Message));
             }
         }
 
@@ -3996,7 +3904,6 @@ namespace UHFDemo
             string tempStr = newStr.Replace('\r', ' ');
             return tempStr.Replace('\n', ' ');
         }
-
 
         private void ProcessWriteTagISO18000(Reader.MessageTran msgTran)
         {
@@ -4173,7 +4080,7 @@ namespace UHFDemo
             string[] reslut = ReaderUtils.StringToStringArray(htxtSendData.Text.ToUpper(), 2);
             byte[] btArySendData = ReaderUtils.StringArrayToByteArray(reslut, reslut.Length);
 
-            byte btCheckData = reader.CheckValue(btArySendData);
+            byte btCheckData = ReaderUtils.CheckSum(btArySendData, 0, btArySendData.Length);
             htxtCheckData.Text = string.Format(" {0:X2}", btCheckData);
         }
 
@@ -4210,6 +4117,17 @@ namespace UHFDemo
 
         private void tabCtrMain_SelectedIndexChanged(object sender, EventArgs e)
         {
+            #region NetPort
+            if (!tabCtrMain.SelectedTab.Name.Equals("net_configure_tabPage"))
+            {
+                StopNetPort();
+            }
+            else
+            {
+                btnSearchNetCard_Click(null, null);
+            }
+            #endregion //NetPort
+
             #region Johar
             if (tabCtrMain.SelectedTab.Name.Equals("sensorTags_tabPage"))
             {
@@ -4297,11 +4215,20 @@ namespace UHFDemo
 
         private void cmbSetAccessEpcMatch_DropDown(object sender, EventArgs e)
         {
-            cmbSetAccessEpcMatch.Items.Clear();
-            foreach (TagRecord trd in tagOpDb.TagList)
-            {
-                cmbSetAccessEpcMatch.Items.Add(trd.EPC);
-            }
+            BeginInvoke(new ThreadStart(delegate() {
+                cmbSetAccessEpcMatch.Items.Clear();
+
+                foreach (TagRecord trd in tagdb.TagList)
+                {
+                    cmbSetAccessEpcMatch.Items.Add(trd.EPC);
+                }
+
+                foreach (TagRecord trd in tagOpDb.TagList)
+                {
+                    if (!cmbSetAccessEpcMatch.Items.Contains(trd.EPC))
+                        cmbSetAccessEpcMatch.Items.Add(trd.EPC);
+                }
+            }));
         }
 
         private void ltvTagISO18000_DoubleClick(object sender, EventArgs e)
@@ -4363,7 +4290,7 @@ namespace UHFDemo
             else
             {
                 useAntG1 = true;
-                m_curSetting.btAntGroup = 0x00;
+                tagdb.AntGroup = 0x00;
                 m_curSetting.btWorkAntenna = (byte)antId;
                 reader.SetWorkAntenna(m_curSetting.btReadId, m_curSetting.btWorkAntenna);
             }
@@ -4379,7 +4306,6 @@ namespace UHFDemo
                     return;
                 }
 
-                // 检查是否选择天线
                 if (!checkFastInvAnt())
                 {
                     MessageBox.Show("Please select at least one antenna to poll at least once and repeat at least once.");
@@ -4409,7 +4335,7 @@ namespace UHFDemo
 
                     m_FastExeCount = Convert.ToInt32(mInventoryExeCount.Text);
 
-                    m_curSetting.btAntGroup = 0x00;
+                    tagdb.AntGroup = 0x00;
 
                     if (antType16.Checked)
                     {
@@ -4442,7 +4368,7 @@ namespace UHFDemo
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(string.Format("FastInventory {0}", ex.Message));
                 }
             }
             else if (btnInventory.Text.Equals(FindResource("StopInventory")))
@@ -4631,9 +4557,9 @@ namespace UHFDemo
                 //m_curSetting.btReadId = Convert.ToByte(strTemp, 16);
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("SetReaderIdentifier {0}", ex.Message));
             }
         }
 
@@ -4692,6 +4618,7 @@ namespace UHFDemo
             rdbProfile2.Checked = false;
             rdbProfile3.Checked = false;
         }
+
         private void cbRealSession_CheckedChanged(object sender, EventArgs e)
         {
             /*
@@ -4781,14 +4708,35 @@ namespace UHFDemo
 
         private void ProcessTagMask(Reader.MessageTran msgTran)
         {
-            string strCmd = string.Format("{0}", FindResource("TagMask"));
+            //Set
+            //Head	Len	Address	Cmd	ErrorCode	Check
+            //0xA0    0x04         0x98
+            //Clear
+            //Head	Len	Address	Cmd	ErrorCode	Check
+            //0xA0    0x04         0x98
+
+            //Query
+            //Head Len Add Cmd     Mask ID MaskQuantity   Target Action  Membank StartingMaskAdd MaskBitLen Mask    Truncate CC
+            //0xA0         0x98
+
+            //Head	Len	 Add	Cmd 	MaskQuantity	CC
+            //0xA0  0x0B        0x98    0x00
+            string strCmd = string.Format("{0}", FindResource("tipTagMask"));
             string strErrorCode = string.Empty;
-            if (msgTran.AryData.Length == 1)
+            if(msgTran.AryTranData[1] == 0x04)
             {
-                if (msgTran.AryData[0] == (byte)0x10)
+                //Error
+                //clear mask result
+                if (msgTran.AryData[0] == 0x10)
                 {
                     strCmd += ": " + FindResource("tipExecSuccess");
                     WriteLog(lrtxtLog, strCmd, 0);
+                    return;
+                }
+                //query mask result, no mask case 
+                else if (msgTran.AryData[0] == 0x00)
+                {
+                    WriteLog(lrtxtLog, string.Format("{0} {1}", strCmd, FindResource("tipNoTagMask")), 0);
                     return;
                 }
                 else if (msgTran.AryData[1] == (byte)0x41)
@@ -4797,17 +4745,25 @@ namespace UHFDemo
                 }
                 else
                 {
-                    strErrorCode = string.Format("{0}", FindResource("UnknowError"));
+                    strErrorCode = string.Format("{0} {1:x2}", FindResource("UnknowError"), msgTran.AryData[1]);
                 }
             }
             else
             {
+                //Mask ID MaskQuantity Target Action Membank StartingMaskAdd MaskBitLen Mask Truncate
                 if (msgTran.AryData.Length > 7)
                 {
-                    m_curSetting.btsGetTagMask = msgTran.AryData;
-                    RefreshReadSetting(msgTran.Cmd);
-                    WriteLog(lrtxtLog, string.Format("{0} sucess", FindResource("tipSetTagMask")), 0);
+                    TagMask tagMask = new TagMask(msgTran.AryData);
+                    Console.WriteLine(string.Format("tagmask={0}", tagMask.ToString()));
+
+                    BeginInvoke(new ThreadStart(delegate() {
+                        tagmaskDB.Add(tagMask);
+                    }));
                     return;
+                }
+                else
+                {
+                    strErrorCode = string.Format("{0} [{1}]", FindResource("UnknowError"), ReaderUtils.ToHex(msgTran.AryTranData, "", " "));
                 }
             }
             string strLog = string.Format("{0}{1}: {2}", strCmd, FindResource("tipFailedCause"), strErrorCode);
@@ -4816,49 +4772,57 @@ namespace UHFDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
+            if (combo_mast_id.SelectedIndex == -1 || combo_session.SelectedIndex == -1 || combo_action.SelectedIndex == -1 || combo_menbank.SelectedIndex == -1)
             {
-                if (combo_mast_id.SelectedIndex == -1 || combo_session.SelectedIndex == -1 || combo_action.SelectedIndex == -1 || combo_menbank.SelectedIndex == -1)
-                {
-                    MessageBox.Show("Target Action Membank must be selected");
-                    return;
-                }
-                byte btMaskNo = (byte)(combo_mast_id.SelectedIndex + 1);
-                byte btTarget = (byte)combo_session.SelectedIndex;
-                byte btAction = (byte)combo_action.SelectedIndex;
-                byte btMembank = (byte)combo_menbank.SelectedIndex;
-
-                string strMaskValue = hexTextBox_mask.Text.Trim();
-                string[] maskValue = ReaderUtils.StringToStringArray(strMaskValue.ToUpper(), 2);
-
-
-                byte btStartAddress = Convert.ToByte(startAddr.Text);
-                int intStartAdd = Convert.ToInt32(startAddr.Text);
-                byte btMaskLen = Convert.ToByte(bitLen.Text);
-                int intMaskLen = Convert.ToInt32(bitLen.Text);
-
-                byte[] btsMaskValue = ReaderUtils.StringArrayToByteArray(maskValue, maskValue.Length);
-
-                if (intStartAdd <= 0 || intStartAdd > 255 || intMaskLen <= 0 || intMaskLen > 255)
-                {
-                    MessageBox.Show("Mask Length and start address must be 1-255");
-                    return;
-                }
-
-                if (intMaskLen < (btsMaskValue.Length - 1) * 8 + 1 || intMaskLen > btsMaskValue.Length * 8)
-                {
-                    MessageBox.Show("Mask Length is invaild!");
-                    return;
-                }
-
-                reader.setTagMask((byte)0xFF, btMaskNo, btTarget, btAction, btMembank, btStartAddress, btMaskLen, btsMaskValue);
-                //m_curSetting.btReadId = Convert.ToByte(strTemp, 16);
-
+                MessageBox.Show("Target Action Membank must be selected");
+                return;
             }
-            catch (System.Exception ex)
+            byte btMaskNo = (byte)(combo_mast_id.SelectedIndex + 1);
+            byte btTarget = (byte)combo_session.SelectedIndex;
+            byte btAction = (byte)combo_action.SelectedIndex;
+            byte btMembank = (byte)combo_menbank.SelectedIndex;
+
+            string strMaskValue = hexTextBox_mask.Text.Trim();
+            string[] maskValue = ReaderUtils.StringToStringArray(strMaskValue.ToUpper(), 2);
+
+            if (!CheckByte(startAddr.Text) || !CheckByte(bitLen.Text))
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Mask Length and start address must be 1-255", "Start Address Or BitLen");
+                return;
             }
+            byte bStartAddress = Convert.ToByte(startAddr.Text);
+            int iMaskLen = Convert.ToInt32(bitLen.Text);
+
+            if (maskValue == null)
+            {
+                MessageBox.Show("MaskValue is null", "SetTagMask");
+                return;
+            }
+            byte[] btsMaskValue = ReaderUtils.StringArrayToByteArray(maskValue, maskValue.Length);
+
+            if (iMaskLen < (btsMaskValue.Length - 1) * 8 + 1 || iMaskLen > btsMaskValue.Length * 8)
+            {
+                MessageBox.Show(string.Format("Mask Length({0}) is invaild! The actual len is {1}", iMaskLen, btsMaskValue.Length * 8), "MaskValue");
+                return;
+            }
+
+            string strCmd = string.Format("{0}", FindResource("tipSetTagMask"));
+            WriteLog(lrtxtLog, strCmd, 0);
+
+            reader.setTagMask((byte)0xFF, btMaskNo, btTarget, btAction, btMembank, bStartAddress, (byte)iMaskLen, btsMaskValue);
+            //m_curSetting.btReadId = Convert.ToByte(strTemp, 16);
+        }
+
+        private bool CheckByte(string str)
+        {
+            string pattern = @"((^[0-9]$)|(^[1-9][0-9]$)|(^1[0-9][0-9]$)|(^2[0-5][0-5]$))";
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            if (str.Length == 0 || str.Length > 3)
+            {
+                return false;
+            }
+
+            return regex.IsMatch(str.Trim());
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -4869,12 +4833,18 @@ namespace UHFDemo
                 return;
             }
             byte btMaskNo = (byte)comboBox16.SelectedIndex;
+
+            string strCmd = string.Format("{0}", FindResource("tipClearTagMask"));
+            WriteLog(lrtxtLog, strCmd, 0);
+
             reader.clearTagMask((byte)0xFF, btMaskNo);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            listView2.Items.Clear();
+            string strCmd = string.Format("{0}", FindResource("tipGetTagMask"));
+            WriteLog(lrtxtLog, strCmd, 0);
+            tagmaskDB.Clear();
             reader.getTagMask((byte)0xFF);
         }
 
@@ -4916,7 +4886,7 @@ namespace UHFDemo
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(string.Format("saveFastData {0}", ex.Message));
             }
         }
 
@@ -4955,9 +4925,7 @@ namespace UHFDemo
             tw.WriteLine();
         }
 
-
         //save tag as excel
-
         public DataTable ListViewToDataTable(ListView listView)
         {
             DataTable table = new DataTable();
@@ -4982,7 +4950,6 @@ namespace UHFDemo
             return table;
         }
 
-
         //////////////////////////////////////////////////////////////////////////
         public void SaveToFile(MemoryStream ms, string fileName)
         {
@@ -5002,32 +4969,39 @@ namespace UHFDemo
             saveFastData();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private bool CheckPower(string power)
         {
-            if (tb_outputpower_1.Text.Length == 0)
-            {
-
-            }
-            else
+            if (power.Trim().Length > 0)
             {
                 try
                 {
-
-                    int tmp = Convert.ToInt16(tb_outputpower_1.Text);
+                    int tmp = Convert.ToInt16(power.Trim());
                     if (tmp > 33 || tmp < 0)
                     {
-                        MessageBox.Show(FindResource("tipInvalidParameter"));
-                        tb_outputpower_1.Text = "";
-                        return;
+                        MessageBox.Show(string.Format("{0}, output power must in [0, 33]", FindResource("tipInvalidParameter")), "CheckPower");
+                        return false;
                     }
                 }
-                catch (System.Exception ex)
+                catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
-                    tb_outputpower_1.Text = "";
+                    MessageBox.Show(string.Format("CheckPower Error: {0}", ex.Message), "CheckPower");
+                    return false;
                 }
+                return true;
             }
+            else
+            {
+                return false;
+            }
+        }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (!CheckPower(tb_outputpower_1.Text))
+            {
+                tb_outputpower_1.Text = "";
+                return;
+            }
             int channels = 1;
 
             if (antType4.Checked)
@@ -5077,190 +5051,64 @@ namespace UHFDemo
 
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
-            if (tb_outputpower_2.Text.Length == 0)
+            if (!CheckPower(tb_outputpower_2.Text))
             {
-
-            }
-            else
-            {
-                try
-                {
-
-                    int tmp = Convert.ToInt16(tb_outputpower_2.Text);
-                    if (tmp > 33 || tmp < 0)
-                    {
-                        MessageBox.Show(FindResource("tipInvalidParameter"));
-                        tb_outputpower_2.Text = "";
-                        return;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    tb_outputpower_2.Text = "";
-                }
+                tb_outputpower_2.Text = "";
+                return;
             }
         }
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            if (tb_outputpower_3.Text.Length == 0)
+            if (!CheckPower(tb_outputpower_3.Text))
             {
-
-            }
-            else
-            {
-                try
-                {
-
-                    int tmp = Convert.ToInt16(tb_outputpower_3.Text);
-                    if (tmp > 33 || tmp < 0)
-                    {
-                        MessageBox.Show(FindResource("tipInvalidParameter"));
-                        tb_outputpower_3.Text = "";
-                        return;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    tb_outputpower_3.Text = "";
-                }
+                tb_outputpower_3.Text = "";
+                return;
             }
         }
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            if (tb_outputpower_4.Text.Length == 0)
+            if (!CheckPower(tb_outputpower_4.Text))
             {
-
-            }
-            else
-            {
-                try
-                {
-
-                    int tmp = Convert.ToInt16(tb_outputpower_4.Text);
-                    if (tmp > 33 || tmp < 0)
-                    {
-                        MessageBox.Show(FindResource("tipInvalidParameter"));
-                        tb_outputpower_4.Text = "";
-                        return;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    tb_outputpower_4.Text = "";
-                }
+                tb_outputpower_4.Text = "";
+                return;
             }
         }
 
         private void textBox7_TextChanged(object sender, EventArgs e)
         {
-            if (tb_outputpower_5.Text.Length == 0)
+            if (!CheckPower(tb_outputpower_5.Text))
             {
-
-            }
-            else
-            {
-                try
-                {
-
-                    int tmp = Convert.ToInt16(tb_outputpower_5.Text);
-                    if (tmp > 33 || tmp < 0)
-                    {
-                        MessageBox.Show(FindResource("tipInvalidParameter"));
-                        tb_outputpower_5.Text = "";
-                        return;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    tb_outputpower_5.Text = "";
-                }
+                tb_outputpower_5.Text = "";
+                return;
             }
         }
 
         private void textBox8_TextChanged(object sender, EventArgs e)
         {
-            if (tb_outputpower_6.Text.Length == 0)
+            if (!CheckPower(tb_outputpower_6.Text))
             {
-
-            }
-            else
-            {
-                try
-                {
-
-                    int tmp = Convert.ToInt16(tb_outputpower_6.Text);
-                    if (tmp > 33 || tmp < 0)
-                    {
-                        MessageBox.Show(FindResource("tipInvalidParameter"));
-                        tb_outputpower_6.Text = "";
-                        return;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    tb_outputpower_6.Text = "";
-                }
+                tb_outputpower_6.Text = "";
+                return;
             }
         }
 
         private void textBox9_TextChanged(object sender, EventArgs e)
         {
-            if (tb_outputpower_7.Text.Length == 0)
+            if (!CheckPower(tb_outputpower_7.Text))
             {
-
-            }
-            else
-            {
-                try
-                {
-
-                    int tmp = Convert.ToInt16(tb_outputpower_7.Text);
-                    if (tmp > 33 || tmp < 0)
-                    {
-                        MessageBox.Show(FindResource("tipInvalidParameter"));
-                        tb_outputpower_7.Text = "";
-                        return;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    tb_outputpower_7.Text = "";
-                }
+                tb_outputpower_7.Text = "";
+                return;
             }
         }
 
         private void textBox10_TextChanged(object sender, EventArgs e)
         {
-            if (tb_outputpower_8.Text.Length == 0)
+            if (!CheckPower(tb_outputpower_8.Text))
             {
-
-            }
-            else
-            {
-                try
-                {
-
-                    int tmp = Convert.ToInt16(tb_outputpower_8.Text);
-                    if (tmp > 33 || tmp < 0)
-                    {
-                        MessageBox.Show(FindResource("tipInvalidParameter"));
-                        tb_outputpower_8.Text = "";
-                        return;
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    tb_outputpower_8.Text = "";
-                }
+                tb_outputpower_8.Text = "";
+                return;
             }
         }
 
@@ -5544,6 +5392,7 @@ namespace UHFDemo
             }
             return string.Format("{0:D4}-{1:D2}-{2:D2}-{3:D3}", hour, minute, second, milliSecond);
         }
+
         #region Johar
         /////
         /// SEN_DATA[23:0] -> EPC 0x06, 0x07
@@ -5649,13 +5498,9 @@ namespace UHFDemo
             int msgLen = writeIndex + 1;
             rawData[1] = (byte)(msgLen - 2); // update len, except hdr+len
 
-            byte[] checkData = new byte[msgLen - 1];
-            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-            rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-            byte[] sendData = new byte[msgLen];
-            Array.Copy(rawData, 0, sendData, 0, msgLen);
-            int nResult = reader.SendMessage(sendData);
+            rawData[writeIndex] = ReaderUtils.CheckSum(rawData, 0, msgLen - 1); // check
+            Array.Resize(ref rawData, msgLen);
+            int nResult = reader.SendMessage(rawData);
         }
 
         private void selectJohar()
@@ -5668,7 +5513,7 @@ namespace UHFDemo
 
             rawData[writeIndex++] = 0xFF;// m_curSetting.btReadId; // addr
 
-            rawData[writeIndex++] = 0x98; // cmd
+            rawData[writeIndex++] = (byte)CMD.cmd_tag_select; // cmd
 
             // data
             // function
@@ -5691,13 +5536,9 @@ namespace UHFDemo
             int msgLen = writeIndex + 1;
             rawData[1] = (byte)(msgLen - 2); // update len, except hdr+len
 
-            byte[] checkData = new byte[msgLen - 1];
-            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-            rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-            byte[] sendData = new byte[msgLen];
-            Array.Copy(rawData, 0, sendData, 0, msgLen);
-            int nResult = reader.SendMessage(sendData);
+            rawData[writeIndex] = ReaderUtils.CheckSum(rawData, 0, msgLen - 1); // check
+            Array.Resize(ref rawData, msgLen);
+            int nResult = reader.SendMessage(rawData);
         }
 
         private void clearSelect()
@@ -5718,13 +5559,9 @@ namespace UHFDemo
             int msgLen = writeIndex + 1;
             rawData[1] = (byte)(msgLen - 2); // update len, except hdr+len
 
-            byte[] checkData = new byte[msgLen - 1];
-            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-            rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-            byte[] sendData = new byte[msgLen];
-            Array.Copy(rawData, 0, sendData, 0, msgLen);
-            int nResult = reader.SendMessage(sendData);
+            rawData[writeIndex] = ReaderUtils.CheckSum(rawData, 0, msgLen - 1); // check
+            Array.Resize(ref rawData, msgLen);
+            int nResult = reader.SendMessage(rawData);
         }
 
         private void sendReadJoharMessage()
@@ -5766,13 +5603,9 @@ namespace UHFDemo
             rawData[1] = (byte)(msgLen - 2); // except hdr+len
             //Console.WriteLine("sendReadJoharMessage writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
 
-            byte[] checkData = new byte[msgLen - 1];
-            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-            rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-            byte[] sendData = new byte[msgLen];
-            Array.Copy(rawData, 0, sendData, 0, msgLen);
-            int nResult = reader.SendMessage(sendData);
+            rawData[writeIndex] = ReaderUtils.CheckSum(rawData, 0, msgLen - 1); // check
+            Array.Resize(ref rawData, msgLen);
+            int nResult = reader.SendMessage(rawData);
         }
 
         private void readingJohar()
@@ -5865,7 +5698,7 @@ namespace UHFDemo
             {
                 lock (tagdb)
                 {
-                    Tag tag = new Tag(data, readPhase, cmd);
+                    Tag tag = new Tag(data, readPhase, cmd, tagdb.AntGroup);
                     tagdb.Add(tag);
                     SetMaxMinRSSI(Convert.ToInt32(tag.Rssi));
                     txtFastMaxRssi.Text = tagdb.MaxRSSI + "dBm";
@@ -5893,15 +5726,15 @@ namespace UHFDemo
         private void cmdSwitchAntG1()
         {
             useAntG1 = true;
-            m_curSetting.btAntGroup = 0x00;
-            cmdSwitchAntGroup(m_curSetting.btAntGroup);
+            tagdb.AntGroup = 0x00;
+            cmdSwitchAntGroup(tagdb.AntGroup);
         }
 
         private void cmdSwitchAntG2()
         {
             useAntG1 = false;
-            m_curSetting.btAntGroup = 0x01;
-            cmdSwitchAntGroup(m_curSetting.btAntGroup);
+            tagdb.AntGroup = 0x01;
+            cmdSwitchAntGroup(tagdb.AntGroup);
         }
 
         private void cmdSwitchAntGroup(byte groupid)
@@ -5914,7 +5747,7 @@ namespace UHFDemo
 
             rawData[writeIndex++] = m_curSetting.btReadId; // addr
 
-            rawData[writeIndex++] = 0x6C; // cmd
+            rawData[writeIndex++] = (byte)CMD.cmd_set_antenna_group; // cmd
 
             rawData[writeIndex++] = groupid; // groupId G1=0x00, g2=0x01
 
@@ -5922,15 +5755,9 @@ namespace UHFDemo
             rawData[1] = (byte)(msgLen - 2); // except hdr+len
             //Console.WriteLine("cmdSwitchAntGroup writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
 
-            byte[] checkData = new byte[msgLen - 1];
-            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-            rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-            byte[] sendData = new byte[msgLen];
-            Array.Copy(rawData, 0, sendData, 0, msgLen);
-            //Console.WriteLine("cmdSwitchAntGroup: {0}", ReaderUtils.ToHex(sendData, "", " "));
-            int nResult = reader.SendMessage(sendData);
-            //Console.WriteLine("cmdSwitchAntGroup: [{0}] {1}", nResult, ReaderUtils.ToHex(sendData, "", " "));
+            rawData[writeIndex] = ReaderUtils.CheckSum(rawData, 0, msgLen - 1); // check
+            Array.Resize(ref rawData, msgLen);
+            int nResult = reader.SendMessage(rawData);
         }
 
         private void GenerateColmnsDataGridForInv()
@@ -6034,13 +5861,9 @@ namespace UHFDemo
             rawData[1] = (byte)(msgLen - 2); // except hdr+len
             //Console.WriteLine("cmdGetFrequencyRegion writeIndex={0}, msgLen={0}, len={2}", writeIndex, msgLen, rawData[1]);
 
-            byte[] checkData = new byte[msgLen - 1];
-            Array.Copy(rawData, 0, checkData, 0, checkData.Length);
-            rawData[writeIndex] = reader.CheckValue(checkData); // check
-
-            byte[] sendData = new byte[msgLen];
-            Array.Copy(rawData, 0, sendData, 0, msgLen);
-            int nResult = reader.SendMessage(sendData);
+            rawData[writeIndex] = ReaderUtils.CheckSum(rawData, 0, msgLen-1); // check
+            Array.Resize(ref rawData, msgLen);
+            int nResult = reader.SendMessage(rawData);
         }
 
         private void R2000UartDemo_FormClosing(object sender, FormClosingEventArgs e)
@@ -6048,6 +5871,15 @@ namespace UHFDemo
             if (null != transportLogFile)
             {
                 transportLogFile.Close();
+            }
+
+            #region NetPort
+            StopNetPort();
+            #endregion //NetPort
+
+            if (Inventorying)
+            {
+                btnInventory_Click_1(null, null);
             }
         }
 
@@ -6446,7 +6278,7 @@ namespace UHFDemo
             else
             {
                 useAntG1 = true;
-                m_curSetting.btAntGroup = 0x00;
+                tagdb.AntGroup = 0x00;
                 m_curSetting.btWorkAntenna = (byte)antId;
                 reader.SetWorkAntenna(m_curSetting.btReadId, m_curSetting.btWorkAntenna);
             }
@@ -6563,60 +6395,13 @@ namespace UHFDemo
             reader.SetMonzaStatus(m_curSetting.btReadId, cb_tagFocus.Checked ? (byte)0x8C : (byte)0x00);
         }
 
-#region NetPort
-        //UDP Client
-        UdpClient netClient = null;
-        //Local port, which is used to bind a UDP server
-        IPEndPoint localEndpoint = null;
-        //Network port, used to hold UDP broadcast addresses
-        IPEndPoint netEndpoint = null;
-        //UDP Recv Thread
-        Thread netRecvthread = null;
-        bool netStarted = false;
+        #region NetPort
+        UDPThread tUdp = null;
+
         //NetCard DB
         NetCardDB ncdb = null;
         //NetPort device DB
         NetPortDB netPortDB = null;
-        //The network card currently used as a UDP service
-        NetCard curNetCard = null;
-        //Wait for UDP to finish receiving
-        ManualResetEvent waitForStopRecv = new ManualResetEvent(false);
-        //Wait for the Get or Set instruction to return
-        ManualResetEvent waitForGetAndSetAck = new ManualResetEvent(false);
-        private bool startRecvUdp = false;
-        //Operation is over, wait for 3s
-        private int waitTimeout = 3000;
-
-        //Initializes the network card device list
-        private void initDgvNc()
-        {
-            dgvNetcard.ReadOnly = true;
-            dgvNetcard.AutoGenerateColumns = false;
-            ncColumnSerialNumber.DataPropertyName = "SerialNumber";
-            ncColumnSerialNumber.HeaderText = "#";
-            ncColumnSerialNumber.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            ncColumnDescription.DataPropertyName = "Description";
-            ncColumnDescription.HeaderText = FindResource("ncDescription");
-            ncColumnDescription.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            ncColumnIp.DataPropertyName = "Ip";
-            ncColumnIp.HeaderText = FindResource("ncIp");
-            ncColumnIp.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            ncColumnMask.DataPropertyName = "Mask";
-            ncColumnMask.HeaderText = FindResource("ncMask");
-            ncColumnMask.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            ncColumnMac.DataPropertyName = "Mac";
-            ncColumnMac.HeaderText = FindResource("ncMac");
-            ncColumnMac.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-
-            if (ncdb == null)
-                ncdb = new NetCardDB();
-            dgvNetcard.DataSource = null;
-            dgvNetcard.DataSource = ncdb.NetCardList;
-        }
 
         //Initializes the WCH CH9121 device list
         private void initDgvNetPort()
@@ -6668,152 +6453,25 @@ namespace UHFDemo
             cmbbxPort1_Parity.DataSource = Enum.GetValues(typeof(NETPORT_Parity));
 
             chkbxPort0PortEn_CheckedChanged(null, null);
-        }
-
-        //Search for the network card
-        private void btnSearchNetCard_Click(object sender, EventArgs e)
-        {
-            ManagementObjectSearcher mObjs = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapterConfiguration where IPenabled=true");
-            if (mObjs.Get().Count == 0)
+            if(tUdp == null)
             {
-                MessageBox.Show("没有找到网卡");
-                return;
-            }
-
-            foreach (ManagementObject mObj in mObjs.Get())
-            {
-                String desc = mObj.GetPropertyValue("Description").ToString();
-                String[] ipAddr = (String[])mObj.GetPropertyValue("IPAddress");
-                String pcIpaddr = String.Join(", ", ipAddr, 0, (ipAddr.Length > 1 ? 1 : 0));
-
-                String[] subNet = (String[])mObj.GetPropertyValue("IPSubnet");
-                String pcMask = String.Join("", subNet, 0, (subNet.Length > 1 ? 1 : 0));
-
-                String pcMac = mObj.GetPropertyValue("MACAddress").ToString();
-
-                NetCard nc = new NetCard(desc, pcIpaddr, pcMask, pcMac);
-                ncdb.Add(nc);
-            }
-            dgvNetcard_DoubleClick(null, null);
-        }
-
-        //Switch NetCard
-        private void dgvNetcard_DoubleClick(object sender, EventArgs e)
-        {
-            if(dgvNetcard.RowCount > 0)
-            {
-                if(dgvNetcard.CurrentRow == null)
-                {
-                    curNetCard = ncdb.GetNetCardByMac((string)dgvNetcard.Rows[ncdb.GetCount() - 1].Cells[4].Value);
-                }
-                else
-                {
-                    curNetCard = ncdb.GetNetCardByMac((string)dgvNetcard.CurrentRow.Cells[4].Value);
-                }
-                lblCurNetcard.Text = string.Format("ip:{0}, mask:{1}, mac:", curNetCard.Ip, curNetCard.Mask);
-                lblCurPcMac.Text = string.Format("{0}", curNetCard.Mac);
-            }
-            else
-            {
-                lblCurNetcard.Text = FindResource("nNoNetCardSelect");
-                lblCurPcMac.Text = "";
-                curNetCard = null;
+                tUdp = new UDPThread();
+                tUdp.NetCommRead += TUdp_NetCommRead;
             }
         }
 
-        //Start the UDP service
-        private bool StartUdp()
+        private void TUdp_NetCommRead(object sender, NetCommEventArgs e)
         {
-            if (curNetCard == null)
-            {
-                MessageBox.Show((string)FindResource("nNoNetCardSelect"), "Tips");
-                return false;
-            }
-            if (localEndpoint == null)
-            {
-                localEndpoint = new IPEndPoint(IPAddress.Parse(curNetCard.Ip), 60000);
-            }
+            BeginInvoke(new ThreadStart(delegate() {
+                tUdp.StopSearchNetPort();
+            }));
 
-            if (netClient == null)
-            {
-                netClient = new UdpClient(localEndpoint);
-                netClient.Client.SendTimeout = 5000; 
-                netClient.Client.ReceiveTimeout = 5000;
-                netClient.Client.ReceiveBufferSize = 2 * 1024;
-            }
-
-            if (netEndpoint == null)
-            {
-                netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // Destination address information, broadcast address
-            }
-
-            if (netRecvthread == null)
-            {
-                netRecvthread = new Thread(new ThreadStart(StartRecvNetPort));
-                netRecvthread.IsBackground = true;
-                netRecvthread.Start();
-            }
-            return true;
-        }
-
-        //Stop UDP service
-        private bool StopUdp()
-        {
-            netStarted = false;
-            waitForStopRecv.Reset();
-            waitForStopRecv.WaitOne();
-
-            netRecvthread = null;
-            localEndpoint = null;
-            netEndpoint = null;
-
-            if (netClient != null)
-            {
-                netClient.Close();
-                netClient = null;
-            }
-
-            return true;
-        }
-
-        //UDP Recv
-        private void StartRecvNetPort()
-        {
-            netStarted = true;
-            while (netStarted)
-            {
-                if (startRecvUdp || netClient.Available > 0)
-                {
-                    try
-                    {
-                        byte[] buf = netClient.Receive(ref netEndpoint);
-                        string msg = ReaderUtils.ToHex(buf, "", " ");
-                        //Console.WriteLine("#2 Recv:{0}", msg);
-                        parseNetComm(buf);
-                    }
-                    catch (SocketException e)
-                    {
-                        MessageBox.Show("NetPort operation timeout");
-                        startRecvUdp = false;
-                        waitForGetAndSetAck.Set();
-                    }
-                }
-                Thread.Sleep(10);
-            }
-            startRecvUdp = false;
-            waitForStopRecv.Set();
-        }
-
-        //Parse NetComm message
-        private void parseNetComm(byte[] buf)
-        {
-            NET_COMM comm = new NET_COMM();
-            comm.setbytes(buf);
-            //Console.WriteLine("COMM Recv: {0}", comm.ToString());
+            NET_COMM comm = e.NetComm;
             if (comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_SEARCH)
             {
                 BeginInvoke(new ThreadStart(delegate () {
                     netPortDB.Add(comm);
+                    //WriteLog(lrtxtLog, string.Format("Recv: {0}", comm.FoundDev.ToString()), 1);
                 }));
 
                 BeginInvoke(new ThreadStart(delegate () {
@@ -6822,13 +6480,18 @@ namespace UHFDemo
             }
             if (comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_RESEST)
             {
-                waitForGetAndSetAck.Set();
+                BeginInvoke(new ThreadStart(delegate () {
+                    btnResetNetport.Text = FindResource("npReset");
+                    MessageBox.Show(string.Format("Reset Cfg Sucessful, Please ReSearch NetPort and ReGet to update this result"), "Reset Sucessful");
+                }));
+                netStartReset = false;
             }
             if (comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_GET
                 | comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_SET)
             {
-                BeginInvoke(new ThreadStart(delegate () {
-                    //HWConfig
+                BeginInvoke(new ThreadStart(delegate ()
+                {
+                    #region //NET_COMM
                     //txtbxHwCfgMajor.Text = string.Format("{0}", comm.HWConfig.DevType);
                     //txtbxHwCfgMinor.Text = string.Format("{0}", comm.HWConfig.AuxDevType);
                     //txtbxHwCfgIndex.Text = string.Format("{0}", comm.HWConfig.Index);
@@ -6976,29 +6639,64 @@ namespace UHFDemo
                     chkbxPort1_ResetCtrl.Checked = comm.PortCfg_1.ResetCtrl;
                     //chkbxPort1_DnsFlag.Checked = comm.PortCfg_1.DNSFlag;
                     txtbxPort1_DnsDomain.Text = string.Format("{0}", comm.PortCfg_1.Domainname);
-                    //txtbxPort1_DnsIp.Text = string.Format("{0}", comm.PortCfg_1.DNSHostIP);
-                    //txtbxPort1_Dnsport.Text = string.Format("{0}", comm.PortCfg_1.DNSHostPort);
+                    txtbxPort1_DnsIp.Text = string.Format("{0}", comm.PortCfg_1.DNSHostIP);
+                    txtbxPort1_Dnsport.Text = string.Format("{0}", comm.PortCfg_1.DNSHostPort);
                     //txtbxPort1_Reserved.Text = string.Format("{0}", comm.PortCfg_1.Reserved);
+                    #endregion //NET_COMM
+                    if(comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_GET)
+                    {
+                        btnGetNetport.Text = FindResource("npGet");
+                        netStartGet = false;
+                        MessageBox.Show(string.Format("Get Cfg Sucessful"), "GetCfg Sucessful");
+                    }
+                    if (comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_SET)
+                    {
+                        btnSetNetport.Text = FindResource("npSave");
+                        netStartSave = false;
+
+                        btnDefaultNetPort.Text = FindResource("npDefault");
+                        netStartDefault = false;
+
+                        MessageBox.Show(string.Format("Save/Default Cfg Sucessful"), "Save/Default Sucessful");
+                    }
                 }));
-                waitForGetAndSetAck.Set();
             }
         }
 
-        // Send NetComm Message
-        private void SendNetPortMessage(NET_COMM comm)
+        //Search for the network card
+        private void btnSearchNetCard_Click(object sender, EventArgs e)
         {
-            byte[] sendData = new byte[comm.Length];
-            Array.Copy(comm.message, 0, sendData, 0, comm.Length);
-            //Console.WriteLine("Send({0}): [{1}]", comm.Length, ReaderUtils.ToHex(sendData, "", " "));
-            if (netClient != null && netStarted)
-                netClient.Send(comm.message, comm.message.Length, netEndpoint);
-        }
+            ManagementObjectSearcher mObjs = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapterConfiguration where IPenabled=true");
+            if (mObjs.Get().Count == 0)
+            {
+                MessageBox.Show("No NetCard Found");
+                return;
+            }
+            foreach (ManagementObject mObj in mObjs.Get())
+            {
+                String desc = mObj.GetPropertyValue("Description").ToString();
+                String[] ipAddr = (String[])mObj.GetPropertyValue("IPAddress");
+                String pcIpaddr = String.Join(", ", ipAddr, 0, (ipAddr.Length > 1 ? 1 : 0));
 
-        //Empty the network card list and the network card database
-        private void btnClearNetCard_Click(object sender, EventArgs e)
+                String[] subNet = (String[])mObj.GetPropertyValue("IPSubnet");
+                String pcMask = String.Join("", subNet, 0, (subNet.Length > 1 ? 1 : 0));
+
+                String pcMac = mObj.GetPropertyValue("MACAddress").ToString();
+
+                NetCard nc = new NetCard(desc, pcIpaddr, pcMask, pcMac);
+                ncdb.Add(nc);
+            }
+            cmbbxNetCard_SelectedIndexChanged(null, null);
+        }
+        //Switch NetCard
+        private void cmbbxNetCard_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ncdb.Clear();
-            dgvNetcard_DoubleClick(null, null);
+            if (cmbbxNetCard.Items.Count > 0)
+            {
+                tUdp.CurNetCard = (NetCard)cmbbxNetCard.SelectedItem;
+                lblCurNetcard.Text = string.Format("ip:{0}, mask: {1}, mac: ", tUdp.CurNetCard.Ip, tUdp.CurNetCard.Mask);
+                lblCurPcMac.Text = string.Format("{0}", tUdp.CurNetCard.Mac);
+            }
         }
 
         //Clear the NetPort device list and the NetPort database
@@ -7007,45 +6705,118 @@ namespace UHFDemo
             netPortDB.Clear();
 
             BeginInvoke(new ThreadStart(delegate () {
-                lblNetPortCount.Text = string.Format("NetPort Device: {0}", netPortDB.GetCount());
+                lblNetPortCount.Text = "";
+                #region //NET_COMM
+                //txtbxHwCfgMajor.Text = string.Format("{0}", comm.HWConfig.DevType);
+                //txtbxHwCfgMinor.Text = string.Format("{0}", comm.HWConfig.AuxDevType);
+                //txtbxHwCfgIndex.Text = string.Format("{0}", comm.HWConfig.Index);
+                txtbxHwCfgDeviceName.Text = "";
+                //txtbxHwCfgDeviceHwVer.Text = string.Format("{0}", comm.HWConfig.DevHardwareVer);
+                //txtbxHwCfgDeviceSwVer.Text = string.Format("{0}", comm.HWConfig.DevSoftwareVer);
+                txtbxHwCfgMac.Text = "";
+                txtbxHwCfgIp.Text = "";
+                txtbxHwCfgMask.Text = "";
+                txtbxHwCfgGateway.Text = "";
+                chkbxHwCfgDhcpEn.Checked = false;
+                //txtbxHwCfgWebPort.Text = string.Format("{0}", comm.HWConfig.WebPort);
+                //txtbxHwCfgUserName.Text = string.Format("{0}", comm.HWConfig.Username);
+                //chkbxHwCfgPwdEn.Checked = comm.HWConfig.PassWordEn;
+                //txtbxHwCfgPwd.Text = string.Format("{0}", comm.HWConfig.PassWord);
+                //chkbxHwCfgUpdateEn.Checked = comm.HWConfig.UpdateFlag;
+                chkbxHwCfgComCfgEn.Checked = false;
+                //txtbxHwCfgReserved.Text = string.Format("{0}", comm.HWConfig.Reserved);
+                //Port_0
+                //txtbxPort0Index.Text = string.Format("{0}", comm.PortCfg_0.Index);
+                chkbxPort0PortEn.Checked = false;
+                //if (cmbbxPort0NetMode.Items.Contains((NETPORT_TYPE)comm.PortCfg_0.NetMode))
+                //{
+                //    cmbbxPort0NetMode.SelectedItem = (NETPORT_TYPE)comm.PortCfg_0.NetMode;
+                //}
+                //else
+                //{
+                //    LogReturnValue(string.Format("Port0 Not support: {0}", cmbbxPort0NetMode));
+                //}
+                //chkbxPort0RandEn.IsChecked = comm.PortCfg_0.RandSportFlag;
+                //txtbxPort0NetPort.Text = string.Format("{0}", comm.PortCfg_0.NetPort);
+                //txtbxPort0DesIp.Text = string.Format("{0}", comm.PortCfg_0.DesIP);
+                //txtbxPort0DesPort.Text = string.Format("{0}", comm.PortCfg_0.DesPort);
+                //chkbxPort0PortEn.IsChecked = comm.PortCfg_0.PortEn;
+                //if (cmbbxPort0BaudRate.Items.Contains((NETPORT_Baudrate)comm.PortCfg_0.BaudRate))
+                //{
+                //    cmbbxPort0BaudRate.SelectedItem = (NETPORT_Baudrate)comm.PortCfg_0.BaudRate;
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Not support BaudRate " + comm.PortCfg_0.BaudRate);
+                //    return;
+                //}
+
+                //if (cmbbxPort0DataSize.Items.Contains((NETPORT_DataSize)comm.PortCfg_0.DataSize))
+                //{
+                //    cmbbxPort0DataSize.SelectedItem = (NETPORT_DataSize)comm.PortCfg_0.DataSize;
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Not support DataSize " + comm.PortCfg_0.DataSize);
+                //    return;
+                //}
+
+                //if (cmbbxPort0StopBits.Items.Contains((NETPORT_StopBits)comm.PortCfg_0.StopBits))
+                //{
+                //    cmbbxPort0StopBits.SelectedItem = (NETPORT_StopBits)comm.PortCfg_0.StopBits;
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Not support StopBits " + comm.PortCfg_0.StopBits);
+                //    return;
+                //}
+
+                //if (cmbbxPort0Parity.Items.Contains((NETPORT_Parity)comm.PortCfg_0.Parity))
+                //{
+                //    cmbbxPort0Parity.SelectedItem = (NETPORT_Parity)comm.PortCfg_0.Parity;
+                //}
+                //else
+                //{
+                //    MessageBox.Show("Not support Parity " + comm.PortCfg_0.Parity);
+                //    return;
+                //}
+
+                //chkbxPort0PhyDisconnect.IsChecked = comm.PortCfg_0.PHYChangeHandle;
+                //txtbxPort0RxPkgLen.Text = string.Format("{0}", comm.PortCfg_0.RxPktlength);
+                //txtbxPort0RxTimeout.Text = string.Format("{0}", comm.PortCfg_0.RxPktTimeout);
+                txtbxHeartbeatInterval.Text = "";
+                //txtbxPort0ReConnectCnt.Text = string.Format("{0}", comm.PortCfg_0.ReConnectCnt);
+                //chkbxPort0ResetCtrl.IsChecked = comm.PortCfg_0.ResetCtrl;
+                //chkbxPort0DnsFlag.IsChecked = comm.PortCfg_0.DNSFlag;
+                //txtbxPort0DnsDomain.Text = string.Format("{0}", comm.PortCfg_0.Domainname);
+                txtbxHeartbeatContent.Text = "";
+                //txtbxPort0DnsIp.Text = string.Format("{0}", comm.PortCfg_0.DNSHostIP);
+                //txtbxPort0Dnsport.Text = string.Format("{0}", comm.PortCfg_0.DNSHostPort);
+                //txtbxPort0Reserved.Text = string.Format("{0}", comm.PortCfg_0.Reserved);
+                ////Port_1
+                ////txtbxPort1_Index.Text = string.Format("{0}", comm.PortCfg_1.Index);
+                chkbxPort1_PortEn.Checked = false;
+                cmbbxPort1_NetMode.SelectedIndex = -1;
+                chkbxPort1_RandEn.Checked = false;
+                txtbxPort1_NetPort.Text = "";
+                txtbxPort1_DesIp.Text = "";
+                txtbxPort1_DesPort.Text = "";
+                cmbbxPort1_BaudRate.SelectedIndex = -1;
+                cmbbxPort1_DataSize.SelectedIndex = -1;
+                cmbbxPort1_StopBits.SelectedIndex = -1;
+                cmbbxPort1_Parity.SelectedIndex = -1;
+                chkbxPort1_PhyDisconnect.Checked = false;
+                txtbxPort1_RxPkgLen.Text = "";
+                txtbxPort1_RxTimeout.Text = "";
+                txtbxPort1_ReConnectCnt.Text = "";
+                chkbxPort1_ResetCtrl.Checked = false;
+                //chkbxPort1_DnsFlag.Checked = comm.PortCfg_1.DNSFlag;
+                txtbxPort1_DnsDomain.Text = "";
+                txtbxPort1_DnsIp.Text = "";
+                txtbxPort1_Dnsport.Text = "";
+                //txtbxPort1_Reserved.Text = string.Format("{0}", comm.PortCfg_1.Reserved);
+                #endregion //NET_COMM
             }));
-        }
-
-        //Search the NetPort device
-        private void btnSearchNetport_Click(object sender, EventArgs e)
-        {
-            if (btnSearchNetport.Text.Equals(FindResource("npSearchNetPort")))
-            {
-                if (!StartUdp())
-                {
-                    return;
-                }
-
-                btnSearchNetport.Text = FindResource("npSearchingNetPort");
-                BeginInvoke(new ThreadStart(delegate () {
-                    #region NET_COMM
-                    NET_COMM comm = new NET_COMM();
-                    comm.setFlag();
-                    comm.setu8((int)NET_CMD.NET_MODULE_CMD_SEARCH);
-                    #endregion //NET_COMM
-
-                    //SendNetPortMessage(comm);
-                    Thread t = new Thread(new ThreadStart(delegate ()
-                    {
-                        while (netStarted)
-                        {
-                            SendNetPortMessage(comm);
-                            Thread.Sleep(1000);
-                        }
-                    }));
-                    t.Start();
-                }));
-            }
-            else if (btnSearchNetport.Text.Equals(FindResource("npSearchingNetPort")))
-            {
-                StopUdp();
-                btnSearchNetport.Text = FindResource("npSearchNetPort");
-            }
         }
 
         private void linklblOldNetPortCfgTool_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -7059,12 +6830,54 @@ namespace UHFDemo
             string url = "https://drive.263.net/link/cq8UK5i03uk1huN/";
             Process.Start(url);
         }
+
+        //Search the NetPort device
+        bool netStartSearch = false;
+        private void btnSearchNetport_Click(object sender, EventArgs e)
+        {
+            if(cmbbxNetCard.SelectedItem == null)
+            {
+                MessageBox.Show(FindResource("nNoNetCardSelect"), "SearchNetport");
+                return;
+            }
+            if (btnSearchNetport.Text.Equals(FindResource("npSearchNetPort")))
+            {
+                BeginInvoke(new ThreadStart(delegate () {
+                    #region NET_COMM
+                    NET_COMM comm = new NET_COMM();
+                    comm.setFlag();
+                    comm.setu8((int)NET_CMD.NET_MODULE_CMD_SEARCH);
+                    #endregion //NET_COMM
+                    Thread t = new Thread(new ThreadStart(delegate ()
+                    {
+                        netStartSearch = true;
+                        while (netStartSearch)
+                        {
+                            tUdp.StartSearchNetPort(comm);
+                            //WriteLog(lrtxtLog, string.Format("Searching: {0}", comm.Flag), 1);
+                            Thread.Sleep(1000);
+                        }
+                    }));
+                    t.Start();
+                    //if (tUdp.StartSearchNetPort(comm))
+                    btnSearchNetport.Text = FindResource("npSearchingNetPort");
+                }));
+            }
+            else if (btnSearchNetport.Text.Equals(FindResource("npSearchingNetPort")))
+            {
+                netStartSearch = false;
+                //if (tUdp.StopSearchNetPort())
+                btnSearchNetport.Text = FindResource("npSearchNetPort");
+            }
+        }
+
         // Gets NetPort device information
         private void dgvNetPort_DoubleClick(object sender, EventArgs e)
         {
             btnGetNetport_Click(null, null);
         }
 
+        bool netStartGet = false;
         private void btnGetNetport_Click(object sender, EventArgs e)
         {
             if (btnSearchNetport.Text.Equals(FindResource("npSearchingNetPort")))
@@ -7072,7 +6885,7 @@ namespace UHFDemo
                 btnSearchNetport_Click(null, null);
             }
 
-            if (dgvNetPort.RowCount > 0 && dgvNetcard.CurrentRow != null)
+            if (dgvNetPort.RowCount > 0 && cmbbxNetCard.SelectedIndex != -1)
             {
                 //Cells[3] = DeviceMac
                 NetPortDevice npd = netPortDB.GetNetPortDeviceByMac((string)dgvNetPort.CurrentRow.Cells[3].Value);
@@ -7080,24 +6893,17 @@ namespace UHFDemo
                 {
                     return;
                 }
-                StartUdp();
-                BeginInvoke(new ThreadStart(delegate () {
-                    #region NET_COMM
-                    NET_COMM comm = new NET_COMM();
-                    comm.setFlag();
-                    comm.setu8((int)NET_CMD.NET_MODULE_CMD_GET);
-                    comm.setbytes(ReaderUtils.FromHex(npd.DeviceMac.Replace(":", "")));
-                    #endregion //NET_COMM
-
-                    SendNetPortMessage(comm);
-                    btnGetNetport.Enabled = false;
-                    startRecvUdp = true;
-                    waitForGetAndSetAck.Reset();
-                    waitForGetAndSetAck.WaitOne();
-                    StopUdp();
-                    Thread.Sleep(waitTimeout);
-                    btnGetNetport.Enabled = true;
+                btnGetNetport.Text = FindResource("npRetry");
+                Thread t = new Thread(new ThreadStart(delegate ()
+                {
+                    netStartGet = true;
+                    while (netStartGet)
+                    {
+                        tUdp.GetNetPort(npd);
+                        Thread.Sleep(1000);
+                    }
                 }));
+                t.Start();
             }
             else
             {
@@ -7106,15 +6912,17 @@ namespace UHFDemo
         }
 
         // Set NetPort device information
+        bool netStartSave = false;
         private void btnSetNetport_Click(object sender, EventArgs e)
         {
-            if (btnSearchNetport.Text.Equals(FindResource("ncSearchingNetPort")))
+            if (btnSearchNetport.Text.Equals(FindResource("npSearchingNetPort")))
             {
                 btnSearchNetport_Click(null, null);
             }
-            if (dgvNetPort.RowCount > 0 && dgvNetcard.CurrentRow != null)
+
+            if (dgvNetPort.RowCount > 0 && cmbbxNetCard.SelectedIndex != -1)
             {
-                StartUdp();
+
                 //Cells[3] = DeviceMac
                 NetPortDevice npd = netPortDB.GetNetPortDeviceByMac((string)dgvNetPort.CurrentRow.Cells[3].Value);
                 BeginInvoke(new ThreadStart(delegate ()
@@ -7185,7 +6993,7 @@ namespace UHFDemo
                     comm.setbytes(pwd_bytes);  //8 pwd
 
                     comm.setu8(0);// chkbxHwCfgUpdateEn.Checked ? 1 : 0);//1 updateEn
-                    comm.setu8(0);// chkbxHwCfgComCfgEn.Checked ? 1 : 0);//1 comCfgEn
+                    comm.setu8(chkbxHwCfgComCfgEn.Checked ? 1 : 0);//1 comCfgEn
 
                     byte[] hwCfgReserved_bytes = System.Text.Encoding.Default.GetBytes("");// txtbxHwCfgReserved.Text);
                     Array.Resize(ref hwCfgReserved_bytes, 8);
@@ -7287,9 +7095,15 @@ namespace UHFDemo
                     byte[] domain_bytes1 = System.Text.Encoding.Default.GetBytes(domain1);
                     Array.Resize(ref domain_bytes1, 20);
                     comm.setbytes(domain_bytes1);//20 domain
-                    comm.setbytes(ReaderUtils.GetIpAddrBytes("0.0.0.0"));//4 dnsIp
 
-                    comm.setPort(0);//2 dnsPort
+                    if (!ReaderUtils.CheckIpAddr(txtbxPort1_DnsIp.Text))
+                    {
+                        MessageBox.Show(string.Format("{0} {1}", txtbxPort1_DnsIp.Text, FindResource("tWrongIpAddr")), "Port_1 Dns host ip");
+                        return;
+                    }
+                    comm.setbytes(ReaderUtils.GetIpAddrBytes(txtbxPort1_DnsIp.Text));//4 dnsIp
+
+                    comm.setPort(Convert.ToInt32(txtbxPort1_Dnsport.Text));//2 dnsPort
 
                     byte[] port1Reserved_bytes = System.Text.Encoding.Default.GetBytes("");
                     Array.Resize(ref port1Reserved_bytes, 8);
@@ -7297,17 +7111,17 @@ namespace UHFDemo
                     #endregion //Port_1
                     #endregion //NET_COMM
 
-                    SendNetPortMessage(comm);
-                    btnSetNetport.Enabled = false;
-                    startRecvUdp = true;
-                    waitForGetAndSetAck.Reset();
-                    waitForGetAndSetAck.WaitOne();
-                    StopUdp();
-                    Thread.Sleep(waitTimeout);
-                    btnSetNetport.Enabled = true;
-
-                    //update netport dgv
-                    btnSearchNetport_Click(null, null);
+                    btnSetNetport.Text = FindResource("npRetry");
+                    Thread t = new Thread(new ThreadStart(delegate ()
+                    {
+                        netStartSave = true;
+                        while (netStartSave)
+                        {
+                            tUdp.SetNetPort(npd, comm);
+                            Thread.Sleep(1000);
+                        }
+                    }));
+                    t.Start();
                 }));
             }
             else
@@ -7317,14 +7131,15 @@ namespace UHFDemo
         }
 
         //Reset NetPort device information
+        bool netStartReset = false;
         private void btnResetNetport_Click(object sender, EventArgs e)
         {
-            if (btnSearchNetport.Text.Equals(FindResource("ncSearchingNetPort")))
+            if (btnSearchNetport.Text.Equals(FindResource("npSearchingNetPort")))
             {
                 btnSearchNetport_Click(null, null);
             }
 
-            if (dgvNetPort.RowCount > 0 && dgvNetcard.CurrentRow != null)
+            if (dgvNetPort.RowCount > 0 && cmbbxNetCard.SelectedIndex != -1)
             {
                 //Cells[3] = DeviceMac
                 NetPortDevice npd = netPortDB.GetNetPortDeviceByMac((string)dgvNetPort.CurrentRow.Cells[3].Value);
@@ -7332,28 +7147,19 @@ namespace UHFDemo
                 {
                     return;
                 }
-                StartUdp();
-                BeginInvoke(new ThreadStart(delegate ()
+
+                btnResetNetport.Text = FindResource("npRetry"); 
+                Thread t = new Thread(new ThreadStart(delegate ()
                 {
-                    #region NET_COMM
-                    NET_COMM comm = new NET_COMM();
-                    comm.setFlag();
-                    comm.setu8((int)NET_CMD.NET_MODULE_CMD_RESET);
-                    comm.setbytes(ReaderUtils.FromHex(npd.DeviceMac.Replace(":", "")));
-                    #endregion //NET_COMM
-
-                    SendNetPortMessage(comm);
-                    btnResetNetport.Enabled = false;
-                    startRecvUdp = true;
-                    waitForGetAndSetAck.Reset();
-                    waitForGetAndSetAck.WaitOne();
-                    StopUdp();
-                    Thread.Sleep(waitTimeout);
-                    btnResetNetport.Enabled = true;
-
-                    //update netport dgv
-                    btnSearchNetport_Click(null, null);
+                    netStartReset = true;
+                    while (netStartReset)
+                    {
+                        tUdp.ResetNetPort(npd);
+                        Thread.Sleep(3000);
+                    }
                 }));
+                t.Start();
+
             }
             else
             {
@@ -7362,14 +7168,15 @@ namespace UHFDemo
         }
 
         //Set NetPort as the default
+        bool netStartDefault = false;
         private void btnDefaultNetPort_Click(object sender, EventArgs e)
         {
-            if (btnSearchNetport.Text.Equals(FindResource("ncSearchingNetPort")))
+            if (btnSearchNetport.Text.Equals(FindResource("npSearchingNetPort")))
             {
                 btnSearchNetport_Click(null, null);
             }
 
-            if (dgvNetPort.RowCount > 0 && dgvNetcard.CurrentRow != null)
+            if (dgvNetPort.RowCount > 0 && cmbbxNetCard.SelectedIndex != -1)
             {
                 //Cells[3] = DeviceMac
                 NetPortDevice npd = netPortDB.GetNetPortDeviceByMac((string)dgvNetPort.CurrentRow.Cells[3].Value);
@@ -7377,102 +7184,18 @@ namespace UHFDemo
                 {
                     return;
                 }
-                StartUdp();
-                BeginInvoke(new ThreadStart(delegate ()
+
+                btnDefaultNetPort.Text = FindResource("npRetry");
+                Thread t = new Thread(new ThreadStart(delegate ()
                 {
-                    #region NET_COMM
-                    NET_COMM comm = new NET_COMM();
-                    new NET_COMM();
-                    comm.setFlag();                                                                       // 16
-                    comm.setu8((int)NET_CMD.NET_MODULE_CMD_SET);                                          // 1
-                    comm.setbytes(ReaderUtils.FromHex(npd.DeviceMac.Replace(":", "")));                    // 6
-                    comm.setbytes(ReaderUtils.FromHex(lblCurPcMac.Text.ToString().Replace(":", "")));   // 6
-                    comm.setu8(204);                                                                      // 1
-                    //HWConfig 74
-                    comm.setu8(0x21);                                                                //1 type 0x21
-                    comm.setu8(0x21);                                                                //1 auxType 0x21
-                    comm.setu8(1);                                                                 //1 index
-                    comm.setu8(2);                                                                 //1 hw
-                    comm.setu8(6);                                                                 //1 sw
-                    byte[] bytes = System.Text.Encoding.Default.GetBytes("RoNetPort");
-                    Array.Resize(ref bytes, 21);
-                    comm.setbytes(bytes);                                                          //21 devname
-                    comm.setbytes(ReaderUtils.FromHex(npd.DeviceMac.Replace(":", "")));             //6 mac
-                    comm.setbytes(ReaderUtils.GetIpAddrBytes("192.168.0.178"));                     //4 ip
-                    comm.setbytes(ReaderUtils.GetIpAddrBytes("192.168.0.1"));                     //4 gateway
-                    comm.setbytes(ReaderUtils.GetIpAddrBytes("255.255.255.0"));                       //4 mask
-                    comm.setu8(0);                                                                 //1 dhcp
-                    comm.setPort(80);                                                              //2 webport
-                    byte[] username_bytes = System.Text.Encoding.Default.GetBytes("admin");
-                    Array.Resize(ref username_bytes, 8);
-                    comm.setbytes(username_bytes);                                                 //8 username
-                    comm.setu8(0);                                                                 //1 pwdEn
-                    comm.setbytes(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });  //8 pwd
-                    comm.setu8(0);                                                                 //1 updateEn
-                    comm.setu8(0);                                                                 //1 comCfgEn
-                    comm.setbytes(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });  //8 reserved
-                    //Port_0 65 use as heartbeat test
-                    comm.setu8(0);                                                                //1 index
-                    comm.setu8(0);                                                                //1 portEn
-                    comm.setu8(1);                                                                //1 netMode
-                    comm.setu8(1);                                                                //1 randEn
-                    comm.setPort(3000);                                                           //2 netPort
-                    comm.setbytes(ReaderUtils.GetIpAddrBytes("192.168.1.100"));                    //4 desIp
-                    comm.setPort(2000);                                                           //2 desPort
-                    comm.setLength(9600);                                                         //4 baudrate
-                    comm.setu8(8);                                                                //1 datasize
-                    comm.setu8(1);                                                                //1 stopbits
-                    comm.setu8(4);                                                                //1 parity
-                    comm.setu8(1);                                                                //1 phyEn
-                    comm.setLength(1024);                                                         //4 pkgLen
-                    comm.setLength(0);                                                            //4 pkgTimeout
-                    comm.setu8(0);                                                                //1 reconnectCnt
-                    comm.setu8(0);                                                                //1 resetCtrl
-                    comm.setu8(0);                                                                //1 dnsEn
-                    byte[] domain_bytes = System.Text.Encoding.Default.GetBytes("");
-                    Array.Resize(ref domain_bytes, 20);
-                    comm.setbytes(domain_bytes);                                                  //20 domain
-                    comm.setbytes(ReaderUtils.GetIpAddrBytes("0.0.0.0"));                          //4 dnsIp
-                    comm.setPort(0);                                                              //2 dnsPort
-                    comm.setbytes(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }); //8 reserved
-
-                    //Port_1 Use as Serial
-                    comm.setu8(1);                                                                //1 index
-                    comm.setu8(1);                                                                //1 portEn
-                    comm.setu8(0);                                                                //1 netMode
-                    comm.setu8(0);                                                                //1 randEn
-                    comm.setPort(4001);                                                           //2 netPort
-                    comm.setbytes(ReaderUtils.GetIpAddrBytes("192.168.0.200"));                    //4 desIp
-                    comm.setPort(1000);                                                           //2 desPort
-                    comm.setLength(115200);                                                       //4 baudrate
-                    comm.setu8(8);                                                                //1 datasize
-                    comm.setu8(1);                                                                //1 stopbits
-                    comm.setu8(4);                                                                //1 parity
-                    comm.setu8(0);                                                                //1 phyEn
-                    comm.setLength(1024);                                                         //1 pkgLen
-                    comm.setLength(0);                                                            //4 pkgTimeout
-                    comm.setu8(0);                                                                //4 reconnectCnt
-                    comm.setu8(0);                                                                //1 resetCtrl
-                    comm.setu8(0);                                                                //1 dnsEn
-                    byte[] domain1_bytes = System.Text.Encoding.Default.GetBytes("");
-                    Array.Resize(ref domain1_bytes, 20);
-                    comm.setbytes(domain_bytes);                                                   //20 domain
-                    comm.setbytes(ReaderUtils.GetIpAddrBytes("0.0.0.0"));                           //4 dnsIp
-                    comm.setPort(0);                                                               //2 dnsPort
-                    comm.setbytes(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });  //8 reserved
-                    #endregion //NET_COMM
-
-                    btnDefaultNetPort.Enabled = false;
-                    startRecvUdp = true;
-                    SendNetPortMessage(comm);
-                    waitForGetAndSetAck.Reset();
-                    waitForGetAndSetAck.WaitOne();
-                    StopUdp();
-                    Thread.Sleep(waitTimeout);
-                    btnDefaultNetPort.Enabled = true;
-                    //update netport dgv
-                    btnSearchNetport_Click(null, null);
+                    netStartDefault = true;
+                    while (netStartDefault)
+                    {
+                        tUdp.DefaultNetPort(npd, lblCurPcMac.Text);
+                        Thread.Sleep(1000);
+                    }
                 }));
+                t.Start();
             }
             else
             {
@@ -7509,13 +7232,13 @@ namespace UHFDemo
         {
             if(chkbxPort1_DomainEn.Checked)
             {
-                grbDnsDomain.Visible = true;
-                grbDesIpPort.Visible = false;
+                grbDnsDomain.Enabled = true;
+                grbDesIpPort.Enabled = false;
             }
             else
             {
-                grbDnsDomain.Visible = false;
-                grbDesIpPort.Visible = true;
+                grbDnsDomain.Enabled = false;
+                grbDesIpPort.Enabled = true;
             }
         }
 
@@ -7612,6 +7335,8 @@ namespace UHFDemo
             txtbxPort1_ReConnectCnt.Text = string.Format("{0}", comm.PortCfg_1.ReConnectCnt);
             chkbxPort1_ResetCtrl.Checked = comm.PortCfg_1.ResetCtrl;
             txtbxPort1_DnsDomain.Text = string.Format("{0}", comm.PortCfg_1.Domainname);
+            txtbxPort1_DnsIp.Text = string.Format("{0}", comm.PortCfg_1.DNSHostIP);
+            txtbxPort1_Dnsport.Text = string.Format("{0}", comm.PortCfg_1.DNSHostPort);
             #endregion //NET_COMM
         }
 
@@ -7634,13 +7359,17 @@ namespace UHFDemo
                         cfgStr.Append(sr.ReadLine());
                     }
                     //Console.WriteLine("cfgStr={0}", cfgStr.Replace(" ", ""));
-
+                    MessageBox.Show(string.Format("LoadCfg successful: {0}", openLoadSaveConfigFileDialog.FileName), "LoadCfgFromFile Success");
                     return ReaderUtils.FromHex(cfgStr.Replace(" ", "").ToString());
+                }
+                else
+                {
+                    MessageBox.Show("Without load any cfg file", "LoadCfgFromFile Tips");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Load NetCfg: " + ex.Message);
+                MessageBox.Show(string.Format("Load NetCfg: ", ex.Message), "LoadCfgFromFile Error");
             }
             return null;
         }
@@ -7713,7 +7442,7 @@ namespace UHFDemo
             comm.setbytes(pwd_bytes);  //8 pwd
 
             comm.setu8(0);// chkbxHwCfgUpdateEn.Checked ? 1 : 0);//1 updateEn
-            comm.setu8(0);// chkbxHwCfgComCfgEn.Checked ? 1 : 0);//1 comCfgEn
+            comm.setu8(chkbxHwCfgComCfgEn.Checked ? 1 : 0);//1 comCfgEn
 
             byte[] hwCfgReserved_bytes = System.Text.Encoding.Default.GetBytes("");// txtbxHwCfgReserved.Text);
             Array.Resize(ref hwCfgReserved_bytes, 8);
@@ -7854,15 +7583,425 @@ namespace UHFDemo
             comm.setbytes(port1Reserved_bytes); //8 reserved
             #endregion //Port_1
             #endregion //NET_COMM
-            Console.WriteLine(comm.ToString());
-            string path = Application.StartupPath + @"\" + comm.Flag + ".cfg";
-            StreamWriter sWriter = File.CreateText(path);
-            sWriter.Write(ReaderUtils.ToHex(comm.message, "", ""));
-            sWriter.Flush();
-            sWriter.Close();
-            MessageBox.Show("successful save to " + path);
+            //Console.WriteLine(comm.ToString());
+            try
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "NetPortConfigure (.cfg)|*.cfg";
+                saveFileDialog1.Title = "Select a File to save net port cfg";
+                string strDestinationFile = "NetPortConfigure"
+                    + DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss") + @".cfg";
+                saveFileDialog1.FileName = strDestinationFile;
+                //saveFileDialog1.InitialDirectory = "D://";
+                // Show the Dialog.
+                // If the user clicked OK in the dialog and
+                // a .txt file was selected, open it.
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    string path = saveFileDialog1.FileName;// Application.StartupPath + @"\" + comm.Flag + ".cfg";
+                    StreamWriter sWriter = File.CreateText(path);
+                    sWriter.Write(ReaderUtils.ToHex(comm.message, "", ""));
+                    sWriter.Flush();
+                    sWriter.Close();
+                    MessageBox.Show(string.Format("StoreCfgToFile successful: store to: {0}", path), "StoreCfgToFile Success");
+                }
+                else
+                {
+                    MessageBox.Show("Without store any cfg file", "StoreCfgToFile Tips");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Store NetCfg:", ex.Message), "StoreCfgToFile Error");
+            }
+        }
+
+        private void StopNetPort()
+        {
+            netStartGet = false;
+            netStartSave = false;
+            netStartReset = false;
+            netStartSearch = false;
+            
+            if (tUdp.IsStartRead)
+            {
+                if (btnSearchNetport.Text.Equals(FindResource("npSearchingNetPort")))
+                {
+                    btnSearchNetport_Click(null, null);
+                }
+
+                tUdp.StopSearchNetPort();
+            }
         }
         #endregion //NetPort
+
+        private void btnGetAccessEpcMatch_Click(object sender, EventArgs e)
+        {
+            reader.GetAccessEpcMatch(m_curSetting.btReadId);
+        }
+
+        private void btnCancelAccessEpcMatch_Click(object sender, EventArgs e)
+        {
+            txtAccessEpcMatch.Text = "";
+            reader.CancelAccessEpcMatch(m_curSetting.btReadId, 0x01);
+        }
+
+        TagMaskDB tagmaskDB = null;
+        private void initDgvTagMask()
+        {
+            dgvTagMask.AutoGenerateColumns = false;
+            tagMask_MaskNoColumn.DataPropertyName = "MaskID";
+            tagMask_MaskNoColumn.HeaderText = FindResource("tagmask_MaskNo");
+            tagMask_MaskNoColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            tagMask_SessionIdColumn.DataPropertyName = "Target";
+            tagMask_SessionIdColumn.HeaderText = FindResource("tagmask_SessionID");
+            tagMask_SessionIdColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            tagMask_ActionColumn.DataPropertyName = "ActionStr";
+            tagMask_ActionColumn.HeaderText = FindResource("tagmask_Action");
+            tagMask_ActionColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            tagMask_MembankColumn.DataPropertyName = "Bank";
+            tagMask_MembankColumn.HeaderText = FindResource("tagmask_MemBank");
+            tagMask_MembankColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            tagMask_StartAddrColumn.DataPropertyName = "StartAddrHexStr";
+            tagMask_StartAddrColumn.HeaderText = FindResource("tagmask_StartAddr");
+            tagMask_StartAddrColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            tagMask_MaskLenColumn.DataPropertyName = "MaskBitLenHexStr";
+            tagMask_MaskLenColumn.HeaderText = FindResource("tagmask_MaskLen");
+            tagMask_MaskLenColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            tagMask_MaskValueColumn.DataPropertyName = "Mask";
+            tagMask_MaskValueColumn.HeaderText = FindResource("tagmask_MaskValue");
+            tagMask_MaskValueColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+            tagMask_TruncateColumn.DataPropertyName = "Truncate";
+            tagMask_TruncateColumn.HeaderText = FindResource("tagmask_Truncate");
+            tagMask_TruncateColumn.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+
+            if (tagmaskDB == null)
+                tagmaskDB = new TagMaskDB();
+            dgvTagMask.DataSource = null;
+            dgvTagMask.DataSource = tagmaskDB.TagList;
+        }
+    }
+
+    public class UDPThread
+    {
+        //UDP Client
+        UdpClient netClient = null;
+        //Local port, which is used to bind a UDP server
+        IPEndPoint localEndpoint = null;
+        //Network port, used to hold UDP broadcast addresses
+        IPEndPoint netEndpoint = null;
+        //UDP Recv Thread
+        Thread netRecvthread = null;
+        Thread netSendThread = null;
+        bool netStarted = false;
+        //Wait for UDP to finish receiving
+        ManualResetEvent waitForStopRecv = new ManualResetEvent(false);
+        //Wait for the Get or Set instruction to return
+        //ManualResetEvent waitForGetAndSetAck = new ManualResetEvent(false);
+        //private bool startRecvUdp = false;
+        //Operation is over, wait for 3s
+        private int waitTimeout = 3000;
+
+        //The network card currently used as a UDP service
+        NetCard curNetCard = null;
+
+        public event EventHandler<NetCommEventArgs> NetCommRead;
+
+        public NetCard CurNetCard 
+        {
+            get { return curNetCard; }
+            set { curNetCard = value; }
+        }
+
+        public bool IsStartRead { get { return netStarted; } }
+
+        //Start the UDP service
+        private bool StartUdp()
+        {
+            if (curNetCard == null)
+            {
+                return false;
+            }
+            if (localEndpoint == null)
+            {
+                localEndpoint = new IPEndPoint(IPAddress.Parse(curNetCard.Ip), 60000);
+            }
+
+            if (netClient == null)
+            {
+                netClient = new UdpClient();
+                Socket updSocket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+                //Reuse must first than Bind
+                updSocket.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, 1);
+                updSocket.Bind(localEndpoint);
+                netClient.Client = updSocket;
+                netClient.Client.SendTimeout = 5000;
+                netClient.Client.ReceiveTimeout = 5000;
+                netClient.Client.ReceiveBufferSize = 2 * 1024;
+            }
+
+            if (netEndpoint == null)
+            {
+                netEndpoint = new IPEndPoint(IPAddress.Parse("255.255.255.255"), 50000); // Destination address information, broadcast address
+            }
+
+            if (netRecvthread == null)
+            {
+                netRecvthread = new Thread(new ThreadStart(StartRecvNetPort));
+                netRecvthread.IsBackground = true;
+                netRecvthread.Start();
+            }
+            return true;
+        }
+
+        //Stop UDP service
+        private bool StopUdp()
+        {
+            if(netStarted)
+            {
+                netStarted = false;
+                waitForStopRecv.Reset();
+                waitForStopRecv.WaitOne();
+            }
+
+            netRecvthread = null;
+            localEndpoint = null;
+            netEndpoint = null;
+
+            if (netClient != null)
+            {
+                netClient.Close();
+                netClient = null;
+            }
+
+            return true;
+        }
+
+        //UDP Recv
+        private void StartRecvNetPort()
+        {
+            netStarted = true;
+            while (netStarted)
+            {
+                if (/*startRecvUdp ||*/ netClient.Available > 0)
+                {
+                    try
+                    {
+                        byte[] buf = netClient.Receive(ref netEndpoint);
+                        string msg = ReaderUtils.ToHex(buf, "", " ");
+                        //Console.WriteLine("#2 Recv:{0}", msg);
+                        parseNetComm(buf);
+                    }
+                    catch (SocketException e)
+                    {
+                        MessageBox.Show("NetPort operation timeout");
+                        //startRecvUdp = false;
+                        //waitForGetAndSetAck.Set();
+                    }
+                }
+                Thread.Sleep(10);
+            }
+            //startRecvUdp = false;
+            waitForStopRecv.Set();
+        }
+
+        //Parse NetComm message
+        private void parseNetComm(byte[] buf)
+        {
+            NET_COMM comm = new NET_COMM();
+            comm.setbytes(buf);
+            if (comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_SEARCH)
+            {
+
+            }
+            if (comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_RESEST)
+            {
+                //waitForGetAndSetAck.Set();
+            }
+            if (comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_GET
+                | comm.Cmd == (int)NET_CMD.NET_MODULE_ACK_SET)
+            {
+                //waitForGetAndSetAck.Set();
+            }
+            NetCommRead?.Invoke(this, new NetCommEventArgs(comm));
+        }
+
+        // Send NetComm Message
+        private void SendNetPortMessage(NET_COMM comm)
+        {
+            byte[] sendData = new byte[comm.Length];
+            Array.Copy(comm.message, 0, sendData, 0, comm.Length);
+            //Console.WriteLine("Send({0}): [{1}]", comm.Length, ReaderUtils.ToHex(sendData, "", " "));
+            if (netClient != null && netStarted)
+                netClient.Send(comm.message, comm.message.Length, netEndpoint);
+        }
+
+        public bool StartSearchNetPort(NET_COMM comm)
+        {
+            if (!StartUdp())
+            {
+                return false;
+            }
+
+            SendNetPortMessage(comm);
+            return true;
+        }
+
+        public bool StopSearchNetPort()
+        {
+            return StopUdp();
+        }
+
+        public void GetNetPort(NetPortDevice npd)
+        {
+            #region NET_COMM
+            NET_COMM comm = new NET_COMM();
+            comm.setFlag();
+            comm.setu8((int)NET_CMD.NET_MODULE_CMD_GET);
+            comm.setbytes(ReaderUtils.FromHex(npd.DeviceMac.Replace(":", "")));
+            #endregion //NET_COMM
+
+            if (!StartUdp())
+            {
+                return;
+            }
+            SendNetPortMessage(comm);
+
+            //startRecvUdp = true;
+            //waitForGetAndSetAck.Reset();
+            //waitForGetAndSetAck.WaitOne();
+            //StopUdp();
+            //Thread.Sleep(waitTimeout);
+        }
+
+        public void SetNetPort(NetPortDevice npd, NET_COMM comm)
+        {
+            StartUdp();
+            SendNetPortMessage(comm);
+            //startRecvUdp = true;
+            //waitForGetAndSetAck.Reset();
+            //waitForGetAndSetAck.WaitOne();
+            //StopUdp();
+            //Thread.Sleep(waitTimeout);
+        }
+
+        internal void ResetNetPort(NetPortDevice npd)
+        {
+            #region NET_COMM
+            NET_COMM comm = new NET_COMM();
+            comm.setFlag();
+            comm.setu8((int)NET_CMD.NET_MODULE_CMD_RESET);
+            comm.setbytes(ReaderUtils.FromHex(npd.DeviceMac.Replace(":", "")));
+            #endregion //NET_COMM
+
+            StartUdp();
+            SendNetPortMessage(comm);
+            //startRecvUdp = true;
+            //waitForGetAndSetAck.Reset();
+            //waitForGetAndSetAck.WaitOne();
+            //StopUdp();
+            //Thread.Sleep(waitTimeout);
+        }
+
+        internal void DefaultNetPort(NetPortDevice npd, string pcMac)
+        {
+            #region NET_COMM
+            NET_COMM comm = new NET_COMM();
+            new NET_COMM();
+            comm.setFlag();                                                                       // 16
+            comm.setu8((int)NET_CMD.NET_MODULE_CMD_SET);                                          // 1
+            comm.setbytes(ReaderUtils.FromHex(npd.DeviceMac.Replace(":", "")));                    // 6
+            comm.setbytes(ReaderUtils.FromHex(pcMac.ToString().Replace(":", "")));   // 6
+            comm.setu8(204);                                                                      // 1
+                                                                                                  //HWConfig 74
+            comm.setu8(0x21);                                                                //1 type 0x21
+            comm.setu8(0x21);                                                                //1 auxType 0x21
+            comm.setu8(1);                                                                 //1 index
+            comm.setu8(2);                                                                 //1 hw
+            comm.setu8(6);                                                                 //1 sw
+            byte[] bytes = System.Text.Encoding.Default.GetBytes("RoNetPort");
+            Array.Resize(ref bytes, 21);
+            comm.setbytes(bytes);                                                          //21 devname
+            comm.setbytes(ReaderUtils.FromHex(npd.DeviceMac.Replace(":", "")));             //6 mac
+            comm.setbytes(ReaderUtils.GetIpAddrBytes("192.168.0.178"));                     //4 ip
+            comm.setbytes(ReaderUtils.GetIpAddrBytes("192.168.0.1"));                     //4 gateway
+            comm.setbytes(ReaderUtils.GetIpAddrBytes("255.255.255.0"));                       //4 mask
+            comm.setu8(0);                                                                 //1 dhcp
+            comm.setPort(80);                                                              //2 webport
+            byte[] username_bytes = System.Text.Encoding.Default.GetBytes("admin");
+            Array.Resize(ref username_bytes, 8);
+            comm.setbytes(username_bytes);                                                 //8 username
+            comm.setu8(0);                                                                 //1 pwdEn
+            comm.setbytes(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });  //8 pwd
+            comm.setu8(0);                                                                 //1 updateEn
+            comm.setu8(0);                                                                 //1 comCfgEn
+            comm.setbytes(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });  //8 reserved
+                                                                                           //Port_0 65 use as heartbeat test
+            comm.setu8(0);                                                                //1 index
+            comm.setu8(0);                                                                //1 portEn
+            comm.setu8(1);                                                                //1 netMode
+            comm.setu8(1);                                                                //1 randEn
+            comm.setPort(3000);                                                           //2 netPort
+            comm.setbytes(ReaderUtils.GetIpAddrBytes("192.168.1.100"));                    //4 desIp
+            comm.setPort(2000);                                                           //2 desPort
+            comm.setLength(9600);                                                         //4 baudrate
+            comm.setu8(8);                                                                //1 datasize
+            comm.setu8(1);                                                                //1 stopbits
+            comm.setu8(4);                                                                //1 parity
+            comm.setu8(1);                                                                //1 phyEn
+            comm.setLength(1024);                                                         //4 pkgLen
+            comm.setLength(0);                                                            //4 pkgTimeout
+            comm.setu8(0);                                                                //1 reconnectCnt
+            comm.setu8(0);                                                                //1 resetCtrl
+            comm.setu8(0);                                                                //1 dnsEn
+            byte[] domain_bytes = System.Text.Encoding.Default.GetBytes("");
+            Array.Resize(ref domain_bytes, 20);
+            comm.setbytes(domain_bytes);                                                  //20 domain
+            comm.setbytes(ReaderUtils.GetIpAddrBytes("0.0.0.0"));                          //4 dnsIp
+            comm.setPort(0);                                                              //2 dnsPort
+            comm.setbytes(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }); //8 reserved
+
+            //Port_1 Use as Serial
+            comm.setu8(1);                                                                //1 index
+            comm.setu8(1);                                                                //1 portEn
+            comm.setu8(0);                                                                //1 netMode
+            comm.setu8(0);                                                                //1 randEn
+            comm.setPort(4001);                                                           //2 netPort
+            comm.setbytes(ReaderUtils.GetIpAddrBytes("192.168.0.200"));                    //4 desIp
+            comm.setPort(1000);                                                           //2 desPort
+            comm.setLength(115200);                                                       //4 baudrate
+            comm.setu8(8);                                                                //1 datasize
+            comm.setu8(1);                                                                //1 stopbits
+            comm.setu8(4);                                                                //1 parity
+            comm.setu8(0);                                                                //1 phyEn
+            comm.setLength(1024);                                                         //1 pkgLen
+            comm.setLength(0);                                                            //4 pkgTimeout
+            comm.setu8(0);                                                                //4 reconnectCnt
+            comm.setu8(0);                                                                //1 resetCtrl
+            comm.setu8(0);                                                                //1 dnsEn
+            byte[] domain1_bytes = System.Text.Encoding.Default.GetBytes("");
+            Array.Resize(ref domain1_bytes, 20);
+            comm.setbytes(domain_bytes);                                                   //20 domain
+            comm.setbytes(ReaderUtils.GetIpAddrBytes("0.0.0.0"));                           //4 dnsIp
+            comm.setPort(0);                                                               //2 dnsPort
+            comm.setbytes(new byte[] { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 });  //8 reserved
+            #endregion //NET_COMM
+
+            StartUdp();
+            //startRecvUdp = true;
+            SendNetPortMessage(comm);
+            //waitForGetAndSetAck.Reset();
+            //waitForGetAndSetAck.WaitOne();
+            //StopUdp();
+            //Thread.Sleep(waitTimeout);
+        }
     }
 
     public enum NotifyType

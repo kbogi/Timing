@@ -30,17 +30,12 @@ namespace UHFDemo
         public string btReaderIdentifier;
         public byte btAntImpedance;
         public byte btImpedanceFrequency;
-        public byte btAntGroup;
-        public bool isNeedChangeGroup;
 
         public int nUserDefineStartFrequency;
         public byte btUserDefineFrequencyInterval;
         public byte btUserDefineChannelQuantity;
         public byte btLinkProfile;
         public byte[] btOutputPowers;
-
-        // add for mask
-        public byte[] btsGetTagMask;
 
         public ReaderSetting()
         {
@@ -63,7 +58,6 @@ namespace UHFDemo
             btGpio3Value = 0x00;
             btGpio4Value = 0x00;
             btAntDetector = 0x00;
-            isNeedChangeGroup = false;
         }
     }
 }

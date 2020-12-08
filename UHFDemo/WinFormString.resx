@@ -177,6 +177,9 @@
   <data name="npChipVer" xml:space="preserve">
     <value>ChipVer</value>
   </data>
+  <data name="npDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
   <data name="npDeviceIp" xml:space="preserve">
     <value>DeviceIp</value>
   </data>
@@ -186,8 +189,20 @@
   <data name="npDeviceName" xml:space="preserve">
     <value>DeviceName</value>
   </data>
+  <data name="npGet" xml:space="preserve">
+    <value>Get</value>
+  </data>
   <data name="npPcMac" xml:space="preserve">
     <value>PcMac</value>
+  </data>
+  <data name="npReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="npRetry" xml:space="preserve">
+    <value>Retry</value>
+  </data>
+  <data name="npSave" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="npSearchingNetPort" xml:space="preserve">
     <value>Searching NetPort</value>
@@ -231,11 +246,41 @@
   <data name="Stopping" xml:space="preserve">
     <value>Stopping</value>
   </data>
+  <data name="tagmask_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="tagmask_MaskLen" xml:space="preserve">
+    <value>Mask Len(Hex bit)</value>
+  </data>
+  <data name="tagmask_MaskNo" xml:space="preserve">
+    <value>Mask No</value>
+  </data>
+  <data name="tagmask_MaskValue" xml:space="preserve">
+    <value>Mask Value</value>
+  </data>
+  <data name="tagmask_MemBank" xml:space="preserve">
+    <value>MemBank</value>
+  </data>
+  <data name="tagmask_SessionID" xml:space="preserve">
+    <value>Session ID</value>
+  </data>
+  <data name="tagmask_StartAddr" xml:space="preserve">
+    <value>Start Addr(Hex bit)</value>
+  </data>
+  <data name="tagmask_Truncate" xml:space="preserve">
+    <value>Truncate</value>
+  </data>
   <data name="Tags" xml:space="preserve">
     <value>tags</value>
   </data>
   <data name="Times" xml:space="preserve">
     <value>times</value>
+  </data>
+  <data name="tipBlockWrite" xml:space="preserve">
+    <value>BlockWrite</value>
+  </data>
+  <data name="tipClearTagMask" xml:space="preserve">
+    <value>ClearTagMask</value>
   </data>
   <data name="tipConnect" xml:space="preserve">
     <value>Connect to Reader</value>
@@ -318,8 +363,14 @@
   <data name="tipGetReaderTemperature" xml:space="preserve">
     <value>GetReaderTemperature</value>
   </data>
+  <data name="tipGetTagMask" xml:space="preserve">
+    <value>GetTagMask</value>
+  </data>
   <data name="tipGetWorkAntenna" xml:space="preserve">
     <value>GetWorkAntenna</value>
+  </data>
+  <data name="tipHaveNoMatch" xml:space="preserve">
+    <value>have not match</value>
   </data>
   <data name="tipHaveNotYetSelectedTag" xml:space="preserve">
     <value>Have not yet selected a tag</value>
@@ -353,6 +404,9 @@
   </data>
   <data name="tipLockTag" xml:space="preserve">
     <value>LockTag</value>
+  </data>
+  <data name="tipNoTagMask" xml:space="preserve">
+    <value>no tag mask found</value>
   </data>
   <data name="tipPhyDisconnect" xml:space="preserve">
     <value>Network disconnection: close the connection</value>

@@ -36,6 +36,7 @@ namespace Reader
         private int bufferTagCount = 0;
 
         private int readcount = 0;
+        private int CountHigh = 0;
 
         private int opSuccessCount = 0;
         private int opDataLen = 0;
@@ -49,9 +50,11 @@ namespace Reader
         /// </summary>
         private int _readOffset = 0;
         private bool readPhase = false;
+        private byte antGroup = 0x00;
 
-        public Tag(byte[] tagData, byte tagCmd)
+        public Tag(byte[] tagData, byte tagCmd, byte antGroup)
         {
+            this.antGroup = antGroup;
             //Console.WriteLine("Tag tagLen={0}", tagData.Length);
             rawData = new byte[tagData.Length];
             Array.Copy(tagData, 0, rawData, 0, rawData.Length);
@@ -79,8 +82,9 @@ namespace Reader
             }
         }
 
-        public Tag(byte[] tagData, bool readPhase, byte tagCmd)
+        public Tag(byte[] tagData, bool readPhase, byte tagCmd, byte antGroup)
         {
+            this.antGroup = antGroup;
             //Console.WriteLine("Tag cmd={0:X2}, readPhase={1}, tag[{2}] {3}", cmd, readPhase, tagData.Length, ReaderUtils.ToHex(tagData, "", " "));
             this.readPhase = readPhase;
             rawData = new byte[tagData.Length];
@@ -146,7 +150,7 @@ namespace Reader
 
         public string Antenna
         {
-            get { return antNo.ToString("X2"); }
+            get { return string.Format("{0}", antNo); }
         }
 
         public string Data
@@ -312,14 +316,8 @@ namespace Reader
             rssi = (byte)(rssiRaw & 0x7F);
             //Console.WriteLine("#3 parseBufferTagData rssi={0:x2}", rssi);
 
-            if (rssiH == 0x1) // rssiH == true, 5,6,7,8
-            {
-                antNo = (byte)(antNo + 0x05);
-            }
-            else
-            {
-                antNo = (byte)(antNo + 0x01);
-            }
+            // rssiH == true, 5,6,7,8
+            antNo = (byte)(antNo + (rssiH == 1 ? 0x04 : 0x00) + (antGroup == 0x01 ? 0x08 : 0x00) + 0x01);
             //Console.WriteLine("#3 parseBufferTagData antNo={0:x2}", antNo);
         }
 
@@ -381,14 +379,8 @@ namespace Reader
             rssi = (byte)(rssiRaw & 0x7F);
             //Console.WriteLine("#3 parseInvTagData rssi={0:x2}", rssi);
 
-            if (rssiH == 0x1) // rssiH == true, 5,6,7,8
-            {
-                antNo = (byte)(antNo + 0x05);
-            }
-            else
-            {
-                antNo = (byte)(antNo + 0x01);
-            }
+            // rssiH == true, 5,6,7,8
+            antNo = (byte)(antNo + (rssiH == 1 ? 0x04 : 0x00) + (antGroup == 0x01 ? 0x08 : 0x00) + 0x01);
             //Console.WriteLine("#3 parseInvTagData antNo={0:x2}", antNo);
 
             readcount = 1;
@@ -423,15 +415,18 @@ namespace Reader
             byte antId = rawData[readindex++];
             //Console.WriteLine("#2 [{1}]antId={0:x2}", antId, readindex);
 
-            freq = Convert.ToByte((antId & 0xFC) >> 2);
-            antNo = Convert.ToByte((antId & 0x03));
-            antNo = (byte)(antNo + 0x01);
+            freq = Convert.ToByte(((antId & 0xFC) >> 2));
+            antNo = Convert.ToByte(((antId & 0x03) >> 0));
             //Console.WriteLine("freq={0},antNo={1}", freq, antNo);
 
-            byte readCount = rawData[readindex++];
-            //Console.WriteLine("#2 [{1}]readCount={0:x2}", readCount, readindex);
-            readcount = readCount;
+            byte Count = rawData[readindex++];
+            //Console.WriteLine("#2 [{1}]Count={0:x2}", Count, readindex);
+            readcount = ((Count & 0x7F) >> 0);
+            CountHigh = ((Count & 0x80) >> 7);
 
+            // rssiH == true, 5,6,7,8
+            antNo = (byte)(antNo + (CountHigh == 1 ? 0x04 : 0x00) + (antGroup == 0x01 ? 0x08 : 0x00) + 0x01);
+            //Console.WriteLine("antNo={0}", antNo);
             parseTagData(tagdata, opDataLen);
         }
 
@@ -472,7 +467,6 @@ namespace Reader
             {
                 data = _noData;
             }
-
         }
     }
     #endregion Tag

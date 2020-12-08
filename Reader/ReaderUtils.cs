@@ -115,136 +115,136 @@ namespace Reader
             switch (btErrorCode)
             {
                 case 0x10:
-                    strErrorCode = "命令已执行";
+                    strErrorCode = "Command succeeded";
                     break;
                 case 0x11:
-                    strErrorCode = "命令执行失败";
+                    strErrorCode = "Command failed";
                     break;
                 case 0x20:
-                    strErrorCode = "CPU 复位错误";
+                    strErrorCode = "CPU reset error";
                     break;
                 case 0x21:
-                    strErrorCode = "打开CW 错误";
+                    strErrorCode = "Turn on CW error";
                     break;
                 case 0x22:
-                    strErrorCode = "天线未连接";
+                    strErrorCode = "Antenna is missing";
                     break;
                 case 0x23:
-                    strErrorCode = "写Flash 错误";
+                    strErrorCode = "Write flash error";
                     break;
                 case 0x24:
-                    strErrorCode = "读Flash 错误";
+                    strErrorCode = "Read flash error";
                     break;
                 case 0x25:
-                    strErrorCode = "设置发射功率错误";
+                    strErrorCode = "Set output power error";
                     break;
                 case 0x31:
-                    strErrorCode = "盘存标签错误";
+                    strErrorCode = "Error occurred during inventory";
                     break;
                 case 0x32:
-                    strErrorCode = "读标签错误";
+                    strErrorCode = "Error occurred during read";
                     break;
                 case 0x33:
-                    strErrorCode = "写标签错误";
+                    strErrorCode = "Error occurred during write";
                     break;
                 case 0x34:
-                    strErrorCode = "锁定标签错误";
+                    strErrorCode = "Error occurred during lock";
                     break;
                 case 0x35:
-                    strErrorCode = "灭活标签错误";
+                    strErrorCode = "Error occurred during kill";
                     break;
                 case 0x36:
-                    strErrorCode = "无可操作标签错误";
+                    strErrorCode = "There is no tag to be operated";
                     break;
                 case 0x37:
-                    strErrorCode = "成功盘存但访问失败";
+                    strErrorCode = "Tag Inventoried but access failed";
                     break;
                 case 0x38:
-                    strErrorCode = "缓存为空";
+                    strErrorCode = "Buffer is empty";
                     break;
                 case 0x40:
-                    strErrorCode = "访问标签错误或访问密码错误";
+                    strErrorCode = "Access failed or wrong password";
                     break;
                 case 0x41:
-                    strErrorCode = "无效的参数";
+                    strErrorCode = "Invalid parameter";
                     break;
                 case 0x42:
-                    strErrorCode = "wordCnt 参数超过规定长度";
+                    strErrorCode = "WordCnt is too long";
                     break;
                 case 0x43:
-                    strErrorCode = "MemBank 参数超出范围";
+                    strErrorCode = "MemBank out of range";
                     break;
                 case 0x44:
-                    strErrorCode = "Lock 数据区参数超出范围";
+                    strErrorCode = "Lock region out of range";
                     break;
                 case 0x45:
-                    strErrorCode = "LockType 参数超出范围";
+                    strErrorCode = "LockType out of range";
                     break;
                 case 0x46:
-                    strErrorCode = "读卡器地址无效";
+                    strErrorCode = "Invalid reader address";
                     break;
                 case 0x47:
-                    strErrorCode = "Antenna_id 超出范围";
+                    strErrorCode = "AntennaID out of range";
                     break;
                 case 0x48:
-                    strErrorCode = "输出功率参数超出范围";
+                    strErrorCode = "Output power out of range";
                     break;
                 case 0x49:
-                    strErrorCode = "射频规范区域参数超出范围";
+                    strErrorCode = "Frequency region out of range";
                     break;
                 case 0x4A:
-                    strErrorCode = "波特率参数超过范围";
+                    strErrorCode = "Baud rate out of range";
                     break;
                 case 0x4B:
-                    strErrorCode = "蜂鸣器设置参数超出范围";
+                    strErrorCode = "Buzzer behavior out of range";
                     break;
                 case 0x4C:
-                    strErrorCode = "EPC 匹配长度越界";
+                    strErrorCode = "EPC match is too long";
                     break;
                 case 0x4D:
-                    strErrorCode = "EPC 匹配长度错误";
+                    strErrorCode = "EPC match length wrong";
                     break;
                 case 0x4E:
-                    strErrorCode = "EPC 匹配参数超出范围";
+                    strErrorCode = "Invalid EPC match mode";
                     break;
                 case 0x4F:
-                    strErrorCode = "频率范围设置参数错误";
+                    strErrorCode = "Invalid frequency range";
                     break;
                 case 0x50:
-                    strErrorCode = "无法接收标签的RN16";
+                    strErrorCode = "Failed to receive RN16 from tag";
                     break;
                 case 0x51:
-                    strErrorCode = "DRM 设置参数错误";
+                    strErrorCode = "Invalid DRM mode";
                     break;
                 case 0x52:
-                    strErrorCode = "PLL 不能锁定";
+                    strErrorCode = "PLL can not lock";
                     break;
                 case 0x53:
-                    strErrorCode = "射频芯片无响应";
+                    strErrorCode = "No response from RF chip";
                     break;
                 case 0x54:
-                    strErrorCode = "输出达不到指定的输出功率";
+                    strErrorCode = "Can't achieve desired output power level";
                     break;
                 case 0x55:
-                    strErrorCode = "版权认证未通过";
+                    strErrorCode = "Can't authenticate firmware copyright";
                     break;
                 case 0x56:
-                    strErrorCode = "频谱规范设置错误";
+                    strErrorCode = "Spectrum regulation wrong";
                     break;
                 case 0x57:
-                    strErrorCode = "输出功率过低";
+                    strErrorCode = "Output power is too low";
                     break;
                 case 0xFF:
-                    strErrorCode = "未知错误";
+                    strErrorCode = "Unknown error";
                     break;
 
                 default:
+                    strErrorCode = "Unknown error";
                     break;
             }
 
             return strErrorCode;
         }
-
 
         #region FromHex
         /// <summary>
@@ -445,9 +445,21 @@ namespace Reader
 
         public static bool CheckMacAddr(string macAddr)
         {
-            string pattern = "(([0-9A-F]){2}(:[0-9A-F]){2}){5}";
+            string pattern = @"^([0-9a-fA-F]{2}:){5}([0-9a-fA-F]{2})$";
             Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
             return regex.IsMatch(macAddr);
+        }
+
+        public static byte CheckSum(byte[] btAryBuffer, int nStartPos, int nLen)
+        {
+            byte btSum = 0x00;
+
+            for (int nloop = nStartPos; nloop < nStartPos + nLen; nloop++)
+            {
+                btSum += btAryBuffer[nloop];
+            }
+
+            return Convert.ToByte(((~btSum) + 1) & 0xFF);
         }
     }
 }

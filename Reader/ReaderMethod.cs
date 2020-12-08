@@ -100,6 +100,7 @@ namespace Reader
         {
             AnalyCallback?.Invoke(this, msgTran);
         }
+
         #region ConnectSerial
         public int OpenCom(string strPort, int nBaudrate, out string strException)
         {
@@ -192,6 +193,7 @@ namespace Reader
             m_nType = ReaderType.Default;
         }
         #endregion ConnectBLE
+
         private void RunReceiveDataCallback(byte[] btAryReceiveData)
         {
             try
@@ -296,18 +298,6 @@ namespace Reader
 
             return -1;
         }
-        public static string byteToHexStr(byte[] bytes)
-        {
-            string returnStr = "";
-            if (bytes != null)
-            {
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    returnStr += bytes[i].ToString("X2") + " ";
-                }
-            }
-            return returnStr;
-        }
 
         private int SendMessage(byte btReadId, byte btCmd)
         {
@@ -323,13 +313,119 @@ namespace Reader
             return SendMessage(msgTran.AryTranData);
         }
 
-
-        public byte CheckValue(byte[] btAryData)
+        #region CMD
+        #region CMD_6X
+        public int ReadGpioValue(byte btReadId)
         {
-            MessageTran msgTran = new MessageTran();
-            return msgTran.CheckSum(btAryData, 0, btAryData.Length);
+            byte btCmd = 0x60;
+
+            int nResult = SendMessage(btReadId, btCmd);
+
+            return nResult;
         }
 
+        public int WriteGpioValue(byte btReadId, byte btChooseGpio, byte btGpioValue)
+        {
+            byte btCmd = 0x61;
+            byte[] btAryData = new byte[2];
+            btAryData[0] = btChooseGpio;
+            btAryData[1] = btGpioValue;
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
+        public int SetAntDetector(byte btReadId, byte btDetectorStatus)
+        {
+            byte btCmd = 0x62;
+            byte[] btAryData = new byte[1];
+            btAryData[0] = btDetectorStatus;
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
+        public int GetAntDetector(byte btReadId)
+        {
+            byte btCmd = 0x63;
+
+            int nResult = SendMessage(btReadId, btCmd);
+
+            return nResult;
+        }
+
+        public int SetTempOutpower(byte btReadId, byte btOutpower)
+        {
+            byte btCmd = 0x66;
+
+            byte[] btAryData = new byte[1];
+            btAryData[0] = btOutpower;
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
+        public int SetReaderIdentifier(byte btReadId, byte[] identifier)
+        {
+            byte btCmd = 0x67;
+
+            int nResult = SendMessage(btReadId, btCmd, identifier);
+
+            return nResult;
+        }
+
+        public int GetReaderIdentifier(byte btReadId)
+        {
+            byte btCmd = 0x68;
+
+            int nResult = SendMessage(btReadId, btCmd);
+
+            return nResult;
+        }
+
+        public int SetRadioProfile(byte btReadId, byte btProfile)
+        {
+            byte btCmd = 0x69;
+            byte[] btAryData = new byte[1];
+            btAryData[0] = btProfile;
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+            return nResult;
+        }
+
+        public int GetRadioProfile(byte btReadId)
+        {
+            byte btCmd = 0x6A;
+
+            int nResult = SendMessage(btReadId, btCmd);
+
+            return nResult;
+        }
+
+        public int SetReaderAntGroup(byte btReadId, byte groupId)
+        {
+            byte btCmd = 0x6C;
+            byte[] btAryData = new byte[1];
+            btAryData[0] = groupId;
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
+        public int GetReaderAntGroup(byte btReadId)
+        {
+            byte btCmd = 0x6D;
+
+            int nResult = SendMessage(btReadId, btCmd);
+
+            return nResult;
+        }
+        #endregion //CMD_6X
+
+        #region CMD_7X
         public int Reset(byte btReadId)
         {
             byte btCmd = 0x70;
@@ -388,54 +484,11 @@ namespace Reader
             return nResult;
         }
 
-        public int SetReaderAntGroup(byte btReadId, byte groupId)
-        {
-            byte btCmd = 0x6C;
-            byte[] btAryData = new byte[1];
-            btAryData[0] = groupId;
-
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
-
-            return nResult;
-        }
-
-        public int GetReaderAntGroup(byte btReadId)
-        {
-            byte btCmd = 0x6D;
-
-            int nResult = SendMessage(btReadId, btCmd);
-
-            return nResult;
-        }
-
-        public int SetTempOutpower(byte btReadId, byte btOutpower)
-        {
-            byte btCmd = 0x66;
-
-            byte[] btAryData = new byte[1];
-            btAryData[0] = btOutpower;
-
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
-
-            return nResult;
-        }
-
-        //add multi Ants set outputPower
         public int SetOutputPower(byte btReadId, byte[] btOutputPower)
         {
             byte btCmd = 0x76;
 
             int nResult = SendMessage(btReadId, btCmd, btOutputPower);
-
-            return nResult;
-        }
-
-
-        public int GetOutputPower(byte btReadId)
-        {
-            byte btCmd = 0x97;
-
-            int nResult = SendMessage(btReadId, btCmd);
 
             return nResult;
         }
@@ -446,15 +499,6 @@ namespace Reader
 
             int nResult = SendMessage(btReadId, btCmd);
 
-            return nResult;
-        }
-
-        public int MeasureReturnLoss(byte btReadId, byte btFrequency)
-        {
-            byte btCmd = 0x7E;
-            byte[] btAryData = new byte[1];
-            btAryData[0] = btFrequency;
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
             return nResult;
         }
 
@@ -470,6 +514,7 @@ namespace Reader
 
             return nResult;
         }
+
         public int SetUserDefineFrequency(byte btReadId, int nStartFreq, byte btFreqInterval, byte btChannelQuantity)
         {
             byte btCmd = 0x78;
@@ -518,16 +563,6 @@ namespace Reader
             return nResult;
         }
 
-        public int GetAntImpedanceMatch(byte btReadId, byte btFrequency)
-        {
-            byte btCmd = 0x7E;
-            byte[] btAryData = new byte[1];
-            btAryData[0] = btFrequency;
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
-
-            return nResult;
-        }
-
         public int SetDrmMode(byte btReadId, byte btDrmMode)
         {
             byte btCmd = 0x7C;
@@ -548,132 +583,32 @@ namespace Reader
             return nResult;
         }
 
-        public int ReadGpioValue(byte btReadId)
+        public int MeasureReturnLoss(byte btReadId, byte btFrequency)
         {
-            byte btCmd = 0x60;
-
-            int nResult = SendMessage(btReadId, btCmd);
-
-            return nResult;
-        }
-
-        public int WriteGpioValue(byte btReadId, byte btChooseGpio, byte btGpioValue)
-        {
-            byte btCmd = 0x61;
-            byte[] btAryData = new byte[2];
-            btAryData[0] = btChooseGpio;
-            btAryData[1] = btGpioValue;
-
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
-
-            return nResult;
-        }
-
-        public int SetAntDetector(byte btReadId, byte btDetectorStatus)
-        {
-            byte btCmd = 0x62;
+            byte btCmd = 0x7E;
             byte[] btAryData = new byte[1];
-            btAryData[0] = btDetectorStatus;
-
+            btAryData[0] = btFrequency;
             int nResult = SendMessage(btReadId, btCmd, btAryData);
-
             return nResult;
         }
 
-        public int GetAntDetector(byte btReadId)
+        public int GetAntImpedanceMatch(byte btReadId, byte btFrequency)
         {
-            byte btCmd = 0x63;
-
-            int nResult = SendMessage(btReadId, btCmd);
-
-            return nResult;
-        }
-
-        public int GetMonzaStatus(byte btReadId)
-        {
-            byte btCmd = 0x8e;
-
-            int nResult = SendMessage(btReadId, btCmd);
-
-            return nResult;
-        }
-
-        public int SetMonzaStatus(byte btReadId, byte btMonzaStatus)
-        {
-            byte btCmd = 0x8D;
+            byte btCmd = 0x7E;
             byte[] btAryData = new byte[1];
-            btAryData[0] = btMonzaStatus;
-
+            btAryData[0] = btFrequency;
             int nResult = SendMessage(btReadId, btCmd, btAryData);
 
             return nResult;
         }
+        #endregion //CMD_7X
 
-        public int SetRadioProfile(byte btReadId, byte btProfile)
-        {
-            byte btCmd = 0x69;
-            byte[] btAryData = new byte[1];
-            btAryData[0] = btProfile;
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
-            return nResult;
-        }
-        public int GetRadioProfile(byte btReadId)
-        {
-            byte btCmd = 0x6A;
-
-            int nResult = SendMessage(btReadId, btCmd);
-
-            return nResult;
-        }
-
-        public int GetReaderIdentifier(byte btReadId)
-        {
-            byte btCmd = 0x68;
-
-            int nResult = SendMessage(btReadId, btCmd);
-
-            return nResult;
-        }
-
-        public int SetReaderIdentifier(byte btReadId, byte[] identifier)
-        {
-            byte btCmd = 0x67;
-
-            int nResult = SendMessage(btReadId, btCmd, identifier);
-
-            return nResult;
-        }
-
-
+        #region CMD_8X
         public int Inventory(byte btReadId, byte byRound)
         {
             byte btCmd = 0x80;
             byte[] btAryData = new byte[1];
             btAryData[0] = byRound;
-
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
-
-            return nResult;
-        }
-
-        public int CustomizedInventory(byte btReadId, byte session, byte target, byte byRound)
-        {
-            byte btCmd = 0x8B;
-            byte[] btAryData = new byte[3];
-            btAryData[0] = session;
-            btAryData[1] = target;
-            btAryData[2] = byRound;
-
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
-
-            return nResult;
-        }
-
-        public int CustomizedInventoryV2(byte btReadId, byte[] parameters)
-        {
-            byte btCmd = 0x8B;
-            byte[] btAryData = new byte[parameters.Length];
-            parameters.CopyTo(btAryData, 0);
 
             int nResult = SendMessage(btReadId, btCmd, btAryData);
 
@@ -704,9 +639,9 @@ namespace Reader
             return nResult;
         }
 
-        public int WriteTag(byte btReadId, byte[] btAryPassWord, byte btMemBank, byte btWordAdd, byte btWordCnt, byte[] btAryData, byte btCmd)
+        public int WriteTag(byte btReadId, byte[] btAryPassWord, byte btMemBank, byte btWordAdd, byte btWordCnt, byte[] btAryData)
         {
-            // byte btCmd = 0x82;
+            byte btCmd = 0x82;
             byte[] btAryBuffer = new byte[btAryData.Length + 7];
             btAryPassWord.CopyTo(btAryBuffer, 0);
             btAryBuffer[4] = btMemBank;
@@ -743,6 +678,17 @@ namespace Reader
             return nResult;
         }
 
+        public int CancelAccessEpcMatch(byte btReadId, byte btMode)
+        {
+            byte btCmd = 0x85;
+            byte[] btAryData = new byte[1];
+            btAryData[0] = btMode;
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
         public int SetAccessEpcMatch(byte btReadId, byte btMode, byte btEpcLen, byte[] btAryEpc)
         {
             byte btCmd = 0x85;
@@ -751,17 +697,6 @@ namespace Reader
             btAryData[0] = btMode;
             btAryData[1] = btEpcLen;
             btAryEpc.CopyTo(btAryData, 2);
-
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
-
-            return nResult;
-        }
-
-        public int CancelAccessEpcMatch(byte btReadId, byte btMode)
-        {
-            byte btCmd = 0x85;
-            byte[] btAryData = new byte[1];
-            btAryData[0] = btMode;
 
             int nResult = SendMessage(btReadId, btCmd, btAryData);
 
@@ -797,6 +732,52 @@ namespace Reader
             return nResult;
         }
 
+        public int CustomizedInventoryV2(byte btReadId, byte[] parameters)
+        {
+            byte btCmd = 0x8B;
+            byte[] btAryData = new byte[parameters.Length];
+            parameters.CopyTo(btAryData, 0);
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
+        public int CustomizedInventory(byte btReadId, byte session, byte target, byte byRound)
+        {
+            byte btCmd = 0x8B;
+            byte[] btAryData = new byte[3];
+            btAryData[0] = session;
+            btAryData[1] = target;
+            btAryData[2] = byRound;
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
+        public int SetMonzaStatus(byte btReadId, byte btMonzaStatus)
+        {
+            byte btCmd = 0x8D;
+            byte[] btAryData = new byte[1];
+            btAryData[0] = btMonzaStatus;
+
+            int nResult = SendMessage(btReadId, btCmd, btAryData);
+
+            return nResult;
+        }
+
+        public int GetMonzaStatus(byte btReadId)
+        {
+            byte btCmd = 0x8E;
+
+            int nResult = SendMessage(btReadId, btCmd);
+
+            return nResult;
+        }
+        #endregion //CMD_8X
+
+        #region CMD_9X
         public int GetInventoryBuffer(byte btReadId)
         {
             byte btCmd = 0x90;
@@ -833,13 +814,17 @@ namespace Reader
             return nResult;
         }
 
-        public int SetBufferDataFrameInterval(byte btReadId, byte btInterval)
+        public int BlockWrite(byte btReadId, byte[] btAryPassWord, byte btMemBank, byte btWordAdd, byte btWordCnt, byte[] btAryData)
         {
             byte btCmd = 0x94;
-            byte[] btAryData = new byte[1];
-            btAryData[0] = btInterval;
+            byte[] btAryBuffer = new byte[btAryData.Length + 7];
+            btAryPassWord.CopyTo(btAryBuffer, 0);
+            btAryBuffer[4] = btMemBank;
+            btAryBuffer[5] = btWordAdd;
+            btAryBuffer[6] = btWordCnt;
+            btAryData.CopyTo(btAryBuffer, 7);
 
-            int nResult = SendMessage(btReadId, btCmd, btAryData);
+            int nResult = SendMessage(btReadId, btCmd, btAryBuffer);
 
             return nResult;
         }
@@ -853,6 +838,17 @@ namespace Reader
             return nResult;
         }
 
+        public int GetOutputPower(byte btReadId)
+        {
+            byte btCmd = 0x97;
+
+            int nResult = SendMessage(btReadId, btCmd);
+
+            return nResult;
+        }
+        #endregion //CMD_9X
+
+        #region CMD_BX
         public int InventoryISO18000(byte btReadId)
         {
             byte btCmd = 0xb0;
@@ -919,6 +915,7 @@ namespace Reader
 
         public int setTagMask(byte btReadId, byte btMaskNo, byte btTarget, byte btAction, byte btMembank, byte btStartAdd, byte btMaskLen, byte[] maskValue)
         {
+            byte bCmd = (byte)CMD.cmd_tag_select;
             byte[] btAryData = new byte[7 + maskValue.Length];
             btAryData[0] = btMaskNo;
             btAryData[1] = btTarget;
@@ -929,28 +926,30 @@ namespace Reader
             maskValue.CopyTo(btAryData, 6);
             btAryData[btAryData.Length - 1] = (byte)0x00;
 
-            int nResult = SendMessage(btReadId, (byte)0x98, btAryData);
+            int nResult = SendMessage(btReadId, bCmd, btAryData);
 
             return nResult;
         }
 
         public int getTagMask(byte btReadId)
         {
+            byte bCmd = (byte)CMD.cmd_tag_select;
             byte[] btAryData = { (byte)0x20 };
-
-            int nResult = SendMessage(btReadId, (byte)0x98, btAryData);
+            int nResult = SendMessage(btReadId, bCmd, btAryData);
 
             return nResult;
         }
 
         public int clearTagMask(byte btReadId, byte btMaskNO)
         {
+            byte bCmd = (byte)CMD.cmd_tag_select;
             byte[] btAryData = { btMaskNO };
-
-            int nResult = SendMessage(btReadId, (byte)0x98, btAryData);
+            int nResult = SendMessage(btReadId, bCmd, btAryData);
 
             return nResult;
         }
+        #endregion //CMD_BX
+        #endregion //CMD
     }
 
     enum ReaderType
@@ -959,5 +958,105 @@ namespace Reader
         SerialPort,
         TCP,
         BLE
+    }
+
+    public enum CMD
+    {
+        cmd_read_gpio_value = 0x60,
+        cmd_write_gpio_value = 0x61,
+        cmd_set_ant_connection_detector = 0x62,
+        cmd_get_ant_connection_detector = 0x63,
+        cmd_set_temporary_output_power = 0x66,
+        cmd_set_reader_identifier = 0x67,
+        cmd_get_reader_identifier = 0x68,
+        cmd_set_rf_link_profile = 0x69,
+        cmd_get_rf_link_profile = 0x6A,
+        cmd_set_antenna_group = 0x6C,
+        cmd_get_antenna_group = 0x6D,
+
+        cmd_reset = 0x70,
+        cmd_set_uart_baudrate = 0x71,
+        cmd_get_firmware_version = 0x72,
+        cmd_set_reader_address = 0x73,
+        cmd_set_work_antenna = 0x74,
+        cmd_get_work_antenna = 0x75,
+        cmd_set_output_power = 0x76,
+        [Obsolete("this command is Deprecated")]
+        cmd_get_output_power = 0x77,
+        cmd_set_frequency_region = 0x78,
+        cmd_get_frequency_region = 0x79,
+        cmd_set_beeper_mode = 0x7A,
+        cmd_get_reader_temperature = 0x7B,
+        cmd_set_drm_mode = 0x7C,
+        cmd_get_drm_mode = 0x7D,
+        cmd_get_rf_port_return_loss = 0x7E,
+
+        cmd_inventory = 0x80,
+        cmd_read = 0x81,
+        cmd_write = 0x82,
+        cmd_lock = 0x83,
+        cmd_kill = 0x84,
+        cmd_set_access_epc_match = 0x85,
+        cmd_get_access_epc_match = 0x86,
+        cmd_real_time_inventory = 0x89,
+        cmd_fast_switch_ant_inventory = 0x8A,
+        cmd_customized_session_target_inventory = 0x8B,
+        cmd_set_impinj_fast_tid = 0x8C,
+        cmd_set_and_save_impinj_fast_tid = 0x8D,
+        cmd_get_impinj_fast_tid = 0x8E,
+
+        cmd_get_inventory_buffer = 0x90,
+        cmd_get_and_reset_inventory_buffer = 0x91,
+        cmd_get_inventory_buffer_tag_count = 0x92,
+        cmd_reset_inventory_buffer = 0x93,
+        cmd_block_write = 0x94,
+        //SetBufferDataFrameInterval = 0x94,
+        //GetBufferDataFrameInterval = 0x95,
+        cmd_get_output_power_eight = 0x97,
+        cmd_tag_select = 0x98,
+
+        // HardwareCalibrate
+        //cmdSetCustomFunctionID = 0xA0 id
+        cmdGetCustomFunctionID = 0xA1,
+        cmd_open_all_ldo_voltage = 0xA2,
+        cmdHardwareCalibrate = 0xA3,
+        // cmdTestCenterFreqOutputPower = A3 00
+        // cmdTestPllLock = A3 01
+        // cmdTestPD_1 = A3 02
+        // cmdTestPD_2 = A3 03
+        // cmdTestAllFreqOutputPower = A3 04
+        // cmdTestAutoCalibrateAntennaDetect = A3 10
+        // cmdResetCalibrateValue = A3 11
+        cmd_get_calibrate_value = 0xA4,
+        cmd_get_internal_version = 0xAA,
+
+        // ISO18000 6B
+        cmd_iso18000_6b_inventory = 0xB0,
+        cmd_iso18000_6b_read = 0xB1,
+        cmd_iso18000_6b_write = 0xB2,
+        cmd_iso18000_6b_lock = 0xB3,
+        cmd_iso18000_6b_query_lock = 0xB4,
+
+        // NXP
+        cmd_nxp_untraceable = 0xE1,
+        cmd_change_eas = 0xE4,
+
+        // Bluetooth
+        cmdGetBluetoothVersion = 0xF0,
+        cmdGetBluetoothMac = 0xF1,
+        cmdSetBluetoothBroadcastAddr = 0xF2,
+        cmdGetBluetoothBoardSn = 0xF3,
+        cmdSetBluetoothBoardSn = 0xF4,
+        cmdBluetoothShutDown = 0xF5,
+        cmdGetBluetoothBoardVersion = 0xF6,
+        cmdGetBluetoothVoltage = 0xF7,
+        cmdSetBluetoothBuzzer = 0xF8,
+        cmdSetBluetoothEnableMode = 0xF9,
+        cmdRecvBluetoothReserved = 0xFA,      // single direction Recv
+        cmdRecvBluetoothBoardSleep = 0xFB,    // single direction Recv
+        cmdRecvBluetoothTriggerKey = 0xFC,    // single direction Recv
+
+        // FuDan
+        cmd_fundan = 0xFD,
     }
 }
