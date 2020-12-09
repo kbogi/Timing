@@ -29,7 +29,6 @@ namespace UHFDemo
         public byte btMonzaStatus;
         public string btReaderIdentifier;
         public byte btAntImpedance;
-        public byte btImpedanceFrequency;
 
         public int nUserDefineStartFrequency;
         public byte btUserDefineFrequencyInterval;

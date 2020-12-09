@@ -2,6 +2,8 @@
 using System.Net;
 using System.IO.Ports;
 using Windows.Devices.Bluetooth.GenericAttributeProfile;
+using System.Globalization;
+using System.Threading;
 
 namespace Reader
 {
@@ -41,6 +43,8 @@ namespace Reader
 
         public ReaderMethod()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
+            Console.WriteLine(string.Format("{0}", Thread.CurrentThread.CurrentCulture.Name));
             italker = new Talker();
             italker.EvRecvData += MessageReceived;
             italker.EvException += ExceptionReceived;
@@ -119,7 +123,7 @@ namespace Reader
                 iSerialPort.ReadBufferSize = 4096 * 10;
                 iSerialPort.Open();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 strException = ex.Message;
                 return -1;
@@ -253,7 +257,7 @@ namespace Reader
                     m_nLenth = 0;
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ErrCallback?.Invoke(this, new ErrorReceivedEventArgs(ex.Message, ex));
             }

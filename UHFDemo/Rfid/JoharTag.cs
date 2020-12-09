@@ -16,10 +16,6 @@ namespace UHFDemo
 
         private int readcount = 0;
         /// <summary>
-        /// Time that search started
-        /// </summary>
-        internal DateTime _baseTime;
-        /// <summary>
         /// Time tag was read, in milliseconds since start of search
         /// </summary>
         internal int _readOffset = 0;

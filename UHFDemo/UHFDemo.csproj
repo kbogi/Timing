@@ -125,9 +125,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Windows, Version=255.255.255.255, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Windows Kits\10\UnionMetadata\10.0.19041.0\Windows.winmd</HintPath>
+    <Reference Include="Windows">
+      <HintPath>..\..\000_UHFDemo\Dlls\Windows.winmd</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>

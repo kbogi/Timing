@@ -570,6 +570,8 @@ namespace UHFDemo
 
         public void WriteLog(CustomControl.LogRichTextBox logRichTxt, string strLog, int nType)
         {
+            if (this == null)
+                return;
             BeginInvoke(new ThreadStart(delegate() {
                 if (nType == 0)
                 {
@@ -1283,13 +1285,13 @@ namespace UHFDemo
                             //switch(m_curOperateTagISO18000Buffer.btStatus)
                             //{
                             //    case 0x00:
-                            //        MessageBox.Show("该字节成功锁定");
+                            //        string.Format("{0}", FindResource("tipThisByteIsLocked"));
                             //        break;
                             //    case 0xFE:
-                            //        MessageBox.Show("该字节已是锁定状态");
+                            //        string.Format("{0}", FindResource("tipThisByteIsAlreadyLocked"));
                             //        break;
                             //    case 0xFF:
-                            //        MessageBox.Show("该字节无法锁定");
+                            //        string.Format("{0}", FindResource("tipThisByteIsNotLocked"));
                             //        break;
                             //    default:
                             //        break;
@@ -7699,15 +7701,12 @@ namespace UHFDemo
         IPEndPoint netEndpoint = null;
         //UDP Recv Thread
         Thread netRecvthread = null;
-        Thread netSendThread = null;
         bool netStarted = false;
         //Wait for UDP to finish receiving
         ManualResetEvent waitForStopRecv = new ManualResetEvent(false);
         //Wait for the Get or Set instruction to return
         //ManualResetEvent waitForGetAndSetAck = new ManualResetEvent(false);
         //private bool startRecvUdp = false;
-        //Operation is over, wait for 3s
-        private int waitTimeout = 3000;
 
         //The network card currently used as a UDP service
         NetCard curNetCard = null;
@@ -7801,7 +7800,7 @@ namespace UHFDemo
                     }
                     catch (SocketException e)
                     {
-                        MessageBox.Show("NetPort operation timeout");
+                        MessageBox.Show("NetPort operation timeout {0}", e.Message);
                         //startRecvUdp = false;
                         //waitForGetAndSetAck.Set();
                     }

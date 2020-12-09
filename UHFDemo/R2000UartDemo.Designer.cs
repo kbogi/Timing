@@ -2123,9 +2123,9 @@ namespace UHFDemo
             this.label106.AutoSize = true;
             this.label106.Location = new System.Drawing.Point(555, 24);
             this.label106.Name = "label106";
-            this.label106.Size = new System.Drawing.Size(17, 12);
+            this.label106.Size = new System.Drawing.Size(53, 12);
             this.label106.TabIndex = 8;
-            this.label106.Text = "个";
+            this.label106.Text = "quantity";
             // 
             // label105
             // 

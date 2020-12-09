@@ -116,7 +116,7 @@ namespace Reader
                 }
             }
             catch (UnauthorizedAccessException ex)
-            {;
+            {
                 return false;
             }
             return false;
@@ -145,7 +145,7 @@ namespace Reader
             }
             catch (Exception e)
             {
-                string exStr = String.Format("send data failed: {0}", e.Message);
+                string exStr = String.Format("send data failed: HResult={0:x8}", e.HResult);
                 OnReadException(exStr, e);
                 return false;
             }
