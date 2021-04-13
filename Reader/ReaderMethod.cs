@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.IO.Ports;
-using Windows.Devices.Bluetooth.GenericAttributeProfile;
 using System.Globalization;
 using System.Threading;
 
@@ -16,7 +15,6 @@ namespace Reader
     {
         private ITalker italker;
         private SerialPort iSerialPort;
-        private IBle ible;
         private ReaderType m_nType = ReaderType.Default;
 
         public ReciveDataCallback ReceiveCallback;
@@ -52,10 +50,6 @@ namespace Reader
             iSerialPort = new SerialPort();
             iSerialPort.DataReceived += ISerialPort_DataReceived;
             iSerialPort.ErrorReceived += ISerialPort_ErrorReceived;
-
-            ible = new Ble();
-            ible.EvRecvData += MessageReceived;
-            ible.EvException += ExceptionReceived;
         }
 
         private void ISerialPort_ErrorReceived(object sender, SerialErrorReceivedEventArgs e)
@@ -165,38 +159,6 @@ namespace Reader
         }
         #endregion ConnectTcp
 
-        #region ConnectBLE
-        string serviceUUID = "0000fff0-0000-1000-8000-00805f9b34fb"; // 65520
-        string subscribeUUID = "0000fff1-0000-1000-8000-00805f9b34fb";// 65521
-        string writeUUID = "0000fff2-0000-1000-8000-00805f9b34fb";// 65522
-        public void StartBLE(GattCharacteristic RecvGatt, GattCharacteristic SendGatt)
-        {
-            if (!RecvGatt.Uuid.ToString().Equals(subscribeUUID) || !SendGatt.Uuid.ToString().Equals(writeUUID))
-            {
-                return;
-            }
-
-            Console.WriteLine("StartBLE ...");
-            ible.Recv = RecvGatt;
-            ible.Send = SendGatt;
-            //byte[] data = new byte[] { 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38 };
-            ible.SendMessage(System.Text.Encoding.Default.GetBytes("12345678"));
-            ible.Subscribe();
-            ible.PowerOn();
-
-            m_nType = ReaderType.BLE;
-        }
-
-        public void StopBLE()
-        {
-            Console.WriteLine("StopBLE ...");
-            ible.Unsubscribe();
-            ible.PowerOff();
-            ible.Recv = null;
-            ible.Send = null;
-            m_nType = ReaderType.Default;
-        }
-        #endregion ConnectBLE
 
         private void RunReceiveDataCallback(byte[] btAryReceiveData)
         {
@@ -288,14 +250,6 @@ namespace Reader
                 if (italker.SendMessage(btArySenderData))
                 {
                     OnTransport(this.italker, new TransportDataEventArgs(true, btArySenderData));
-                    return 0;
-                }
-            }
-            else if (m_nType == ReaderType.BLE)
-            {
-                if(ible.SendMessage(btArySenderData))
-                {
-                    OnTransport(this.ible, new TransportDataEventArgs(true, btArySenderData));
                     return 0;
                 }
             }
@@ -960,8 +914,7 @@ namespace Reader
     {
         Default,
         SerialPort,
-        TCP,
-        BLE
+        TCP
     }
 
     public enum CMD
