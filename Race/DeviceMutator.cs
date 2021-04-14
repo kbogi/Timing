@@ -1,4 +1,3 @@
-using Util;
 using System;
 using System.Data;
 using Reader;
@@ -7,8 +6,31 @@ namespace Race {
     class DeviceMutator {
 
         private Device device;
-        public DeviceMutator(Device device) {
+        private Reader.ReaderMethod reader;
+        TagDB tagdb = new TagDB();
+        TagDB tagOpDb = new TagDB();
+        TagMaskDB tagmaskDB = new TagMaskDB();
+        JoharTagDB johardb = new JoharTagDB();
+        private int WriteTagCount = 0;
+        public double elapsedTime = 0.0; 
+        DispatcherTimer dispatcherTimer = null;
+        DispatcherTimer readratePerSecond = null;
+        DateTime startInventoryTime;
+        DateTime beforeCmdExecTime;
+        private bool isJohar = false;
+        bool isFastInv = false;
+        bool doingFastInv = false;
+        bool Inventorying = false;
+        bool isRealInv = false;
+        bool doingRealInv = false;
+        bool isBufferInv = false;
+        bool doingBufferInv = false;
+        bool needGetBuffer = false;
+        bool use_Phase = false;
+        private int tagbufferCount = 0;
+        public DeviceMutator(Device device, Reader.ReaderMethod reader) {
             this.device = device;
+            this.reader = reader;
         }
 
         private void WriteLog(string message){
@@ -40,9 +62,22 @@ namespace Race {
         private void RefreshInventoryReal(byte btCmd) {
             //TODO
         }
-        
-        private void RefreshReadSetting(byte btCmd) {
-            // TODO
+        private double CalculateElapsedTime()
+        {
+            TimeSpan elapsed = (DateTime.Now - startInventoryTime);
+            // elapsed time + previous cached async read time
+            double totalseconds = elapsedTime + elapsed.TotalSeconds;
+            WriteLog(string.Format("{0} {1}", Math.Round(totalseconds, 2), "Sec"));
+            if(doingBufferInv)
+            {
+                WriteLog(FormatLongToTimeStr((long)totalseconds));
+            }
+            return totalseconds;
+        }
+
+        private double CalculateExecTime()
+        {
+            return (DateTime.Now - beforeCmdExecTime).TotalMilliseconds;
         }
         
         private void RefreshFastSwitch(byte btCmd) {
@@ -52,8 +87,12 @@ namespace Race {
         private void RunLoopFastSwitch() {
             // TODO
         }
+        private void RefreshReadSetting(byte btCmd)
+        {
+            // TODO
+        }
 
-        public void ApplyData(Reader.MessageTran msgTran)
+        public void ApplyData(object sender, Reader.MessageTran msgTran)
         {
             Console.WriteLine("Packet {0} {1} {2}", msgTran.Cmd, msgTran.PacketType, msgTran.ReadId);
             
@@ -223,8 +262,8 @@ namespace Race {
                 if (msgTran.AryData[0] == 0x10)
                 {
                     this.device.settings.btReadId = msgTran.ReadId;
-                    WriteLog(lrtxtLog, strCmd, 0);
-                    FastInventory();
+                    WriteLog(strCmd, 0);
+                    //FastInventory();
                     return;
                 }
                 else
@@ -280,7 +319,7 @@ namespace Race {
                 this.device.settings.btMinor = msgTran.AryData[1];
                 this.device.settings.btReadId = msgTran.ReadId;
 
-                RefreshReadSetting((CMD)msgTran.Cmd);
+                RefreshReadSetting(msgTran.Cmd);
                 WriteLog(strCmd);
                 return;
             }
@@ -299,7 +338,7 @@ namespace Race {
         
         private void ProcessGetInternalVersion(MessageTran msgTran)
         {
-            string strCmd = string.Format("{0}", FindResource("tipGetInternalVersion"));
+            string strCmd = string.Format("{0}", "Get internal version");
             string strErrorCode = string.Empty;
 
             if (msgTran.AryData.Length == 1)
@@ -319,8 +358,8 @@ namespace Race {
                 strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
 
-            string strLog = string.Format("{0}{1}: {2}", strCmd, FindResource("FailedCause"), strErrorCode);
-            WriteLog(lrtxtLog, strLog, 1);
+            string strLog = string.Format("{0}{1}: {2}", strCmd, "Failed cause", strErrorCode);
+            WriteLog(strLog, 1);
         }
 
         private void ProcessSetUartBaudrate(Reader.MessageTran msgTran)
@@ -419,7 +458,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -449,7 +488,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -485,7 +524,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -496,11 +535,20 @@ namespace Race {
             string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
             WriteLog(strLog, 1);
 
-            if (this.device.inventory)
+            if(Inventorying)
             {
-                this.device.inventoryBuffer.nCommond = 1;
-                this.device.inventoryBuffer.dtEndInventory = DateTime.Now;
-                RunLoopInventroy();
+                if(isRealInv)
+                {
+                    stopRealInv();
+                }
+                else if (isFastInv)
+                {
+                    stopFastInv();
+                }
+                else if (isBufferInv)
+                {
+                    stopBufferInv();
+                }
             }
         }
         private void ProcessGetDrmMode(Reader.MessageTran msgTran)
@@ -521,7 +569,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -549,7 +597,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -561,22 +609,55 @@ namespace Race {
             WriteLog(strLog, 1);
         }
 
+        private string GetFreqString(byte btFreq)
+        {
+            string strFreq = string.Empty;
+
+            if (this.device.settings.btRegion == 4)
+            {
+                float nExtraFrequency = btFreq * this.device.settings.btUserDefineFrequencyInterval * 10;
+                float nstartFrequency = ((float)this.device.settings.nUserDefineStartFrequency) / 1000;
+                float nStart = nstartFrequency + nExtraFrequency / 1000;
+                string strTemp = nStart.ToString("0.000");
+                return strTemp;
+            }
+            else
+            {
+                if (btFreq < 0x07)
+                {
+                    float nStart = 865.00f + Convert.ToInt32(btFreq) * 0.5f;
+
+                    string strTemp = nStart.ToString("0.00");
+
+                    return strTemp;
+                }
+                else
+                {
+                    float nStart = 902.00f + (Convert.ToInt32(btFreq) - 7) * 0.5f;
+
+                    string strTemp = nStart.ToString("0.00");
+
+                    return strTemp;
+                }
+            }
+        }
+
         private void ProcessGetFrequencyRegion(Reader.MessageTran msgTran)
             {
-                string strCmd = string.Format("{0}", FindResource("tipGetFrequencyRegion"));
+                string strCmd = string.Format("{0}", "Get Frequency Region");
                 string strErrorCode = string.Empty;
 
                 parseGetFrequencyRegion(msgTran.AryData);
 
                 if (msgTran.AryData.Length == 3)
                 {
-                    m_curSetting.btReadId = msgTran.ReadId;
-                    m_curSetting.btRegion = msgTran.AryData[0];
-                    m_curSetting.btFrequencyStart = msgTran.AryData[1];
-                    m_curSetting.btFrequencyEnd = msgTran.AryData[2];
+                    this.device.settings.btReadId = msgTran.ReadId;
+                    this.device.settings.btRegion = msgTran.AryData[0];
+                    this.device.settings.btFrequencyStart = msgTran.AryData[1];
+                    this.device.settings.btFrequencyEnd = msgTran.AryData[2];
 
-                    RefreshReadSetting(CMD.cmd_get_frequency_region);
-                    WriteLog(lrtxtLog, strCmd, 0);
+                    RefreshReadSetting(0x79);
+                    WriteLog(strCmd, 0);
                     return;
                 }
                 else if (msgTran.AryData.Length == 6)
@@ -586,7 +667,7 @@ namespace Race {
                     this.device.settings.btUserDefineFrequencyInterval = msgTran.AryData[1];
                     this.device.settings.btUserDefineChannelQuantity = msgTran.AryData[2];
                     this.device.settings.nUserDefineStartFrequency = msgTran.AryData[3] * 256 * 256 + msgTran.AryData[4] * 256 + msgTran.AryData[5];
-                    RefreshReadSetting(CMD.cmd_get_frequency_region);
+                    RefreshReadSetting(0x79);
                     WriteLog(strCmd, 0);
                     return;
 
@@ -598,10 +679,10 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = string.Format("{0}", FindResource("UnknowError"));
+                    strErrorCode = string.Format("{0}", "Unknown Error");
                 }
 
-                string strLog = string.Format("{0}{1}: {2}", strCmd, FindResource("FailedCause"), strErrorCode);
+                string strLog = string.Format("{0}{1}: {2}", strCmd, "Failed cause", strErrorCode);
                 WriteLog(strLog, 1);
             }
 
@@ -621,7 +702,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -649,7 +730,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -678,7 +759,7 @@ namespace Race {
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -705,7 +786,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -749,7 +830,7 @@ namespace Race {
                 if (msgTran.AryData[0] == 0x00 || msgTran.AryData[0] == 0x8D)
                 {
                     this.device.settings.btReadId = msgTran.ReadId;
-                    this.device.settings.btAntDetector = msgTran.AryData[0];
+                    this.device.settings.btMonzaStatus = msgTran.AryData[0];
 
                     RefreshReadSetting(0x8E);
                     WriteLog(strCmd);
@@ -757,7 +838,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -786,7 +867,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -799,42 +880,10 @@ namespace Race {
         }
 
 
-        private string GetFreqString(byte btFreq)
-        {
-            string strFreq = string.Empty;
-
-            if (this.device.settings.btRegion == 4)
-            {
-                float nExtraFrequency = btFreq * this.device.settings.btUserDefineFrequencyInterval * 10;
-                float nstartFrequency = ((float)this.device.settings.nUserDefineStartFrequency) / 1000;
-                float nStart = nstartFrequency + nExtraFrequency / 1000;
-                string strTemp = nStart.ToString("0.000");
-                return strTemp;
-            }
-            else
-            {
-                if (btFreq < 0x07)
-                {
-                    float nStart = 865.00f + Convert.ToInt32(btFreq) * 0.5f;
-
-                    string strTemp = nStart.ToString("0.00");
-
-                    return strTemp;
-                }
-                else
-                {
-                    float nStart = 902.00f + (Convert.ToInt32(btFreq) - 7) * 0.5f;
-
-                    string strTemp = nStart.ToString("0.00");
-
-                    return strTemp;
-                }
-            }
-        }
 
             private void ProcessSetProfile(Reader.MessageTran msgTran)
         {
-            string strCmd = string.Format("{0}", FindResource("tipSetProfile"));
+            string strCmd = string.Format("{0}", "Set profile");
             string strErrorCode = string.Empty;
 
             if (msgTran.AryData.Length == 1)
@@ -854,10 +903,10 @@ namespace Race {
             }
             else
             {
-                strErrorCode = string.Format("{0}", FindResource("UnknowError"));
+                strErrorCode = string.Format("{0}", "Unknown Error");
             }
 
-            string strLog = string.Format("{0}{1}: {2}", strCmd, FindResource("FailedCause"), strErrorCode);
+            string strLog = string.Format("{0}{1}: {2}", strCmd, "Failed cause", strErrorCode);
             WriteLog( strLog, 1);
         }
 
@@ -879,7 +928,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -893,34 +942,35 @@ namespace Race {
 
         private void ProcessSetReaderAntGroup(Reader.MessageTran msgTran)
         {
-            string strCmd = string.Format("{0} {1}", FindResource("tipSetReaderAntGroup"), tagdb.AntGroup);
-            string strErrorCode;
+            string strCmd = string.Format("{0} {1}", "Set reader ant group", tagdb.AntGroup);
+            string strErrorCode = "";
 
             if (msgTran.AryData.Length == 1)
             {
                 if (msgTran.AryData[0] == 0x10)
                 {
-                    m_curSetting.btReadId = msgTran.ReadId;
-                    WriteLog(lrtxtLog, strCmd, 0);
+                    this.device.settings.btReadId = msgTran.ReadId;
+                    WriteLog(strCmd, 0);
+
+                    /*
                     if (m_setWorkAnt)
                     {
-                        BeginInvoke(new ThreadStart(delegate() {
-                            m_setWorkAnt = false;
-                            byte btWorkAntenna = (byte)cmbWorkAnt.SelectedIndex;
-                            if (btWorkAntenna >= 0x08)
-                                btWorkAntenna = (byte)((btWorkAntenna & 0xFF) - 0x08);
-                            reader.SetWorkAntenna(m_curSetting.btReadId, btWorkAntenna);
-                            m_curSetting.btWorkAntenna = btWorkAntenna;
-                            return;
-                        }));
+                        m_setWorkAnt = false;
+                        byte btWorkAntenna = (byte)cmbWorkAnt.SelectedIndex;
+                        if (btWorkAntenna >= 0x08)
+                            btWorkAntenna = (byte)((btWorkAntenna & 0xFF) - 0x08);
+                        reader.SetWorkAntenna(this.device.settings.btReadId, btWorkAntenna);
+                        this.device.settings.btWorkAntenna = btWorkAntenna;
+                        return;
                     }
                     if (m_getOutputPower)
                     {
-                        reader.GetOutputPower(m_curSetting.btReadId);
+                        reader.GetOutputPower(this.device.settings.btReadId);
                         return;
                     }
                     if (m_setOutputPower)
                     {
+                            /*
                         if (tagdb.AntGroup == 0x00)
                         {
                             if (tb_outputpower_1.Text.Length != 0 || tb_outputpower_2.Text.Length != 0 || tb_outputpower_3.Text.Length != 0 || tb_outputpower_4.Text.Length != 0
@@ -936,7 +986,7 @@ namespace Race {
                                 OutputPower[6] = Convert.ToByte(tb_outputpower_7.Text);
                                 OutputPower[7] = Convert.ToByte(tb_outputpower_8.Text);
 
-                                reader.SetOutputPower(m_curSetting.btReadId, OutputPower);
+                                reader.SetOutputPower(this.device.settings.btReadId, OutputPower);
                             }
                         }
                         else
@@ -954,24 +1004,25 @@ namespace Race {
                                 OutputPower[6] = Convert.ToByte(tb_outputpower_15.Text);
                                 OutputPower[7] = Convert.ToByte(tb_outputpower_16.Text);
 
-                                reader.SetOutputPower(m_curSetting.btReadId, OutputPower);
+                                reader.SetOutputPower(this.device.settings.btReadId, OutputPower);
                             }
                         }
                         return;
                     }
                     if (doingRealInv)
                     {
-                        reader.SetWorkAntenna(m_curSetting.btReadId, m_curSetting.btWorkAntenna);
+                        reader.SetWorkAntenna(this.device.settings.btReadId, this.device.settings.btWorkAntenna);
                     }
                     else if(doingFastInv)
                     {
-                        cmdFastInventorySend(useAntG1);
+                        //cmdFastInventorySend(useAntG1); todo
                     }
                     else if(doingBufferInv)
                     {
-                        reader.SetWorkAntenna(m_curSetting.btReadId, m_curSetting.btWorkAntenna);
+                        reader.SetWorkAntenna(this.device.settings.btReadId, this.device.settings.btWorkAntenna);
                     }
                     return;
+                    */
                 }
                 else
                 {
@@ -980,37 +1031,37 @@ namespace Race {
             }
             else
             {
-                strErrorCode = string.Format("{0}", FindResource("UnknowError"));
+                strErrorCode = string.Format("{0}", "Unknow Error");
             }
 
-            string strLog = string.Format("{0}{1}: {2}", strCmd, FindResource("FailedCause"), strErrorCode);
-            WriteLog(lrtxtLog, strLog, 1);
+            string strLog = string.Format("{0}{1}: {2}", strCmd, "Failed cause", strErrorCode);
+            WriteLog(strLog, 1);
         }
 
         private void ProcessGetReaderAntGroup(Reader.MessageTran msgTran)
         {
-            string strCmd = string.Format("{0}", FindResource("tipGetReaderAntGroup"));
+            string strCmd = string.Format("{0}", "Get reader ant group");
             string strErrorCode = string.Empty;
 
             if (msgTran.AryData.Length == 1)
             {
                 if (msgTran.AryData[0] == 0x00 || msgTran.AryData[0] == 0x01)
                 {
-                    m_curSetting.btReadId = msgTran.ReadId;
+                    this.device.settings.btReadId = msgTran.ReadId;
                     tagdb.AntGroup = msgTran.AryData[0];
                     if(tagdb.AntGroup==0x01)
                     {
-                        BeginInvoke(new ThreadStart(delegate() {
-                            if(!antType16.Checked)
-                                antType16.Checked = true;
-                        }));
+                        /*
+                        if(!antType16.Checked)
+                            antType16.Checked = true;
+                            */
                     }
-                    if (m_getWorkAnt)
+                    if (device.getWorkAnt)
                     {
-                        m_getWorkAnt = false;
-                        reader.GetWorkAntenna(m_curSetting.btReadId);
+                        device.getWorkAnt = false;
+                        reader.GetWorkAntenna(this.device.settings.btReadId);
                     }
-                    WriteLog(lrtxtLog, strCmd, 0);
+                    WriteLog(strCmd, 0);
                     return;
                 }
                 else
@@ -1020,11 +1071,11 @@ namespace Race {
             }
             else
             {
-                strErrorCode = string.Format("{0}", FindResource("UnknowError"));
+                strErrorCode = string.Format("{0}", "Unknow Error");
             }
 
-            string strLog = string.Format("{0}{1}: {2}", strCmd, FindResource("FailedCause"), strErrorCode);
-            WriteLog(lrtxtLog, strLog, 1);
+            string strLog = string.Format("{0}{1}: {2}", strCmd, "Failed cause", strErrorCode);
+            WriteLog(strLog, 1);
         }
 
 
@@ -1057,7 +1108,7 @@ namespace Race {
             }
 
             string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
-            WriteLog( strCmd, 1);;
+            WriteLog( strCmd, 1);
         }
 
         private void ProcessGetImpedanceMatch(Reader.MessageTran msgTran)
@@ -1124,7 +1175,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -1143,162 +1194,77 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);;
-                RefreshFastSwitch(0x01);
-                RunLoopFastSwitch();
+                if (isFastInv)
+                {
+                    //FastInventory(); todo
+                }
+                else
+                {
+                    stopFastInv();
+                }
             }
             else if (msgTran.AryData.Length == 2)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[1]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[1]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode + "--" + "Antenna" + (msgTran.AryData[0] + 1);
 
                 WriteLog( strCmd, 1);;
             }
-
             else if (msgTran.AryData.Length == 7)
             {
-                this.device.switchTotal = Convert.ToInt32(msgTran.AryData[0]) * 255 * 255  + Convert.ToInt32(msgTran.AryData[1]) * 255  + Convert.ToInt32(msgTran.AryData[2]);
-                this.device.switchTime = Convert.ToInt32(msgTran.AryData[3]) * 255 * 255 * 255 + Convert.ToInt32(msgTran.AryData[4]) * 255 * 255 + Convert.ToInt32(msgTran.AryData[5]) * 255 + Convert.ToInt32(msgTran.AryData[6]);
+                if(doingFastInv)
+                {
+                    WriteLog(strCmd, 0);
 
-                this.device.inventoryBuffer.nDataCount = this.device.switchTotal;
-                this.device.inventoryBuffer.nCommandDuration = this.device.switchTime;
-                WriteLog( strCmd);
-                RefreshFastSwitch(0x02);
-                RunLoopFastSwitch();
+                    tagdb.UpdateCmd8AExecuteSuccess(msgTran.AryData);
+                    WriteLog(string.Format("readrate: {0}, tagreads: {1}, tagCount: {2}, tagDuration{3}, totalExecutionTime{4}",
+                        tagdb.CmdReadRate.ToString(),
+                        tagdb.TotalTagCounts.ToString(),
+                        tagdb.CmdTotalRead.ToString(),
+                        tagdb.CommandDuration.ToString(),
+                        FormatLongToTimeStr(tagdb.TotalCommandTime)
+                    ));
+
+                    if (isFastInv)
+                    {
+                        // FastInventory();todo
+                    }
+                    else
+                    {
+                        stopFastInv();
+                    }
+                }
             }
-
-            /*else if (msgTran.AryData.Length == 8)
-            {
-                
-                this.device.switchTotal = Convert.ToInt32(msgTran.AryData[0]) * 255 * 255 * 255 + Convert.ToInt32(msgTran.AryData[1]) * 255 * 255 + Convert.ToInt32(msgTran.AryData[2]) * 255 + Convert.ToInt32(msgTran.AryData[3]);
-                this.device.switchTime = Convert.ToInt32(msgTran.AryData[4]) * 255 * 255 * 255 + Convert.ToInt32(msgTran.AryData[5]) * 255 * 255 + Convert.ToInt32(msgTran.AryData[6]) * 255 + Convert.ToInt32(msgTran.AryData[7]);
-
-                this.device.inventoryBuffer.nDataCount = this.device.switchTotal;
-                this.device.inventoryBuffer.nCommandDuration = this.device.switchTime;
-                WriteLog( strCmd);
-                RefreshFastSwitch(0x02);
-                RunLoopFastSwitch();
-            }*/
             else
             {
-                this.device.total++;
-                int nLength = msgTran.AryData.Length;
-                int nEpcLength = nLength - 4;
-
-                //Add inventory list
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, nEpcLength);                
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 2);
-                string strRSSI = msgTran.AryData[nLength - 1].ToString();
-                SetMaxMinRSSI(Convert.ToInt32(msgTran.AryData[nLength - 1]));
-                byte btTemp = msgTran.AryData[0];
-                byte btAntId = (byte)((btTemp & 0x03) + 1);
-                this.device.inventoryBuffer.nCurrentAnt = (int)btAntId;
-                string strAntId = btAntId.ToString();
-                byte btFreq = (byte)(btTemp >> 2);
-                
-                string strFreq = GetFreqString(btFreq);
-
-                DataRow[] drs = this.device.inventoryBuffer.dtTagTable.Select(string.Format("COLEPC = '{0}'", strEPC));
-                if (drs.Length == 0)
+                if (doingFastInv)
                 {
-                    DataRow row1 = this.device.inventoryBuffer.dtTagTable.NewRow();
-                    row1[0] = strPC;
-                    row1[2] = strEPC;
-                    row1[4] = strRSSI;
-                    row1[5] = "1";
-                    row1[6] = strFreq;
-                    row1[7] = "0";
-                    row1[8] = "0";
-                    row1[9] = "0";
-                    row1[10] = "0";
-                    switch(btAntId)
-                    {
-                        case 0x01:
-                            {
-                                row1[7] = "1";
-                            }
-                            break;
-                        case 0x02:
-                            {
-                                row1[8] = "1";
-                            }
-                            break;
-                        case 0x03:
-                            {
-                                row1[9] = "1";
-                            }
-                            break;
-                        case 0x04:
-                            {
-                                row1[10] = "1";
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-
-                    this.device.inventoryBuffer.dtTagTable.Rows.Add(row1);
-                    this.device.inventoryBuffer.dtTagTable.AcceptChanges();
+                    parseInvTag(use_Phase, msgTran.AryData, 0x8a);
                 }
-                else
-                {
-                    foreach (DataRow dr in drs)
-                    {
-                        dr.BeginEdit();
-                        int nTemp = 0;
-
-                        dr[4] = strRSSI;
-                        //dr[5] = (Convert.ToInt32(dr[5]) + 1).ToString();
-                        nTemp = Convert.ToInt32(dr[5]);
-                        dr[5] = (nTemp + 1).ToString();
-                        dr[6] = strFreq;
-
-                        switch(btAntId)
-                        {
-                            case 0x01:
-                                {
-                                    //dr[7] = (Convert.ToInt32(dr[7]) + 1).ToString();
-                                    nTemp = Convert.ToInt32(dr[7]);
-                                    dr[7] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x02:
-                                {
-                                    //dr[8] = (Convert.ToInt32(dr[8]) + 1).ToString();
-                                    nTemp = Convert.ToInt32(dr[8]);
-                                    dr[8] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x03:
-                                {
-                                    //dr[9] = (Convert.ToInt32(dr[9]) + 1).ToString();
-                                    nTemp = Convert.ToInt32(dr[9]);
-                                    dr[9] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            case 0x04:
-                                {
-                                    //dr[10] = (Convert.ToInt32(dr[10]) + 1).ToString();
-                                    nTemp = Convert.ToInt32(dr[10]);
-                                    dr[10] = (nTemp + 1).ToString();
-                                }
-                                break;
-                            default:
-                                break;
-                        }
-
-                        dr.EndEdit();
-                    }
-                    this.device.inventoryBuffer.dtTagTable.AcceptChanges();
-                }
-
-                this.device.inventoryBuffer.dtEndInventory = DateTime.Now;
-                RefreshFastSwitch(0x00);
             }
+        }
 
+        private void stopFastInv()
+        {
+            doingFastInv = false;
+            Inventorying = false;
+        }
+
+        private void stopRealInv()
+        {
+            doingRealInv = false;
+            Inventorying = false;
+        }
+
+        private void stopBufferInv()
+        {
+            doingBufferInv = false;
+            Inventorying = false;
+            // real stop bufferInv
         }
 
         private void ProcessInventoryReal(Reader.MessageTran msgTran)
@@ -1316,87 +1282,64 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
-                WriteLog( strCmd, 1);;
-                RefreshInventoryReal(0x00);
-                RunLoopInventroy();
+                if (this.device.fastExeCount != -1)
+                {
+                    if (this.device.fastExeCount > 1)
+                    {
+                        this.device.fastExeCount--;
+                    }
+                    else
+                    {
+                        isRealInv = false;
+                    }
+                }
+
+                if (!isRealInv)
+                {
+                    stopRealInv();
+                }
+                if (doingRealInv)
+                    RunLoopInventroy();
+
             }
             else if (msgTran.AryData.Length == 7)
             {
-                this.device.inventoryBuffer.nReadRate = Convert.ToInt32(msgTran.AryData[1]) * 256 + Convert.ToInt32(msgTran.AryData[2]);
-                this.device.inventoryBuffer.nDataCount = Convert.ToInt32(msgTran.AryData[3]) * 256 * 256 * 256 + Convert.ToInt32(msgTran.AryData[4]) * 256 * 256 + Convert.ToInt32(msgTran.AryData[5]) * 256 + Convert.ToInt32(msgTran.AryData[6]);
+                WriteLog(strCmd, 0);
 
-                WriteLog( strCmd);
-                RefreshInventoryReal(0x01);
-                RunLoopInventroy();
+                tagdb.UpdateCmd89ExecuteSuccess(msgTran.AryData);
+                WriteLog(string.Format("readrate: {0}, tagreads: {1}, tagCount: {2}, tagDuration{3}, totalExecutionTime{4}",
+                    tagdb.CmdReadRate.ToString(),
+                    tagdb.TotalTagCounts.ToString(),
+                    tagdb.CmdTotalRead.ToString(),
+                    tagdb.CommandDuration.ToString(),
+                    FormatLongToTimeStr(tagdb.TotalCommandTime)
+                ));
+
+                if (this.device.fastExeCount != -1)
+                {
+                    if (this.device.fastExeCount > 1)
+                    {
+                        this.device.fastExeCount--;
+                    }
+                    else
+                    {
+                        isRealInv = false;
+                    }
+                }
+                
+                if (!isRealInv)
+                {
+                    stopRealInv();
+                }
+                if (doingRealInv)
+                    RunLoopInventroy();
             }
             else
             {
-                this.device.total++;
-                int nLength = msgTran.AryData.Length;
-                int nEpcLength = nLength - 4;
-
-                //Add inventory list
-                //if (msgTran.AryData[3] == 0x00)
-                //{
-                //    MessageBox.Show("");
-                //}
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, nEpcLength);
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 2);
-                string strRSSI = msgTran.AryData[nLength - 1].ToString();
-                SetMaxMinRSSI(Convert.ToInt32(msgTran.AryData[nLength - 1]));
-                byte btTemp = msgTran.AryData[0];
-                byte btAntId = (byte)((btTemp & 0x03) + 1);
-                this.device.inventoryBuffer.nCurrentAnt = btAntId;
-                string strAntId = btAntId.ToString();
-            
-                byte btFreq = (byte)(btTemp >> 2);
-                string strFreq = GetFreqString(btFreq);
-                
-                //DataRow row = this.device.inventoryBuffer.dtTagDetailTable.NewRow();
-                //row[0] = strEPC;
-                //row[1] = strRSSI;
-                //row[2] = strAntId;
-                //row[3] = strFreq;
-
-                //this.device.inventoryBuffer.dtTagDetailTable.Rows.Add(row);
-                //this.device.inventoryBuffer.dtTagDetailTable.AcceptChanges();
-
-                ////Add tag list
-                //DataRow[] drsDetail = this.device.inventoryBuffer.dtTagDetailTable.Select(string.Format("COLEPC = '{0}'", strEPC));
-                //int nDetailCount = drsDetail.Length;
-                DataRow[] drs = this.device.inventoryBuffer.dtTagTable.Select(string.Format("COLEPC = '{0}'", strEPC));
-                if (drs.Length == 0)
-                {
-                    DataRow row1 = this.device.inventoryBuffer.dtTagTable.NewRow();
-                    row1[0] = strPC;
-                    row1[2] = strEPC;
-                    row1[4] = strRSSI;
-                    row1[5] = "1";
-                    row1[6] = strFreq;
-
-                    this.device.inventoryBuffer.dtTagTable.Rows.Add(row1);
-                    this.device.inventoryBuffer.dtTagTable.AcceptChanges();
-                }
-                else
-                {
-                    foreach (DataRow dr in drs)
-                    {
-                        dr.BeginEdit();
-
-                        dr[4] = strRSSI;
-                        dr[5] = (Convert.ToInt32(dr[5]) + 1).ToString();
-                        dr[6] = strFreq;
-
-                        dr.EndEdit();                       
-                    }
-                    this.device.inventoryBuffer.dtTagTable.AcceptChanges();
-                }
-
-                this.device.inventoryBuffer.dtEndInventory = DateTime.Now;
-                RefreshInventoryReal(0x89);
+                parseInvTag(use_Phase, msgTran.AryData, 0x89);
             }
         }
 
@@ -1407,27 +1350,39 @@ namespace Race {
 
             if (msgTran.AryData.Length == 9)
             {
-                this.device.inventoryBuffer.nCurrentAnt = msgTran.AryData[0];
-                this.device.inventoryBuffer.nTagCount = Convert.ToInt32(msgTran.AryData[1]) * 256 + Convert.ToInt32(msgTran.AryData[2]);
-                this.device.inventoryBuffer.nReadRate = Convert.ToInt32(msgTran.AryData[3]) * 256 + Convert.ToInt32(msgTran.AryData[4]);
-                int nTotalRead = Convert.ToInt32(msgTran.AryData[5]) * 256 * 256 * 256
-                    + Convert.ToInt32(msgTran.AryData[6]) * 256 * 256
-                    + Convert.ToInt32(msgTran.AryData[7]) * 256
-                    + Convert.ToInt32(msgTran.AryData[8]);
-                this.device.inventoryBuffer.nDataCount = nTotalRead;
-                this.device.inventoryBuffer.lTotalRead.Add(nTotalRead);
-                this.device.inventoryBuffer.dtEndInventory = DateTime.Now;
+                WriteLog(strCmd, 0);
+                tagdb.UpdateCmd80ExecuteSuccess(msgTran.AryData);
+                WriteLog(string.Format("readrate: {0}, tagreads: {1}, tagCount: {2}, tagDuration{3}, totalExecutionTime{4}",
+                    tagdb.CmdReadRate.ToString(),
+                    tagdb.TotalTagCounts.ToString(),
+                    tagdb.CmdTotalRead.ToString(),
+                    tagdb.CommandDuration.ToString(),
+                    FormatLongToTimeStr(tagdb.TotalCommandTime)
+                ));
 
-                RefreshInventory(0x80);
-                WriteLog( strCmd);
+                if (this.device.fastExeCount != -1)
+                {
+                    if (this.device.fastExeCount > 1)
+                    {
+                        this.device.fastExeCount--;
+                    }
+                    else
+                    {
+                        isBufferInv = false;
+                    }
+                }
 
-                RunLoopInventroy();
-
+                if (!isBufferInv)
+                {
+                    stopBufferInv();
+                }
+                if (doingBufferInv)
+                    RunLoopInventroy();
                 return;
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -1435,25 +1390,46 @@ namespace Race {
             }
 
             string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
-            WriteLog( strCmd, 1);;
+            WriteLog( strCmd, 1);
 
-            RunLoopInventroy();
+            if (this.device.fastExeCount != -1)
+            {
+                if (this.device.fastExeCount > 1)
+                {
+                    this.device.fastExeCount--;
+                }
+                else
+                {
+                    isBufferInv = false;
+                }
+            }
+
+            if (!isBufferInv)
+            {
+                stopBufferInv();
+            }
+            if (doingBufferInv)
+                RunLoopInventroy();
         }
 
         private void SetMaxMinRSSI(int nRSSI)
         {
-            if (this.device.inventoryBuffer.nMaxRSSI < nRSSI)
+            if (tagdb.MinRSSI == 0 && tagdb.MinRSSI == 0)
             {
-                this.device.inventoryBuffer.nMaxRSSI = nRSSI;
+                tagdb.MaxRSSI = nRSSI;
+                tagdb.MinRSSI = nRSSI;
             }
+            else
+            {
+                if (tagdb.MaxRSSI < nRSSI)
+                {
+                    tagdb.MaxRSSI = nRSSI;
+                }
 
-            if (this.device.inventoryBuffer.nMinRSSI == 0)
-            {
-                this.device.inventoryBuffer.nMinRSSI = nRSSI;
-            }
-            else if (this.device.inventoryBuffer.nMinRSSI > nRSSI)
-            {
-                this.device.inventoryBuffer.nMinRSSI = nRSSI;
+                if (tagdb.MinRSSI > nRSSI)
+                {
+                    tagdb.MinRSSI = nRSSI;
+                }
             }
         }
 
@@ -1464,41 +1440,15 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
-                WriteLog( strCmd, 1);;
+                WriteLog( strCmd, 1);
+                stopGetInventoryBuffer(false);
             }
             else
             {
-                int nDataLen = msgTran.AryData.Length;
-                int nEpcLen = Convert.ToInt32(msgTran.AryData[2]) - 4;
-
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEpc = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strRSSI = msgTran.AryData[nDataLen - 3].ToString();
-                SetMaxMinRSSI(Convert.ToInt32(msgTran.AryData[nDataLen - 3]));
-                byte btTemp = msgTran.AryData[nDataLen - 2];
-                byte btAntId = (byte)((btTemp & 0x03) + 1);
-                string strAntId = btAntId.ToString();
-                string strReadCnr = msgTran.AryData[nDataLen - 1].ToString();
-
-
-                Console.WriteLine("ChipData: {0}, {1}, {2}, {3}, {4}, {5}", strPC, strCRC, strEpc, strAntId, strRSSI, strReadCnr);
-
-                DataRow row = this.device.inventoryBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEpc;
-                row[3] = strAntId;
-                row[4] = strRSSI;
-                row[5] = strReadCnr;
-
-                this.device.inventoryBuffer.dtTagTable.Rows.Add(row);
-                this.device.inventoryBuffer.dtTagTable.AcceptChanges();
-
-                RefreshInventory(0x90);
+                parseInvTag(false, msgTran.AryData, 0x90);
                 WriteLog( strCmd);
             }
         }
@@ -1510,42 +1460,35 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);;
             }
             else
             {
-                int nDataLen = msgTran.AryData.Length;
-                int nEpcLen = Convert.ToInt32(msgTran.AryData[2]) - 4;
-
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEpc = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strRSSI = msgTran.AryData[nDataLen - 3].ToString();
-                SetMaxMinRSSI(Convert.ToInt32(msgTran.AryData[nDataLen - 3]));
-                byte btTemp = msgTran.AryData[nDataLen - 2];
-                byte btAntId = (byte)((btTemp & 0x03) + 1);
-                string strAntId = btAntId.ToString();
-                string strReadCnr = msgTran.AryData[nDataLen - 1].ToString();
-                
-                Console.WriteLine("ChipData: {0}, {1}, {2}, {3}, {4}, {5}", strPC, strCRC, strEpc, strAntId, strRSSI, strReadCnr);
-
-                DataRow row = this.device.inventoryBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEpc;
-                row[3] = strAntId;
-                row[4] = strRSSI;
-                row[5] = strReadCnr;
-
-                this.device.inventoryBuffer.dtTagTable.Rows.Add(row);
-                this.device.inventoryBuffer.dtTagTable.AcceptChanges();
-
-                RefreshInventory(0x91);
-                WriteLog( strCmd);
+                WriteLog(strCmd, 0);
+                parseInvTag(false, msgTran.AryData, 0x91);
             }
+        }
+
+        private void stopGetInventoryBuffer(bool clearBuffer)
+        {
+            tagbufferCount = 0;
+            needGetBuffer = false;
+            if (clearBuffer)
+            {
+                WriteLog("Get and clear buffer");
+            }
+            else
+            {
+                WriteLog("Get buffer");
+            }
+            dispatcherTimer.Stop();
+            readratePerSecond.Stop();
+            elapsedTime = CalculateElapsedTime();
+
+            tagdb.Repaint();
         }
 
         private void ProcessGetInventoryBufferTagCount(Reader.MessageTran msgTran)
@@ -1555,16 +1498,14 @@ namespace Race {
 
             if (msgTran.AryData.Length == 2)
             {
-                this.device.inventoryBuffer.nTagCount = Convert.ToInt32(msgTran.AryData[0]) * 256 + Convert.ToInt32(msgTran.AryData[1]);
-
-                RefreshInventory(0x92);
-                string strLog1 = strCmd + " " + this.device.inventoryBuffer.nTagCount.ToString();
+                int nTagCount = Convert.ToInt32(msgTran.AryData[0]) * 256 + Convert.ToInt32(msgTran.AryData[1]);
+                string strLog1 = strCmd + " " + nTagCount.ToString();
                 WriteLog(strLog1);
                 return;
             }
             else if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
             }
             else
             {
@@ -1591,7 +1532,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -1618,17 +1559,18 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
             {
                 if (msgTran.AryData[0] == 0x00)
                 {
-                    this.device.operateTagBuffer.strAccessEpcMatch = CCommondMethod.ByteArrayToString(msgTran.AryData, 2, Convert.ToInt32(msgTran.AryData[1]));
+                    WriteLog(string.Format("{0} ({1}){2}",
+                        strCmd,
+                        Convert.ToInt32(msgTran.AryData[2]),
+                        ReaderUtils.ByteArrayToString(msgTran.AryData, 2, Convert.ToInt32(msgTran.AryData[1]))), 0);
                     
-                    RefreshOpTag(0x86);
-                    WriteLog( strCmd);
                     return;
                 }
                 else
@@ -1639,7 +1581,7 @@ namespace Race {
 
             string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
-            WriteLog( strCmd, 1);;
+            WriteLog( strCmd, 1);
         }
 
         private void ProcessSetAccessEpcMatch(Reader.MessageTran msgTran)
@@ -1656,7 +1598,7 @@ namespace Race {
                 }
                 else
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 }
             }
             else
@@ -1676,42 +1618,23 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);;
             }
             else
             {
-                int nLen = msgTran.AryData.Length;
-                int nDataLen = Convert.ToInt32(msgTran.AryData[nLen - 3]);
-                int nEpcLen = Convert.ToInt32(msgTran.AryData[2]) - nDataLen - 4;
+                if (isJohar)
+                {
+                    parseJoharRead(msgTran.AryTranData);
+                }
+                else
+                {
+                    AddTagToTagOpDb(msgTran);
 
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = CCommondMethod.ByteArrayToString(msgTran.AryData, 7 + nEpcLen, nDataLen);
-
-                byte byTemp = msgTran.AryData[nLen - 2];
-                byte byAntId = (byte)((byTemp & 0x03) + 1);
-                string strAntId = byAntId.ToString();
-
-                string strReadCount = msgTran.AryData[nLen - 1].ToString();
-
-                DataRow row = this.device.operateTagBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEPC;
-                row[3] = strData;
-                row[4] = nDataLen.ToString();
-                row[5] = strAntId;
-                row[6] = strReadCount;
-
-                this.device.operateTagBuffer.dtTagTable.Rows.Add(row);
-                this.device.operateTagBuffer.dtTagTable.AcceptChanges();
-
-                RefreshOpTag(0x81);
-                WriteLog( strCmd);
+                    WriteLog(strCmd, 0);
+                }
             }
         }
 
@@ -1722,7 +1645,7 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);;
@@ -1734,38 +1657,21 @@ namespace Race {
 
                 if (msgTran.AryData[nLen - 3] != 0x10)
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[nLen - 3]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[nLen - 3]);
                     string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                     WriteLog( strCmd, 1);;
                     return;
                 }
+                WriteTagCount++;
 
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = string.Empty;
+                AddTagToTagOpDb(msgTran);
 
-                byte byTemp = msgTran.AryData[nLen - 2];
-                byte byAntId = (byte)((byTemp & 0x03) + 1);
-                string strAntId = byAntId.ToString();
-
-                string strReadCount = msgTran.AryData[nLen - 1].ToString();
-
-                DataRow row = this.device.operateTagBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEPC;
-                row[3] = strData;
-                row[4] = string.Empty;
-                row[5] = strAntId;
-                row[6] = strReadCount;
-
-                this.device.operateTagBuffer.dtTagTable.Rows.Add(row);
-                this.device.operateTagBuffer.dtTagTable.AcceptChanges();
-
-                RefreshOpTag(0x82);
                 WriteLog( strCmd);
+                if (WriteTagCount == (msgTran.AryData[0] * 256 + msgTran.AryData[1]))
+                {
+                    WriteTagCount = 0;
+                }
             }
         }
 
@@ -1776,7 +1682,7 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);;
@@ -1788,37 +1694,15 @@ namespace Race {
 
                 if (msgTran.AryData[nLen - 3] != 0x10)
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[nLen - 3]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[nLen - 3]);
                     string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
-                    WriteLog( strCmd, 1);;
+                    WriteLog( strCmd, 1);
                     return;
                 }
 
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = string.Empty;
+                AddTagToTagOpDb(msgTran);
 
-                byte byTemp = msgTran.AryData[nLen - 2];
-                byte byAntId = (byte)((byTemp & 0x03) + 1);
-                string strAntId = byAntId.ToString();
-
-                string strReadCount = msgTran.AryData[nLen - 1].ToString();
-
-                DataRow row = this.device.operateTagBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEPC;
-                row[3] = strData;
-                row[4] = string.Empty;
-                row[5] = strAntId;
-                row[6] = strReadCount;
-
-                this.device.operateTagBuffer.dtTagTable.Rows.Add(row);
-                this.device.operateTagBuffer.dtTagTable.AcceptChanges();
-
-                RefreshOpTag(0x83);
                 WriteLog( strCmd);
             }
         }
@@ -1830,7 +1714,7 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);;
@@ -1842,39 +1726,21 @@ namespace Race {
 
                 if (msgTran.AryData[nLen - 3] != 0x10)
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[nLen - 3]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[nLen - 3]);
                     string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                     WriteLog( strCmd, 1);;
                     return;
                 }
 
-                string strPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 3, 2);
-                string strEPC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5, nEpcLen);
-                string strCRC = CCommondMethod.ByteArrayToString(msgTran.AryData, 5 + nEpcLen, 2);
-                string strData = string.Empty;
-
-                byte byTemp = msgTran.AryData[nLen - 2];
-                byte byAntId = (byte)((byTemp & 0x03) + 1);
-                string strAntId = byAntId.ToString();
-
-                string strReadCount = msgTran.AryData[nLen - 1].ToString();
-
-                DataRow row = this.device.operateTagBuffer.dtTagTable.NewRow();
-                row[0] = strPC;
-                row[1] = strCRC;
-                row[2] = strEPC;
-                row[3] = strData;
-                row[4] = string.Empty;
-                row[5] = strAntId;
-                row[6] = strReadCount;
-
-                this.device.operateTagBuffer.dtTagTable.Rows.Add(row);
-                this.device.operateTagBuffer.dtTagTable.AcceptChanges();
-
-                RefreshOpTag(0x84);
+                AddTagToTagOpDb(msgTran);
                 WriteLog( strCmd);
             }
+        }
+
+        private void AddTagToTagOpDb(MessageTran msgTran)
+        {
+            tagOpDb.Add(new Tag(msgTran.AryData, msgTran.Cmd, tagdb.AntGroup));
         }
 
         private void ProcessInventoryISO18000(Reader.MessageTran msgTran)
@@ -1886,7 +1752,7 @@ namespace Race {
             {
                 if (msgTran.AryData[0] != 0xFF)
                 {
-                    strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                    strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                     string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                     WriteLog( strCmd, 1);;
@@ -1894,8 +1760,8 @@ namespace Race {
             }
             else if (msgTran.AryData.Length == 9)
             {
-                string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                string strUID = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 8);
+                string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                string strUID = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, 8);
 
                 //Add saved Tag List, no inventoried add recording, otherwise, the tag inventory number plus 1.
                 DataRow[] drs = this.device.operateTagISO18000Buffer.dtTagTable.Select(string.Format("UID = '{0}'", strUID));
@@ -1940,15 +1806,15 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);;
             }
             else
             {
-                string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                string strData = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, msgTran.AryData.Length - 1);
+                string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                string strData = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, msgTran.AryData.Length - 1);
 
                 this.device.operateTagISO18000Buffer.btAntId = Convert.ToByte(strAntID);
                 this.device.operateTagISO18000Buffer.strReadData = strData;
@@ -1966,15 +1832,15 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);;
             }
             else
             {
-                //string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                //string strCnt = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 1);
+                //string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                //string strCnt = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, 1);
 
                 this.device.operateTagISO18000Buffer.btAntId = msgTran.AryData[0];
                 this.device.operateTagISO18000Buffer.btWriteLength = msgTran.AryData[1];
@@ -1994,15 +1860,15 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);
             }
             else
             {
-                //string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                //string strStatus = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 1);
+                //string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                //string strStatus = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, 1);
 
                 this.device.operateTagISO18000Buffer.btAntId = msgTran.AryData[0];
                 this.device.operateTagISO18000Buffer.btStatus = msgTran.AryData[1];
@@ -2028,6 +1894,18 @@ namespace Race {
                 
             }
         }
+        private void parseJoharRead(byte[] aryTranData)
+                {
+                    //Console.WriteLine("parseJoharRead totalread={0}, tagcount={1}", johardb.TotalTagCount, johardb.UniqueTagCount);
+                    JoharTag tag = new JoharTag(aryTranData);
+                    johardb.Add(tag);
+
+                    WriteLog( string.Format(
+                        "Johar count: {0}, unique count:{1}",
+                        johardb.TotalTagCount.ToString(),
+                        johardb.UniqueTagCount.ToString()
+                    ));
+                }
 
         private void ProcessQueryISO18000(Reader.MessageTran msgTran)
         {
@@ -2036,15 +1914,15 @@ namespace Race {
 
             if (msgTran.AryData.Length == 1)
             {
-                strErrorCode = CCommondMethod.FormatErrorCode(msgTran.AryData[0]);
+                strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
                 WriteLog( strCmd, 1);
             }
             else
             {
-                //string strAntID = CCommondMethod.ByteArrayToString(msgTran.AryData, 0, 1);
-                //string strStatus = CCommondMethod.ByteArrayToString(msgTran.AryData, 1, 1);
+                //string strAntID = ReaderUtils.ByteArrayToString(msgTran.AryData, 0, 1);
+                //string strStatus = ReaderUtils.ByteArrayToString(msgTran.AryData, 1, 1);
 
                 this.device.operateTagISO18000Buffer.btAntId = msgTran.AryData[0];
                 this.device.operateTagISO18000Buffer.btStatus = msgTran.AryData[1];
@@ -2053,6 +1931,132 @@ namespace Race {
 
                 WriteLog( strCmd);
             }
+        }
+
+        private void setInvStoppedStatus()
+        {
+            dispatcherTimer.Stop();
+            readratePerSecond.Stop();
+            elapsedTime = CalculateElapsedTime();
+            
+            tagdb.Repaint();
+        }
+
+        private void ProcessTagMask(Reader.MessageTran msgTran)
+        {
+            //Set
+            //Head	Len	Address	Cmd	ErrorCode	Check
+            //0xA0    0x04         0x98
+            //Clear
+            //Head	Len	Address	Cmd	ErrorCode	Check
+            //0xA0    0x04         0x98
+
+            //Query
+            //Head Len Add Cmd     Mask ID MaskQuantity   Target Action  Membank StartingMaskAdd MaskBitLen Mask    Truncate CC
+            //0xA0         0x98
+
+            //Head	Len	 Add	Cmd 	MaskQuantity	CC
+            //0xA0  0x0B        0x98    0x00
+            string strCmd = string.Format("{0}", "TagMask");
+            string strErrorCode = string.Empty;
+            if(msgTran.AryTranData[1] == 0x04)
+            {
+                //Error
+                //clear mask result
+                if (msgTran.AryData[0] == 0x10)
+                {
+                    strCmd += ": " + "ExecSuccess";
+                    WriteLog(strCmd, 0);
+                    return;
+                }
+                //query mask result, no mask case
+                else if (msgTran.AryData[0] == 0x00)
+                {
+                    WriteLog(string.Format("{0} {1}", strCmd, "NoTagMask"), 0);
+                    return;
+                }
+                else if (msgTran.AryData[1] == (byte)0x41)
+                {
+                    strErrorCode = "InvalidParameter";
+                }
+                else
+                {
+                    strErrorCode = string.Format("{0} {1:x2}", "Unknow Error", msgTran.AryData[1]);
+                }
+            }
+            else
+            {
+                //Mask ID MaskQuantity Target Action Membank StartingMaskAdd MaskBitLen Mask Truncate
+                if (msgTran.AryData.Length > 7)
+                {
+                    TagMask tagMask = new TagMask(msgTran.AryData);
+                    Console.WriteLine(string.Format("tagmask={0}", tagMask.ToString()));
+
+                    tagmaskDB.Add(tagMask);
+                    return;
+                }
+                else
+                {
+                    strErrorCode = string.Format("{0} [{1}]", "Unknow Error", ReaderUtils.ToHex(msgTran.AryTranData, "", " "));
+                }
+            }
+            string strLog = string.Format("{0}{1}: {2}", strCmd, "Failed cause", strErrorCode);
+            WriteLog(strLog, 1);
+        }
+
+        public static String FormatLongToTimeStr(long ms)
+        {
+            int milliSecond = (int)(ms % 1000);
+            int second = (int)(ms / 1000);
+            int minute = 0;
+            int hour = 0;
+
+            if (second >= 60)
+            {
+                minute = second / 60;
+                second = second % 60;
+            }
+            if (minute >= 60)
+            {
+                hour = minute / 60;
+                minute = minute % 60;
+            }
+            return string.Format("{0:D4}-{1:D2}-{2:D2}-{3:D3}", hour, minute, second, milliSecond);
+        }
+
+        private void parseInvTag(bool readPhase, byte[] data, byte cmd)
+        {
+            Tag tag = new Tag(data, readPhase, cmd, tagdb.AntGroup);
+            tagdb.Add(tag);
+            SetMaxMinRSSI(Convert.ToInt32(tag.Rssi));
+            WriteLog(string.Format("FastMaxRssi: {0}, FastMinRssi: {1}, totalReadCount: {2}, totalTagCount{3}",
+                tagdb.MaxRSSI + "dBm",
+                tagdb.MinRSSI + "dBm",
+                tagdb.TotalReadCounts.ToString(),
+                tagdb.TotalTagCounts.ToString()
+            ));
+
+            if (needGetBuffer)
+            {
+                tagbufferCount++;
+                //Console.WriteLine("parseInvTag tagbufferCount={0}, {1}", tagbufferCount, tag.BufferTagCount);
+                if (tagbufferCount >= tag.BufferTagCount)
+                {
+                    needGetBuffer = false;
+                }
+                if (!needGetBuffer)
+                {
+                    stopGetInventoryBuffer(false);
+                }
+            }
+        }
+        private void parseGetFrequencyRegion(byte[] data)
+        {
+            //Console.WriteLine("parseGetFrequencyRegion: {0}", ReaderUtils.ToHex(data, "", " "));
+            if (tagdb != null)
+                tagdb.UpdateRegionInfo(data);
+            if (tagOpDb != null)
+                tagOpDb.UpdateRegionInfo(data);
         }
     }
 }

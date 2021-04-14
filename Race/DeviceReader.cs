@@ -1,6 +1,6 @@
 using System;
 using System.Net;
-using Util;
+using Reader;
 
 namespace Race {
     class DeviceReader {
@@ -16,7 +16,7 @@ namespace Race {
             this.port = port;
             this.reader = new Reader.ReaderMethod();
             this.device = new Device();
-            this.mutator = new DeviceMutator(this.device);
+            this.mutator = new DeviceMutator(this.device, reader);
             this.reader.AnalyCallback = this.mutator.ApplyData;
             this.reader.ReceiveCallback = this.ReceiveData;
             this.reader.SendCallback = this.SendData;
@@ -25,22 +25,22 @@ namespace Race {
         public void Connect() {
             //Processing Tcp to connect reader.
             IPAddress ipAddress = IPAddress.Parse(this.ipAddress);
-            this.reader.ConnectServer(ipAddress, this.port);
+            string fuck = "";
+            this.reader.ConnectServer(ipAddress, this.port, out fuck);
             string message = "Connected " + this.ipAddress + ":" + this.port;
             this.log(message);
         }
         
-        private void ReceiveData(byte[] btAryReceiveData)
+        private void ReceiveData(object sender, TransportDataEventArgs e)
         {
-
-            string message = CCommondMethod.ByteArrayToString(btAryReceiveData, 0, btAryReceiveData.Length);
-
-            this.log("Received data: " + message);
+                string strLog = e.Tx ? "Send: ":"Recv: " + ReaderUtils.ToHex(e.Data, "", " ");
+                //Console.WriteLine("<--  {0}", strLog);
+                this.log(strLog);
         }
         
-        private void SendData(byte[] btArySendData)
+        private void SendData(object sender, byte[] btArySendData)
         {
-            string message = CCommondMethod.ByteArrayToString(btArySendData, 0, btArySendData.Length);
+            string message = ReaderUtils.ByteArrayToString(btArySendData, 0, btArySendData.Length);
 
             this.log("Sent data: " + message);      
         }

@@ -30,5 +30,12 @@ namespace Race {
         public int switchTime = 0;
 
         public int receiveFlag = 0;
+
+        public int fastExeCount = 0;
+
+        public bool getOutputPower = false;
+        public bool setOutputPower = false;
+        public bool setWorkAnt = false;
+        public bool getWorkAnt = false;
     }
 }

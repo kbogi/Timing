@@ -8,8 +8,8 @@
     <ProjectGuid>{B4C43E72-D42C-4E5F-A4C9-189651BDCAB1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UHFDemo</RootNamespace>
-    <AssemblyName>UHFDemo</AssemblyName>
+    <RootNamespace>Race</RootNamespace>
+    <AssemblyName>Race</AssemblyName>
     <StartupObject>
     </StartupObject>
     <FileUpgradeFlags>
@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Rfid\*.cs" />
+    <Compile Include="NetPort\*.cs" />
     <Compile Include=".\*.cs" />
   </ItemGroup>
   <ItemGroup>
