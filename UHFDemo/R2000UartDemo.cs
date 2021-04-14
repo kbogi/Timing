@@ -189,7 +189,7 @@ namespace UHFDemo
             RefreshComPorts();
 
             cmbBaudrate.SelectedIndex = 1; // 115200
-            ipIpServer.IpAddressStr = "192.168.0.178";
+            ipIpServer.IpAddressStr = "192.168.100.103";
             txtTcpPort.Text = "4001";
 
             combo_mast_id.SelectedIndex = 0;
