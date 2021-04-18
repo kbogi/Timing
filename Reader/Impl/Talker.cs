@@ -206,7 +206,7 @@ namespace Reader
             //Console.WriteLine("SignOut");
             string exStr = String.Format("[{0}@{1}] Logout!", ipAddress.ToString(), nPort);
             OnReadException(exStr, new Exception());
-            Console.WriteLine("SignOut isRecv={0}, isReconnect={1}", isRecv, isReconnect);
+            //Console.WriteLine("SignOut isRecv={0}, isReconnect={1}", isRecv, isReconnect);
             isReconnect = false;
             isRecv = false;
             bIsConnect = false;

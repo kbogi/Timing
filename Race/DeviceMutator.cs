@@ -3,6 +3,7 @@ using System.Data;
 using Reader;
 
 namespace Race {
+    public delegate void ReadCallback(string code);
     class DeviceMutator {
 
         private Device device;
@@ -28,16 +29,24 @@ namespace Race {
         bool needGetBuffer = false;
         bool use_Phase = false;
         private int tagbufferCount = 0;
+        public ReadCallback ReadCallback = (string code) => {};
         public DeviceMutator(Device device, Reader.ReaderMethod reader) {
             this.device = device;
             this.reader = reader;
         }
 
         private void WriteLog(string message){
-            Console.WriteLine(message);
+            //Console.WriteLine(message);
         }
-        private void WriteLog(string message, int error){
-            Console.WriteLine(message);
+        private void WriteLog(string message, int level){
+            if (level == 2) {
+                var now = DateTime.Now;
+                Console.WriteLine(now.ToLongTimeString() + ": " + message);
+            } else if (level == 1) {
+                //Console.WriteLine("Error: " + message);
+            } else {
+                WriteLog(message);
+            }
         }
 
         private void RunLoopISO18000(int nLength) {
@@ -94,7 +103,7 @@ namespace Race {
 
         public void ApplyData(object sender, Reader.MessageTran msgTran)
         {
-            Console.WriteLine("Packet {0} {1} {2}", msgTran.Cmd, msgTran.PacketType, msgTran.ReadId);
+            //Console.WriteLine("Packet {0} {1} {2}", msgTran.Cmd, msgTran.PacketType, msgTran.ReadId);
             
             if (msgTran.PacketType != 0xA0)
             {
@@ -1463,12 +1472,13 @@ namespace Race {
                 strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
-                WriteLog( strCmd, 1);;
+                WriteLog( strCmd, 1);
             }
             else
             {
                 WriteLog(strCmd, 0);
-                parseInvTag(false, msgTran.AryData, 0x91);
+                Tag tag = parseInvTag(false, msgTran.AryData, 0x91);
+                ReadCallback(tag.EPC);
             }
         }
 
@@ -2024,7 +2034,7 @@ namespace Race {
             return string.Format("{0:D4}-{1:D2}-{2:D2}-{3:D3}", hour, minute, second, milliSecond);
         }
 
-        private void parseInvTag(bool readPhase, byte[] data, byte cmd)
+        private Tag parseInvTag(bool readPhase, byte[] data, byte cmd)
         {
             Tag tag = new Tag(data, readPhase, cmd, tagdb.AntGroup);
             tagdb.Add(tag);
@@ -2034,7 +2044,7 @@ namespace Race {
                 tagdb.MinRSSI + "dBm",
                 tagdb.TotalReadCounts.ToString(),
                 tagdb.TotalTagCounts.ToString()
-            ));
+            ), 0);
 
             if (needGetBuffer)
             {
@@ -2049,6 +2059,7 @@ namespace Race {
                     stopGetInventoryBuffer(false);
                 }
             }
+            return tag;
         }
         private void parseGetFrequencyRegion(byte[] data)
         {

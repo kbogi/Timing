@@ -64,14 +64,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CustomControl">
-      <HintPath>..\Dlls\CustomControl.dll</HintPath>
-    </Reference>
     <Reference Include="Reader">
       <HintPath>..\Dlls\Reader.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\Dlls\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Ubiety.Dns.Core">
+      <HintPath>..\Dlls\Ubiety.Dns.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

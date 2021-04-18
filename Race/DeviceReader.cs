@@ -30,6 +30,14 @@ namespace Race {
             string message = "Connected " + this.ipAddress + ":" + this.port;
             this.log(message);
         }
+
+        public void Disconnect() {
+            this.reader.SignOut();
+        }
+
+        public void setCallback(ReadCallback callback) {
+            mutator.ReadCallback = callback;
+        }
         
         private void ReceiveData(object sender, TransportDataEventArgs e)
         {
@@ -46,7 +54,7 @@ namespace Race {
         }
 
         private void log(string message){
-            Console.WriteLine(message);
+            //Console.WriteLine(message);
         }
     }
 }
