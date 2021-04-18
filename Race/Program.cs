@@ -1,6 +1,9 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
 using System.Threading;
+using System.Configuration;
+using System.Collections.Specialized;
+using System.Collections.Generic;
 
 namespace Race
 {
@@ -10,17 +13,29 @@ namespace Race
         static DeviceReader deviceReader;
 
         static Int64 abortAfter = Int64.MaxValue; 
+        static string[] ipAddresses;
 
-        static void Read(){
+        static List<Thread> readerThreads = new List<Thread>();
+        static int port;
+
+        static void Read(string ipAddress){
             try{
-                deviceReader = new DeviceReader("192.168.100.103", 4001);
+                deviceReader = new DeviceReader(ipAddress, port);
 
                 deviceReader.Connect();
 
                 var device = deviceReader.device;
 
                 deviceReader.setCallback((string code) => {
-                    db.exec("INSERT INTO chip (code, count) VALUES (\"" + code + "\", 1) ON DUPLICATE KEY UPDATE count = count + 1");
+                    int state = 0;
+                    try{
+                        db.exec("INSERT INTO chip (code, count) VALUES (\"" + code + "\", 1) ON DUPLICATE KEY UPDATE count = count + 1");
+                        state++;
+                        db.saveValue(code);
+                        state++;
+                    }  catch (Exception e) {
+                        Console.WriteLine("Write error occured, state: {0} message: {1}", state, e.Message);
+                    }
                 });
 
 
@@ -29,20 +44,20 @@ namespace Race
                 
                 deviceReader.reader.ResetInventoryBuffer(device.settings.btReadId);
                 Thread.Sleep(50);
-                deviceReader.reader.SetBeeperMode(device.settings.btReadId, 0x01);
+                deviceReader.reader.SetBeeperMode(device.settings.btReadId, 0x00);
                 
-                for (int i = 0; i< 100; i++) {
+                while (true) {
                     abortAfter = DateTime.Now.ToFileTime() + 10000000;
                 
                     Console.WriteLine(DateTime.Now.ToLongTimeString() + ": Loop started");
-                    deviceReader.reader.Inventory(device.settings.btReadId, 0xFF);
-                    Thread.Sleep(50);
-                    deviceReader.reader.GetInventoryBufferTagCount(device.settings.btReadId);
-                    Thread.Sleep(50);
+                    for(int i = 0; i < 10; i++){
+                        deviceReader.reader.Inventory(device.settings.btReadId, 0xFF);
+                        Thread.Sleep(50);
+                    }
+                    //Thread.Sleep(50);
                     //deviceReader.reader.GetInventoryBuffer(device.settings.btReadId);
-                    Thread.Sleep(50);
                     deviceReader.reader.GetAndResetInventoryBuffer(device.settings.btReadId);
-                    Thread.Sleep(100);
+                    //Thread.Sleep(50);
                 }
 
 
@@ -51,17 +66,25 @@ namespace Race
             }
         }
 
+        static void runReaders() {
+            foreach (string ipAddress in ipAddresses) {
+                Thread thr = new Thread(() => Read(ipAddress));
+                thr.Start();
+                readerThreads.Add(thr);
+                Console.WriteLine("Reading {0}, {1}", ipAddress, port);
+            }
+        }
+
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ipAddresses = ConfigurationManager.AppSettings.Get("ip").Split(',');
+            port = Int32.Parse(ConfigurationManager.AppSettings.Get("port"));
 
-            string connectionString = @"server=localhost;user=root;password=heslo;database=timing";
+            string connectionString = ConfigurationManager.AppSettings.Get("db");
 
             db = new Database(connectionString);
-
+            /*
             try{
-                db.saveValue("Test func");
-
                 using (MySqlDataReader rdr = db.reader("SELECT * FROM record")){
                     while (rdr.Read())
                     {
@@ -71,12 +94,11 @@ namespace Race
                 }
             } catch (MySqlException e){
                 Console.WriteLine("Unable to connect to db: " + e.Message);
-            }
+            }*/
 
-            // Creating and initializing threads
-            Thread thr = new Thread(new ThreadStart(Read));
-            thr.Start();
+            runReaders();        
     
+            /*
             while(true){
                 Int64 now =  DateTime.Now.ToFileTime();
                 if (now.CompareTo(abortAfter) > 0) {
@@ -87,13 +109,10 @@ namespace Race
                     Thread.Sleep(100);
                     deviceReader.Disconnect();
 
-                    thr = new Thread(new ThreadStart(Read));
+                    thr = new Thread(new ParameterizedThreadStart(Read));
                     thr.Start();
-    
                 }
-            }
-            // Abort thr thread
-            // Using Abort() method
+            }*/
         }
     }
 }

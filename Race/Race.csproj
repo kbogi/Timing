@@ -7,6 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{B4C43E72-D42C-4E5F-A4C9-189651BDCAB1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
+    <AppConfig>app.config</AppConfig>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Race</RootNamespace>
     <AssemblyName>Race</AssemblyName>
@@ -88,6 +89,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Collections.Specialized" />
+    <Reference Include="System.Collections.Generic" />
+    <Reference Include="System.Configuration" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>

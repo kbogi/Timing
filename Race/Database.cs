@@ -32,7 +32,7 @@ namespace Race {
         }
 
         public void saveValue(string value){
-            this.exec( "INSERT INTO record (data) VALUES ('" + value + "')");
+            this.exec( "INSERT INTO record (code) VALUES ('" + value + "')");
         }
     }
 }
