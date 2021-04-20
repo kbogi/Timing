@@ -1,6 +1,6 @@
-!Outputs/Release/*.dll
-!Outputs/Release/*.exe
-Outputs/
+#!Outputs/Release/*.dll
+#!Outputs/Release/*.exe
+#Outputs/
 
 CustomControl/bin
 Reader/bin
@@ -16,7 +16,7 @@ Reader/bin
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
-[Rr]elease/
+#[Rr]elease/
 [Rr]eleases/
 [Xx]64/
 [Xx]86/
