@@ -1,0 +1,4 @@
+{
+    "Database": "server=localhost;user=root;password=heslo;database=timing",
+    "ip": "192.168.100.103"
+}

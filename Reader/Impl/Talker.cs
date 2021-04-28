@@ -87,7 +87,7 @@ namespace Reader
                 }
                 catch (Exception e)
                 {
-                    strException = String.Format("[{0}@{1}] Connect Error: HResult={2:x8}", ipAddress.ToString(), nPort, e.HResult);
+                    strException = String.Format("[{0}@{1}] Connect Error: Message={2}", ipAddress.ToString(), nPort, e.Message);
                     Thread.Sleep(connectTimeout);
                     ret = false;
                 }
@@ -137,7 +137,7 @@ namespace Reader
                         if (ex is SocketException)
                         {
                             SocketError err = ((SocketException)ex).SocketErrorCode;
-                            exStr = String.Format("[{0}@{1}] Data Receive Error: HResult={2:x8}", ipAddress.ToString(), nPort, ex.HResult);
+                            exStr = String.Format("[{0}@{1}] Data Receive Error: Message={2}", ipAddress.ToString(), nPort, ex.Message);
                             if (err.Equals(SocketError.ConnectionReset))
                             {
                                 OnReadException(exStr, ex);
@@ -195,7 +195,7 @@ namespace Reader
             }
             catch (Exception e)
             {
-                string exStr = String.Format("[{0}@{1}] Send Data Failed, HResult={2:x8}", ipAddress.ToString(), nPort, e.HResult);
+                string exStr = String.Format("[{0}@{1}] Send Data Failed, HResult={2}", ipAddress.ToString(), nPort, e.Message);
                 OnReadException(exStr, e);
                 return false;
             }

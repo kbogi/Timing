@@ -1,9 +1,8 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
 using System.Threading;
-using System.Configuration;
-using System.Collections.Specialized;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Race
 {
@@ -17,6 +16,7 @@ namespace Race
 
         static List<Thread> readerThreads = new List<Thread>();
         static int port;
+        static string connectionString;
 
         static void Read(string ipAddress){
             try{
@@ -73,15 +73,42 @@ namespace Race
                 readerThreads.Add(thr);
                 Console.WriteLine("Reading {0}, {1}", ipAddress, port);
             }
-        }
+        }/*
+        static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((hostingContext, configuration) =>
+                {
+                    configuration.Sources.Clear();
 
-        static void Main(string[] args)
+                    IHostEnvironment env = hostingContext.HostingEnvironment;
+
+                    configuration
+                        .AddJsonFile("config.json", optional: false, reloadOnChange: true);
+
+                    IConfigurationRoot configurationRoot = configuration.Build();
+
+                    TransientFaultHandlingOptions options = new();
+                    configurationRoot.GetSection(nameof(TransientFaultHandlingOptions))
+                                     .Bind(options);
+
+
+                    Console.WriteLine($"TransientFaultHandlingOptions.ip={options.ip}");
+                    Console.WriteLine($"TransientFaultHandlingOptions.Database={options.Database}");
+                    ipAddresses = options.ip.Split(',');
+                    port = 4001;
+                    connectionString = options.Database;
+                });*/
+
+        static async Task Main(string[] args)
         {
-            ipAddresses = ConfigurationManager.AppSettings.Get("ip").Split(',');
-            port = Int32.Parse(ConfigurationManager.AppSettings.Get("port"));
+            //using IHost host = CreateHostBuilder(args).Build();
 
-            string connectionString = ConfigurationManager.AppSettings.Get("db");
+            // Application code should start here.
 
+            //await host.RunAsync();
+            connectionString = "server=localhost;user=root;password=heslo;database=timing";
+            ipAddresses = new string[] {"192.168.100.103"};
+            port = 4001;
             db = new Database(connectionString);
             /*
             try{
