@@ -26,8 +26,7 @@ namespace Race {
         public void Connect() {
             //Processing Tcp to connect reader.
             IPAddress ipAddress = IPAddress.Parse(this.ipAddress);
-            string fuck = "";
-            this.reader.ConnectServer(ipAddress, this.port, out fuck);
+            this.reader.ConnectServer(ipAddress, this.port);
             string message = "Connected " + this.ipAddress + ":" + this.port;
             this.log(message);
         }
@@ -60,7 +59,7 @@ namespace Race {
         }
 
         private void log(string message){
-            Console.WriteLine(message);
+            //Console.WriteLine(message);
         }
     }
 }

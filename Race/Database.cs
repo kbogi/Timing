@@ -32,6 +32,7 @@ namespace Race {
         }
 
         public void saveValue(string value){
+            Console.WriteLine("tag: " + value);
             this.exec( "INSERT INTO record (code) VALUES ('" + value + "')");
         }
     }

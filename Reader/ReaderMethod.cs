@@ -42,7 +42,7 @@ namespace Reader
         public ReaderMethod()
         {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en");
-            Console.WriteLine(string.Format("{0}", Thread.CurrentThread.CurrentCulture.Name));
+            //Console.WriteLine(string.Format("{0}", Thread.CurrentThread.CurrentCulture.Name));
             italker = new Talker();
             italker.EvRecvData += MessageReceived;
             italker.EvException += ExceptionReceived;
@@ -139,11 +139,9 @@ namespace Reader
         #endregion ConnectSerial
 
         #region ConnectTcp
-        public int ConnectServer(IPAddress ipAddress, int nPort, out string strException)
+        public int ConnectServer(IPAddress ipAddress, int nPort)
         {
-            strException = string.Empty;
-
-            if (!italker.Connect(ipAddress, nPort, out strException))
+            if (!italker.Connect(ipAddress, nPort))
             {
                 return -1;
             }

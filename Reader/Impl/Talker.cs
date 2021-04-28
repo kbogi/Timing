@@ -37,7 +37,7 @@ namespace Reader
 
         private const int connectTimeout = 1000; // connect timeout
 
-        public bool Connect(IPAddress ipAddress, int nPort, out string strException)
+        public bool Connect(IPAddress ipAddress, int nPort)
         {
             bool ret = false;
             if (firstConnect)
@@ -52,45 +52,38 @@ namespace Reader
                 tcpClient.Close();
                 tcpClient = null;
             }
-            strException = String.Empty;
 
             tcpClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             IAsyncResult ar = tcpClient.BeginConnect(ipAddress, nPort, null, null);
             bool success = ar.AsyncWaitHandle.WaitOne(connectTimeout);
             if (!success)
             {
-                strException = String.Format("[{0}@{1}] Connect timeout，Failed to connect to the specified server", ipAddress.ToString(), nPort);
-                ret = false;
+                throw new Exception(String.Format(
+                    "[{0}@{1}] Connect timeout，Failed to connect to the specified server",
+                    ipAddress.ToString(),
+                    nPort
+                ));
             }
             else
             {
-                try
+                tcpClient.EndConnect(ar);
+                // Start KeppAlive detection
+                if (tcpClient != null)
                 {
-                    tcpClient.EndConnect(ar);
-                    // Start KeppAlive detection
-                    if (tcpClient != null)
-                    {
-                        tcpClient.IOControl(IOControlCode.KeepAliveValues, KeepAlive(1, 300, 300), null);//Set the keep-alive parameter
-                    }
-
-                    if (!IsConnect())
-                    {
-                        // Set up a thread to receive data from the server
-                        ThreadStart stThead = new ThreadStart(ReceivedData);
-                        waitThread = new Thread(stThead);
-                        waitThread.IsBackground = true;
-                        waitThread.Start();
-                    }
-
-                    bIsConnect = true;
-                    ret = true;
+                    //tcpClient.IOControl(IOControlCode.KeepAliveValues, KeepAlive(1, 300, 300), null);//Set the keep-alive parameter
                 }
-                catch (Exception e)
+
+                if (!IsConnect())
                 {
-                    strException = String.Format("[{0}@{1}] Connect Error: Message={2}", ipAddress.ToString(), nPort, e.Message);
-                    Thread.Sleep(connectTimeout);
-                    ret = false;
+                    // Set up a thread to receive data from the server
+                    ThreadStart stThead = new ThreadStart(ReceivedData);
+                    waitThread = new Thread(stThead);
+                    waitThread.IsBackground = true;
+                    waitThread.Start();
                 }
+
+                bIsConnect = true;
+                ret = true;
             }
             return ret;
         }
@@ -168,14 +161,14 @@ namespace Reader
             string exStr = String.Empty;
             while (isReconnect)
             {
-                if (Connect(this.ipAddress, this.nPort, out string strException))
+                if (Connect(this.ipAddress, this.nPort))
                 {
                     exStr = String.Format("[{0}@{1}] [{2}] times Reconnect Success!", ipAddress.ToString(), nPort, tryReconnectTimes);
                     isReconnect = false;
                 }
                 else
                 {
-                    exStr = String.Format("[{0}@{1}] [{2}]times Reconnect Failed! {3}", ipAddress.ToString(), nPort, tryReconnectTimes++, strException);
+                    exStr = String.Format("[{0}@{1}] [{2}]times Reconnect Failed! {3}", ipAddress.ToString(), nPort, tryReconnectTimes++);
                 }
                 OnReadException(exStr, new Exception());
             }

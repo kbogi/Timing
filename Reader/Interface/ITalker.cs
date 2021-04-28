@@ -8,7 +8,7 @@ namespace Reader
         event EventHandler<TransportDataEventArgs> EvRecvData;
         event EventHandler<ErrorReceivedEventArgs> EvException;
 
-        bool Connect(IPAddress ip, int port, out string strException);// Connect to the server
+        bool Connect(IPAddress ip, int port);// Connect to the server
         bool SendMessage(byte[] btAryBuffer);//Send data
         void SignOut();
 
