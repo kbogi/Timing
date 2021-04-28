@@ -1,5 +1,3 @@
-public class TransientFaultHandlingOptions
-{
-    public string ip { get; set; }
-    public string Database { get; set; }
+public class Options
+{    public string Database { get; set; }
 }

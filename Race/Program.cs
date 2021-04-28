@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System.Threading;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Race
 {
@@ -79,40 +80,18 @@ namespace Race
                 thr.Start();
                 readerThreads.Add(thr);
             }
-        }/*
-        static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, configuration) =>
-                {
-                    configuration.Sources.Clear();
-
-                    IHostEnvironment env = hostingContext.HostingEnvironment;
-
-                    configuration
-                        .AddJsonFile("config.json", optional: false, reloadOnChange: true);
-
-                    IConfigurationRoot configurationRoot = configuration.Build();
-
-                    TransientFaultHandlingOptions options = new();
-                    configurationRoot.GetSection(nameof(TransientFaultHandlingOptions))
-                                     .Bind(options);
+        }
 
 
-                    Console.WriteLine($"TransientFaultHandlingOptions.ip={options.ip}");
-                    Console.WriteLine($"TransientFaultHandlingOptions.Database={options.Database}");
-                    ipAddresses = options.ip.Split(',');
-                    port = 4001;
-                    connectionString = options.Database;
-                });*/
-
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            //using IHost host = CreateHostBuilder(args).Build();
+            var configurationBuilder = new ConfigurationBuilder()
+                .AddJsonFile("config.json")
+                .AddEnvironmentVariables();
+            var configuration = configurationBuilder.Build();
+            connectionString = configuration["Database"];
 
             // Application code should start here.
-
-            //await host.RunAsync();
-            connectionString = "server=localhost;user=root;password=heslo;database=timing";
             port = 4001;
             db = new Database(connectionString);
             try{
