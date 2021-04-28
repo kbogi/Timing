@@ -46,6 +46,7 @@ namespace Race
                 Thread.Sleep(50);
                 deviceReader.reader.SetBeeperMode(device.settings.btReadId, 0x00);
                 
+                Console.WriteLine("Reading {0}, {1}", ipAddress, port);
                 while (true) {
                     abortAfter = DateTime.Now.ToFileTime() + 10000000;
                 
@@ -71,7 +72,6 @@ namespace Race
                 Thread thr = new Thread(() => Read(ipAddress));
                 thr.Start();
                 readerThreads.Add(thr);
-                Console.WriteLine("Reading {0}, {1}", ipAddress, port);
             }
         }/*
         static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -110,7 +110,7 @@ namespace Race
             ipAddresses = new string[] {"192.168.100.103"};
             port = 4001;
             db = new Database(connectionString);
-            /*
+            
             try{
                 using (MySqlDataReader rdr = db.reader("SELECT * FROM record")){
                     while (rdr.Read())
@@ -121,7 +121,7 @@ namespace Race
                 }
             } catch (MySqlException e){
                 Console.WriteLine("Unable to connect to db: " + e.Message);
-            }*/
+            }
 
             runReaders();        
     

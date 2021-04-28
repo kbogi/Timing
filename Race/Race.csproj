@@ -6,19 +6,11 @@
     <OutputPath>..\Outputs\Release\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Reader">
-      <HintPath>..\Dlls\Reader.dll</HintPath>
-    </Reference>
-    <Reference Include="MySql.Data">
-      <HintPath>..\Dlls\MySql.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="Ubiety.Dns.Core">
-      <HintPath>..\Dlls\Ubiety.Dns.Core.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Reader\Reader.csproj">
       <Name>Reader</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MySql.Data" Version="8.0.24" />
   </ItemGroup>
 </Project>

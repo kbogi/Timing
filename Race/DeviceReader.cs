@@ -20,6 +20,7 @@ namespace Race {
             this.reader.AnalyCallback = this.mutator.ApplyData;
             this.reader.ReceiveCallback = this.ReceiveData;
             this.reader.SendCallback = this.SendData;
+            this.reader.ErrCallback = this.ReceiveError;
         }
 
         public void Connect() {
@@ -52,9 +53,14 @@ namespace Race {
 
             this.log("Sent data: " + message);      
         }
+        
+        private void ReceiveError(object sender, ErrorReceivedEventArgs e)
+        {
+            this.log("Error: " + e.ErrStr);      
+        }
 
         private void log(string message){
-            //Console.WriteLine(message);
+            Console.WriteLine(message);
         }
     }
 }
