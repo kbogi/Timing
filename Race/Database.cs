@@ -1,8 +1,10 @@
 using System;
 using MySql.Data.MySqlClient;
-
+using System.Collections.Generic;
 namespace Race {
+
     class Database {
+        private Dictionary<string, DateTime> passMap = new();
         private string connectionString;
 
         public Database(string config)
@@ -31,9 +33,29 @@ namespace Race {
             return reader;
         }
 
-        public void saveValue(string value){
-            Console.WriteLine("tag: " + value);
-            this.exec( "INSERT INTO record (code) VALUES ('" + value + "')");
+        public bool keepValue(string code, string ipAddress, DateTime pass){
+            string key = ipAddress + ":" + code;
+            bool keep = true;
+            try{
+                DateTime lastPass = passMap[key];
+                keep = lastPass.Add(new TimeSpan(0,0,5)).CompareTo(pass) > 0;
+            } catch {}
+            try{
+                passMap.Add(key, pass);
+            } catch {
+                passMap[key] = pass;
+            }
+            return keep;
+        }
+
+        public void saveValue(string code, string ipAddress){
+            Console.WriteLine("tag: " + code);
+            DateTime now = DateTime.Now;
+            if(keepValue(code, ipAddress, now)){
+                long unixTime = ((DateTimeOffset)now).ToUnixTimeSeconds();
+                this.exec( "INSERT INTO rawdata (hw_ip, rf_tag, rd_time) VALUES ('" + 
+                    ipAddress + "', '" + code + "', from_unixtime(" + unixTime + "))");
+            }
         }
     }
 }

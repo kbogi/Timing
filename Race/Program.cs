@@ -29,14 +29,10 @@ namespace Race
                     var device = deviceReader.device;
 
                     deviceReader.setCallback((string code) => {
-                        int state = 0;
                         try{
-                            db.exec("INSERT INTO chip (code, count) VALUES (\"" + code + "\", 1) ON DUPLICATE KEY UPDATE count = count + 1");
-                            state++;
-                            db.saveValue(code);
-                            state++;
+                            db.saveValue(code, ipAddress);
                         }  catch (Exception e) {
-                            Console.WriteLine("Write error occured, state: {0} message: {1}", state, e.Message);
+                            Console.WriteLine("Write error occured, message: {0}", e.Message);
                         }
                     });
                     deviceReader.Connect();
@@ -90,24 +86,25 @@ namespace Race
                 .AddEnvironmentVariables();
             var configuration = configurationBuilder.Build();
             connectionString = configuration["Database"];
+            string hwQuery = configuration["hwQuery"];
 
             // Application code should start here.
             port = 4001;
             db = new Database(connectionString);
             try{
                 List<GateConfig> gateConfigList = new List<GateConfig>();
-                using (MySqlDataReader rdr = db.reader("SELECT * FROM gate")){
+                using (MySqlDataReader rdr = db.reader(hwQuery)){
                     while (rdr.Read())
                     {
-                        string ipAddress = rdr.GetString(1);
-                        string[] antenaStrings = rdr.GetString(2).Split(',');
-                        int[] antenas = new int[antenaStrings.Length];
-                        for(int i = 0; i < antenaStrings.Length; i++){
-                            antenas[i] = Int32.Parse(antenaStrings[i]) - 1;
+                        string ipAddress = rdr.GetString(0);
+                        List<int> antenaList = new();
+                        for(int i = 0; i < 8; i++){
+                            if(!rdr.IsDBNull(i+1) && rdr.GetInt32(i+1) > 0){
+                                antenaList.Add(i);
+                                Console.WriteLine("Adding: " + i);
+                            }
                         }
-                        gateConfigList.Add(new GateConfig(ipAddress, antenas));
-
-                        Console.WriteLine("{0} {1} {2}", rdr.GetString(0), rdr.GetString(1), rdr.GetString(2));
+                        gateConfigList.Add(new GateConfig(ipAddress, antenaList.ToArray()));
                     }
                 }
                 gateConfigs = gateConfigList.ToArray();
