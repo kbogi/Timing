@@ -1,4 +1,0 @@
-{
-    "Database": "server=localhost;user=root;password=heslo;database=timing",
-    "hwQuery":"SELECT hw_ip, tp_cnf_ant_1 AS a1, tp_cnf_ant_2 AS a2, tp_cnf_ant_3 AS a3, tp_cnf_ant_4 AS a4, tp_cnf_ant_5 AS a5, tp_cnf_ant_6 AS a6, tp_cnf_ant_7 AS a7, tp_cnf_ant_8 AS a8, tp_cnf_db_ant_1 as db1, tp_cnf_db_ant_2 as db2, tp_cnf_db_ant_3 as db3, tp_cnf_db_ant_4 as db4, tp_cnf_db_ant_5 as db5, tp_cnf_db_ant_6 as db6, tp_cnf_db_ant_7 as db7, tp_cnf_db_ant_8 as db8 FROM tpoints"
-}

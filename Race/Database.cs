@@ -38,7 +38,8 @@ namespace Race {
             bool keep = true;
             try{
                 DateTime lastPass = passMap[key];
-                keep = lastPass.Add(new TimeSpan(0,0,5)).CompareTo(pass) > 0;
+                DateTime moved = lastPass.Add(new TimeSpan(0,0,5));
+                keep = moved.CompareTo(pass) < 0;
             } catch {}
             try{
                 passMap.Add(key, pass);
@@ -49,9 +50,9 @@ namespace Race {
         }
 
         public void saveValue(string code, string ipAddress){
-            Console.WriteLine("tag: " + code);
             DateTime now = DateTime.Now;
             if(keepValue(code, ipAddress, now)){
+                Console.WriteLine("tag: " + code);
                 long unixTime = ((DateTimeOffset)now).ToUnixTimeSeconds();
                 this.exec( "INSERT INTO rawdata (hw_ip, rf_tag, rd_time) VALUES ('" + 
                     ipAddress + "', '" + code + "', from_unixtime(" + unixTime + "))");
