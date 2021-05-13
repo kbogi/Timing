@@ -50,6 +50,7 @@ namespace Race
                         abortAfter = DateTime.Now.ToFileTime() + 10000000;
                     
                         //Console.WriteLine(DateTime.Now.ToLongTimeString() + ": Loop started");
+                        /*
                         for(int i = 0; i < 19; i++){
                             int antena = antenas[i % antenas.Length];
                             deviceReader.reader.SetWorkAntenna(device.settings.btReadId, (byte) antena);
@@ -60,6 +61,7 @@ namespace Race
                         //Thread.Sleep(50);
                         //deviceReader.reader.GetInventoryBuffer(device.settings.btReadId);
                         deviceReader.reader.GetAndResetInventoryBuffer(device.settings.btReadId);
+                        */
                         Thread.Sleep(50);
                     }
 

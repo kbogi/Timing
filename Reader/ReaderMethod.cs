@@ -100,31 +100,19 @@ namespace Reader
         }
 
         #region ConnectSerial
-        public int OpenCom(string strPort, int nBaudrate, out string strException)
+        public void OpenCom(string strPort, int nBaudrate)
         {
-            strException = string.Empty;
-
             if (iSerialPort.IsOpen)
             {
                 iSerialPort.Close();
             }
-
-            try
-            {
-                iSerialPort.PortName = strPort;
-                iSerialPort.BaudRate = nBaudrate;
-                iSerialPort.ReadTimeout = 200;
-                iSerialPort.ReadBufferSize = 4096 * 10;
-                iSerialPort.Open();
-            }
-            catch (Exception ex)
-            {
-                strException = ex.Message;
-                return -1;
-            }
+            iSerialPort.PortName = strPort;
+            iSerialPort.BaudRate = nBaudrate;
+            iSerialPort.ReadTimeout = 200;
+            iSerialPort.ReadBufferSize = 4096 * 10;
+            iSerialPort.Open();
 
             m_nType = ReaderType.SerialPort;
-            return 0;
         }
 
         public void CloseCom()
