@@ -4,6 +4,7 @@ using System.Threading;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Reader;
 
 namespace Race
 {
@@ -30,45 +31,67 @@ namespace Race
 
                     deviceReader.setCallback((string code) => {
                         try{
-                            db.saveValue(code, ipAddress);
+                            db.saveValue(code, ipAddress, gateConfig.pointType, gateConfig.filterDelay);
                         }  catch (Exception e) {
                             Console.WriteLine("Write error occured, message: {0}", e.Message);
                         }
                     });
                     deviceReader.Connect();
 
-
                     deviceReader.reader.GetFirmwareVersion(device.settings.btReadId);
                     Thread.Sleep(50);
                     
                     deviceReader.reader.ResetInventoryBuffer(device.settings.btReadId);
                     Thread.Sleep(50);
-                    deviceReader.reader.SetBeeperMode(device.settings.btReadId, 0x00);
-                    
-                    Console.WriteLine("Reading {0}, {1}", ipAddress, port);
-                    while (true) {
-                        abortAfter = DateTime.Now.ToFileTime() + 10000000;
-                    
-                        //Console.WriteLine(DateTime.Now.ToLongTimeString() + ": Loop started");
-                        /*
-                        for(int i = 0; i < 19; i++){
-                            int antena = antenas[i % antenas.Length];
-                            deviceReader.reader.SetWorkAntenna(device.settings.btReadId, (byte) antena);
-                            Thread.Sleep(25);
-                            deviceReader.reader.Inventory(device.settings.btReadId, 0xFF);
-                            Thread.Sleep(25);
-                        }
-                        //Thread.Sleep(50);
-                        //deviceReader.reader.GetInventoryBuffer(device.settings.btReadId);
-                        deviceReader.reader.GetAndResetInventoryBuffer(device.settings.btReadId);
-                        */
-                        Thread.Sleep(50);
+                    deviceReader.reader.SetBeeperMode(device.settings.btReadId, 0);
+                    Thread.Sleep(50);
+
+                    Console.WriteLine("Reading {0}:{1} {2}", ipAddress, port, gateConfig.mode);
+                    deviceReader.reader.SetWorkAntenna(device.settings.btReadId, (byte) 0);
+                    Thread.Sleep(100);
+                    switch(gateConfig.mode){
+                        case "multi4":
+                        case "multi8":
+                            byte[] payload;
+                            int antenaCount;
+                            switch (gateConfig.mode){
+                                case "multi8":
+                                    payload = new byte[18];
+                                    antenaCount = 8;
+                                    break;
+                                default: 
+                                    payload = new byte[10];
+                                    antenaCount = 4;
+                                    break;
+                            }
+                            
+                            int index = 0;
+                            for(int i = 0; i < antenaCount; i++){
+                                byte antena = (byte)(((gateConfig.gates & (1 << i)) != 0) ? 1 : 0);
+                                payload[index++] = antena; // antena
+                                payload[index++] = antena; // repeats
+                            }
+                            payload[index++] = 0xFF;
+                            payload[index++] = 0xFF;
+
+                            Console.WriteLine(ReaderUtils.ByteArrayToString(payload, 0, index));
+
+                            deviceReader.setReadFinishedCallback(() => {
+                                deviceReader.reader.FastSwitchInventory(device.settings.btReadId, payload);
+                                Console.WriteLine("{1}: New read started", gateConfig.ipAddress);
+                            });
+                            while(true){
+                                deviceReader.reader.FastSwitchInventory(device.settings.btReadId, payload);
+                                Thread.Sleep(1000);
+                            }
+                            break;
                     }
 
 
                 } catch (Exception e) {
                     Console.WriteLine("Error occured: " + e.Message);
                 }
+                Thread.Sleep(100);
             } 
         }
 
@@ -85,6 +108,7 @@ namespace Race
         {
             var configurationBuilder = new ConfigurationBuilder()
                 .AddJsonFile("config.json")
+                .AddJsonFile("hw_query.json")
                 .AddEnvironmentVariables();
             var configuration = configurationBuilder.Build();
             connectionString = configuration["Database"];
@@ -100,13 +124,20 @@ namespace Race
                     {
                         string ipAddress = rdr.GetString(0);
                         List<int> antenaList = new();
+                        int dbIndex = 0;
                         for(int i = 0; i < 8; i++){
-                            if(!rdr.IsDBNull(i+1) && rdr.GetInt32(i+1) > 0){
+                            dbIndex++;
+                            if(!rdr.IsDBNull(dbIndex) && rdr.GetInt32(dbIndex) > 0){
                                 antenaList.Add(i);
-                                Console.WriteLine("Adding: " + i);
+                                Console.WriteLine("Adding: " + (i + 1));
                             }
                         }
-                        gateConfigList.Add(new GateConfig(ipAddress, antenaList.ToArray()));
+                        dbIndex+=8;
+                        int filterDelay = rdr.GetInt32(++dbIndex);
+                        string mode = rdr.GetString(++dbIndex);
+                        string pointType = rdr.GetString(++dbIndex);
+                        Console.WriteLine("hw_mode: {0}, tp_type: {1}, filter: {2}s",mode, pointType, filterDelay);
+                        gateConfigList.Add(new GateConfig(ipAddress, antenaList.ToArray(), mode, pointType, filterDelay));
                     }
                 }
                 gateConfigs = gateConfigList.ToArray();
@@ -114,36 +145,8 @@ namespace Race
                 Console.WriteLine("Unable to connect to db: " + e.Message);
                 throw e;
             }
-            /*
-            try{
-                using (MySqlDataReader rdr = db.reader("SELECT * FROM record")){
-                    while (rdr.Read())
-                    {
-                        Console.WriteLine("{0} {1} {2}", rdr.GetInt32(0), rdr.GetString(1),
-                                rdr.GetString(2));
-                    }
-                }
-            } catch (MySqlException e){
-                Console.WriteLine("Unable to connect to db: " + e.Message);
-            }*/
 
-            runReaders();        
-    
-            /*
-            while(true){
-                Int64 now =  DateTime.Now.ToFileTime();
-                if (now.CompareTo(abortAfter) > 0) {
-                    Thread.Sleep(1000);
-                    Console.WriteLine("Not responding, aborting");                    
-                    thr.Abort();
-
-                    Thread.Sleep(100);
-                    deviceReader.Disconnect();
-
-                    thr = new Thread(new ParameterizedThreadStart(Read));
-                    thr.Start();
-                }
-            }*/
+            runReaders();
         }
     }
 }

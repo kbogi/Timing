@@ -1,0 +1,3 @@
+{
+ "hwQuery":"SELECT hw_ip, tp_cnf_ant_1, tp_cnf_ant_2, tp_cnf_ant_3, tp_cnf_ant_4, tp_cnf_ant_5, tp_cnf_ant_6, tp_cnf_ant_7, tp_cnf_ant_8, tp_cnf_db_ant_1, tp_cnf_db_ant_2, tp_cnf_db_ant_3, tp_cnf_db_ant_4, tp_cnf_db_ant_5, tp_cnf_db_ant_6, tp_cnf_db_ant_7, tp_cnf_db_ant_8, tp_read_time_min, hw_mode, tp_type FROM tpoints WHERE hw_ip IS NOT NULL AND tp_status='a'"
+}

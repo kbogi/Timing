@@ -38,6 +38,10 @@ namespace Race {
         public void setCallback(ReadCallback callback) {
             mutator.ReadCallback = callback;
         }
+
+        public void setReadFinishedCallback(ReadFinishedCallback callback) {
+            mutator.ReadFinishedCallback = callback;
+        }
         
         private void ReceiveData(object sender, TransportDataEventArgs e)
         {

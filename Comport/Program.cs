@@ -46,6 +46,11 @@ namespace Race
                     Console.WriteLine("Reading {0}", comPort);
                     deviceReader.reader.SetWorkAntenna(device.settings.btReadId, (byte) 0);
                     Thread.Sleep(100);
+
+                    deviceReader.setReadFinishedCallback(() => {
+                        deviceReader.reader.InventoryReal(device.settings.btReadId, (byte) 255);
+                        Console.WriteLine('New read started');
+                    });
                     while (true) {
                     
                         deviceReader.reader.InventoryReal(device.settings.btReadId, (byte) 255);

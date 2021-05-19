@@ -4,6 +4,7 @@ using Reader;
 
 namespace Race {
     public delegate void ReadCallback(string code);
+    public delegate void ReadFinishedCallback();
     class DeviceMutator {
 
         private Device device;
@@ -30,6 +31,7 @@ namespace Race {
         bool use_Phase = false;
         private int tagbufferCount = 0;
         public ReadCallback ReadCallback = (string code) => {};
+        public ReadFinishedCallback ReadFinishedCallback = () => {};
         public DeviceMutator(Device device, Reader.ReaderMethod reader) {
             this.device = device;
             this.reader = reader;
@@ -1206,15 +1208,7 @@ namespace Race {
                 strErrorCode = ReaderUtils.FormatErrorCode(msgTran.AryData[0]);
                 string strLog = strCmd + "Failure, failure cause: " + strErrorCode;
 
-                WriteLog( strCmd, 1);;
-                if (isFastInv)
-                {
-                    //FastInventory(); todo
-                }
-                else
-                {
-                    stopFastInv();
-                }
+                WriteLog( strCmd, 1);
             }
             else if (msgTran.AryData.Length == 2)
             {
@@ -1225,35 +1219,20 @@ namespace Race {
             }
             else if (msgTran.AryData.Length == 7)
             {
-                if(doingFastInv)
-                {
-                    WriteLog(strCmd, 0);
+                ReadFinishedCallback();
+                WriteLog(strCmd, 0);
 
-                    tagdb.UpdateCmd8AExecuteSuccess(msgTran.AryData);
-                    WriteLog(string.Format("readrate: {0}, tagreads: {1}, tagCount: {2}, tagDuration{3}, totalExecutionTime{4}",
-                        tagdb.CmdReadRate.ToString(),
-                        tagdb.TotalTagCounts.ToString(),
-                        tagdb.CmdTotalRead.ToString(),
-                        tagdb.CommandDuration.ToString(),
-                        FormatLongToTimeStr(tagdb.TotalCommandTime)
-                    ));
-
-                    if (isFastInv)
-                    {
-                        // FastInventory();todo
-                    }
-                    else
-                    {
-                        stopFastInv();
-                    }
-                }
-            }
-            else
-            {
-                if (doingFastInv)
-                {
-                    parseInvTag(use_Phase, msgTran.AryData, 0x8a);
-                }
+                tagdb.UpdateCmd8AExecuteSuccess(msgTran.AryData);
+                WriteLog(string.Format("readrate: {0}, tagreads: {1}, tagCount: {2}, tagDuration{3}, totalExecutionTime{4}",
+                    tagdb.CmdReadRate.ToString(),
+                    tagdb.TotalTagCounts.ToString(),
+                    tagdb.CmdTotalRead.ToString(),
+                    tagdb.CommandDuration.ToString(),
+                    FormatLongToTimeStr(tagdb.TotalCommandTime)
+                ));
+            } else {
+                Tag tag = parseInvTag(use_Phase, msgTran.AryData, 0x8a);
+                ReadCallback(tag.EPC);
             }
         }
 
@@ -1348,7 +1327,8 @@ namespace Race {
             }
             else
             {
-                parseInvTag(use_Phase, msgTran.AryData, 0x89);
+                Tag tag = parseInvTag(use_Phase, msgTran.AryData, 0x89);
+                ReadCallback(tag.EPC);
             }
         }
 
@@ -1457,8 +1437,8 @@ namespace Race {
             }
             else
             {
-                parseInvTag(false, msgTran.AryData, 0x90);
-                WriteLog( strCmd);
+                Tag tag = parseInvTag(false, msgTran.AryData, 0x90);
+                ReadCallback(tag.EPC);
             }
         }
 
@@ -1476,7 +1456,6 @@ namespace Race {
             }
             else
             {
-                WriteLog(strCmd, 0);
                 Tag tag = parseInvTag(false, msgTran.AryData, 0x91);
                 ReadCallback(tag.EPC);
             }
@@ -2045,6 +2024,7 @@ namespace Race {
                 tagdb.TotalReadCounts.ToString(),
                 tagdb.TotalTagCounts.ToString()
             ), 0);
+            device.isReading = true;
 
             if (needGetBuffer)
             {

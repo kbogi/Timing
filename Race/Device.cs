@@ -5,6 +5,7 @@ namespace Race {
         
         //Before inventory, you need to set working antenna to identify whether the inventory operation is executing.
         public bool inventory = false;
+        public bool isReading = false;
         //Identify whether reckon the command execution time, and the current inventory command needs to reckon time.
         public bool reckonTime = false;
         //Real time inventory locking operation.
