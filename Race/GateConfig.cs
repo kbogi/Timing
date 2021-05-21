@@ -2,14 +2,16 @@ namespace Race{
     class GateConfig{
         public string ipAddress;
         public int[] antenas;
+        public byte[] antenaPowers;
         public string mode;
         public string pointType;
         public int filterDelay;
         public int gates;
 
-        public GateConfig(string ipAddress, int[] antenas, string mode, string pointType, int filterDelay){
+        public GateConfig(string ipAddress, int[] antenas, byte[] antenaPowers, string mode, string pointType, int filterDelay){
             this.ipAddress = ipAddress;
             this.antenas = antenas;
+            this.antenaPowers = antenaPowers;
             this.mode = mode;
             this.pointType = pointType;
             this.filterDelay = filterDelay;

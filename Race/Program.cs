@@ -10,6 +10,7 @@ namespace Race
 {
     class Program
     {
+        const byte ANTENA_DEFAULT_POWER = 1;
         static Database db;
 
         static Int64 abortAfter = Int64.MaxValue; 
@@ -46,24 +47,26 @@ namespace Race
                     deviceReader.reader.SetBeeperMode(device.settings.btReadId, 0);
                     Thread.Sleep(50);
 
+                    {
+                        byte[] powers = new byte[Device.getAntenaCount(gateConfig.mode)];
+                        Array.Clear(powers, 0, powers.Length);
+                        for(int i = 0; i< gateConfig.antenas.Length && i< gateConfig.antenaPowers.Length; i++){          
+                            byte antena = (byte) gateConfig.antenas[i];
+                            byte antenaPower = gateConfig.antenaPowers[i];
+                            powers[antena] = antenaPower;
+                        }
+                        deviceReader.reader.SetOutputPower(device.settings.btReadId, powers);
+                    }
+                    Thread.Sleep(50);
+
                     Console.WriteLine("Reading {0}:{1} {2}", ipAddress, port, gateConfig.mode);
                     deviceReader.reader.SetWorkAntenna(device.settings.btReadId, (byte) 0);
                     Thread.Sleep(100);
                     switch(gateConfig.mode){
                         case "multi4":
                         case "multi8":
-                            byte[] payload;
-                            int antenaCount;
-                            switch (gateConfig.mode){
-                                case "multi8":
-                                    payload = new byte[18];
-                                    antenaCount = 8;
-                                    break;
-                                default: 
-                                    payload = new byte[10];
-                                    antenaCount = 4;
-                                    break;
-                            }
+                            int antenaCount = Device.getAntenaCount(gateConfig.mode);
+                            byte[] payload = new byte[(antenaCount * 2) + 2];
                             
                             int index = 0;
                             for(int i = 0; i < antenaCount; i++){
@@ -124,7 +127,6 @@ namespace Race
             }
         }
 
-
         static void Main(string[] args)
         {
             var configurationBuilder = new ConfigurationBuilder()
@@ -145,11 +147,18 @@ namespace Race
                     {
                         string ipAddress = rdr.GetString(0);
                         List<int> antenaList = new();
+                        List<byte> antenaDbList = new();
                         int dbIndex = 0;
                         for(int i = 0; i < 8; i++){
                             dbIndex++;
                             if(!rdr.IsDBNull(dbIndex) && rdr.GetInt32(dbIndex) > 0){
                                 antenaList.Add(i);
+                                int powerDbIndex = dbIndex+8;
+                                if(!rdr.IsDBNull(powerDbIndex)){
+                                    antenaDbList.Add(rdr.GetByte(powerDbIndex));
+                                } else {
+                                    antenaDbList.Add(ANTENA_DEFAULT_POWER);                                    
+                                }
                                 Console.WriteLine("Adding: " + (i + 1));
                             }
                         }
@@ -158,7 +167,7 @@ namespace Race
                         string mode = rdr.GetString(++dbIndex);
                         string pointType = rdr.GetString(++dbIndex);
                         Console.WriteLine("hw_mode: {0}, tp_type: {1}, filter: {2}s",mode, pointType, filterDelay);
-                        gateConfigList.Add(new GateConfig(ipAddress, antenaList.ToArray(), mode, pointType, filterDelay));
+                        gateConfigList.Add(new GateConfig(ipAddress, antenaList.ToArray(), antenaDbList.ToArray(), mode, pointType, filterDelay));
                     }
                 }
                 gateConfigs = gateConfigList.ToArray();

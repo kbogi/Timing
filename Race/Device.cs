@@ -38,5 +38,15 @@ namespace Race {
         public bool setOutputPower = false;
         public bool setWorkAnt = false;
         public bool getWorkAnt = false;
+
+        public static int getAntenaCount(string mode){
+            switch(mode){
+                case "multi8":
+                    return 8;
+                default:
+                    return 4;
+            }
+        }
     }
+
 }
