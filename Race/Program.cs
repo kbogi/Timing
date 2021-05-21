@@ -85,6 +85,27 @@ namespace Race
                                 Thread.Sleep(1000);
                             }
                             break;
+                        case "buffer": 
+                            while (true) {
+                                abortAfter = DateTime.Now.ToFileTime() + 10000000;
+                            
+                                //Console.WriteLine(DateTime.Now.ToLongTimeString() + ": Loop started");
+                                for(int i = 0; i < 19; i++){
+                                    int antena = antenas[i % antenas.Length];
+                                    deviceReader.reader.SetWorkAntenna(device.settings.btReadId, (byte) antena);
+                                    Thread.Sleep(25);
+                                    deviceReader.reader.Inventory(device.settings.btReadId, 0xFF);
+                                    Thread.Sleep(25);
+                                }
+                                //Thread.Sleep(50);
+                                //deviceReader.reader.GetInventoryBuffer(device.settings.btReadId);
+                                deviceReader.reader.GetAndResetInventoryBuffer(device.settings.btReadId);
+                                Thread.Sleep(50);
+                            }
+                        break;
+                        default:
+                            Console.WriteLine("Neznámý mod: {0}", gateConfig.mode);
+                        break;
                     }
 
 
